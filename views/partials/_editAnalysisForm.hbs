@@ -164,6 +164,7 @@
               <small class="form-text text-muted">written by</small>
               <input type="text" class="form-control" id="searchEditors" placeholder="search by editors last name" value="">
               <ul class="list-group" style="position:absolute; width:100%; background-color:white;  z-index:999" id="editorsList"></ul>
+            </div>
               {{#if analysis.writtenBy}}
                   <div class="__editorsList mr-3 mt-2">
                     <img class="rounded ml-2 mt-3 __editorImage" src="{{analysis.writtenBy.picture}}">
@@ -183,8 +184,6 @@
                     </div>
                   {{/each}}
               {{/if}}
-
-            </div>
           </div>
 
 
