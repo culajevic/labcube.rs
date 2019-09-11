@@ -1,0 +1,35 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    {{#if numOfFaqs}}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <!-- <th scope="col">id</th> -->
+            <th scope="col">Pitanje</th>
+            <th scope="col">Odgovor</th>
+            <th scope="col">Front page</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allFaqs}}
+          <tr>
+            <!-- <td>{{this.id}}</td> -->
+            <td>{{this.question}}</td>
+            <td>{{this.answer}}</td>
+            <td>{{this.frontPage}}</td>
+            <td><a href='addFaq/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='deleteFaq/{{this._id}}' class="btn btn-danger">Delete</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{else}}
+        <div class="m-auto">
+          <h3 class="my-4">Trenutno nema nijednog pitanja/odgovora u bazi</h3>
+        </div>
+      {{/if}}
+  </div>
+</div>
+
+{{> _footer}}

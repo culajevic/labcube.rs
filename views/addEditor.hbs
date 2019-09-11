@@ -1,0 +1,14 @@
+{{#each errors}}
+<!-- <div class="alert alert-danger text-center">{{text}}</div> -->
+<div class="alert alert-danger text-center alert-dismissible fade show">{{text}}
+<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
+  {{else}}
+{{/each}}
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    {{> _editEditorForm}}
+  </div>
+</div>
+
+{{> _footer}}

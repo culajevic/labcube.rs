@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addEditor/{{checkUrlName editor._id}}" method="POST" class="mt-4">
+        <div class="form-row">
+          <div class="form-group col-4">
+            <small class="form-text text-muted">title</small>
+            <input type="text" name="editorTitle" class="form-control"  value="{{keepData editor.editorTitle editorTitle}}" placeholder="title" require>
+          </div>
+          <div class="form-group col-4">
+            <small class="form-text text-muted">first name</small>
+            <input type="text" name="firstName" class="form-control"  value="{{keepData editor.firstName firstName}}" placeholder="fist name" require>
+          </div>
+          <div class="form-group col-4">
+            <small class="form-text text-muted">last name</small>
+            <input type="text" class="form-control" name="lastName" value="{{keepData editor.lastName lastName}}" placeholder="last name" require>
+          </div>
+        </div><!-- form row end -->
+        <div class="form-row">
+          <div class="form-group col-4">
+            <small class="form-text text-muted">account name</small>
+            <input type="text" name="accountName" class="form-control"  value="{{keepData editor.accountName accountName}}" placeholder="account name">
+          </div>
+          <div class="form-group col-4">
+            <small class="form-text text-muted">email</small>
+            <input type="email" name="email" class="form-control"  value="{{keepData editor.email email}}" placeholder="email">
+          </div>
+          <div class="form-group col-4">
+            <small class="form-text text-muted">picture</small>
+            <input type="text" name="picture" class="form-control"  value="{{keepData editor.picture picture}}" placeholder="picture path">
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">about me</small>
+            <textarea class="form-control" name="aboutMe" rows="4" cols="80">{{keepData editor.aboutMe aboutMe}}</textarea>
+          </div>
+        </div><!-- form row end -->
+        <button class="btn btn-block btn-warning mb-4">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

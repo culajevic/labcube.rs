@@ -1,0 +1,106 @@
+.analize-container {
+  margin-top: px-to-rem(50px);
+}
+
+.card {
+margin-bottom: px-to-rem(20px);
+  &-body {
+    display: flex;
+    flex-direction: column;
+    align-items:stretch;
+  }
+}
+
+// group icon and title
+.analiza-ikonica {
+  float:left;
+  padding-right:px-to-rem(23px);
+  + span {
+    font-weight: 500;
+    line-height: px-to-rem(40px);
+    }
+}
+
+// group description
+.card-text {
+  border-top: 1px solid $line-color;
+  clear:both;
+  font-size: px-to-rem(14px);
+  flex-grow:1;
+  margin-top: px-to-rem(6px);
+  opacity: 0.9;
+  padding-top: px-to-rem(9px);
+  line-height: px-to-rem(22px);
+}
+
+.btn-secondary {
+  background-color: rgba(215,215,215,0.3);
+  border: none;
+  color: $button-grey;
+  outline-style: none;
+  font-size: px-to-rem(13px);
+  &:hover{
+    background-color: $primary-color;
+    color:$white-color;
+    border-color: $primary-color;
+  }
+  &:focus {
+    background-color: $primary-color;
+    color:$white-color;
+    border-color: $primary-color;
+    border:none;
+    outline: 0 !important;
+  }
+  &:visited {
+    background-color: $primary-color;
+    color:$white-color;
+    border-color: $primary-color;
+  }
+  &:active {
+    border: none;
+  }
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  outline: 0 !important;
+}
+
+.click-more {
+    position:relative;
+    height:px-to-rem(40px);
+  }
+
+.broj-analiza {
+    position:absolute;
+    right: 0;
+    top:0;
+    // box-sizing: border-box;
+    padding: px-to-rem(11px);
+    // font-weight: 500;
+    font-size: px-to-rem(12px);
+    background-color: rgba(215,215,215,0.3);
+    border-radius:px-to-rem(5px);
+    color:#000;
+  }
+
+  .broj-analiza-hover {
+    color:white;
+  }
+
+.btn-success {
+  background-color: $button-green;
+  border:none;
+  padding:px-to-rem(11px) px-to-rem(36px);
+  margin-top: px-to-rem(10px);
+  margin-bottom:px-to-rem(60px);
+  line-height: 23px;
+  font-weight: 500;
+  height: 40px;
+  &:hover {
+    background-color: darken($button-green, 8%);
+  }
+}

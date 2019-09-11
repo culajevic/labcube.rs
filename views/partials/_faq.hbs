@@ -1,0 +1,19 @@
+<!-- faq -->
+<div id="faq">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center">{{faqtitle}}</h2>
+        <div id="accordion">
+          {{#each faqFP}}
+            <h5 data-toggle="collapse" data-target='#collapse{{this._id}}' class="collapsed">{{this.question}}</h5>
+            <div id='collapse{{this._id}}' class="collapse"  data-parent="#accordion">
+              <p>{{this.answer}}</p>
+            </div>
+          {{/each}}
+
+        </div><!-- accordion end -->
+      </div><!-- col-12 -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+</div><!-- faq end -->

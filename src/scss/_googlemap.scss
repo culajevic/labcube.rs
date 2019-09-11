@@ -1,0 +1,336 @@
+#google-map {
+  position: relative;
+  width: 100%;
+}
+
+#map {
+  height: px-to-rem(720px);
+  min-height: calc(100vh - 210px);
+  position: relative;
+  width: 100%;
+}
+
+// google map header
+.labinfo  {
+  position:absolute;
+  top:0;
+  left:0;
+  background-color: $primary-color;
+  opacity:0.9;
+  height: px-to-rem(83px);
+  width:100%;
+}
+
+.mapTitle {
+  line-height: px-to-rem(83px);
+  color:$white-color;
+  font-size: px-to-rem(30px);
+}
+
+.labMapInfo {
+  color:$white-color;
+  font-size: px-to-rem(11px);
+  text-transform: uppercase;
+}
+
+// numbers counter
+.num {
+  color:$white-color;
+  opacity: 0;
+}
+.numOn {
+  opacity:1;
+  color:$white-color;
+  font-size: px-to-rem(20px);
+  font-weight: 500;
+}
+
+
+/* google map infowindow
+***************************************************************/
+
+#labInfoWindow {
+  min-width: px-to-rem(310px);
+  height: px-to-rem(140px);
+  padding-top: px-to-rem(12px);
+  padding-left: px-to-rem(12px);
+}
+
+#labInfoWindowSelected {
+  @extend #labInfoWindow;
+  height: px-to-rem(250px);
+}
+
+
+.labInfoWindowTitle {
+  font-size: 1rem;
+  color:$primary-color;
+  font-weight: 500;
+  line-height: px-to-rem(19px);
+}
+
+.labInfoWindowFooter {
+  background-color: $primary-color;
+  height: px-to-rem(36px);
+  min-width: px-to-rem(333px);
+  position: absolute;
+  bottom: px-to-rem(0px);
+  left: 0;
+  color:$white-color;
+  padding-left: px-to-rem(12px);
+  padding-right: px-to-rem(12px);
+  border-bottom-left-radius: px-to-rem(4px);
+  & > .radnoVreme {
+    display: inline-block;
+    padding-top: px-to-rem(11px);
+    font-size: px-to-rem(12px);
+    font-weight: 500;
+  }
+  & > .status {
+    display: inline-block;
+    float:right;
+    padding-top: px-to-rem(10px);
+    padding-right: px-to-rem(12px);
+    font-weight: 500;
+    &::before {
+      content:'';
+      width: px-to-rem(10px);
+      height: px-to-rem(10px);
+      border-radius: px-to-rem(20px);
+      background-color: $button-green;
+      float:left;
+      margin-right: px-to-rem(8px);
+      margin-top: px-to-rem(3px);
+    }
+  }
+}
+
+.labInfoWindowFooterSelected {
+  @extend .labInfoWindowFooter;
+  height: 140px;
+}
+
+.radnoVremeDetalji {
+  display: block;
+  height: px-to-rem(158px);
+  top:px-to-rem(-122px);
+  right:0;
+  width:px-to-rem(110px);
+  opacity: 0;
+  z-index: -9;
+  transition: .3s linear;
+  background-color: $primary-color;
+  position: absolute;
+  & > p {
+    display: inline-block;
+    line-height: px-to-rem(18px);
+    font-weight: 500;
+    padding-left: px-to-rem(6px);
+    margin-bottom: px-to-rem(4px);
+    &.active {
+      background-color: $button-green;
+      width: 100%;
+      color:$infoWindowContactColor;
+      font-weight: 900;
+    }
+  & > span {
+    display: inline-block;
+    padding-left: px-to-rem(10px);
+    }
+  }
+}
+
+.labInfoWindowFooter:hover {
+  cursor:pointer;
+  & .radnoVremeDetalji {
+      opacity: .8;
+      border-top-right-radius: px-to-rem(4px);
+      border-bottom-right-radius: px-to-rem(4px);
+      right:-110px;
+    }
+}
+
+.labInfoWindowWorkingHoursIcon {
+  margin: px-to-rem(10px) px-to-rem(8px) 0 px-to-rem(4px);
+  float:left;
+}
+
+.labInfoWindowOsiguranje{
+  padding-right: px-to-rem(6px);
+  margin-bottom: px-to-rem(6px);
+  display: inline-block;
+}
+
+.labInfoWindowVerified {
+  @extend .labInfoWindowOsiguranje;
+}
+
+.labLogoInfoWindow {
+  height: px-to-rem(53px);
+  width: px-to-rem(48px);
+  float:left;
+  margin-top: 2px;
+  margin-right: px-to-rem(8px);
+  margin-bottom: px-to-rem(8px);
+}
+
+.labInfoWindowContactGroup {
+  margin-top:px-to-rem(8px);
+}
+
+.labInfoWindow {
+  // flex:1 1 0;
+}
+
+.labInfoWindowAdresa,
+.labInfoWindowGrad,
+.labInfoWindowTelefoni ,  {
+  font-size: px-to-rem(13px);
+  line-height: px-to-rem(17px);
+  display: block;
+  margin-bottom: px-to-rem(2px);
+  font-weight: 500;
+  color:$infoWindowContactColor;
+}
+
+.gm-style-iw {
+background-color: $white-color;
+border-top-left-radius: px-to-rem(4px);
+border-bottom-left-radius: px-to-rem(4px);
+width: 333px !important;
+}
+
+/* lab search results
+*********************************************************/
+
+#labDetails {
+  margin-top: 60px;
+  padding-top: 20px;
+  z-index: 50;
+  align-items: center;
+  width: 100%;
+  h1 {
+    margin-bottom: 40px;
+  }
+}
+
+.lab-card {
+  border:1px solid $labBoxBorder;
+  background-color: $white-color;
+  opacity: .95;
+  margin-bottom: 1px;
+  padding: 16px;
+  display: flex;
+  flex:1 1 0;
+  flex-direction: column;
+  min-width: 255px;
+  position: relative;
+}
+
+.cardBenefits {
+  @extend .lab-card;
+  min-height: 230px;
+  margin-bottom: 40px;
+  justify-content:space-between;
+  align-items: center;
+  -webkit-box-shadow: 18px 17px 20px -26px rgba(0,0,0,0.75);
+-moz-box-shadow: 18px 17px 20px -26px rgba(0,0,0,0.75);
+box-shadow: 18px 17px 20px -26px rgba(0,0,0,0.75);
+margin-right: 12px;
+}
+
+.labInfoFooter {
+  height: px-to-rem(36px);
+  color:$fontColorResultsTable;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(31,31,31,.1);
+  cursor:pointer;
+  &:hover .labInfoRadnoVremeDetalji{
+    opacity: .8;
+    cursor: pointer;
+  }
+  & > .radnoVreme {
+    display: inline-block;
+    padding-top: px-to-rem(11px);
+    font-size: px-to-rem(12px);
+    font-weight: 500;
+    color:$infoWindowContactColor;
+  }
+  & > .status {
+    display: inline-block;
+    float:right;
+    padding-top: px-to-rem(10px);
+    padding-right: 4px;
+    padding-bottom: 5px;
+    font-weight: 500;
+    font-size: 12px;
+    color:$infoWindowContactColor;
+    &::before {
+      content:'';
+      width: px-to-rem(10px);
+      height: px-to-rem(12px);
+      border-radius: px-to-rem(20px);
+      background-color: $button-green;
+      float:left;
+      margin-right: px-to-rem(8px);
+      margin-top: px-to-rem(3px);
+    }
+  }
+}
+
+.btnLabDetails {
+  background-color: $button-green;
+  color:$white-color;
+  text-transform: uppercase;
+  font-size: px-to-rem(14px);
+  &:hover {
+    background-color: $primary-color;
+  }
+}
+
+.btnLabDetailsBig {
+  @extend .btnLabDetails;
+  height: 40px;
+  font-size: px-to-rem(16px);
+  &:hover {
+    background-color: darken($button-green, 12%);
+  }
+}
+
+.labInfoRadnoVremeDetalji {
+  display: block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  opacity: 0;
+  z-index: 9;
+  transition: .3s linear;
+  background-color: $primary-color;
+  position:absolute;
+  top:0px;
+  left:0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  h5 {
+    color:$white-color;
+    margin-top: 10px;
+  }
+  & > p {
+    margin-bottom: px-to-rem(4px);
+    color:$white-color;
+    font-size: 14px;
+    font-weight: 500;
+    &.active {
+      background-color: $button-green;
+      width: 100%;
+      color:$infoWindowContactColor;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px;
+    }
+  & > span {
+    display: inline-block;
+    padding-left: px-to-rem(10px);
+    }
+  }
+}

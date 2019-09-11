@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addReference/{{checkUrlName reference._id}}" method="POST" class="mt-4">
+        <div class="form-row">
+          <div class="form-group col-12">
+            <small class="form-text text-muted">reference title</small>
+            <input type="text" name="referenceTitle" class="form-control"  value="{{keepData reference.referenceTitle referenceTitle}}" placeholder="reference title">
+          </div>
+          <div class="form-group col-12">
+            <small class="form-text text-muted">reference link</small>
+            <input type="text" class="form-control" name="referenceLink" value="{{keepData reference.referenceLink referenceLink}}" placeholder="reference link" >
+          </div>
+        </div><!-- form row end -->
+
+        <button class="btn btn-block btn-warning mb-4">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+{{> _innerNavBackend}}
+<!-- <h1>{{countGroups}}</h1> -->
+<div class="container">
+  <div class="row">
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <!-- <th scope="col">id</th> -->
+      <th scope="col">labname</th>
+      <th scope="col">City</th>
+      <th scope="col">Area</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each allLab}}
+    <tr>
+      <!-- <td>{{this.id}}</td> -->
+      <td>{{this.labName}}</td>
+      <td>{{this.placeId.place}}</td>
+      <td>{{this.placeId.municipality}}</td>
+      <td>{{this.priority}}</td>
+      <td><a href='addLab/{{this._id}}/{{this.slug}}' class="btn btn-info">Edit</a></td>
+      <td><a href='deleteGroup/{{this.labName}}' class="btn btn-danger">Delete</a></td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+{{> _footer}}

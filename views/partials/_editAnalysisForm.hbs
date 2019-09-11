@@ -1,0 +1,196 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addAnalysis/{{checkUrlName analysis._id}}{{checkUrlName analysis.slug}}" method="POST" class="mt-4">
+        <!-- analysis last update -->
+        <!-- {{#if lab.date}}
+          <p class="text-right mb-2"><small>poslednja izmena: {{formatRsDate analysis.date}}</small></p>
+        {{/if}} -->
+
+        <!-- analysis name -->
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">analysis name</small>
+            <input type="text" class="form-control"  name="analysisName"  placeholder="Analysis name" value="{{keepData analysis.analysisName analysisName}}">
+          </div>
+          <div class="form-group col-sm-3">
+            <small class="form-text text-muted">analysis group id</small>
+            <input type="text" class="form-control"  name="groupId"  id="groupId" placeholder="type group name" value={{keepData analysis.groupId._id groupId}}>
+            <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="resultGroup"></ul>
+          </div>
+          <div class="form-group col-sm-3">
+            <small class="form-text text-muted">group name</small>
+            <input type="text" class="form-control"  id="groupName" name="groupName" placeholder="group name" readonly value="{{keepData analysis.groupId.name groupName}}">
+          </div>
+        </div>
+
+        <!-- abbr / alt / -->
+        <div class="form-row" id="abbrAltContainer">
+         {{#if (keepData analysis.abbr abbr)}}
+            {{#each (keepData analysis.abbr abbr)}}
+              <div class="form-group col-sm-3">
+                {{#if @first}}<small>abbreviation</small><small class="float-right" id="addNewAbbr">+</small>{{else}}<small>abbreviation</small><small class="float-right removeField">-</small>{{/if}}
+                <input type="text" class="form-control" name="abbr[]" pattern='.+' placeholder="abbreviation" value="{{this}}">
+              </div>
+            {{/each}}
+          {{else}}
+          <div class="form-group col-sm-3">
+            <small class="form-text text-muted">abbreviation<span class="float-right insert-more-fields" id="addNewAbbr">+</span></small>
+            <input type="text" class="form-control" name="abbr[]" pattern='.+' placeholder="abbreviation" value="{{keepData analysis.abbr abbr}}">
+          </div>
+          {{/if}}
+
+          {{#if (keepData analysis.alt alt)}}
+            {{#each (keepData analysis.alt alt)}}
+          <div class="form-group col-sm-3">
+            {{#if @first}}<small>alt name</small><small class="float-right" id="addNewAlt">+</small>{{else}}<small>abbreviation</small><small class="float-right removeField">-</small>{{/if}}
+            <input type="text" class="form-control" name="alt[]" id="" placeholder="alternative name" value="{{this}}">
+          </div>
+            {{/each}}
+          {{else}}
+          <div class="form-group col-sm-3">
+            <small class="form-text text-muted">alt name<span class="float-right insert-more-fields" id="addNewAlt">+</span></small>
+            <input type="text" class="form-control" name="alt[]" id="" placeholder="alternative name" value="{{keepData analysis.alt alt}}">
+          </div>
+          {{/if}}
+
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">preview description</small>
+            <input type="text" class="form-control" name="preview" id="" placeholder="very short description" value="{{keepData analysis.preview preview}}">
+          </div>
+        </div><!-- end of abbr / alt -->
+
+        <div class="form-row">
+          <div class="form-group col">
+            <small class="form-text text-muted">short description</small>
+            <textarea class="form-control" name="shortDesc" rows=7 placeholder="short description">{{keepData analysis.shortDesc shortDesc}}</textarea>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">description</small>
+            <textarea class="form-control" name="description" rows=7 placeholder="description">{{keepData analysis.description description}}</textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <small class="form-text text-muted">when this analysis is required</small>
+            <textarea class="form-control" name="examination" rows=3 placeholder="when this analysis is required">{{keepData analysis.examination examination}}</textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">low values</small>
+            <textarea class="form-control" name="low" rows=7 placeholder="low values">{{keepData analysis.low low}}</textarea>
+          </div>
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">high values</small>
+            <textarea class="form-control" name="high" rows=7 placeholder="high values">{{keepData analysis.high high}}</textarea>
+          </div>
+          <div class="form-group col-sm-12">
+            <small class="form-text text-muted">take away notes</small>
+            <textarea class="form-control" name="notes" rows=3 placeholder="take away notes">{{keepData analysis.notes notes}}</textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">how to prepare yourself for this lab analysis</small>
+            <textarea class="form-control" name="preparation" rows=7 placeholder="how to prepare yourself for this lab analysis">{{keepData analysis.preparation preparation}}</textarea>
+          </div>
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">Sample for this analysis is taken from?</small>
+            <textarea class="form-control" name="sample" rows=7 placeholder="Sample for this analysis is taken from?">{{keepData analysis.sample sample}}</textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-sm-6" id="relatedAnalysis">
+            <small class="form-text text-muted">connected analysis</small>
+            <input type="text" class="form-control" name="" id="connectedAnalysis" placeholder="search for analysis name" value="">
+            <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="resultConnectedAnalysis"></ul>
+            {{#if (keepData analysis.connectedTo connectedTo)}}
+
+                <ul class="list-inline my-3 connAnalysisUl">
+                  {{#each (keepData analysis.connectedTo connectedAnalysis)}}
+                      <li class="list-inline-item __connectedAnalysis">{{keepData this.analysisName this.name}}
+                      <!-- <small class="ml-1 float-right removeConnectedAnalysis"> x</small> -->
+                      <input type="hidden" name="connectedTo[]" value={{keepData this._id this.id}}>
+                      <input type="hidden" name="connectedToName[]" value="{{keepData this.analysisName this.name}}">
+                    </li>
+                  {{/each}}
+                </ul>
+            {{/if}}
+            </div>
+
+            <div class="form-group col-sm-6" id="diseases">
+              <small class="form-text text-muted">connected diseases</small>
+              <input type="text" class="form-control" name="" id="connectedDiseases" placeholder="connected diseases" value="">
+              <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="resultConnectedDiseases"></ul>
+              {{#if (keepData analysis.diseasesId diseasesId)}}
+                <ul class="list-inline my-3 connDiseaseUl">
+                  {{#each (keepData analysis.diseasesId connectedDisease)}}
+                    <li class="list-inline-item __connectedAnalysis">{{this.name}}
+                    <!-- <small class="ml-1 float-right removeConnectedAnalysis">x</small> -->
+                    <input type="hidden" name="diseasesId[]" value="{{this.id}}">
+                    <input type="hidden" name="diseaseName[]" value="{{this.name}}">
+                    </li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </div>
+        </div>
+
+        <div class="form-row" id="references">
+          <div class="col-sm-12 mb-1">
+            <small class="form-text text-muted">add references</small>
+            <input type="text" class="form-control" name="" id="searchReference" placeholder="search for references" value="">
+            <ul class="list-group" style="position:absolute; width:100%; background-color:white;  z-index:999" id="referenceList"></ul>
+            {{#if (keepData analysis.references references)}}
+              <ol class="referenceUl">
+                {{#each (keepData analysis.references referencesList)}}
+                  <li class="my-2">{{keepData this.referenceTitle this.title}}
+                  <input type="hidden" name="references[]" value="{{this.id}}">
+                  <input type="hidden" name="referenceName[]" value="{{keepData this.referenceTitle this.title}}">
+                </li>
+                {{/each}}
+              </ol>
+            {{/if}}
+          </div>
+        </div>
+
+          <div class="form-row mt-1 mb-3" id="editor">
+            <div class="col-sm-12">
+              <small class="form-text text-muted">written by</small>
+              <input type="text" class="form-control" id="searchEditors" placeholder="search by editors last name" value="">
+              <ul class="list-group" style="position:absolute; width:100%; background-color:white;  z-index:999" id="editorsList"></ul>
+              {{#if analysis.writtenBy}}
+                  <div class="__editorsList mr-3 mt-2">
+                    <img class="rounded ml-2 mt-3 __editorImage" src="{{analysis.writtenBy.picture}}">
+                    <h4 class="ml-4 mt-3 float-right">{{analysis.writtenBy.firstName}} {{analysis.writtenBy.lastName}}</h4>
+                    <input type="hidden" name="writtenBy" value="{{analysis.writtenBy._id}}">
+                    <input type="hidden" name="editorHiddenName" value="{{analysis.writtenBy.firstName}} {{analysis.writtenBy.lastName}}">
+                    <input type="hidden" name="editorHiddenImage" value="{{analysis.writtenBy.picture}}">
+                  </div>
+                  {{else if editorList}}
+                  {{#each editorList}}
+                    <div class="__editorsList mr-3 mt-2">
+                      <img class="rounded ml-2 mt-3 __editorImage" src="{{this.image}}">
+                      <h4 class="ml-4 mt-3 float-right">{{this.name}}</h4>
+                      <input type="hidden" name="writtenBy" value="{{this.id}}">
+                      <input type="hidden" name="editorHiddenName" value="{{this.name}}">
+                      <input type="hidden" name="editorHiddenImage" value="{{this.image}}">
+                    </div>
+                  {{/each}}
+              {{/if}}
+
+            </div>
+          </div>
+
+
+       <button class="btn btn-block btn-warning my-4">Save</button>
+
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addFaq/{{checkUrlName faq._id}}" method="POST" class="mt-4">
+
+          <div class="form-row">
+            <div class="col-10">
+              <small class="form-text text-muted">question</small>
+              <input type="text" name="question" class="form-control"  value="{{keepData faq.question question}}" placeholder="Question">
+            </div>
+            <div class="col-2">
+              <small class="form-text text-muted">priority</small>
+              <input type="number" name="priority" class="form-control"  value="{{keepData faq.priority priority}}" placeholder="priority">
+            </div>
+          </div>
+
+          <div class="form-group mt-2">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="frontPage"  value="1" class="custom-control-input" id="frontPage" {{#if (keepData faq.frontPage frontPage)}} checked {{/if}} >
+                <label class="custom-control-label" for="frontPage">Display on home page?</label>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <small class="form-text text-muted">answer</small>
+            <textarea name="answer" class="form-control" rows="8" cols="80">{{keepData faq.answer answer}}</textarea>
+          </div>
+
+        <button class="btn btn-block btn-warning my-4">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

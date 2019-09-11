@@ -1,0 +1,185 @@
+@media (max-width: 575px) {
+  %searchHelperClass {
+    font-size: px-to-rem(10px);
+  }
+  .mapTitle {
+    font-size: 1.5rem;
+  }
+  .analizeSearchFilter {
+    right:px-to-rem(100px);
+  }
+  .search {
+    font-size: px-to-rem(12px);
+  }
+  // velicina faq naslova
+  #faq h2 {
+    font-size: 1.4rem;
+  }
+  // velicina naslova u faq sekciji
+  #accordion > h5 {
+    font-size: 1rem;
+  }
+
+  footer {
+    height: px-to-rem(370px);
+      & > .overlay {
+      height: px-to-rem(370px);
+      }
+  }
+
+  .disclaimer {
+    position: relative;
+    top:0;
+  }
+
+
+  .cityMarker {
+  // left:1rem;
+  display: none;
+  }
+
+  .logoFooter {
+    width: px-to-rem(125px);
+  }
+  .linksFooter {
+    margin:6px 0;
+    & li {
+      float:left;
+      margin-right: px-to-rem(16px);
+    }
+  }
+  .fa-twitter,
+  .fa-youtube,
+  .fa-facebook-f,
+  .fa-instagram {
+    padding-right: 1rem;
+    margin-bottom: px-to-rem(36px);
+    font-size: 24px;
+  }
+
+
+}// media max-width:575 end
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+  footer {
+    height: px-to-rem(370px);
+      & > .overlay {
+      height: px-to-rem(370px);
+      }
+  }
+  .linksFooter {
+    margin:6px 0;
+    & li {
+      float:left;
+      margin-right: px-to-rem(16px);
+    }
+  }
+
+  .disclaimer {
+    position: relative;
+    top:0;
+  }
+
+
+}// query end
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width:991px) {
+  footer {
+    height: px-to-rem(340px);
+      & > .overlay {
+      height: px-to-rem(340px);
+      }
+  }
+  .disclaimer {
+    position: relative;
+    top:0;
+  }
+
+  .linksFooter  li {
+      float:left;
+      margin-right: px-to-rem(16px);
+    }
+
+
+ }// query end
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .disclaimer {
+    top:100px;
+  }
+
+
+}// query end
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .disclaimer {
+    top:80px;
+  }
+
+}// query end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Large devices (desktops, 992px and up) MD
+@media (max-width: 992px) {
+  // footer {
+  //   height: 320px;
+  //     & > .overlay {
+  //     height: 320px;
+  //   }
+  // }
+  //
+  // .linksFooter {
+  //   margin:0 auto;
+  //   & li {
+  //     float:left;
+      // margin-right: px-to-rem(16px);
+  //   }
+  // }
+}
+
+// Medium devices (tablets, 768px and down) SM
+@media (max-width: 768px) {
+  // .analizeSearchFilter,
+  // .laboratorijeSearchFilter  {
+  //   font-size: .8rem;
+  // }
+  // .analizeSearchFilter {
+  //   right:px-to-rem(120px);
+  // }
+  // #labDetailsLabSelected {
+  //   position:relative;
+  //   display: flex;
+  //   flex-direction: row;
+  //   width: auto;
+  //   top:0px;
+  //   left:0px;
+  //   flex-wrap: nowrap;
+  // }
+  // .labSelectedWrapper {
+  //   height: auto;
+  // }
+  // .lab-card {
+  //   margin-right: 8px;
+  // }
+}

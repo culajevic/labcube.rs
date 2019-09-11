@@ -1,0 +1,94 @@
+<div id="bodyOverlay"></div>
+
+<header id="header">
+  <nav class="navbar navbar-expand-md navbar-dark mb-auto">
+    <div class="container">
+      <a href="/" class="navbar-brand">
+        <img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse my-1" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto ">
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa fa-map-marker-alt"></i>Sve laboratorije</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="/addGroup" class="nav-link"><i class="far fa-user"></i>Dodaj grupu</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allGroupsList" class="nav-link"><i class="far fa-user"></i>sve grupe</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allLabs" class="nav-link"><i class="far fa-user"></i>sve laboratorije</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addLab" class="nav-link"><i class="far fa-user"></i>Dodaj lab</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addAnalysis" class="nav-link"><i class="far fa-user"></i>Dodaj analizu</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allAnalysis" class="nav-link"><i class="far fa-user"></i>Sve analize</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addDisease" class="nav-link"><i class="far fa-user"></i>dodaj oboljenje</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allDiseases" class="nav-link"><i class="far fa-user"></i>sva oboljenja</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addEditor" class="nav-link"><i class="far fa-user"></i>dodaj urednika</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allEditors" class="nav-link"><i class="far fa-user"></i>svi uredinici</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allReferences" class="nav-link"><i class="far fa-user"></i>sve reference</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addReference" class="nav-link"><i class="far fa-user"></i>dodaj referencu</a>
+          </li>
+          <li class="nav-item">
+            <a href="/addFaq" class="nav-link"><i class="far fa-user"></i>dodaj faq</a>
+          </li>
+          <li class="nav-item">
+            <a href="/allFaqs" class="nav-link"><i class="far fa-user"></i>all faq</a>
+          </li>
+
+          <li class="nav-item">
+            <buttona class="nav-link checkout">6</button>
+          </li>
+        </ul>
+      </div><!-- collapse -->
+    </div><!-- container end -->
+
+  </nav><!-- nav end -->
+
+
+    <!-- logo  -->
+    <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFull">
+
+    <div class="container searchFieldContainer">
+      <form>
+        <div class="row">
+          <div class="col-sm-12 col-lg-8 mx-auto ">
+            <input type="text" class="form-control search"  placeholder="Unesite naziv analize/laboratorije">
+            <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
+            <label for="analizeRadioButton" class="analizeSearchFilter">analiza</label>
+            <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
+            <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter">laboratorija</label>
+          </div> <!-- searchField -->
+          <div class="col-sm-12 text-center">
+            <button type="button" class="btn btn-lg btn-outline-warning labCubeDemoBtn">Kako radi labcube?<i class="far fa-play-circle"></i></button>
+          </div>
+        </div><!-- row -->
+      </form><!-- form end -->
+    </div><!-- container -->
+  </header><!-- header end -->

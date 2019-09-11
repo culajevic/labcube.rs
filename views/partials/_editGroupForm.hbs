@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addGroup/{{checkUrlName group.name}}" method="POST" class="mt-4">
+        <div class="form-row">
+          <div class="form-group col">
+            <small class="form-text text-muted">group name</small>
+            <input type="text" name="name" class="form-control"  value="{{keepData group.name name}}" placeholder="Group name">
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">icon path</small>
+            <input type="text" class="form-control" name="iconPath" value="{{keepData group.iconPath iconPath}}" placeholder="Icon path">
+          </div>
+        </div><!-- form row end -->
+        <div class="form-group">
+          <small class="form-text text-muted">group description</small>
+          <textarea class="form-control" name="description" rows=7 placeholder="Group description">{{keepData group.description description}}</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col my-auto">
+              <div class="custom-control custom-checkbox">
+              <input type="checkbox" name="frontPage"  value="1" class="custom-control-input" id="frontPage" {{#if (keepData group.frontPage frontPage)}} checked {{/if}} >
+              <label class="custom-control-label" for="frontPage">Display on home page?</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">priority</small>
+            <input type="text" class="form-control" name="priority" placeholder="Priority"  value="{{keepData group.priority priority}}">
+          </div>
+        </div><!-- form row end -->
+        <button class="btn btn-block btn-warning mb-4">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

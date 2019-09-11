@@ -1,0 +1,37 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    {{#if numOfEditors}}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <!-- <th scope="col">id</th> -->
+            <th scope="col">Zvanje</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Ustanova</th>
+            <th scope="col">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allEditors}}
+          <tr>
+            <!-- <td>{{this.id}}</td> -->
+            <td>{{this.editorTitle}}</td>
+            <td>{{this.firstName}} {{this.lastName}}</td>
+            <td>{{this.accountName}}</td>
+            <td>{{this.email}}</td>
+            <td><a href='addEditor/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='deleteEditor/{{this._id}}' class="btn btn-danger">Delete</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{else}}
+        <div class="m-auto">
+          <h3 class="my-4">Trenutno nema nijednog editora u bazi</h3>
+        </div>
+      {{/if}}
+  </div>
+</div>
+
+{{> _footer}}

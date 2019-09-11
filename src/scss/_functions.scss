@@ -1,0 +1,67 @@
+// calculating rem out of px
+@function px-to-rem($target, $default:16px) {
+  @return ($target/$default) * 1rem;
+}
+
+//adding rsd to the price
+@mixin rsd($bottom) {
+  &::after {
+    content:'RSD';
+    font-size:px-to-rem(10px);
+    color:$smallDisabled;
+    padding-left: px-to-rem(8px);
+    bottom:$bottom;
+    position: absolute;
+  }
+}
+
+// adding icons to titles on details page
+@mixin liItemImage($img, $padding-left, $position:0 0){
+  background: url($img);
+  background-position: $position;
+  background-repeat: no-repeat;
+  padding-top: 0;
+  padding-left: $padding-left;
+  color:$fontColorResultsTable;
+  line-height: 24px;
+}
+
+@mixin results($img, $borderColor) {
+  background: url($img);
+  background-size: cover;
+  color:$fontColorResultsTable;
+  padding: 20px;
+  border-bottom:10px solid $borderColor;
+}
+
+@mixin border($width, $color) {
+  border-right:$width solid $color;
+}
+
+
+// styling maerialize input fields
+@mixin styleInput($fieldNames...) {
+  @each $type in $fieldNames {
+    & input[type=#{$type}] {
+      color:$white-color;
+      font-size: 24px;
+      border-bottom:1px solid $white-color;
+      &:focus + label {
+        color:$white-color !important;
+      }
+      &:focus {
+          border-bottom:1px solid $white-color !important;
+          box-shadow: 0 1 0 0 $smallDisabled !important;
+      }
+    }
+  }
+}
+
+@mixin backgroundImage($urlImage, $x, $y) {
+  background-image: url($urlImage);
+  background-position: $x $y;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: cover;
+  position: relative;
+}

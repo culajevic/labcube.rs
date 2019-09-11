@@ -1,0 +1,36 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    {{#if analysisNumber}}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <!-- <th scope="col">id</th> -->
+            <th scope="col">Naziv</th>
+            <th scope="col">Grupa</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Uredjuje</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each allAnalysis}}
+          <tr>
+            <td>{{this.analysisName}}</td>
+            <td>{{this.groupId.name}}</td>
+            <td>{{this.preview}}</td>
+            <td>{{this.writtenBy.firstName}} {{this.writtenBy.lastName}}</td>
+            <td><a href='addAnalysis/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='deleteAnalysis/{{this.analysiName}}' class="btn btn-danger">Delete</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{else}}
+        <div class="m-auto">
+          <h3 class="mt-4">Trenutno nema nijedna analiza u bazi u bazi</h3>
+        </div>
+      {{/if}}
+  </div>
+</div>
+
+{{> _footer}}

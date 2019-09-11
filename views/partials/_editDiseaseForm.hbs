@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addDisease/{{checkUrlName disease._id}}{{checkUrlName disease.name}}" method="POST" class="mt-4">
+        <div class="form-row">
+          <div class="form-group col">
+            <small class="form-text text-muted">disease name</small>
+            <input type="text" name="name" class="form-control"  value="{{keepData disease.name name}}" placeholder="Disease name" required>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">icd code</small>
+            <input type="text" class="form-control" name="icd" value="{{keepData disease.icd icd}}" placeholder="ICD code" required>
+          </div>
+        </div><!-- form row end -->
+        <div class="form-group">
+          <small class="form-text text-muted">disease description</small>
+          <textarea class="form-control" name="description" rows=7 placeholder="disease description">{{keepData disease.description description}}</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <small class="form-text text-muted">link</small>
+            <input type="text" class="form-control" name="link" placeholder="link"  value="{{keepData disease.link link}}">
+          </div>
+        </div><!-- form row end -->
+        <button class="btn btn-block btn-warning mb-4">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

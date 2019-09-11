@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form action="/addLab/{{checkUrlName lab._id}}{{checkUrlName lab.slug}}" method="POST" class="mt-4">
+        <!-- lab name -->
+        {{#if lab.date}}
+          <p class="text-right mb-2"><small>poslednja izmena:{{formatRsDate lab.date}}</small></p>
+        {{/if}}
+        <div class="form-group">
+          <small class="form-text text-muted">lab name</small>
+          <input type="text" class="form-control"  name="labName"  placeholder="Lab name" value="{{keepData lab.labName labName}}">
+        </div>
+
+        <!-- street / city / postal code -->
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">place id</small>
+            <input type="text" class="form-control" name="placeId" id="searchPlaces" placeholder="search for place name*" value={{keepData lab.placeId._id placeId}}>
+            <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="result"></ul>
+          </div>
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">address</small>
+            <input type="text" id="address" name="address" class="form-control" value="{{keepData lab.address address}}" placeholder="address*">
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">city</small>
+            <input type="text" id="city" name="city" class="form-control"  value="{{keepData lab.placeId.place city}}" readonly="readonly">
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">municipality</small>
+            <input type="text" id="municipality" name="municipality" class="form-control" value="{{keepData lab.placeId.municipality municipality}}" readonly="readonly">
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">postal code</small>
+            <input type="text" id="postalCode" name="postalCode" class="form-control" value="{{keepData lab.placeId.postalCode postalCode}}" readonly="readonly">
+          </div>
+
+        </div><!-- end of street / city / postal code -->
+
+        <!-- phone / website / email -->
+        <div class="form-row" id="contactData">
+          {{#if (keepData lab.phone phone)}}
+            {{#each (keepData lab.phone phone)}}
+            <div class="form-group col-sm-4">
+              {{#if @first}}<small>phone {{increment @index}}</small><small class="float-right" id="addNewPhone">+</small>{{else}}<small>phone {{increment @index}}</small><small class="float-right removeField">-</small>{{/if}}
+              <input type="text" class="form-control" pattern="^0\d\d\/\d+" name="phone[]" placeholder="phone" value={{this}}>
+            </div>
+            {{/each}}
+          {{else}}
+            <div class="form-group col-sm-4">
+              <small class="form-text text-muted">phone<span class="float-right" id="addNewPhone">+</span></small>
+              <input type="text" class="form-control" name="phone[]"  placeholder="e.g. 066/3423234" pattern="^0\d\d\/\d+" value={{keepData lab.phone phone}} >
+            </div>
+          {{/if}}
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">web site</small>
+            <input type="text" class="form-control" pattern="[\w/-]+\.\w{2,}" name="web" placeholder="web site" value={{keepData lab.web web}}>
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">emails</small>
+            <input type="email" class="form-control" name="email" placeholder="emails" value={{keepData lab.email email}}>
+          </div>
+        </div><!-- end of phones / web / emails -->
+
+        <!-- vat / logo / priority -->
+        <div class="form-row">
+          <div class="form-group col-sm-6 col-md-4">
+            <small class="form-text text-muted">VAT</small>
+            <input type="text" class="form-control" name="vatNumber" pattern="\d+" placeholder="VAT number*" value={{keepData lab.vatNumber vat}}>
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">logo path</small>
+            <input type="text" class="form-control" name="logoPath" placeholder="logo path" value="{{keepData lab.logoPath logoPath}}">
+          </div>
+           <div class="form-group col-sm-4">
+             <small class="form-text text-muted">priority</small>
+            <input type="number" class="form-control" pattern="\d+" name="priority" placeholder="priority" value="{{keepData lab.priority priority}}">
+          </div>
+        </div><!-- end of vat / logo / priority -->
+
+        <!-- lat and lng -->
+        <div class="form-row">
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">LNG</small>
+            <input type="text" class="form-control" name="location[coordinates][0]" value="{{keepData lab.location.coordinates.[0] locationLNG}}" placeholder="LNG">
+          </div>
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">LAT</small>
+            <input type="text" class="form-control" name="location[coordinates][1]" value="{{keepData lab.location.coordinates.[1] locationLAT}}" placeholder="LAT">
+          </div>
+        </div><!-- end of lat and lng -->
+
+        <!-- working hours -->
+        <div class="form-row">
+          <div class="form-group col">
+            <small class="form-text text-muted">Monday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" id="mondayOpens" name="workingHours[monday][opens]" placeholder="opens" value={{keepData lab.workingHours.monday.opens mondayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" id="mondayCloses" name="workingHours[monday][closes]" placeholder="closes" value={{keepData lab.workingHours.monday.closes mondayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Tuesday</small>
+            <input type="text"  pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[tuesday][opens]" placeholder="opens" value={{keepData lab.workingHours.tuesday.opens tuesdayOpens}}>
+            <input type="text"  pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[tuesday][closes]" placeholder="closes" value={{keepData lab.workingHours.tuesday.closes tuesdayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Wednesday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[wednesday][opens]" placeholder="opens" value={{keepData lab.workingHours.wednesday.opens wednesdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[wednesday][closes]" placeholder="closes" value={{keepData lab.workingHours.wednesday.closes wednesdayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Thursday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[thursday][opens]" placeholder="opens" value={{keepData lab.workingHours.thursday.opens thursdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[thursday][closes]" placeholder="opens" value={{keepData lab.workingHours.thursday.closes thursdayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Friday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[friday][opens]" placeholder="opens" value={{keepData lab.workingHours.friday.opens fridayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[friday][closes]" placeholder="closes" value={{keepData lab.workingHours.friday.closes fridayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Saturday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" id="saturdayOpens" name="workingHours[saturday][opens]" placeholder="opens" value={{keepData lab.workingHours.saturday.opens saturdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[saturday][closes]" placeholder="closes" value={{keepData lab.workingHours.saturday.closes saturdayCloses}}>
+          </div>
+          <div class="form-group col">
+            <small class="form-text text-muted">Sunday</small>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[sunday][opens]" placeholder="opens" value={{keepData lab.workingHours.sunday.opens sundayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[sunday][closes]" placeholder="closes" value={{keepData lab.workingHours.sunday.closes sundayCloses}}>
+            <a href=""><small class="d-block mt-2 text-right" id="deleteWH">delete working hours</small></a>
+          </div>
+        </div><!-- end of working hours -->
+
+          <!-- lab features -->
+        <div class="form-row">
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="open24h" id="open24h" {{#if (keepData lab.open24h open24h)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="open24h">Open 24h</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="accredited" id="accredited" {{#if (keepData lab.accredited accredited)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="accredited">Accredited</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="disability" id="disability" {{#if (keepData lab.disability disability)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="disability">Disability friendly</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="patronage" id="patronage" {{#if (keepData lab.patronage patronage)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="patronage">Patronage service</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="private" id="private" {{#if (keepData lab.private private)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="private">Private health insurance</label>
+            </div>
+          </div>
+
+        </div><!-- end of lab features -->
+
+        <!-- lab description and comments -->
+        <div class="form-row">
+         <div class="form-group col">
+           <textarea class="form-control" name="description" rows=7 placeholder="Lab description">{{keepData lab.description description}}</textarea>
+         </div>
+         <div class="form-group col">
+           <textarea class="form-control" name="comment" rows=7 placeholder="Comment">{{keepData lab.comment comment}}</textarea>
+         </div>
+       </div><!-- end of lab description and comments -->
+
+       <button class="btn btn-block btn-warning mb-4">Save</button>
+
+      </form>
+    </div>
+  </div>
+</div>
