@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col">
       <form action="/addLab/{{checkUrlName lab._id}}{{checkUrlName lab.slug}}" method="POST" class="mt-4">
-        <!-- lab name -->
         {{#if lab.date}}
           <p class="text-right mb-2"><small>poslednja izmena:{{formatRsDate lab.date}}</small></p>
         {{/if}}

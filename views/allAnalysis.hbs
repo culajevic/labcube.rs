@@ -19,15 +19,16 @@
             <td>{{this.groupId.name}}</td>
             <td>{{this.preview}}</td>
             <td>{{this.writtenBy.firstName}} {{this.writtenBy.lastName}}</td>
-            <td><a href='addAnalysis/{{this._id}}' class="btn btn-info">Edit</a></td>
-            <td><a href='deleteAnalysis/{{this.analysiName}}' class="btn btn-danger">Delete</a></td>
+            <td><a href='addAnalysis/{{this.id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
+
           </tr>
           {{/each}}
         </tbody>
       </table>
       {{else}}
         <div class="m-auto">
-          <h3 class="mt-4">Trenutno nema nijedna analiza u bazi u bazi</h3>
+          <h3 class="mt-4">Trenutno nema nijedna analiza u bazi</h3>
         </div>
       {{/if}}
   </div>

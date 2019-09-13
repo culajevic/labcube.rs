@@ -81,3 +81,9 @@ exports.updateFaq = async (req, res) => {
     res.redirect('back')
     }
 }
+
+exports.deleteFaq= async (req,res) => {
+  const deleteFaq = await Faq.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Cesto postavljano pitanje je uspesno obrisano.')
+  res.json()
+}

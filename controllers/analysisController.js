@@ -29,6 +29,11 @@ exports.createAnalysis = async (req,res) => {
   if(!req.body.groupId) {
     errors.push({text:'Odaberi grupu kojoj pripada analiza'})
   }
+
+  if(!req.body.writtenBy) {
+    errors.push({text:'Odaberi autora teksta'})
+  }
+
   if(errors.length>0) {
 
   let connectedAnalysis = []
@@ -115,9 +120,9 @@ exports.editAnalysis =  async (req,res) => {
 
 exports.updateAnalysis = async (req,res) => {
   req.body.date = Date.now()
-  if(typeof(req.body.writtenBy) == 'undefined') {
-    req.body.writtenBy = null
-  }
+  // if(typeof(req.body.writtenBy) == 'undefined') {
+  //   req.flash('error_msg', 'Obavezno je uneti podatke o autoru')
+  // }
   try {
     const analysis = await Analysis.findOneAndUpdate(
       {_id:req.params.id},
@@ -127,7 +132,7 @@ exports.updateAnalysis = async (req,res) => {
         runValidators:true,
         useFindAndModify:false
       }).exec()
-      req.flash('success_msg', 'Uspesno su azurirani podaci o oboljenju')
+      req.flash('success_msg', 'Uspesno su azurirani podaci o analizi')
       res.redirect('/allAnalysis')
   }
   catch(e){
@@ -138,4 +143,10 @@ exports.updateAnalysis = async (req,res) => {
 exports.getAnalyisisName = async (req, res) => {
   const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
   res.json(analysisName)
+}
+
+exports.deleteAnalysis = async (req,res) => {
+  const deleteAnalysis = await Analysis.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Analiza je uspesno obrisana.')
+  res.json()
 }

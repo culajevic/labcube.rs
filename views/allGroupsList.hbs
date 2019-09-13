@@ -15,13 +15,12 @@
   <tbody>
     {{#each allGroups}}
     <tr>
-      <!-- <td>{{this.id}}</td> -->
       <td>{{this.name}}</td>
       <td>{{groupSummary this.description}}</td>
       <td>{{this.frontPage}}</td>
       <td>{{this.priority}}</td>
       <td><a href='addGroup/{{this.name}}' class="btn btn-info">Edit</a></td>
-      <td><a href='deleteGroup/{{this.name}}' class="btn btn-danger">Delete</a></td>
+      <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
     </tr>
     {{/each}}
   </tbody>

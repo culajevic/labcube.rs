@@ -102,3 +102,9 @@ exports.getEditors = async(req,res) => {
   let editor = await Editor.find({lastName:{"$regex":req.params.lastName, "$options":"i"}})
   res.json(editor)
 }
+
+exports.deleteEditor = async (req,res) => {
+  const deleteEditor = await Editor.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'urednik uspesno obrisan.')
+  res.send()
+}

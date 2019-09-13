@@ -116,3 +116,9 @@ exports.getGroupNames = async (req,res) => {
   const group = await Group.find({name:{ "$regex": req.params.groupName , "$options": "i" }})
   res.json(group)
 }
+
+exports.deleteGroup = async (req,res) => {
+  const deleteGroup = await Group.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Grupa je uspesno obrisana.')
+  res.json()  
+}

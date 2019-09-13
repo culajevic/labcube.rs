@@ -131,3 +131,9 @@ exports.updateLab = async (req,res) => {
     req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o laboratoriji`)
   }
 }
+
+exports.deleteLab = async (req,res) => {
+  const deleteLab = await Lab.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Laboratorija je uspesno obrisana.')
+  res.json()
+}

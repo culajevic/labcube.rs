@@ -21,7 +21,7 @@
             <td>{{this.accountName}}</td>
             <td>{{this.email}}</td>
             <td><a href='addEditor/{{this._id}}' class="btn btn-info">Edit</a></td>
-            <td><a href='deleteEditor/{{this._id}}' class="btn btn-danger">Delete</a></td>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
           </tr>
           {{/each}}
         </tbody>

@@ -71,3 +71,9 @@ exports.getReferences = async(req,res) => {
   const references = await Reference.find({referenceTitle:{"$regex":req.params.referenceTitle, "$options":"i"}})
   res.json(references)
 }
+
+exports.deleteReference = async (req,res) => {
+  const deleteReference = await Reference.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Referenca je uspesno obrisana.')
+  res.json()
+}

@@ -83,3 +83,9 @@ exports.getDiseases = async (req,res) => {
   const diseaseList = await Disease.find({name:{"$regex":req.params.diseaseName,"$options":"i"}})
   res.json(diseaseList)
 }
+
+exports.deleteDisease = async (req,res) => {
+  const deleteDisease = await Disease.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'oboljnje uspesno obrisano.')
+  res.send()
+}

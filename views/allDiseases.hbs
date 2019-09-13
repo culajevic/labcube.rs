@@ -21,7 +21,7 @@
             <td>{{this.icd}}</td>
             <td>{{this.link}}</td>
             <td><a href='addDisease/{{this._id}}/{{this.name}}' class="btn btn-info">Edit</a></td>
-            <td><a href='deleteGroup/{{this.name}}' class="btn btn-danger">Delete</a></td>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
           </tr>
           {{/each}}
         </tbody>

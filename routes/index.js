@@ -22,6 +22,7 @@ router.get('/addGroup', groupController.addGroup)
 router.post('/addGroup', groupController.createGroup)
 router.get('/addGroup/:name', groupController.editGroup)
 router.post('/addGroup/:name', groupController.updateGroup)
+router.delete('/allGroupsList/:id', groupController.deleteGroup)
 
 // labs
 router.get('/allLabs', labController.allLabs)
@@ -29,6 +30,7 @@ router.get('/addLab', labController.addLab)
 router.post('/addLab', labController.createLab)
 router.get('/addLab/:id/:name', labController.editLab)
 router.post('/addLab/:id/:name', labController.updateLab)
+router.delete('/allLabs/:id', labController.deleteLab)
 
 // analysis
 router.get('/allAnalysis', analysisController.allAnalysis)
@@ -36,6 +38,7 @@ router.get('/addAnalysis', analysisController.addAnalysis)
 router.post('/addAnalysis', analysisController.createAnalysis)
 router.get('/addAnalysis/:id', analysisController.editAnalysis)
 router.post('/addAnalysis/:id/:name', analysisController.updateAnalysis)
+router.delete('/allAnalysis/:id', analysisController.deleteAnalysis)
 
 //disease
 router.get('/allDiseases', diseaseController.allDiseases)
@@ -43,6 +46,7 @@ router.get('/addDisease', diseaseController.addDisease)
 router.post('/addDisease', diseaseController.createDisease)
 router.get('/addDisease/:id/:name', diseaseController.editDisease)
 router.post('/addDisease/:id/:name', diseaseController.updateDisease)
+router.delete('/allDiseases/:id', diseaseController.deleteDisease)
 
 //editor
 router.get('/allEditors', editorController.allEditors)
@@ -50,6 +54,7 @@ router.get('/addEditor', editorController.addEditor)
 router.post('/addEditor', editorController.createEditor)
 router.get('/addEditor/:id/', editorController.editEditor)
 router.post('/addEditor/:id/', editorController.updateEditor)
+router.delete('/allEditors/:id', editorController.deleteEditor)
 
 // reference
 router.get('/allReferences', referenceController.allReferences)
@@ -57,6 +62,7 @@ router.get('/addReference', referenceController.addReference)
 router.post('/addReference', referenceController.createReference)
 router.get('/addReference/:id', referenceController.editReference)
 router.post('/addReference/:id', referenceController.updateReference)
+router.delete('/allReferences/:id', referenceController.deleteReference)
 
 // faq
 router.get('/allFaqs', faqController.allFaqs)
@@ -64,6 +70,7 @@ router.get('/addFaq', faqController.addFaq)
 router.post('/addFaq', faqController.createFaq)
 router.get('/addFaq/:id', faqController.editFaq)
 router.post('/addFaq/:id', faqController.updateFaq)
+router.delete('/allFaqs/:id', faqController.deleteFaq)
 
 router.get('/places/:place', placeController.getPlaces)
 router.get('/groups/:groupName', groupController.getGroupNames)
