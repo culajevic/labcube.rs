@@ -59,7 +59,8 @@ const analysisSchema = new mongoose.Schema({
     },
     writtenBy:{
       type:mongoose.Schema.Types.ObjectId,
-      ref:'Editor'
+      ref:'Editor',
+      required:'obavezno je uneti autora teksta'
     },
   date:{
     type:Date,
