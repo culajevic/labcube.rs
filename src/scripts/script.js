@@ -586,14 +586,46 @@ if (location.match('addLab')) {
       // removeItems.removeElement(editorDiv,selectedEditor)
 
       let removeEditor = document.querySelector('.__editorsList')
+      if(removeEditor) {
           removeEditor.addEventListener('click', (e) => {
             while(removeEditor.firstChild) {
               removeEditor.firstChild.remove()
             }
             removeEditor.remove()
           })
-
+      }
 
   }// location match end addAnalysis
+
+//delete analysis
+  if(location.match('allAnalysis')) {
+    removeItems.deleteDocument('.deleteDocument','analiza ce biti obrisana?','/allAnalysis/','/allAnalysis','doslo je do greske')
+    }
+
+//delete lab
+  if(location.match('allLabs')) {
+    removeItems.deleteDocument('.deleteDocument','laboratorija ce biti obrisana','/allLabs/','/allLabs','doslo je do greske')
+  }
+
+//delete group
+  if(location.match('allGroupsList')) {
+    removeItems.deleteDocument('.deleteDocument', 'grupa ce biti obrisana', '/allGroupsList/', '/allGroupsList', 'doslo je do greske prilikom brisanja grupe')
+  }
+
+  if(location.match('allDiseases')) {
+    removeItems.deleteDocument('.deleteDocument', 'oboljenje ce biti obrisano', '/allDiseases/', '/allDiseases', 'doslo je do greske prilikom brisanja oboljenja')
+  }
+
+  if(location.match('allEditors')) {
+    removeItems.deleteDocument('.deleteDocument', 'urednik ce biti obrisan', '/allEditors/', '/allEditors', 'doslo je do greske prilikom brisanja urednika')
+  }
+
+  if(location.match('allReferences')) {
+    removeItems.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference')
+  }
+
+  if(location.match('allFaqs')) {
+    removeItems.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja')
+  }
 
 }// window onload end
