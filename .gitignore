@@ -1,5 +1,9 @@
 .DS_store
 node_modules
-.env
 *.svg
+*.jpeg
+*.jpg
 *.txt
+.env
+*.png
+*.PNG
