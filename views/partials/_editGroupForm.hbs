@@ -1,15 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form action="/addGroup/{{checkUrlName group.name}}" method="POST" class="mt-4">
+      <form action="/addGroup/{{checkUrlName group.name}}" method="POST" class="mt-4" enctype="multipart/form-data">
         <div class="form-row">
           <div class="form-group col">
             <small class="form-text text-muted">group name</small>
             <input type="text" name="name" class="form-control"  value="{{keepData group.name name}}" placeholder="Group name">
           </div>
           <div class="form-group col">
-            <small class="form-text text-muted">icon path</small>
-            <input type="text" class="form-control" name="iconPath" value="{{keepData group.iconPath iconPath}}" placeholder="Icon path">
+            <small class="form-text text-muted">icon</small>
+            <input type="file" class="form-control" name="iconPath"  placeholder="Icon path" id="photo">
+            {{#if (keepData group.iconPath iconPath)}}
+              <img src="../images/{{keepData group.iconPath iconPath}}" alt="">
+            {{/if}}
           </div>
         </div><!-- form row end -->
         <div class="form-group">

@@ -148,5 +148,5 @@ exports.getAnalyisisName = async (req, res) => {
 exports.deleteAnalysis = async (req,res) => {
   const deleteAnalysis = await Analysis.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Analiza je uspesno obrisana.')
-  res.json()
+  res.send()
 }

@@ -19,9 +19,9 @@ router.get('/details/:name', groupController.displayGroup)
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
 router.get('/addGroup', groupController.addGroup)
-router.post('/addGroup', groupController.createGroup)
+router.post('/addGroup', groupController.upload, groupController.createGroup)
 router.get('/addGroup/:name', groupController.editGroup)
-router.post('/addGroup/:name', groupController.updateGroup)
+router.post('/addGroup/:name', groupController.upload, groupController.updateGroup)
 router.delete('/allGroupsList/:id', groupController.deleteGroup)
 
 // labs

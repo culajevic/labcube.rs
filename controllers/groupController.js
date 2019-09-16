@@ -1,6 +1,25 @@
 const mongoose = require('mongoose')
 const Group = mongoose.model('Group')
 const Faq = mongoose.model('Faq')
+const multer = require('multer')
+const path = require('path')
+const mime = require('mime-types')
+
+let storage = multer.diskStorage({
+  destination:function (req,file,cb) {
+    cb(null, 'src/images')
+  },
+  filename: function (req,file,cb)  {
+    const fileExtension = mime.extension(file.mimetype);
+    cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
+  }
+})
+
+const upload = multer({storage:storage})
+// const upload = multer({storage:storage}).single('iconPath')
+// const upload = multer({ dest: 'src/images'});
+
+exports.upload = upload.single('iconPath')
 
 // display groups on index page
 exports.getGroups = async (req,res) => {
@@ -51,6 +70,7 @@ exports.updateGroup = async (req,res) => {
   if (req.body.frontPage == undefined) {
     req.body.frontPage = false
   }
+  req.body.iconPath = req.file.filename
   req.body.lastUpdate = Date.now()
   try {
   const group = await Group.findOneAndUpdate(
@@ -88,8 +108,13 @@ exports.createGroup = async (req,res) => {
       priority:req.body.priority
     })
   } else {
+    if(req.file) {
+      req.body.iconPath = req.file.filename
+    } else {
+      req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    }
+
     const group = new Group(req.body)
-      // console.log(req.body.frontPage)
     try {
       await group.save()
       req.flash('success_msg','Grupa analiza je uspešno kreirana')
@@ -120,5 +145,5 @@ exports.getGroupNames = async (req,res) => {
 exports.deleteGroup = async (req,res) => {
   const deleteGroup = await Group.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Grupa je uspesno obrisana.')
-  res.json()  
+  res.json()
 }

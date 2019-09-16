@@ -135,5 +135,5 @@ exports.updateLab = async (req,res) => {
 exports.deleteLab = async (req,res) => {
   const deleteLab = await Lab.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Laboratorija je uspesno obrisana.')
-  res.json()
+  res.send('success')
 }
