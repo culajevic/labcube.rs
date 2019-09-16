@@ -3,9 +3,9 @@
     <div class="col">
       <form action="/addAnalysis/{{checkUrlName analysis._id}}{{checkUrlName analysis.slug}}" method="POST" class="mt-4">
         <!-- analysis last update -->
-        <!-- {{#if lab.date}}
+        {{#if analysis.date}}
           <p class="text-right mb-2"><small>poslednja izmena: {{formatRsDate analysis.date}}</small></p>
-        {{/if}} -->
+        {{/if}}
 
         <!-- analysis name -->
         <div class="form-row">
