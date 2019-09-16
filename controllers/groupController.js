@@ -70,7 +70,9 @@ exports.updateGroup = async (req,res) => {
   if (req.body.frontPage == undefined) {
     req.body.frontPage = false
   }
-  req.body.iconPath = req.file.filename
+  if(req.file) {
+    req.body.iconPath = req.file.filename
+  }
   req.body.lastUpdate = Date.now()
   try {
   const group = await Group.findOneAndUpdate(

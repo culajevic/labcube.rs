@@ -27,9 +27,9 @@ router.delete('/allGroupsList/:id', groupController.deleteGroup)
 // labs
 router.get('/allLabs', labController.allLabs)
 router.get('/addLab', labController.addLab)
-router.post('/addLab', labController.createLab)
+router.post('/addLab', labController.upload, labController.createLab)
 router.get('/addLab/:id/:name', labController.editLab)
-router.post('/addLab/:id/:name', labController.updateLab)
+router.post('/addLab/:id/:name',labController.upload, labController.updateLab)
 router.delete('/allLabs/:id', labController.deleteLab)
 
 // analysis

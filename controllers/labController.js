@@ -2,7 +2,22 @@ const mongoose = require('mongoose')
 const Lab = mongoose.model('Lab')
 const moment = require('moment')
 moment.locale('sr')
+const multer = require('multer')
+const path = require('path')
+const mime = require('mime-types')
 
+let storage = multer.diskStorage({
+  destination:function (req,file,cb) {
+    cb(null, 'src/images/lablogo')
+  },
+  filename: function (req,file,cb)  {
+    const fileExtension = mime.extension(file.mimetype);
+    cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
+  }
+})
+
+const upload = multer({storage:storage})
+exports.upload = upload.single('logo')
 
 exports.addLab = (req,res) => {
   res.render('addLab', {
@@ -40,7 +55,6 @@ exports.createLab = async (req,res) => {
       web:req.body.web,
       email:req.body.email,
       vat:req.body.vatNumber,
-      logoPath:req.body.logoPath,
       priority:req.body.priority,
       locationLAT:req.body.location.coordinates[0],
       locationLNG:req.body.location.coordinates[1],
@@ -68,6 +82,11 @@ exports.createLab = async (req,res) => {
 
     })
   } else {
+    if(req.file) {
+      req.body.logo = req.file.filename
+    } else {
+      req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    }
       const lab = new Lab(req.body)
       try {
         await lab.save()
@@ -116,6 +135,9 @@ exports.updateLab = async (req,res) => {
   }
 
   req.body.date = Date.now()
+  if(req.filename) {
+    req.body.logo = req.file.filename
+  }
   try {
   const lab = await Lab.findOneAndUpdate(
     {_id:req.params.id},

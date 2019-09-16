@@ -1,14 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form action="/addLab/{{checkUrlName lab._id}}{{checkUrlName lab.slug}}" method="POST" class="mt-4">
+      <form action="/addLab/{{checkUrlName lab._id}}{{checkUrlName lab.slug}}" method="POST" class="mt-4" enctype="multipart/form-data">
         {{#if lab.date}}
           <p class="text-right mb-2"><small>poslednja izmena:{{formatRsDate lab.date}}</small></p>
         {{/if}}
         <div class="form-group">
           <small class="form-text text-muted">lab name</small>
           <input type="text" class="form-control"  name="labName"  placeholder="Lab name" value="{{keepData lab.labName labName}}">
+          {{#if (keepData lab.logo logo)}}
+            <img src="/images/lablogo/{{keepData lab.logo logo}}" alt="" width=79 class="mt-4">
+          {{/if}}
         </div>
+
+
 
         <!-- street / city / postal code -->
         <div class="form-row">
@@ -69,7 +74,8 @@
           </div>
           <div class="form-group col-sm-4">
             <small class="form-text text-muted">logo path</small>
-            <input type="text" class="form-control" name="logoPath" placeholder="logo path" value="{{keepData lab.logoPath logoPath}}">
+            <input type="file" class="form-control" name="logo" placeholder="logo path">
+
           </div>
            <div class="form-group col-sm-4">
              <small class="form-text text-muted">priority</small>
