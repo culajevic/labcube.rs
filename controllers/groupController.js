@@ -10,14 +10,12 @@ let storage = multer.diskStorage({
     cb(null, 'src/images')
   },
   filename: function (req,file,cb)  {
-    const fileExtension = mime.extension(file.mimetype);
+    const fileExtension = mime.extension(file.mimetype)
     cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
   }
 })
 
 const upload = multer({storage:storage})
-// const upload = multer({storage:storage}).single('iconPath')
-// const upload = multer({ dest: 'src/images'});
 
 exports.upload = upload.single('iconPath')
 

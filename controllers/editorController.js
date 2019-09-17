@@ -2,6 +2,22 @@ const mongoose = require('mongoose')
 const Editor = mongoose.model('Editor')
 const moment = require('moment')
 moment.locale('sr')
+const multer = require('multer')
+const path = require('path')
+const mime = require('mime-types')
+
+let storage = multer.diskStorage({
+  destination:function (req, file, cb) {
+    cb(null, 'src/images/editors')
+  },
+  filename: function (req,file,cb)  {
+    const fileExtension = mime.extension(file.mimetype)
+    cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
+  }
+})
+
+const upload = multer({storage:storage})
+exports.upload = upload.single('picture')
 
 exports.allEditors = async (req,res) => {
   const numOfEditors = await Editor.find().countDocuments()
@@ -39,10 +55,14 @@ exports.createEditor = async (req, res) => {
       lastName:req.body.lastName,
       account:req.body.account,
       email:req.body.email,
-      picture:req.body.picture,
       aboutMe:req.body.aboutMe
     })
   } else {
+    if(req.file) {
+      req.body.picture = req.file.filename
+    } else {
+      req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    }
     const editor = new Editor(req.body)
     try {
       await editor.save()
@@ -65,6 +85,9 @@ exports.editEditor = async (req,res) => {
 
 exports.updateEditor = async (req,res) => {
   req.body.date = Date.now()
+  if(req.file) {
+    req.body.picture = req.file.filename
+  }
   let errors = []
   if(!req.body.editorTitle) {
     errors.push({'text':'obavezno je uneti titulu urednika'})

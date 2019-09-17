@@ -51,9 +51,9 @@ router.delete('/allDiseases/:id', diseaseController.deleteDisease)
 //editor
 router.get('/allEditors', editorController.allEditors)
 router.get('/addEditor', editorController.addEditor)
-router.post('/addEditor', editorController.createEditor)
+router.post('/addEditor', editorController.upload, editorController.createEditor)
 router.get('/addEditor/:id/', editorController.editEditor)
-router.post('/addEditor/:id/', editorController.updateEditor)
+router.post('/addEditor/:id/', editorController.upload, editorController.updateEditor)
 router.delete('/allEditors/:id', editorController.deleteEditor)
 
 // reference
