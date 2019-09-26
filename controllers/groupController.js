@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Group = mongoose.model('Group')
 const Faq = mongoose.model('Faq')
+const Analysis = mongoose.model('Analysis')
 const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
@@ -40,7 +41,8 @@ sortByPriority = {priority:-1}
 exports.displayGroup = async (req,res) => {
   const group = req.params.name
   const groupDetails = await Group.findOne({name:group})
-  res.send(groupDetails)
+  const allAnalysis = await Analysis.find({groupId:groupDetails._id},{analysisName:1})
+  res.send({group:groupDetails, analyisisdata:allAnalysis})
 }
 
 // display form for adding a new group
