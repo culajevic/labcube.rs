@@ -10,6 +10,7 @@ require('./models/Reference')
 require('./models/Disease')
 require('./models/Analysis')
 require('./models/Faq')
+require('./models/Prices')
 
 
 const app = require('./app')
