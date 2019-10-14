@@ -1,0 +1,12 @@
+{{#each errors}}
+  <div class="alert alert-danger text-center">{{text}}</div>
+  {{else}}
+{{/each}}
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    {{> _editPrice}}
+  </div>
+</div>
+
+{{> _footer}}

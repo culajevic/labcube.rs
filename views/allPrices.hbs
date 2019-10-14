@@ -1,0 +1,38 @@
+{{> _innerNavBackend}}
+<!-- <h1>{{countGroups}}</h1> -->
+<div class="container">
+  <div class="row">
+    {{#if priceListNumber}}
+    
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <!-- <th scope="col">id</th> -->
+          <th scope="col">Lab</th>
+          <th scope="col">Adresa</th>
+          <th scope="col">Grad</th>
+          <!-- <th scope="col"></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {{#each allPrices}}
+        <tr>
+          <td>{{this.lab.labName}}</td>
+          <td>{{this.lab.address}}</td>
+          <td>{{this.lab.placeId.place}}</td>
+          <!-- <td>{{this.priority}}</td> -->
+          <td><a href='addPrice/{{this.id}}' class="btn btn-info">Edit</a></td>
+          <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    {{else}}
+    <div class="m-auto">
+      <h3 class="mt-4">Trenutno nema nijednog cenovnika u bazi</h3>
+    </div>
+
+    {{/if}}
+
+  </div>
+</div>

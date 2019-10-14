@@ -159,3 +159,9 @@ exports.deleteLab = async (req,res) => {
   req.flash('success_msg', 'Laboratorija je uspesno obrisana.')
   res.send('success')
 }
+
+// get lab name for price form
+exports.getLab = async (req, res) => {
+  const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }})
+  res.json(labName)
+}

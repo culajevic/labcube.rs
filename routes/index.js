@@ -8,6 +8,7 @@ const diseaseController = require('../controllers/diseaseController')
 const editorController = require('../controllers/editorController')
 const referenceController = require('../controllers/referenceController')
 const faqController = require('../controllers/faqController')
+const priceController = require('../controllers/priceController')
 
 
 // display groups on front page
@@ -23,6 +24,15 @@ router.post('/addGroup', groupController.upload, groupController.createGroup)
 router.get('/addGroup/:name', groupController.editGroup)
 router.post('/addGroup/:name', groupController.upload, groupController.updateGroup)
 router.delete('/allGroupsList/:id', groupController.deleteGroup)
+
+//prices
+router.get('/allPrices', priceController.allPrices)
+router.get('/addPrice', priceController.addPrice)
+router.post('/addPrice', priceController.createPrice)
+router.get('/addPrice/:id', priceController.editPrice)
+router.post('/addPrice/:id', priceController.updatePrice)
+router.delete('/allPrices/:id', priceController.deletePriceList)
+
 
 // labs
 router.get('/allLabs', labController.allLabs)
@@ -78,5 +88,6 @@ router.get('/analysis/:analysisName', analysisController.getAnalyisisName)
 router.get('/diseases/:diseaseName', diseaseController.getDiseases)
 router.get('/reference/:referenceTitle', referenceController.getReferences)
 router.get('/editors/:lastName', editorController.getEditors)
+router.get('/lab/:lab', labController.getLab)
 
 module.exports = router

@@ -70,16 +70,6 @@ if (location.match('addLab')) {
         }
       })
 
-  // remove phone field when form is not submited due to the missing data
-  //   let removePhone = document.querySelectorAll('.removeField')
-  //   removePhone.forEach((item) => {
-  //     item.addEventListener('click', (e) => {
-  //       item.parentNode.remove()
-  //     })
-  //   })// remove phone fields end
-
-  // }
-
   // search id for the place and populate other address related
   // fields on lab form
 
@@ -106,7 +96,6 @@ if (location.match('addLab')) {
               let placeName = document.createTextNode(result[i].place)
               link.appendChild(placeName)
               resultDiv.appendChild(liItem)
-
             }// for end
 
             let resultList = document.querySelectorAll('#result li')
@@ -571,16 +560,6 @@ if (location.match('addLab')) {
                 removeEditor.firstChild.remove()
               }
             })
-        // let editorId = document.querySelector('.__editorsList input[name=writtenBy]')
-        // if(!selectedEditor.includes(editorId.value)) {
-        //     selectedEditor.push(editorId.value)
-        // } else {
-        //   editorsList.innerHTML = ''
-        //   }
-      // } else {
-      //   searchEditor.value=''
-      //   editorsList.innerHTML = ''
-      //   }
       })// item.addeventListener end
 
       // removeItems.removeElement(editorDiv,selectedEditor)
@@ -597,6 +576,148 @@ if (location.match('addLab')) {
 
   }// location match end addAnalysis
 
+  if (location.match('addPrice')) {
+
+    let searchLab = document.getElementById('searchLabName')
+    let queryResultUl = document.getElementById('labFound')
+    let labName = document.getElementById('labName')
+
+    searchLab.addEventListener('input', (e) => {
+      if(searchLab.value.length>2) {
+        fetch('/lab/'+e.target.value).then((data) => {
+          data.json().then((result) => {
+            for(i=0; i<result.length; i++) {
+              let liItem = document.createElement('li')
+              liItem.className +="list-group-item"
+              let link = document.createElement('a')
+              link.href=result[i]._id
+              liItem.appendChild(link)
+              let labName = document.createTextNode(result[i].labName)
+              link.appendChild(labName)
+              queryResultUl.appendChild(liItem)
+            }// for end
+          })// data.json end
+        })// fetch end
+      } // if end
+      else {
+        console.log('please enter at lease 2 chars')
+        queryResultUl.innerHTML = ''
+      }
+    })
+
+    let labSelected = document.getElementById('labFound')
+      labSelected.addEventListener('click', (e) => {
+        e.preventDefault()
+        searchLab.value = e.srcElement.attributes.href.textContent
+        labName.value=e.target.innerText
+        queryResultUl.innerHTML = ''
+      })
+
+    //search for analysis
+
+    let searchAnalysis = document.getElementById('searchAnalysis')
+    let getAnalyisisNameDiv = document.getElementById('analysisFound')
+    let analysisParentDiv = document.getElementById('analysisDiv')
+    let priceParent = document.getElementById('priceList')
+
+    // set focus on searchanalysis field when up arrow is pressed
+    document.addEventListener('keydown', (e) => {
+      if(e.keyCode === 38) {
+        searchAnalysis.focus()
+      }
+    })
+
+    searchAnalysis.addEventListener('input', (e) => {
+      if (searchAnalysis.value.length > 2) {
+      fetch('/analysis/'+e.target.value).then((data) => {
+        data.json().then((result) => {
+          getAnalyisisNameDiv.innerHTML = ''
+          for(i=0; i<result.length; i++) {
+            let liItem = document.createElement('li')
+            liItem.className +="list-group-item"
+            let link = document.createElement('a')
+            link.href=result[i]._id
+            liItem.appendChild(link)
+            let analysisName = document.createTextNode(result[i].analysisName)
+            link.appendChild(analysisName)
+            getAnalyisisNameDiv.appendChild(liItem)
+          } // for end
+        })// datajson end
+      })// fetch end
+    } else {
+        getAnalyisisNameDiv.innerHTML = ''
+      }
+    })// searchAnalysis event listener end
+
+    let analysisFound = document.getElementById('analysisFound')
+
+      analysisFound.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        let hiddenId = document.createElement('input')
+        hiddenId.type = 'hidden'
+        hiddenId.name = 'cenovnik[analiza][]'
+        hiddenId.setAttribute('value', e.srcElement.attributes.href.textContent)
+
+        let analysisRow = document.createElement('div')
+          analysisRow.className = 'form-row'
+
+        let analysisNewDiv = document.createElement('div')
+          analysisNewDiv.className = 'form-group mt-2 col-6'
+
+        let analysisName = document.createElement('input')
+          analysisName.type = 'text'
+          analysisName.className = 'form-control'
+          analysisName.name='cenovnik[imeanalize][]'
+          analysisName.setAttribute('value', e.target.innerText)
+
+        let analysisPrice = document.createElement('div')
+          analysisPrice.className = 'form-group mt-2 col-5'
+
+        let deletePrice = document.createElement('div')
+          deletePrice.className = 'form-group mt-2 col-1'
+
+        let price = document.createElement('input')
+          price.type = 'text'
+          price.setAttribute('placeholder', 'upisi cenu')
+          price.name = 'cenovnik[cena][]'
+          price.className = 'form-control'
+
+        let deleteButton = document.createElement('button')
+          deleteButton.className='btn btn-danger float-right deletePrice'
+          deleteButton.type='button'
+          deleteButton.name='button'
+            let buttonText = document.createTextNode('delete')
+            deleteButton.appendChild(buttonText)
+          deletePrice.appendChild(deleteButton)
+
+        analysisNewDiv.appendChild(analysisName)
+        analysisPrice.appendChild(price)
+        analysisNewDiv.appendChild(hiddenId)
+
+        analysisRow.appendChild(analysisNewDiv)
+        analysisRow.appendChild(analysisPrice)
+        analysisRow.appendChild(deletePrice)
+
+        // analysisParentDiv.appendChild(analysisRow)
+        priceParent.appendChild(analysisRow)
+
+        price.focus()
+        searchAnalysis.value=''
+        getAnalyisisNameDiv.innerHTML = ''
+
+      })// analysisfound end
+
+      // delete price from pricelist
+        let deletePrice = document.getElementById('priceList')
+          deletePrice.addEventListener('click', (e) => {
+            if(e.target.classList.contains('deletePrice')) {
+              e.preventDefault()
+              e.target.parentNode.parentNode.remove()
+            }
+          })
+  }
+
 //delete analysis
   if(location.match('allAnalysis')) {
     removeItems.deleteDocument('.deleteDocument','analiza ce biti obrisana?','/allAnalysis/','/allAnalysis','doslo je do greske')
@@ -611,21 +732,25 @@ if (location.match('addLab')) {
   if(location.match('allGroupsList')) {
     removeItems.deleteDocument('.deleteDocument', 'grupa ce biti obrisana', '/allGroupsList/', '/allGroupsList', 'doslo je do greske prilikom brisanja grupe')
   }
-
+//delete disease
   if(location.match('allDiseases')) {
     removeItems.deleteDocument('.deleteDocument', 'oboljenje ce biti obrisano', '/allDiseases/', '/allDiseases', 'doslo je do greske prilikom brisanja oboljenja')
   }
-
+//delete editor
   if(location.match('allEditors')) {
     removeItems.deleteDocument('.deleteDocument', 'urednik ce biti obrisan', '/allEditors/', '/allEditors', 'doslo je do greske prilikom brisanja urednika')
   }
-
+//delete reference
   if(location.match('allReferences')) {
     removeItems.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference')
   }
-
+//delete faq
   if(location.match('allFaqs')) {
     removeItems.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja')
+  }
+//delete priceList
+  if(location.match('allPrices')) {
+    removeItems.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika')
   }
 
 }// window onload end
