@@ -670,6 +670,7 @@ if (location.match('addLab')) {
           analysisName.className = 'form-control'
           analysisName.name='cenovnik[imeanalize][]'
           analysisName.setAttribute('value', e.target.innerText)
+          analysisName.setAttribute('readonly', true)
 
         let analysisPrice = document.createElement('div')
           analysisPrice.className = 'form-group mt-2 col-5'
@@ -710,7 +711,9 @@ if (location.match('addLab')) {
 
       // delete price from pricelist
         let deletePrice = document.getElementById('priceList')
+        console.log(deletePrice)
           deletePrice.addEventListener('click', (e) => {
+            console.log(deletePrice)
             if(e.target.classList.contains('deletePrice')) {
               e.preventDefault()
               e.target.parentNode.parentNode.remove()

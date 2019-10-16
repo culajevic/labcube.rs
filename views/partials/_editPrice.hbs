@@ -21,51 +21,49 @@
             <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="analysisFound"></ul>
           </div>
         </div>
-        {{#unless editPrice}}
-        <div id="priceList"></div>
-        {{/unless}}
 
         <!-- pricelist edit -->
-
-      {{#if editPrice}}
-        <div id="priceList">
-          {{#each editPrice.cenovnik}}
-          <div class="form-row">
-            <div class="form-group mt-2 col-6">
-              <input type="text" class="form-control" name="cenovnik[imeanalize][]" value="{{this.analiza.analysisName}}">
-              <input type="hidden" name="cenovnik[analiza][]" value="{{this.analiza.id}}">
-            </div>
-            <div class="form-group mt-2 col-5">
-              <input type="text" placeholder="upisi cenu" name="cenovnik[cena][]" class="form-control" value={{this.cena}}>
-            </div>
-            <div class="form-group col-1">
-              <button type="button" class="btn btn-danger mt-2 float-right deletePrice" name="button">delete</button>
-            </div>
-          </div>
-          {{/each}}
-        </div>
-      {{/if}}
-
-
-    <!-- if there was an error keep the values and display form -->
-      {{#if pricelist}}
-        {{#each pricelist}}
+        {{#if editPrice}}
           <div id="priceList">
+            {{#each editPrice.cenovnik}}
             <div class="form-row">
               <div class="form-group mt-2 col-6">
-                <input type="text" class="form-control" name="cenovnik[imeanalize][]" value="{{this.ime}}">
-                <input type="hidden" name="cenovnik[analiza][]" value="{{this.analiza}}">
+                <input type="text" class="form-control" name="cenovnik[imeanalize][]" value="{{this.analiza.analysisName}}" readonly>
+                <input type="hidden" name="cenovnik[analiza][]" value="{{this.analiza.id}}">
               </div>
               <div class="form-group mt-2 col-5">
                 <input type="text" placeholder="upisi cenu" name="cenovnik[cena][]" class="form-control" value={{this.cena}}>
               </div>
               <div class="form-group col-1">
-                <button type="button" class="btn btn-danger mt-2 deletePrice" name="button">delete</button>
+                <button type="button" class="btn btn-danger mt-2 float-right deletePrice" name="button">delete</button>
               </div>
             </div>
+            {{/each}}
           </div>
-        {{/each}}
-      {{/if}}
+          {{else}}
+          <!-- if there was an error keep the values -->
+            {{#if pricelist}}
+              {{#each pricelist}}
+                <div id="priceList">
+                  <div class="form-row">
+                    <div class="form-group mt-2 col-6">
+                      <input type="text" class="form-control" name="cenovnik[imeanalize][]" value="{{this.ime}}" readonly>
+                      <input type="hidden" name="cenovnik[analiza][]" value="{{this.analiza}}">
+                    </div>
+                    <div class="form-group mt-2 col-5">
+                      <input type="text" placeholder="upisi cenu" name="cenovnik[cena][]" class="form-control" value={{this.cena}}>
+                    </div>
+                    <div class="form-group col-1">
+                      <button type="button" class="btn btn-danger mt-2 deletePrice" name="button">delete</button>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+                {{else}}
+                <!-- creating new pricelist -->
+                  <div id="priceList"></div>
+            {{/if}}
+        {{/if}}
         <button class="btn btn-block btn-warning my-3">Save price</button>
       </form>
     </div><!-- col end -->
