@@ -1,0 +1,94 @@
+<header id="smallHeader">
+  <nav class="navbar navbar-expand-md navbar-dark mb-auto">
+    <div class="container">
+      <a href="#" class="navbar-brand"><img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse my-1" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="far fa-comments"></i>Tumačenje rezultata</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-map-marker-alt"></i>Sve laboratorije</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="far fa-user"></i>Prijava</a>
+          </li>
+        </ul>
+      </div><!-- collapse -->
+    </div><!-- container end -->
+  </nav><!-- nav end -->
+
+  <!-- logo  -->
+  <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFull">
+
+
+  <div class="container searchFieldContainerInner">
+    <form>
+      <div class="row">
+        <div class="col-sm-12 col-lg-8 mx-auto ">
+          <input type="text" class="form-control search" name="innerSearch" id="searchResultPage" placeholder="Unesite naziv analize/laboratorije">
+          <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
+            <label for="analizeRadioButton" class="analizeSearchFilter">analiza</label>
+          <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
+            <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter">laboratorija</label>
+        </div> <!-- searchField -->
+      </div><!-- row -->
+    </form><!-- form end -->
+  </div><!-- container -->
+</header><!-- header end -->
+
+<div class="container" id="results">
+ 		<div class="row">
+      <!-- {{#each data}} -->
+      {{name}}
+      <!-- {{/each}} -->
+ 			<div class="col-md-12 col-lg-9 table-responsive">
+ 				<table class="table results table-hover">
+ 					<tbody id="resultTable">
+            <!-- <tr>
+              <td><img src="/images/detail.svg" data-toggle="tooltip"  class="tooltipImg mr-2">Alfa fetoproteinmnn</td>
+              <td>AFP</td>
+              <td>Tumor markeri</td>
+              <td><img src="/images/hospital-alt.svg"></td>
+              <td><span class="font-weight-bold">750 - 1200</span></td>
+              <td><button data-analysisid=23 class="btn btn-outline-success text-uppercase addAnalysis">dodajsss</button></td>
+            </tr> -->
+          </tbody>
+ 				</table><!-- table -->
+ 			</div><!-- table-responsive -->
+
+      <div class="col-md-12 col-lg-3 sidebar">
+          <div class="odabraneAnalize">
+            <div class="card d-none">
+              <div class="card-header">Odabrane analize</div>
+                <ul class="list-group list-group-flush" id="selectedAnalysis">
+                  <!-- <li class="list-group-item list-group-item-action"><img src="/images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="/images/closeBtn.svg"></span></li> -->
+                <li class="list-group-item city">
+                  <span class="d-block mb-2">Gde radite analize?</span>
+                    <select class="form-control">
+                      <option selected>grad</option>
+                      <option value="1">Beograd</option>
+                      <option value="2">Novi Sad</option>
+                      <option value="3">Kragujevac</option>
+                      <option value="3">Bačka Palanka</option>
+                    </select>
+                    <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span>
+                  <button type="button" class="btn btn-success btn-lg btn-block text-uppercase">Prikaži cene</button>
+                </li>
+              </ul>
+          </div>
+        <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
+        <div class="banner">
+          <img src="/images/banner.JPG" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
+          <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
+          <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
+        </div>
+        </div>
+      </div><!-- odabrane analize end -->
+ 		</div><!-- table row end  -->
+ </div> <!-- results container end -->
+
+ {{> _footer}}

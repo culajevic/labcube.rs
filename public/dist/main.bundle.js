@@ -10791,8 +10791,7 @@ function () {
 
 exports.removeElement = function (element1, element2) {
   element1.addEventListener('click', function (e) {
-    e.preventDefault(); // let itemToRemove = e.target.innerText.slice(0,e.target.innerText.length)
-
+    e.preventDefault();
     var itemToRemove = e.target.innerText;
     var index = element2.indexOf(itemToRemove);
     element2.splice(index, 1);
@@ -10802,6 +10801,170 @@ exports.removeElement = function (element1, element2) {
       element1.remove();
     } else {
       e.target.remove();
+    }
+  });
+};
+
+exports.deleteDocument = function (selector, message, url, redirect, error) {
+  var deleteDocument = document.querySelectorAll(selector);
+  deleteDocument.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      if (confirm(message)) {
+        var id = e.target.getAttribute('data-id');
+        url += id;
+        fetch(url, {
+          method: 'delete'
+        }).then(function (response) {
+          response.json().then(function (data) {
+            console.log(data);
+          });
+          window.location.href = redirect;
+        })["catch"](function (e) {
+          alert(error);
+        });
+      } else {
+        window.location.href = redirect;
+      }
+    });
+  });
+};
+
+/***/ }),
+
+/***/ "./src/scripts/price.js":
+/*!******************************!*\
+  !*** ./src/scripts/price.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.createPrice = function () {
+  var searchLab = document.getElementById('searchLabName');
+  var queryResultUl = document.getElementById('labFound');
+  var labName = document.getElementById('labName');
+  searchLab.addEventListener('input', function (e) {
+    if (searchLab.value.length > 2) {
+      fetch('/lab/' + e.target.value).then(function (data) {
+        data.json().then(function (result) {
+          for (i = 0; i < result.length; i++) {
+            var liItem = document.createElement('li');
+            liItem.className += "list-group-item";
+            var link = document.createElement('a');
+            link.href = result[i]._id;
+            liItem.appendChild(link);
+
+            var _labName = document.createTextNode(result[i].labName);
+
+            link.appendChild(_labName);
+            queryResultUl.appendChild(liItem);
+          } // for end
+
+        }); // data.json end
+      }); // fetch end
+    } // if end
+    else {
+        console.log('please enter at lease 2 chars');
+        queryResultUl.innerHTML = '';
+      }
+  });
+  var labSelected = document.getElementById('labFound');
+  labSelected.addEventListener('click', function (e) {
+    e.preventDefault();
+    searchLab.value = e.srcElement.attributes.href.textContent;
+    labName.value = e.target.innerText;
+    queryResultUl.innerHTML = '';
+  }); //search for analysis
+
+  var searchAnalysis = document.getElementById('searchAnalysis');
+  var getAnalyisisNameDiv = document.getElementById('analysisFound');
+  var analysisParentDiv = document.getElementById('analysisDiv');
+  var priceParent = document.getElementById('priceList'); // set focus on searchanalysis field when up arrow is pressed
+
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode === 38) {
+      searchAnalysis.focus();
+    }
+  });
+  searchAnalysis.addEventListener('input', function (e) {
+    if (searchAnalysis.value.length > 2) {
+      fetch('/analysis/' + e.target.value).then(function (data) {
+        data.json().then(function (result) {
+          var analysis = result.analysisName;
+          getAnalyisisNameDiv.innerHTML = '';
+
+          for (i = 0; i < analysis.length; i++) {
+            var liItem = document.createElement('li');
+            liItem.className += "list-group-item";
+            var link = document.createElement('a');
+            link.href = analysis[i]._id;
+            liItem.appendChild(link);
+            var analysisName = document.createTextNode(analysis[i].analysisName);
+            link.appendChild(analysisName);
+            getAnalyisisNameDiv.appendChild(liItem);
+          } // for end
+
+        }); // datajson end
+      }); // fetch end
+    } else {
+      getAnalyisisNameDiv.innerHTML = '';
+    }
+  }); // searchAnalysis event listener end
+  // creating input fields
+
+  var analysisFound = document.getElementById('analysisFound');
+  analysisFound.addEventListener('click', function (e) {
+    e.preventDefault();
+    var hiddenId = document.createElement('input');
+    hiddenId.type = 'hidden';
+    hiddenId.name = 'cenovnik[analiza][]';
+    hiddenId.setAttribute('value', e.srcElement.attributes.href.textContent);
+    var analysisRow = document.createElement('div');
+    analysisRow.className = 'form-row';
+    var analysisNewDiv = document.createElement('div');
+    analysisNewDiv.className = 'form-group mt-2 col-6';
+    var analysisName = document.createElement('input');
+    analysisName.type = 'text';
+    analysisName.className = 'form-control';
+    analysisName.name = 'cenovnik[imeanalize][]';
+    analysisName.setAttribute('value', e.target.innerText);
+    analysisName.setAttribute('readonly', true);
+    var analysisPrice = document.createElement('div');
+    analysisPrice.className = 'form-group mt-2 col-5';
+    var deletePrice = document.createElement('div');
+    deletePrice.className = 'form-group mt-2 col-1';
+    var price = document.createElement('input');
+    price.type = 'text';
+    price.setAttribute('placeholder', 'upisi cenu');
+    price.name = 'cenovnik[cena][]';
+    price.className = 'form-control';
+    var deleteButton = document.createElement('button');
+    deleteButton.className = 'btn btn-danger float-right deletePrice';
+    deleteButton.type = 'button';
+    deleteButton.name = 'button';
+    var buttonText = document.createTextNode('delete');
+    deleteButton.appendChild(buttonText);
+    deletePrice.appendChild(deleteButton);
+    analysisNewDiv.appendChild(analysisName);
+    analysisPrice.appendChild(price);
+    analysisNewDiv.appendChild(hiddenId);
+    analysisRow.appendChild(analysisNewDiv);
+    analysisRow.appendChild(analysisPrice);
+    analysisRow.appendChild(deletePrice); // analysisParentDiv.appendChild(analysisRow)
+
+    priceParent.appendChild(analysisRow);
+    price.focus();
+    searchAnalysis.value = '';
+    getAnalyisisNameDiv.innerHTML = '';
+  }); // analysisfound end
+  // delete price from pricelist
+
+  var deletePrice = document.getElementById('priceList'); // console.log(deletePrice)
+
+  deletePrice.addEventListener('click', function (e) {
+    // console.log(deletePrice)
+    if (e.target.classList.contains('deletePrice')) {
+      e.preventDefault();
+      e.target.parentNode.parentNode.remove();
     }
   });
 };
@@ -10818,6 +10981,8 @@ exports.removeElement = function (element1, element2) {
 __webpack_require__(/*! ../scss/style.scss */ "./src/scss/style.scss");
 
 var NewElement = __webpack_require__(/*! ./class */ "./src/scripts/class.js");
+
+var PriceList = __webpack_require__(/*! ./price */ "./src/scripts/price.js");
 
 var removeItems = __webpack_require__(/*! ./functions */ "./src/scripts/functions.js");
 
@@ -10836,10 +11001,249 @@ $(window).scroll(function () {
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
   }
+}); // sticky navigation for side menu
+
+$(window).scroll(function () {
+  var height = $(window).scrollTop();
+
+  if (height > 120) {
+    $(".odabraneAnalize").addClass('fixed-right'); // $(".test").addClass('fixed-top fix');
+    // $(".test").removeClass('searchFieldContainerInner');
+  } else {
+    $(".odabraneAnalize").removeClass('fixed-right'); // $(".test").removeClass('fixed-top fix');
+    // $(".test").addClass('searchFieldContainerInner ');
+  }
 });
 var location = window.location.pathname;
 
 window.onload = function () {
+  if (location === '/') {
+    var mainSearch = document.getElementById('searchAnalysis');
+    mainSearch.focus();
+    var filter = 'analiza'; // by default filter is set to analiza
+
+    if (filter === 'analiza') {
+      mainSearch.addEventListener('input', function (e) {
+        if (mainSearch.value.length > 1) {
+          setTimeout(function () {
+            var searchstring = e.target.value;
+            window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
+          }, 1000);
+        }
+      });
+    } else {
+      console.log('searching for labs');
+    } // if filter is changed
+
+
+    var analysisRadio = document.querySelectorAll('input[name=searchFilter]');
+    analysisRadio.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        filter = e.target.value;
+        mainSearch.addEventListener('input', function (e) {
+          setTimeout(function () {
+            var searchstring = e.target.value;
+            window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
+          }, 1000);
+        });
+      });
+    });
+  } // if location === '/'
+
+
+  if (location.match('results')) {
+    //
+    // let resultData = document.getElementById('results').innerHTML
+    // let template = Handlebars.compile(resultData)
+    // let data = {name:'bojan'}
+    // let html = template(data)
+    //taking values from url
+    var urlParams = new URLSearchParams(window.location.search);
+    var myValue = urlParams.get('name');
+    var myFilter = urlParams.get('filter');
+    var innerSearch = document.getElementById('searchResultPage');
+    innerSearch.focus();
+    innerSearch.value = myValue; // display checked filter
+
+    var radioFilter = document.querySelectorAll('input[name=searchFilter]');
+    radioFilter.forEach(function (item) {
+      if (item.value == myFilter) {
+        item.checked = true;
+      }
+    }); // if searching values are comming from index page
+
+    var resultDiv = document.getElementById('resultTable');
+    var selectedAnalysisArr = []; // resultDiv.innerHTML = data
+
+    if (myFilter == 'analiza') {
+      fetch('/analysis/' + innerSearch.value).then(function (data) {
+        data.json().then(function (result) {
+          var analysis = result.analysisName;
+
+          for (i = 0; i < analysis.length; i++) {
+            //create <tr>
+            var tr = document.createElement('tr'); //td analysis name
+
+            var tdName = document.createElement('td');
+            var analysisName = document.createTextNode(analysis[i].analysisName);
+            var analysisLink = document.createElement('a');
+            analysisLink.setAttribute('href', 'analysis/' + analysis[i]._id);
+            analysisLink.className = 'nolink';
+            analysisLink.appendChild(analysisName);
+            var previewIcon = document.createElement('img');
+            previewIcon.setAttribute('src', '/images/detail.svg');
+            previewIcon.setAttribute('title', analysis[i].preview);
+            previewIcon.className = "tooltipImg mr-2";
+            previewIcon.setAttribute('data-toggle', 'tooltip');
+            tdName.appendChild(previewIcon); //<td>analysis name</td>
+
+            tdName.appendChild(analysisLink);
+            tr.appendChild(tdName); //td abbr
+
+            var abbr = document.createElement('td');
+            var abbrName = document.createTextNode(analysis[i].abbr[0]);
+            abbr.appendChild(abbrName);
+            tr.appendChild(abbr); //td groupName
+
+            var tdGroupName = document.createElement('td');
+            var groupName = document.createTextNode(analysis[i].groupId.name);
+            tdGroupName.appendChild(groupName);
+            tr.appendChild(tdGroupName); //td hospital
+
+            var hospital = document.createElement('td');
+            var hospitalIcon = document.createElement('img');
+            hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
+            hospital.appendChild(hospitalIcon);
+            tr.appendChild(hospital);
+            var minmaxPrice = document.createElement('td');
+            var priceSpan = document.createElement('span');
+            priceSpan.className = 'font-weight-bold';
+            var priceRange = document.createTextNode("".concat(result.minPrice.cenovnik[0].cena, " - ").concat(result.maxPrice.cenovnik[0].cena));
+            priceSpan.appendChild(priceRange);
+            minmaxPrice.appendChild(priceSpan);
+            tr.appendChild(minmaxPrice);
+            var addAnalysisBtnTd = document.createElement('td');
+            var addAnalysisBtn = document.createElement('button');
+            addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis';
+            addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id);
+            var addAnalysisBtnText = document.createTextNode('dodaj');
+            addAnalysisBtn.appendChild(addAnalysisBtnText);
+            addAnalysisBtnTd.appendChild(addAnalysisBtn);
+            tr.appendChild(addAnalysisBtnTd);
+            resultDiv.appendChild(tr);
+          } //for end
+
+        }); // data json end
+      }); //fetch end
+      //add and remove analysis from selected analysis box
+
+      resultDiv.addEventListener('click', function (e) {
+        // e.preventDefault()
+        if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
+          selectedAnalysisArr.push(e.target.getAttribute('data-analysisid'));
+          e.target.innerHTML = '&#10004;';
+          e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
+          e.target.disabled = true;
+          var analysisAdded = document.createElement('li');
+          analysisAdded.className = 'list-group-item list-group-item-action';
+          var analysisId = document.createTextNode(e.target.getAttribute('data-analysisid'));
+          var removeSpan = document.createElement('span');
+          removeSpan.className = 'float-right remove';
+          var removeImg = document.createElement('img');
+          removeImg.setAttribute('src', '/images/closeBtn.svg');
+          removeImg.className = 'remove-analysis-from-basket';
+          removeSpan.appendChild(removeImg);
+          analysisAdded.appendChild(analysisId);
+          analysisAdded.appendChild(removeSpan);
+          selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0]);
+          document.querySelector('.card').classList.remove('d-none');
+        } else if (e.target.type == 'submit' && e.target.classList.contains('deleteAnalysis')) {
+          e.target.textContent = 'dodaj';
+          e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis';
+        }
+      }); // remove analysis from basket
+
+      var analysisBasket = document.getElementById('selectedAnalysis');
+      analysisBasket.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-analysis-from-basket')) {
+          var selectedAnalysisBasket = e.target.parentNode.parentNode;
+          selectedAnalysisBasket.remove();
+          var indexOfAnalysis = selectedAnalysisArr.indexOf(selectedAnalysisBasket.innerText);
+          var removedValue = selectedAnalysisArr.splice(indexOfAnalysis, 1);
+          var enableButton = document.querySelectorAll('#resultTable tr>td>button');
+          enableButton.forEach(function (item) {
+            if (item.getAttribute('data-analysisId') == removedValue[0]) {
+              item.disabled = false;
+              item.textContent = 'dodaj';
+              item.classList.remove('deleteAnalysis');
+              item.classList.add('addAnalysis');
+            }
+          }); // if last analysis is removed from the basket remove basket
+
+          if (selectedAnalysisArr.length == 0) {
+            document.querySelector('.card').classList.add('d-none');
+          }
+        }
+      });
+    } else {
+      fetch('/lab/' + innerSearch.value).then(function (data) {
+        data.json().then(function (result) {
+          console.log(result);
+        });
+      });
+    } // if filter value is changed on result searchResultPage
+    // taking filter value
+
+
+    var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
+
+    _analysisRadio.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        myFilter = e.target.value;
+        innerSearch.value = '';
+        innerSearch.focus();
+      });
+    }); // if search string is changed on result page
+
+
+    innerSearch.addEventListener('input', function (e) {
+      var searchstring = e.target.value;
+
+      if (myFilter == 'analiza' && searchstring.length > 2) {
+        fetch('/analysis/' + searchstring).then(function (data) {
+          data.json().then(function (result) {
+            console.log(result);
+          });
+        });
+      } else if (searchstring.length > 2) {
+        fetch('/lab/' + searchstring).then(function (data) {
+          data.json().then(function (result) {
+            console.log(result);
+          });
+        });
+      } else {
+        console.log('unesite vise od 2 karaktera da zapocnete pretragu');
+      }
+    }); // $('[data-toggle="tooltip"]').tooltip(
+    //   {
+    //   placement:"bottom",
+    //   delay: {show: 100, hide: 100},
+    //   boundary: 'window'
+    //   }
+    // )
+
+    $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {
+      var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
+
+      $(this).attr('src', '/images/detail_mv.svg'); // }
+      // else {
+      //   $(this).attr('src', '/images/detail.svg');
+      // }
+    }).on('mouseleave', 'tr>td>img.tooltipImg', function () {
+      $(this).attr('src', '/images/detail.svg');
+    });
+  }
+
   if (location.match('addLab')) {
     // populating working days Tuesday-Friday based on values from Monday
     var mondayOpens = document.querySelector('#mondayOpens');
@@ -10885,19 +11289,13 @@ window.onload = function () {
           workingWeek[i].value = '';
         }
       }
-    }); // remove phone field when form is not submited due to the missing data
-    //   let removePhone = document.querySelectorAll('.removeField')
-    //   removePhone.forEach((item) => {
-    //     item.addEventListener('click', (e) => {
-    //       item.parentNode.remove()
-    //     })
-    //   })// remove phone fields end
-    // }
-    // search id for the place and populate other address related
+    }); // search id for the place and populate other address related
     // fields on lab form
 
     var searchPlaces = document.getElementById('searchPlaces');
-    var resultDiv = document.getElementById('result');
+
+    var _resultDiv = document.getElementById('result');
+
     var city = document.getElementById('city');
     var minicipality = document.getElementById('municipality');
     var postalCode = document.getElementById('postalCode');
@@ -10905,7 +11303,7 @@ window.onload = function () {
       if (searchPlaces.value.length >= 3) {
         fetch('/places/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
-            resultDiv.innerHTML = '';
+            _resultDiv.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -10918,7 +11316,8 @@ window.onload = function () {
               liItem.appendChild(link);
               var placeName = document.createTextNode(result[i].place);
               link.appendChild(placeName);
-              resultDiv.appendChild(liItem);
+
+              _resultDiv.appendChild(liItem);
             } // for end
 
 
@@ -10930,14 +11329,14 @@ window.onload = function () {
                 city.value = e.target.innerText;
                 municipality.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
-                resultDiv.innerHTML = '';
+                _resultDiv.innerHTML = '';
               });
             });
           }); // data json end
         });
       } else {
         console.log('enter at least 3 letters');
-        resultDiv.innerHTML = '';
+        _resultDiv.innerHTML = '';
         city.value = '';
         municipality.value = '';
         postalCode.value = '';
@@ -11349,29 +11748,67 @@ window.onload = function () {
         while (removeEditor.firstChild) {
           removeEditor.firstChild.remove();
         }
-      }); // let editorId = document.querySelector('.__editorsList input[name=writtenBy]')
-      // if(!selectedEditor.includes(editorId.value)) {
-      //     selectedEditor.push(editorId.value)
-      // } else {
-      //   editorsList.innerHTML = ''
-      //   }
-      // } else {
-      //   searchEditor.value=''
-      //   editorsList.innerHTML = ''
-      //   }
+      });
     }); // item.addeventListener end
     // removeItems.removeElement(editorDiv,selectedEditor)
 
     var removeEditor = document.querySelector('.__editorsList');
-    removeEditor.addEventListener('click', function (e) {
-      while (removeEditor.firstChild) {
-        removeEditor.firstChild.remove();
-      }
 
-      removeEditor.remove();
-    });
+    if (removeEditor) {
+      removeEditor.addEventListener('click', function (e) {
+        while (removeEditor.firstChild) {
+          removeEditor.firstChild.remove();
+        }
+
+        removeEditor.remove();
+      });
+    }
   } // location match end addAnalysis
 
+
+  if (location.match('addPrice')) {
+    var newPriceList = new PriceList.createPrice();
+  } //delete analysis
+
+
+  if (location.match('allAnalysis')) {
+    removeItems.deleteDocument('.deleteDocument', 'analiza ce biti obrisana?', '/allAnalysis/', '/allAnalysis', 'doslo je do greske');
+  } //delete lab
+
+
+  if (location.match('allLabs')) {
+    removeItems.deleteDocument('.deleteDocument', 'laboratorija ce biti obrisana', '/allLabs/', '/allLabs', 'doslo je do greske');
+  } //delete group
+
+
+  if (location.match('allGroupsList')) {
+    removeItems.deleteDocument('.deleteDocument', 'grupa ce biti obrisana', '/allGroupsList/', '/allGroupsList', 'doslo je do greske prilikom brisanja grupe');
+  } //delete disease
+
+
+  if (location.match('allDiseases')) {
+    removeItems.deleteDocument('.deleteDocument', 'oboljenje ce biti obrisano', '/allDiseases/', '/allDiseases', 'doslo je do greske prilikom brisanja oboljenja');
+  } //delete editor
+
+
+  if (location.match('allEditors')) {
+    removeItems.deleteDocument('.deleteDocument', 'urednik ce biti obrisan', '/allEditors/', '/allEditors', 'doslo je do greske prilikom brisanja urednika');
+  } //delete reference
+
+
+  if (location.match('allReferences')) {
+    removeItems.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference');
+  } //delete faq
+
+
+  if (location.match('allFaqs')) {
+    removeItems.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja');
+  } //delete priceList
+
+
+  if (location.match('allPrices')) {
+    removeItems.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika');
+  }
 }; // window onload end
 
 /***/ }),

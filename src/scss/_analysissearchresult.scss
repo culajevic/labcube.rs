@@ -197,3 +197,8 @@ span.remove:hover{
   line-height: px-to-rem(18px);
   color:$white-color;
 }
+
+.nolink {
+  text-decoration: none;
+  color:$fontColorResultsTable;
+}

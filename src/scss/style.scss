@@ -738,13 +738,20 @@ input[type="range"] {
     border-color: $button-green;
   }
   &:focus {
-    background-color: $button-green;
+    background-color: transparent;
     border-color: $button-green;
   }
   &:hover {
     background-color: $button-green;
     border-color: $button-green;
   }
+}
+
+.btn-outline-success:focus,
+.btn-outline-success.focus,
+.btn-outline-danger:focus,
+.btn-outline-danger.focus {
+   box-shadow: none;
 }
 
 .najpopularnije {
@@ -772,6 +779,21 @@ input[type="range"] {
   width: px-to-rem(180px);
   height: px-to-rem(120px);
 }
+
+.addAnalysis {
+  // margin-left: 35px;
+  // float:right;
+  // padding:0 39px !important;
+  width: 96px;
+}
+
+.deleteAnalysis {
+    width: 96px;
+  // float:right;
+  // margin-left: 35px;
+  // padding:0 35.9px !important;
+}
+
 
 
 @import 'media.scss';

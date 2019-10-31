@@ -9,6 +9,7 @@ const editorController = require('../controllers/editorController')
 const referenceController = require('../controllers/referenceController')
 const faqController = require('../controllers/faqController')
 const priceController = require('../controllers/priceController')
+const resultController = require('../controllers/resultController')
 
 
 // display groups on front page
@@ -16,6 +17,9 @@ router.get('/', groupController.getGroups)
 
 //display single group
 router.get('/details/:name', groupController.displayGroup)
+
+// searchfor lab or analysis
+router.get('/results/', resultController.displayResults)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)

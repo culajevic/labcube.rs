@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Analysis = mongoose.model('Analysis')
+const Price = mongoose.model('Price')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -141,8 +142,15 @@ exports.updateAnalysis = async (req,res) => {
 }
 
 exports.getAnalyisisName = async (req, res) => {
+
   const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
-  res.json(analysisName)
+  .populate('groupId', 'name')
+
+  //display min and max price on result page
+  const minPrice = await Price.findOne({"cenovnik.analiza":analysisName[0]._id}).sort({"cenovnik.cena":1})
+  const maxPrice = await Price.findOne({"cenovnik.analiza":analysisName[0]._id}).sort({"cenovnik.cena":-1})
+  res.json({analysisName, minPrice, maxPrice})
+
 }
 
 exports.deleteAnalysis = async (req,res) => {

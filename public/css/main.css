@@ -7797,6 +7797,10 @@ span.remove:hover {
   line-height: 1.125rem;
   color: #FFF; }
 
+.nolink {
+  text-decoration: none;
+  color: #3B3B3B; }
+
 .headTitle {
   font-size: 2.625rem;
   font-weight: bold;
@@ -8671,11 +8675,17 @@ input[type="range"] {
     background-color: #55D159;
     border-color: #55D159; }
   .btn-outline-success:focus {
-    background-color: #55D159;
+    background-color: transparent;
     border-color: #55D159; }
   .btn-outline-success:hover {
     background-color: #55D159;
     border-color: #55D159; }
+
+.btn-outline-success:focus,
+.btn-outline-success.focus,
+.btn-outline-danger:focus,
+.btn-outline-danger.focus {
+  box-shadow: none; }
 
 .najpopularnije {
   position: absolute;
@@ -8699,6 +8709,12 @@ input[type="range"] {
 .__editorImage {
   width: 11.25rem;
   height: 7.5rem; }
+
+.addAnalysis {
+  width: 96px; }
+
+.deleteAnalysis {
+  width: 96px; }
 
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {

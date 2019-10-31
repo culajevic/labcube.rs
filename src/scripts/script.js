@@ -1,5 +1,6 @@
 require('../scss/style.scss')
 let NewElement = require('./class')
+let PriceList = require('./price')
 let removeItems = require('./functions')
 const $ = require('jquery')
 
@@ -7,6 +8,7 @@ const $ = require('jquery')
 $('.click-more').hover(function(){
   $(this).find("span").toggleClass("broj-analiza-hover");
 });
+
 
 // sticky navigation
 $(window).scroll(function(){
@@ -20,9 +22,277 @@ $(window).scroll(function(){
 });
 
 
+// sticky navigation for side menu
+$(window).scroll(function(){
+  var height = $(window).scrollTop();
+    if(height > 120) {
+      $(".odabraneAnalize").addClass('fixed-right');
+      // $(".test").addClass('fixed-top fix');
+      // $(".test").removeClass('searchFieldContainerInner');
+
+    }
+    else {
+      $(".odabraneAnalize").removeClass('fixed-right');
+      // $(".test").removeClass('fixed-top fix');
+      // $(".test").addClass('searchFieldContainerInner ');
+    }
+});
+
+
+
 let location = window.location.pathname
 
 window.onload = () => {
+
+if(location === '/') {
+  let mainSearch = document.getElementById('searchAnalysis')
+    mainSearch.focus()
+
+  let filter = 'analiza'
+
+  // by default filter is set to analiza
+  if(filter === 'analiza') {
+    mainSearch.addEventListener('input', (e) => {
+      if(mainSearch.value.length>1) {
+        setTimeout(function() {
+        let searchstring = e.target.value
+        window.location.href = 'results/?name='+searchstring+'&filter='+filter
+        },1000)
+      }
+    })
+  } else {
+      console.log('searching for labs')
+    }
+
+  // if filter is changed
+  let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+      analysisRadio.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          filter = e.target.value
+            mainSearch.addEventListener('input', (e) => {
+              setTimeout(function() {
+                let searchstring = e.target.value
+                window.location.href = 'results/?name='+searchstring+'&filter='+filter
+              },1000)
+            })
+        })
+      })
+
+}// if location === '/'
+
+if (location.match('results')) {
+  //
+  // let resultData = document.getElementById('results').innerHTML
+  // let template = Handlebars.compile(resultData)
+  // let data = {name:'bojan'}
+  // let html = template(data)
+
+  //taking values from url
+  const urlParams = new URLSearchParams(window.location.search);
+  let myValue = urlParams.get('name')
+  let myFilter = urlParams.get('filter')
+  let innerSearch = document.getElementById('searchResultPage')
+    innerSearch.focus()
+    innerSearch.value = myValue
+
+    // display checked filter
+    let radioFilter = document.querySelectorAll('input[name=searchFilter]')
+      radioFilter.forEach((item) => {
+        if(item.value == myFilter) {
+          item.checked=true
+        }
+      })
+
+    // if searching values are comming from index page
+    let resultDiv = document.getElementById('resultTable')
+    let selectedAnalysisArr = []
+    // resultDiv.innerHTML = data
+
+    if(myFilter == 'analiza') {
+        fetch('/analysis/'+innerSearch.value).then((data) => {
+          data.json().then((result) => {
+            let analysis = result.analysisName
+            for(i=0; i<analysis.length; i++) {
+              //create <tr>
+              let tr = document.createElement('tr')
+              //td analysis name
+              let tdName = document.createElement('td')
+                let analysisName = document.createTextNode(analysis[i].analysisName)
+                  let analysisLink = document.createElement('a')
+                    analysisLink.setAttribute('href', 'analysis/'+analysis[i]._id)
+                    analysisLink.className = 'nolink'
+                    analysisLink.appendChild(analysisName)
+                let previewIcon = document.createElement('img')
+                  previewIcon.setAttribute('src', '/images/detail.svg')
+                  previewIcon.setAttribute('title', analysis[i].preview)
+                  previewIcon.className = "tooltipImg mr-2"
+                  previewIcon.setAttribute('data-toggle', 'tooltip')
+              tdName.appendChild(previewIcon)
+                //<td>analysis name</td>
+              tdName.appendChild(analysisLink)
+              tr.appendChild(tdName)
+
+              //td abbr
+              let abbr = document.createElement('td')
+                let abbrName = document.createTextNode(analysis[i].abbr[0])
+                abbr.appendChild(abbrName)
+                tr.appendChild(abbr)
+
+              //td groupName
+              let tdGroupName = document.createElement('td')
+                let groupName = document.createTextNode(analysis[i].groupId.name)
+                tdGroupName.appendChild(groupName)
+                tr.appendChild(tdGroupName)
+
+              //td hospital
+              let hospital = document.createElement('td')
+                let hospitalIcon = document.createElement('img')
+                  hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
+                hospital.appendChild(hospitalIcon)
+                tr.appendChild(hospital)
+
+              let minmaxPrice = document.createElement('td')
+              let priceSpan = document.createElement('span')
+                priceSpan.className = 'font-weight-bold'
+                let priceRange = document.createTextNode(`${result.minPrice.cenovnik[0].cena} - ${result.maxPrice.cenovnik[0].cena}`)
+                priceSpan.appendChild(priceRange)
+                minmaxPrice.appendChild(priceSpan)
+                tr.appendChild(minmaxPrice)
+
+              let addAnalysisBtnTd = document.createElement('td')
+              let addAnalysisBtn = document.createElement('button')
+                addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis'
+                addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id)
+              let addAnalysisBtnText = document.createTextNode('dodaj')
+              addAnalysisBtn.appendChild(addAnalysisBtnText)
+              addAnalysisBtnTd.appendChild(addAnalysisBtn)
+              tr.appendChild(addAnalysisBtnTd)
+              resultDiv.appendChild(tr)
+            }//for end
+          })// data json end
+        })//fetch end
+
+
+        //add and remove analysis from selected analysis box
+        resultDiv.addEventListener('click', (e) => {
+          // e.preventDefault()
+          if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
+            selectedAnalysisArr.push(e.target.getAttribute('data-analysisid'))
+
+            e.target.innerHTML = '&#10004;'
+            e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+            e.target.disabled = true
+            let analysisAdded = document.createElement('li')
+                analysisAdded.className='list-group-item list-group-item-action'
+            let analysisId = document.createTextNode(e.target.getAttribute('data-analysisid'))
+
+            let removeSpan = document.createElement('span')
+              removeSpan.className = 'float-right remove'
+            let removeImg = document.createElement('img')
+              removeImg.setAttribute('src','/images/closeBtn.svg')
+              removeImg.className = 'remove-analysis-from-basket'
+              removeSpan.appendChild(removeImg)
+
+              analysisAdded.appendChild(analysisId)
+              analysisAdded.appendChild(removeSpan)
+            selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0])
+            document.querySelector('.card').classList.remove('d-none')
+
+          } else if (e.target.type == 'submit' && e.target.classList.contains('deleteAnalysis')){
+            e.target.textContent = 'dodaj'
+            e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis'
+          }
+        })
+
+        // remove analysis from basket
+        let analysisBasket = document.getElementById('selectedAnalysis')
+          analysisBasket.addEventListener('click', (e) => {
+
+            if(e.target.classList.contains('remove-analysis-from-basket')) {
+              let selectedAnalysisBasket = e.target.parentNode.parentNode
+              selectedAnalysisBasket.remove()
+              let indexOfAnalysis = selectedAnalysisArr.indexOf(selectedAnalysisBasket.innerText)
+
+              let removedValue = selectedAnalysisArr.splice(indexOfAnalysis,1)
+              let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+                enableButton.forEach((item) => {
+                  if(item.getAttribute('data-analysisId') == removedValue[0]) {
+                    item.disabled = false
+                    item.textContent = 'dodaj'
+                    item.classList.remove('deleteAnalysis')
+                    item.classList.add('addAnalysis')
+                  }
+                })
+
+              // if last analysis is removed from the basket remove basket
+              if(selectedAnalysisArr.length == 0) {
+                document.querySelector('.card').classList.add('d-none')
+              }
+            }
+          })
+
+    } else {
+        fetch('/lab/'+innerSearch.value).then((data) => {
+          data.json().then((result) => {
+            console.log(result)
+          })
+        })
+      }
+
+
+
+    // if filter value is changed on result searchResultPage
+
+    // taking filter value
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+        analysisRadio.forEach((item) => {
+          item.addEventListener('click', (e) => {
+            myFilter = e.target.value
+            innerSearch.value=''
+            innerSearch.focus()
+          })
+        })
+
+    // if search string is changed on result page
+    innerSearch.addEventListener('input', (e) => {
+        let searchstring = e.target.value
+        if(myFilter == 'analiza' && searchstring.length>2) {
+          fetch('/analysis/'+searchstring).then((data) => {
+            data.json().then((result) => {
+              console.log(result)
+            })
+          })
+        } else if(searchstring.length>2){
+            fetch('/lab/'+searchstring).then((data) => {
+              data.json().then((result) => {
+                console.log(result)
+              })
+            })
+          } else {
+            console.log('unesite vise od 2 karaktera da zapocnete pretragu')
+          }
+      })
+
+  // $('[data-toggle="tooltip"]').tooltip(
+  //   {
+  //   placement:"bottom",
+  //   delay: {show: 100, hide: 100},
+  //   boundary: 'window'
+  //   }
+  // )
+
+$('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
+  var imageSrc = $(this).attr('src');
+  // if (imageSrc == '/images/detail.svg') {
+    $(this).attr('src','/images/detail_mv.svg');
+  // }
+  // else {
+  //   $(this).attr('src', '/images/detail.svg');
+  // }
+  }).on('mouseleave','tr>td>img.tooltipImg', function(){
+    $(this).attr('src', '/images/detail.svg');
+  })
+}
 
 if (location.match('addLab')) {
 
@@ -578,147 +848,8 @@ if (location.match('addLab')) {
 
   if (location.match('addPrice')) {
 
-    let searchLab = document.getElementById('searchLabName')
-    let queryResultUl = document.getElementById('labFound')
-    let labName = document.getElementById('labName')
+    let newPriceList =  new PriceList.createPrice()
 
-    searchLab.addEventListener('input', (e) => {
-      if(searchLab.value.length>2) {
-        fetch('/lab/'+e.target.value).then((data) => {
-          data.json().then((result) => {
-            for(i=0; i<result.length; i++) {
-              let liItem = document.createElement('li')
-              liItem.className +="list-group-item"
-              let link = document.createElement('a')
-              link.href=result[i]._id
-              liItem.appendChild(link)
-              let labName = document.createTextNode(result[i].labName)
-              link.appendChild(labName)
-              queryResultUl.appendChild(liItem)
-            }// for end
-          })// data.json end
-        })// fetch end
-      } // if end
-      else {
-        console.log('please enter at lease 2 chars')
-        queryResultUl.innerHTML = ''
-      }
-    })
-
-    let labSelected = document.getElementById('labFound')
-      labSelected.addEventListener('click', (e) => {
-        e.preventDefault()
-        searchLab.value = e.srcElement.attributes.href.textContent
-        labName.value=e.target.innerText
-        queryResultUl.innerHTML = ''
-      })
-
-    //search for analysis
-
-    let searchAnalysis = document.getElementById('searchAnalysis')
-    let getAnalyisisNameDiv = document.getElementById('analysisFound')
-    let analysisParentDiv = document.getElementById('analysisDiv')
-    let priceParent = document.getElementById('priceList')
-
-    // set focus on searchanalysis field when up arrow is pressed
-    document.addEventListener('keydown', (e) => {
-      if(e.keyCode === 38) {
-        searchAnalysis.focus()
-      }
-    })
-
-    searchAnalysis.addEventListener('input', (e) => {
-      if (searchAnalysis.value.length > 2) {
-      fetch('/analysis/'+e.target.value).then((data) => {
-        data.json().then((result) => {
-          getAnalyisisNameDiv.innerHTML = ''
-          for(i=0; i<result.length; i++) {
-            let liItem = document.createElement('li')
-            liItem.className +="list-group-item"
-            let link = document.createElement('a')
-            link.href=result[i]._id
-            liItem.appendChild(link)
-            let analysisName = document.createTextNode(result[i].analysisName)
-            link.appendChild(analysisName)
-            getAnalyisisNameDiv.appendChild(liItem)
-          } // for end
-        })// datajson end
-      })// fetch end
-    } else {
-        getAnalyisisNameDiv.innerHTML = ''
-      }
-    })// searchAnalysis event listener end
-
-    let analysisFound = document.getElementById('analysisFound')
-
-      analysisFound.addEventListener('click', (e) => {
-        e.preventDefault()
-
-        let hiddenId = document.createElement('input')
-        hiddenId.type = 'hidden'
-        hiddenId.name = 'cenovnik[analiza][]'
-        hiddenId.setAttribute('value', e.srcElement.attributes.href.textContent)
-
-        let analysisRow = document.createElement('div')
-          analysisRow.className = 'form-row'
-
-        let analysisNewDiv = document.createElement('div')
-          analysisNewDiv.className = 'form-group mt-2 col-6'
-
-        let analysisName = document.createElement('input')
-          analysisName.type = 'text'
-          analysisName.className = 'form-control'
-          analysisName.name='cenovnik[imeanalize][]'
-          analysisName.setAttribute('value', e.target.innerText)
-          analysisName.setAttribute('readonly', true)
-
-        let analysisPrice = document.createElement('div')
-          analysisPrice.className = 'form-group mt-2 col-5'
-
-        let deletePrice = document.createElement('div')
-          deletePrice.className = 'form-group mt-2 col-1'
-
-        let price = document.createElement('input')
-          price.type = 'text'
-          price.setAttribute('placeholder', 'upisi cenu')
-          price.name = 'cenovnik[cena][]'
-          price.className = 'form-control'
-
-        let deleteButton = document.createElement('button')
-          deleteButton.className='btn btn-danger float-right deletePrice'
-          deleteButton.type='button'
-          deleteButton.name='button'
-            let buttonText = document.createTextNode('delete')
-            deleteButton.appendChild(buttonText)
-          deletePrice.appendChild(deleteButton)
-
-        analysisNewDiv.appendChild(analysisName)
-        analysisPrice.appendChild(price)
-        analysisNewDiv.appendChild(hiddenId)
-
-        analysisRow.appendChild(analysisNewDiv)
-        analysisRow.appendChild(analysisPrice)
-        analysisRow.appendChild(deletePrice)
-
-        // analysisParentDiv.appendChild(analysisRow)
-        priceParent.appendChild(analysisRow)
-
-        price.focus()
-        searchAnalysis.value=''
-        getAnalyisisNameDiv.innerHTML = ''
-
-      })// analysisfound end
-
-      // delete price from pricelist
-        let deletePrice = document.getElementById('priceList')
-        console.log(deletePrice)
-          deletePrice.addEventListener('click', (e) => {
-            console.log(deletePrice)
-            if(e.target.classList.contains('deletePrice')) {
-              e.preventDefault()
-              e.target.parentNode.parentNode.remove()
-            }
-          })
   }
 
 //delete analysis

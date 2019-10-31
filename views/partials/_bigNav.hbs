@@ -10,7 +10,7 @@
       </button>
       <div class="collapse navbar-collapse my-1" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
           </li>
           <li class="nav-item">
@@ -18,55 +18,33 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
-          </li> -->
-          <li class="nav-item">
-            <a href="/addGroup" class="nav-link"><i class="far fa-user"></i>Dodaj grupu</a>
           </li>
-          <li class="nav-item">
-            <a href="/allGroupsList" class="nav-link"><i class="far fa-user"></i>sve grupe</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allLabs" class="nav-link"><i class="far fa-user"></i>sve laboratorije</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addLab" class="nav-link"><i class="far fa-user"></i>Dodaj lab</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addAnalysis" class="nav-link"><i class="far fa-user"></i>Dodaj analizu</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allAnalysis" class="nav-link"><i class="far fa-user"></i>Sve analize</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addDisease" class="nav-link"><i class="far fa-user"></i>dodaj oboljenje</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allDiseases" class="nav-link"><i class="far fa-user"></i>sva oboljenja</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addEditor" class="nav-link"><i class="far fa-user"></i>dodaj urednika</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allEditors" class="nav-link"><i class="far fa-user"></i>svi uredinici</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allReferences" class="nav-link"><i class="far fa-user"></i>sve reference</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addReference" class="nav-link"><i class="far fa-user"></i>dodaj referencu</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addFaq" class="nav-link"><i class="far fa-user"></i>dodaj faq</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allFaqs" class="nav-link"><i class="far fa-user"></i>all faq</a>
-          </li>
-          <li class="nav-item">
-            <a href="/addPrice" class="nav-link"><i class="far fa-user"></i>dodaj cenu</a>
-          </li>
-          <li class="nav-item">
-            <a href="/allPrices" class="nav-link"><i class="far fa-user"></i>sve cene</a>
-          </li>
+          <li class="nav-item ">
+          <div class="dropdown nav-link" >
+            <a class="dropdown-toggle"  data-toggle="dropdown">
+              Admin
+            </a>
+            <div class="dropdown-menu" style="z-index:2000;">
+              <a href="/addGroup" class="dropdown-item py-1">Nova grupa</a>
+              <a href="/allGroupsList" class="dropdown-item py-1">Sve grupe</a>
+              <a href="/addLab" class="dropdown-item py-1">Novi lab</a>
+              <a href="/allLabs" class="dropdown-item py-1">Sve laboratorije</a>
+              <a href="/addAnalysis" class="dropdown-item py-1">Nova analiza</a>
+              <a href="/allAnalysis" class="dropdown-item py-1">Sve analize</a>
+              <a href="/addDisease" class="dropdown-item py-1">Novo oboljenje</a>
+              <a href="/allDiseases" class="dropdown-item py-1">Sva oboljenja</a>
+              <a href="/addEditor" class="dropdown-item py-1">Novi urednik</a>
+              <a href="/allEditors" class="dropdown-item py-1">Svi urednici</a>
+              <a href="/addReference" class="dropdown-item py-1">Nova referenca</a>
+              <a href="/allReferences" class="dropdown-item py-1">Sve reference</a>
+              <a href="/addFaq" class="dropdown-item py-1">Dodaj faq</a>
+              <a href="/allFaqs" class="dropdown-item py-1">All faq</a>
+              <a href="/addPrice" class="dropdown-item py-1">Novi cenovnik</a>
+              <a href="/allPrices" class="dropdown-item py-1">Svi cenovnici</a>
+            </div>
+        </div>
+      </li>
+
 
           <li class="nav-item">
             <buttona class="nav-link checkout">6</button>
@@ -85,7 +63,7 @@
       <form>
         <div class="row">
           <div class="col-sm-12 col-lg-8 mx-auto ">
-            <input type="text" class="form-control search"  placeholder="Unesite naziv analize/laboratorije">
+            <input type="text" class="form-control search" id="searchAnalysis" name="searchAnalysis" placeholder="Unesite naziv analize/laboratorije">
             <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
             <label for="analizeRadioButton" class="analizeSearchFilter">analiza</label>
             <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
