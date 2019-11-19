@@ -23,7 +23,7 @@ app.engine('.hbs', exphbs({
   helpers:helpers,
   extname:'.hbs'
 }))
-app.set('view engine', 'hbs')
+app.set('view engine', '.hbs')
 
 // app.use(cookieParser())
 

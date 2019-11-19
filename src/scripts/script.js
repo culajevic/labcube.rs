@@ -1,8 +1,21 @@
 require('../scss/style.scss')
+// let summernote = require('./summernote-ext-addclass')
 let NewElement = require('./class')
 let PriceList = require('./price')
-let removeItems = require('./functions')
-const $ = require('jquery')
+let helper = require('./functions')
+// let $ = require('jquery')
+
+$(document).ready(function(){
+
+  $('body').tooltip({
+    selector:'[data-toggle="tooltip"]',
+    placement:"top",
+    delay: {show: 100, hide: 100},
+    boundary: 'window',
+    tooltipClass: "tooltip"
+  })
+
+});
 
 // changing analysis number color on hover
 $('.click-more').hover(function(){
@@ -20,7 +33,6 @@ $(window).scroll(function(){
       $("#header > nav").removeClass('fixed-top-background fixed-top');
     }
 });
-
 
 // sticky navigation for side menu
 $(window).scroll(function(){
@@ -45,6 +57,7 @@ let location = window.location.pathname
 window.onload = () => {
 
 if(location === '/') {
+
   let mainSearch = document.getElementById('searchAnalysis')
     mainSearch.focus()
 
@@ -57,7 +70,7 @@ if(location === '/') {
         setTimeout(function() {
         let searchstring = e.target.value
         window.location.href = 'results/?name='+searchstring+'&filter='+filter
-        },1000)
+      },500)
       }
     })
   } else {
@@ -81,11 +94,8 @@ if(location === '/') {
 }// if location === '/'
 
 if (location.match('results')) {
-  //
-  // let resultData = document.getElementById('results').innerHTML
-  // let template = Handlebars.compile(resultData)
-  // let data = {name:'bojan'}
-  // let html = template(data)
+
+  $('body').scrollspy({ target: '#sideMenu'})
 
   //taking values from url
   const urlParams = new URLSearchParams(window.location.search);
@@ -93,7 +103,9 @@ if (location.match('results')) {
   let myFilter = urlParams.get('filter')
   let innerSearch = document.getElementById('searchResultPage')
     innerSearch.focus()
+  //set value from url to input field
     innerSearch.value = myValue
+  let searchStr = myValue
 
     // display checked filter
     let radioFilter = document.querySelectorAll('input[name=searchFilter]')
@@ -105,144 +117,25 @@ if (location.match('results')) {
 
     // if searching values are comming from index page
     let resultDiv = document.getElementById('resultTable')
-    let selectedAnalysisArr = []
-    // resultDiv.innerHTML = data
+    // search analysis and display table with results.
+    let selectedAnalysisIdArr = []
+    let selectedAnalysisNameArr = []
+
 
     if(myFilter == 'analiza') {
-        fetch('/analysis/'+innerSearch.value).then((data) => {
-          data.json().then((result) => {
-            let analysis = result.analysisName
-            for(i=0; i<analysis.length; i++) {
-              //create <tr>
-              let tr = document.createElement('tr')
-              //td analysis name
-              let tdName = document.createElement('td')
-                let analysisName = document.createTextNode(analysis[i].analysisName)
-                  let analysisLink = document.createElement('a')
-                    analysisLink.setAttribute('href', 'analysis/'+analysis[i]._id)
-                    analysisLink.className = 'nolink'
-                    analysisLink.appendChild(analysisName)
-                let previewIcon = document.createElement('img')
-                  previewIcon.setAttribute('src', '/images/detail.svg')
-                  previewIcon.setAttribute('title', analysis[i].preview)
-                  previewIcon.className = "tooltipImg mr-2"
-                  previewIcon.setAttribute('data-toggle', 'tooltip')
-              tdName.appendChild(previewIcon)
-                //<td>analysis name</td>
-              tdName.appendChild(analysisLink)
-              tr.appendChild(tdName)
-
-              //td abbr
-              let abbr = document.createElement('td')
-                let abbrName = document.createTextNode(analysis[i].abbr[0])
-                abbr.appendChild(abbrName)
-                tr.appendChild(abbr)
-
-              //td groupName
-              let tdGroupName = document.createElement('td')
-                let groupName = document.createTextNode(analysis[i].groupId.name)
-                tdGroupName.appendChild(groupName)
-                tr.appendChild(tdGroupName)
-
-              //td hospital
-              let hospital = document.createElement('td')
-                let hospitalIcon = document.createElement('img')
-                  hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
-                hospital.appendChild(hospitalIcon)
-                tr.appendChild(hospital)
-
-              let minmaxPrice = document.createElement('td')
-              let priceSpan = document.createElement('span')
-                priceSpan.className = 'font-weight-bold'
-                let priceRange = document.createTextNode(`${result.minPrice.cenovnik[0].cena} - ${result.maxPrice.cenovnik[0].cena}`)
-                priceSpan.appendChild(priceRange)
-                minmaxPrice.appendChild(priceSpan)
-                tr.appendChild(minmaxPrice)
-
-              let addAnalysisBtnTd = document.createElement('td')
-              let addAnalysisBtn = document.createElement('button')
-                addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis'
-                addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id)
-              let addAnalysisBtnText = document.createTextNode('dodaj')
-              addAnalysisBtn.appendChild(addAnalysisBtnText)
-              addAnalysisBtnTd.appendChild(addAnalysisBtn)
-              tr.appendChild(addAnalysisBtnTd)
-              resultDiv.appendChild(tr)
-            }//for end
-          })// data json end
-        })//fetch end
-
-
-        //add and remove analysis from selected analysis box
-        resultDiv.addEventListener('click', (e) => {
-          // e.preventDefault()
-          if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
-            selectedAnalysisArr.push(e.target.getAttribute('data-analysisid'))
-
-            e.target.innerHTML = '&#10004;'
-            e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
-            e.target.disabled = true
-            let analysisAdded = document.createElement('li')
-                analysisAdded.className='list-group-item list-group-item-action'
-            let analysisId = document.createTextNode(e.target.getAttribute('data-analysisid'))
-
-            let removeSpan = document.createElement('span')
-              removeSpan.className = 'float-right remove'
-            let removeImg = document.createElement('img')
-              removeImg.setAttribute('src','/images/closeBtn.svg')
-              removeImg.className = 'remove-analysis-from-basket'
-              removeSpan.appendChild(removeImg)
-
-              analysisAdded.appendChild(analysisId)
-              analysisAdded.appendChild(removeSpan)
-            selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0])
-            document.querySelector('.card').classList.remove('d-none')
-
-          } else if (e.target.type == 'submit' && e.target.classList.contains('deleteAnalysis')){
-            e.target.textContent = 'dodaj'
-            e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis'
-          }
-        })
-
-        // remove analysis from basket
-        let analysisBasket = document.getElementById('selectedAnalysis')
-          analysisBasket.addEventListener('click', (e) => {
-
-            if(e.target.classList.contains('remove-analysis-from-basket')) {
-              let selectedAnalysisBasket = e.target.parentNode.parentNode
-              selectedAnalysisBasket.remove()
-              let indexOfAnalysis = selectedAnalysisArr.indexOf(selectedAnalysisBasket.innerText)
-
-              let removedValue = selectedAnalysisArr.splice(indexOfAnalysis,1)
-              let enableButton = document.querySelectorAll('#resultTable tr>td>button')
-                enableButton.forEach((item) => {
-                  if(item.getAttribute('data-analysisId') == removedValue[0]) {
-                    item.disabled = false
-                    item.textContent = 'dodaj'
-                    item.classList.remove('deleteAnalysis')
-                    item.classList.add('addAnalysis')
-                  }
-                })
-
-              // if last analysis is removed from the basket remove basket
-              if(selectedAnalysisArr.length == 0) {
-                document.querySelector('.card').classList.add('d-none')
-              }
-            }
-          })
-
-    } else {
-        fetch('/lab/'+innerSearch.value).then((data) => {
-          data.json().then((result) => {
-            console.log(result)
-          })
-        })
-      }
-
-
+      flag = true
+      helper.searchAnalysis(searchStr, resultDiv, flag)
+    }
+    // else {
+    //   console.log('prva an lab')
+    //     fetch('/lab/'+innerSearch.value).then((data) => {
+    //       data.json().then((result) => {
+    //         console.log(result)
+    //       })
+    //     })
+    //   }
 
     // if filter value is changed on result searchResultPage
-
     // taking filter value
     let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
         analysisRadio.forEach((item) => {
@@ -255,14 +148,12 @@ if (location.match('results')) {
 
     // if search string is changed on result page
     innerSearch.addEventListener('input', (e) => {
-        let searchstring = e.target.value
+        let searchstring = innerSearch.value
         if(myFilter == 'analiza' && searchstring.length>2) {
-          fetch('/analysis/'+searchstring).then((data) => {
-            data.json().then((result) => {
-              console.log(result)
-            })
-          })
-        } else if(searchstring.length>2){
+          let flag = false
+          helper.searchAnalysis(searchstring, resultDiv, false)
+        }
+        else if(searchstring.length>2){
             fetch('/lab/'+searchstring).then((data) => {
               data.json().then((result) => {
                 console.log(result)
@@ -270,16 +161,10 @@ if (location.match('results')) {
             })
           } else {
             console.log('unesite vise od 2 karaktera da zapocnete pretragu')
+            resultDiv.innerHTML = 'Unesite nesto'
           }
       })
 
-  // $('[data-toggle="tooltip"]').tooltip(
-  //   {
-  //   placement:"bottom",
-  //   delay: {show: 100, hide: 100},
-  //   boundary: 'window'
-  //   }
-  // )
 
 $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
   var imageSrc = $(this).attr('src');
@@ -407,6 +292,24 @@ if (location.match('addLab')) {
 
   if (location.match('addAnalysis')) {
 
+    $('#summernote').summernote({
+
+          styleTags: [
+          'p','br',
+          {title: 'orderList', tag: 'ul', className: 'textList', value: 'ul'},
+          {title: 'leadText', tag: 'p', className: 'lead text-center', value:'p'},
+          {title:'reset', tag:'p',className:'', value:'p'}
+
+        ],
+          height: 220,
+          toolbar: [
+              ['img', ['picture']],
+              ['style', ['style', 'addclass', 'clear']],
+              ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+              ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+          ]
+        });
+
     let addNewAbbr = document.querySelector('#addNewAbbr')
     let addNewAlt = document.querySelector('#addNewAlt')
     let addNewConnectedAnalysis = document.querySelector('#addNewRelatedAnalysis')
@@ -495,6 +398,7 @@ if (location.match('addLab')) {
       if (connectedAnalysis.value.length > 2) {
       fetch('/analysis/'+e.target.value).then((data) => {
         data.json().then((result) => {
+          console.log(result)
           getAnalyisisNameDiv.innerHTML = ''
           for(i=0; i<result.length; i++) {
             let liItem = document.createElement('li')
@@ -555,7 +459,7 @@ if (location.match('addLab')) {
         })// addevent listener end
 
       // remove connected analyses
-      removeItems.removeElement(parentUl, analysisSelected)
+      helper.removeElement(parentUl, analysisSelected)
 
     // search for connected Diseases and adding them to the DOM
     let connectedDiseases = document.getElementById('connectedDiseases')
@@ -642,7 +546,7 @@ if (location.match('addLab')) {
       })// addDisease end addEventListener
 
         // remove diseases
-        removeItems.removeElement(diseaseParentUl,diseaseSelected)
+        helper.removeElement(diseaseParentUl,diseaseSelected)
 
 
     let searchReference = document.getElementById('searchReference')
@@ -732,7 +636,7 @@ if (location.match('addLab')) {
   })// addreference addEventListener
 
   // remove reference after it is added to the page
-  removeItems.removeElement(referenceUl,selectedReferences)
+  helper.removeElement(referenceUl,selectedReferences)
 
   let searchEditor = document.getElementById('searchEditors')
   let editorsList = document.getElementById('editorsList')
@@ -832,7 +736,7 @@ if (location.match('addLab')) {
             })
       })// item.addeventListener end
 
-      // removeItems.removeElement(editorDiv,selectedEditor)
+      // helper.removeElement(editorDiv,selectedEditor)
 
       let removeEditor = document.querySelector('.__editorsList')
       if(removeEditor) {
@@ -854,37 +758,37 @@ if (location.match('addLab')) {
 
 //delete analysis
   if(location.match('allAnalysis')) {
-    removeItems.deleteDocument('.deleteDocument','analiza ce biti obrisana?','/allAnalysis/','/allAnalysis','doslo je do greske')
+    helper.deleteDocument('.deleteDocument','analiza ce biti obrisana?','/allAnalysis/','/allAnalysis','doslo je do greske')
     }
 
 //delete lab
   if(location.match('allLabs')) {
-    removeItems.deleteDocument('.deleteDocument','laboratorija ce biti obrisana','/allLabs/','/allLabs','doslo je do greske')
+    helper.deleteDocument('.deleteDocument','laboratorija ce biti obrisana','/allLabs/','/allLabs','doslo je do greske')
   }
 
 //delete group
   if(location.match('allGroupsList')) {
-    removeItems.deleteDocument('.deleteDocument', 'grupa ce biti obrisana', '/allGroupsList/', '/allGroupsList', 'doslo je do greske prilikom brisanja grupe')
+    helper.deleteDocument('.deleteDocument', 'grupa ce biti obrisana', '/allGroupsList/', '/allGroupsList', 'doslo je do greske prilikom brisanja grupe')
   }
 //delete disease
   if(location.match('allDiseases')) {
-    removeItems.deleteDocument('.deleteDocument', 'oboljenje ce biti obrisano', '/allDiseases/', '/allDiseases', 'doslo je do greske prilikom brisanja oboljenja')
+    helper.deleteDocument('.deleteDocument', 'oboljenje ce biti obrisano', '/allDiseases/', '/allDiseases', 'doslo je do greske prilikom brisanja oboljenja')
   }
 //delete editor
   if(location.match('allEditors')) {
-    removeItems.deleteDocument('.deleteDocument', 'urednik ce biti obrisan', '/allEditors/', '/allEditors', 'doslo je do greske prilikom brisanja urednika')
+    helper.deleteDocument('.deleteDocument', 'urednik ce biti obrisan', '/allEditors/', '/allEditors', 'doslo je do greske prilikom brisanja urednika')
   }
 //delete reference
   if(location.match('allReferences')) {
-    removeItems.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference')
+    helper.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference')
   }
 //delete faq
   if(location.match('allFaqs')) {
-    removeItems.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja')
+    helper.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja')
   }
 //delete priceList
   if(location.match('allPrices')) {
-    removeItems.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika')
+    helper.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika')
   }
 
 }// window onload end

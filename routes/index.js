@@ -20,6 +20,7 @@ router.get('/details/:name', groupController.displayGroup)
 
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)
+router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
@@ -89,6 +90,7 @@ router.delete('/allFaqs/:id', faqController.deleteFaq)
 router.get('/places/:place', placeController.getPlaces)
 router.get('/groups/:groupName', groupController.getGroupNames)
 router.get('/analysis/:analysisName', analysisController.getAnalyisisName)
+router.get('/analysis/prices/:analysisName', analysisController.getAnalyisisNameResult)
 router.get('/diseases/:diseaseName', diseaseController.getDiseases)
 router.get('/reference/:referenceTitle', referenceController.getReferences)
 router.get('/editors/:lastName', editorController.getEditors)

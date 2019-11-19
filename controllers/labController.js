@@ -82,11 +82,12 @@ exports.createLab = async (req,res) => {
 
     })
   } else {
-    if(req.file) {
+    if(typeof(req.file) !== 'undefined') {
       req.body.logo = req.file.filename
-    } else {
-      req.flash('error_msg', 'doslo je do greske prilikom uploada')
     }
+    // else {
+    //   req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    // }
       const lab = new Lab(req.body)
       try {
         await lab.save()

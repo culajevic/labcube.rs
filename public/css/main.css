@@ -7070,7 +7070,13 @@ a:focus {
 .modal-content {
   border: none; }
 
-/****************************************************/
+.tooltip {
+  background: white;
+  font-size: 0.875rem;
+  border: 0;
+  color: #3B3B3B;
+  opacity: 1; }
+
 #header, #smallHeader {
   display: flex;
   flex-direction: column;

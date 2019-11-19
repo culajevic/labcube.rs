@@ -41,6 +41,10 @@ const analysisSchema = new mongoose.Schema({
   },
   notes:String,
   sample:String,
+  availableHC:{
+    type:Boolean,
+    default:false
+  },
   connectedTo:[{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Analysis'

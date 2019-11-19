@@ -65,9 +65,9 @@
             <small class="form-text text-muted">short description</small>
             <textarea class="form-control" name="shortDesc" rows=7 placeholder="short description">{{keepData analysis.shortDesc shortDesc}}</textarea>
           </div>
-          <div class="form-group col">
+          <div class="form-group col-12">
             <small class="form-text text-muted">description</small>
-            <textarea class="form-control" name="description" rows=7 placeholder="description">{{keepData analysis.description description}}</textarea>
+            <textarea id="summernote" class="form-control" name="description" rows=7 placeholder="description">{{keepData analysis.description description}}</textarea>
           </div>
         </div>
 
@@ -101,6 +101,12 @@
           <div class="form-group col-sm-6">
             <small class="form-text text-muted">Sample for this analysis is taken from?</small>
             <textarea class="form-control" name="sample" rows=7 placeholder="Sample for this analysis is taken from?">{{keepData analysis.sample sample}}</textarea>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="availableHC" id="availableHC" {{#if (keepData analysis.availableHC availableHC)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="availableHC">Available at your primary healt care center</label>
+            </div>
           </div>
         </div>
 

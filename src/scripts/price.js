@@ -51,7 +51,7 @@ exports.createPrice = () => {
 
   searchAnalysis.addEventListener('input', (e) => {
     if (searchAnalysis.value.length > 2) {
-    fetch('/analysis/'+e.target.value).then((data) => {
+    fetch('/analysis/prices/'+e.target.value).then((data) => {
       data.json().then((result) => {
         let analysis = result.analysisName
         getAnalyisisNameDiv.innerHTML = ''

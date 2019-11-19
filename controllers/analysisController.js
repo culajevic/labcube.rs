@@ -81,6 +81,7 @@ exports.createAnalysis = async (req,res) => {
       low:req.body.low,
       high:req.body.high,
       notes:req.body.sample,
+      availableHC:req.body.availableHC,
       connectedAnalysis:connectedAnalysis,
       connectedTo:req.body.connectedTo,
       diseasesId:req.body.diseasesId,
@@ -92,6 +93,7 @@ exports.createAnalysis = async (req,res) => {
       editorList:editorList
     })
   } else {
+    console.log(req.body.description)
       const analysis = new Analysis(req.body)
       try {
         await analysis.save()
@@ -121,6 +123,9 @@ exports.editAnalysis =  async (req,res) => {
 
 exports.updateAnalysis = async (req,res) => {
   req.body.date = Date.now()
+  if (req.body.availableHC == undefined) {
+    req.body.availableHC = false
+  }
   // if(typeof(req.body.writtenBy) == 'undefined') {
   //   req.flash('error_msg', 'Obavezno je uneti podatke o autoru')
   // }
@@ -140,17 +145,35 @@ exports.updateAnalysis = async (req,res) => {
     req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o analizi`)
   }
 }
+exports.getAnalyisisName = async (req,res) => {
+  const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
+  res.json(analysisName)
 
-exports.getAnalyisisName = async (req, res) => {
+}
+
+exports.getAnalyisisNameResult = async (req, res) => {
 
   const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
-  .populate('groupId', 'name')
+  .populate('groupId', 'name iconPath')
 
-  //display min and max price on result page
-  const minPrice = await Price.findOne({"cenovnik.analiza":analysisName[0]._id}).sort({"cenovnik.cena":1})
-  const maxPrice = await Price.findOne({"cenovnik.analiza":analysisName[0]._id}).sort({"cenovnik.cena":-1})
-  res.json({analysisName, minPrice, maxPrice})
+  let minPriceArr = []
+  let maxPriceArr = []
 
+    for(i=0; i<analysisName.length; i++) {
+      let minPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
+      .sort({"cenovnik.cena":1})
+      .limit(1)
+      minPriceArr.push(minPrice)
+
+      let maxPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
+      .sort({"cenovnik.cena":-1})
+      .limit(1)
+      maxPriceArr.push(maxPrice)
+  }
+
+  // res.render(analysisName)
+res.json({analysisName, minPriceArr, maxPriceArr})
+  // res.json({analysisName, minPriceArr, maxPriceArr})
 }
 
 exports.deleteAnalysis = async (req,res) => {

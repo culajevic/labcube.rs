@@ -61,7 +61,11 @@ a:focus {
 
 
 //tooltip styling
-
-
-
-/****************************************************/
+.tooltip {
+  background: white;
+  font-size: px-to-rem(14px);
+  border:0;
+  // box-shadow: none;
+  color:$fontColorResultsTable;
+  opacity: 1;
+}

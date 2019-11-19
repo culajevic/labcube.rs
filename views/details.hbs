@@ -1,0 +1,135 @@
+{{> _innerNavFrontend}}
+
+
+<section id="details">
+  <div class="container">
+    <div class="row" >
+      <div class="col-md-8 col-lg-9">
+        <!-- header -->
+        <p class="float-right">
+          <span class="titleDetails ml-1">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span>
+          <button class="btn btn-outline-success text-uppercase ml-5 mt-auto addAnalysis">dodaj</button>
+          <img src="/images/stampaj.svg" class="mt-auto ml-3 mb-2" />
+        </p>
+        {{! display analysis name}}
+        <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
+        {{! display abbr}}
+        <ul>
+          {{#each analysisDetails.abbr}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+
+        <ul class="analysisDescription">
+          <li>
+            <h5 id="oAnalizi">O analizi</h5>
+            <p>{{analysisDetails.shortDesc}}</p>
+          </li>
+          <li><h5 id="uzorak">Uzorak</h5>
+              <p>{{{analysisDetails.sample}}}</p>
+          </li>
+          <li>
+            <h5 id="kadaSeIspituje">Kada se ispituje?</h5>
+            <p>{{analysisDetails.examination}}</p>
+          </li>
+          <li>
+            <h5 id="priprema">Priprema</h5>
+            <p>{{analysisDetails.preparation}}</p>
+          </li>
+          <li>
+            <h5 id="detaljanOpis">Detaljan opis</h5>
+            {{{analysisDetails.description}}}
+          </li>
+          <div class="d-flex flex-column flex-lg-row">
+             <div class="flexFix justify-content-between snizeneVrednosti">
+                <h5 id="rezultati">Snižene vrednosti</h5>
+                <p>{{highAndLowValues analysisDetails.low}}</p>
+                {{#if (strLength analysisDetails.low)}}
+                  <a class="expandDetails" data-toggle="collapse" href="#collapsedDetailsLow"><i class="fas fa-angle-down"></i></a>
+                  <div class="collapse" id="collapsedDetailsLow">
+                    <p>{{{highAndLowValuesExtend analysisDetails.low}}}</p>
+                  </div>
+               {{/if}}
+             </div>
+
+             <div class="flexFix justify-content-between poviseneVrednosti">
+                <h5>Povišene vrednosti</h5>
+                  {{{highAndLowValues analysisDetails.high}}}
+                {{#if (strLength analysisDetails.high)}}
+                  <a class="expandDetails"  data-toggle="collapse" href="#collapsedDetailsHigh"><i class="fas fa-angle-down"></i></a>
+                  <div class="collapse" id="collapsedDetailsHigh">
+                    {{{highAndLowValuesExtend analysisDetails.high}}}
+                  </div>
+                {{/if}}
+              </div><!-- flexfix -->
+           </div><!-- flex end snizene i povisene vrednosti -->
+           <div class="napomena">
+             <h5 id="napomena">Napomena</h5>
+             <p>{{analysisDetails.notes}}</p>
+           </div>
+           <ol>
+             <h5 class="literatura" id="literatura">Literatura</h5>
+             {{#each analysisDetails.references}}
+              <li>{{referenceTitle}}</li>
+             {{/each}}
+           </ol>
+        </ul><!-- analysisDescription end -->
+
+
+          <ul class="povezaneAnalize">
+            <h5>Povezane analize</h5>
+            {{#each analysisDetails.connectedTo}}
+              <li><a href={{slug}} class="text-white">{{analysisName}}</a></li>
+            {{/each}}
+          </ul>
+      </div> <!-- col-lg-9 -->
+
+      <div class="col-md-4 col-lg-3 sidebar">
+        <div class="odabraneAnalize">
+          <div class="card ">
+            <div class="card-header">Odabrane analize (5)</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action"><img src="/images/hematologija.svg" class="labGroupIconSelectedAnalysis">Ukupni trigliceridi<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
+                <li class="list-group-item list-group-item-action"><img src="/images/feces.svg" class="labGroupIconSelectedAnalysis">Dapibus ac dad da facilisi<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
+                <li class="list-group-item list-group-item-action"><img src="/images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
+                <li class="list-group-item list-group-item-action"><img src="/images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
+                <li class="list-group-item list-group-item-action"><img src="/images/anemije.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
+                <li class="list-group-item city"><span class="d-block mb-2">Gde radite analize?</span>
+                <select class="form-control">
+                  <option selected>grad</option>
+                  <option value="1">Beograd</option>
+                  <option value="2">Novi Sad</option>
+                  <option value="3">Kragujevac</option>
+                  <option value="3">Bačka Palanka</option>
+                </select>
+                <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span>
+                </li>
+              </ul>
+          </div><!-- card end -->
+          <div id="sideMenu">
+            <ul class="textList">
+              <li><a class="list-group-item" href="#oAnalizi">O Analizi</a></li>
+              <li><a class="list-group-item" href="#uzorak">Uzorak</a></li>
+              <li><a class="list-group-item" href="#kadaSeIspituje">Kada se ispituje?</a></li>
+              <li><a class="list-group-item" href="#priprema">Priprema</a></li>
+              <li><a class="list-group-item" href="#detaljanOpis">Detaljan opis</a></li>
+              <li><a class="list-group-item" href="#rezultati">Rezultati</a></li>
+              <li><a class="list-group-item" href="#napomena">Napomena</a></li>
+              <li><a class="list-group-item" href="#literatura">Literatura</a></li>
+            </ul>
+          </div>
+          <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
+          <div class="banner">
+            <img src="/images/banner.JPG" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
+            <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
+            <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
+          </div><!-- banner end -->
+        </div><!-- odabrane analize end -->
+      </div><!-- sidebar end -->
+
+	  </div><!--  row end  -->
+  </div> <!-- container end -->
+</section> <!-- section details end -->
+
+
+{{> _footer}}

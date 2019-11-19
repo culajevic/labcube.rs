@@ -10,6 +10,17 @@ hbs.registerHelper('formatRsDate', (prop) => {
 // front page group summary
 hbs.registerHelper('groupSummary', (prop) =>  prop.split(' ').slice(0,30).join(' ')+'...')
 
+// high and low values on analysis detail page
+hbs.registerHelper('highAndLowValues', (highLow) => {
+    return highLow.split(' ').slice(0,30).join(' ')
+})
+
+hbs.registerHelper('highAndLowValuesExtend', (highLow) => {
+    return highLow.split(' ').slice(30).join(' ')
+})
+
+hbs.registerHelper('strLength', (prop) => (prop.length>240))
+
 // create url for action attribute in form based on edit or add new group
 hbs.registerHelper('checkUrlName', (prop) => (prop) ? prop+'/' : '')
 
