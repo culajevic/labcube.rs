@@ -293,6 +293,7 @@ if (location.match('addLab')) {
   if (location.match('addAnalysis')) {
 console.log('da')
     $('#summernote').summernote({
+
           styleTags: [
           'p','br',
           {title: 'orderList', tag: 'ul', className: 'textList', value: 'ul'},
@@ -302,6 +303,7 @@ console.log('da')
         ],
           height: 220,
           toolbar: [
+              ['view', ['codeview']],
               ['img', ['picture']],
               ['style', ['style', 'addclass', 'clear']],
               ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
