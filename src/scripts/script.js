@@ -95,7 +95,10 @@ if(location === '/') {
 
 if (location.match('results')) {
 
-  $('body').scrollspy({ target: '#sideMenu'})
+  $('body').scrollspy({
+    target: '#sideMenu',
+    offset: 30
+  })
 
   //taking values from url
   const urlParams = new URLSearchParams(window.location.search);

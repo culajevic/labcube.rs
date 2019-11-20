@@ -43,11 +43,11 @@
           <div class="d-flex flex-column flex-lg-row">
              <div class="flexFix justify-content-between snizeneVrednosti">
                 <h5 id="rezultati">Snižene vrednosti</h5>
-                <p>{{highAndLowValues analysisDetails.low}}</p>
+                {{{highAndLowValues analysisDetails.low}}}
                 {{#if (strLength analysisDetails.low)}}
                   <a class="expandDetails" data-toggle="collapse" href="#collapsedDetailsLow"><i class="fas fa-angle-down"></i></a>
                   <div class="collapse" id="collapsedDetailsLow">
-                    <p>{{{highAndLowValuesExtend analysisDetails.low}}}</p>
+                    {{{highAndLowValuesExtend analysisDetails.low}}}
                   </div>
                {{/if}}
              </div>
