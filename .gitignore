@@ -7,3 +7,5 @@ node_modules
 .env
 *.png
 *.PNG
+public/dist/main.bundle.js
+public/dist/main.bundle.js.map
