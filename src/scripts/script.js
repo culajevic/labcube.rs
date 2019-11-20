@@ -291,9 +291,8 @@ if (location.match('addLab')) {
 
 
   if (location.match('addAnalysis')) {
-
+console.log('da')
     $('#summernote').summernote({
-
           styleTags: [
           'p','br',
           {title: 'orderList', tag: 'ul', className: 'textList', value: 'ul'},
@@ -715,7 +714,7 @@ if (location.match('addLab')) {
           editorh4.className = 'ml-4 mt-3 float-right'
         let editorImage = document.createElement('img')
           editorImage.className = 'rounded ml-2 mt-3 __editorImage'
-          editorImage.setAttribute('src',e.srcElement.getAttribute('data-editorImage'))
+          editorImage.setAttribute('src','/images/editors/'+e.srcElement.getAttribute('data-editorImage'))
 
         let editorDisplayName = document.createTextNode(e.target.innerText)
         editorh4.appendChild(editorDisplayName)

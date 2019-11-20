@@ -173,7 +173,7 @@
             </div>
               {{#if analysis.writtenBy}}
                   <div class="__editorsList mr-3 mt-2">
-                    <img class="rounded ml-2 mt-3 __editorImage" src="{{analysis.writtenBy.picture}}">
+                    <img class="rounded ml-2 mt-3 __editorImage" src="/images/editors/{{analysis.writtenBy.picture}}">
                     <h4 class="ml-4 mt-3 float-right">{{analysis.writtenBy.firstName}} {{analysis.writtenBy.lastName}}</h4>
                     <input type="hidden" name="writtenBy" value="{{analysis.writtenBy._id}}">
                     <input type="hidden" name="editorHiddenName" value="{{analysis.writtenBy.firstName}} {{analysis.writtenBy.lastName}}">
@@ -182,7 +182,7 @@
                   {{else if editorList}}
                   {{#each editorList}}
                     <div class="__editorsList mr-3 mt-2">
-                      <img class="rounded ml-2 mt-3 __editorImage" src="{{this.image}}">
+                      <img class="rounded ml-2 mt-3 __editorImage" src="/images/editors/{{this.image}}">
                       <h4 class="ml-4 mt-3 float-right">{{this.name}}</h4>
                       <input type="hidden" name="writtenBy" value="{{this.id}}">
                       <input type="hidden" name="editorHiddenName" value="{{this.name}}">

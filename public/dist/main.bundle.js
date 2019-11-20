@@ -827,6 +827,7 @@ window.onload = function () {
 
 
   if (location.match('addAnalysis')) {
+    console.log('da');
     $('#summernote').summernote({
       styleTags: ['p', 'br', {
         title: 'orderList',
@@ -1225,7 +1226,7 @@ window.onload = function () {
       editorh4.className = 'ml-4 mt-3 float-right';
       var editorImage = document.createElement('img');
       editorImage.className = 'rounded ml-2 mt-3 __editorImage';
-      editorImage.setAttribute('src', e.srcElement.getAttribute('data-editorImage'));
+      editorImage.setAttribute('src', '/images/editors/' + e.srcElement.getAttribute('data-editorImage'));
       var editorDisplayName = document.createTextNode(e.target.innerText);
       editorh4.appendChild(editorDisplayName);
       editorDiv.appendChild(editorImage);
