@@ -126,8 +126,10 @@ if (location.match('results')) {
 
 
     if(myFilter == 'analiza') {
-      flag = true
-      helper.searchAnalysis(searchStr, resultDiv, flag)
+
+
+      // flag = true
+      // helper.searchAnalysis(searchStr, resultDiv, flag)
     }
     // else {
     //   console.log('prva an lab')
@@ -153,8 +155,8 @@ if (location.match('results')) {
     innerSearch.addEventListener('input', (e) => {
         let searchstring = innerSearch.value
         if(myFilter == 'analiza' && searchstring.length>2) {
-          let flag = false
-          helper.searchAnalysis(searchstring, resultDiv, false)
+          // let flag s= false
+          // helper.searchAnalysis(searchstring, resultDiv, false)
         }
         else if(searchstring.length>2){
             fetch('/lab/'+searchstring).then((data) => {

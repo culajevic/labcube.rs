@@ -39,6 +39,14 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
 
 exports.searchAnalysis = (searchString,resultDiv, flag) => {
 
+let selectedAnalysis = []
+
+  const analysisJson = localStorage.getItem('selectedAnalysis')
+    if (analysisJson !== null) {
+      selectedAnalysis = JSON.parse(analysisJson)
+
+    }
+
   if(typeof(selectedAnalysisNameArr) === 'undefined') {
     selectedAnalysisNameArr = []
    } else {
@@ -48,7 +56,7 @@ exports.searchAnalysis = (searchString,resultDiv, flag) => {
 
   fetch('/analysis/prices/'+searchString).then((data) => {
     data.json().then((result) => {
-      console.log(result)
+      // console.log(result)
       resultDiv.innerHTML = ''
       let analysis = result.analysisName
       for(i=0; i<analysis.length; i++) {
@@ -145,7 +153,6 @@ exports.searchAnalysis = (searchString,resultDiv, flag) => {
 if(flag == true) {
     //add analysis to basket
     resultDiv.addEventListener('click', (e) => {
-      // e.preventDefault()
       if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
 
         //create array of analysis IDs
@@ -153,6 +160,9 @@ if(flag == true) {
         //create an array with analysis names
         selectedAnalysisNameArr.push(e.target.getAttribute('data-analysisName'))
         selectedAnalysisNameArr.sort()
+
+        const selectedAnalysisJson = JSON.stringify(selectedAnalysisNameArr)
+        localStorage.setItem('selectedAnalysis', selectedAnalysisJson)
 
         //changing style for buttons if analysis is added to basket
         if(selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')) !== -1) {
