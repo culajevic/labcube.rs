@@ -5,8 +5,8 @@ let PriceList = require('./price')
 let helper = require('./functions')
 // let $ = require('jquery')
 
+//tooltip initialization
 $(document).ready(function(){
-
   $('body').tooltip({
     selector:'[data-toggle="tooltip"]',
     placement:"top",
@@ -14,14 +14,12 @@ $(document).ready(function(){
     boundary: 'window',
     tooltipClass: "tooltip"
   })
-
 });
 
 // changing analysis number color on hover
 $('.click-more').hover(function(){
   $(this).find("span").toggleClass("broj-analiza-hover");
 });
-
 
 // sticky navigation
 $(window).scroll(function(){
@@ -38,18 +36,12 @@ $(window).scroll(function(){
 $(window).scroll(function(){
   var height = $(window).scrollTop();
     if(height > 120) {
-      $(".odabraneAnalize").addClass('fixed-right');
-      // $(".test").addClass('fixed-top fix');
-      // $(".test").removeClass('searchFieldContainerInner');
-
+      $(".odabraneAnalize").addClass('fixed-right')
     }
     else {
-      $(".odabraneAnalize").removeClass('fixed-right');
-      // $(".test").removeClass('fixed-top fix');
-      // $(".test").addClass('searchFieldContainerInner ');
+      $(".odabraneAnalize").removeClass('fixed-right')
     }
-});
-
+})
 
 
 let location = window.location.pathname
@@ -58,43 +50,46 @@ window.onload = () => {
 
 if(location === '/') {
 
+//put cursor in search field on main page
   let mainSearch = document.getElementById('searchAnalysis')
     mainSearch.focus()
 
-  let filter = 'analiza'
+//set filter by default to analiza
+let filter = 'analiza'
 
-  // by default filter is set to analiza
-  if(filter === 'analiza') {
-    mainSearch.addEventListener('input', (e) => {
-      if(mainSearch.value.length>1) {
-        setTimeout(function() {
-        let searchstring = e.target.value
-        window.location.href = 'results/?name='+searchstring+'&filter='+filter
-      },500)
-      }
-    })
-  } else {
-      console.log('searching for labs')
+/* by default filter is set to analiza, after 500ms user is redirected
+to results page */
+if(filter === 'analiza') {
+  mainSearch.addEventListener('input', (e) => {
+    if(mainSearch.value.length>1) {
+      setTimeout(function() {
+      let searchstring = e.target.value
+      window.location.href = 'results/?name='+searchstring+'&filter='+filter
+    },500)
     }
+  })
+} else {
+    console.log('searching for labs')
+  }
 
-  // if filter is changed
-  let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
-      analysisRadio.forEach((item) => {
-        item.addEventListener('click', (e) => {
-          filter = e.target.value
-            mainSearch.addEventListener('input', (e) => {
-              setTimeout(function() {
-                let searchstring = e.target.value
-                window.location.href = 'results/?name='+searchstring+'&filter='+filter
-              },1000)
-            })
-        })
+// if filter is changed
+let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+    analysisRadio.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        filter = e.target.value
+          mainSearch.addEventListener('input', (e) => {
+            setTimeout(function() {
+              let searchstring = e.target.value
+              window.location.href = 'results/?name='+searchstring+'&filter='+filter
+            },500)
+          })
       })
-
+    })
 }// if location === '/'
 
 if (location.match('results')) {
 
+//scrollspy initialization
   $('body').scrollspy({
     target: '#sideMenu',
     offset: 30
@@ -105,9 +100,40 @@ if (location.match('results')) {
   let myValue = urlParams.get('name')
   let myFilter = urlParams.get('filter')
   let innerSearch = document.getElementById('searchResultPage')
-    innerSearch.focus()
+  innerSearch.focus()
+  //check if local storage already exists, if not create an empty array
+  let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+    localStorage.setItem('items', JSON.stringify(itemsArray))
+
+//if storage already has some items print them
+  const data = JSON.parse(localStorage.getItem('items'))
+  data.forEach(item => {
+  let analysisAdded = document.createElement('li')
+    analysisAdded.className='list-group-item list-group-item-action'
+  //creating group image
+  let groupImage = document.createElement('img')
+    groupImage.classList = 'labGroupIconSelectedAnalysis'
+    groupImage.setAttribute('src', '/images/'+item.logo)
+  //creating text with analysis name
+  let analysisName = document.createTextNode(item.name)
+  //creating span element for remove icon
+  let removeSpan = document.createElement('span')
+    removeSpan.className = 'float-right remove'
+  let removeImg = document.createElement('img')
+    removeImg.setAttribute('src','/images/closeBtn.svg')
+    removeImg.className = 'remove-analysis-from-basket'
+    removeSpan.appendChild(removeImg)
+    analysisAdded.appendChild(groupImage)
+    analysisAdded.appendChild(analysisName)
+    analysisAdded.appendChild(removeSpan)
+    let selectedAnalysis = document.getElementById('selectedAnalysis')
+    // selectedAnalysis.appendChild(analysisAdded)
+    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0])
+    document.querySelector('.card').classList.remove('d-none')
+  })
+
   //set value from url to input field
-    innerSearch.value = myValue
+  innerSearch.value = myValue
   let searchStr = myValue
 
     // display checked filter
@@ -123,14 +149,125 @@ if (location.match('results')) {
     // search analysis and display table with results.
     let selectedAnalysisIdArr = []
     let selectedAnalysisNameArr = []
-
+    let selectedAnalysisJson
 
     if(myFilter == 'analiza') {
 
+      fetch('/analysis/prices/'+searchStr).then((data) => {
+        data.json().then((result) => {
+          console.log(result)
+          resultDiv.innerHTML = ''
+          let analysis = result.analysisName
+          for(i=0; i<analysis.length; i++) {
+            //creating table with result
+            helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray)
+          }// for end
+        })// data json end
+      })//fetch end
 
-      // flag = true
-      // helper.searchAnalysis(searchStr, resultDiv, flag)
-    }
+      resultDiv.addEventListener('click', (e) => {
+        if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
+
+          itemsArray.push({
+            'name':e.target.getAttribute('data-analysisName'),
+            'id':e.target.getAttribute('data-analysisid'),
+            'logo':e.target.getAttribute('data-groupimg')
+           })
+
+          // sorting array
+          itemsArray.sort((a,b) => {
+            if (a.name > b.name) {
+              return 1
+            } else {
+              return -1
+            }
+          })
+          console.log(itemsArray)
+
+          localStorage.setItem('items', JSON.stringify(itemsArray))
+
+          let analysisAdded = document.createElement('li')
+            analysisAdded.className='list-group-item list-group-item-action'
+          //creating group image
+          let groupImage = document.createElement('img')
+            groupImage.classList = 'labGroupIconSelectedAnalysis'
+            groupImage.setAttribute('src', '/images/'+e.target.getAttribute('data-groupImg'))
+          //creating text with analysis name
+          let analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'))
+          //creating span element for remove icon
+          let removeSpan = document.createElement('span')
+            removeSpan.className = 'float-right remove'
+          let removeImg = document.createElement('img')
+            removeImg.setAttribute('src','/images/closeBtn.svg')
+            removeImg.className = 'remove-analysis-from-basket'
+            removeSpan.appendChild(removeImg)
+            analysisAdded.appendChild(groupImage)
+            analysisAdded.appendChild(analysisName)
+            analysisAdded.appendChild(removeSpan)
+
+            let analysisPositionArr = itemsArray.findIndex((item) => {
+              return item.name === e.target.getAttribute('data-analysisName')
+            })
+
+            // if analysis is added disable add button
+            if(analysisPositionArr !== -1) {
+            // console.log(selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')))
+              e.target.innerHTML = '&#10004;'
+              e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+              e.target.disabled = true
+            }
+
+            //insert analysis to basket
+            let selectedAnalysis = document.getElementById('selectedAnalysis')
+            console.log(selectedAnalysis)
+            selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+
+            document.querySelector('.card').classList.remove('d-none')
+        }
+      })// resultdiv end
+
+      //remove analysis from local storage
+      let analysisBasket = document.getElementById('selectedAnalysis')
+        analysisBasket.addEventListener('click', (e) => {
+          if(e.target.classList.contains('remove-analysis-from-basket')) {
+
+            let selectedAnalysisBasket = e.target.parentNode.parentNode
+            let indexOfAnalysisName = selectedAnalysisBasket.innerText
+            let localStorageItems = JSON.parse(localStorage.getItem('items'))
+            let nameIndex = localStorageItems.findIndex((item) => {
+                return item.name === indexOfAnalysisName
+              })
+            localStorageItems.splice(nameIndex,1)
+            items = JSON.stringify(localStorageItems)
+            selectedAnalysisBasket.remove()
+            //remove element from itemsarray
+            let removedValue = itemsArray.splice(nameIndex,1)
+
+            localStorage.setItem('items', items)
+
+            if(itemsArray.length == 0) {
+              document.querySelector('.card').classList.add('d-none')
+            }
+
+            //enable button for the analysis removed
+            let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+              enableButton.forEach((item) => {
+                if(item.getAttribute('data-analysisName') == removedValue[0].name) {
+                  item.disabled = false
+                  item.textContent = 'dodaj'
+                  item.classList.remove('deleteAnalysis')
+                  item.classList.add('addAnalysis')
+                }
+              })
+            // if last analysis is removed from the basket remove basket
+            // if(selectedAnalysisNameArr.length == 0) {
+            //   document.querySelector('.card').classList.add('d-none')
+            // }
+          }
+        })// analysisBasket.addEventListener end
+
+    }// if my filter==analiza
+
     // else {
     //   console.log('prva an lab')
     //     fetch('/lab/'+innerSearch.value).then((data) => {
@@ -154,9 +291,19 @@ if (location.match('results')) {
     // if search string is changed on result page
     innerSearch.addEventListener('input', (e) => {
         let searchstring = innerSearch.value
-        if(myFilter == 'analiza' && searchstring.length>2) {
+        if(myFilter == 'analiza' && searchstring.length>1) {
           // let flag s= false
-          // helper.searchAnalysis(searchstring, resultDiv, false)
+          fetch('/analysis/prices/'+searchstring).then((data) => {
+            data.json().then((result) => {
+              console.log(result)
+              resultDiv.innerHTML = ''
+              let analysis = result.analysisName
+              for(i=0; i<analysis.length; i++) {
+                //creating table with results
+                helper.renderAnalysisResult(analysis,result, selectedAnalysisNameArr, resultDiv, itemsArray)
+              }// for end
+            })// data json end
+          })//fetch end
         }
         else if(searchstring.length>2){
             fetch('/lab/'+searchstring).then((data) => {
