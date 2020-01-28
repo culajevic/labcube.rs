@@ -219,199 +219,8 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
   });
 };
 
-exports.searchAnalysis = function (searchString, resultDiv, flag) {
-  var selectedAnalysis = [];
-  var analysisJson = localStorage.getItem('selectedAnalysis');
-
-  if (analysisJson !== null) {
-    selectedAnalysis = JSON.parse(analysisJson);
-  }
-
-  if (typeof selectedAnalysisNameArr === 'undefined') {
-    selectedAnalysisNameArr = [];
-  } else {
-    console.log(selectedAnalysisNameArr);
-  } // console.log('length after refresh is '+selectedAnalysisNameArr.length)
-
-
-  fetch('/analysis/prices/' + searchString).then(function (data) {
-    data.json().then(function (result) {
-      // console.log(result)
-      resultDiv.innerHTML = '';
-      var analysis = result.analysisName;
-
-      for (i = 0; i < analysis.length; i++) {
-        //creating table with result
-        var tr = document.createElement('tr'); //td analysis name and preview icon
-
-        var tdName = document.createElement('td');
-        var analysisName = document.createTextNode(analysis[i].analysisName);
-        var analysisLink = document.createElement('a');
-        analysisLink.setAttribute('href', 'analysis/' + analysis[i].slug);
-        analysisLink.className = 'nolink';
-        analysisLink.appendChild(analysisName);
-        var previewIcon = document.createElement('img');
-        previewIcon.setAttribute('src', '/images/detail.svg');
-        previewIcon.setAttribute('title', analysis[i].preview);
-        previewIcon.className = "tooltipImg mr-2";
-        previewIcon.setAttribute('data-toggle', 'tooltip');
-        tdName.appendChild(previewIcon);
-        tdName.appendChild(analysisLink);
-        tr.appendChild(tdName); //abbreviation
-
-        var abbr = document.createElement('td');
-        var abbrName = void 0;
-
-        for (y = 0; y < analysis[i].abbr.length; y++) {
-          if (y != analysis[i].abbr.length - 1) {
-            abbrName = document.createTextNode(analysis[i].abbr[y] + ', ');
-          } else {
-            abbrName = document.createTextNode(analysis[i].abbr[y]);
-          }
-
-          abbr.appendChild(abbrName);
-          tr.appendChild(abbr);
-        } //groupName
-
-
-        var tdGroupName = document.createElement('td');
-        var groupName = document.createTextNode(analysis[i].groupId.name);
-        tdGroupName.appendChild(groupName);
-        tr.appendChild(tdGroupName); //display hospital icon if analysis is available
-        //ako nije dostupna stavi hospital-alt-off.svg
-
-        var hospital = document.createElement('td');
-        var hospitalIcon = document.createElement('img');
-
-        if (analysis[i].availableHC) {
-          hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
-          hospitalIcon.setAttribute('data-toggle', 'tooltip');
-          hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
-        } else {
-          hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg');
-          hospitalIcon.setAttribute('data-toggle', 'tooltip');
-          hospitalIcon.setAttribute('title', 'Ovu analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
-        }
-
-        hospital.appendChild(hospitalIcon);
-        tr.appendChild(hospital); //display min and max price
-
-        var minmaxPrice = document.createElement('td');
-        var priceSpan = document.createElement('span');
-        priceSpan.className = 'font-weight-bold';
-        var priceRange = document.createTextNode("".concat(result.minPriceArr[i][0].cenovnik[0].cena, " - ").concat(result.maxPriceArr[i][0].cenovnik[0].cena));
-        priceSpan.appendChild(priceRange);
-        minmaxPrice.appendChild(priceSpan);
-        tr.appendChild(minmaxPrice); //create btn for adding analysis to basket
-
-        var addAnalysisBtnTd = document.createElement('td');
-        var addAnalysisBtn = document.createElement('button');
-        var addAnalysisBtnText = void 0;
-
-        if (selectedAnalysisNameArr.indexOf(analysis[i].analysisName) === -1) {
-          addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis';
-          addAnalysisBtnText = document.createTextNode('dodaj');
-        } else {
-          addAnalysisBtnText = document.createTextNode("\u2714");
-          addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
-          addAnalysisBtn.disabled = true;
-        }
-
-        addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id);
-        addAnalysisBtn.setAttribute('data-analysisName', analysis[i].analysisName);
-        addAnalysisBtn.setAttribute('data-groupImg', analysis[i].groupId.iconPath);
-        addAnalysisBtn.appendChild(addAnalysisBtnText);
-        addAnalysisBtnTd.appendChild(addAnalysisBtn);
-        tr.appendChild(addAnalysisBtnTd);
-        resultDiv.appendChild(tr);
-      } // for end
-
-    }); // data json end
-  }); //fetch end
-
-  if (flag == true) {
-    //add analysis to basket
-    resultDiv.addEventListener('click', function (e) {
-      if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
-        //create array of analysis IDs
-        // selectedAnalysisIdArr.push(e.target.getAttribute('data-analysisid'))
-        //create an array with analysis names
-        selectedAnalysisNameArr.push(e.target.getAttribute('data-analysisName'));
-        selectedAnalysisNameArr.sort();
-        var selectedAnalysisJson = JSON.stringify(selectedAnalysisNameArr);
-        localStorage.setItem('selectedAnalysis', selectedAnalysisJson); //changing style for buttons if analysis is added to basket
-
-        if (selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')) !== -1) {
-          // console.log(selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')))
-          e.target.innerHTML = '&#10004;';
-          e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
-          e.target.disabled = true;
-        } // creating li element for shopping basket
-
-
-        var analysisAdded = document.createElement('li');
-        analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
-
-        var groupImage = document.createElement('img');
-        groupImage.classList = 'labGroupIconSelectedAnalysis';
-        groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); //creating text with analysis name
-
-        var analysisName = document.createTextNode(e.target.getAttribute('data-analysisName')); //creating span element for remove icon
-
-        var removeSpan = document.createElement('span');
-        removeSpan.className = 'float-right remove';
-        var removeImg = document.createElement('img');
-        removeImg.setAttribute('src', '/images/closeBtn.svg');
-        removeImg.className = 'remove-analysis-from-basket';
-        removeSpan.appendChild(removeImg); //putting everythig together
-
-        analysisAdded.appendChild(groupImage);
-        analysisAdded.appendChild(analysisName);
-        analysisAdded.appendChild(removeSpan); //taking analysisname position in array
-
-        var analysisPosition = selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')); //sort analysis in shoping basket
-
-        var _selectedAnalysis = document.getElementById('selectedAnalysis');
-
-        _selectedAnalysis.insertBefore(analysisAdded, _selectedAnalysis.childNodes[analysisPosition]); //display shopping basket if at least one analysis is choosen
-
-
-        document.querySelector('.card').classList.remove('d-none');
-      } //if ends
-
-    }); // result div end
-    // remove analysis from basket
-
-    var analysisBasket = document.getElementById('selectedAnalysis');
-    analysisBasket.addEventListener('click', function (e) {
-      if (e.target.classList.contains('remove-analysis-from-basket')) {
-        var selectedAnalysisBasket = e.target.parentNode.parentNode; //take removed id so it is removed from array as well
-
-        var indexOfAnalysisName = selectedAnalysisNameArr.indexOf(selectedAnalysisBasket.innerText); // console.log(indexOfAnalysisName)
-
-        var removedValue = selectedAnalysisNameArr.splice(indexOfAnalysisName, 1); //remove analysis li from basket
-
-        selectedAnalysisBasket.remove(); //enable button for the analysis removed
-
-        var enableButton = document.querySelectorAll('#resultTable tr>td>button');
-        enableButton.forEach(function (item) {
-          if (item.getAttribute('data-analysisName') == removedValue[0]) {
-            item.disabled = false;
-            item.textContent = 'dodaj';
-            item.classList.remove('deleteAnalysis');
-            item.classList.add('addAnalysis');
-          }
-        }); // if last analysis is removed from the basket remove basket
-
-        if (selectedAnalysisNameArr.length == 0) {
-          document.querySelector('.card').classList.add('d-none');
-        }
-      }
-    }); // analysisBasket.addEventListener end
-  }
-};
-
 exports.renderAnalysisResult = function (analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray) {
+  //check if analysis is already in array
   var analysisPositionArr = itemsArray.findIndex(function (item) {
     return item.name === analysis[i].analysisName;
   });
@@ -749,8 +558,11 @@ window.onload = function () {
     var innerSearch = document.getElementById('searchResultPage');
     innerSearch.focus(); //check if local storage already exists, if not create an empty array
 
-    var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-    localStorage.setItem('items', JSON.stringify(itemsArray)); //if storage already has some items print them
+    var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []; // localStorage.setItem('items', JSON.stringify(itemsArray))
+
+    var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
+    var cardHeader = document.getElementById('numOfAnalysis');
+    cardHeader.appendChild(basketTitle); //if storage already has some items print them
 
     var data = JSON.parse(localStorage.getItem('items'));
     data.forEach(function (item) {
@@ -774,7 +586,10 @@ window.onload = function () {
       analysisAdded.appendChild(removeSpan);
       var selectedAnalysis = document.getElementById('selectedAnalysis'); // selectedAnalysis.appendChild(analysisAdded)
 
-      selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0]);
+      var analysisPositionArr = itemsArray.findIndex(function (items) {
+        return item.name === items.name;
+      });
+      selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
       document.querySelector('.card').classList.remove('d-none');
     }); //set value from url to input field
 
@@ -797,7 +612,6 @@ window.onload = function () {
     if (myFilter == 'analiza') {
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         data.json().then(function (result) {
-          console.log(result);
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
 
@@ -810,12 +624,21 @@ window.onload = function () {
       }); //fetch end
 
       resultDiv.addEventListener('click', function (e) {
-        if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
+        if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {
           itemsArray.push({
             'name': e.target.getAttribute('data-analysisName'),
             'id': e.target.getAttribute('data-analysisid'),
             'logo': e.target.getAttribute('data-groupimg')
-          }); // sorting array
+          });
+
+          var _basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
+
+          var _cardHeader = document.getElementById('numOfAnalysis');
+
+          _cardHeader.innerHTML = '';
+
+          _cardHeader.appendChild(_basketTitle); // sorting array
+
 
           itemsArray.sort(function (a, b) {
             if (a.name > b.name) {
@@ -824,7 +647,6 @@ window.onload = function () {
               return -1;
             }
           });
-          console.log(itemsArray);
           localStorage.setItem('items', JSON.stringify(itemsArray));
           var analysisAdded = document.createElement('li');
           analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
@@ -849,7 +671,6 @@ window.onload = function () {
           }); // if analysis is added disable add button
 
           if (analysisPositionArr !== -1) {
-            // console.log(selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')))
             e.target.innerHTML = '&#10004;';
             e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
             e.target.disabled = true;
@@ -857,9 +678,11 @@ window.onload = function () {
 
 
           var selectedAnalysis = document.getElementById('selectedAnalysis');
-          console.log(selectedAnalysis);
-          selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
+          selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]); //display basket when first analyis is added to basket
+
           document.querySelector('.card').classList.remove('d-none');
+        } else {
+          console.log('ne mozete dodati vise od 40 analiza u korpu');
         }
       }); // resultdiv end
       //remove analysis from local storage
@@ -880,6 +703,15 @@ window.onload = function () {
           var removedValue = itemsArray.splice(nameIndex, 1);
           localStorage.setItem('items', items);
 
+          var _basketTitle2 = document.createTextNode(" (".concat(itemsArray.length, ") "));
+
+          var _cardHeader2 = document.getElementById('numOfAnalysis');
+
+          _cardHeader2.innerHTML = '';
+
+          _cardHeader2.appendChild(_basketTitle2); //hide basket if all analysis are removed
+
+
           if (itemsArray.length == 0) {
             document.querySelector('.card').classList.add('d-none');
           } //enable button for the analysis removed
@@ -893,11 +725,9 @@ window.onload = function () {
               item.classList.remove('deleteAnalysis');
               item.classList.add('addAnalysis');
             }
-          }); // if last analysis is removed from the basket remove basket
-          // if(selectedAnalysisNameArr.length == 0) {
-          //   document.querySelector('.card').classList.add('d-none')
-          // }
-        }
+          }); //enable button end
+        } // remove analysis from basket
+
       }); // analysisBasket.addEventListener end
     } // if my filter==analiza
     // else {
@@ -930,7 +760,6 @@ window.onload = function () {
         // let flag s= false
         fetch('/analysis/prices/' + searchstring).then(function (data) {
           data.json().then(function (result) {
-            console.log(result);
             resultDiv.innerHTML = '';
             var analysis = result.analysisName;
 

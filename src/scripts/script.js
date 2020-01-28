@@ -103,11 +103,17 @@ if (location.match('results')) {
   innerSearch.focus()
   //check if local storage already exists, if not create an empty array
   let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-    localStorage.setItem('items', JSON.stringify(itemsArray))
+  // localStorage.setItem('items', JSON.stringify(itemsArray))
 
-//if storage already has some items print them
+  let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
+  let cardHeader = document.getElementById('numOfAnalysis')
+  cardHeader.appendChild( basketTitle )
+
+  //if storage already has some items print them
   const data = JSON.parse(localStorage.getItem('items'))
+
   data.forEach(item => {
+
   let analysisAdded = document.createElement('li')
     analysisAdded.className='list-group-item list-group-item-action'
   //creating group image
@@ -128,7 +134,10 @@ if (location.match('results')) {
     analysisAdded.appendChild(removeSpan)
     let selectedAnalysis = document.getElementById('selectedAnalysis')
     // selectedAnalysis.appendChild(analysisAdded)
-    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[0])
+    let analysisPositionArr = itemsArray.findIndex((items) => {
+      return item.name === items.name
+    })
+    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
     document.querySelector('.card').classList.remove('d-none')
   })
 
@@ -155,24 +164,30 @@ if (location.match('results')) {
 
       fetch('/analysis/prices/'+searchStr).then((data) => {
         data.json().then((result) => {
-          console.log(result)
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
           for(i=0; i<analysis.length; i++) {
             //creating table with result
             helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray)
           }// for end
+
         })// data json end
       })//fetch end
 
+
       resultDiv.addEventListener('click', (e) => {
-        if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis')) {
+        if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
 
           itemsArray.push({
             'name':e.target.getAttribute('data-analysisName'),
             'id':e.target.getAttribute('data-analysisid'),
             'logo':e.target.getAttribute('data-groupimg')
            })
+
+           let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
+           let cardHeader = document.getElementById('numOfAnalysis')
+           cardHeader.innerHTML=''
+           cardHeader.appendChild(basketTitle)
 
           // sorting array
           itemsArray.sort((a,b) => {
@@ -182,7 +197,6 @@ if (location.match('results')) {
               return -1
             }
           })
-          console.log(itemsArray)
 
           localStorage.setItem('items', JSON.stringify(itemsArray))
 
@@ -211,7 +225,6 @@ if (location.match('results')) {
 
             // if analysis is added disable add button
             if(analysisPositionArr !== -1) {
-            // console.log(selectedAnalysisNameArr.indexOf(e.target.getAttribute('data-analysisName')))
               e.target.innerHTML = '&#10004;'
               e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
               e.target.disabled = true
@@ -219,10 +232,12 @@ if (location.match('results')) {
 
             //insert analysis to basket
             let selectedAnalysis = document.getElementById('selectedAnalysis')
-            console.log(selectedAnalysis)
             selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
 
+            //display basket when first analyis is added to basket
             document.querySelector('.card').classList.remove('d-none')
+        } else {
+          console.log('ne mozete dodati vise od 40 analiza u korpu')
         }
       })// resultdiv end
 
@@ -242,9 +257,14 @@ if (location.match('results')) {
             selectedAnalysisBasket.remove()
             //remove element from itemsarray
             let removedValue = itemsArray.splice(nameIndex,1)
-
             localStorage.setItem('items', items)
 
+            let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
+            let cardHeader = document.getElementById('numOfAnalysis')
+            cardHeader.innerHTML=''
+            cardHeader.appendChild(basketTitle)
+
+            //hide basket if all analysis are removed
             if(itemsArray.length == 0) {
               document.querySelector('.card').classList.add('d-none')
             }
@@ -258,12 +278,8 @@ if (location.match('results')) {
                   item.classList.remove('deleteAnalysis')
                   item.classList.add('addAnalysis')
                 }
-              })
-            // if last analysis is removed from the basket remove basket
-            // if(selectedAnalysisNameArr.length == 0) {
-            //   document.querySelector('.card').classList.add('d-none')
-            // }
-          }
+              })//enable button end
+          }// remove analysis from basket
         })// analysisBasket.addEventListener end
 
     }// if my filter==analiza
@@ -295,7 +311,6 @@ if (location.match('results')) {
           // let flag s= false
           fetch('/analysis/prices/'+searchstring).then((data) => {
             data.json().then((result) => {
-              console.log(result)
               resultDiv.innerHTML = ''
               let analysis = result.analysisName
               for(i=0; i<analysis.length; i++) {
