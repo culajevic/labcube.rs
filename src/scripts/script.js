@@ -162,14 +162,20 @@ if (location.match('results')) {
 
     if(myFilter == 'analiza') {
 
+      let loaderWrapper = document.querySelector('.loader-wrapper')
+
       fetch('/analysis/prices/'+searchStr).then((data) => {
+
         data.json().then((result) => {
+
           resultDiv.innerHTML = ''
+
           let analysis = result.analysisName
           for(i=0; i<analysis.length; i++) {
             //creating table with result
             helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray)
           }// for end
+          loaderWrapper.style.opacity = 0
 
         })// data json end
       })//fetch end
@@ -305,11 +311,13 @@ if (location.match('results')) {
         })
 
     // if search string is changed on result page
+    let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
         let searchstring = innerSearch.value
         if(myFilter == 'analiza' && searchstring.length>1) {
           // let flag s= false
           fetch('/analysis/prices/'+searchstring).then((data) => {
+            loaderWrapper.style.opacity = 1
             data.json().then((result) => {
               resultDiv.innerHTML = ''
               let analysis = result.analysisName
@@ -317,6 +325,7 @@ if (location.match('results')) {
                 //creating table with results
                 helper.renderAnalysisResult(analysis,result, selectedAnalysisNameArr, resultDiv, itemsArray)
               }// for end
+              loaderWrapper.style.opacity = 0
             })// data json end
           })//fetch end
         }

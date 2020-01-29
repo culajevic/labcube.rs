@@ -610,6 +610,8 @@ window.onload = function () {
     var selectedAnalysisJson;
 
     if (myFilter == 'analiza') {
+      var _loaderWrapper = document.querySelector('.loader-wrapper');
+
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         data.json().then(function (result) {
           resultDiv.innerHTML = '';
@@ -620,6 +622,8 @@ window.onload = function () {
             helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray);
           } // for end
 
+
+          _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
 
@@ -753,12 +757,14 @@ window.onload = function () {
     }); // if search string is changed on result page
 
 
+    var loaderWrapper = document.querySelector('.loader-wrapper');
     innerSearch.addEventListener('input', function (e) {
       var searchstring = innerSearch.value;
 
       if (myFilter == 'analiza' && searchstring.length > 1) {
         // let flag s= false
         fetch('/analysis/prices/' + searchstring).then(function (data) {
+          loaderWrapper.style.opacity = 1;
           data.json().then(function (result) {
             resultDiv.innerHTML = '';
             var analysis = result.analysisName;
@@ -768,6 +774,8 @@ window.onload = function () {
               helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray);
             } // for end
 
+
+            loaderWrapper.style.opacity = 0;
           }); // data json end
         }); //fetch end
       } else if (searchstring.length > 2) {
