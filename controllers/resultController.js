@@ -13,7 +13,6 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('connectedTo', 'analysisName slug')
   .populate('references')
 
-
   let minPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{cena:1,'cenovnik.$':1})
   .sort({'cenovnik.cena':1})
 

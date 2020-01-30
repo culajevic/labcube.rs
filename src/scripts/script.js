@@ -110,6 +110,8 @@ if (location.match('results')) {
   cardHeader.appendChild( basketTitle )
 
   //if storage already has some items print them
+  if(itemsArray.length>0) {
+
   const data = JSON.parse(localStorage.getItem('items'))
 
   data.forEach(item => {
@@ -141,6 +143,10 @@ if (location.match('results')) {
     document.querySelector('.card').classList.remove('d-none')
   })
 
+} else {
+  console.log('nema nista u local storage')
+}
+
   //set value from url to input field
   innerSearch.value = myValue
   let searchStr = myValue
@@ -165,18 +171,16 @@ if (location.match('results')) {
       let loaderWrapper = document.querySelector('.loader-wrapper')
 
       fetch('/analysis/prices/'+searchStr).then((data) => {
-
         data.json().then((result) => {
-
           resultDiv.innerHTML = ''
-
           let analysis = result.analysisName
+          let pricesMin = result.minPriceArr
+          let pricesMax = result.maxPriceArr
           for(i=0; i<analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray)
+            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
           }// for end
           loaderWrapper.style.opacity = 0
-
         })// data json end
       })//fetch end
 
@@ -313,20 +317,29 @@ if (location.match('results')) {
     // if search string is changed on result page
     let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
-        let searchstring = innerSearch.value
+        let searchstring = e.target.value
+        loaderWrapper.style.opacity = 1
+
         if(myFilter == 'analiza' && searchstring.length>1) {
-          // let flag s= false
           fetch('/analysis/prices/'+searchstring).then((data) => {
-            loaderWrapper.style.opacity = 1
             data.json().then((result) => {
-              resultDiv.innerHTML = ''
+
               let analysis = result.analysisName
-              for(i=0; i<analysis.length; i++) {
-                //creating table with results
-                helper.renderAnalysisResult(analysis,result, selectedAnalysisNameArr, resultDiv, itemsArray)
-              }// for end
-              loaderWrapper.style.opacity = 0
+              let pricesMin = result.minPriceArr
+              let pricesMax = result.maxPriceArr
+              resultDiv.innerHTML = ''
+                for(i=0; i<analysis.length; i++) {
+                  //creating table with results
+                  //when typing fast parent array becomes undefined hence error
+                  if(typeof(pricesMin[i])!=="undefined") {
+                   helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
+                  }
+                }// for end
+                if(data.status == 200) {
+                  loaderWrapper.style.opacity = 0
+                }
             })// data json end
+
           })//fetch end
         }
         else if(searchstring.length>2){
@@ -338,6 +351,7 @@ if (location.match('results')) {
           } else {
             console.log('unesite vise od 2 karaktera da zapocnete pretragu')
             resultDiv.innerHTML = 'Unesite nesto'
+            loaderWrapper.style.opacity = 0
           }
       })
 

@@ -219,7 +219,7 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
   });
 };
 
-exports.renderAnalysisResult = function (analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray) {
+exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultDiv, itemsArray) {
   //check if analysis is already in array
   var analysisPositionArr = itemsArray.findIndex(function (item) {
     return item.name === analysis[i].analysisName;
@@ -240,19 +240,31 @@ exports.renderAnalysisResult = function (analysis, result, selectedAnalysisNameA
   tdName.appendChild(previewIcon);
   tdName.appendChild(analysisLink);
   tr.appendChild(tdName); //abbreviation
+  // let abbr = document.createElement('td')
+  // let abbrName
+  //
+  // for(y=0; y<analysis[i].abbr.length; y++) {
+  //   if(y != (analysis[i].abbr.length)-1 ) {
+  //    abbrName = document.createTextNode(analysis[i].abbr[y]+', ')
+  //   } else {
+  //    abbrName = document.createTextNode(analysis[i].abbr[y])
+  //   }
+  //   abbr.appendChild(abbrName)
+  //   tr.appendChild(abbr)
+  // }
 
-  var abbr = document.createElement('td');
-  var abbrName;
+  var alt = document.createElement('td');
+  var altName;
 
-  for (y = 0; y < analysis[i].abbr.length; y++) {
-    if (y != analysis[i].abbr.length - 1) {
-      abbrName = document.createTextNode(analysis[i].abbr[y] + ', ');
+  for (y = 0; y < analysis[i].alt.length; y++) {
+    if (y != analysis[i].alt.length - 1) {
+      altName = document.createTextNode(analysis[i].alt[y] + ', ');
     } else {
-      abbrName = document.createTextNode(analysis[i].abbr[y]);
+      altName = document.createTextNode(analysis[i].alt[y]);
     }
 
-    abbr.appendChild(abbrName);
-    tr.appendChild(abbr);
+    alt.appendChild(altName);
+    tr.appendChild(alt);
   } //groupName
 
 
@@ -281,7 +293,7 @@ exports.renderAnalysisResult = function (analysis, result, selectedAnalysisNameA
   var minmaxPrice = document.createElement('td');
   var priceSpan = document.createElement('span');
   priceSpan.className = 'font-weight-bold';
-  var priceRange = document.createTextNode("".concat(result.minPriceArr[i][0].cenovnik[0].cena, " - ").concat(result.maxPriceArr[i][0].cenovnik[0].cena));
+  var priceRange = document.createTextNode("".concat(pricesMin[i][0].cenovnik[0].cena, " - ").concat(pricesMax[i][0].cenovnik[0].cena));
   priceSpan.appendChild(priceRange);
   minmaxPrice.appendChild(priceSpan);
   tr.appendChild(minmaxPrice); //create btn for adding analysis to basket
@@ -564,34 +576,39 @@ window.onload = function () {
     var cardHeader = document.getElementById('numOfAnalysis');
     cardHeader.appendChild(basketTitle); //if storage already has some items print them
 
-    var data = JSON.parse(localStorage.getItem('items'));
-    data.forEach(function (item) {
-      var analysisAdded = document.createElement('li');
-      analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
+    if (itemsArray.length > 0) {
+      var data = JSON.parse(localStorage.getItem('items'));
+      data.forEach(function (item) {
+        var analysisAdded = document.createElement('li');
+        analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
 
-      var groupImage = document.createElement('img');
-      groupImage.classList = 'labGroupIconSelectedAnalysis';
-      groupImage.setAttribute('src', '/images/' + item.logo); //creating text with analysis name
+        var groupImage = document.createElement('img');
+        groupImage.classList = 'labGroupIconSelectedAnalysis';
+        groupImage.setAttribute('src', '/images/' + item.logo); //creating text with analysis name
 
-      var analysisName = document.createTextNode(item.name); //creating span element for remove icon
+        var analysisName = document.createTextNode(item.name); //creating span element for remove icon
 
-      var removeSpan = document.createElement('span');
-      removeSpan.className = 'float-right remove';
-      var removeImg = document.createElement('img');
-      removeImg.setAttribute('src', '/images/closeBtn.svg');
-      removeImg.className = 'remove-analysis-from-basket';
-      removeSpan.appendChild(removeImg);
-      analysisAdded.appendChild(groupImage);
-      analysisAdded.appendChild(analysisName);
-      analysisAdded.appendChild(removeSpan);
-      var selectedAnalysis = document.getElementById('selectedAnalysis'); // selectedAnalysis.appendChild(analysisAdded)
+        var removeSpan = document.createElement('span');
+        removeSpan.className = 'float-right remove';
+        var removeImg = document.createElement('img');
+        removeImg.setAttribute('src', '/images/closeBtn.svg');
+        removeImg.className = 'remove-analysis-from-basket';
+        removeSpan.appendChild(removeImg);
+        analysisAdded.appendChild(groupImage);
+        analysisAdded.appendChild(analysisName);
+        analysisAdded.appendChild(removeSpan);
+        var selectedAnalysis = document.getElementById('selectedAnalysis'); // selectedAnalysis.appendChild(analysisAdded)
 
-      var analysisPositionArr = itemsArray.findIndex(function (items) {
-        return item.name === items.name;
+        var analysisPositionArr = itemsArray.findIndex(function (items) {
+          return item.name === items.name;
+        });
+        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
+        document.querySelector('.card').classList.remove('d-none');
       });
-      selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
-      document.querySelector('.card').classList.remove('d-none');
-    }); //set value from url to input field
+    } else {
+      console.log('nema nista u local storage');
+    } //set value from url to input field
+
 
     innerSearch.value = myValue;
     var searchStr = myValue; // display checked filter
@@ -616,10 +633,12 @@ window.onload = function () {
         data.json().then(function (result) {
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
+          var pricesMin = result.minPriceArr;
+          var pricesMax = result.maxPriceArr;
 
           for (i = 0; i < analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray);
+            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
           } // for end
 
 
@@ -759,23 +778,29 @@ window.onload = function () {
 
     var loaderWrapper = document.querySelector('.loader-wrapper');
     innerSearch.addEventListener('input', function (e) {
-      var searchstring = innerSearch.value;
+      var searchstring = e.target.value;
+      loaderWrapper.style.opacity = 1;
 
       if (myFilter == 'analiza' && searchstring.length > 1) {
-        // let flag s= false
         fetch('/analysis/prices/' + searchstring).then(function (data) {
-          loaderWrapper.style.opacity = 1;
           data.json().then(function (result) {
-            resultDiv.innerHTML = '';
             var analysis = result.analysisName;
+            var pricesMin = result.minPriceArr;
+            var pricesMax = result.maxPriceArr;
+            resultDiv.innerHTML = '';
 
             for (i = 0; i < analysis.length; i++) {
               //creating table with results
-              helper.renderAnalysisResult(analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray);
+              //when typing fast parent array becomes undefined hence error
+              if (typeof pricesMin[i] !== "undefined") {
+                helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
+              }
             } // for end
 
 
-            loaderWrapper.style.opacity = 0;
+            if (data.status == 200) {
+              loaderWrapper.style.opacity = 0;
+            }
           }); // data json end
         }); //fetch end
       } else if (searchstring.length > 2) {
@@ -787,6 +812,7 @@ window.onload = function () {
       } else {
         console.log('unesite vise od 2 karaktera da zapocnete pretragu');
         resultDiv.innerHTML = 'Unesite nesto';
+        loaderWrapper.style.opacity = 0;
       }
     });
     $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {

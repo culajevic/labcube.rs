@@ -11,8 +11,6 @@ exports.addPrice =  (req,res) => {
 
 exports.createPrice = async (req,res) => {
 
-  // console.log(req.body)
-
   let errors = []
   let pricelist = []
 
@@ -33,8 +31,6 @@ exports.createPrice = async (req,res) => {
                   'cena':req.body.cenovnik.cena[i],'ime':req.body.cenovnik.imeanalize[i] })
       }
   }
-
-  // console.log(pricelist)
 
   if(errors.length>0) {
     res.render('addPrice', {

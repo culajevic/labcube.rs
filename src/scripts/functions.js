@@ -37,7 +37,7 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
     })
 }
 
-exports.renderAnalysisResult = (analysis, result, selectedAnalysisNameArr, resultDiv, itemsArray) => {
+exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, itemsArray) => {
 
   //check if analysis is already in array
   let analysisPositionArr = itemsArray.findIndex((item) => {
@@ -63,17 +63,30 @@ exports.renderAnalysisResult = (analysis, result, selectedAnalysisNameArr, resul
   tr.appendChild(tdName)
 
   //abbreviation
-  let abbr = document.createElement('td')
-  let abbrName
+  // let abbr = document.createElement('td')
+  // let abbrName
+  //
+  // for(y=0; y<analysis[i].abbr.length; y++) {
+  //   if(y != (analysis[i].abbr.length)-1 ) {
+  //    abbrName = document.createTextNode(analysis[i].abbr[y]+', ')
+  //   } else {
+  //    abbrName = document.createTextNode(analysis[i].abbr[y])
+  //   }
+  //   abbr.appendChild(abbrName)
+  //   tr.appendChild(abbr)
+  // }
 
-  for(y=0; y<analysis[i].abbr.length; y++) {
-    if(y != (analysis[i].abbr.length)-1 ) {
-     abbrName = document.createTextNode(analysis[i].abbr[y]+', ')
+  let alt = document.createElement('td')
+  let altName
+
+  for(y=0; y<analysis[i].alt.length; y++) {
+    if(y != (analysis[i].alt.length)-1 ) {
+     altName = document.createTextNode(analysis[i].alt[y]+', ')
     } else {
-     abbrName = document.createTextNode(analysis[i].abbr[y])
+     altName = document.createTextNode(analysis[i].alt[y])
     }
-    abbr.appendChild(abbrName)
-    tr.appendChild(abbr)
+    alt.appendChild(altName)
+    tr.appendChild(alt)
   }
 
   //groupName
@@ -103,10 +116,12 @@ exports.renderAnalysisResult = (analysis, result, selectedAnalysisNameArr, resul
   let minmaxPrice = document.createElement('td')
   let priceSpan = document.createElement('span')
     priceSpan.className = 'font-weight-bold'
-    let priceRange = document.createTextNode(`${result.minPriceArr[i][0].cenovnik[0].cena} - ${result.maxPriceArr[i][0].cenovnik[0].cena}`)
-    priceSpan.appendChild(priceRange)
-    minmaxPrice.appendChild(priceSpan)
-    tr.appendChild(minmaxPrice)
+
+      let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
+      priceSpan.appendChild(priceRange)
+      minmaxPrice.appendChild(priceSpan)
+      tr.appendChild(minmaxPrice)
+
 
   //create btn for adding analysis to basket
   let addAnalysisBtnTd = document.createElement('td')
