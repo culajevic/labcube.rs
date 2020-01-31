@@ -564,29 +564,48 @@ window.onload = function () {
       offset: 30
     }); //taking values from url
 
-    var urlParams = new URLSearchParams(window.location.search);
-    var myValue = urlParams.get('name');
-    var myFilter = urlParams.get('filter');
+    var urlParams = new URLSearchParams(window.location.search); //search string
+
+    var myValue = urlParams.get('name'); //filter applied analiza/laboratorija
+
+    var myFilter = urlParams.get('filter'); // creating variable for search field and assigning value from search stging
+
     var innerSearch = document.getElementById('searchResultPage');
-    innerSearch.focus(); //check if local storage already exists, if not create an empty array
+    innerSearch.value = myValue; //defining new variable which will be used in queries
 
-    var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []; // localStorage.setItem('items', JSON.stringify(itemsArray))
+    var searchStr = myValue; // display checked filter
 
-    var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
-    var cardHeader = document.getElementById('numOfAnalysis');
-    cardHeader.appendChild(basketTitle); //if storage already has some items print them
+    var radioFilter = document.querySelectorAll('input[name=searchFilter]');
+    radioFilter.forEach(function (item) {
+      if (item.value == myFilter) {
+        item.checked = true;
+      }
+    });
+    /* check if local storage already exists,
+        if not create an empty array */
+
+    var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+    /*if local storage has already some items
+        display selected items in sidebar basket */
 
     if (itemsArray.length > 0) {
-      var data = JSON.parse(localStorage.getItem('items'));
-      data.forEach(function (item) {
+      // display 'shopping' basket
+      document.querySelector('.card').classList.remove('d-none'); //put number of selected analyisis next to basket title
+
+      var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ")"));
+      var cardHeader = document.getElementById('numOfAnalysis');
+      cardHeader.appendChild(basketTitle); // const data = JSON.parse(localStorage.getItem('items'))
+
+      itemsArray.forEach(function (analysis) {
+        //create li element for each analysis selected
         var analysisAdded = document.createElement('li');
         analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
 
         var groupImage = document.createElement('img');
         groupImage.classList = 'labGroupIconSelectedAnalysis';
-        groupImage.setAttribute('src', '/images/' + item.logo); //creating text with analysis name
+        groupImage.setAttribute('src', '/images/' + analysis.logo); //creating text with analysis name
 
-        var analysisName = document.createTextNode(item.name); //creating span element for remove icon
+        var analysisName = document.createTextNode(analysis.name); //creating span element for remove icon
 
         var removeSpan = document.createElement('span');
         removeSpan.className = 'float-right remove';
@@ -597,34 +616,23 @@ window.onload = function () {
         analysisAdded.appendChild(groupImage);
         analysisAdded.appendChild(analysisName);
         analysisAdded.appendChild(removeSpan);
-        var selectedAnalysis = document.getElementById('selectedAnalysis'); // selectedAnalysis.appendChild(analysisAdded)
+        var selectedAnalysis = document.getElementById('selectedAnalysis'); //get position of analysis in array
 
         var analysisPositionArr = itemsArray.findIndex(function (items) {
-          return item.name === items.name;
+          return analysis.name === items.name;
         });
         selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
-        document.querySelector('.card').classList.remove('d-none');
       });
     } else {
-      console.log('nema nista u local storage');
-    } //set value from url to input field
+      console.log('trenutno nemate odabranih analiza');
+    } // end of displaying items in shopping basket
+    // if user is searching from result page
 
-
-    innerSearch.value = myValue;
-    var searchStr = myValue; // display checked filter
-
-    var radioFilter = document.querySelectorAll('input[name=searchFilter]');
-    radioFilter.forEach(function (item) {
-      if (item.value == myFilter) {
-        item.checked = true;
-      }
-    }); // if searching values are comming from index page
 
     var resultDiv = document.getElementById('resultTable'); // search analysis and display table with results.
-
-    var selectedAnalysisIdArr = [];
-    var selectedAnalysisNameArr = [];
-    var selectedAnalysisJson;
+    // let selectedAnalysisIdArr = []
+    // let selectedAnalysisNameArr = []
+    // let selectedAnalysisJson
 
     if (myFilter == 'analiza') {
       var _loaderWrapper = document.querySelector('.loader-wrapper');
@@ -645,6 +653,7 @@ window.onload = function () {
           _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
+      //adding analysis to sidebar shopping cart
 
       resultDiv.addEventListener('click', function (e) {
         if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {

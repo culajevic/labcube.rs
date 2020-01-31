@@ -97,74 +97,78 @@ if (location.match('results')) {
 
   //taking values from url
   const urlParams = new URLSearchParams(window.location.search);
+  //search string
   let myValue = urlParams.get('name')
+  //filter applied analiza/laboratorija
   let myFilter = urlParams.get('filter')
+  // creating variable for search field and assigning value from search stging
   let innerSearch = document.getElementById('searchResultPage')
-  innerSearch.focus()
-  //check if local storage already exists, if not create an empty array
+    innerSearch.value = myValue
+  //defining new variable which will be used in queries
+  let searchStr = myValue
+  // display checked filter
+  let radioFilter = document.querySelectorAll('input[name=searchFilter]')
+    radioFilter.forEach((item) => {
+      if(item.value == myFilter) {
+        item.checked=true
+      }
+    })
+
+  /* check if local storage already exists,
+      if not create an empty array */
   let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-  // localStorage.setItem('items', JSON.stringify(itemsArray))
 
-  let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
-  let cardHeader = document.getElementById('numOfAnalysis')
-  cardHeader.appendChild( basketTitle )
-
-  //if storage already has some items print them
+  /*if local storage has already some items
+      display selected items in sidebar basket */
   if(itemsArray.length>0) {
 
-  const data = JSON.parse(localStorage.getItem('items'))
-
-  data.forEach(item => {
-
-  let analysisAdded = document.createElement('li')
-    analysisAdded.className='list-group-item list-group-item-action'
-  //creating group image
-  let groupImage = document.createElement('img')
-    groupImage.classList = 'labGroupIconSelectedAnalysis'
-    groupImage.setAttribute('src', '/images/'+item.logo)
-  //creating text with analysis name
-  let analysisName = document.createTextNode(item.name)
-  //creating span element for remove icon
-  let removeSpan = document.createElement('span')
-    removeSpan.className = 'float-right remove'
-  let removeImg = document.createElement('img')
-    removeImg.setAttribute('src','/images/closeBtn.svg')
-    removeImg.className = 'remove-analysis-from-basket'
-    removeSpan.appendChild(removeImg)
-    analysisAdded.appendChild(groupImage)
-    analysisAdded.appendChild(analysisName)
-    analysisAdded.appendChild(removeSpan)
-    let selectedAnalysis = document.getElementById('selectedAnalysis')
-    // selectedAnalysis.appendChild(analysisAdded)
-    let analysisPositionArr = itemsArray.findIndex((items) => {
-      return item.name === items.name
-    })
-    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+    // display 'shopping' basket
     document.querySelector('.card').classList.remove('d-none')
-  })
 
-} else {
-  console.log('nema nista u local storage')
-}
+    //put number of selected analyisis next to basket title
+    let basketTitle = document.createTextNode(` (${itemsArray.length})`)
+    let cardHeader = document.getElementById('numOfAnalysis')
+      cardHeader.appendChild( basketTitle )
 
-  //set value from url to input field
-  innerSearch.value = myValue
-  let searchStr = myValue
+  // const data = JSON.parse(localStorage.getItem('items'))
+    itemsArray.forEach(analysis => {
+      //create li element for each analysis selected
+      let analysisAdded = document.createElement('li')
+        analysisAdded.className='list-group-item list-group-item-action'
+      //creating group image
+      let groupImage = document.createElement('img')
+        groupImage.classList = 'labGroupIconSelectedAnalysis'
+        groupImage.setAttribute('src', '/images/'+analysis.logo)
+      //creating text with analysis name
+      let analysisName = document.createTextNode(analysis.name)
+      //creating span element for remove icon
+      let removeSpan = document.createElement('span')
+        removeSpan.className = 'float-right remove'
+      let removeImg = document.createElement('img')
+        removeImg.setAttribute('src','/images/closeBtn.svg')
+        removeImg.className = 'remove-analysis-from-basket'
+        removeSpan.appendChild(removeImg)
+        analysisAdded.appendChild(groupImage)
+        analysisAdded.appendChild(analysisName)
+        analysisAdded.appendChild(removeSpan)
+        let selectedAnalysis = document.getElementById('selectedAnalysis')
+        //get position of analysis in array
+        let analysisPositionArr = itemsArray.findIndex((items) => {
+          return analysis.name === items.name
+        })
+        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+    })
+  } else {
+    console.log('trenutno nemate odabranih analiza')
+  }
+  // end of displaying items in shopping basket
 
-    // display checked filter
-    let radioFilter = document.querySelectorAll('input[name=searchFilter]')
-      radioFilter.forEach((item) => {
-        if(item.value == myFilter) {
-          item.checked=true
-        }
-      })
-
-    // if searching values are comming from index page
+    // if user is searching from result page
     let resultDiv = document.getElementById('resultTable')
     // search analysis and display table with results.
-    let selectedAnalysisIdArr = []
-    let selectedAnalysisNameArr = []
-    let selectedAnalysisJson
+    // let selectedAnalysisIdArr = []
+    // let selectedAnalysisNameArr = []
+    // let selectedAnalysisJson
 
     if(myFilter == 'analiza') {
 
@@ -184,7 +188,7 @@ if (location.match('results')) {
         })// data json end
       })//fetch end
 
-
+      //adding analysis to sidebar shopping cart
       resultDiv.addEventListener('click', (e) => {
         if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
 
