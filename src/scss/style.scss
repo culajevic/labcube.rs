@@ -794,6 +794,9 @@ input[type="range"] {
   // padding:0 35.9px !important;
 }
 
+.analysisBasketLiItem:hover {
+  color: lighten(#3B3B3B, 19);
+}
 
 
 @import 'media.scss';

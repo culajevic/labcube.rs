@@ -8771,6 +8771,9 @@ input[type="range"] {
 .deleteAnalysis {
   width: 96px; }
 
+.analysisBasketLiItem:hover {
+  color: #6b6b6b; }
+
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {
     font-size: 0.625rem; }

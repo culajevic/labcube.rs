@@ -145,3 +145,170 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
   tr.appendChild(addAnalysisBtnTd)
   resultDiv.appendChild(tr)
 }
+
+exports.displayBasket = (itemsArray) => {
+  // display 'shopping' basket
+  document.querySelector('.card').classList.remove('d-none')
+
+
+  //put number of selected analyisis next to basket title
+  let basketTitle = document.createTextNode(` (${itemsArray.length})`)
+  let cardHeader = document.getElementById('numOfAnalysis')
+    cardHeader.appendChild( basketTitle )
+
+// const data = JSON.parse(localStorage.getItem('items'))
+  itemsArray.forEach(analysis => {
+    //create li element for each analysis selected
+    let analysisAdded = document.createElement('li')
+      analysisAdded.className='list-group-item list-group-item-action'
+    //creating group image
+    let groupImage = document.createElement('img')
+      groupImage.classList = 'labGroupIconSelectedAnalysis'
+      groupImage.setAttribute('src', '/images/'+analysis.logo)
+    //creating text with analysis name
+    let analysisName = document.createTextNode(analysis.name)
+    let analysisLink = document.createElement('a')
+    let slug = analysis.name.split(' ')
+    let urlSlug = slug.join('-')
+      analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
+      analysisLink.className = 'nolink analysisBasketLiItem'
+      analysisLink.setAttribute('target', '_blank')
+    analysisLink.appendChild(analysisName)
+    //creating span element for remove icon
+    let removeSpan = document.createElement('span')
+      removeSpan.className = 'float-right remove'
+    let removeImg = document.createElement('img')
+      removeImg.setAttribute('src','/images/closeBtn.svg')
+      removeImg.className = 'remove-analysis-from-basket'
+      removeSpan.appendChild(removeImg)
+      analysisAdded.appendChild(groupImage)
+      analysisAdded.appendChild(analysisLink)
+      analysisAdded.appendChild(removeSpan)
+      let selectedAnalysis = document.getElementById('selectedAnalysis')
+      //get position of analysis in array
+      let analysisPositionArr = itemsArray.findIndex((items) => {
+        return analysis.name === items.name
+      })
+      selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+  })
+}
+
+exports.removeAnalysis = (itemsArray) => {
+  //remove analysis from local storage
+  let analysisBasket = document.getElementById('selectedAnalysis')
+    analysisBasket.addEventListener('click', (e) => {
+      if(e.target.classList.contains('remove-analysis-from-basket')) {
+
+        let selectedAnalysisBasket = e.target.parentNode.parentNode
+        let indexOfAnalysisName = selectedAnalysisBasket.innerText
+        let localStorageItems = JSON.parse(localStorage.getItem('items'))
+        let nameIndex = localStorageItems.findIndex((item) => {
+            return item.name === indexOfAnalysisName
+          })
+        localStorageItems.splice(nameIndex,1)
+        items = JSON.stringify(localStorageItems)
+        selectedAnalysisBasket.remove()
+        //remove element from itemsarray
+        let removedValue = itemsArray.splice(nameIndex,1)
+        localStorage.setItem('items', items)
+
+        let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
+        let cardHeader = document.getElementById('numOfAnalysis')
+        cardHeader.innerHTML=''
+        cardHeader.appendChild(basketTitle)
+
+        //hide basket if all analysis are removed
+        if(itemsArray.length == 0) {
+          document.querySelector('.card').classList.add('d-none')
+        }
+
+        //enable button for the analysis removed
+        let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+          enableButton.forEach((item) => {
+            if(item.getAttribute('data-analysisName') == removedValue[0].name) {
+              item.disabled = false
+              item.textContent = 'dodaj'
+              item.classList.remove('deleteAnalysis')
+              item.classList.add('addAnalysis')
+            }
+          })//enable button end
+      }// remove analysis from basket
+    })
+  }
+
+exports.addAnalysis = (itemsArray,resultDiv) => {
+  //adding analysis to sidebar shopping cart
+  resultDiv.addEventListener('click', (e) => {
+    if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
+
+      itemsArray.push({
+        'name':e.target.getAttribute('data-analysisName'),
+        'id':e.target.getAttribute('data-analysisid'),
+        'logo':e.target.getAttribute('data-groupimg')
+       })
+
+       let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
+       let cardHeader = document.getElementById('numOfAnalysis')
+       cardHeader.innerHTML=''
+       cardHeader.appendChild(basketTitle)
+
+      // sorting array
+      itemsArray.sort((a,b) => {
+        if (a.name > b.name) {
+          return 1
+        } else {
+          return -1
+        }
+      })
+
+      localStorage.setItem('items', JSON.stringify(itemsArray))
+
+      let analysisAdded = document.createElement('li')
+        analysisAdded.className='list-group-item list-group-item-action'
+      //creating group image
+      let groupImage = document.createElement('img')
+        groupImage.classList = 'labGroupIconSelectedAnalysis'
+        groupImage.setAttribute('src', '/images/'+e.target.getAttribute('data-groupImg'))
+      //creating text with analysis name
+      let analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'))
+      let analysisLink = document.createElement('a')
+      let slug = e.target.getAttribute('data-analysisName').split(' ')
+      let urlSlug = slug.join('-')
+        analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
+        analysisLink.className = 'nolink analysisBasketLiItem'
+        analysisLink.setAttribute('target', '_blank')
+      analysisLink.appendChild(analysisName)
+      //creating span element for remove icon
+      let removeSpan = document.createElement('span')
+        removeSpan.className = 'float-right remove'
+      let removeImg = document.createElement('img')
+        removeImg.setAttribute('src','/images/closeBtn.svg')
+        removeImg.className = 'remove-analysis-from-basket'
+        removeSpan.appendChild(removeImg)
+        analysisAdded.appendChild(groupImage)
+        analysisAdded.appendChild(analysisLink)
+        analysisAdded.appendChild(removeSpan)
+
+        let analysisPositionArr = itemsArray.findIndex((item) => {
+          return item.name === e.target.getAttribute('data-analysisName')
+        })
+
+        // if analysis is added disable add button
+        if(analysisPositionArr !== -1) {
+          e.target.innerHTML = '&#10004;'
+          e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+          // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
+          e.target.disabled = true
+        }
+
+        //insert analysis to basket
+        let selectedAnalysis = document.getElementById('selectedAnalysis')
+        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+
+        //display basket when first analyis is added to basket
+        document.querySelector('.card').classList.remove('d-none')
+    } else {
+      console.log('ne mozete dodati vise od 40 analiza u korpu')
+    }
+  })// resultdiv end
+}

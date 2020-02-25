@@ -43,8 +43,37 @@ $(window).scroll(function(){
     }
 })
 
-
 let location = window.location.pathname
+
+/* check if local storage already exists,
+    if not create an empty array */
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+
+/*if local storage has already some items
+    display selected items in sidebar basket */
+if(itemsArray.length>0 && location !== '/') {
+
+  helper.displayBasket(itemsArray)
+}
+
+let urlArr = location.split('/')
+  if(urlArr[1] == 'results' && urlArr[2] == 'analysis') {
+    let analysisBtn = document.querySelector('.addAnalysis')
+
+    let disableAddBtn = itemsArray.findIndex(item => {
+      return analysisBtn.getAttribute('data-analysisName') == item.name
+    })
+    if(disableAddBtn !== -1) {
+      analysisBtn.innerHTML = '&#10004;'
+      analysisBtn.disabled = true
+    }
+
+     helper.removeAnalysis(itemsArray)
+     helper.addAnalysis(itemsArray, analysisBtn)
+  }
+// end of displaying items in shopping basket
+
+
 
 window.onload = () => {
 
@@ -114,62 +143,11 @@ if (location.match('results')) {
       }
     })
 
-  /* check if local storage already exists,
-      if not create an empty array */
-  let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
-  /*if local storage has already some items
-      display selected items in sidebar basket */
-  if(itemsArray.length>0) {
-
-    // display 'shopping' basket
-    document.querySelector('.card').classList.remove('d-none')
-
-    //put number of selected analyisis next to basket title
-    let basketTitle = document.createTextNode(` (${itemsArray.length})`)
-    let cardHeader = document.getElementById('numOfAnalysis')
-      cardHeader.appendChild( basketTitle )
-
-  // const data = JSON.parse(localStorage.getItem('items'))
-    itemsArray.forEach(analysis => {
-      //create li element for each analysis selected
-      let analysisAdded = document.createElement('li')
-        analysisAdded.className='list-group-item list-group-item-action'
-      //creating group image
-      let groupImage = document.createElement('img')
-        groupImage.classList = 'labGroupIconSelectedAnalysis'
-        groupImage.setAttribute('src', '/images/'+analysis.logo)
-      //creating text with analysis name
-      let analysisName = document.createTextNode(analysis.name)
-      //creating span element for remove icon
-      let removeSpan = document.createElement('span')
-        removeSpan.className = 'float-right remove'
-      let removeImg = document.createElement('img')
-        removeImg.setAttribute('src','/images/closeBtn.svg')
-        removeImg.className = 'remove-analysis-from-basket'
-        removeSpan.appendChild(removeImg)
-        analysisAdded.appendChild(groupImage)
-        analysisAdded.appendChild(analysisName)
-        analysisAdded.appendChild(removeSpan)
-        let selectedAnalysis = document.getElementById('selectedAnalysis')
-        //get position of analysis in array
-        let analysisPositionArr = itemsArray.findIndex((items) => {
-          return analysis.name === items.name
-        })
-        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
-    })
-  } else {
-    console.log('trenutno nemate odabranih analiza')
-  }
-  // end of displaying items in shopping basket
 
     // if user is searching from result page
     let resultDiv = document.getElementById('resultTable')
-    // search analysis and display table with results.
-    // let selectedAnalysisIdArr = []
-    // let selectedAnalysisNameArr = []
-    // let selectedAnalysisJson
-
+    let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
     if(myFilter == 'analiza') {
 
       let loaderWrapper = document.querySelector('.loader-wrapper')
@@ -188,114 +166,9 @@ if (location.match('results')) {
         })// data json end
       })//fetch end
 
-      //adding analysis to sidebar shopping cart
-      resultDiv.addEventListener('click', (e) => {
-        if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
 
-          itemsArray.push({
-            'name':e.target.getAttribute('data-analysisName'),
-            'id':e.target.getAttribute('data-analysisid'),
-            'logo':e.target.getAttribute('data-groupimg')
-           })
-
-           let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
-           let cardHeader = document.getElementById('numOfAnalysis')
-           cardHeader.innerHTML=''
-           cardHeader.appendChild(basketTitle)
-
-          // sorting array
-          itemsArray.sort((a,b) => {
-            if (a.name > b.name) {
-              return 1
-            } else {
-              return -1
-            }
-          })
-
-          localStorage.setItem('items', JSON.stringify(itemsArray))
-
-          let analysisAdded = document.createElement('li')
-            analysisAdded.className='list-group-item list-group-item-action'
-          //creating group image
-          let groupImage = document.createElement('img')
-            groupImage.classList = 'labGroupIconSelectedAnalysis'
-            groupImage.setAttribute('src', '/images/'+e.target.getAttribute('data-groupImg'))
-          //creating text with analysis name
-          let analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'))
-          //creating span element for remove icon
-          let removeSpan = document.createElement('span')
-            removeSpan.className = 'float-right remove'
-          let removeImg = document.createElement('img')
-            removeImg.setAttribute('src','/images/closeBtn.svg')
-            removeImg.className = 'remove-analysis-from-basket'
-            removeSpan.appendChild(removeImg)
-            analysisAdded.appendChild(groupImage)
-            analysisAdded.appendChild(analysisName)
-            analysisAdded.appendChild(removeSpan)
-
-            let analysisPositionArr = itemsArray.findIndex((item) => {
-              return item.name === e.target.getAttribute('data-analysisName')
-            })
-
-            // if analysis is added disable add button
-            if(analysisPositionArr !== -1) {
-              e.target.innerHTML = '&#10004;'
-              e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
-              e.target.disabled = true
-            }
-
-            //insert analysis to basket
-            let selectedAnalysis = document.getElementById('selectedAnalysis')
-            selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
-
-            //display basket when first analyis is added to basket
-            document.querySelector('.card').classList.remove('d-none')
-        } else {
-          console.log('ne mozete dodati vise od 40 analiza u korpu')
-        }
-      })// resultdiv end
-
-      //remove analysis from local storage
-      let analysisBasket = document.getElementById('selectedAnalysis')
-        analysisBasket.addEventListener('click', (e) => {
-          if(e.target.classList.contains('remove-analysis-from-basket')) {
-
-            let selectedAnalysisBasket = e.target.parentNode.parentNode
-            let indexOfAnalysisName = selectedAnalysisBasket.innerText
-            let localStorageItems = JSON.parse(localStorage.getItem('items'))
-            let nameIndex = localStorageItems.findIndex((item) => {
-                return item.name === indexOfAnalysisName
-              })
-            localStorageItems.splice(nameIndex,1)
-            items = JSON.stringify(localStorageItems)
-            selectedAnalysisBasket.remove()
-            //remove element from itemsarray
-            let removedValue = itemsArray.splice(nameIndex,1)
-            localStorage.setItem('items', items)
-
-            let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
-            let cardHeader = document.getElementById('numOfAnalysis')
-            cardHeader.innerHTML=''
-            cardHeader.appendChild(basketTitle)
-
-            //hide basket if all analysis are removed
-            if(itemsArray.length == 0) {
-              document.querySelector('.card').classList.add('d-none')
-            }
-
-            //enable button for the analysis removed
-            let enableButton = document.querySelectorAll('#resultTable tr>td>button')
-              enableButton.forEach((item) => {
-                if(item.getAttribute('data-analysisName') == removedValue[0].name) {
-                  item.disabled = false
-                  item.textContent = 'dodaj'
-                  item.classList.remove('deleteAnalysis')
-                  item.classList.add('addAnalysis')
-                }
-              })//enable button end
-          }// remove analysis from basket
-        })// analysisBasket.addEventListener end
-
+      helper.addAnalysis(itemsArray, resultDiv)
+      helper.removeAnalysis(itemsArray)
     }// if my filter==analiza
 
     // else {
@@ -946,9 +819,7 @@ console.log('da')
   }// location match end addAnalysis
 
   if (location.match('addPrice')) {
-
     let newPriceList =  new PriceList.createPrice()
-
   }
 
 //delete analysis

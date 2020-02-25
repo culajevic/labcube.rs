@@ -320,6 +320,160 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
   resultDiv.appendChild(tr);
 };
 
+exports.displayBasket = function (itemsArray) {
+  // display 'shopping' basket
+  document.querySelector('.card').classList.remove('d-none'); //put number of selected analyisis next to basket title
+
+  var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ")"));
+  var cardHeader = document.getElementById('numOfAnalysis');
+  cardHeader.appendChild(basketTitle); // const data = JSON.parse(localStorage.getItem('items'))
+
+  itemsArray.forEach(function (analysis) {
+    //create li element for each analysis selected
+    var analysisAdded = document.createElement('li');
+    analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
+
+    var groupImage = document.createElement('img');
+    groupImage.classList = 'labGroupIconSelectedAnalysis';
+    groupImage.setAttribute('src', '/images/' + analysis.logo); //creating text with analysis name
+
+    var analysisName = document.createTextNode(analysis.name);
+    var analysisLink = document.createElement('a');
+    var slug = analysis.name.split(' ');
+    var urlSlug = slug.join('-');
+    analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
+    analysisLink.className = 'nolink analysisBasketLiItem';
+    analysisLink.setAttribute('target', '_blank');
+    analysisLink.appendChild(analysisName); //creating span element for remove icon
+
+    var removeSpan = document.createElement('span');
+    removeSpan.className = 'float-right remove';
+    var removeImg = document.createElement('img');
+    removeImg.setAttribute('src', '/images/closeBtn.svg');
+    removeImg.className = 'remove-analysis-from-basket';
+    removeSpan.appendChild(removeImg);
+    analysisAdded.appendChild(groupImage);
+    analysisAdded.appendChild(analysisLink);
+    analysisAdded.appendChild(removeSpan);
+    var selectedAnalysis = document.getElementById('selectedAnalysis'); //get position of analysis in array
+
+    var analysisPositionArr = itemsArray.findIndex(function (items) {
+      return analysis.name === items.name;
+    });
+    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
+  });
+};
+
+exports.removeAnalysis = function (itemsArray) {
+  //remove analysis from local storage
+  var analysisBasket = document.getElementById('selectedAnalysis');
+  analysisBasket.addEventListener('click', function (e) {
+    if (e.target.classList.contains('remove-analysis-from-basket')) {
+      var selectedAnalysisBasket = e.target.parentNode.parentNode;
+      var indexOfAnalysisName = selectedAnalysisBasket.innerText;
+      var localStorageItems = JSON.parse(localStorage.getItem('items'));
+      var nameIndex = localStorageItems.findIndex(function (item) {
+        return item.name === indexOfAnalysisName;
+      });
+      localStorageItems.splice(nameIndex, 1);
+      items = JSON.stringify(localStorageItems);
+      selectedAnalysisBasket.remove(); //remove element from itemsarray
+
+      var removedValue = itemsArray.splice(nameIndex, 1);
+      localStorage.setItem('items', items);
+      var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
+      var cardHeader = document.getElementById('numOfAnalysis');
+      cardHeader.innerHTML = '';
+      cardHeader.appendChild(basketTitle); //hide basket if all analysis are removed
+
+      if (itemsArray.length == 0) {
+        document.querySelector('.card').classList.add('d-none');
+      } //enable button for the analysis removed
+
+
+      var enableButton = document.querySelectorAll('#resultTable tr>td>button');
+      enableButton.forEach(function (item) {
+        if (item.getAttribute('data-analysisName') == removedValue[0].name) {
+          item.disabled = false;
+          item.textContent = 'dodaj';
+          item.classList.remove('deleteAnalysis');
+          item.classList.add('addAnalysis');
+        }
+      }); //enable button end
+    } // remove analysis from basket
+
+  });
+};
+
+exports.addAnalysis = function (itemsArray, resultDiv) {
+  //adding analysis to sidebar shopping cart
+  resultDiv.addEventListener('click', function (e) {
+    if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {
+      itemsArray.push({
+        'name': e.target.getAttribute('data-analysisName'),
+        'id': e.target.getAttribute('data-analysisid'),
+        'logo': e.target.getAttribute('data-groupimg')
+      });
+      var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
+      var cardHeader = document.getElementById('numOfAnalysis');
+      cardHeader.innerHTML = '';
+      cardHeader.appendChild(basketTitle); // sorting array
+
+      itemsArray.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      localStorage.setItem('items', JSON.stringify(itemsArray));
+      var analysisAdded = document.createElement('li');
+      analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
+
+      var groupImage = document.createElement('img');
+      groupImage.classList = 'labGroupIconSelectedAnalysis';
+      groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); //creating text with analysis name
+
+      var analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'));
+      var analysisLink = document.createElement('a');
+      var slug = e.target.getAttribute('data-analysisName').split(' ');
+      var urlSlug = slug.join('-');
+      analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
+      analysisLink.className = 'nolink analysisBasketLiItem';
+      analysisLink.setAttribute('target', '_blank');
+      analysisLink.appendChild(analysisName); //creating span element for remove icon
+
+      var removeSpan = document.createElement('span');
+      removeSpan.className = 'float-right remove';
+      var removeImg = document.createElement('img');
+      removeImg.setAttribute('src', '/images/closeBtn.svg');
+      removeImg.className = 'remove-analysis-from-basket';
+      removeSpan.appendChild(removeImg);
+      analysisAdded.appendChild(groupImage);
+      analysisAdded.appendChild(analysisLink);
+      analysisAdded.appendChild(removeSpan);
+      var analysisPositionArr = itemsArray.findIndex(function (item) {
+        return item.name === e.target.getAttribute('data-analysisName');
+      }); // if analysis is added disable add button
+
+      if (analysisPositionArr !== -1) {
+        e.target.innerHTML = '&#10004;';
+        e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'; // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
+
+        e.target.disabled = true;
+      } //insert analysis to basket
+
+
+      var selectedAnalysis = document.getElementById('selectedAnalysis');
+      selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]); //display basket when first analyis is added to basket
+
+      document.querySelector('.card').classList.remove('d-none');
+    } else {
+      console.log('ne mozete dodati vise od 40 analiza u korpu');
+    }
+  }); // resultdiv end
+};
+
 /***/ }),
 
 /***/ "./src/scripts/price.js":
@@ -517,6 +671,34 @@ $(window).scroll(function () {
   }
 });
 var location = window.location.pathname;
+/* check if local storage already exists,
+    if not create an empty array */
+
+var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+/*if local storage has already some items
+    display selected items in sidebar basket */
+
+if (itemsArray.length > 0 && location !== '/') {
+  helper.displayBasket(itemsArray);
+}
+
+var urlArr = location.split('/');
+
+if (urlArr[1] == 'results' && urlArr[2] == 'analysis') {
+  var analysisBtn = document.querySelector('.addAnalysis');
+  var disableAddBtn = itemsArray.findIndex(function (item) {
+    return analysisBtn.getAttribute('data-analysisName') == item.name;
+  });
+
+  if (disableAddBtn !== -1) {
+    analysisBtn.innerHTML = '&#10004;';
+    analysisBtn.disabled = true;
+  }
+
+  helper.removeAnalysis(itemsArray);
+  helper.addAnalysis(itemsArray, analysisBtn);
+} // end of displaying items in shopping basket
+
 
 window.onload = function () {
   if (location === '/') {
@@ -580,59 +762,11 @@ window.onload = function () {
       if (item.value == myFilter) {
         item.checked = true;
       }
-    });
-    /* check if local storage already exists,
-        if not create an empty array */
+    }); // if user is searching from result page
 
-    var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-    /*if local storage has already some items
-        display selected items in sidebar basket */
+    var resultDiv = document.getElementById('resultTable');
 
-    if (itemsArray.length > 0) {
-      // display 'shopping' basket
-      document.querySelector('.card').classList.remove('d-none'); //put number of selected analyisis next to basket title
-
-      var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ")"));
-      var cardHeader = document.getElementById('numOfAnalysis');
-      cardHeader.appendChild(basketTitle); // const data = JSON.parse(localStorage.getItem('items'))
-
-      itemsArray.forEach(function (analysis) {
-        //create li element for each analysis selected
-        var analysisAdded = document.createElement('li');
-        analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
-
-        var groupImage = document.createElement('img');
-        groupImage.classList = 'labGroupIconSelectedAnalysis';
-        groupImage.setAttribute('src', '/images/' + analysis.logo); //creating text with analysis name
-
-        var analysisName = document.createTextNode(analysis.name); //creating span element for remove icon
-
-        var removeSpan = document.createElement('span');
-        removeSpan.className = 'float-right remove';
-        var removeImg = document.createElement('img');
-        removeImg.setAttribute('src', '/images/closeBtn.svg');
-        removeImg.className = 'remove-analysis-from-basket';
-        removeSpan.appendChild(removeImg);
-        analysisAdded.appendChild(groupImage);
-        analysisAdded.appendChild(analysisName);
-        analysisAdded.appendChild(removeSpan);
-        var selectedAnalysis = document.getElementById('selectedAnalysis'); //get position of analysis in array
-
-        var analysisPositionArr = itemsArray.findIndex(function (items) {
-          return analysis.name === items.name;
-        });
-        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]);
-      });
-    } else {
-      console.log('trenutno nemate odabranih analiza');
-    } // end of displaying items in shopping basket
-    // if user is searching from result page
-
-
-    var resultDiv = document.getElementById('resultTable'); // search analysis and display table with results.
-    // let selectedAnalysisIdArr = []
-    // let selectedAnalysisNameArr = []
-    // let selectedAnalysisJson
+    var _itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
 
     if (myFilter == 'analiza') {
       var _loaderWrapper = document.querySelector('.loader-wrapper');
@@ -646,121 +780,16 @@ window.onload = function () {
 
           for (i = 0; i < analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
+            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, _itemsArray);
           } // for end
 
 
           _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
-      //adding analysis to sidebar shopping cart
 
-      resultDiv.addEventListener('click', function (e) {
-        if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {
-          itemsArray.push({
-            'name': e.target.getAttribute('data-analysisName'),
-            'id': e.target.getAttribute('data-analysisid'),
-            'logo': e.target.getAttribute('data-groupimg')
-          });
-
-          var _basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
-
-          var _cardHeader = document.getElementById('numOfAnalysis');
-
-          _cardHeader.innerHTML = '';
-
-          _cardHeader.appendChild(_basketTitle); // sorting array
-
-
-          itemsArray.sort(function (a, b) {
-            if (a.name > b.name) {
-              return 1;
-            } else {
-              return -1;
-            }
-          });
-          localStorage.setItem('items', JSON.stringify(itemsArray));
-          var analysisAdded = document.createElement('li');
-          analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
-
-          var groupImage = document.createElement('img');
-          groupImage.classList = 'labGroupIconSelectedAnalysis';
-          groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); //creating text with analysis name
-
-          var analysisName = document.createTextNode(e.target.getAttribute('data-analysisName')); //creating span element for remove icon
-
-          var removeSpan = document.createElement('span');
-          removeSpan.className = 'float-right remove';
-          var removeImg = document.createElement('img');
-          removeImg.setAttribute('src', '/images/closeBtn.svg');
-          removeImg.className = 'remove-analysis-from-basket';
-          removeSpan.appendChild(removeImg);
-          analysisAdded.appendChild(groupImage);
-          analysisAdded.appendChild(analysisName);
-          analysisAdded.appendChild(removeSpan);
-          var analysisPositionArr = itemsArray.findIndex(function (item) {
-            return item.name === e.target.getAttribute('data-analysisName');
-          }); // if analysis is added disable add button
-
-          if (analysisPositionArr !== -1) {
-            e.target.innerHTML = '&#10004;';
-            e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
-            e.target.disabled = true;
-          } //insert analysis to basket
-
-
-          var selectedAnalysis = document.getElementById('selectedAnalysis');
-          selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]); //display basket when first analyis is added to basket
-
-          document.querySelector('.card').classList.remove('d-none');
-        } else {
-          console.log('ne mozete dodati vise od 40 analiza u korpu');
-        }
-      }); // resultdiv end
-      //remove analysis from local storage
-
-      var analysisBasket = document.getElementById('selectedAnalysis');
-      analysisBasket.addEventListener('click', function (e) {
-        if (e.target.classList.contains('remove-analysis-from-basket')) {
-          var selectedAnalysisBasket = e.target.parentNode.parentNode;
-          var indexOfAnalysisName = selectedAnalysisBasket.innerText;
-          var localStorageItems = JSON.parse(localStorage.getItem('items'));
-          var nameIndex = localStorageItems.findIndex(function (item) {
-            return item.name === indexOfAnalysisName;
-          });
-          localStorageItems.splice(nameIndex, 1);
-          items = JSON.stringify(localStorageItems);
-          selectedAnalysisBasket.remove(); //remove element from itemsarray
-
-          var removedValue = itemsArray.splice(nameIndex, 1);
-          localStorage.setItem('items', items);
-
-          var _basketTitle2 = document.createTextNode(" (".concat(itemsArray.length, ") "));
-
-          var _cardHeader2 = document.getElementById('numOfAnalysis');
-
-          _cardHeader2.innerHTML = '';
-
-          _cardHeader2.appendChild(_basketTitle2); //hide basket if all analysis are removed
-
-
-          if (itemsArray.length == 0) {
-            document.querySelector('.card').classList.add('d-none');
-          } //enable button for the analysis removed
-
-
-          var enableButton = document.querySelectorAll('#resultTable tr>td>button');
-          enableButton.forEach(function (item) {
-            if (item.getAttribute('data-analysisName') == removedValue[0].name) {
-              item.disabled = false;
-              item.textContent = 'dodaj';
-              item.classList.remove('deleteAnalysis');
-              item.classList.add('addAnalysis');
-            }
-          }); //enable button end
-        } // remove analysis from basket
-
-      }); // analysisBasket.addEventListener end
+      helper.addAnalysis(_itemsArray, resultDiv);
+      helper.removeAnalysis(_itemsArray);
     } // if my filter==analiza
     // else {
     //   console.log('prva an lab')
@@ -802,7 +831,7 @@ window.onload = function () {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof pricesMin[i] !== "undefined") {
-                helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
+                helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, _itemsArray);
               }
             } // for end
 

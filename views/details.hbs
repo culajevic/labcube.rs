@@ -7,9 +7,9 @@
       <div class="col-md-8 col-lg-9">
         <!-- header -->
         <p class="float-right">
-          <span class="titleDetails ml-1">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span>
-          <button class="btn btn-outline-success text-uppercase ml-5 mt-auto addAnalysis">dodaj</button>
-          <img src="/images/stampaj.svg" class="mt-auto ml-3 mb-2" />
+          <span class="titleDetails mx-4">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span>
+          <img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2" />
+          <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">dodaj</button>
         </p>
         {{! display analysis name}}
         <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
@@ -86,26 +86,23 @@
 
       <div class="col-md-4 col-lg-3 sidebar">
         <div class="odabraneAnalize">
-          <div class="card ">
-            <div class="card-header">Odabrane analize (5)</div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-action"><img src="/images/hematologija.svg" class="labGroupIconSelectedAnalysis">Ukupni trigliceridi<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-                <li class="list-group-item list-group-item-action"><img src="/images/feces.svg" class="labGroupIconSelectedAnalysis">Dapibus ac dad da facilisi<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-                <li class="list-group-item list-group-item-action"><img src="/images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-                <li class="list-group-item list-group-item-action"><img src="/images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-                <li class="list-group-item list-group-item-action"><img src="/images/anemije.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-                <li class="list-group-item city"><span class="d-block mb-2">Gde radite analize?</span>
-                <select class="form-control">
-                  <option selected>grad</option>
-                  <option value="1">Beograd</option>
-                  <option value="2">Novi Sad</option>
-                  <option value="3">Kragujevac</option>
-                  <option value="3">Bačka Palanka</option>
-                </select>
-                <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span>
-                </li>
-              </ul>
-          </div><!-- card end -->
+          <div class="card d-none">
+            <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span></div>
+              <ul class="list-group list-group-flush" id="selectedAnalysis">
+              <li class="list-group-item city">
+                <span class="d-block mb-2">Gde radite analize?</span>
+                  <select class="form-control">
+                    <option selected>grad</option>
+                    <option value="1">Beograd</option>
+                    <option value="2">Novi Sad</option>
+                    <option value="3">Kragujevac</option>
+                    <option value="3">Bačka Palanka</option>
+                  </select>
+                  <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span>
+                <button type="button" class="btn btn-success btn-lg btn-block text-uppercase">Prikaži cene</button>
+              </li>
+            </ul>
+          </div>
           <div id="sideMenu">
             <ul class="textList">
               <li><a class="list-group-item" href="#oAnalizi">O Analizi</a></li>
