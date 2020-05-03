@@ -342,8 +342,8 @@ exports.displayBasket = function (itemsArray) {
     var slug = analysis.name.split(' ');
     var urlSlug = slug.join('-');
     analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-    analysisLink.className = 'nolink analysisBasketLiItem';
-    analysisLink.setAttribute('target', '_blank');
+    analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
+
     analysisLink.appendChild(analysisName); //creating span element for remove icon
 
     var removeSpan = document.createElement('span');
@@ -389,9 +389,10 @@ exports.removeAnalysis = function (itemsArray) {
       if (itemsArray.length == 0) {
         document.querySelector('.card').classList.add('d-none');
       } //enable button for the analysis removed
+      // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
 
 
-      var enableButton = document.querySelectorAll('#resultTable tr>td>button');
+      var enableButton = document.querySelectorAll('.deleteAnalysis');
       enableButton.forEach(function (item) {
         if (item.getAttribute('data-analysisName') == removedValue[0].name) {
           item.disabled = false;
@@ -439,8 +440,8 @@ exports.addAnalysis = function (itemsArray, resultDiv) {
       var slug = e.target.getAttribute('data-analysisName').split(' ');
       var urlSlug = slug.join('-');
       analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-      analysisLink.className = 'nolink analysisBasketLiItem';
-      analysisLink.setAttribute('target', '_blank');
+      analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
+
       analysisLink.appendChild(analysisName); //creating span element for remove icon
 
       var removeSpan = document.createElement('span');
@@ -630,8 +631,7 @@ var NewElement = __webpack_require__(/*! ./class */ "./src/scripts/class.js");
 
 var PriceList = __webpack_require__(/*! ./price */ "./src/scripts/price.js");
 
-var helper = __webpack_require__(/*! ./functions */ "./src/scripts/functions.js"); // let $ = require('jquery')
-//tooltip initialization
+var helper = __webpack_require__(/*! ./functions */ "./src/scripts/functions.js"); //tooltip initialization
 
 
 $(document).ready(function () {
@@ -670,33 +670,16 @@ $(window).scroll(function () {
     $(".odabraneAnalize").removeClass('fixed-right');
   }
 });
-var location = window.location.pathname;
-/* check if local storage already exists,
-    if not create an empty array */
+var location = window.location.pathname; //set filter by default to analiza
+
+var filter = 'analiza';
+/* check if local storage already exists, if not create an empty array */
 
 var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-/*if local storage has already some items
-    display selected items in sidebar basket */
+/*if local storage has already some items display selected items in sidebar basket */
 
 if (itemsArray.length > 0 && location !== '/') {
   helper.displayBasket(itemsArray);
-}
-
-var urlArr = location.split('/');
-
-if (urlArr[1] == 'results' && urlArr[2] == 'analysis') {
-  var analysisBtn = document.querySelector('.addAnalysis');
-  var disableAddBtn = itemsArray.findIndex(function (item) {
-    return analysisBtn.getAttribute('data-analysisName') == item.name;
-  });
-
-  if (disableAddBtn !== -1) {
-    analysisBtn.innerHTML = '&#10004;';
-    analysisBtn.disabled = true;
-  }
-
-  helper.removeAnalysis(itemsArray);
-  helper.addAnalysis(itemsArray, analysisBtn);
 } // end of displaying items in shopping basket
 
 
@@ -704,40 +687,69 @@ window.onload = function () {
   if (location === '/') {
     //put cursor in search field on main page
     var mainSearch = document.getElementById('searchAnalysis');
-    mainSearch.focus(); //set filter by default to analiza
-
-    var filter = 'analiza';
-    /* by default filter is set to analiza, after 500ms user is redirected
-    to results page */
-
-    if (filter === 'analiza') {
-      mainSearch.addEventListener('input', function (e) {
-        if (mainSearch.value.length > 1) {
-          setTimeout(function () {
-            var searchstring = e.target.value;
-            window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
-          }, 500);
-        }
-      });
-    } else {
-      console.log('searching for labs');
-    } // if filter is changed
-
+    mainSearch.focus(); //check the filter value
 
     var analysisRadio = document.querySelectorAll('input[name=searchFilter]');
     analysisRadio.forEach(function (item) {
       item.addEventListener('click', function (e) {
         filter = e.target.value;
-        mainSearch.addEventListener('input', function (e) {
-          setTimeout(function () {
-            var searchstring = e.target.value;
-            window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
-          }, 500);
-        });
       });
+    });
+    /* by default filter is set to analiza, after 600ms user is redirected
+    to results page */
+
+    mainSearch.addEventListener('input', function (e) {
+      if (mainSearch.value.length >= 2) {
+        setTimeout(function () {
+          var searchstring = e.target.value;
+          window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
+        }, 600);
+      }
     });
   } // if location === '/'
 
+
+  var urlArr = location.split('/'); //if we are on analysis details page
+
+  if (urlArr[1] == 'results' && urlArr[2] == 'analysis') {
+    //check the filter value
+    var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
+
+    _analysisRadio.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        filter = e.target.value;
+      });
+    }); //take input values from search box and search database
+
+
+    var innerPageSearch = document.getElementById('searchResultPage');
+    innerPageSearch.addEventListener('input', function (e) {
+      if (innerPageSearch.value.length >= 2) {
+        setTimeout(function () {
+          var innerPageSearchString = e.target.value;
+          window.location.href = '/results/?name=' + innerPageSearchString + '&filter=' + filter;
+        }, 600);
+      }
+    }); //proveriti klasu add analysis
+    //add analysis from analysis details page
+
+    var analysisBtn = document.querySelector('.addAnalysis');
+    var disableAddBtn = itemsArray.findIndex(function (item) {
+      return analysisBtn.getAttribute('data-analysisName') == item.name;
+    });
+
+    if (disableAddBtn !== -1) {
+      analysisBtn.innerHTML = '&#10004;';
+      analysisBtn.disabled = true;
+      analysisBtn.classList.remove('addAnalysis');
+      analysisBtn.classList.add('deleteAnalysis');
+    } // else {
+
+
+    helper.addAnalysis(itemsArray, analysisBtn); // }
+
+    helper.removeAnalysis(itemsArray);
+  }
 
   if (location.match('results')) {
     //scrollspy initialization
@@ -750,10 +762,11 @@ window.onload = function () {
 
     var myValue = urlParams.get('name'); //filter applied analiza/laboratorija
 
-    var myFilter = urlParams.get('filter'); // creating variable for search field and assigning value from search stging
+    var myFilter = urlParams.get('filter'); // creating variable for search field and assigning value from search string
 
     var innerSearch = document.getElementById('searchResultPage');
-    innerSearch.value = myValue; //defining new variable which will be used in queries
+    innerSearch.value = myValue;
+    innerSearch.focus(); //defining new variable which will be used in queries
 
     var searchStr = myValue; // display checked filter
 
@@ -762,16 +775,29 @@ window.onload = function () {
       if (item.value == myFilter) {
         item.checked = true;
       }
-    }); // if user is searching from result page
+    }); // if user is searching from home page
 
     var resultDiv = document.getElementById('resultTable');
 
-    var _itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+    var _itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []; // if filter value is changed on result searchResultPage
+    // taking filter value
+
+
+    var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]');
+
+    _analysisRadio2.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        myFilter = e.target.value;
+        innerSearch.value = '';
+        innerSearch.focus();
+      });
+    });
+
+    var loaderWrapper = document.querySelector('.loader-wrapper');
 
     if (myFilter == 'analiza') {
-      var _loaderWrapper = document.querySelector('.loader-wrapper');
-
-      fetch('/analysis/prices/' + searchStr).then(function (data) {
+      console.log('sada analiza`');
+      fetch('/analysis/prices/' + innerSearch.value).then(function (data) {
         data.json().then(function (result) {
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
@@ -784,42 +810,32 @@ window.onload = function () {
           } // for end
 
 
-          _loaderWrapper.style.opacity = 0;
+          loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
-
-      helper.addAnalysis(_itemsArray, resultDiv);
-      helper.removeAnalysis(_itemsArray);
+      // helper.addAnalysis(itemsArray, resultDiv)
+      // helper.removeAnalysis(itemsArray)
     } // if my filter==analiza
-    // else {
-    //   console.log('prva an lab')
-    //     fetch('/lab/'+innerSearch.value).then((data) => {
-    //       data.json().then((result) => {
-    //         console.log(result)
-    //       })
-    //     })
-    //   }
-    // if filter value is changed on result searchResultPage
-    // taking filter value
+    else {
+        var banner = document.querySelector('.banner'); // banner.style.display = 'none'
+
+        fetch('/lab/' + innerSearch.value).then(function (data) {
+          data.json().then(function (result) {
+            console.log(result);
+            resultDiv.innerHTML = '';
+            loaderWrapper.style.opacity = 0;
+            resultDiv.innerHTML = "\n            <section id=\"labDetails\">\n              <div class=\"container\">\n                <div class=\"row \">\n                  <div class=\"col-12 d-flex flex-row flex-wrap\">\n                  <div class=\"lab-card \">\n                    <div>\n                       <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                       <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                       <span class=\"labInfoWindowTitle\">".concat(result[0].labName, "</span>\n                   </div>\n                     <div class=\"labInfoWindow\">\n                         <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                         <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                         <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                         <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                     </div>\n                     <div class=\"labInfoFooter\">\n                         <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                         <div class=\"radnoVreme\">Radno vreme</div>\n                         <div class=\"status\">otvoreno</div>\n                         <div class=\"labInfoRadnoVremeDetalji\">\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center active\">C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                         </div>\n                      </div>\n                      <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                   </div>\n                   <div class=\"lab-card \">\n                     <div>\n                        <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                        <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                        <span class=\"labInfoWindowTitle\">Konzilijum</span>\n                    </div>\n                      <div class=\"labInfoWindow\">\n                          <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                          <p class=\"labInfoWindowAdresa\">Bulevar Arsenija Carnojevica 125 </p>\n                          <p class=\"labInfoWindowGrad\">Beograd - Novi Beograd</p>\n                          <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                      </div>\n                      <div class=\"labInfoFooter\">\n                          <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                          <div class=\"radnoVreme\">Radno vreme</div>\n                          <div class=\"status\">otvoreno</div>\n                          <div class=\"labInfoRadnoVremeDetalji\">\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                          </div>\n                       </div>\n                       <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                    </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n\n                  </div>\n                </div>\n              </div>\n            </section>\n            ");
+          });
+        }); // helper.removeAnalysis(itemsArray)
+      } // if search string is changed on result page
+    // let loaderWrapper = document.querySelector('.loader-wrapper')
 
 
-    var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
-
-    _analysisRadio.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        myFilter = e.target.value;
-        innerSearch.value = '';
-        innerSearch.focus();
-      });
-    }); // if search string is changed on result page
-
-
-    var loaderWrapper = document.querySelector('.loader-wrapper');
     innerSearch.addEventListener('input', function (e) {
       var searchstring = e.target.value;
       loaderWrapper.style.opacity = 1;
 
-      if (myFilter == 'analiza' && searchstring.length > 1) {
+      if (myFilter == 'analiza' && searchstring.length >= 2) {
         fetch('/analysis/prices/' + searchstring).then(function (data) {
           data.json().then(function (result) {
             var analysis = result.analysisName;
@@ -841,10 +857,13 @@ window.onload = function () {
             }
           }); // data json end
         }); //fetch end
-      } else if (searchstring.length > 2) {
+        // helper.addAnalysis(itemsArray, resultDiv)
+        // helper.removeAnalysis(itemsArray)
+      } else if (searchstring.length >= 2) {
         fetch('/lab/' + searchstring).then(function (data) {
           data.json().then(function (result) {
-            console.log(result);
+            console.log('sada rezultat');
+            loaderWrapper.style.opacity = 0;
           });
         });
       } else {
@@ -853,6 +872,8 @@ window.onload = function () {
         loaderWrapper.style.opacity = 0;
       }
     });
+    helper.addAnalysis(_itemsArray, resultDiv);
+    helper.removeAnalysis(_itemsArray);
     $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {
       var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
 
@@ -1078,7 +1099,7 @@ window.onload = function () {
       if (connectedAnalysis.value.length > 2) {
         fetch('/analysis/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
-            console.log(result);
+            // console.log(result)
             getAnalyisisNameDiv.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {

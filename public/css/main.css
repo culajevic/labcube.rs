@@ -7545,25 +7545,31 @@ input[name="searchFilter"] {
 /* lab search results
 *********************************************************/
 #labDetails {
-  margin-top: 60px;
-  padding-top: 20px;
+  /* margin-top: 60px; */
+  /* padding-top: 20px; */
   z-index: 50;
   align-items: center;
   width: 100%; }
   #labDetails h1 {
-    margin-bottom: 40px; }
+    margin-bottom: 40px;
+  }
 
 .lab-card, .cardBenefits, .beReady {
   border: 1px solid #E6E6E6;
   background-color: #FFF;
   opacity: .95;
-  margin-bottom: 1px;
+  margin-bottom: 10px;
+  margin-right:16px;
   padding: 16px;
   display: flex;
-  flex: 1 1 0;
+  flex: 1 1 33%;
   flex-direction: column;
   min-width: 255px;
   position: relative; }
+
+.lab-card:last-child {
+  /* margin-right:  */
+}
 
 .cardBenefits, .beReady {
   min-height: 230px;
@@ -7582,7 +7588,7 @@ input[name="searchFilter"] {
   border-bottom: 1px solid rgba(31, 31, 31, 0.1);
   cursor: pointer; }
   .labInfoFooter:hover .labInfoRadnoVremeDetalji {
-    opacity: .8;
+    opacity: .95;
     cursor: pointer; }
   .labInfoFooter > .radnoVreme {
     display: inline-block;

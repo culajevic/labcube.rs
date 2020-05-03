@@ -3,7 +3,6 @@ require('../scss/style.scss')
 let NewElement = require('./class')
 let PriceList = require('./price')
 let helper = require('./functions')
-// let $ = require('jquery')
 
 //tooltip initialization
 $(document).ready(function(){
@@ -45,35 +44,19 @@ $(window).scroll(function(){
 
 let location = window.location.pathname
 
-/* check if local storage already exists,
-    if not create an empty array */
+//set filter by default to analiza
+let filter = 'analiza'
+
+/* check if local storage already exists, if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
-/*if local storage has already some items
-    display selected items in sidebar basket */
+/*if local storage has already some items display selected items in sidebar basket */
 if(itemsArray.length>0 && location !== '/') {
-
   helper.displayBasket(itemsArray)
 }
 
-let urlArr = location.split('/')
-  if(urlArr[1] == 'results' && urlArr[2] == 'analysis') {
-    let analysisBtn = document.querySelector('.addAnalysis')
 
-    let disableAddBtn = itemsArray.findIndex(item => {
-      return analysisBtn.getAttribute('data-analysisName') == item.name
-    })
-    if(disableAddBtn !== -1) {
-      analysisBtn.innerHTML = '&#10004;'
-      analysisBtn.disabled = true
-    }
-
-     helper.removeAnalysis(itemsArray)
-     helper.addAnalysis(itemsArray, analysisBtn)
-  }
 // end of displaying items in shopping basket
-
-
 
 window.onload = () => {
 
@@ -83,38 +66,65 @@ if(location === '/') {
   let mainSearch = document.getElementById('searchAnalysis')
     mainSearch.focus()
 
-//set filter by default to analiza
-let filter = 'analiza'
-
-/* by default filter is set to analiza, after 500ms user is redirected
-to results page */
-if(filter === 'analiza') {
-  mainSearch.addEventListener('input', (e) => {
-    if(mainSearch.value.length>1) {
-      setTimeout(function() {
-      let searchstring = e.target.value
-      window.location.href = 'results/?name='+searchstring+'&filter='+filter
-    },500)
-    }
-  })
-} else {
-    console.log('searching for labs')
-  }
-
-// if filter is changed
-let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
-    analysisRadio.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        filter = e.target.value
-          mainSearch.addEventListener('input', (e) => {
-            setTimeout(function() {
-              let searchstring = e.target.value
-              window.location.href = 'results/?name='+searchstring+'&filter='+filter
-            },500)
+    //check the filter value
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+        analysisRadio.forEach((item) => {
+          item.addEventListener('click', (e) => {
+            filter = e.target.value
           })
-      })
+        })
+        /* by default filter is set to analiza, after 600ms user is redirected
+        to results page */
+    mainSearch.addEventListener('input', (e) => {
+      if(mainSearch.value.length>=2) {
+        setTimeout(function() {
+        let searchstring = e.target.value
+        window.location.href = 'results/?name='+searchstring+'&filter='+filter
+      },600)
+      }
     })
 }// if location === '/'
+
+let urlArr = location.split('/')
+
+//if we are on analysis details page
+  if(urlArr[1] == 'results' && urlArr[2] == 'analysis') {
+    //check the filter value
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+        analysisRadio.forEach((item) => {
+          item.addEventListener('click', (e) => {
+            filter = e.target.value
+          })
+        })
+    //take input values from search box and search database
+    let innerPageSearch = document.getElementById('searchResultPage')
+    innerPageSearch.addEventListener('input', (e) => {
+      if(innerPageSearch.value.length>=2) {
+        setTimeout(function() {
+        let innerPageSearchString = e.target.value
+        window.location.href = '/results/?name='+innerPageSearchString+'&filter='+filter
+      },600)
+      }
+    })
+
+    //proveriti klasu add analysis
+
+    //add analysis from analysis details page
+    let analysisBtn = document.querySelector('.addAnalysis')
+    let disableAddBtn = itemsArray.findIndex(item => {
+      return analysisBtn.getAttribute('data-analysisName') == item.name
+    })
+    if(disableAddBtn !== -1) {
+      analysisBtn.innerHTML = '&#10004;'
+      analysisBtn.disabled = true
+      analysisBtn.classList.remove('addAnalysis')
+      analysisBtn.classList.add('deleteAnalysis')
+    }
+    // else {
+     helper.addAnalysis(itemsArray, analysisBtn)
+   // }
+     helper.removeAnalysis(itemsArray)
+  }
 
 if (location.match('results')) {
 
@@ -130,9 +140,10 @@ if (location.match('results')) {
   let myValue = urlParams.get('name')
   //filter applied analiza/laboratorija
   let myFilter = urlParams.get('filter')
-  // creating variable for search field and assigning value from search stging
+  // creating variable for search field and assigning value from search string
   let innerSearch = document.getElementById('searchResultPage')
     innerSearch.value = myValue
+    innerSearch.focus()
   //defining new variable which will be used in queries
   let searchStr = myValue
   // display checked filter
@@ -143,16 +154,25 @@ if (location.match('results')) {
       }
     })
 
-
-
-    // if user is searching from result page
+    // if user is searching from home page
     let resultDiv = document.getElementById('resultTable')
     let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+
+    // if filter value is changed on result searchResultPage
+    // taking filter value
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+        analysisRadio.forEach((item) => {
+          item.addEventListener('click', (e) => {
+            myFilter = e.target.value
+            innerSearch.value=''
+            innerSearch.focus()
+          })
+        })
+let loaderWrapper = document.querySelector('.loader-wrapper')
+
     if(myFilter == 'analiza') {
-
-      let loaderWrapper = document.querySelector('.loader-wrapper')
-
-      fetch('/analysis/prices/'+searchStr).then((data) => {
+      console.log('sada analiza`')
+      fetch('/analysis/prices/'+innerSearch.value).then((data) => {
         data.json().then((result) => {
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
@@ -165,39 +185,161 @@ if (location.match('results')) {
           loaderWrapper.style.opacity = 0
         })// data json end
       })//fetch end
-
-
-      helper.addAnalysis(itemsArray, resultDiv)
-      helper.removeAnalysis(itemsArray)
+      // helper.addAnalysis(itemsArray, resultDiv)
+      // helper.removeAnalysis(itemsArray)
     }// if my filter==analiza
 
-    // else {
-    //   console.log('prva an lab')
-    //     fetch('/lab/'+innerSearch.value).then((data) => {
-    //       data.json().then((result) => {
-    //         console.log(result)
-    //       })
-    //     })
-    //   }
+    else {
+      let banner = document.querySelector('.banner')
+      // banner.style.display = 'none'
+        fetch('/lab/'+innerSearch.value).then((data) => {
+          data.json().then((result) => {
+            console.log(result)
 
-    // if filter value is changed on result searchResultPage
-    // taking filter value
-    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
-        analysisRadio.forEach((item) => {
-          item.addEventListener('click', (e) => {
-            myFilter = e.target.value
-            innerSearch.value=''
-            innerSearch.focus()
+            resultDiv.innerHTML = ''
+            loaderWrapper.style.opacity = 0
+            resultDiv.innerHTML = `
+            <section id="labDetails">
+              <div class="container">
+                <div class="row ">
+                  <div class="col-12 d-flex flex-row flex-wrap">
+                  <div class="lab-card ">
+                    <div>
+                       <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                       <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                       <span class="labInfoWindowTitle">${result[0].labName}</span>
+                   </div>
+                     <div class="labInfoWindow">
+                         <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                         <p class="labInfoWindowAdresa">${result[0].address}</p>
+                         <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
+                         <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+                     </div>
+                     <div class="labInfoFooter">
+                         <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                         <div class="radnoVreme">Radno vreme</div>
+                         <div class="status">otvoreno</div>
+                         <div class="labInfoRadnoVremeDetalji">
+                           <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
+                           <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
+                           <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
+                           <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                           <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
+                           <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
+                           <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
+
+                         </div>
+                      </div>
+                      <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                   </div>
+                   <div class="lab-card ">
+                     <div>
+                        <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                        <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                        <span class="labInfoWindowTitle">Konzilijum</span>
+                    </div>
+                      <div class="labInfoWindow">
+                          <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                          <p class="labInfoWindowAdresa">Bulevar Arsenija Carnojevica 125 </p>
+                          <p class="labInfoWindowGrad">Beograd - Novi Beograd</p>
+                          <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
+                      </div>
+                      <div class="labInfoFooter">
+                          <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                          <div class="radnoVreme">Radno vreme</div>
+                          <div class="status">otvoreno</div>
+                          <div class="labInfoRadnoVremeDetalji">
+                            <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                            <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
+
+                          </div>
+                       </div>
+                       <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                    </div>
+                    <div class="lab-card ">
+                      <div>
+                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                         <span class="labInfoWindowTitle">Beolab</span>
+                     </div>
+                       <div class="labInfoWindow">
+                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                           <p class="labInfoWindowAdresa">Ljube Nešića bb </p>
+                           <p class="labInfoWindowGrad">Beograd - Vidikovac</p>
+                           <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
+                       </div>
+                       <div class="labInfoFooter">
+                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                           <div class="radnoVreme">Radno vreme</div>
+                           <div class="status">otvoreno</div>
+                           <div class="labInfoRadnoVremeDetalji">
+                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
+
+                           </div>
+                        </div>
+                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                     </div>
+                    <div class="lab-card ">
+                      <div>
+                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                         <span class="labInfoWindowTitle">Beolab</span>
+                     </div>
+                       <div class="labInfoWindow">
+                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                           <p class="labInfoWindowAdresa">Ljube Nešića bb </p>
+                           <p class="labInfoWindowGrad">Beograd - Vidikovac</p>
+                           <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
+                       </div>
+                       <div class="labInfoFooter">
+                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                           <div class="radnoVreme">Radno vreme</div>
+                           <div class="status">otvoreno</div>
+                           <div class="labInfoRadnoVremeDetalji">
+                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
+                             <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
+
+                           </div>
+                        </div>
+                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                     </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+            `
+
           })
         })
+        // helper.removeAnalysis(itemsArray)
+      }
 
     // if search string is changed on result page
-    let loaderWrapper = document.querySelector('.loader-wrapper')
+    // let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
         let searchstring = e.target.value
+
         loaderWrapper.style.opacity = 1
 
-        if(myFilter == 'analiza' && searchstring.length>1) {
+        if(myFilter == 'analiza' && searchstring.length>=2) {
+
           fetch('/analysis/prices/'+searchstring).then((data) => {
             data.json().then((result) => {
 
@@ -216,13 +358,15 @@ if (location.match('results')) {
                   loaderWrapper.style.opacity = 0
                 }
             })// data json end
-
           })//fetch end
+          // helper.addAnalysis(itemsArray, resultDiv)
+          // helper.removeAnalysis(itemsArray)
         }
-        else if(searchstring.length>2){
+        else if(searchstring.length>=2){
             fetch('/lab/'+searchstring).then((data) => {
               data.json().then((result) => {
-                console.log(result)
+                console.log('sada rezultat')
+                loaderWrapper.style.opacity = 0
               })
             })
           } else {
@@ -231,6 +375,10 @@ if (location.match('results')) {
             loaderWrapper.style.opacity = 0
           }
       })
+
+
+        helper.addAnalysis(itemsArray, resultDiv)
+        helper.removeAnalysis(itemsArray)
 
 
 $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
@@ -244,6 +392,7 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
   }).on('mouseleave','tr>td>img.tooltipImg', function(){
     $(this).attr('src', '/images/detail.svg');
   })
+
 }
 
 if (location.match('addLab')) {
@@ -466,7 +615,7 @@ console.log('da')
       if (connectedAnalysis.value.length > 2) {
       fetch('/analysis/'+e.target.value).then((data) => {
         data.json().then((result) => {
-          console.log(result)
+          // console.log(result)
           getAnalyisisNameDiv.innerHTML = ''
           for(i=0; i<result.length; i++) {
             let liItem = document.createElement('li')

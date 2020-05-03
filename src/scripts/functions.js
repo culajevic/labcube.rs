@@ -150,7 +150,6 @@ exports.displayBasket = (itemsArray) => {
   // display 'shopping' basket
   document.querySelector('.card').classList.remove('d-none')
 
-
   //put number of selected analyisis next to basket title
   let basketTitle = document.createTextNode(` (${itemsArray.length})`)
   let cardHeader = document.getElementById('numOfAnalysis')
@@ -172,7 +171,7 @@ exports.displayBasket = (itemsArray) => {
     let urlSlug = slug.join('-')
       analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
       analysisLink.className = 'nolink analysisBasketLiItem'
-      analysisLink.setAttribute('target', '_blank')
+      // analysisLink.setAttribute('target', '_blank')
     analysisLink.appendChild(analysisName)
     //creating span element for remove icon
     let removeSpan = document.createElement('span')
@@ -223,7 +222,8 @@ exports.removeAnalysis = (itemsArray) => {
         }
 
         //enable button for the analysis removed
-        let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+        // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+        let enableButton = document.querySelectorAll('.deleteAnalysis')
           enableButton.forEach((item) => {
             if(item.getAttribute('data-analysisName') == removedValue[0].name) {
               item.disabled = false
@@ -234,6 +234,7 @@ exports.removeAnalysis = (itemsArray) => {
           })//enable button end
       }// remove analysis from basket
     })
+
   }
 
 exports.addAnalysis = (itemsArray,resultDiv) => {
@@ -276,7 +277,7 @@ exports.addAnalysis = (itemsArray,resultDiv) => {
       let urlSlug = slug.join('-')
         analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
         analysisLink.className = 'nolink analysisBasketLiItem'
-        analysisLink.setAttribute('target', '_blank')
+        // analysisLink.setAttribute('target', '_blank')
       analysisLink.appendChild(analysisName)
       //creating span element for remove icon
       let removeSpan = document.createElement('span')
