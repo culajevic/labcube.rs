@@ -239,7 +239,7 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
   previewIcon.setAttribute('data-toggle', 'tooltip');
   tdName.appendChild(previewIcon);
   tdName.appendChild(analysisLink);
-  tr.appendChild(tdName); //abbreviation
+  tr.appendChild(tdName); // displab analysis abbreviation
   // let abbr = document.createElement('td')
   // let abbrName
   //
@@ -252,6 +252,7 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
   //   abbr.appendChild(abbrName)
   //   tr.appendChild(abbr)
   // }
+  //display alternative name for analysis
 
   var alt = document.createElement('td');
   var altName;
@@ -265,7 +266,7 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
 
     alt.appendChild(altName);
     tr.appendChild(alt);
-  } //groupName
+  } //display analysis groupName
 
 
   var tdGroupName = document.createElement('td');
@@ -284,7 +285,7 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
   } else {
     hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'Ovu analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
   }
 
   hospital.appendChild(hospitalIcon);
@@ -364,7 +365,7 @@ exports.displayBasket = function (itemsArray) {
   });
 };
 
-exports.removeAnalysis = function (itemsArray) {
+exports.removeAnalysis = function (itemsArray, checkout) {
   //remove analysis from local storage
   var analysisBasket = document.getElementById('selectedAnalysis');
   analysisBasket.addEventListener('click', function (e) {
@@ -388,9 +389,11 @@ exports.removeAnalysis = function (itemsArray) {
 
       if (itemsArray.length == 0) {
         document.querySelector('.card').classList.add('d-none');
-      } //enable button for the analysis removed
-      // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
+        checkout.classList.add('d-none');
+      }
 
+      checkout.innerText = itemsArray.length; //enable button for the analysis removed
+      // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
 
       var enableButton = document.querySelectorAll('.deleteAnalysis');
       enableButton.forEach(function (item) {
@@ -406,15 +409,18 @@ exports.removeAnalysis = function (itemsArray) {
   });
 };
 
-exports.addAnalysis = function (itemsArray, resultDiv) {
+exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', function (e) {
-    if (e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {
+    if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length < 35) {
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),
         'id': e.target.getAttribute('data-analysisid'),
         'logo': e.target.getAttribute('data-groupimg')
-      });
+      }); //add number of analysis to navigation
+
+      checkout.classList.remove('d-none');
+      checkout.innerHTML = itemsArray.length;
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
       var cardHeader = document.getElementById('numOfAnalysis');
       cardHeader.innerHTML = '';
@@ -469,10 +475,40 @@ exports.addAnalysis = function (itemsArray, resultDiv) {
       selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]); //display basket when first analyis is added to basket
 
       document.querySelector('.card').classList.remove('d-none');
-    } else {
+    } else if (itemsArray.length > 35) {
       console.log('ne mozete dodati vise od 40 analiza u korpu');
     }
   }); // resultdiv end
+};
+
+exports.searchLabAnalysis = function (searchString, filter) {
+  var filterValue = 'analiza';
+  searchString.focus(); // set focus on searchanalysis field when esc is pressed
+
+  document.addEventListener('keydown', function (e) {
+    if (e.keyCode === 39) {
+      searchString.value = '';
+      searchString.focus();
+    }
+  }); //check the filter value on INDEX PAGE
+
+  filter.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      filterValue = e.target.value;
+    });
+  });
+  /* by default filter is set to analiza, after 500ms
+    user is redirected to results page */
+
+  searchString.addEventListener('input', function (e) {
+    if (searchString.value.length >= 2) {
+      setTimeout(function () {
+        var searchString = e.target.value;
+        console.log(searchString);
+        window.location.href = '/results/?name=' + searchString + '&filter=' + filterValue;
+      }, 500);
+    }
+  });
 };
 
 /***/ }),
@@ -670,102 +706,54 @@ $(window).scroll(function () {
     $(".odabraneAnalize").removeClass('fixed-right');
   }
 });
-var location = window.location.pathname; //set filter by default to analiza
+var location = window.location.pathname; // GLOBAL VARIABLES
+//set filter by default to analiza
 
 var filter = 'analiza';
-/* check if local storage already exists, if not create an empty array */
+var checkout = document.querySelector('.checkout');
+var urlArr = location.split('/');
+/* check if local storage already exists,
+if not create an empty array */
 
 var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-/*if local storage has already some items display selected items in sidebar basket */
+/*if local storage has already some items display selected items
+in sidebar basket on any page which is not index */
 
 if (itemsArray.length > 0 && location !== '/') {
   helper.displayBasket(itemsArray);
-} // end of displaying items in shopping basket
+} //get reference to checkout element which displays number of selected analysis in navigation
 
+
+if (itemsArray.length > 0) {
+  checkout.classList.remove('d-none');
+  checkout.textContent = itemsArray.length;
+}
 
 window.onload = function () {
+  /* INDEX PAGE ***************/
   if (location === '/') {
-    //put cursor in search field on main page
-    var mainSearch = document.getElementById('searchAnalysis');
-    mainSearch.focus(); //check the filter value
+    //get seachstring
+    var mainSearch = document.getElementById('searchAnalysis'); //ger reference to filter
 
-    var analysisRadio = document.querySelectorAll('input[name=searchFilter]');
-    analysisRadio.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        filter = e.target.value;
-      });
-    });
-    /* by default filter is set to analiza, after 600ms user is redirected
-    to results page */
+    var analysisRadio = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
 
-    mainSearch.addEventListener('input', function (e) {
-      if (mainSearch.value.length >= 2) {
-        setTimeout(function () {
-          var searchstring = e.target.value;
-          window.location.href = 'results/?name=' + searchstring + '&filter=' + filter;
-        }, 600);
-      }
-    });
-  } // if location === '/'
+    helper.searchLabAnalysis(mainSearch, analysisRadio);
+  } // INDEX page end
+
+  /* RESULTS PAGE ***************/
 
 
-  var urlArr = location.split('/'); //if we are on analysis details page
+  if (urlArr[1] === 'results' && urlArr[2] == '') {
+    //taking values from url
+    var urlParams = new URLSearchParams(window.location.search); //search string and filter
 
-  if (urlArr[1] == 'results' && urlArr[2] == 'analysis') {
-    //check the filter value
-    var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
-
-    _analysisRadio.forEach(function (item) {
-      item.addEventListener('click', function (e) {
-        filter = e.target.value;
-      });
-    }); //take input values from search box and search database
-
-
-    var innerPageSearch = document.getElementById('searchResultPage');
-    innerPageSearch.addEventListener('input', function (e) {
-      if (innerPageSearch.value.length >= 2) {
-        setTimeout(function () {
-          var innerPageSearchString = e.target.value;
-          window.location.href = '/results/?name=' + innerPageSearchString + '&filter=' + filter;
-        }, 600);
-      }
-    }); //proveriti klasu add analysis
-    //add analysis from analysis details page
-
-    var analysisBtn = document.querySelector('.addAnalysis');
-    var disableAddBtn = itemsArray.findIndex(function (item) {
-      return analysisBtn.getAttribute('data-analysisName') == item.name;
-    });
-
-    if (disableAddBtn !== -1) {
-      analysisBtn.innerHTML = '&#10004;';
-      analysisBtn.disabled = true;
-      analysisBtn.classList.remove('addAnalysis');
-      analysisBtn.classList.add('deleteAnalysis');
-    } // else {
-
-
-    helper.addAnalysis(itemsArray, analysisBtn); // }
-
-    helper.removeAnalysis(itemsArray);
-  }
-
-  if (location.match('results')) {
-    //scrollspy initialization
-    $('body').scrollspy({
-      target: '#sideMenu',
-      offset: 30
-    }); //taking values from url
-
-    var urlParams = new URLSearchParams(window.location.search); //search string
-
-    var myValue = urlParams.get('name'); //filter applied analiza/laboratorija
-
+    var myValue = urlParams.get('name');
     var myFilter = urlParams.get('filter'); // creating variable for search field and assigning value from search string
 
-    var innerSearch = document.getElementById('searchResultPage');
-    innerSearch.value = myValue;
+    var innerSearch = document.getElementById('searchResultPage'); //keeps search string when page is changed
+
+    innerSearch.value = myValue; //put focus on search field
+
     innerSearch.focus(); //defining new variable which will be used in queries
 
     var searchStr = myValue; // display checked filter
@@ -775,29 +763,28 @@ window.onload = function () {
       if (item.value == myFilter) {
         item.checked = true;
       }
-    }); // if user is searching from home page
+    }); // if user is searching from home page take result div
 
-    var resultDiv = document.getElementById('resultTable');
+    var resultDiv = document.getElementById('resultTable'); // check if local storage is empty
 
     var _itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []; // if filter value is changed on result searchResultPage
     // taking filter value
 
 
-    var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]');
+    var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
 
-    _analysisRadio2.forEach(function (item) {
+    _analysisRadio.forEach(function (item) {
       item.addEventListener('click', function (e) {
-        myFilter = e.target.value;
-        innerSearch.value = '';
-        innerSearch.focus();
+        myFilter = e.target.value; // innerSearch.value=''
+        // innerSearch.focus()
       });
-    });
+    }); //create wrapper for live search icon
+
 
     var loaderWrapper = document.querySelector('.loader-wrapper');
 
-    if (myFilter == 'analiza') {
-      console.log('sada analiza`');
-      fetch('/analysis/prices/' + innerSearch.value).then(function (data) {
+    if (myFilter === 'analiza') {
+      fetch('/analysis/prices/' + searchStr).then(function (data) {
         data.json().then(function (result) {
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
@@ -808,23 +795,29 @@ window.onload = function () {
             //creating table with result
             helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, _itemsArray);
           } // for end
+          //when result is found remove loading icon
 
 
           loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
-      // helper.addAnalysis(itemsArray, resultDiv)
-      // helper.removeAnalysis(itemsArray)
     } // if my filter==analiza
     else {
         var banner = document.querySelector('.banner'); // banner.style.display = 'none'
 
-        fetch('/lab/' + innerSearch.value).then(function (data) {
+        var analysisBasket = document.querySelector('.odabraneAnalize'); // analysisBasket.style.display = 'none'
+
+        fetch('/lab/' + searchStr).then(function (data) {
           data.json().then(function (result) {
             console.log(result);
+            var now = new Date();
+            var day = now.getDay();
+            var h = now.getHours();
+            var m = now.getMinutes();
+            console.log(h + ':' + m);
             resultDiv.innerHTML = '';
             loaderWrapper.style.opacity = 0;
-            resultDiv.innerHTML = "\n            <section id=\"labDetails\">\n              <div class=\"container\">\n                <div class=\"row \">\n                  <div class=\"col-12 d-flex flex-row flex-wrap\">\n                  <div class=\"lab-card \">\n                    <div>\n                       <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                       <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                       <span class=\"labInfoWindowTitle\">".concat(result[0].labName, "</span>\n                   </div>\n                     <div class=\"labInfoWindow\">\n                         <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                         <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                         <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                         <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                     </div>\n                     <div class=\"labInfoFooter\">\n                         <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                         <div class=\"radnoVreme\">Radno vreme</div>\n                         <div class=\"status\">otvoreno</div>\n                         <div class=\"labInfoRadnoVremeDetalji\">\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center active\">C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                         </div>\n                      </div>\n                      <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                   </div>\n                   <div class=\"lab-card \">\n                     <div>\n                        <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                        <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                        <span class=\"labInfoWindowTitle\">Konzilijum</span>\n                    </div>\n                      <div class=\"labInfoWindow\">\n                          <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                          <p class=\"labInfoWindowAdresa\">Bulevar Arsenija Carnojevica 125 </p>\n                          <p class=\"labInfoWindowGrad\">Beograd - Novi Beograd</p>\n                          <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                      </div>\n                      <div class=\"labInfoFooter\">\n                          <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                          <div class=\"radnoVreme\">Radno vreme</div>\n                          <div class=\"status\">otvoreno</div>\n                          <div class=\"labInfoRadnoVremeDetalji\">\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                          </div>\n                       </div>\n                       <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                    </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n\n                  </div>\n                </div>\n              </div>\n            </section>\n            ");
+            resultDiv.innerHTML = "\n            <section id=\"labDetails\">\n              <div class=\"container\">\n                <div class=\"row \">\n                  <div class=\"col-12 d-flex flex-row flex-wrap\">\n                  <div class=\"lab-card\">\n                    <div>\n                       <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                       <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                       <span class=\"labInfoWindowTitle\">".concat(result[0].labName, "</span>\n                   </div>\n                     <div class=\"labInfoWindow\">\n                         <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                         <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                         <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                         <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                     </div>\n                     <div class=\"labInfoFooter\">\n                         <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                         <div class=\"radnoVreme\">Radno vreme</div>\n\n                         <div class=\"status\">otvoreno</div>\n                         <div class=\"labInfoRadnoVremeDetalji\">\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                           <p class=\"daysInWeek text-center active\">\u010C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                           <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                         </div>\n                      </div>\n                      <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                   </div>\n                   <div class=\"lab-card\">\n                     <div>\n                        <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                        <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                        <span class=\"labInfoWindowTitle\">").concat(result[0].labName, "</span>\n                    </div>\n                      <div class=\"labInfoWindow\">\n                          <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                          <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                          <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                          <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                      </div>\n                      <div class=\"labInfoFooter\">\n                          <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                          <div class=\"radnoVreme\">Radno vreme</div>\n                          <div class=\"status\">otvoreno</div>\n                          <div class=\"labInfoRadnoVremeDetalji\">\n                            <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                            <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                            <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                            <p class=\"daysInWeek text-center active\">C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                            <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                            <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                            <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                          </div>\n                       </div>\n                       <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                    </div>\n                    <div class=\"lab-card\">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">").concat(result[0].labName, "</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                           <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                           <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                             <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                             <p class=\"daysInWeek text-center active\">C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                             <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                             <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                             <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n                     <div class=\"lab-card\">\n                       <div>\n                          <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                          <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                          <span class=\"labInfoWindowTitle\">").concat(result[0].labName, "</span>\n                      </div>\n                        <div class=\"labInfoWindow\">\n                            <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                            <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                            <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                            <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                        </div>\n                        <div class=\"labInfoFooter\">\n                            <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                            <div class=\"radnoVreme\">Radno vreme</div>\n                            <div class=\"status\">otvoreno</div>\n                            <div class=\"labInfoRadnoVremeDetalji\">\n                              <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                              <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                              <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                              <p class=\"daysInWeek text-center active\">C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                              <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                              <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                              <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                            </div>\n                         </div>\n                         <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                      </div>\n                      <div class=\"lab-card\">\n                        <div>\n                           <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                           <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                           <span class=\"labInfoWindowTitle\">").concat(result[0].labName, "</span>\n                       </div>\n                         <div class=\"labInfoWindow\">\n                             <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                             <p class=\"labInfoWindowAdresa\">").concat(result[0].address, "</p>\n                             <p class=\"labInfoWindowGrad\">").concat(result[0].placeId.place, " / ").concat(result[0].placeId.municipality, "</p>\n                             <p class=\"labInfoWindowTelefoni\">").concat(result[0].phone[0], "</p>\n                         </div>\n                         <div class=\"labInfoFooter\">\n                             <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                             <div class=\"radnoVreme\">Radno vreme</div>\n                             <div class=\"status\">otvoreno</div>\n                             <div class=\"labInfoRadnoVremeDetalji\">\n                               <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.monday.opens, " - ").concat(result[0].workingHours.monday.closes, "</span></p>\n                               <p class=\"daysInWeek text-center\">U<span>").concat(result[0].workingHours.tuesday.opens, " - ").concat(result[0].workingHours.tuesday.closes, "</span></span></p>\n                               <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.wednesday.opens, " - ").concat(result[0].workingHours.wednesday.closes, "</span></p>\n                               <p class=\"daysInWeek text-center active\">\u010C<span>").concat(result[0].workingHours.thursday.opens, " - ").concat(result[0].workingHours.thursday.closes, "</span></span></p>\n                               <p class=\"daysInWeek text-center\">P<span>").concat(result[0].workingHours.friday.opens, " - ").concat(result[0].workingHours.friday.closes, "</span></span></p>\n                               <p class=\"daysInWeek text-center\">S<span>").concat(result[0].workingHours.saturday.opens, " - ").concat(result[0].workingHours.saturday.closes, "</span></span></p>\n                               <p class=\"daysInWeek text-center\">N<span>").concat(result[0].workingHours.sunday.opens, " - ").concat(result[0].workingHours.sunday.closes, "</span></span></p>\n\n                             </div>\n                          </div>\n                          <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                       </div>\n                   <div class=\"lab-card \">\n                     <div>\n                        <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                        <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                        <span class=\"labInfoWindowTitle\">Konzilijum</span>\n                    </div>\n                      <div class=\"labInfoWindow\">\n                          <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                          <p class=\"labInfoWindowAdresa\">Bulevar Arsenija Carnojevica 125 </p>\n                          <p class=\"labInfoWindowGrad\">Beograd - Novi Beograd</p>\n                          <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                      </div>\n                      <div class=\"labInfoFooter\">\n                          <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                          <div class=\"radnoVreme\">Radno vreme</div>\n                          <div class=\"status\">otvoreno</div>\n                          <div class=\"labInfoRadnoVremeDetalji\">\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                            <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                          </div>\n                       </div>\n                       <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                    </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n                    <div class=\"lab-card \">\n                      <div>\n                         <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                         <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                         <span class=\"labInfoWindowTitle\">Beolab</span>\n                     </div>\n                       <div class=\"labInfoWindow\">\n                           <img src=\"/images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                           <p class=\"labInfoWindowAdresa\">Ljube Ne\u0161i\u0107a bb </p>\n                           <p class=\"labInfoWindowGrad\">Beograd - Vidikovac</p>\n                           <p class=\"labInfoWindowTelefoni\">011/7886742, 064/1234567</p>\n                       </div>\n                       <div class=\"labInfoFooter\">\n                           <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                           <div class=\"radnoVreme\">Radno vreme</div>\n                           <div class=\"status\">otvoreno</div>\n                           <div class=\"labInfoRadnoVremeDetalji\">\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">U<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center active\">\u010C<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">P<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">S<span>08:00 - 21:00</span></p>\n                             <p class=\"daysInWeek text-center\">N<span>08:00 - 21:00</span></p>\n\n                           </div>\n                        </div>\n                        <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n                     </div>\n\n                  </div>\n                </div>\n              </div>\n            </section>\n            ");
           });
         }); // helper.removeAnalysis(itemsArray)
       } // if search string is changed on result page
@@ -872,8 +865,8 @@ window.onload = function () {
         loaderWrapper.style.opacity = 0;
       }
     });
-    helper.addAnalysis(_itemsArray, resultDiv);
-    helper.removeAnalysis(_itemsArray);
+    helper.addAnalysis(_itemsArray, resultDiv, checkout);
+    helper.removeAnalysis(_itemsArray, checkout);
     $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {
       var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
 
@@ -885,6 +878,45 @@ window.onload = function () {
       $(this).attr('src', '/images/detail.svg');
     });
   }
+  /* ANALYSIS DETAILS PAGE ***************/
+
+
+  if (urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== '') {
+    //scrollspy initialization for side navigation
+    $('body').scrollspy({
+      target: '#sideMenu',
+      offset: 30
+    }); //take input values from search box and filter reference
+
+    var innerPageSearch = document.getElementById('searchResultPage');
+
+    var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+
+
+    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2); //add analysis from analysis details page
+
+    var analysisBtn = document.querySelector('.addAnalysis');
+    /* take the analysisname from button and check if this analysis
+      is already added to basket */
+
+    var disableAddBtn = itemsArray.findIndex(function (item) {
+      return analysisBtn.getAttribute('data-analysisName') == item.name;
+    });
+    /* if analysis is already in basket disable button for
+      adding analysis to basket*/
+
+    if (disableAddBtn !== -1) {
+      analysisBtn.innerHTML = '&#10004;';
+      analysisBtn.disabled = true;
+      analysisBtn.classList.remove('addAnalysis');
+      analysisBtn.classList.add('deleteAnalysis');
+    }
+
+    helper.addAnalysis(itemsArray, analysisBtn, checkout);
+    helper.removeAnalysis(itemsArray, checkout);
+  }
+  /*********************** BACKEND ************************/
+
 
   if (location.match('addLab')) {
     // populating working days Tuesday-Friday based on values from Monday

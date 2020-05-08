@@ -84,45 +84,8 @@
           </ul>
       </div> <!-- col-lg-9 -->
 
-      <div class="col-md-4 col-lg-3 sidebar">
-        <div class="odabraneAnalize">
-          <div class="card d-none">
-            <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span></div>
-              <ul class="list-group list-group-flush" id="selectedAnalysis">
-              <li class="list-group-item city">
-                <span class="d-block mb-2">Gde radite analize?</span>
-                  <select class="form-control">
-                    <option selected>grad</option>
-                    <option value="1">Beograd</option>
-                    <option value="2">Novi Sad</option>
-                    <option value="3">Kragujevac</option>
-                    <option value="3">Bačka Palanka</option>
-                  </select>
-                  <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span>
-                <button type="button" class="btn btn-success btn-lg btn-block text-uppercase">Prikaži cene</button>
-              </li>
-            </ul>
-          </div>
-          <div id="sideMenu">
-            <ul class="textList">
-              <li><a class="list-group-item" href="#oAnalizi">O Analizi</a></li>
-              <li><a class="list-group-item" href="#uzorak">Uzorak</a></li>
-              <li><a class="list-group-item" href="#kadaSeIspituje">Kada se ispituje?</a></li>
-              <li><a class="list-group-item" href="#priprema">Priprema</a></li>
-              <li><a class="list-group-item" href="#detaljanOpis">Detaljan opis</a></li>
-              <li><a class="list-group-item" href="#rezultati">Rezultati</a></li>
-              <li><a class="list-group-item" href="#napomena">Napomena</a></li>
-              <li><a class="list-group-item" href="#literatura">Literatura</a></li>
-            </ul>
-          </div>
-          <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
-          <div class="banner">
-            <img src="/images/banner.JPG" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
-            <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
-            <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
-          </div><!-- banner end -->
-        </div><!-- odabrane analize end -->
-      </div><!-- sidebar end -->
+      {{> _sidebar}}
+      
 
 	  </div><!--  row end  -->
   </div> <!-- container end -->

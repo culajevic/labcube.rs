@@ -44,105 +44,59 @@ $(window).scroll(function(){
 
 let location = window.location.pathname
 
+// GLOBAL VARIABLES
 //set filter by default to analiza
 let filter = 'analiza'
+let checkout = document.querySelector('.checkout')
+let urlArr = location.split('/')
 
-/* check if local storage already exists, if not create an empty array */
+/* check if local storage already exists,
+if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
-/*if local storage has already some items display selected items in sidebar basket */
+/*if local storage has already some items display selected items
+in sidebar basket on any page which is not index */
 if(itemsArray.length>0 && location !== '/') {
   helper.displayBasket(itemsArray)
 }
 
+//get reference to checkout element which displays number of selected analysis in navigation
+if (itemsArray.length > 0) {
+  checkout.classList.remove('d-none')
+  checkout.textContent = itemsArray.length
+}
 
-// end of displaying items in shopping basket
 
 window.onload = () => {
 
+/* INDEX PAGE ***************/
+
 if(location === '/') {
 
-//put cursor in search field on main page
+  //get seachstring
   let mainSearch = document.getElementById('searchAnalysis')
-    mainSearch.focus()
+  //ger reference to filter
+  let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+  //search for analysis or lab
+  helper.searchLabAnalysis(mainSearch,analysisRadio)
 
-    //check the filter value
-    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
-        analysisRadio.forEach((item) => {
-          item.addEventListener('click', (e) => {
-            filter = e.target.value
-          })
-        })
-        /* by default filter is set to analiza, after 600ms user is redirected
-        to results page */
-    mainSearch.addEventListener('input', (e) => {
-      if(mainSearch.value.length>=2) {
-        setTimeout(function() {
-        let searchstring = e.target.value
-        window.location.href = 'results/?name='+searchstring+'&filter='+filter
-      },600)
-      }
-    })
-}// if location === '/'
+} // INDEX page end
 
-let urlArr = location.split('/')
+/* RESULTS PAGE ***************/
 
-//if we are on analysis details page
-  if(urlArr[1] == 'results' && urlArr[2] == 'analysis') {
-    //check the filter value
-    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
-        analysisRadio.forEach((item) => {
-          item.addEventListener('click', (e) => {
-            filter = e.target.value
-          })
-        })
-    //take input values from search box and search database
-    let innerPageSearch = document.getElementById('searchResultPage')
-    innerPageSearch.addEventListener('input', (e) => {
-      if(innerPageSearch.value.length>=2) {
-        setTimeout(function() {
-        let innerPageSearchString = e.target.value
-        window.location.href = '/results/?name='+innerPageSearchString+'&filter='+filter
-      },600)
-      }
-    })
-
-    //proveriti klasu add analysis
-
-    //add analysis from analysis details page
-    let analysisBtn = document.querySelector('.addAnalysis')
-    let disableAddBtn = itemsArray.findIndex(item => {
-      return analysisBtn.getAttribute('data-analysisName') == item.name
-    })
-    if(disableAddBtn !== -1) {
-      analysisBtn.innerHTML = '&#10004;'
-      analysisBtn.disabled = true
-      analysisBtn.classList.remove('addAnalysis')
-      analysisBtn.classList.add('deleteAnalysis')
-    }
-    // else {
-     helper.addAnalysis(itemsArray, analysisBtn)
-   // }
-     helper.removeAnalysis(itemsArray)
-  }
-
-if (location.match('results')) {
-
-//scrollspy initialization
-  $('body').scrollspy({
-    target: '#sideMenu',
-    offset: 30
-  })
+if (urlArr[1] === 'results' && urlArr[2] == '') {
 
   //taking values from url
   const urlParams = new URLSearchParams(window.location.search);
-  //search string
+  //search string and filter
   let myValue = urlParams.get('name')
-  //filter applied analiza/laboratorija
   let myFilter = urlParams.get('filter')
+
   // creating variable for search field and assigning value from search string
   let innerSearch = document.getElementById('searchResultPage')
+    //keeps search string when page is changed
     innerSearch.value = myValue
+    //put focus on search field
     innerSearch.focus()
   //defining new variable which will be used in queries
   let searchStr = myValue
@@ -154,8 +108,9 @@ if (location.match('results')) {
       }
     })
 
-    // if user is searching from home page
+    // if user is searching from home page take result div
     let resultDiv = document.getElementById('resultTable')
+    // check if local storage is empty
     let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
     // if filter value is changed on result searchResultPage
@@ -164,15 +119,16 @@ if (location.match('results')) {
         analysisRadio.forEach((item) => {
           item.addEventListener('click', (e) => {
             myFilter = e.target.value
-            innerSearch.value=''
-            innerSearch.focus()
+            // innerSearch.value=''
+            // innerSearch.focus()
           })
         })
-let loaderWrapper = document.querySelector('.loader-wrapper')
 
-    if(myFilter == 'analiza') {
-      console.log('sada analiza`')
-      fetch('/analysis/prices/'+innerSearch.value).then((data) => {
+    //create wrapper for live search icon
+    let loaderWrapper = document.querySelector('.loader-wrapper')
+
+    if(myFilter === 'analiza') {
+      fetch('/analysis/prices/'+searchStr).then((data) => {
         data.json().then((result) => {
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
@@ -182,19 +138,24 @@ let loaderWrapper = document.querySelector('.loader-wrapper')
             //creating table with result
             helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
           }// for end
+          //when result is found remove loading icon
           loaderWrapper.style.opacity = 0
         })// data json end
       })//fetch end
-      // helper.addAnalysis(itemsArray, resultDiv)
-      // helper.removeAnalysis(itemsArray)
     }// if my filter==analiza
-
     else {
       let banner = document.querySelector('.banner')
-      // banner.style.display = 'none'
-        fetch('/lab/'+innerSearch.value).then((data) => {
+        // banner.style.display = 'none'
+      let analysisBasket = document.querySelector('.odabraneAnalize')
+        // analysisBasket.style.display = 'none'
+        fetch('/lab/'+searchStr).then((data) => {
           data.json().then((result) => {
             console.log(result)
+            let now = new Date()
+            let day = now.getDay()
+            let h = now.getHours()
+            let m = now.getMinutes()
+            console.log(h+':'+m)
 
             resultDiv.innerHTML = ''
             loaderWrapper.style.opacity = 0
@@ -203,7 +164,7 @@ let loaderWrapper = document.querySelector('.loader-wrapper')
               <div class="container">
                 <div class="row ">
                   <div class="col-12 d-flex flex-row flex-wrap">
-                  <div class="lab-card ">
+                  <div class="lab-card">
                     <div>
                        <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
                        <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
@@ -218,12 +179,13 @@ let loaderWrapper = document.querySelector('.loader-wrapper')
                      <div class="labInfoFooter">
                          <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                          <div class="radnoVreme">Radno vreme</div>
+
                          <div class="status">otvoreno</div>
                          <div class="labInfoRadnoVremeDetalji">
                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
                            <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                           <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                           <p class="daysInWeek text-center active">Č<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
                            <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
@@ -232,6 +194,122 @@ let loaderWrapper = document.querySelector('.loader-wrapper')
                       </div>
                       <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
                    </div>
+                   <div class="lab-card">
+                     <div>
+                        <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                        <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                        <span class="labInfoWindowTitle">${result[0].labName}</span>
+                    </div>
+                      <div class="labInfoWindow">
+                          <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                          <p class="labInfoWindowAdresa">${result[0].address}</p>
+                          <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
+                          <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+                      </div>
+                      <div class="labInfoFooter">
+                          <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                          <div class="radnoVreme">Radno vreme</div>
+                          <div class="status">otvoreno</div>
+                          <div class="labInfoRadnoVremeDetalji">
+                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
+                            <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
+                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
+                            <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
+                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
+                            <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
+
+                          </div>
+                       </div>
+                       <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                    </div>
+                    <div class="lab-card">
+                      <div>
+                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                         <span class="labInfoWindowTitle">${result[0].labName}</span>
+                     </div>
+                       <div class="labInfoWindow">
+                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                           <p class="labInfoWindowAdresa">${result[0].address}</p>
+                           <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
+                           <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+                       </div>
+                       <div class="labInfoFooter">
+                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                           <div class="radnoVreme">Radno vreme</div>
+                           <div class="status">otvoreno</div>
+                           <div class="labInfoRadnoVremeDetalji">
+                             <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
+                             <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
+                             <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
+                             <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                             <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
+                             <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
+                             <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
+
+                           </div>
+                        </div>
+                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                     </div>
+                     <div class="lab-card">
+                       <div>
+                          <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                          <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                          <span class="labInfoWindowTitle">${result[0].labName}</span>
+                      </div>
+                        <div class="labInfoWindow">
+                            <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                            <p class="labInfoWindowAdresa">${result[0].address}</p>
+                            <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
+                            <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+                        </div>
+                        <div class="labInfoFooter">
+                            <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                            <div class="radnoVreme">Radno vreme</div>
+                            <div class="status">otvoreno</div>
+                            <div class="labInfoRadnoVremeDetalji">
+                              <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
+                              <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
+                              <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
+                              <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                              <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
+                              <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
+                              <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
+
+                            </div>
+                         </div>
+                         <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                      </div>
+                      <div class="lab-card">
+                        <div>
+                           <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                           <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                           <span class="labInfoWindowTitle">${result[0].labName}</span>
+                       </div>
+                         <div class="labInfoWindow">
+                             <img src="/images/placeholder.svg" class="labLogoInfoWindow">
+                             <p class="labInfoWindowAdresa">${result[0].address}</p>
+                             <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
+                             <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+                         </div>
+                         <div class="labInfoFooter">
+                             <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                             <div class="radnoVreme">Radno vreme</div>
+                             <div class="status">otvoreno</div>
+                             <div class="labInfoRadnoVremeDetalji">
+                               <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
+                               <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
+                               <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
+                               <p class="daysInWeek text-center active">Č<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
+                               <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
+                               <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
+                               <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
+
+                             </div>
+                          </div>
+                          <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                       </div>
                    <div class="lab-card ">
                      <div>
                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
@@ -376,9 +454,8 @@ let loaderWrapper = document.querySelector('.loader-wrapper')
           }
       })
 
-
-        helper.addAnalysis(itemsArray, resultDiv)
-        helper.removeAnalysis(itemsArray)
+        helper.addAnalysis(itemsArray, resultDiv, checkout)
+        helper.removeAnalysis(itemsArray, checkout)
 
 
 $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
@@ -395,6 +472,43 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 
 }
 
+/* ANALYSIS DETAILS PAGE ***************/
+if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
+
+//scrollspy initialization for side navigation
+  $('body').scrollspy({
+    target: '#sideMenu',
+    offset: 30
+  })
+
+  //take input values from search box and filter reference
+  let innerPageSearch = document.getElementById('searchResultPage')
+  let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+
+  // search for analysis or lab
+  helper.searchLabAnalysis(innerPageSearch,analysisRadio)
+
+  //add analysis from analysis details page
+  let analysisBtn = document.querySelector('.addAnalysis')
+  /* take the analysisname from button and check if this analysis
+    is already added to basket */
+  let disableAddBtn = itemsArray.findIndex(item => {
+    return analysisBtn.getAttribute('data-analysisName') == item.name
+  })
+
+  /* if analysis is already in basket disable button for
+    adding analysis to basket*/
+  if(disableAddBtn !== -1) {
+    analysisBtn.innerHTML = '&#10004;'
+    analysisBtn.disabled = true
+    analysisBtn.classList.remove('addAnalysis')
+    analysisBtn.classList.add('deleteAnalysis')
+  }
+  helper.addAnalysis(itemsArray, analysisBtn, checkout)
+  helper.removeAnalysis(itemsArray, checkout)
+}
+
+/*********************** BACKEND ************************/
 if (location.match('addLab')) {
 
 // populating working days Tuesday-Friday based on values from Monday

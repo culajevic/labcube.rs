@@ -62,7 +62,7 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
   tdName.appendChild(analysisLink)
   tr.appendChild(tdName)
 
-  //abbreviation
+  // displab analysis abbreviation
   // let abbr = document.createElement('td')
   // let abbrName
   //
@@ -76,6 +76,7 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
   //   tr.appendChild(abbr)
   // }
 
+  //display alternative name for analysis
   let alt = document.createElement('td')
   let altName
 
@@ -89,7 +90,7 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
     tr.appendChild(alt)
   }
 
-  //groupName
+  //display analysis groupName
   let tdGroupName = document.createElement('td')
     let groupName = document.createTextNode(analysis[i].groupId.name)
     tdGroupName.appendChild(groupName)
@@ -107,7 +108,7 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
     } else {
       hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'Ovu analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     }
   hospital.appendChild(hospitalIcon)
   tr.appendChild(hospital)
@@ -121,7 +122,6 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
       priceSpan.appendChild(priceRange)
       minmaxPrice.appendChild(priceSpan)
       tr.appendChild(minmaxPrice)
-
 
   //create btn for adding analysis to basket
   let addAnalysisBtnTd = document.createElement('td')
@@ -192,7 +192,7 @@ exports.displayBasket = (itemsArray) => {
   })
 }
 
-exports.removeAnalysis = (itemsArray) => {
+exports.removeAnalysis = (itemsArray, checkout) => {
   //remove analysis from local storage
   let analysisBasket = document.getElementById('selectedAnalysis')
     analysisBasket.addEventListener('click', (e) => {
@@ -219,7 +219,10 @@ exports.removeAnalysis = (itemsArray) => {
         //hide basket if all analysis are removed
         if(itemsArray.length == 0) {
           document.querySelector('.card').classList.add('d-none')
+          checkout.classList.add('d-none')
         }
+
+        checkout.innerText = itemsArray.length
 
         //enable button for the analysis removed
         // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
@@ -237,16 +240,20 @@ exports.removeAnalysis = (itemsArray) => {
 
   }
 
-exports.addAnalysis = (itemsArray,resultDiv) => {
+exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', (e) => {
-    if(e.target.type == 'submit' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
+    if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
 
       itemsArray.push({
         'name':e.target.getAttribute('data-analysisName'),
         'id':e.target.getAttribute('data-analysisid'),
         'logo':e.target.getAttribute('data-groupimg')
        })
+
+       //add number of analysis to navigation
+       checkout.classList.remove('d-none')
+       checkout.innerHTML = itemsArray.length
 
        let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
        let cardHeader = document.getElementById('numOfAnalysis')
@@ -308,8 +315,41 @@ exports.addAnalysis = (itemsArray,resultDiv) => {
 
         //display basket when first analyis is added to basket
         document.querySelector('.card').classList.remove('d-none')
-    } else {
+    } else if (itemsArray.length>35){
       console.log('ne mozete dodati vise od 40 analiza u korpu')
     }
   })// resultdiv end
+}
+
+exports.searchLabAnalysis = (searchString, filter) => {
+
+  let filterValue = 'analiza'
+  searchString.focus()
+
+  // set focus on searchanalysis field when esc is pressed
+  document.addEventListener('keydown', (e) => {
+      if(e.keyCode === 39) {
+        searchString.value = ''
+        searchString.focus()
+      }
+    })
+
+  //check the filter value on INDEX PAGE
+      filter.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          filterValue = e.target.value
+        })
+      })
+
+  /* by default filter is set to analiza, after 500ms
+    user is redirected to results page */
+  searchString.addEventListener('input', (e) => {
+    if(searchString.value.length>=2) {
+      setTimeout(function() {
+      let searchString = e.target.value
+      console.log(searchString)
+      window.location.href = '/results/?name='+searchString+'&filter='+filterValue
+      },500)
+    }
+  })
 }

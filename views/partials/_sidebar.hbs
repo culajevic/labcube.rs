@@ -1,24 +1,46 @@
-<div class="basket">
-  <div class="odabraneAnalizeBasket">
-    <div class="card">
-      <div class="card-header-basket">Odabrane analize<span><i class="far fa-times-circle"></i></span></div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item list-group-item-action"><img src="images/hematologija.svg" class="labGroupIconSelectedAnalysis">Cras justo odio<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-          <li class="list-group-item list-group-item-action"><img src="images/feces.svg" class="labGroupIconSelectedAnalysis">Dapibus ac dad da facilisis in<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-          <li class="list-group-item list-group-item-action"><img src="images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-          <li class="list-group-item list-group-item-action"><img src="images/biohemija.svg" class="labGroupIconSelectedAnalysis">Vestibulum at eros<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-          <li class="list-group-item list-group-item-action"><img src="images/anemije.svg" class="labGroupIconSelectedAnalysis">Vestibulum at erosss<span class="float-right remove"><img src="images/closeBtn.svg"></span></li>
-          <li class="list-group-item city"><span class="d-block mb-2">Gde radite analize?</span>
+<div class="col-md-4 col-lg-3 sidebar">
+  <div class="odabraneAnalize">
+    <div class="card d-none">
+      <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span></div>
+        <ul class="list-group list-group-flush" id="selectedAnalysis">
+        <li class="list-group-item city">
+          <span class="d-block mb-2">Gde radite analize?</span>
             <select class="form-control">
               <option selected>grad</option>
               <option value="1">Beograd</option>
               <option value="2">Novi Sad</option>
               <option value="3">Kragujevac</option>
               <option value="3">Bačka Palanka</option>
+              <option value="3">Nis</option>
+              <option value="3">Subotica</option>
             </select>
-            <span><img src="../images/gradMarker.svg" alt="" class="cityMarker"></span>
-         </li>
+            <!-- <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span> -->
+          <button type="button" class="btn btn-success btn-lg btn-block text-uppercase">Prikaži cene</button>
+        </li>
       </ul>
-    </div><!-- card end -->
-  </div><!-- odabraneAnalizeBasket -->
-</div> <!-- basket end -->
+    </div>
+
+    {{#if sidebarNav}}
+    <div id="sideMenu">
+      <ul class="textList">
+        <li><a class="list-group-item" href="#oAnalizi">O Analizi</a></li>
+        <li><a class="list-group-item" href="#uzorak">Uzorak</a></li>
+        <li><a class="list-group-item" href="#kadaSeIspituje">Kada se ispituje?</a></li>
+        <li><a class="list-group-item" href="#priprema">Priprema</a></li>
+        <li><a class="list-group-item" href="#detaljanOpis">Detaljan opis</a></li>
+        <li><a class="list-group-item" href="#rezultati">Rezultati</a></li>
+        <li><a class="list-group-item" href="#napomena">Napomena</a></li>
+        <li><a class="list-group-item" href="#literatura">Literatura</a></li>
+      </ul>
+    </div>
+    {{/if}}
+
+
+    <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
+    <div class="banner">
+      <img src="/images/banner.JPG" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
+      <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
+      <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
+    </div><!-- banner end -->
+  </div><!-- odabrane analize end -->
+</div><!-- sidebar end -->

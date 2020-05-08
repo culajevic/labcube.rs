@@ -5,7 +5,9 @@ const Price = mongoose.model('Price')
 moment.locale('sr')
 
 exports.displayResults = (req,res) => {
-  res.render('results')
+  res.render('results',{
+    sidebarNav:false
+  })
 }
 
 exports.displayAnalysisDetails = async (req,res) => {
@@ -21,7 +23,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   .sort({'cenovnik.cena':-1})
 
 
-  res.render('details',{analysisDetails,minPrice,maxPrice})
+  res.render('details',{analysisDetails,minPrice,maxPrice,sidebarNav:true})
   // res.send({analysisDetails, minPrice, maxPrice})
 
 }
