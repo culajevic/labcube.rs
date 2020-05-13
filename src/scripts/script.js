@@ -54,14 +54,16 @@ let urlArr = location.split('/')
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
+//MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
-if(itemsArray.length>0 && location !== '/') {
-  helper.displayBasket(itemsArray)
-}
+// if(itemsArray.length>0 && location !== '/') {
+//   helper.displayBasket(itemsArray)
+// }
 
+//MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
-if (itemsArray.length > 0) {
+if (itemsArray.length > 0 && location == '/') {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -148,261 +150,98 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
         // banner.style.display = 'none'
       let analysisBasket = document.querySelector('.odabraneAnalize')
         // analysisBasket.style.display = 'none'
+
+      let now = new Date()
+      let day = now.getDay()
+      let date = now.getDate()
+      let month = now.getMonth()
+      let year = now.getFullYear()
+      let today = (month + 1) + "/" + date + "/" + year
+      let danas
+
+
+
         fetch('/lab/'+searchStr).then((data) => {
+
           data.json().then((result) => {
-            console.log(result)
-            let now = new Date()
-            let day = now.getDay()
-            let h = now.getHours()
-            let m = now.getMinutes()
-            console.log(h+':'+m)
 
-            resultDiv.innerHTML = ''
             loaderWrapper.style.opacity = 0
-            resultDiv.innerHTML = `
-            <section id="labDetails">
-              <div class="container">
-                <div class="row ">
-                  <div class="col-12 d-flex flex-row flex-wrap">
-                  <div class="lab-card">
-                    <div>
-                       <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                       <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                       <span class="labInfoWindowTitle">${result[0].labName}</span>
-                   </div>
-                     <div class="labInfoWindow">
-                         <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                         <p class="labInfoWindowAdresa">${result[0].address}</p>
-                         <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
-                         <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
+
+            let labTemplate = document.createElement('div')
+              labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
+
+            for(i=0; i<result.length; i++) {
+              resultDiv.innerHTML = ''
+              labTemplate.innerHTML += `
+              <div class="lab-card">
+                <div>
+                   <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
+                   <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                   <span class="labInfoWindowTitle">${result[i].labName}</span>
+               </div>
+                 <div class="labInfoWindow">
+                     <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow">
+                     <p class="labInfoWindowAdresa">${result[i].address}</p>
+                     <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
+                     <p class="labInfoWindowTelefoni">${result[i].phone[i]}</p>
+                 </div>
+                 <div class="labInfoFooter">
+                     <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                     <div class="radnoVreme">Radno vreme</div>
+                     <div id='otvoreno' class='otvoreno${i} status'></div>
+                     <div class="labInfoRadnoVremeDetalji">
+                       <p class="daysInWeek text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
+                       <p class="daysInWeek text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
+                       <p class="daysInWeek text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
+                       <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
+                       <p class="daysInWeek text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
+                       <p class="daysInWeek text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
+                       <p class="daysInWeek text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
                      </div>
-                     <div class="labInfoFooter">
-                         <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                         <div class="radnoVreme">Radno vreme</div>
-
-                         <div class="status">otvoreno</div>
-                         <div class="labInfoRadnoVremeDetalji">
-                           <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
-                           <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
-                           <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                           <p class="daysInWeek text-center active">Č<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
-                           <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
-                           <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
-                           <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
-
-                         </div>
-                      </div>
-                      <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                   </div>
-                   <div class="lab-card">
-                     <div>
-                        <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                        <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                        <span class="labInfoWindowTitle">${result[0].labName}</span>
-                    </div>
-                      <div class="labInfoWindow">
-                          <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                          <p class="labInfoWindowAdresa">${result[0].address}</p>
-                          <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
-                          <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
-                      </div>
-                      <div class="labInfoFooter">
-                          <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                          <div class="radnoVreme">Radno vreme</div>
-                          <div class="status">otvoreno</div>
-                          <div class="labInfoRadnoVremeDetalji">
-                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
-                            <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
-                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                            <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
-                            <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
-                            <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
-                            <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
-
-                          </div>
-                       </div>
-                       <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                    </div>
-                    <div class="lab-card">
-                      <div>
-                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                         <span class="labInfoWindowTitle">${result[0].labName}</span>
-                     </div>
-                       <div class="labInfoWindow">
-                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                           <p class="labInfoWindowAdresa">${result[0].address}</p>
-                           <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
-                           <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
-                       </div>
-                       <div class="labInfoFooter">
-                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                           <div class="radnoVreme">Radno vreme</div>
-                           <div class="status">otvoreno</div>
-                           <div class="labInfoRadnoVremeDetalji">
-                             <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
-                             <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
-                             <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                             <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
-                             <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
-                             <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
-                             <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
-
-                           </div>
-                        </div>
-                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                     </div>
-                     <div class="lab-card">
-                       <div>
-                          <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                          <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                          <span class="labInfoWindowTitle">${result[0].labName}</span>
-                      </div>
-                        <div class="labInfoWindow">
-                            <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                            <p class="labInfoWindowAdresa">${result[0].address}</p>
-                            <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
-                            <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
-                        </div>
-                        <div class="labInfoFooter">
-                            <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                            <div class="radnoVreme">Radno vreme</div>
-                            <div class="status">otvoreno</div>
-                            <div class="labInfoRadnoVremeDetalji">
-                              <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
-                              <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
-                              <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                              <p class="daysInWeek text-center active">C<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
-                              <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
-                              <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
-                              <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
-
-                            </div>
-                         </div>
-                         <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                      </div>
-                      <div class="lab-card">
-                        <div>
-                           <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                           <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                           <span class="labInfoWindowTitle">${result[0].labName}</span>
-                       </div>
-                         <div class="labInfoWindow">
-                             <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                             <p class="labInfoWindowAdresa">${result[0].address}</p>
-                             <p class="labInfoWindowGrad">${result[0].placeId.place} / ${result[0].placeId.municipality}</p>
-                             <p class="labInfoWindowTelefoni">${result[0].phone[0]}</p>
-                         </div>
-                         <div class="labInfoFooter">
-                             <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                             <div class="radnoVreme">Radno vreme</div>
-                             <div class="status">otvoreno</div>
-                             <div class="labInfoRadnoVremeDetalji">
-                               <p class="daysInWeek text-center">P<span>${result[0].workingHours.monday.opens} - ${result[0].workingHours.monday.closes}</span></p>
-                               <p class="daysInWeek text-center">U<span>${result[0].workingHours.tuesday.opens} - ${result[0].workingHours.tuesday.closes}</span></span></p>
-                               <p class="daysInWeek text-center">S<span>${result[0].workingHours.wednesday.opens} - ${result[0].workingHours.wednesday.closes}</span></p>
-                               <p class="daysInWeek text-center active">Č<span>${result[0].workingHours.thursday.opens} - ${result[0].workingHours.thursday.closes}</span></span></p>
-                               <p class="daysInWeek text-center">P<span>${result[0].workingHours.friday.opens} - ${result[0].workingHours.friday.closes}</span></span></p>
-                               <p class="daysInWeek text-center">S<span>${result[0].workingHours.saturday.opens} - ${result[0].workingHours.saturday.closes}</span></span></p>
-                               <p class="daysInWeek text-center">N<span>${result[0].workingHours.sunday.opens} - ${result[0].workingHours.sunday.closes}</span></span></p>
-
-                             </div>
-                          </div>
-                          <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                       </div>
-                   <div class="lab-card ">
-                     <div>
-                        <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                        <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                        <span class="labInfoWindowTitle">Konzilijum</span>
-                    </div>
-                      <div class="labInfoWindow">
-                          <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                          <p class="labInfoWindowAdresa">Bulevar Arsenija Carnojevica 125 </p>
-                          <p class="labInfoWindowGrad">Beograd - Novi Beograd</p>
-                          <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
-                      </div>
-                      <div class="labInfoFooter">
-                          <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                          <div class="radnoVreme">Radno vreme</div>
-                          <div class="status">otvoreno</div>
-                          <div class="labInfoRadnoVremeDetalji">
-                            <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                            <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
-
-                          </div>
-                       </div>
-                       <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                    </div>
-                    <div class="lab-card ">
-                      <div>
-                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                         <span class="labInfoWindowTitle">Beolab</span>
-                     </div>
-                       <div class="labInfoWindow">
-                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                           <p class="labInfoWindowAdresa">Ljube Nešića bb </p>
-                           <p class="labInfoWindowGrad">Beograd - Vidikovac</p>
-                           <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
-                       </div>
-                       <div class="labInfoFooter">
-                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                           <div class="radnoVreme">Radno vreme</div>
-                           <div class="status">otvoreno</div>
-                           <div class="labInfoRadnoVremeDetalji">
-                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
-
-                           </div>
-                        </div>
-                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                     </div>
-                    <div class="lab-card ">
-                      <div>
-                         <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                         <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
-                         <span class="labInfoWindowTitle">Beolab</span>
-                     </div>
-                       <div class="labInfoWindow">
-                           <img src="/images/placeholder.svg" class="labLogoInfoWindow">
-                           <p class="labInfoWindowAdresa">Ljube Nešića bb </p>
-                           <p class="labInfoWindowGrad">Beograd - Vidikovac</p>
-                           <p class="labInfoWindowTelefoni">011/7886742, 064/1234567</p>
-                       </div>
-                       <div class="labInfoFooter">
-                           <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                           <div class="radnoVreme">Radno vreme</div>
-                           <div class="status">otvoreno</div>
-                           <div class="labInfoRadnoVremeDetalji">
-                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">U<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center active">Č<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">P<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">S<span>08:00 - 21:00</span></p>
-                             <p class="daysInWeek text-center">N<span>08:00 - 21:00</span></p>
-
-                           </div>
-                        </div>
-                        <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
-                     </div>
-
                   </div>
-                </div>
-              </div>
-            </section>
-            `
+                  <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+               </div>`
+
+               resultDiv.innerHTML = `
+               <section id="labDetails">
+                 <div class="container">
+                   <div class="row labContainer">
+                   </div>
+                 </div>
+               </section>`
+
+               //append labcard to page
+               document.querySelector('.labContainer').appendChild(labTemplate)
+
+            let radnoVreme = document.querySelector('.otvoreno'+i)
+            let thursday = document.querySelector('.thursday'+i)
+
+            if(result[i].open24h) {
+              radnoVreme.classList.add('open')
+              radnoVreme.innerText = 'otvoreno 24h'
+              thursday.classList.add('active')
+            } else if(day === 4) {
+              let openTime = result[i].workingHours.thursday.opens
+              let closingTime = result[i].workingHours.thursday.closes
+              let todayOpenTime = new Date(today +' '+ openTime +':00')
+              let todayClosingTime = new Date(today +' '+ closingTime +':00')
+              let nowTimeStamp = now.getTime()
+                if(nowTimeStamp > todayOpenTime.getTime() &&
+                    todayClosingTime.getTime() > nowTimeStamp) {
+                    radnoVreme.classList.add('open')
+                    radnoVreme.innerText = 'otvoreno'
+                    thursday.classList.add('active')
+                }
+                else {
+                    radnoVreme.classList.add('closed')
+                    radnoVreme.innerText = 'zatvoreno'
+                    thursday.classList.add('activeClosed')
+                }
+              }
+
+          }//for loop end
+
+
 
           })
         })

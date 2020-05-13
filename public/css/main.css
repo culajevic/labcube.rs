@@ -7546,8 +7546,6 @@ input[name="searchFilter"] {
 /* lab search results
 *********************************************************/
 #labDetails {
-  /* margin-top: 60px; */
-  /* padding-top: 20px; */
   z-index: 50;
   align-items: center;
   width: 100%; }
@@ -7558,18 +7556,14 @@ input[name="searchFilter"] {
   border: 1px solid #E6E6E6;
   background-color: #FFF;
   opacity: .95;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
   padding: 16px;
   display: flex;
-  flex: 1 1 33%;
+  flex: 1 1 0;
   flex-direction: column;
   min-width: 255px;
-  margin-right: 16px;
-  position: relative;
-  -webkit-box-shadow: 1px 0px 13px -2px rgba(130,125,130,1);
-  -moz-box-shadow: 1px 0px 13px -2px rgba(130,125,130,1);
-  box-shadow: 1px 0px 13px -2px rgba(130,125,130,1);
-}
+  position: relative; }
 
 .cardBenefits, .beReady {
   min-height: 230px;
@@ -7605,15 +7599,26 @@ input[name="searchFilter"] {
     font-weight: 500;
     font-size: 12px;
     color: #1F1F1F; }
-    .labInfoFooter > .status::before {
-      content: '';
-      width: 0.625rem;
-      height: 0.75rem;
-      border-radius: 1.25rem;
-      background-color: #55D159;
-      float: left;
-      margin-right: 0.5rem;
-      margin-top: 0.1875rem; }
+
+div.status.open::before {
+  content: '';
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 1.25rem;
+  float: left;
+  background-color: #55D159;
+  margin-right: 0.375rem;
+  margin-top: 0.25rem; }
+
+div.status.closed::before {
+  content: '';
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 1.25rem;
+  float: left;
+  background-color: #FF6F6F;
+  margin-right: 0.375rem;
+  margin-top: 0.25rem; }
 
 .btnLabDetails, .btnLabDetailsBig {
   background-color: #55D159;
@@ -7621,7 +7626,8 @@ input[name="searchFilter"] {
   text-transform: uppercase;
   font-size: 0.875rem; }
   .btnLabDetails:hover, .btnLabDetailsBig:hover {
-    background-color: #1D88E5; }
+    background-color: #1D88E5;
+    color: #FFF; }
 
 .btnLabDetailsBig {
   height: 40px;
@@ -7653,6 +7659,13 @@ input[name="searchFilter"] {
     font-weight: 500; }
     .labInfoRadnoVremeDetalji > p.active {
       background-color: #55D159;
+      width: 100%;
+      color: #1F1F1F;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px; }
+    .labInfoRadnoVremeDetalji > p.activeClosed {
+      background-color: #FF6F6F;
       width: 100%;
       color: #1F1F1F;
       font-weight: bold;

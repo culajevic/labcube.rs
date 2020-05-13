@@ -204,8 +204,8 @@ width: 333px !important;
 *********************************************************/
 
 #labDetails {
-  margin-top: 60px;
-  padding-top: 20px;
+  // margin-top: 60px;
+  // padding-top: 20px;
   z-index: 50;
   align-items: center;
   width: 100%;
@@ -218,7 +218,8 @@ width: 333px !important;
   border:1px solid $labBoxBorder;
   background-color: $white-color;
   opacity: .95;
-  margin-bottom: 1px;
+  margin-bottom: px-to-rem(16px);
+  margin-right:px-to-rem(16px);
   padding: 16px;
   display: flex;
   flex:1 1 0;
@@ -265,18 +266,31 @@ margin-right: 12px;
     font-weight: 500;
     font-size: 12px;
     color:$infoWindowContactColor;
-    &::before {
-      content:'';
-      width: px-to-rem(10px);
-      height: px-to-rem(12px);
-      border-radius: px-to-rem(20px);
-      background-color: $button-green;
-      float:left;
-      margin-right: px-to-rem(8px);
-      margin-top: px-to-rem(3px);
-    }
   }
 }
+
+div.status.open::before {
+    content:'';
+    width: px-to-rem(12px);
+    height: px-to-rem(12px);
+    border-radius: px-to-rem(20px);
+    float:left;
+    background-color: $button-green;
+    margin-right: px-to-rem(6px);
+    margin-top: px-to-rem(4px);
+}
+
+div.status.closed::before {
+    content:'';
+    width: px-to-rem(12px);
+    height: px-to-rem(12px);
+    border-radius: px-to-rem(20px);
+    float:left;
+    background-color: $danger;
+    margin-right: px-to-rem(6px);
+    margin-top: px-to-rem(4px);
+}
+
 
 .btnLabDetails {
   background-color: $button-green;
@@ -285,6 +299,7 @@ margin-right: 12px;
   font-size: px-to-rem(14px);
   &:hover {
     background-color: $primary-color;
+    color:$white-color;
   }
 }
 
@@ -322,6 +337,14 @@ margin-right: 12px;
     font-weight: 500;
     &.active {
       background-color: $button-green;
+      width: 100%;
+      color:$infoWindowContactColor;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px;
+    }
+    &.activeClosed {
+      background-color: $danger;
       width: 100%;
       color:$infoWindowContactColor;
       font-weight: bold;
