@@ -57,9 +57,9 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 //MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
-// if(itemsArray.length>0 && location !== '/') {
-//   helper.displayBasket(itemsArray)
-// }
+if(itemsArray.length>0 && location !== '/') {
+  helper.displayBasket(itemsArray)
+}
 
 //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -190,13 +190,13 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
                      <div class="radnoVreme">Radno vreme</div>
                      <div id='otvoreno' class='otvoreno${i} status'></div>
                      <div class="labInfoRadnoVremeDetalji">
-                       <p class="daysInWeek text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
-                       <p class="daysInWeek text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
-                       <p class="daysInWeek text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
+                       <p class="daysInWeek monday${i} text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
+                       <p class="daysInWeek tuesday${i} text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
+                       <p class="daysInWeek wednesday${i} text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
                        <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
-                       <p class="daysInWeek text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
-                       <p class="daysInWeek text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
-                       <p class="daysInWeek text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
+                       <p class="daysInWeek friday${i} text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
+                       <p class="daysInWeek saturday${i} text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
+                       <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
                      </div>
                   </div>
                   <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
@@ -213,30 +213,71 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
                //append labcard to page
                document.querySelector('.labContainer').appendChild(labTemplate)
 
+            let currentDay
+            let currentDayNum
+            switch (day) {
+              case 1:
+                currentDay = 'monday'
+                currentDayNum = 1
+                break
+              case 2:
+                currentDay = 'tuesday'
+                currentDayNum = 2
+                break
+              case 3:
+                currentDay = 'wednesday'
+                currentDayNum = 3
+                break
+              case 4:
+                currentDay = 'thursday'
+                currentDayNum = 4
+                break
+              case 5:
+                currentDay = 'friday'
+                currentDayNum = 5
+                break
+              case 6:
+                currentDay = 'saturday'
+                currentDayNum = 6
+                break
+              case 7:
+                currentDay = 'sunday'
+                currentDayNum = 0
+                break
+              default:
+                console.log('dan nije ok')
+            }
+
             let radnoVreme = document.querySelector('.otvoreno'+i)
-            let thursday = document.querySelector('.thursday'+i)
+            let todayIs = document.querySelector('.'+currentDay+i)
 
             if(result[i].open24h) {
               radnoVreme.classList.add('open')
               radnoVreme.innerText = 'otvoreno 24h'
-              thursday.classList.add('active')
-            } else if(day === 4) {
-              let openTime = result[i].workingHours.thursday.opens
-              let closingTime = result[i].workingHours.thursday.closes
+              todayIs.classList.add('active')
+            } else if(day === currentDayNum) {
+              let wh = 'workingHours'
+              let openTime = result[i].workingHours[currentDay].opens
+              let closingTime = result[i].workingHours[currentDay].closes
               let todayOpenTime = new Date(today +' '+ openTime +':00')
               let todayClosingTime = new Date(today +' '+ closingTime +':00')
               let nowTimeStamp = now.getTime()
+              // console.log('sada', nowTimeStamp)
+              // console.log('otvara se', todayOpenTime.getTime())
+              // console.log('zatvara se', todayClosingTime.getTime())
                 if(nowTimeStamp > todayOpenTime.getTime() &&
                     todayClosingTime.getTime() > nowTimeStamp) {
                     radnoVreme.classList.add('open')
                     radnoVreme.innerText = 'otvoreno'
-                    thursday.classList.add('active')
+                    todayIs.classList.add('active')
                 }
                 else {
                     radnoVreme.classList.add('closed')
                     radnoVreme.innerText = 'zatvoreno'
-                    thursday.classList.add('activeClosed')
+                    todayIs.classList.add('activeClosed')
                 }
+              } else {
+                console.log('lab nije odredio radno vreme')
               }
 
           }//for loop end
