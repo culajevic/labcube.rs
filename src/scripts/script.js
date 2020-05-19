@@ -157,9 +157,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
       let month = now.getMonth()
       let year = now.getFullYear()
       let today = (month + 1) + "/" + date + "/" + year
-      let danas
-
-
+      // let danas
 
         fetch('/lab/'+searchStr).then((data) => {
 
@@ -171,19 +169,20 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
               labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
             for(i=0; i<result.length; i++) {
+              let flag = true
               resultDiv.innerHTML = ''
               labTemplate.innerHTML += `
               <div class="lab-card">
                 <div>
-                   <img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">
-                   <img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovana laboratorija">
+                   <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
+                   <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
                    <span class="labInfoWindowTitle">${result[i].labName}</span>
                </div>
                  <div class="labInfoWindow">
                      <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow">
                      <p class="labInfoWindowAdresa">${result[i].address}</p>
                      <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
-                     <p class="labInfoWindowTelefoni">${result[i].phone[i]}</p>
+                     <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
                  </div>
                  <div class="labInfoFooter">
                      <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
@@ -212,6 +211,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
 
                //append labcard to page
                document.querySelector('.labContainer').appendChild(labTemplate)
+
 
             let currentDay
             let currentDayNum
@@ -250,6 +250,20 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
 
             let radnoVreme = document.querySelector('.otvoreno'+i)
             let todayIs = document.querySelector('.'+currentDay+i)
+            let privateInsurance = document.querySelector('.privateInssuranceIcon'+i)
+            let accredited = document.querySelector('.accreditedIcon'+i)
+
+            if(result[i].private) {
+              privateInsurance.setAttribute('src', '/images/osiguranje.svg')
+            } else {
+              privateInsurance.remove()
+            }
+
+            if(result[i].accredited) {
+              accredited.setAttribute('src', '/images/verified.svg')
+            } else {
+              accredited.remove()
+            }
 
             if(result[i].open24h) {
               radnoVreme.classList.add('open')
@@ -262,9 +276,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
               let todayOpenTime = new Date(today +' '+ openTime +':00')
               let todayClosingTime = new Date(today +' '+ closingTime +':00')
               let nowTimeStamp = now.getTime()
-              // console.log('sada', nowTimeStamp)
-              // console.log('otvara se', todayOpenTime.getTime())
-              // console.log('zatvara se', todayClosingTime.getTime())
+
                 if(nowTimeStamp > todayOpenTime.getTime() &&
                     todayClosingTime.getTime() > nowTimeStamp) {
                     radnoVreme.classList.add('open')
@@ -279,13 +291,10 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
               } else {
                 console.log('lab nije odredio radno vreme')
               }
-
           }//for loop end
 
-
-
-          })
-        })
+          })//data json end
+        })//fetch end
         // helper.removeAnalysis(itemsArray)
       }
 

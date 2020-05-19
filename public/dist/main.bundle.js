@@ -814,8 +814,8 @@ window.onload = function () {
         var date = now.getDate();
         var month = now.getMonth();
         var year = now.getFullYear();
-        var today = month + 1 + "/" + date + "/" + year;
-        var danas;
+        var today = month + 1 + "/" + date + "/" + year; // let danas
+
         fetch('/lab/' + searchStr).then(function (data) {
           data.json().then(function (result) {
             loaderWrapper.style.opacity = 0;
@@ -823,8 +823,9 @@ window.onload = function () {
             labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
 
             for (i = 0; i < result.length; i++) {
+              var flag = true;
               resultDiv.innerHTML = '';
-              labTemplate.innerHTML += "\n              <div class=\"lab-card\">\n                <div>\n                   <img src=\"/images/osiguranje.svg\" class=\"labInfoWindowOsiguranje\" title=\"privatno osiguranje\">\n                   <img src=\"/images/verified.svg\" class=\"labInfoWindowVerified\" title=\"akreditovana laboratorija\">\n                   <span class=\"labInfoWindowTitle\">".concat(result[i].labName, "</span>\n               </div>\n                 <div class=\"labInfoWindow\">\n                     <img src=\"/images/lablogo/").concat(result[i].logo, "\" class=\"labLogoInfoWindow\">\n                     <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                     <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                     <p class=\"labInfoWindowTelefoni\">").concat(result[i].phone[i], "</p>\n                 </div>\n                 <div class=\"labInfoFooter\">\n                     <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                     <div class=\"radnoVreme\">Radno vreme</div>\n                     <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                     <div class=\"labInfoRadnoVremeDetalji\">\n                       <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                       <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                       <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                       <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                       <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                       <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                       <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                     </div>\n                  </div>\n                  <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n               </div>");
+              labTemplate.innerHTML += "\n              <div class=\"lab-card\">\n                <div>\n                   <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n                   <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n                   <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n               </div>\n                 <div class=\"labInfoWindow\">\n                     <img src=\"/images/lablogo/").concat(result[i].logo, "\" class=\"labLogoInfoWindow\">\n                     <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                     <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                     <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n                 </div>\n                 <div class=\"labInfoFooter\">\n                     <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                     <div class=\"radnoVreme\">Radno vreme</div>\n                     <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                     <div class=\"labInfoRadnoVremeDetalji\">\n                       <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                       <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                       <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                       <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                       <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                       <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                       <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                     </div>\n                  </div>\n                  <button type=\"button\" class=\"btn btn-block btnLabDetails mt-2\">saznaj vi\u0161e</button>\n               </div>");
               resultDiv.innerHTML = "\n               <section id=\"labDetails\">\n                 <div class=\"container\">\n                   <div class=\"row labContainer\">\n                   </div>\n                 </div>\n               </section>"; //append labcard to page
 
               document.querySelector('.labContainer').appendChild(labTemplate);
@@ -873,6 +874,20 @@ window.onload = function () {
 
               var radnoVreme = document.querySelector('.otvoreno' + i);
               var todayIs = document.querySelector('.' + currentDay + i);
+              var privateInsurance = document.querySelector('.privateInssuranceIcon' + i);
+              var accredited = document.querySelector('.accreditedIcon' + i);
+
+              if (result[i]["private"]) {
+                privateInsurance.setAttribute('src', '/images/osiguranje.svg');
+              } else {
+                privateInsurance.remove();
+              }
+
+              if (result[i].accredited) {
+                accredited.setAttribute('src', '/images/verified.svg');
+              } else {
+                accredited.remove();
+              }
 
               if (result[i].open24h) {
                 radnoVreme.classList.add('open');
@@ -884,9 +899,7 @@ window.onload = function () {
                 var closingTime = result[i].workingHours[currentDay].closes;
                 var todayOpenTime = new Date(today + ' ' + openTime + ':00');
                 var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
-                var nowTimeStamp = now.getTime(); // console.log('sada', nowTimeStamp)
-                // console.log('otvara se', todayOpenTime.getTime())
-                // console.log('zatvara se', todayClosingTime.getTime())
+                var nowTimeStamp = now.getTime();
 
                 if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
                   radnoVreme.classList.add('open');
@@ -902,8 +915,9 @@ window.onload = function () {
               }
             } //for loop end
 
-          });
-        }); // helper.removeAnalysis(itemsArray)
+          }); //data json end
+        }); //fetch end
+        // helper.removeAnalysis(itemsArray)
       } // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
 
