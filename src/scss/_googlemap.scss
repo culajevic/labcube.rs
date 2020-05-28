@@ -218,6 +218,7 @@ width: 333px !important;
   border:1px solid $labBoxBorder;
   background-color: $white-color;
   opacity: .95;
+  max-width:350px;
   margin-bottom: px-to-rem(16px);
   margin-right:px-to-rem(16px);
   padding: 16px;
@@ -287,6 +288,17 @@ div.status.closed::before {
     border-radius: px-to-rem(20px);
     float:left;
     background-color: $danger;
+    margin-right: px-to-rem(6px);
+    margin-top: px-to-rem(4px);
+}
+
+div.status.closedSoon::before {
+    content:'';
+    width: px-to-rem(12px);
+    height: px-to-rem(12px);
+    border-radius: px-to-rem(20px);
+    float:left;
+    background-color: $orange;
     margin-right: px-to-rem(6px);
     margin-top: px-to-rem(4px);
 }

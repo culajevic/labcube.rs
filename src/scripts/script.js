@@ -198,8 +198,9 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
                        <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
                      </div>
                   </div>
-                  <button type="button" class="btn btn-block btnLabDetails mt-2">saznaj više</button>
+                  <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="${result[i].labName}">saznaj više</button>
                </div>`
+
 
                resultDiv.innerHTML = `
                <section id="labDetails">
@@ -252,6 +253,13 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
             let todayIs = document.querySelector('.'+currentDay+i)
             let privateInsurance = document.querySelector('.privateInssuranceIcon'+i)
             let accredited = document.querySelector('.accreditedIcon'+i)
+            let labDetailsBtn = document.querySelectorAll('.buttonId')
+             labDetailsBtn.forEach(item => {
+               item.addEventListener('click', e => {
+                 window.location = `/${e.target.getAttribute('data-labName')}`
+               })
+             })
+
 
             if(result[i].private) {
               privateInsurance.setAttribute('src', '/images/osiguranje.svg')
@@ -270,14 +278,22 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
               radnoVreme.innerText = 'otvoreno 24h'
               todayIs.classList.add('active')
             } else if(day === currentDayNum) {
-              let wh = 'workingHours'
+
               let openTime = result[i].workingHours[currentDay].opens
               let closingTime = result[i].workingHours[currentDay].closes
               let todayOpenTime = new Date(today +' '+ openTime +':00')
               let todayClosingTime = new Date(today +' '+ closingTime +':00')
               let nowTimeStamp = now.getTime()
+              let closingSoon = todayClosingTime - nowTimeStamp
+              let closingIn = (Math.ceil(closingSoon/1000/60))
 
-                if(nowTimeStamp > todayOpenTime.getTime() &&
+              if (closingIn < 60 && closingIn > 0) {
+                radnoVreme.classList.add('closedSoon')
+                radnoVreme.innerText = `zatvara se za ${closingIn} min.`
+                todayIs.classList.add('active')
+              }
+
+                else if(nowTimeStamp > todayOpenTime.getTime() &&
                     todayClosingTime.getTime() > nowTimeStamp) {
                     radnoVreme.classList.add('open')
                     radnoVreme.innerText = 'otvoreno'
