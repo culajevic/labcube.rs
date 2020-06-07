@@ -162,7 +162,7 @@ exports.deleteLab = async (req,res) => {
 }
 
 exports.getLabInfo = async (req,res) => {
-  const labDetails = await Lab.findOne({labName:{"$regex":req.params.labName, "$options": "i" }})
+  const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
   res.json(labDetails)
 }

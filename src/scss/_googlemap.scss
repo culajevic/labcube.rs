@@ -63,7 +63,7 @@
 
 
 .labInfoWindowTitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color:$primary-color;
   font-weight: 500;
   line-height: px-to-rem(19px);
@@ -218,7 +218,7 @@ width: 333px !important;
   border:1px solid $labBoxBorder;
   background-color: $white-color;
   opacity: .95;
-  max-width:350px;
+  max-width:400px;
   margin-bottom: px-to-rem(16px);
   margin-right:px-to-rem(16px);
   padding: 16px;

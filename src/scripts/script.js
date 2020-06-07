@@ -159,6 +159,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
       let today = (month + 1) + "/" + date + "/" + year
       // let danas
 
+
         fetch('/lab/'+searchStr).then((data) => {
 
           data.json().then((result) => {
@@ -198,7 +199,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
                        <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
                      </div>
                   </div>
-                  <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="${result[i].labName}">saznaj više</button>
+                  <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="${result[i].slug}">saznaj više</button>
                </div>`
 
 
@@ -217,6 +218,10 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
             let currentDay
             let currentDayNum
             switch (day) {
+              case 0:
+                currentDay = 'sunday'
+                currentDayNum = 0
+                break
               case 1:
                 currentDay = 'monday'
                 currentDayNum = 1
@@ -240,10 +245,6 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
               case 6:
                 currentDay = 'saturday'
                 currentDayNum = 6
-                break
-              case 7:
-                currentDay = 'sunday'
-                currentDayNum = 0
                 break
               default:
                 console.log('dan nije ok')

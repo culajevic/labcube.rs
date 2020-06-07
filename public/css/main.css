@@ -7433,7 +7433,7 @@ input[name="searchFilter"] {
   height: 15.625rem; }
 
 .labInfoWindowTitle {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #1D88E5;
   font-weight: 500;
   line-height: 1.1875rem; }
@@ -7556,7 +7556,7 @@ input[name="searchFilter"] {
   border: 1px solid #E6E6E6;
   background-color: #FFF;
   opacity: .95;
-  max-width: 350px;
+  max-width: 400px;
   margin-bottom: 1rem;
   margin-right: 1rem;
   padding: 16px;
