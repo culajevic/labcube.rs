@@ -212,7 +212,13 @@ width: 333px !important;
   h1 {
     margin-bottom: 40px;
   }
+  & h1 {
+    margin-top: 60px;
+    //moves labname down on labdetails page
+  }
 }
+
+
 
 .lab-card {
   border:1px solid $labBoxBorder;

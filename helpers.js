@@ -32,3 +32,11 @@ hbs.registerHelper('increment', (index) => {
   index++
   return index
 })
+//display phones list on lab details page
+hbs.registerHelper('displayPhoneList', (phones) => {
+  let phonesNewList = []
+  for (i=0; i<phones.length; i++) {
+    phonesNewList = phones.join(', ')
+    }
+return phonesNewList
+})

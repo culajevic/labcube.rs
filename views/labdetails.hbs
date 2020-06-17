@@ -1,0 +1,103 @@
+{{> _innerNavFrontend}}
+
+<section id="labDetails" class="labDetailsInnerPage">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
+        <h1 class="mb-5">{{labDetails.labName}}</h1>
+
+      </div>
+      <div class="col-sm-12 col-lg-5">
+        <div class="labInfoWindowDetails">
+           <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo">
+           <p class="labDetailsAdresa">{{labDetails.address}} </p>
+           <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p>
+           <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
+           <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
+        </div>
+        <div class="labFeatures">
+          {{#if labDetails.accredited}}
+          <p><img src="images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
+          {{/if}}
+          {{#if labDetails.private}}
+          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Sarađujemo sa privatnim osiguranjem</p>
+          {{/if}}
+          {{#if labDetails.patronage}}
+          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Moguće je zakazati patronažu</p>
+          {{/if}}
+          {{#if labDetails.disability}}
+          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
+          {{/if}}
+        </div>
+      </div><!-- col-6 -->
+      <div class="col-sm-12 col-lg-7">
+        <section id="googleMap">
+          <div id="mapDetails"></div>
+        </section>
+      </div>
+    </div><!-- row -->
+
+    <div class="row">
+      <div class="col-sm-12 table-responsive">
+        <div class="mt-5">
+          <p class="aboutUs">odabrane analize (0) <span class="totalPrice">ukupna cena<sup>*</sup> | 3.900,00 rsd</span></p>
+        </div>
+   				<table class="table results table-hover">
+   					<tbody>
+              <tr>
+                <td><img src="images/detail.svg" data-toggle="tooltip" title="Lorem ipsum dolondae veniam numquam explicabo rem atque vitae perferendis, sit. Rerum suscipit cupiditate laborum culpa ea molestias quasi distinctio, temporibus nulla! Magni." class="tooltipImg mr-2">Alfa fetoprotein</td>
+                <td>AFP</td>
+                <td>Tumor markeri</td>
+                <td><img src="images/hospital-alt.svg"></td>
+                <td><span class="font-weight-bold">1200</span></td>
+                <td><img src="images/closeBtn.svg" class="remove"></td>
+              </tr>
+   					</tbody>
+   				</table>
+          <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
+
+        </div><!-- table-responsive -->
+
+        <div class="col-12 labDetailsActionBtn">
+          <!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> -->
+          <a class="btn btn-success text-uppercase " href="">prosledi laboratoriji</a>
+          <!-- <a class="btn btn-success text-uppercase " href="">prosledi na svoj mejl</a> -->
+          <!-- <a class="btn btn-success text-uppercase " href="">zakaži patronažu</a> -->
+        </div>
+
+        <div class="col-12">
+          <h4 class='benefitsTitle'>Odaberite analize i laboratoriju putem sajta i lab cube vam besplatno omogućuje i</h4>
+          <div class="d-flex flex-wrap">
+            <div class="cardBenefits">
+                <img src="images/besplantoTumacenje.svg" class="mt-4" alt="">
+                <p class="text-center benefit">Tumačenje rezultata od strane naših lekara</p>
+            </div>
+            <div class="cardBenefits">
+                <img src="images/rezultatiOnline.svg" class="mt-4" alt="">
+                <p class="text-center benefit">Rezultati svih analiza su Vam uvek dostupni online</p>
+            </div>
+            <div class="cardBenefits">
+                <img src="images/pristup.svg" class="mt-4" alt="" height="40">
+                <p class="text-center benefit">labcube dashboard i grafički prikaz rezultata</p>
+            </div>
+            <div class="cardBenefits">
+                <img src="images/podeliSaLekarom.svg" class="mt-4" alt="" class="">
+                <p class="text-center benefit" style="" style="">Podelite rezultate sa odabranim lekarom</p>
+            </div>
+          </div><!-- d-flex -->
+        </div><!-- col-12 -->
+
+        <!-- o nasoj laboratoriji -->
+        <!-- <div class="col-12 mb-4" >
+          <p class="aboutUs mt-5 text-uppercase">O našoj laboratoriji</p>
+          <img src="images/owner.jpg" alt="" class="float-left" style="height: 180px; padding-right:20px;">
+          <p class="ourLab">Lorem Lorem debitis libero voluptatum, id dolores, voluptas consequatur officia, quas numquam magni.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique voluptates, amet suscipit perferendis dolor praesentium eligendi quis deleniti id sint. Molestias, ea. ipsum dolor sit amet, consectetur adipisicing elit. Totam qui amet quas, cupiditate alias nulla, minima laborum corporis! Aliquid iste sunt, ad!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, similique explicabo. Inventore quo molestiae ipsum labore, quidem nulla voluptate totam doloribus recusandae. dolres fuga sequi itaque quasi aperiam vel, rem, officia amet ex ipsa inventore voluptatum quisquam dicta obcaecati impedit esse ex, at distinctio fugit similique corporis in rem mollitia facilis, facere nihil eum quidem.</p>
+        </div> -->
+
+
+      </div>
+  </div>
+</section><!-- labdetails -->
+
+{{> _footer}}

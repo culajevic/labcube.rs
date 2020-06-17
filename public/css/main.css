@@ -7551,6 +7551,8 @@ input[name="searchFilter"] {
   width: 100%; }
   #labDetails h1 {
     margin-bottom: 40px; }
+  #labDetails h1 {
+    margin-top: 60px; }
 
 .lab-card, .cardBenefits, .beReady {
   border: 1px solid #E6E6E6;
@@ -8235,11 +8237,12 @@ footer {
     font-size: 14px;
     margin-bottom: 8px; }
 
-.benefitsTite {
+.benefitsTitle {
   text-align: center;
   margin-bottom: 40px;
   padding-top: 40px;
-  border-top: 1px solid #e1e1e1; }
+  border-top: 1px solid #e1e1e1;
+  color: #9C9C9C; }
 
 .benefit {
   color: #1F1F1F;
