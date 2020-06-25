@@ -7475,21 +7475,19 @@ input[name="searchFilter"] {
 
 .radnoVremeDetalji {
   display: block;
-  height: 9.875rem;
+  height: 8rem;
   top: -7.625rem;
   right: 0;
   width: 6.875rem;
-  opacity: 0;
-  z-index: -9;
-  transition: .3s linear;
+  opacity: 1;
   background-color: #1D88E5;
   position: absolute; }
   .radnoVremeDetalji > p {
     display: inline-block;
-    line-height: 1.125rem;
     font-weight: 500;
     padding-left: 0.375rem;
-    margin-bottom: 0.25rem; }
+    margin-bottom: 0.25rem;
+    font-size: 12px; }
     .radnoVremeDetalji > p.active {
       background-color: #55D159;
       width: 100%;
@@ -7501,11 +7499,6 @@ input[name="searchFilter"] {
 
 .labInfoWindowFooter:hover, .labInfoWindowFooterSelected:hover {
   cursor: pointer; }
-  .labInfoWindowFooter:hover .radnoVremeDetalji, .labInfoWindowFooterSelected:hover .radnoVremeDetalji {
-    opacity: .8;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-    right: -110px; }
 
 .labInfoWindowWorkingHoursIcon {
   margin: 0.625rem 0.5rem 0 0.25rem;
@@ -8190,15 +8183,24 @@ footer {
   margin-bottom: 0.125rem;
   color: #1F1F1F; }
 
-.labFeatures {
-  padding-left: 15px;
-  margin-top: 30px; }
-  .labFeatures p {
-    font-size: 20px;
-    margin-bottom: 8px; }
+.labFeatures p {
+  font-size: 1.0625rem;
+  margin-bottom: 8px; }
+
+.workingHoursLabDetails > tbody > tr > td.open {
+  background-color: #55D159;
+  color: white; }
+
+.workingHoursLabDetails > tbody > tr > td.closed {
+  background-color: #FF6F6F;
+  color: white; }
+
+.workingHoursLabDetails > tbody > tr > td.closingSoon {
+  background-color: #FF9600;
+  color: white; }
 
 #mapDetails {
-  height: 270px; }
+  height: 360px; }
 
 .aboutUs {
   display: block;

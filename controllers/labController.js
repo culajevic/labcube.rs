@@ -161,10 +161,85 @@ exports.deleteLab = async (req,res) => {
   res.send('success')
 }
 
+
+
 exports.getLabInfo = async (req,res) => {
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
-  res.render('labdetails',{labDetails})
+
+  let now = new Date()
+  let month = now.getMonth()
+  let date = now.getDate()
+  let year = now.getFullYear()
+  let today = (month + 1) + "/" + date + "/" + year
+  let day = now.getDay()
+  
+  let currentDay
+  let currentDayNum
+  //
+  switch (day) {
+    case 0:
+      currentDay = 'sunday'
+      currentDayNum = 0
+      break
+    case 1:
+      currentDay = 'monday'
+      currentDayNum = 1
+      break
+    case 2:
+      currentDay = 'tuesday'
+      currentDayNum = 2
+      break
+    case 3:
+      currentDay = 'wednesday'
+      currentDayNum = 3
+      break
+    case 4:
+      currentDay = 'thursday'
+      currentDayNum = 4
+      break
+    case 5:
+      currentDay = 'friday'
+      currentDayNum = 5
+      break
+    case 6:
+      currentDay = 'saturday'
+      currentDayNum = 6
+      break
+    default:
+      console.log('dan nije ok')
+  }
+
+let status
+
+let closingSoon
+  if(labDetails.open24h) {
+     status = 'open'
+  } else if(day === currentDayNum) {
+    let openTime = labDetails.workingHours[currentDay].opens
+    let closingTime = labDetails.workingHours[currentDay].closes
+    let todayOpenTime = new Date(today +' '+ openTime +':00')
+    let todayClosingTime = new Date(today +' '+ closingTime +':00')
+    let nowTimeStamp = now.getTime()
+    let closingSoon = todayClosingTime - nowTimeStamp
+    let closingIn = (Math.ceil(closingSoon/1000/60))
+
+    if (closingIn < 60 && closingIn > 0) {
+      status = 'closingSoon'
+    }
+
+      else if(nowTimeStamp > todayOpenTime.getTime() &&
+          todayClosingTime.getTime() > nowTimeStamp) {
+          status = 'open'
+      }
+      else {
+          status = 'closed'
+      }
+    } else {
+      console.log('lab nije odredio radno vreme')
+    }
+
+  res.render('labdetails',{labDetails,status, currentDayNum})
 
 }
 

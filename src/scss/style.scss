@@ -45,16 +45,32 @@
 }
 
 .labFeatures {
-    padding-left: 15px;
-    margin-top: 30px;
+    // padding-left: 15px;
+    // margin-top: 30px;
     p {
-    font-size: 20px;
+    font-size: px-to-rem(17px);
     margin-bottom: 8px;
     }
 }
 
+
+.workingHoursLabDetails > tbody > tr > td.open {
+    background-color: $button-green;
+    color:white;
+}
+
+.workingHoursLabDetails > tbody > tr > td.closed {
+    background-color: $danger;
+    color:white;
+}
+
+.workingHoursLabDetails > tbody > tr > td.closingSoon {
+    background-color: $orange;
+    color:white;
+}
+
 #mapDetails {
-  height: 270px;
+  height: 360px;
 }
 
 .aboutUs {

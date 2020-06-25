@@ -112,21 +112,22 @@
 
 .radnoVremeDetalji {
   display: block;
-  height: px-to-rem(158px);
+  height: px-to-rem(128px);
   top:px-to-rem(-122px);
   right:0;
   width:px-to-rem(110px);
-  opacity: 0;
-  z-index: -9;
-  transition: .3s linear;
+  opacity: 1;
+  // z-index: -9;
+  // transition: .3s linear;
   background-color: $primary-color;
   position: absolute;
   & > p {
     display: inline-block;
-    line-height: px-to-rem(18px);
+    // line-height: px-to-rem(14px);
     font-weight: 500;
     padding-left: px-to-rem(6px);
     margin-bottom: px-to-rem(4px);
+    font-size: 12px;
     &.active {
       background-color: $button-green;
       width: 100%;
@@ -142,12 +143,12 @@
 
 .labInfoWindowFooter:hover {
   cursor:pointer;
-  & .radnoVremeDetalji {
-      opacity: .8;
-      border-top-right-radius: px-to-rem(4px);
-      border-bottom-right-radius: px-to-rem(4px);
-      right:-110px;
-    }
+  // & .radnoVremeDetalji {
+  //     opacity: .8;
+  //     border-top-right-radius: px-to-rem(4px);
+  //     border-bottom-right-radius: px-to-rem(4px);
+  //     right:-110px;
+  //   }
 }
 
 .labInfoWindowWorkingHoursIcon {

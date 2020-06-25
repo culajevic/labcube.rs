@@ -2,13 +2,13 @@
 
 <section id="labDetails" class="labDetailsInnerPage">
   <div class="container">
-    <div class="row">
+    <div class="row mb-4">
       <div class="col-12">
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
         <h1 class="mb-5">{{labDetails.labName}}</h1>
 
       </div>
-      <div class="col-sm-12 col-lg-5">
+      <div class="col-sm-12 col-lg-8">
         <div class="labInfoWindowDetails">
            <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo">
            <p class="labDetailsAdresa">{{labDetails.address}} </p>
@@ -16,6 +16,8 @@
            <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
            <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
         </div>
+      </div><!-- col-6 -->
+      <div class="col-sm-12 col-lg-4">
         <div class="labFeatures">
           {{#if labDetails.accredited}}
           <p><img src="images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
@@ -24,14 +26,46 @@
           <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Sarađujemo sa privatnim osiguranjem</p>
           {{/if}}
           {{#if labDetails.patronage}}
-          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Moguće je zakazati patronažu</p>
+          <p><img src="images/patron.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Moguće je zakazati patronažu</p>
           {{/if}}
           {{#if labDetails.disability}}
-          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
+          <p><img src="images/disabled.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
           {{/if}}
         </div>
-      </div><!-- col-6 -->
-      <div class="col-sm-12 col-lg-7">
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12 mt-2">
+        <table class="table table-sm workingHoursLabDetails">
+          <thead>
+            <tr>
+              <th class="text-center">P</th>
+              <th class="text-center">U</th>
+              <th class="text-center">S</th>
+              <th class="text-center">Č</th>
+              <th class="text-center">P</th>
+              <th class="text-center">S</th>
+              <th class="text-center">N</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center {{isItOpen status 2 5}}">{{labDetails.workingHours.monday.opens}} - {{labDetails.workingHours.monday.closes}}</td>
+              <td class="text-center {{isItOpen status 3 5}}">{{labDetails.workingHours.tuesday.opens}} - {{labDetails.workingHours.tuesday.closes}}</td>
+              <td class="text-center radnoVreme">{{labDetails.workingHours.wednesday.opens}} - {{labDetails.workingHours.wednesday.closes}}</td>
+              <td class="text-center {{isItOpen status 4}}"> {{labDetails.workingHours.thursday.opens}} - {{labDetails.workingHours.thursday.closes}}</td>
+              <td class="text-center radnoVreme {{isItOpen status 5}}"> {{labDetails.workingHours.friday.opens}} - {{labDetails.workingHours.friday.closes}}</td>
+              <td class="text-center radnoVreme {{isItOpen status 6}}">
+                  {{labDetails.workingHours.saturday.opens}} - {{labDetails.workingHours.saturday.closes}}</td>
+              <td class="text-center {{isItOpen status 1}}">{{labDetails.workingHours.sunday.opens}} - {{labDetails.workingHours.sunday.closes}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-12 col-lg-12 mt-2">
         <section id="googleMap">
           <div id="mapDetails"></div>
         </section>
@@ -95,6 +129,373 @@
           <p class="ourLab">Lorem Lorem debitis libero voluptatum, id dolores, voluptas consequatur officia, quas numquam magni.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique voluptates, amet suscipit perferendis dolor praesentium eligendi quis deleniti id sint. Molestias, ea. ipsum dolor sit amet, consectetur adipisicing elit. Totam qui amet quas, cupiditate alias nulla, minima laborum corporis! Aliquid iste sunt, ad!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, similique explicabo. Inventore quo molestiae ipsum labore, quidem nulla voluptate totam doloribus recusandae. dolres fuga sequi itaque quasi aperiam vel, rem, officia amet ex ipsa inventore voluptatum quisquam dicta obcaecati impedit esse ex, at distinctio fugit similique corporis in rem mollitia facilis, facere nihil eum quidem.</p>
         </div> -->
 
+
+        <script>
+          function initMap(){
+
+            // map options
+            let options = {
+              zoom:15,
+              // center: {lat:44.808048, lng:20.462796},
+              disableDefaultUI: true,
+              zoomControl: false,
+              mapTypeControl: false,
+              scaleControl: false,
+              streetViewControl: true,
+              rotateControl: false,
+              fullscreenControl: true,
+              fullscreenControlOptions:{
+                position:google.maps.ControlPosition.RIGHT_BOTTOM
+              },
+              styles: [
+                  {
+                    "featureType": "administrative.country",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#fbd2d9"
+                      },
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.country",
+                    "elementType": "geometry.stroke",
+                    "stylers": [
+                      {
+                        "color": "#9896a9"
+                      },
+                      {
+                        "weight": 2
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#9896a9"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.locality",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.neighborhood",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "administrative.neighborhood",
+                    "elementType": "labels",
+                    "stylers": [
+                      {
+                        "color": "#aaa9b1"
+                      },
+                      {
+                        "visibility": "simplified"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "poi.business",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "poi.park",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#aadc55"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "poi.park",
+                    "elementType": "labels.text",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#ecebed"
+                      },
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road",
+                    "elementType": "labels.text",
+                    "stylers": [
+                      {
+                        "color": "#d8d6dc"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#fefefe"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.text",
+                    "stylers": [
+                      {
+                        "color": "#9a9a9a"
+                      },
+                      {
+                        "visibility": "simplified"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.highway",
+                    "elementType": "labels",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.local",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.local",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#eaecec"
+                      },
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.local",
+                    "elementType": "labels",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "road.local",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                      {
+                        "color": "#9ba4a4"
+                      },
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "transit",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "visibility": "off"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "transit.station",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "visibility": "on"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "transit.station.bus",
+                    "stylers": [
+                      {
+                        "visibility": "simplified"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "transit.station.bus",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#ff00ff"
+                      },
+                      {
+                        "visibility": "simplified"
+                      }
+                    ]
+                  },
+                  {
+                    "featureType": "water",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                      {
+                        "color": "#1d88e5"
+                      },
+                      {
+                        "lightness": 15
+                      }
+                    ]
+                  }
+                ]
+            }
+
+            // new map
+            let map = new google.maps.Map(document.getElementById('mapDetails'), options);
+            let lat = {{labDetails.location.coordinates.[1]}}
+            let lng = {{labDetails.location.coordinates.[0]}}
+            let labName = "{{labDetails.labName}}"
+
+            // array of markers
+            let markers = [
+              {
+                coords:{lat:lat, lng:lng},
+                iconImage:'images/pinClosed.svg',
+                name:labName
+
+              }
+            ];
+
+            // console.log(markers[0].coords.lat);
+
+            var content ='<div id="labInfoWindow">' +
+
+                            '</div>'+
+                            '<div class="labInfoWindowFooter">'+
+                                '<img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">'+
+                                '<div class="radnoVreme">'+'Radno vreme'+'</div>'+
+                                '<div class="status">'+'otvoreno'+'</div>'+
+                                '<div class="radnoVremeDetalji">'+
+                                  '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek">U<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek active">S<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek">Č<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek">S<span>08:00 - 21:00</span></p>'+
+                                  '<p class="daysInWeek">N<span>08:00 - 21:00</span></p>'+
+                                '</div>'+
+                            '</div>'+
+                          '</div>';
+
+                let marker = new google.maps.Marker({
+
+                  position:{lat:markers[0].coords.lat, lng:markers[0].coords.lng},
+                  icon:markers[0].iconImage,
+                  map:map
+                  });
+
+                  map.setCenter({lat:markers[0].coords.lat, lng:markers[0].coords.lng});
+
+                  let infoWindow = new google.maps.InfoWindow({
+                    content:content
+                  });
+
+
+                  // add infowindow
+                  marker.addListener('click', function(){
+                    var test = infoWindow.open(map, marker);
+                  });
+
+                  google.maps.event.addListener(map, 'click', function() {
+                    infoWindow.close();
+                  });
+
+                  google.maps.event.addListener(infoWindow, 'domready', function() {
+
+                        // Reference to the DIV that wraps the bottom of infowindow
+                        var iwOuter = $('.gm-style-iw');
+                          iwOuter.parent().parent().css({
+                            'left':'8px',
+                            'top':'41px'
+                          });
+                        // iwOuter.css({'position':'relative'});
+                        // changing x close button position in infowindow
+                            iwOuter.next().css({
+                              'top':'4px',
+                              'right':'30px'
+                            });
+                        var iwBackground = iwOuter.prev();
+                          iwBackground.children(':nth-child(1)').css({'display' : 'none'});
+                          iwBackground.children(':nth-child(2)').css({
+                            'background-color':'transparent',
+                            'box-shadow': 'rgba(0, 0, 0, 0.4) -76px -78px 172px -18px',
+                            'width': '211px !important',
+                            'height': '87px !important',
+                            'top':'0',
+                            'left':'0',
+                            'z-index':'-5'
+                          });
+                          iwBackground.children(':nth-child(3)').css({'display' : 'none'});
+                          iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+                    });// google.maps.event.addListener
+        }// init function end
+
+
+        </script>
+
+        <!-- google maps api -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTj52J6A1dcfdJzqHErFGR_IDs6ahyTes&callback=initMap"
+          type="text/javascript"></script>
 
       </div>
   </div>
