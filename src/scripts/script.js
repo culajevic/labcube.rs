@@ -57,12 +57,15 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 //MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
-if(itemsArray.length>0 && location !== '/') {
+const checkUrl = /result.*/
+if(itemsArray.length>0 && location.match(checkUrl)) {
+  console.log(location+'dada')
   helper.displayBasket(itemsArray)
 }
 
 //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
+
 if (itemsArray.length > 0 && location == '/') {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
@@ -86,8 +89,8 @@ if(location === '/') {
 
 /* RESULTS PAGE ***************/
 
-if (urlArr[1] === 'results' && urlArr[2] == '') {
-
+// if (urlArr[1] === 'results' && urlArr[2] == '') {
+if (document.getElementById('results')!=null) {
   //taking values from url
   const urlParams = new URLSearchParams(window.location.search);
   //search string and filter
@@ -132,6 +135,7 @@ if (urlArr[1] === 'results' && urlArr[2] == '') {
     if(myFilter === 'analiza') {
       fetch('/analysis/prices/'+searchStr).then((data) => {
         data.json().then((result) => {
+          console.log(result.minPriceArr)
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
           let pricesMin = result.minPriceArr
@@ -380,7 +384,7 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
-
+  console.log(location)
 //scrollspy initialization for side navigation
   $('body').scrollspy({
     target: '#sideMenu',

@@ -7382,6 +7382,14 @@ input[name="searchFilter"] {
   .btn-success:hover, .btnLogin:hover {
     background-color: #36c73b; }
 
+.groupTitle {
+  color: #FFF;
+  font-size: 3.625rem; }
+
+.groupDescription {
+  font-size: 1.25rem;
+  color: #4B4B4B; }
+
 #google-map {
   position: relative;
   width: 100%; }
@@ -7718,7 +7726,7 @@ div.status.closedSoon::before {
   font-size: 1.125rem;
   padding-left: 0.5rem; }
 
-#results, #details {
+#results, #details, #resultsGroupDetails {
   margin-top: 5rem;
   margin-bottom: 9.375rem; }
   #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin {
@@ -8164,7 +8172,12 @@ footer {
 .tesss {
   font-size: 16px; }
 
-#labDetails h1 {
+#labDetails h1, #groupDetails h1 {
+  color: #1D88E5;
+  font-size: 2.625rem;
+  font-weight: bold; }
+
+.headTitle {
   color: #1D88E5; }
 
 .labDetailsLogo {

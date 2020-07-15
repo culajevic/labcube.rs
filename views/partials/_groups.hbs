@@ -6,12 +6,14 @@
         <div class="card">
           <div class="card-body">
             <div>
+              {{#each this.grupa}}
               <img src="images/{{this.iconPath}}" alt="{{this.name}}" class="analiza-ikonica">
               <span class="d-flex align-self-stretch">{{this.name}}</span>
             </div>
             <p class="card-text">{{groupSummary this.description}}</p>
-            <a href='details/{{this.name}}'><button class="button btn btn-secondary btn-block click-more">Saznaj više
-            <span class="broj-analiza">25</span></button></a>
+            <a href='/group/{{this.slug}}'><button class="button btn btn-secondary btn-block click-more">Saznaj više
+            {{/each}}
+            <span class="broj-analiza">{{this.total}}</span></button></a>
             </div><!-- card body end -->
           </div><!-- card end -->
         </div><!-- group div end -->

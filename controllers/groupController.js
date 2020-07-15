@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const Group = mongoose.model('Group')
 const Faq = mongoose.model('Faq')
 const Analysis = mongoose.model('Analysis')
+//for test only
+const Price = mongoose.model('Price')
+const Lab = mongoose.model('Lab')
+
+//
 const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
@@ -25,7 +30,14 @@ exports.getGroups = async (req,res) => {
 sortByPriority = {priority:-1}
   try {
     const faqFP = await Faq.find({frontPage:true}).sort(sortByPriority)
-    const groups = await Group.find({frontPage:true}).sort(sortByPriority)
+    // const groups = await Group.find({frontPage:true}).sort(sortByPriority)
+    const groups = await Analysis.aggregate([
+      {$match:{}},
+      {$group:{_id:{groupId:'$groupId'},total:{$sum:1}}},
+      {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
+      {$sort:{'grupa.priority':-1}}
+    ])
+    // res.json(groups)
       res.render('index',{
         title:'labcube - Sve o laboratorijskim analizama',
         faqtitle:'Najčešće postavljana pitanja',
@@ -39,10 +51,41 @@ sortByPriority = {priority:-1}
 
 // display single group // TODO: create page for single group display
 exports.displayGroup = async (req,res) => {
-  const group = req.params.name
-  const groupDetails = await Group.findOne({name:group})
-  const allAnalysis = await Analysis.find({groupId:groupDetails._id},{analysisName:1})
-  res.send({group:groupDetails, analyisisdata:allAnalysis})
+  const group = req.params.slug
+  const groupDetails = await Group.findOne({slug:group})
+  const ObjectId = mongoose.Types.ObjectId
+  console.log(groupDetails._id)
+  const analysis = await Price.aggregate([
+    {$unwind : "$cenovnik"},
+    {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+    {$lookup: {from:'analyses', localField:'_id', foreignField:'_id', as:'analiza'}},
+    {$match : {'analiza.groupId':ObjectId(groupDetails._id)}},
+    {$project:{name:'$analiza.analysisName',
+              abbr:'$analiza.abbr',
+              alt:'$analiza.alt',
+              availableHC:'$analiza.availableHC',
+              preview:'$analiza.preview',
+              slug:'$analiza.slug',
+              groupId:'$analiza.groupId',
+              minPrice:1,
+              maxPrice:1}},
+      {$sort:{name:1}}
+  ])
+
+  // const allAnalysis = await Analysis.find({groupId:groupDetails._id},
+  //   {
+  //   analysisName:1,
+  //   preview:1,
+  //   abbr:1,
+  //   alt:1,
+  //   availableHC:1,
+  //   slug:1
+  // })
+  res.render('groupDetails',{
+    group:groupDetails,
+    analyisisdata:analysis
+  })
+  // res.send({group:groupDetails, analyisisdata:analysis})
 }
 
 // display form for adding a new group

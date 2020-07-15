@@ -16,7 +16,7 @@ const resultController = require('../controllers/resultController')
 router.get('/', groupController.getGroups)
 
 //display single group
-router.get('/details/:name', groupController.displayGroup)
+router.get('/group/:slug', groupController.displayGroup)
 
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)

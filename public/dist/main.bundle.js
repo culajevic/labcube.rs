@@ -720,7 +720,10 @@ var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
 
-if (itemsArray.length > 0 && location !== '/') {
+var checkUrl = /result.*/;
+
+if (itemsArray.length > 0 && location.match(checkUrl)) {
+  console.log(location + 'dada');
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -743,9 +746,10 @@ window.onload = function () {
   } // INDEX page end
 
   /* RESULTS PAGE ***************/
+  // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (urlArr[1] === 'results' && urlArr[2] == '') {
+  if (document.getElementById('results') != null) {
     //taking values from url
     var urlParams = new URLSearchParams(window.location.search); //search string and filter
 
@@ -788,6 +792,7 @@ window.onload = function () {
     if (myFilter === 'analiza') {
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         data.json().then(function (result) {
+          console.log(result.minPriceArr);
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
           var pricesMin = result.minPriceArr;
@@ -991,7 +996,8 @@ window.onload = function () {
 
 
   if (urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== '') {
-    //scrollspy initialization for side navigation
+    console.log(location); //scrollspy initialization for side navigation
+
     $('body').scrollspy({
       target: '#sideMenu',
       offset: 30

@@ -14,7 +14,7 @@ module.exports = {
     vendor:'./src/scripts/vendor.js'
   },
   output: {
-    path:path.join(__dirname,'/public/dist/'),
+    path:path.resolves(__dirname,'/public/dist/'),
     filename:'[name].[contentHash].bundle.js'
   },
   // optimization:{

@@ -104,3 +104,13 @@ margin-bottom: px-to-rem(20px);
     background-color: darken($button-green, 8%);
   }
 }
+
+.groupTitle {
+  color:$white-color;
+  font-size: px-to-rem(58px);
+}
+.groupDescription {
+  // padding-top: px-to-rem(28px);
+  font-size: px-to-rem(20px);
+  color: $cardHeader;
+}

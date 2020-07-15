@@ -173,7 +173,7 @@ exports.getLabInfo = async (req,res) => {
   let year = now.getFullYear()
   let today = (month + 1) + "/" + date + "/" + year
   let day = now.getDay()
-  
+
   let currentDay
   let currentDayNum
   //

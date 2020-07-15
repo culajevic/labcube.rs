@@ -1,0 +1,46 @@
+
+{{> _innerNavGroupDetails}}
+
+<section id="groupDetails">
+  <div class="container" id="resultsGroupDetails">
+    <div class="row mb-4">
+      <div class="col-12">
+
+
+        <p class="mt-2 groupDescription">{{group.description}}</p>
+
+        <table class="table results table-hover">
+ 					<tbody id="resultTable">
+            {{#each analyisisdata}}
+            <tr>
+              <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
+                <a href="../results/analysis/{{this.slug}}" class="nolink">{{this.name}}</a></td>
+              <td>{{#each abbr}} {{this}} {{/each}}</td>
+              <td>{{#each alt}} {{this}} {{/each}}</td>
+
+              {{#if this.availableHC}}
+                <td><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                {{else}}
+                <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+              {{/if}}
+              <td><span class="font-weight-bold">{{this.minPrice}} - {{this.maxPrice}}</span></td>
+              <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="{{this._id}}" data-analysisname="{{this.analysisName}}">dodaj</button></td>
+            </tr>
+            {{/each}}
+          </tbody>
+ 				</table><!-- table -->
+
+
+{{#each analyisisdata}}
+  {{this.ime}}
+  {{/each}}
+
+
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{{> _footer}}

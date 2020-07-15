@@ -16,10 +16,10 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('references')
   .populate('groupId', 'iconPath')
 
-  let minPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{cena:1,'cenovnik.$':1})
+  let minPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
   .sort({'cenovnik.cena':1})
 
-  let maxPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{cena:1,'cenovnik.$':1})
+  let maxPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
   .sort({'cenovnik.cena':-1})
 
 

@@ -174,7 +174,7 @@ exports.getAnalyisisNameResult = async (req, res) => {
 
   // res.render(analysisName)
 res.json({analysisName, minPriceArr, maxPriceArr})
-  // res.json({analysisName, minPriceArr, maxPriceArr})
+
 }
 
 exports.deleteAnalysis = async (req,res) => {

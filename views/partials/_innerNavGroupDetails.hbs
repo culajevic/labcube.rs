@@ -1,0 +1,45 @@
+<header id="smallHeader">
+  <nav class="navbar navbar-expand-md navbar-dark mb-auto">
+    <div class="container">
+      <a href="/" class="navbar-brand"><img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse my-1" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="far fa-comments"></i>Tumačenje rezultata</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="fas fa-map-marker-alt"></i>Sve laboratorije</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link"><i class="far fa-user"></i>Prijava</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link checkout d-none"></button>
+          </li>
+        </ul>
+      </div><!-- collapse -->
+    </div><!-- container end -->
+  </nav><!-- nav end -->
+
+  <!-- logo  -->
+  <!-- <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFull"> -->
+<h1 class="logoFull"><span class="groupTitle">{{group.name}} <img src="/images/{{group.iconPath}}"></span></h1>
+
+
+  <div class="container searchFieldContainerInner">
+    <form>
+      <div class="row">
+        <div class="col-sm-12 col-lg-8 mx-auto ">
+          <input type="text" class="form-control search" name="innerSearch" id="searchResultPage" placeholder="Unesite naziv analize/laboratorije">
+          <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
+            <label for="analizeRadioButton" class="analizeSearchFilter">analiza</label>
+          <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
+            <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter">laboratorija</label>
+        </div> <!-- searchField -->
+      </div><!-- row -->
+    </form><!-- form end -->
+  </div><!-- container -->
+</header><!-- header end -->
