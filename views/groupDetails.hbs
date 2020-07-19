@@ -4,11 +4,8 @@
 <section id="groupDetails">
   <div class="container" id="resultsGroupDetails">
     <div class="row mb-4">
-      <div class="col-12">
-
-
-        <p class="mt-2 groupDescription">{{group.description}}</p>
-
+        <p class="mt-2 mb-4 groupDescription">{{group.description}}</p>
+      <div class="col-9">
         <table class="table results table-hover">
  					<tbody id="resultTable">
             {{#each analyisisdata}}
@@ -24,22 +21,18 @@
                 <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
               {{/if}}
               <td><span class="font-weight-bold">{{this.minPrice}} - {{this.maxPrice}}</span></td>
-              <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="{{this._id}}" data-analysisname="{{this.analysisName}}">dodaj</button></td>
+              <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="{{this._id}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">dodaj</button></td>
             </tr>
             {{/each}}
           </tbody>
  				</table><!-- table -->
+      </div><!-- col 8 end -->
+
+        {{> _sidebar}}
 
 
-{{#each analyisisdata}}
-  {{this.ime}}
-  {{/each}}
-
-
-
-      </div>
-    </div>
-  </div>
+    </div><!-- row end -->
+  </div><!-- container end -->
 </section>
 
 

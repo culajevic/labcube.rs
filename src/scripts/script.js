@@ -58,15 +58,16 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
 const checkUrl = /result.*/
-if(itemsArray.length>0 && location.match(checkUrl)) {
-  console.log(location+'dada')
+const group = /group/
+if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl))) {
   helper.displayBasket(itemsArray)
 }
 
 //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
-
-if (itemsArray.length > 0 && location == '/') {
+const checkCMSAdd = /add.*/
+const checkCMSAll = /all.*/
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll)) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -90,8 +91,23 @@ if(location === '/') {
 /* RESULTS PAGE ***************/
 
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
-if (document.getElementById('results')!=null) {
-  //taking values from url
+if (document.getElementById('results')!=null || document.getElementById('resultsGroupDetails')!=null) {
+
+  const activeBtns = document.querySelectorAll('.addAnalysis')
+  activeBtns.forEach(analysis => {
+    let analysisPositionArr = itemsArray.findIndex((item) => {
+        return analysis.getAttribute("data-analysisid") === item.id
+    })
+    if(analysisPositionArr !== -1) {
+      analysis.innerHTML = '&#10004;'
+      analysis.disabled = true
+      analysis.classList.remove('addAnalysis')
+      analysis.classList.add('deleteAnalysis')
+    }
+
+  })
+
+
   const urlParams = new URLSearchParams(window.location.search);
   //search string and filter
   let myValue = urlParams.get('name')
@@ -116,7 +132,7 @@ if (document.getElementById('results')!=null) {
     // if user is searching from home page take result div
     let resultDiv = document.getElementById('resultTable')
     // check if local storage is empty
-    let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+    // let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 
     // if filter value is changed on result searchResultPage
     // taking filter value
@@ -203,7 +219,7 @@ if (document.getElementById('results')!=null) {
                        <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
                      </div>
                   </div>
-                  <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="${result[i].slug}">saznaj više</button>
+                  <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
                </div>`
 
 
@@ -384,7 +400,6 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
-  console.log(location)
 //scrollspy initialization for side navigation
   $('body').scrollspy({
     target: '#sideMenu',

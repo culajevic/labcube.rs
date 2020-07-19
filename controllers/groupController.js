@@ -52,9 +52,8 @@ sortByPriority = {priority:-1}
 // display single group // TODO: create page for single group display
 exports.displayGroup = async (req,res) => {
   const group = req.params.slug
-  const groupDetails = await Group.findOne({slug:group})
+  const groupDetails = await Group.findOne({slug:group},{iconPath:1, description:1, name:1})
   const ObjectId = mongoose.Types.ObjectId
-  console.log(groupDetails._id)
   const analysis = await Price.aggregate([
     {$unwind : "$cenovnik"},
     {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
@@ -68,24 +67,15 @@ exports.displayGroup = async (req,res) => {
               slug:'$analiza.slug',
               groupId:'$analiza.groupId',
               minPrice:1,
-              maxPrice:1}},
+              maxPrice:1,
+              iconPath:groupDetails.iconPath}},
       {$sort:{name:1}}
   ])
 
-  // const allAnalysis = await Analysis.find({groupId:groupDetails._id},
-  //   {
-  //   analysisName:1,
-  //   preview:1,
-  //   abbr:1,
-  //   alt:1,
-  //   availableHC:1,
-  //   slug:1
-  // })
   res.render('groupDetails',{
     group:groupDetails,
     analyisisdata:analysis
   })
-  // res.send({group:groupDetails, analyisisdata:analysis})
 }
 
 // display form for adding a new group

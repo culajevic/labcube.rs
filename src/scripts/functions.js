@@ -39,8 +39,9 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
 
 exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, itemsArray) => {
 
-  //check if analysis is already in array
+  //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
+
     return item.name === analysis[i].analysisName
   })
 
@@ -243,7 +244,7 @@ exports.removeAnalysis = (itemsArray, checkout) => {
 exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<35) {
+    if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<30) {
 
       itemsArray.push({
         'name':e.target.getAttribute('data-analysisName'),
@@ -315,8 +316,8 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
 
         //display basket when first analyis is added to basket
         document.querySelector('.card').classList.remove('d-none')
-    } else if (itemsArray.length>35){
-      console.log('ne mozete dodati vise od 40 analiza u korpu')
+    } else if (itemsArray.length>30){
+      console.log('ne mozete dodati vise od 30 analiza u korpu')
     }
   })// resultdiv end
 }

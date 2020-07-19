@@ -20,16 +20,16 @@
       <div class="col-sm-12 col-lg-4">
         <div class="labFeatures">
           {{#if labDetails.accredited}}
-          <p><img src="images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
+          <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
           {{/if}}
           {{#if labDetails.private}}
-          <p><img src="images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Privatno osiguranje</p>
+          <p><img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Privatno osiguranje</p>
           {{/if}}
           {{#if labDetails.patronage}}
-          <p><img src="images/ambulance_2.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Radimo patronažu</p>
+          <p><img src="/images/ambulance_2.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Radimo patronažu</p>
           {{/if}}
           {{#if labDetails.disability}}
-          <p><img src="images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
+          <p><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
           {{/if}}
         </div>
       </div>
@@ -80,12 +80,12 @@
    				<table class="table results table-hover">
    					<tbody>
               <tr>
-                <td><img src="images/detail.svg" data-toggle="tooltip" title="Lorem ipsum dolondae veniam numquam explicabo rem atque vitae perferendis, sit. Rerum suscipit cupiditate laborum culpa ea molestias quasi distinctio, temporibus nulla! Magni." class="tooltipImg mr-2">Alfa fetoprotein</td>
+                <td><img src="/images/detail.svg" data-toggle="tooltip" title="Lorem ipsum dolondae veniam numquam explicabo rem atque vitae perferendis, sit. Rerum suscipit cupiditate laborum culpa ea molestias quasi distinctio, temporibus nulla! Magni." class="tooltipImg mr-2">Alfa fetoprotein</td>
                 <td>AFP</td>
                 <td>Tumor markeri</td>
-                <td><img src="images/hospital-alt.svg"></td>
+                <td><img src="/images/hospital-alt.svg"></td>
                 <td><span class="font-weight-bold">1200</span></td>
-                <td><img src="images/closeBtn.svg" class="remove"></td>
+                <td><img src="/images/closeBtn.svg" class="remove"></td>
               </tr>
    					</tbody>
    				</table>
@@ -104,19 +104,19 @@
           <h4 class='benefitsTitle'>Odaberite analize i laboratoriju putem sajta i lab cube vam besplatno omogućuje i</h4>
           <div class="d-flex flex-wrap">
             <div class="cardBenefits">
-                <img src="images/besplantoTumacenje.svg" class="mt-4" alt="">
+                <img src="/images/besplantoTumacenje.svg" class="mt-4" alt="">
                 <p class="text-center benefit">Tumačenje rezultata od strane naših lekara</p>
             </div>
             <div class="cardBenefits">
-                <img src="images/rezultatiOnline.svg" class="mt-4" alt="">
+                <img src="/images/rezultatiOnline.svg" class="mt-4" alt="">
                 <p class="text-center benefit">Rezultati svih analiza su Vam uvek dostupni online</p>
             </div>
             <div class="cardBenefits">
-                <img src="images/pristup.svg" class="mt-4" alt="" height="40">
+                <img src="/images/pristup.svg" class="mt-4" alt="" height="40">
                 <p class="text-center benefit">labcube dashboard i grafički prikaz rezultata</p>
             </div>
             <div class="cardBenefits">
-                <img src="images/podeliSaLekarom.svg" class="mt-4" alt="" class="">
+                <img src="/images/podeliSaLekarom.svg" class="mt-4" alt="" class="">
                 <p class="text-center benefit" style="" style="">Podelite rezultate sa odabranim lekarom</p>
             </div>
           </div><!-- d-flex -->
@@ -411,7 +411,7 @@
             let markers = [
               {
                 coords:{lat:lat, lng:lng},
-                iconImage:'images/pinopen.svg',
+                iconImage:'/images/pinopen.svg',
                 name:labName
 
               }
@@ -419,24 +419,24 @@
 
             // console.log(markers[0].coords.lat);
 
-            var content ='<div id="labInfoWindow">' +
-
-                            '</div>'+
-                            '<div class="labInfoWindowFooter">'+
-                                '<img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">'+
-                                '<div class="radnoVreme">'+'Radno vreme'+'</div>'+
-                                '<div class="status">'+'otvoreno'+'</div>'+
-                                '<div class="radnoVremeDetalji">'+
-                                  '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek">U<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek active">S<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek">Č<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek">S<span>08:00 - 21:00</span></p>'+
-                                  '<p class="daysInWeek">N<span>08:00 - 21:00</span></p>'+
-                                '</div>'+
-                            '</div>'+
-                          '</div>';
+            // var content ='<div id="labInfoWindow">' +
+            //
+            //                 '</div>'+
+            //                 '<div class="labInfoWindowFooter">'+
+            //                     '<img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">'+
+            //                     '<div class="radnoVreme">'+'Radno vreme'+'</div>'+
+            //                     '<div class="status">'+'otvoreno'+'</div>'+
+            //                     '<div class="radnoVremeDetalji">'+
+            //                       '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek">U<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek active">S<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek">Č<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek">P<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek">S<span>08:00 - 21:00</span></p>'+
+            //                       '<p class="daysInWeek">N<span>08:00 - 21:00</span></p>'+
+            //                     '</div>'+
+            //                 '</div>'+
+            //               '</div>';
 
                 let marker = new google.maps.Marker({
 
@@ -448,18 +448,18 @@
                   map.setCenter({lat:markers[0].coords.lat, lng:markers[0].coords.lng});
 
                   let infoWindow = new google.maps.InfoWindow({
-                    content:content
+                    // content:content
                   });
 
 
                   // add infowindow
-                  marker.addListener('click', function(){
-                    var test = infoWindow.open(map, marker);
-                  });
-
-                  google.maps.event.addListener(map, 'click', function() {
-                    infoWindow.close();
-                  });
+                  // marker.addListener('click', function(){
+                  //   var test = infoWindow.open(map, marker);
+                  // });
+                  //
+                  // google.maps.event.addListener(map, 'click', function() {
+                  //   infoWindow.close();
+                  // });
 
                   google.maps.event.addListener(infoWindow, 'domready', function() {
 
