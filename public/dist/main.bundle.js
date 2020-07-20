@@ -685,7 +685,7 @@ $(document).ready(function () {
 
 $('.click-more').hover(function () {
   $(this).find("span").toggleClass("broj-analiza-hover");
-}); // sticky navigation
+}); // sticky navigation for index page
 
 $(window).scroll(function () {
   var height = $(window).scrollTop();
@@ -694,16 +694,6 @@ $(window).scroll(function () {
     $("#header > nav").addClass('fixed-top-background fixed-top');
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
-  }
-}); // sticky navigation for side menu
-
-$(window).scroll(function () {
-  var height = $(window).scrollTop();
-
-  if (height > 120) {
-    $(".odabraneAnalize").addClass('fixed-right');
-  } else {
-    $(".odabraneAnalize").removeClass('fixed-right');
   }
 });
 var location = window.location.pathname; // GLOBAL VARIABLES
@@ -765,7 +755,13 @@ window.onload = function () {
         analysis.classList.remove('addAnalysis');
         analysis.classList.add('deleteAnalysis');
       }
-    });
+    }); //get seachstring
+
+    var mainSearchinner = document.getElementById('searchResultPage'); //ger reference to filter
+
+    var analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
+
+    helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
     var urlParams = new URLSearchParams(window.location.search); //search string and filter
 
     var myValue = urlParams.get('name');

@@ -7728,14 +7728,10 @@ div.status.closedSoon::before {
 
 #results, #details, #resultsGroupDetails {
   margin-top: 5rem;
-  margin-bottom: 9.375rem; }
-  #results .btn-success,
-  #resultsGroupDetails .btn-success,
-  #details .btn-success,
-  #results .btnLogin,
-  #details .btnLogin {
+  margin-bottom: 9.375rem;}
+  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin {
     margin-bottom: 0; }
-  #results .btn,
+    #results .btn,
   #resultsGroupDetails .btn-outline-success,
   #resultsGroupDetails .btn-success,
   #details .btn {
