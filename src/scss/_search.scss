@@ -1,11 +1,18 @@
 .searchFieldContainer {
-  @extend .logoFull;
-  margin-top: px-to-rem(147px);
+  // @extend .logoFull;
+  position:relative;
+  margin-top: px-to-rem(240px);
+
 }
 
 .searchFieldContainerInner {
-  @extend .logoFull;
-  margin-top: px-to-rem(105px);
+  // @extend .logoFull;
+  // position:relative;
+  // margin-top: px-to-rem(120px);
+  position: absolute;
+  // margin-top:203px;
+  top:185px;
+  align-self: center;
 }
 
 .fix {
@@ -18,6 +25,7 @@
   position:relative;
   height: px-to-rem(50px);
   z-index: 5;
+  // margin-top: 100px;
 }
 
 .searchInner {

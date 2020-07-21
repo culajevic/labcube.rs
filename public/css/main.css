@@ -7130,7 +7130,6 @@ a:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
   width: 100%;
   height: 501px;
   background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%); }
@@ -7165,8 +7164,10 @@ a:focus {
 
 #smallHeader {
   height: 210px; }
+  #smallHeader .container {
+    margin-bottom: 0; }
 
-.logoFull, .searchFieldContainer, .searchFieldContainerInner {
+.logoFull {
   align-self: center;
   position: absolute; }
 
@@ -7214,10 +7215,13 @@ a:focus {
   position: relative; }
 
 .searchFieldContainer {
-  margin-top: 9.1875rem; }
+  position: relative;
+  margin-top: 15rem; }
 
 .searchFieldContainerInner {
-  margin-top: 6.5625rem; }
+  position: absolute;
+  top: 185px;
+  align-self: center; }
 
 .fix {
   top: 0px;
@@ -7728,13 +7732,10 @@ div.status.closedSoon::before {
 
 #results, #details, #resultsGroupDetails {
   margin-top: 5rem;
-  margin-bottom: 9.375rem;}
-  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin {
+  margin-bottom: 9.375rem; }
+  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin {
     margin-bottom: 0; }
-    #results .btn,
-  #resultsGroupDetails .btn-outline-success,
-  #resultsGroupDetails .btn-success,
-  #details .btn {
+  #results .btn, #details .btn, #resultsGroupDetails .btn {
     font-size: 0.75rem;
     padding: 0.375rem 1.5625rem; }
 
@@ -8171,9 +8172,6 @@ footer {
   color: #FFF;
   margin-top: 0.75rem;
   margin-bottom: 1rem; }
-
-.tesss {
-  font-size: 16px; }
 
 #labDetails h1, #groupDetails h1 {
   color: #1D88E5;
