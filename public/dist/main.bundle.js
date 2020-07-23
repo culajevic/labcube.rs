@@ -695,6 +695,16 @@ $(window).scroll(function () {
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
   }
+}); // sticky navigation for side menu
+
+$(window).scroll(function () {
+  var height = $(window).scrollTop();
+
+  if (height > 120) {
+    $(".odabraneAnalize").addClass('fixed-right');
+  } else {
+    $(".odabraneAnalize").removeClass('fixed-right');
+  }
 });
 var location = window.location.pathname; // GLOBAL VARIABLES
 //set filter by default to analiza
@@ -802,7 +812,6 @@ window.onload = function () {
     if (myFilter === 'analiza') {
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         data.json().then(function (result) {
-          console.log(result.minPriceArr);
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
           var pricesMin = result.minPriceArr;
@@ -831,6 +840,7 @@ window.onload = function () {
         var year = now.getFullYear();
         var today = month + 1 + "/" + date + "/" + year; // let danas
 
+        var passIds = [];
         fetch('/lab/' + searchStr).then(function (data) {
           data.json().then(function (result) {
             loaderWrapper.style.opacity = 0;
@@ -894,7 +904,11 @@ window.onload = function () {
               var labDetailsBtn = document.querySelectorAll('.buttonId');
               labDetailsBtn.forEach(function (item) {
                 item.addEventListener('click', function (e) {
-                  window.location = "/".concat(e.target.getAttribute('data-labName'));
+                  itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+                  itemsArray.forEach(function (item) {
+                    passIds.push(item.id);
+                  });
+                  window.location = "/".concat(e.target.getAttribute('data-labName'), "/").concat(passIds);
                 });
               });
 
@@ -943,8 +957,8 @@ window.onload = function () {
 
           }); //data json end
         }); //fetch end
-        // helper.removeAnalysis(itemsArray)
-      } // if search string is changed on result page
+      } // else end
+    // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
 
 

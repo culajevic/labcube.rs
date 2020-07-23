@@ -31,6 +31,17 @@ $(window).scroll(function(){
     }
 });
 
+// sticky navigation for side menu
+$(window).scroll(function(){
+  var height = $(window).scrollTop();
+    if(height > 120) {
+      $(".odabraneAnalize").addClass('fixed-right')
+    }
+    else {
+      $(".odabraneAnalize").removeClass('fixed-right')
+    }
+})
+
 let location = window.location.pathname
 
 // GLOBAL VARIABLES
@@ -78,6 +89,7 @@ if(location === '/') {
 } // INDEX page end
 
 /* RESULTS PAGE ***************/
+
 
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
 if (document.getElementById('results')!=null || document.getElementById('resultsGroupDetails')!=null) {
@@ -146,7 +158,6 @@ if (document.getElementById('results')!=null || document.getElementById('results
     if(myFilter === 'analiza') {
       fetch('/analysis/prices/'+searchStr).then((data) => {
         data.json().then((result) => {
-          console.log(result.minPriceArr)
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
           let pricesMin = result.minPriceArr
@@ -173,6 +184,7 @@ if (document.getElementById('results')!=null || document.getElementById('results
       let year = now.getFullYear()
       let today = (month + 1) + "/" + date + "/" + year
       // let danas
+      const passIds = []
 
 
         fetch('/lab/'+searchStr).then((data) => {
@@ -217,7 +229,6 @@ if (document.getElementById('results')!=null || document.getElementById('results
                   <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
                </div>`
 
-
                resultDiv.innerHTML = `
                <section id="labDetails">
                  <div class="container">
@@ -228,6 +239,7 @@ if (document.getElementById('results')!=null || document.getElementById('results
 
                //append labcard to page
                document.querySelector('.labContainer').appendChild(labTemplate)
+
 
 
             let currentDay
@@ -272,7 +284,11 @@ if (document.getElementById('results')!=null || document.getElementById('results
             let labDetailsBtn = document.querySelectorAll('.buttonId')
              labDetailsBtn.forEach(item => {
                item.addEventListener('click', e => {
-                 window.location = `/${e.target.getAttribute('data-labName')}`
+                 itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+                   itemsArray.forEach(item => {
+                   passIds.push(item.id)
+                   });
+                 window.location = `/${e.target.getAttribute('data-labName')}/${passIds}`
                })
              })
 
@@ -327,8 +343,8 @@ if (document.getElementById('results')!=null || document.getElementById('results
 
           })//data json end
         })//fetch end
-        // helper.removeAnalysis(itemsArray)
-      }
+
+      }// else end
 
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
@@ -396,6 +412,7 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
 //scrollspy initialization for side navigation
+
   $('body').scrollspy({
     target: '#sideMenu',
     offset: 30

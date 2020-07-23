@@ -1,10 +1,15 @@
 const mongoose = require('mongoose')
 const Lab = mongoose.model('Lab')
+const Analysis = mongoose.model('Analysis')
+const ObjectId = mongoose.Types.ObjectId
+const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
 const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
+
+
 
 let storage = multer.diskStorage({
   destination:function (req,file,cb) {
@@ -161,11 +166,26 @@ exports.deleteLab = async (req,res) => {
   res.send('success')
 }
 
-
-
 exports.getLabInfo = async (req,res) => {
+
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
+  let newids = []
+  let selectedAnalysis
+
+  if(req.params.ids) {
+       newids = req.params.ids.split(',')
+       selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1})
+     }
+
+  // console.log(test)
+  // const one = ObjectId(newids[0])
+  // console.log(typeof(one))
+  // for(i=0; i<newids.length; i++) {
+  //   test.push(newids[i])
+  // }
+// console.log(newids)
+
 
   let now = new Date()
   let month = now.getMonth()
@@ -239,7 +259,8 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails',{labDetails,status, currentDayNum})
+
+  res.render('labdetails',{labDetails,status, currentDayNum, selectedAnalysis})
 
 }
 

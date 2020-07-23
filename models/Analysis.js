@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const slug = require('slugs')
 
 const analysisSchema = new mongoose.Schema({
+  
   analysisName:{
     type:String,
     required:'Obavezno je uneti ime analize',

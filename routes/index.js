@@ -38,7 +38,6 @@ router.get('/addPrice/:id', priceController.editPrice)
 router.post('/addPrice/:id', priceController.updatePrice)
 router.delete('/allPrices/:id', priceController.deletePriceList)
 
-
 // labs
 router.get('/allLabs', labController.allLabs)
 router.get('/addLab', labController.addLab)
@@ -46,7 +45,10 @@ router.post('/addLab', labController.upload, labController.createLab)
 router.get('/addLab/:id/:name', labController.editLab)
 router.post('/addLab/:id/:name',labController.upload, labController.updateLab)
 router.delete('/allLabs/:id', labController.deleteLab)
-router.get('/laboratorija/:slug', labController.getLabInfo)
+router.get('/laboratorija/:slug/:ids?', labController.getLabInfo)
+// router.post('/laboratorija/:slug/:ids*', labController.getLabInfoAnalysis)
+
+
 
 // analysis
 router.get('/allAnalysis', analysisController.allAnalysis)

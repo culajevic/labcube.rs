@@ -6,10 +6,6 @@ const slug = require('slugs')
 // const Place = mongoose.model('Place')
 
 const labSchema = new mongoose.Schema({
-  labName:{
-    type:String,
-    required:'Unesite ime laboratorije'
-  },
   slug:String,
   placeId:{
       type:mongoose.Schema.Types.ObjectId,
@@ -32,6 +28,7 @@ const labSchema = new mongoose.Schema({
   location:{
     type:{
       type:String,
+      createIndexes: '2dsphere',
       default:'Point'
     },
     coordinates:{
