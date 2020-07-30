@@ -1008,12 +1008,25 @@ window.onload = function () {
     $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {
       var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
 
-      $(this).attr('src', '/images/detail_mv.svg'); // }
-      // else {
-      //   $(this).attr('src', '/images/detail.svg');
-      // }
+      $(this).attr('src', '/images/detail_mv.svg');
     }).on('mouseleave', 'tr>td>img.tooltipImg', function () {
       $(this).attr('src', '/images/detail.svg');
+    });
+  } // lab details PAGE
+
+
+  if (urlArr[1] == 'laboratorija') {
+    //take input values from search box and filter reference
+    var innerPageSearch = document.getElementById('searchResultPage');
+
+    var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+
+
+    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2);
+    var removeAnalysisLabPage = document.getElementById('resultTable');
+    removeAnalysisLabPage.addEventListener('click', function (e) {
+      // izbaci analizu
+      console.log(e.target);
     });
   }
   /* ANALYSIS DETAILS PAGE ***************/
@@ -1026,12 +1039,12 @@ window.onload = function () {
       offset: 30
     }); //take input values from search box and filter reference
 
-    var innerPageSearch = document.getElementById('searchResultPage');
+    var _innerPageSearch = document.getElementById('searchResultPage');
 
-    var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    var _analysisRadio3 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
 
 
-    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2); //add analysis from analysis details page
+    helper.searchLabAnalysis(_innerPageSearch, _analysisRadio3); //add analysis from analysis details page
 
     var analysisBtn = document.querySelector('.addAnalysis');
     /* take the analysisname from button and check if this analysis

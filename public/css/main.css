@@ -7848,14 +7848,17 @@ div.status.closedSoon::before {
   font-size: 1.125rem;
   padding-left: 0.5rem; }
 
-#results, #details, #resultsGroupDetails {
+#results, #details, #resultsGroupDetails, #resultsLabDetails {
   margin-top: 5rem;
   margin-bottom: 9.375rem; }
-  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin {
+  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin {
     margin-bottom: 0; }
-  #results .btn, #details .btn, #resultsGroupDetails .btn {
+  #results .btn, #details .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn {
     font-size: 0.75rem;
     padding: 0.375rem 1.5625rem; }
+
+#resultsLabDetails {
+  margin-bottom: 3.75rem; }
 
 .results tr:first-child > td {
   border-top: 0px; }

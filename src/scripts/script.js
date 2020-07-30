@@ -399,14 +399,25 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
   var imageSrc = $(this).attr('src');
   // if (imageSrc == '/images/detail.svg') {
     $(this).attr('src','/images/detail_mv.svg');
-  // }
-  // else {
-  //   $(this).attr('src', '/images/detail.svg');
-  // }
   }).on('mouseleave','tr>td>img.tooltipImg', function(){
     $(this).attr('src', '/images/detail.svg');
   })
 
+}
+
+// lab details PAGE
+if(urlArr[1] == 'laboratorija') {
+
+  //take input values from search box and filter reference
+  let innerPageSearch = document.getElementById('searchResultPage')
+  let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+  // search for analysis or lab
+  helper.searchLabAnalysis(innerPageSearch,analysisRadio)
+  let removeAnalysisLabPage = document.getElementById('resultTable')
+    removeAnalysisLabPage.addEventListener('click', e => {
+// izbaci analizu
+      console.log(e.target)
+    })
 }
 
 /* ANALYSIS DETAILS PAGE ***************/

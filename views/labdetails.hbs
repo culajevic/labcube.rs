@@ -5,8 +5,7 @@
     <div class="row mb-4">
       <div class="col-12">
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
-        <h1 class="mb-5">{{labDetails.labName}}</h1>
-
+        <h1 class="mb-5">{{labDetails.labName}}<span class="float-right">1.9km</span></h1>
       </div>
       <div class="col-sm-12 col-lg-8">
         <div class="labInfoWindowDetails">
@@ -15,6 +14,7 @@
            <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p>
            <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
            <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
+           <!-- <p><</p> -->
         </div>
       </div><!-- col-6 -->
       <div class="col-sm-12 col-lg-4">
@@ -72,26 +72,44 @@
       </div>
     </div><!-- row -->
 
-    <div class="row">
-      <div class="col-sm-12 table-responsive">
-        <div class="mt-5">
-          <p class="aboutUs">odabrane analize (0) <span class="totalPrice">ukupna cena<sup>*</sup> | 3.900,00 rsd</span></p>
-        </div>
-   				<table class="table results table-hover">
-   					<tbody>
-              <tr>
-                <td><img src="/images/detail.svg" data-toggle="tooltip" title="Lorem ipsum dolondae veniam numquam explicabo rem atque vitae perferendis, sit. Rerum suscipit cupiditate laborum culpa ea molestias quasi distinctio, temporibus nulla! Magni." class="tooltipImg mr-2">Alfa fetoprotein</td>
-                <td>AFP</td>
-                <td>Tumor markeri</td>
-                <td><img src="/images/hospital-alt.svg"></td>
-                <td><span class="font-weight-bold">1200</span></td>
-                <td><img src="/images/closeBtn.svg" class="remove"></td>
-              </tr>
-   					</tbody>
-   				</table>
-          <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
+      <section id="labPrices">
+        <div class="container" id="resultsLabDetails">
+          <div class="row mb-2">
+            <div class="col-12">
+              <p>odabrane analize</p>
+              <table class="table results table-hover">
+       					<tbody id="resultTable">
+                  {{#each selectedAnalysis}}
+                  <tr>
+                    <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
+                      <a href="../../results/analysis/{{this.slug}}" class="nolink">{{this.name}}</a></td>
+                    <td>{{#each abbr}} {{this}} {{/each}}</td>
+                    <td>{{#each alt}} {{this}} {{/each}}</td>
 
-        </div><!-- table-responsive -->
+                    {{#if this.availableHC}}
+                      <td><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                      {{else}}
+                      <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                    {{/if}}
+                    <td><span class="font-weight-bold">{{this.cenovnik.cena}}</span></td>
+                    <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="{{this._id}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">X</button></td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+       				</table><!-- table -->
+              <div class="mt-2">
+                <p class="aboutUs">odabrane analize ({{numofanalysis}}) <span class="totalPrice">ukupno: {{total}} din. <sup>* </sup></span></p>
+                <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
+              </div>
+            </div><!-- col 12 end -->
+
+
+          </div><!-- row end -->
+        </div><!-- container end -->
+      </section>
+
+
+      <!-- table-responsive -->
 
         <div class="col-12 labDetailsActionBtn">
           <!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> -->
@@ -129,7 +147,6 @@
           <p class="ourLab">Lorem Lorem debitis libero voluptatum, id dolores, voluptas consequatur officia, quas numquam magni.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique voluptates, amet suscipit perferendis dolor praesentium eligendi quis deleniti id sint. Molestias, ea. ipsum dolor sit amet, consectetur adipisicing elit. Totam qui amet quas, cupiditate alias nulla, minima laborum corporis! Aliquid iste sunt, ad!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, similique explicabo. Inventore quo molestiae ipsum labore, quidem nulla voluptate totam doloribus recusandae. dolres fuga sequi itaque quasi aperiam vel, rem, officia amet ex ipsa inventore voluptatum quisquam dicta obcaecati impedit esse ex, at distinctio fugit similique corporis in rem mollitia facilis, facere nihil eum quidem.</p>
         </div> -->
 
-{{selectedAnalysis}}
         <script>
           function initMap(){
 

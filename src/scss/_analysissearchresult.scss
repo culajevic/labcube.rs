@@ -1,4 +1,4 @@
-#results,  #resultsGroupDetails {
+#results,  #resultsGroupDetails,#resultsLabDetails  {
   margin-top: px-to-rem(80px);
   margin-bottom: px-to-rem(150px);
   .btn-success {
@@ -8,6 +8,10 @@
     font-size: px-to-rem(12px);
     padding: px-to-rem(6px) px-to-rem(25px);
   }
+}
+
+#resultsLabDetails {
+  margin-bottom: px-to-rem(60px);
 }
 
 #details {

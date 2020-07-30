@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Lab = mongoose.model('Lab')
 const Analysis = mongoose.model('Analysis')
 const ObjectId = mongoose.Types.ObjectId
+const Price = mongoose.model('Price')
 const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
@@ -172,20 +173,37 @@ exports.getLabInfo = async (req,res) => {
   .populate('placeId', 'place municipality')
   let newids = []
   let selectedAnalysis
-
-  if(req.params.ids) {
+  let labId = labDetails._id
+  let newObjectArr = []
+  let numofanalysis
+  let total = 0
+    if(req.params.ids) {
        newids = req.params.ids.split(',')
-       selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1})
+       numofanalysis = newids.length
+
+        newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
+       // selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1, abbr:1, alt:1, availableHC:1,
+       // preview:1,slug:1, })
+       selectedAnalysis = await Price.aggregate([
+         {$match:{'lab':ObjectId(labId)}},
+         {$unwind:"$cenovnik"},
+         {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+         {$project:{cenovnik:1,
+                    name:'$analiza.analysisName',
+                    preview:'$analiza.preview',
+                    abbr:'$analiza.abbr',
+                    alt:'$analiza.alt',
+                    availableHC:'$analiza.availableHC',
+                    preview:'$analiza.preview',
+                    slug:'$analiza.slug'
+                  }},
+                  {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
+                  {$sort:{name:1}}
+       ])
+       for(i=0; i<selectedAnalysis.length;i++) {
+         total += selectedAnalysis[i].cenovnik.cena
+       }
      }
-
-  // console.log(test)
-  // const one = ObjectId(newids[0])
-  // console.log(typeof(one))
-  // for(i=0; i<newids.length; i++) {
-  //   test.push(newids[i])
-  // }
-// console.log(newids)
-
 
   let now = new Date()
   let month = now.getMonth()
@@ -260,7 +278,7 @@ let closingSoon
     }
 
 
-  res.render('labdetails',{labDetails,status, currentDayNum, selectedAnalysis})
+  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis})
 
 }
 
