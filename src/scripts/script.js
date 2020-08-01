@@ -44,6 +44,7 @@ $(window).scroll(function(){
 
 let location = window.location.pathname
 
+
 // GLOBAL VARIABLES
 //set filter by default to analiza
 let filter = 'analiza'
@@ -407,19 +408,55 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
-
+  let labLocationUrl = location.split('/')
+  history.replaceState('',null,`/laboratorija/${labLocationUrl[2]}`)
   //take input values from search box and filter reference
   let innerPageSearch = document.getElementById('searchResultPage')
   let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
   // search for analysis or lab
   helper.searchLabAnalysis(innerPageSearch,analysisRadio)
-  let removeAnalysisLabPage = document.getElementById('resultTable')
-    removeAnalysisLabPage.addEventListener('click', e => {
-// izbaci analizu
-      console.log(e.target)
+  //show totalPrice
+  let prices = document.querySelectorAll('.price')
+  let totalPriceSpan = document.querySelector('.totalPrice')
+  let resultSection = document.getElementById('resultsLabDetails')
+  let localStorageItems = JSON.parse(localStorage.getItem('items'))
+  let totalPrice = 0
+    prices.forEach(item =>  {
+      totalPrice += parseInt(item.getAttribute('data-price'))
     })
-}
 
+    ///////////////////////////
+    if(localStorageItems.length == 0) {
+      resultSection.classList.add('d-none')
+      checkout.classList.add('d-none')
+    } else {
+      totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+      let removeAnalysisLabPage = document.getElementById('resultTable')
+        removeAnalysisLabPage.addEventListener('click', e => {
+          if(e.target.classList.contains('removeAnalysis')) {
+            let toBeDeleted = e.target.getAttribute('data-analysisid')
+            let deleteAnalysis = e.target.parentNode.parentNode.remove()
+            prices = document.querySelectorAll('.price')
+            //update total price by substracting from total
+            totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText)
+            totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+            let nameIndex = localStorageItems.findIndex((item) => {
+                return item.id === toBeDeleted
+              })
+            localStorageItems.splice(nameIndex,1)
+            items = JSON.stringify(localStorageItems)
+            localStorage.setItem('items', items)
+            let numAnalysis = document.querySelector('.numAnalysis')
+            numAnalysis.textContent = `Broj odabranih analiza (${localStorageItems.length})`
+            checkout.textContent = localStorageItems.length
+            if(localStorageItems.length == 0) {
+              resultSection.classList.add('d-none')
+              checkout.classList.add('d-none')
+            }
+          }
+        })
+      }
+    }
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
 //scrollspy initialization for side navigation

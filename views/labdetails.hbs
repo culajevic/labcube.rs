@@ -76,6 +76,7 @@
         <div class="container" id="resultsLabDetails">
           <div class="row mb-2">
             <div class="col-12">
+              {{#if numofanalysis}}
               <p>odabrane analize</p>
               <table class="table results table-hover">
        					<tbody id="resultTable">
@@ -91,17 +92,18 @@
                       {{else}}
                       <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
                     {{/if}}
-                    <td><span class="font-weight-bold">{{this.cenovnik.cena}}</span></td>
-                    <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="{{this._id}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">X</button></td>
+                    <td><span class="font-weight-bold price" data-price={{this.cenovnik.cena}}>{{this.cenovnik.cena}}</span></td>
+                    <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="{{this.idAnalysis}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">X</button></td>
                   </tr>
                   {{/each}}
                 </tbody>
        				</table><!-- table -->
               <div class="mt-2">
-                <p class="aboutUs">odabrane analize ({{numofanalysis}}) <span class="totalPrice">ukupno: {{total}} din. <sup>* </sup></span></p>
+                <p class="aboutUs"><span class="numAnalysis">Broj odabranih analiza ({{numofanalysis}})</span> <span class="totalPrice"></span></p>
                 <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
               </div>
             </div><!-- col 12 end -->
+            {{/if}}
 
 
           </div><!-- row end -->

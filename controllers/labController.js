@@ -189,6 +189,7 @@ exports.getLabInfo = async (req,res) => {
          {$unwind:"$cenovnik"},
          {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
          {$project:{cenovnik:1,
+                    idAnalysis:'$analiza._id',
                     name:'$analiza.analysisName',
                     preview:'$analiza.preview',
                     abbr:'$analiza.abbr',

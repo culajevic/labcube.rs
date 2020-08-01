@@ -1016,18 +1016,56 @@ window.onload = function () {
 
 
   if (urlArr[1] == 'laboratorija') {
-    //take input values from search box and filter reference
+    var labLocationUrl = location.split('/');
+    history.replaceState('', null, "/laboratorija/".concat(labLocationUrl[2])); //take input values from search box and filter reference
+
     var innerPageSearch = document.getElementById('searchResultPage');
 
     var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
 
 
-    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2);
-    var removeAnalysisLabPage = document.getElementById('resultTable');
-    removeAnalysisLabPage.addEventListener('click', function (e) {
-      // izbaci analizu
-      console.log(e.target);
-    });
+    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2); //show totalPrice
+
+    var prices = document.querySelectorAll('.price');
+    var totalPriceSpan = document.querySelector('.totalPrice');
+    var resultSection = document.getElementById('resultsLabDetails');
+    var localStorageItems = JSON.parse(localStorage.getItem('items'));
+    var totalPrice = 0;
+    prices.forEach(function (item) {
+      totalPrice += parseInt(item.getAttribute('data-price'));
+    }); ///////////////////////////
+
+    if (localStorageItems.length == 0) {
+      resultSection.classList.add('d-none');
+      checkout.classList.add('d-none');
+    } else {
+      totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+      var removeAnalysisLabPage = document.getElementById('resultTable');
+      removeAnalysisLabPage.addEventListener('click', function (e) {
+        if (e.target.classList.contains('removeAnalysis')) {
+          var toBeDeleted = e.target.getAttribute('data-analysisid');
+          var deleteAnalysis = e.target.parentNode.parentNode.remove();
+          prices = document.querySelectorAll('.price'); //update total price by substracting from total
+
+          totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText);
+          totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+          var nameIndex = localStorageItems.findIndex(function (item) {
+            return item.id === toBeDeleted;
+          });
+          localStorageItems.splice(nameIndex, 1);
+          items = JSON.stringify(localStorageItems);
+          localStorage.setItem('items', items);
+          var numAnalysis = document.querySelector('.numAnalysis');
+          numAnalysis.textContent = "Broj odabranih analiza (".concat(localStorageItems.length, ")");
+          checkout.textContent = localStorageItems.length;
+
+          if (localStorageItems.length == 0) {
+            resultSection.classList.add('d-none');
+            checkout.classList.add('d-none');
+          }
+        }
+      });
+    }
   }
   /* ANALYSIS DETAILS PAGE ***************/
 
