@@ -12,6 +12,9 @@
 
 #resultsLabDetails {
   margin-bottom: px-to-rem(60px);
+  .btn {
+    font-size: px-to-rem(12px);
+  }
 }
 
 #details {

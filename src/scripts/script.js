@@ -409,7 +409,7 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
   let labLocationUrl = location.split('/')
-  history.replaceState('',null,`/laboratorija/${labLocationUrl[2]}`)
+  history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
   //take input values from search box and filter reference
   let innerPageSearch = document.getElementById('searchResultPage')
   let analysisRadio = document.querySelectorAll('input[name=searchFilter]')

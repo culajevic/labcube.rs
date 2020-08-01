@@ -1017,7 +1017,7 @@ window.onload = function () {
 
   if (urlArr[1] == 'laboratorija') {
     var labLocationUrl = location.split('/');
-    history.replaceState('', null, "/laboratorija/".concat(labLocationUrl[2])); //take input values from search box and filter reference
+    history.replaceState(null, null, "/laboratorija/".concat(labLocationUrl[2])); //take input values from search box and filter reference
 
     var innerPageSearch = document.getElementById('searchResultPage');
 
