@@ -46,6 +46,8 @@ router.get('/addLab/:id/:name', labController.editLab)
 router.post('/addLab/:id/:name',labController.upload, labController.updateLab)
 router.delete('/allLabs/:id', labController.deleteLab)
 router.get('/laboratorija/:slug/:ids?', labController.getLabInfo)
+// router.get('/laboratorija/:analysisName', labController.getLabInfo)
+router.get('/search/analysis/:analysisName/:labSlug', labController.getAdditionalAnalysis)
 // router.post('/laboratorija/:slug/:ids*', labController.getLabInfoAnalysis)
 
 

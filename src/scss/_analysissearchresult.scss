@@ -1,4 +1,4 @@
-#results,  #resultsGroupDetails,#resultsLabDetails  {
+#results,  #resultsGroupDetails, #resultsLabDetails, #labDetailsInner   {
   margin-top: px-to-rem(80px);
   margin-bottom: px-to-rem(150px);
   .btn-success {
@@ -10,7 +10,7 @@
   }
 }
 
-#resultsLabDetails {
+#resultsLabDetails, #labDetailsInner {
   margin-bottom: px-to-rem(60px);
   .btn {
     font-size: px-to-rem(12px);

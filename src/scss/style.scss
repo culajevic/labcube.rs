@@ -16,7 +16,7 @@
 @import 'footer.scss';
 
 
-#labDetails,  #groupDetails, {
+#labDetails,  #groupDetails, #labDetailsInner   {
   & h1 {
   color:$primary-color;
   font-size: 2.625rem;

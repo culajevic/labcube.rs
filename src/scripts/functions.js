@@ -320,14 +320,14 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
       console.log('ne mozete dodati vise od 30 analiza u korpu')
     }
   })// resultdiv end
-}
+} 
 
 exports.searchLabAnalysis = (searchString, filter) => {
 
   let filterValue = 'analiza'
   searchString.focus()
 
-  // set focus on searchanalysis field when esc is pressed
+  // set focus on searchanalysis field when right arrow is pressed
   document.addEventListener('keydown', (e) => {
       if(e.keyCode === 39) {
         searchString.value = ''
@@ -348,7 +348,6 @@ exports.searchLabAnalysis = (searchString, filter) => {
     if(searchString.value.length>=2) {
       setTimeout(function() {
       let searchString = e.target.value
-      console.log(searchString)
       window.location.href = '/results/?name='+searchString+'&filter='+filterValue
       },500)
     }

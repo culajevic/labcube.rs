@@ -113,8 +113,9 @@ if (document.getElementById('results')!=null || document.getElementById('results
   //ger reference to filter
   let analysisRadioinner = document.querySelectorAll('input[name=searchFilter]')
   //search for analysis or lab
-  helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 
+  //proveriti da li je ovo ispod neophodno
+  helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 
   const urlParams = new URLSearchParams(window.location.search);
   //search string and filter
@@ -186,7 +187,6 @@ if (document.getElementById('results')!=null || document.getElementById('results
       let today = (month + 1) + "/" + date + "/" + year
       // let danas
       const passIds = []
-
 
         fetch('/lab/'+searchStr).then((data) => {
 
@@ -409,24 +409,88 @@ $('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
   let labLocationUrl = location.split('/')
+  let labName = labLocationUrl[2]
   history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
   //take input values from search box and filter reference
   let innerPageSearch = document.getElementById('searchResultPage')
   let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
   // search for analysis or lab
-  helper.searchLabAnalysis(innerPageSearch,analysisRadio)
+  // helper.searchLabAnalysis(innerPageSearch,analysisRadio)
+  let searchString = document.getElementById('searchResultPage')
+  let filter = document.querySelectorAll('input[name=searchFilter]')
+  let resultDiv = document.getElementById('resultTableAnalysis')
+  let filterValue = 'analiza'
+      searchString.focus()
+
+      //check the filter value on INDEX PAGE
+          filter.forEach((item) => {
+            item.addEventListener('click', (e) => {
+              filterValue = e.target.value
+            })
+          })
+
+      /* by default filter is set to analiza, after 500ms
+        user is redirected to results page */
+
   //show totalPrice
   let prices = document.querySelectorAll('.price')
   let totalPriceSpan = document.querySelector('.totalPrice')
   let resultSection = document.getElementById('resultsLabDetails')
-  let localStorageItems = JSON.parse(localStorage.getItem('items'))
+  // let table = document.getElementById('resultTableAnalysis')
+  let itemsArray = JSON.parse(localStorage.getItem('items'))
   let totalPrice = 0
     prices.forEach(item =>  {
       totalPrice += parseInt(item.getAttribute('data-price'))
     })
 
+    searchString.addEventListener('input', (e) => {
+      if(searchString.value.length>=3 && filterValue == 'analiza' ) {
+        let searchString = e.target.value
+        // fetch('/analysis/prices/'+searchString)
+        fetch('/search/analysis/'+searchString+'/'+labName)
+          .then(data => data.json())
+          .then(result => {
+
+            resultDiv.innerHTML = ''
+            let icon = []
+            for(i=0; i<result.length; i++) {
+
+              let availableHC = result[i].availableHC
+              icon.push(...availableHC)
+
+              let results = `
+                <tr>
+                  <td>${result[i].name}</td>
+                  <td>${result[i].abbr}</td>
+                  <td>${result[i].alt}</td>
+                  <td>${result[i].cenovnik.cena} <small>rsd</small></td>
+                  <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
+                  <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid=""  data-analysisName="">dodaj</button></td>
+                </tr>
+              `
+              resultDiv.innerHTML += results
+            }
+
+            // let analysis = result.analysisName
+            // let pricesMin = result.minPriceArr
+            // let pricesMax = result.maxPriceArr
+            // for(i=0; i<analysis.length; i++) {
+              //creating table with result
+              // helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
+              // }
+              // for end
+            //when result is found remove loading icon
+            // loaderWrapper.style.opacity = 0
+          })// data json end
+        }
+      else {
+        console.log('unesite vise od 2 karaktera')
+        resultDiv.innerHTML = ''
+      }
+    })
+
     ///////////////////////////
-    if(localStorageItems.length == 0) {
+    if(itemsArray.length == 0) {
       resultSection.classList.add('d-none')
       checkout.classList.add('d-none')
     } else {
@@ -440,22 +504,25 @@ if(urlArr[1] == 'laboratorija') {
             //update total price by substracting from total
             totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText)
             totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
-            let nameIndex = localStorageItems.findIndex((item) => {
+            let nameIndex = itemsArray.findIndex((item) => {
                 return item.id === toBeDeleted
               })
-            localStorageItems.splice(nameIndex,1)
-            items = JSON.stringify(localStorageItems)
+            itemsArray.splice(nameIndex,1)
+            items = JSON.stringify(itemsArray)
             localStorage.setItem('items', items)
             let numAnalysis = document.querySelector('.numAnalysis')
-            numAnalysis.textContent = `Broj odabranih analiza (${localStorageItems.length})`
-            checkout.textContent = localStorageItems.length
-            if(localStorageItems.length == 0) {
+            numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
+            checkout.textContent = itemsArray.length
+            if(itemsArray.length == 0) {
               resultSection.classList.add('d-none')
               checkout.classList.add('d-none')
             }
           }
         })
       }
+
+
+
     }
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {

@@ -180,7 +180,6 @@ exports.getLabInfo = async (req,res) => {
     if(req.params.ids) {
        newids = req.params.ids.split(',')
        numofanalysis = newids.length
-
         newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
        // selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1, abbr:1, alt:1, availableHC:1,
        // preview:1,slug:1, })
@@ -201,10 +200,11 @@ exports.getLabInfo = async (req,res) => {
                   {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
                   {$sort:{name:1}}
        ])
-       for(i=0; i<selectedAnalysis.length;i++) {
-         total += selectedAnalysis[i].cenovnik.cena
-       }
+       // for(i=0; i<selectedAnalysis.length;i++) {
+       //   total += selectedAnalysis[i].cenovnik.cena
+       // }
      }
+
 
   let now = new Date()
   let month = now.getMonth()
@@ -281,6 +281,33 @@ let closingSoon
 
   res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis})
 
+}
+
+
+exports.getAdditionalAnalysis = async (req,res) => {
+  let findLab = await Lab.findOne({slug:req.params.labSlug})
+  let labId = findLab._id
+  let searchForAnalysis = await Price.aggregate([
+    {$match:{'lab':ObjectId(labId)}},
+    {$unwind:"$cenovnik"},
+    {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+    {$project:{cenovnik:1,
+               idAnalysis:'$analiza._id',
+               name:'$analiza.analysisName',
+               preview:'$analiza.preview',
+               abbr:'$analiza.abbr',
+               alt:'$analiza.alt',
+               availableHC:'$analiza.availableHC',
+               preview:'$analiza.preview',
+               slug:'$analiza.slug'
+             }},
+    {$match:{'name':{$regex:req.params.analysisName, "$options": "i"}}},
+    {$sort:{name:1}}
+  ])
+  res.json(searchForAnalysis)
+  // let searchForAnalysis = await Analysis.aggregate([
+  //   {$match:{'analysisName':{$regex:req.params.analysisName, "$options": "i"}}}
+  // ])
 }
 
 // get lab name for price form

@@ -483,7 +483,7 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
 
 exports.searchLabAnalysis = function (searchString, filter) {
   var filterValue = 'analiza';
-  searchString.focus(); // set focus on searchanalysis field when esc is pressed
+  searchString.focus(); // set focus on searchanalysis field when right arrow is pressed
 
   document.addEventListener('keydown', function (e) {
     if (e.keyCode === 39) {
@@ -504,7 +504,6 @@ exports.searchLabAnalysis = function (searchString, filter) {
     if (searchString.value.length >= 2) {
       setTimeout(function () {
         var searchString = e.target.value;
-        console.log(searchString);
         window.location.href = '/results/?name=' + searchString + '&filter=' + filterValue;
       }, 500);
     }
@@ -660,6 +659,14 @@ exports.createPrice = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 __webpack_require__(/*! ../scss/style.scss */ "./src/scss/style.scss"); // let summernote = require('./summernote-ext-addclass')
 
 
@@ -770,6 +777,7 @@ window.onload = function () {
     var mainSearchinner = document.getElementById('searchResultPage'); //ger reference to filter
 
     var analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
+    //proveriti da li je ovo ispod neophodno
 
     helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
     var urlParams = new URLSearchParams(window.location.search); //search string and filter
@@ -1017,25 +1025,78 @@ window.onload = function () {
 
   if (urlArr[1] == 'laboratorija') {
     var labLocationUrl = location.split('/');
+    var labName = labLocationUrl[2];
     history.replaceState(null, null, "/laboratorija/".concat(labLocationUrl[2])); //take input values from search box and filter reference
 
     var innerPageSearch = document.getElementById('searchResultPage');
 
     var _analysisRadio2 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    // helper.searchLabAnalysis(innerPageSearch,analysisRadio)
 
 
-    helper.searchLabAnalysis(innerPageSearch, _analysisRadio2); //show totalPrice
+    var searchString = document.getElementById('searchResultPage');
+
+    var _filter = document.querySelectorAll('input[name=searchFilter]');
+
+    var _resultDiv = document.getElementById('resultTableAnalysis');
+
+    var filterValue = 'analiza';
+    searchString.focus(); //check the filter value on INDEX PAGE
+
+    _filter.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        filterValue = e.target.value;
+      });
+    });
+    /* by default filter is set to analiza, after 500ms
+      user is redirected to results page */
+    //show totalPrice
+
 
     var prices = document.querySelectorAll('.price');
     var totalPriceSpan = document.querySelector('.totalPrice');
-    var resultSection = document.getElementById('resultsLabDetails');
-    var localStorageItems = JSON.parse(localStorage.getItem('items'));
+    var resultSection = document.getElementById('resultsLabDetails'); // let table = document.getElementById('resultTableAnalysis')
+
+    var _itemsArray = JSON.parse(localStorage.getItem('items'));
+
     var totalPrice = 0;
     prices.forEach(function (item) {
       totalPrice += parseInt(item.getAttribute('data-price'));
+    });
+    searchString.addEventListener('input', function (e) {
+      if (searchString.value.length >= 3 && filterValue == 'analiza') {
+        var _searchString = e.target.value; // fetch('/analysis/prices/'+searchString)
+
+        fetch('/search/analysis/' + _searchString + '/' + labName).then(function (data) {
+          return data.json();
+        }).then(function (result) {
+          _resultDiv.innerHTML = '';
+          var icon = [];
+
+          for (i = 0; i < result.length; i++) {
+            var availableHC = result[i].availableHC;
+            icon.push.apply(icon, _toConsumableArray(availableHC));
+            var results = "\n                <tr>\n                  <td>".concat(result[i].name, "</td>\n                  <td>").concat(result[i].abbr, "</td>\n                  <td>").concat(result[i].alt, "</td>\n                  <td>").concat(result[i].cenovnik.cena, " <small>rsd</small></td>\n                  <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                  <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"\"  data-analysisName=\"\">dodaj</button></td>\n                </tr>\n              ");
+            _resultDiv.innerHTML += results;
+          } // let analysis = result.analysisName
+          // let pricesMin = result.minPriceArr
+          // let pricesMax = result.maxPriceArr
+          // for(i=0; i<analysis.length; i++) {
+          //creating table with result
+          // helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
+          // }
+          // for end
+          //when result is found remove loading icon
+          // loaderWrapper.style.opacity = 0
+
+        }); // data json end
+      } else {
+        console.log('unesite vise od 2 karaktera');
+        _resultDiv.innerHTML = '';
+      }
     }); ///////////////////////////
 
-    if (localStorageItems.length == 0) {
+    if (_itemsArray.length == 0) {
       resultSection.classList.add('d-none');
       checkout.classList.add('d-none');
     } else {
@@ -1049,17 +1110,20 @@ window.onload = function () {
 
           totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText);
           totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
-          var nameIndex = localStorageItems.findIndex(function (item) {
+
+          var nameIndex = _itemsArray.findIndex(function (item) {
             return item.id === toBeDeleted;
           });
-          localStorageItems.splice(nameIndex, 1);
-          items = JSON.stringify(localStorageItems);
+
+          _itemsArray.splice(nameIndex, 1);
+
+          items = JSON.stringify(_itemsArray);
           localStorage.setItem('items', items);
           var numAnalysis = document.querySelector('.numAnalysis');
-          numAnalysis.textContent = "Broj odabranih analiza (".concat(localStorageItems.length, ")");
-          checkout.textContent = localStorageItems.length;
+          numAnalysis.textContent = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
+          checkout.textContent = _itemsArray.length;
 
-          if (localStorageItems.length == 0) {
+          if (_itemsArray.length == 0) {
             resultSection.classList.add('d-none');
             checkout.classList.add('d-none');
           }
@@ -1157,7 +1221,7 @@ window.onload = function () {
 
     var searchPlaces = document.getElementById('searchPlaces');
 
-    var _resultDiv = document.getElementById('result');
+    var _resultDiv2 = document.getElementById('result');
 
     var city = document.getElementById('city');
     var minicipality = document.getElementById('municipality');
@@ -1166,7 +1230,7 @@ window.onload = function () {
       if (searchPlaces.value.length >= 3) {
         fetch('/places/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
-            _resultDiv.innerHTML = '';
+            _resultDiv2.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -1180,7 +1244,7 @@ window.onload = function () {
               var placeName = document.createTextNode(result[i].place);
               link.appendChild(placeName);
 
-              _resultDiv.appendChild(liItem);
+              _resultDiv2.appendChild(liItem);
             } // for end
 
 
@@ -1192,14 +1256,14 @@ window.onload = function () {
                 city.value = e.target.innerText;
                 municipality.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
-                _resultDiv.innerHTML = '';
+                _resultDiv2.innerHTML = '';
               });
             });
           }); // data json end
         });
       } else {
         console.log('enter at least 3 letters');
-        _resultDiv.innerHTML = '';
+        _resultDiv2.innerHTML = '';
         city.value = '';
         municipality.value = '';
         postalCode.value = '';
