@@ -1072,12 +1072,23 @@ window.onload = function () {
         }).then(function (result) {
           _resultDiv.innerHTML = '';
           var icon = [];
+          var alreadySelectedArray = [];
 
           for (i = 0; i < result.length; i++) {
+            var alreadySelected = _itemsArray.findIndex(function (item) {
+              return item.id == result[i].idAnalysis;
+            });
+
+            alreadySelectedArray.push(alreadySelected);
             var availableHC = result[i].availableHC;
             icon.push.apply(icon, _toConsumableArray(availableHC));
-            var results = "\n                <tr>\n                  <td>".concat(result[i].name, "</td>\n                  <td>").concat(result[i].abbr, "</td>\n                  <td>").concat(result[i].alt, "</td>\n                  <td>").concat(result[i].cenovnik.cena, " <small>rsd</small></td>\n                  <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                  <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"\"  data-analysisName=\"\">dodaj</button></td>\n                </tr>\n              ");
-            _resultDiv.innerHTML += results;
+
+            if (alreadySelectedArray[i] == -1) {
+              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td>").concat(result[i].cenovnik.cena, " <small>rsd</small></td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"\">dodaj</button></td>\n                  </tr>\n                ");
+              _resultDiv.innerHTML += results;
+            } else {
+              console.log('ova analiza je vec dodata');
+            }
           } // let analysis = result.analysisName
           // let pricesMin = result.minPriceArr
           // let pricesMax = result.maxPriceArr
@@ -1106,9 +1117,12 @@ window.onload = function () {
         if (e.target.classList.contains('removeAnalysis')) {
           var toBeDeleted = e.target.getAttribute('data-analysisid');
           var deleteAnalysis = e.target.parentNode.parentNode.remove();
-          prices = document.querySelectorAll('.price'); //update total price by substracting from total
+          prices = document.querySelector('.price'); //update total price by substracting from total
+          // console.log(prices.getAttribute('data-price'))
 
-          totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText);
+          console.log(e.target.parentNode.previousElementSibling.innerText); // totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText)
+
+          totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText);
           totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
 
           var nameIndex = _itemsArray.findIndex(function (item) {
