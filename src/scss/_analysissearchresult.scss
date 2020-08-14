@@ -32,7 +32,7 @@
   font-weight: 500;
   cursor:pointer;
   }
-  // styling vertical ling between first 2 tds
+  // styling vertical line between first 2 tds
   &:nth-child(2)::before {
     content:'';
     position: absolute;

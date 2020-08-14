@@ -8365,12 +8365,15 @@ footer {
   right: 0;
   top: 0; }
 
-.labDetailsActionBtn {
+#resultsLabDetails .labDetailsActionBtn {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 30px; }
+  #resultsLabDetails .labDetailsActionBtn > .btn {
+    font-size: 0.875rem;
+    padding: 10px; }
 
 .benefitsTitle {
   text-align: center;

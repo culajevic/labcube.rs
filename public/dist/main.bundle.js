@@ -688,6 +688,13 @@ $(document).ready(function () {
     boundary: 'window',
     tooltipClass: "tooltip"
   });
+  $('#resultTable, #resultTableAnalysis').on('mouseenter', 'tr>td>img.tooltipImg', function () {
+    var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
+
+    $(this).attr('src', '/images/detail_mv.svg');
+  }).on('mouseleave', 'tr>td>img.tooltipImg', function () {
+    $(this).attr('src', '/images/detail.svg');
+  });
 }); // changing analysis number color on hover
 
 $('.click-more').hover(function () {
@@ -1013,13 +1020,6 @@ window.onload = function () {
     });
     helper.addAnalysis(itemsArray, resultDiv, checkout);
     helper.removeAnalysis(itemsArray, checkout);
-    $('#resultTable ').on('mouseenter', 'tr>td>img.tooltipImg', function () {
-      var imageSrc = $(this).attr('src'); // if (imageSrc == '/images/detail.svg') {
-
-      $(this).attr('src', '/images/detail_mv.svg');
-    }).on('mouseleave', 'tr>td>img.tooltipImg', function () {
-      $(this).attr('src', '/images/detail.svg');
-    });
   } // lab details PAGE
 
 
@@ -1087,7 +1087,8 @@ window.onload = function () {
               var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td>").concat(result[i].cenovnik.cena, " <small>rsd</small></td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"\">dodaj</button></td>\n                  </tr>\n                ");
               _resultDiv.innerHTML += results;
             } else {
-              console.log('ova analiza je vec dodata');
+              _resultDiv.innerHTML = '';
+              _resultDiv.innerHTML += '<p>Već ste odabrali ovu analizu</p>';
             }
           } // let analysis = result.analysisName
           // let pricesMin = result.minPriceArr

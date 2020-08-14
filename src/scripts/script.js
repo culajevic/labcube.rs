@@ -13,6 +13,13 @@ $(document).ready(function(){
     boundary: 'window',
     tooltipClass: "tooltip"
   })
+  $('#resultTable, #resultTableAnalysis').on('mouseenter','tr>td>img.tooltipImg', function(){
+    var imageSrc = $(this).attr('src');
+    // if (imageSrc == '/images/detail.svg') {
+      $(this).attr('src','/images/detail_mv.svg');
+    }).on('mouseleave','tr>td>img.tooltipImg', function(){
+      $(this).attr('src', '/images/detail.svg');
+    })
 });
 
 // changing analysis number color on hover
@@ -396,14 +403,6 @@ if (document.getElementById('results')!=null || document.getElementById('results
         helper.removeAnalysis(itemsArray, checkout)
 
 
-$('#resultTable ').on('mouseenter','tr>td>img.tooltipImg', function(){
-  var imageSrc = $(this).attr('src');
-  // if (imageSrc == '/images/detail.svg') {
-    $(this).attr('src','/images/detail_mv.svg');
-  }).on('mouseleave','tr>td>img.tooltipImg', function(){
-    $(this).attr('src', '/images/detail.svg');
-  })
-
 }
 
 // lab details PAGE
@@ -481,7 +480,8 @@ if(urlArr[1] == 'laboratorija') {
               }
 
               else {
-                console.log('ova analiza je vec dodata')
+                resultDiv.innerHTML = ''
+                resultDiv.innerHTML += '<p>Već ste odabrali ovu analizu</p>'
               }
           }
 

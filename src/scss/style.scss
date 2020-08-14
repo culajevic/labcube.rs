@@ -107,7 +107,7 @@
   top:0;
 }
 
-.labDetailsActionBtn {
+#resultsLabDetails .labDetailsActionBtn {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -116,8 +116,9 @@
   // border-bottom:1px solid #E1E1E1;
   // padding-bottom: 50px;
   & > .btn{
-    // font-size: px-to-rem(16px);
-    // margin-bottom: 8px;
+    font-size: px-to-rem(14px);
+    padding: 10px;
+    // line-height: 10px;
   }
 }
 
@@ -811,7 +812,7 @@ input[type="range"] {
   // float:right;
   // margin-left: 35px;
   // padding:0 35.9px !important;
-  
+
 }
 
 .analysisBasketLiItem:hover {
