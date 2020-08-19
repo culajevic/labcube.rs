@@ -197,8 +197,8 @@ exports.getLabInfo = async (req,res) => {
                     preview:'$analiza.preview',
                     slug:'$analiza.slug'
                   }},
-                  {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
-                  {$sort:{name:1}}
+          {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
+          {$sort:{name:1}}
        ])
        // for(i=0; i<selectedAnalysis.length;i++) {
        //   total += selectedAnalysis[i].cenovnik.cena
@@ -302,6 +302,7 @@ exports.getAdditionalAnalysis = async (req,res) => {
                slug:'$analiza.slug'
              }},
     {$match:{'name':{$regex:req.params.analysisName, "$options": "i"}}},
+
     {$sort:{name:1}}
   ])
   res.json(searchForAnalysis)

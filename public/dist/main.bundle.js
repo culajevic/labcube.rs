@@ -1035,13 +1035,18 @@ window.onload = function () {
 
 
     var searchString = document.getElementById('searchResultPage');
+    searchString.focus();
 
     var _filter = document.querySelectorAll('input[name=searchFilter]');
 
     var _resultDiv = document.getElementById('resultTableAnalysis');
 
-    var filterValue = 'analiza';
-    searchString.focus(); //check the filter value on INDEX PAGE
+    var resultTable = document.getElementById('resultTable');
+    var numOfAnalysis = document.querySelector('.numAnalysis');
+
+    var _checkout = document.querySelector('.checkout');
+
+    var filterValue = 'analiza'; //check the filter value on INDEX PAGE
 
     _filter.forEach(function (item) {
       item.addEventListener('click', function (e) {
@@ -1084,44 +1089,64 @@ window.onload = function () {
             icon.push.apply(icon, _toConsumableArray(availableHC));
 
             if (alreadySelectedArray[i] == -1) {
-              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td>").concat(result[i].cenovnik.cena, " <small>rsd</small></td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"\">dodaj</button></td>\n                  </tr>\n                ");
+              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
               _resultDiv.innerHTML += results;
-            } else {
-              _resultDiv.innerHTML = '';
-              _resultDiv.innerHTML += '<p>Već ste odabrali ovu analizu</p>';
             }
-          } // let analysis = result.analysisName
-          // let pricesMin = result.minPriceArr
-          // let pricesMax = result.maxPriceArr
-          // for(i=0; i<analysis.length; i++) {
-          //creating table with result
-          // helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
-          // }
-          // for end
-          //when result is found remove loading icon
-          // loaderWrapper.style.opacity = 0
-
+          }
         }); // data json end
       } else {
         console.log('unesite vise od 2 karaktera');
         _resultDiv.innerHTML = '';
       }
+    });
+    var addAnalysisBtn = document.getElementById('resultTableAnalysis');
+    addAnalysisBtn.addEventListener('click', function (e) {
+      if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
+        e.target.innerHTML = '&#10004;';
+        e.target.disabled = true;
+        totalPrice += parseInt(e.target.getAttribute('data-price'));
+        totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+        resultSection.classList.remove('d-none');
+
+        _checkout.classList.remove('d-none');
+
+        _itemsArray.push({
+          'name': e.target.getAttribute('data-analysisName'),
+          'id': e.target.getAttribute('data-analysisid') // 'logo':e.target.getAttribute('data-iconPath')
+
+        });
+
+        numOfAnalysis.innerHTML = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
+        _checkout.textContent = _itemsArray.length;
+
+        _itemsArray.sort(function (a, b) {
+          if (a.name > b.name) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+
+        localStorage.setItem('items', JSON.stringify(_itemsArray));
+        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(e.target.getAttribute('data-abbr'), "</td>\n                 <td>").concat(e.target.getAttribute('data-alt'), "</td>\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
+        resultTable.innerHTML += additionalResult;
+      }
     }); ///////////////////////////
 
     if (_itemsArray.length == 0) {
       resultSection.classList.add('d-none');
-      checkout.classList.add('d-none');
+
+      _checkout.classList.add('d-none');
     } else {
       totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
         if (e.target.classList.contains('removeAnalysis')) {
+          _resultDiv.innerHTML = '';
+          searchString.value = '';
           var toBeDeleted = e.target.getAttribute('data-analysisid');
           var deleteAnalysis = e.target.parentNode.parentNode.remove();
           prices = document.querySelector('.price'); //update total price by substracting from total
-          // console.log(prices.getAttribute('data-price'))
-
-          console.log(e.target.parentNode.previousElementSibling.innerText); // totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText)
 
           totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText);
           totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
@@ -1136,11 +1161,12 @@ window.onload = function () {
           localStorage.setItem('items', items);
           var numAnalysis = document.querySelector('.numAnalysis');
           numAnalysis.textContent = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
-          checkout.textContent = _itemsArray.length;
+          _checkout.textContent = _itemsArray.length;
 
           if (_itemsArray.length == 0) {
             resultSection.classList.add('d-none');
-            checkout.classList.add('d-none');
+
+            _checkout.classList.add('d-none');
           }
         }
       });

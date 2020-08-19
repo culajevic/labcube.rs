@@ -416,10 +416,14 @@ if(urlArr[1] == 'laboratorija') {
   // search for analysis or lab
   // helper.searchLabAnalysis(innerPageSearch,analysisRadio)
   let searchString = document.getElementById('searchResultPage')
+    searchString.focus()
   let filter = document.querySelectorAll('input[name=searchFilter]')
   let resultDiv = document.getElementById('resultTableAnalysis')
+  let resultTable = document.getElementById('resultTable')
+  let numOfAnalysis = document.querySelector('.numAnalysis')
+  let checkout = document.querySelector('.checkout')
   let filterValue = 'analiza'
-      searchString.focus()
+
 
       //check the filter value on INDEX PAGE
           filter.forEach((item) => {
@@ -456,10 +460,10 @@ if(urlArr[1] == 'laboratorija') {
             let alreadySelectedArray = []
             for(i=0; i<result.length; i++) {
 
-            let alreadySelected = itemsArray.findIndex(item => {
-              return item.id == result[i].idAnalysis
-            })
-            alreadySelectedArray.push(alreadySelected)
+              let alreadySelected = itemsArray.findIndex(item => {
+                return item.id == result[i].idAnalysis
+              })
+              alreadySelectedArray.push(alreadySelected)
 
               let availableHC = result[i].availableHC
               icon.push(...availableHC)
@@ -471,30 +475,14 @@ if(urlArr[1] == 'laboratorija') {
                     <a href="../results/analysis/${result[i].slug}" class="nolink">${result[i].name}</a></td>
                     <td>${result[i].abbr}</td>
                     <td>${result[i].alt}</td>
-                    <td>${result[i].cenovnik.cena} <small>rsd</small></td>
                     <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
-                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="">dodaj</button></td>
+                    <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
+                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
                   </tr>
                 `
                 resultDiv.innerHTML += results
               }
-
-              else {
-                resultDiv.innerHTML = ''
-                resultDiv.innerHTML += '<p>Već ste odabrali ovu analizu</p>'
-              }
-          }
-
-            // let analysis = result.analysisName
-            // let pricesMin = result.minPriceArr
-            // let pricesMax = result.maxPriceArr
-            // for(i=0; i<analysis.length; i++) {
-              //creating table with result
-              // helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
-              // }
-              // for end
-            //when result is found remove loading icon
-            // loaderWrapper.style.opacity = 0
+            }
           })// data json end
         }
       else {
@@ -502,6 +490,45 @@ if(urlArr[1] == 'laboratorija') {
         resultDiv.innerHTML = ''
       }
     })
+
+    let addAnalysisBtn = document.getElementById('resultTableAnalysis')
+      addAnalysisBtn.addEventListener('click', e => {
+        if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
+          e.target.innerHTML = '&#10004;'
+          e.target.disabled = true
+          totalPrice  += parseInt(e.target.getAttribute('data-price'))
+          totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+          resultSection.classList.remove('d-none')
+          checkout.classList.remove('d-none')
+          itemsArray.push({
+            'name':e.target.getAttribute('data-analysisName'),
+            'id':e.target.getAttribute('data-analysisid')
+            // 'logo':e.target.getAttribute('data-iconPath')
+           })
+           numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
+           checkout.textContent = itemsArray.length
+           itemsArray.sort((a,b) => {
+             if (a.name > b.name) {
+               return 1
+             } else {
+               return -1
+             }
+           })
+           localStorage.setItem('items', JSON.stringify(itemsArray))
+           let additionalResult = `
+               <tr>
+                 <td><img src="/images/detail.svg" data-toggle="tooltip" title="" class="tooltipImg mr-2">
+                 <a href="../results/analysis/${e.target.getAttribute('data-analysisName')}" class="nolink">${e.target.getAttribute('data-analysisName')}</a></td>
+                 <td>${e.target.getAttribute('data-abbr')}</td>
+                 <td>${e.target.getAttribute('data-alt')}</td>
+                 <td><img src="${e.target.getAttribute('data-icon')}"></td>
+                 <td><span class="font-weight-bold price">${e.target.getAttribute('data-price')}</span></td>
+                 <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="${e.target.getAttribute('data-analysisid')}" data-groupImg="" data-analysisName="" >X</button></td>
+               </tr>
+           `
+           resultTable.innerHTML += additionalResult
+        }
+      })
 
     ///////////////////////////
     if(itemsArray.length == 0) {
@@ -512,13 +539,12 @@ if(urlArr[1] == 'laboratorija') {
       let removeAnalysisLabPage = document.getElementById('resultTable')
         removeAnalysisLabPage.addEventListener('click', e => {
           if(e.target.classList.contains('removeAnalysis')) {
+            resultDiv.innerHTML = ''
+            searchString.value = ''
             let toBeDeleted = e.target.getAttribute('data-analysisid')
             let deleteAnalysis = e.target.parentNode.parentNode.remove()
             prices = document.querySelector('.price')
             //update total price by substracting from total
-            // console.log(prices.getAttribute('data-price'))
-            console.log(e.target.parentNode.previousElementSibling.innerText)
-            // totalPrice -= parseInt(e.target.parentNode.parentNode.childNodes[9].innerText)
             totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText)
             totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
             let nameIndex = itemsArray.findIndex((item) => {
