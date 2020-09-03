@@ -320,12 +320,20 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
       console.log('ne mozete dodati vise od 30 analiza u korpu')
     }
   })// resultdiv end
-} 
+}
 
 exports.searchLabAnalysis = (searchString, filter) => {
 
-  let filterValue = 'analiza'
+  // let filter = 'analiza'
+  // let filterValue
   searchString.focus()
+
+    filter.forEach((item) => {
+      if(item.checked) {
+        filterValue = item.value
+        console.log('checked ' + filterValue)
+      }
+    })
 
   // set focus on searchanalysis field when right arrow is pressed
   document.addEventListener('keydown', (e) => {
@@ -345,6 +353,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
   /* by default filter is set to analiza, after 500ms
     user is redirected to results page */
   searchString.addEventListener('input', (e) => {
+    console.log('trazim funkcija')
     if(searchString.value.length>=2) {
       setTimeout(function() {
       let searchString = e.target.value
@@ -352,4 +361,175 @@ exports.searchLabAnalysis = (searchString, filter) => {
       },500)
     }
   })
+}
+
+exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
+  let banner = document.querySelector('.banner')
+  let analysisBasket = document.querySelector('.odabraneAnalize')
+
+  let now = new Date()
+  let day = now.getDay()
+  let date = now.getDate()
+  let month = now.getMonth()
+  let year = now.getFullYear()
+  let today = (month + 1) + "/" + date + "/" + year
+  // let danas
+  const passIds = []
+
+    fetch('/lab/'+searchStr).then((data) => {
+
+      data.json().then((result) => {
+
+        loaderWrapper.style.opacity = 0
+
+        let labTemplate = document.createElement('div')
+          labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
+
+        for(i=0; i<result.length; i++) {
+          let flag = true
+          resultDiv.innerHTML = ''
+          labTemplate.innerHTML += `
+          <div class="lab-card">
+            <div>
+               <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
+               <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
+               <span class="labInfoWindowTitle">${result[i].labName}</span>
+           </div>
+             <div class="labInfoWindow">
+                 <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow">
+                 <p class="labInfoWindowAdresa">${result[i].address}</p>
+                 <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
+                 <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
+             </div>
+             <div class="labInfoFooter">
+                 <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                 <div class="radnoVreme">Radno vreme</div>
+                 <div id='otvoreno' class='otvoreno${i} status'></div>
+                 <div class="labInfoRadnoVremeDetalji">
+                   <p class="daysInWeek monday${i} text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
+                   <p class="daysInWeek tuesday${i} text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
+                   <p class="daysInWeek wednesday${i} text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
+                   <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
+                   <p class="daysInWeek friday${i} text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
+                   <p class="daysInWeek saturday${i} text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
+                   <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
+                 </div>
+              </div>
+              <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
+           </div>`
+
+           resultDiv.innerHTML = `
+           <section id="labDetails">
+             <div class="container">
+               <div class="row labContainer">
+               </div>
+             </div>
+           </section>`
+
+           //append labcard to page
+           document.querySelector('.labContainer').appendChild(labTemplate)
+
+
+
+        let currentDay
+        let currentDayNum
+        switch (day) {
+          case 0:
+            currentDay = 'sunday'
+            currentDayNum = 0
+            break
+          case 1:
+            currentDay = 'monday'
+            currentDayNum = 1
+            break
+          case 2:
+            currentDay = 'tuesday'
+            currentDayNum = 2
+            break
+          case 3:
+            currentDay = 'wednesday'
+            currentDayNum = 3
+            break
+          case 4:
+            currentDay = 'thursday'
+            currentDayNum = 4
+            break
+          case 5:
+            currentDay = 'friday'
+            currentDayNum = 5
+            break
+          case 6:
+            currentDay = 'saturday'
+            currentDayNum = 6
+            break
+          default:
+            console.log('dan nije ok')
+        }
+
+        let radnoVreme = document.querySelector('.otvoreno'+i)
+        let todayIs = document.querySelector('.'+currentDay+i)
+        let privateInsurance = document.querySelector('.privateInssuranceIcon'+i)
+        let accredited = document.querySelector('.accreditedIcon'+i)
+        let labDetailsBtn = document.querySelectorAll('.buttonId')
+         labDetailsBtn.forEach(item => {
+           item.addEventListener('click', e => {
+             itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+               itemsArray.forEach(item => {
+               passIds.push(item.id)
+               });
+             window.location = `/${e.target.getAttribute('data-labName')}/${passIds}`
+           })
+         })
+
+
+        if(result[i].private) {
+          privateInsurance.setAttribute('src', '/images/osiguranje.svg')
+        } else {
+          privateInsurance.remove()
+        }
+
+        if(result[i].accredited) {
+          accredited.setAttribute('src', '/images/verified.svg')
+        } else {
+          accredited.remove()
+        }
+
+        if(result[i].open24h) {
+          radnoVreme.classList.add('open')
+          radnoVreme.innerText = 'otvoreno 24h'
+          todayIs.classList.add('active')
+        } else if(day === currentDayNum) {
+
+          let openTime = result[i].workingHours[currentDay].opens
+          let closingTime = result[i].workingHours[currentDay].closes
+          let todayOpenTime = new Date(today +' '+ openTime +':00')
+          let todayClosingTime = new Date(today +' '+ closingTime +':00')
+          let nowTimeStamp = now.getTime()
+          let closingSoon = todayClosingTime - nowTimeStamp
+          let closingIn = (Math.ceil(closingSoon/1000/60))
+
+          if (closingIn < 60 && closingIn > 0) {
+            radnoVreme.classList.add('closedSoon')
+            radnoVreme.innerText = `zatvara se za ${closingIn} min.`
+            todayIs.classList.add('active')
+          }
+
+            else if(nowTimeStamp > todayOpenTime.getTime() &&
+                todayClosingTime.getTime() > nowTimeStamp) {
+                radnoVreme.classList.add('open')
+                radnoVreme.innerText = 'otvoreno'
+                todayIs.classList.add('active')
+            }
+            else {
+                radnoVreme.classList.add('closed')
+                radnoVreme.innerText = 'zatvoreno'
+                todayIs.classList.add('activeClosed')
+            }
+          } else {
+            console.log('lab nije odredio radno vreme')
+          }
+      }//for loop end
+
+      })//data json end
+    })//fetch end
 }

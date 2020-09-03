@@ -482,8 +482,15 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
 };
 
 exports.searchLabAnalysis = function (searchString, filter) {
-  var filterValue = 'analiza';
-  searchString.focus(); // set focus on searchanalysis field when right arrow is pressed
+  // let filter = 'analiza'
+  // let filterValue
+  searchString.focus();
+  filter.forEach(function (item) {
+    if (item.checked) {
+      filterValue = item.value;
+      console.log('checked ' + filterValue);
+    }
+  }); // set focus on searchanalysis field when right arrow is pressed
 
   document.addEventListener('keydown', function (e) {
     if (e.keyCode === 39) {
@@ -501,6 +508,8 @@ exports.searchLabAnalysis = function (searchString, filter) {
     user is redirected to results page */
 
   searchString.addEventListener('input', function (e) {
+    console.log('trazim funkcija');
+
     if (searchString.value.length >= 2) {
       setTimeout(function () {
         var searchString = e.target.value;
@@ -508,6 +517,135 @@ exports.searchLabAnalysis = function (searchString, filter) {
       }, 500);
     }
   });
+};
+
+exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
+  var banner = document.querySelector('.banner');
+  var analysisBasket = document.querySelector('.odabraneAnalize');
+  var now = new Date();
+  var day = now.getDay();
+  var date = now.getDate();
+  var month = now.getMonth();
+  var year = now.getFullYear();
+  var today = month + 1 + "/" + date + "/" + year; // let danas
+
+  var passIds = [];
+  fetch('/lab/' + searchStr).then(function (data) {
+    data.json().then(function (result) {
+      loaderWrapper.style.opacity = 0;
+      var labTemplate = document.createElement('div');
+      labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
+
+      for (i = 0; i < result.length; i++) {
+        var flag = true;
+        resultDiv.innerHTML = '';
+        labTemplate.innerHTML += "\n          <div class=\"lab-card\">\n            <div>\n               <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n               <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n               <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[i].logo, "\" class=\"labLogoInfoWindow\">\n                 <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                 <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                   <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                   <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                 </div>\n              </div>\n              <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n           </div>");
+        resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
+
+        document.querySelector('.labContainer').appendChild(labTemplate);
+        var currentDay = void 0;
+        var currentDayNum = void 0;
+
+        switch (day) {
+          case 0:
+            currentDay = 'sunday';
+            currentDayNum = 0;
+            break;
+
+          case 1:
+            currentDay = 'monday';
+            currentDayNum = 1;
+            break;
+
+          case 2:
+            currentDay = 'tuesday';
+            currentDayNum = 2;
+            break;
+
+          case 3:
+            currentDay = 'wednesday';
+            currentDayNum = 3;
+            break;
+
+          case 4:
+            currentDay = 'thursday';
+            currentDayNum = 4;
+            break;
+
+          case 5:
+            currentDay = 'friday';
+            currentDayNum = 5;
+            break;
+
+          case 6:
+            currentDay = 'saturday';
+            currentDayNum = 6;
+            break;
+
+          default:
+            console.log('dan nije ok');
+        }
+
+        var radnoVreme = document.querySelector('.otvoreno' + i);
+        var todayIs = document.querySelector('.' + currentDay + i);
+        var privateInsurance = document.querySelector('.privateInssuranceIcon' + i);
+        var accredited = document.querySelector('.accreditedIcon' + i);
+        var labDetailsBtn = document.querySelectorAll('.buttonId');
+        labDetailsBtn.forEach(function (item) {
+          item.addEventListener('click', function (e) {
+            itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+            itemsArray.forEach(function (item) {
+              passIds.push(item.id);
+            });
+            window.location = "/".concat(e.target.getAttribute('data-labName'), "/").concat(passIds);
+          });
+        });
+
+        if (result[i]["private"]) {
+          privateInsurance.setAttribute('src', '/images/osiguranje.svg');
+        } else {
+          privateInsurance.remove();
+        }
+
+        if (result[i].accredited) {
+          accredited.setAttribute('src', '/images/verified.svg');
+        } else {
+          accredited.remove();
+        }
+
+        if (result[i].open24h) {
+          radnoVreme.classList.add('open');
+          radnoVreme.innerText = 'otvoreno 24h';
+          todayIs.classList.add('active');
+        } else if (day === currentDayNum) {
+          var openTime = result[i].workingHours[currentDay].opens;
+          var closingTime = result[i].workingHours[currentDay].closes;
+          var todayOpenTime = new Date(today + ' ' + openTime + ':00');
+          var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
+          var nowTimeStamp = now.getTime();
+          var closingSoon = todayClosingTime - nowTimeStamp;
+          var closingIn = Math.ceil(closingSoon / 1000 / 60);
+
+          if (closingIn < 60 && closingIn > 0) {
+            radnoVreme.classList.add('closedSoon');
+            radnoVreme.innerText = "zatvara se za ".concat(closingIn, " min.");
+            todayIs.classList.add('active');
+          } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
+            radnoVreme.classList.add('open');
+            radnoVreme.innerText = 'otvoreno';
+            todayIs.classList.add('active');
+          } else {
+            radnoVreme.classList.add('closed');
+            radnoVreme.innerText = 'zatvoreno';
+            todayIs.classList.add('activeClosed');
+          }
+        } else {
+          console.log('lab nije odredio radno vreme');
+        }
+      } //for loop end
+
+    }); //data json end
+  }); //fetch end
 };
 
 /***/ }),
@@ -766,7 +904,7 @@ window.onload = function () {
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (document.getElementById('results') != null || document.getElementById('resultsGroupDetails') != null) {
+  if (document.getElementById('results') != null) {
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
@@ -779,23 +917,25 @@ window.onload = function () {
         analysis.classList.remove('addAnalysis');
         analysis.classList.add('deleteAnalysis');
       }
-    }); //get seachstring
+    }); //create wrapper for live search icon
 
-    var mainSearchinner = document.getElementById('searchResultPage'); //ger reference to filter
-
-    var analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
+    var loaderWrapper = document.querySelector('.loader-wrapper');
+    loaderWrapper.style.opacity = 0; //get seachstring
+    // let mainSearchinner = document.getElementById('searchResultPage')
+    //ger reference to filter
+    // let analysisRadioinner = document.querySelectorAll('input[name=searchFilter]')
+    //search for analysis or lab
     //proveriti da li je ovo ispod neophodno
+    // helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 
-    helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
-    var urlParams = new URLSearchParams(window.location.search); //search string and filter
-
+    var urlParams = new URLSearchParams(window.location.search);
     var myValue = urlParams.get('name');
-    var myFilter = urlParams.get('filter'); // creating variable for search field and assigning value from search string
+    var myFilter = urlParams.get('filter'); // history.replaceState(null,null,`/`)
+    // creating variable for search field and assigning value from search string
 
     var innerSearch = document.getElementById('searchResultPage'); //keeps search string when page is changed
 
-    innerSearch.value = myValue; //put focus on search field
-
+    innerSearch.value = myValue;
     innerSearch.focus(); //defining new variable which will be used in queries
 
     var searchStr = myValue; // display checked filter
@@ -804,28 +944,28 @@ window.onload = function () {
     radioFilter.forEach(function (item) {
       if (item.value == myFilter) {
         item.checked = true;
+        console.log('checked ' + myFilter);
       }
     }); // if user is searching from home page take result div
 
-    var resultDiv = document.getElementById('resultTable'); // check if local storage is empty
-    // let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-    // if filter value is changed on result searchResultPage
+    var resultDiv = document.getElementById('resultTable'); // if filter value is changed on result searchResultPage
     // taking filter value
 
     var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
 
     _analysisRadio.forEach(function (item) {
       item.addEventListener('click', function (e) {
-        myFilter = e.target.value; // innerSearch.value=''
-        // innerSearch.focus()
+        myFilter = e.target.value;
+        console.log('kada se promeni ' + myFilter);
+        innerSearch.value = '';
+        innerSearch.focus();
       });
-    }); //create wrapper for live search icon
-
-
-    var loaderWrapper = document.querySelector('.loader-wrapper');
+    });
 
     if (myFilter === 'analiza') {
+      console.log('pretraga analize sa glavne stranice');
       fetch('/analysis/prices/' + searchStr).then(function (data) {
+        // loaderWrapper.style.opacity = 1
         data.json().then(function (result) {
           resultDiv.innerHTML = '';
           var analysis = result.analysisName;
@@ -843,141 +983,16 @@ window.onload = function () {
         }); // data json end
       }); //fetch end
     } // if my filter==analiza
-    else {
-        var banner = document.querySelector('.banner'); // banner.style.display = 'none'
-
-        var analysisBasket = document.querySelector('.odabraneAnalize'); // analysisBasket.style.display = 'none'
-
-        var now = new Date();
-        var day = now.getDay();
-        var date = now.getDate();
-        var month = now.getMonth();
-        var year = now.getFullYear();
-        var today = month + 1 + "/" + date + "/" + year; // let danas
-
-        var passIds = [];
-        fetch('/lab/' + searchStr).then(function (data) {
-          data.json().then(function (result) {
-            loaderWrapper.style.opacity = 0;
-            var labTemplate = document.createElement('div');
-            labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
-
-            for (i = 0; i < result.length; i++) {
-              var flag = true;
-              resultDiv.innerHTML = '';
-              labTemplate.innerHTML += "\n              <div class=\"lab-card\">\n                <div>\n                   <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n                   <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n                   <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n               </div>\n                 <div class=\"labInfoWindow\">\n                     <img src=\"/images/lablogo/").concat(result[i].logo, "\" class=\"labLogoInfoWindow\">\n                     <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                     <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                     <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n                 </div>\n                 <div class=\"labInfoFooter\">\n                     <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                     <div class=\"radnoVreme\">Radno vreme</div>\n                     <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                     <div class=\"labInfoRadnoVremeDetalji\">\n                       <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                       <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                       <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                       <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                       <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                       <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                       <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                     </div>\n                  </div>\n                  <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n               </div>");
-              resultDiv.innerHTML = "\n               <section id=\"labDetails\">\n                 <div class=\"container\">\n                   <div class=\"row labContainer\">\n                   </div>\n                 </div>\n               </section>"; //append labcard to page
-
-              document.querySelector('.labContainer').appendChild(labTemplate);
-              var currentDay = void 0;
-              var currentDayNum = void 0;
-
-              switch (day) {
-                case 0:
-                  currentDay = 'sunday';
-                  currentDayNum = 0;
-                  break;
-
-                case 1:
-                  currentDay = 'monday';
-                  currentDayNum = 1;
-                  break;
-
-                case 2:
-                  currentDay = 'tuesday';
-                  currentDayNum = 2;
-                  break;
-
-                case 3:
-                  currentDay = 'wednesday';
-                  currentDayNum = 3;
-                  break;
-
-                case 4:
-                  currentDay = 'thursday';
-                  currentDayNum = 4;
-                  break;
-
-                case 5:
-                  currentDay = 'friday';
-                  currentDayNum = 5;
-                  break;
-
-                case 6:
-                  currentDay = 'saturday';
-                  currentDayNum = 6;
-                  break;
-
-                default:
-                  console.log('dan nije ok');
-              }
-
-              var radnoVreme = document.querySelector('.otvoreno' + i);
-              var todayIs = document.querySelector('.' + currentDay + i);
-              var privateInsurance = document.querySelector('.privateInssuranceIcon' + i);
-              var accredited = document.querySelector('.accreditedIcon' + i);
-              var labDetailsBtn = document.querySelectorAll('.buttonId');
-              labDetailsBtn.forEach(function (item) {
-                item.addEventListener('click', function (e) {
-                  itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-                  itemsArray.forEach(function (item) {
-                    passIds.push(item.id);
-                  });
-                  window.location = "/".concat(e.target.getAttribute('data-labName'), "/").concat(passIds);
-                });
-              });
-
-              if (result[i]["private"]) {
-                privateInsurance.setAttribute('src', '/images/osiguranje.svg');
-              } else {
-                privateInsurance.remove();
-              }
-
-              if (result[i].accredited) {
-                accredited.setAttribute('src', '/images/verified.svg');
-              } else {
-                accredited.remove();
-              }
-
-              if (result[i].open24h) {
-                radnoVreme.classList.add('open');
-                radnoVreme.innerText = 'otvoreno 24h';
-                todayIs.classList.add('active');
-              } else if (day === currentDayNum) {
-                var openTime = result[i].workingHours[currentDay].opens;
-                var closingTime = result[i].workingHours[currentDay].closes;
-                var todayOpenTime = new Date(today + ' ' + openTime + ':00');
-                var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
-                var nowTimeStamp = now.getTime();
-                var closingSoon = todayClosingTime - nowTimeStamp;
-                var closingIn = Math.ceil(closingSoon / 1000 / 60);
-
-                if (closingIn < 60 && closingIn > 0) {
-                  radnoVreme.classList.add('closedSoon');
-                  radnoVreme.innerText = "zatvara se za ".concat(closingIn, " min.");
-                  todayIs.classList.add('active');
-                } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
-                  radnoVreme.classList.add('open');
-                  radnoVreme.innerText = 'otvoreno';
-                  todayIs.classList.add('active');
-                } else {
-                  radnoVreme.classList.add('closed');
-                  radnoVreme.innerText = 'zatvoreno';
-                  todayIs.classList.add('activeClosed');
-                }
-              } else {
-                console.log('lab nije odredio radno vreme');
-              }
-            } //for loop end
-
-          }); //data json end
-        }); //fetch end
+    else if (myFilter == 'laboratorija') {
+        console.log('pretraga lab sa index strance');
+        helper.searchLab(searchStr, loaderWrapper, resultDiv);
       } // else end
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
 
 
     innerSearch.addEventListener('input', function (e) {
+      console.log('searching' + filter);
       var searchstring = e.target.value;
       loaderWrapper.style.opacity = 1;
 
@@ -1003,15 +1018,9 @@ window.onload = function () {
             }
           }); // data json end
         }); //fetch end
-        // helper.addAnalysis(itemsArray, resultDiv)
-        // helper.removeAnalysis(itemsArray)
       } else if (searchstring.length >= 2) {
-        fetch('/lab/' + searchstring).then(function (data) {
-          data.json().then(function (result) {
-            console.log('sada rezultat');
-            loaderWrapper.style.opacity = 0;
-          });
-        });
+        //searching for labs from result page
+        helper.searchLab(searchstring, loaderWrapper, resultDiv);
       } else {
         console.log('unesite vise od 2 karaktera da zapocnete pretragu');
         resultDiv.innerHTML = 'Unesite nesto';
@@ -1019,6 +1028,40 @@ window.onload = function () {
       }
     });
     helper.addAnalysis(itemsArray, resultDiv, checkout);
+    helper.removeAnalysis(itemsArray, checkout);
+  } //group analysis page
+
+
+  if (document.getElementById('resultsGroupDetails') != null) {
+    var _activeBtns = document.querySelectorAll('.addAnalysis');
+
+    _activeBtns.forEach(function (analysis) {
+      var analysisPositionArr = itemsArray.findIndex(function (item) {
+        return analysis.getAttribute("data-analysisid") === item.id;
+      });
+
+      if (analysisPositionArr !== -1) {
+        analysis.innerHTML = '&#10004;';
+        analysis.disabled = true;
+        analysis.classList.remove('addAnalysis');
+        analysis.classList.add('deleteAnalysis');
+      }
+    });
+
+    var _loaderWrapper = document.querySelector('.loader-wrapper');
+
+    _loaderWrapper.style.opacity = 0;
+
+    var _resultDiv = document.getElementById('resultTable'); // get seachstring
+
+
+    var mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
+
+    var analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    // proveriti da li je ovo ispod neophodno
+
+    helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
+    helper.addAnalysis(itemsArray, _resultDiv, checkout);
     helper.removeAnalysis(itemsArray, checkout);
   } // lab details PAGE
 
@@ -1039,7 +1082,7 @@ window.onload = function () {
 
     var _filter = document.querySelectorAll('input[name=searchFilter]');
 
-    var _resultDiv = document.getElementById('resultTableAnalysis');
+    var _resultDiv2 = document.getElementById('resultTableAnalysis');
 
     var resultTable = document.getElementById('resultTable');
     var numOfAnalysis = document.querySelector('.numAnalysis');
@@ -1075,7 +1118,7 @@ window.onload = function () {
         fetch('/search/analysis/' + _searchString + '/' + labName).then(function (data) {
           return data.json();
         }).then(function (result) {
-          _resultDiv.innerHTML = '';
+          _resultDiv2.innerHTML = '';
           var icon = [];
           var alreadySelectedArray = [];
 
@@ -1090,13 +1133,13 @@ window.onload = function () {
 
             if (alreadySelectedArray[i] == -1) {
               var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
-              _resultDiv.innerHTML += results;
+              _resultDiv2.innerHTML += results;
             }
           }
         }); // data json end
       } else {
         console.log('unesite vise od 2 karaktera');
-        _resultDiv.innerHTML = '';
+        _resultDiv2.innerHTML = '';
       }
     });
     var addAnalysisBtn = document.getElementById('resultTableAnalysis');
@@ -1142,7 +1185,7 @@ window.onload = function () {
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
         if (e.target.classList.contains('removeAnalysis')) {
-          _resultDiv.innerHTML = '';
+          _resultDiv2.innerHTML = '';
           searchString.value = '';
           var toBeDeleted = e.target.getAttribute('data-analysisid');
           var deleteAnalysis = e.target.parentNode.parentNode.remove();
@@ -1262,7 +1305,7 @@ window.onload = function () {
 
     var searchPlaces = document.getElementById('searchPlaces');
 
-    var _resultDiv2 = document.getElementById('result');
+    var _resultDiv3 = document.getElementById('result');
 
     var city = document.getElementById('city');
     var minicipality = document.getElementById('municipality');
@@ -1271,7 +1314,7 @@ window.onload = function () {
       if (searchPlaces.value.length >= 3) {
         fetch('/places/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
-            _resultDiv2.innerHTML = '';
+            _resultDiv3.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -1285,7 +1328,7 @@ window.onload = function () {
               var placeName = document.createTextNode(result[i].place);
               link.appendChild(placeName);
 
-              _resultDiv2.appendChild(liItem);
+              _resultDiv3.appendChild(liItem);
             } // for end
 
 
@@ -1297,14 +1340,14 @@ window.onload = function () {
                 city.value = e.target.innerText;
                 municipality.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
-                _resultDiv2.innerHTML = '';
+                _resultDiv3.innerHTML = '';
               });
             });
           }); // data json end
         });
       } else {
         console.log('enter at least 3 letters');
-        _resultDiv2.innerHTML = '';
+        _resultDiv3.innerHTML = '';
         city.value = '';
         municipality.value = '';
         postalCode.value = '';

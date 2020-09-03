@@ -5,7 +5,11 @@
     <div class="row mb-4 mt-4">
         <p class="mt-2 mb-4 groupDescription">{{group.description}}</p>
       <div class="col-9">
+
         <table class="table results table-hover">
+          <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+          </div>
  					<tbody id="resultTable">
             {{#each analyisisdata}}
             <tr>
