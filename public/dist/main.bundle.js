@@ -930,8 +930,8 @@ window.onload = function () {
 
     var urlParams = new URLSearchParams(window.location.search);
     var myValue = urlParams.get('name');
-    var myFilter = urlParams.get('filter'); // history.replaceState(null,null,`/`)
-    // creating variable for search field and assigning value from search string
+    var myFilter = urlParams.get('filter');
+    history.replaceState(null, null, "/"); // creating variable for search field and assigning value from search string
 
     var innerSearch = document.getElementById('searchResultPage'); //keeps search string when page is changed
 
@@ -1132,7 +1132,7 @@ window.onload = function () {
             icon.push.apply(icon, _toConsumableArray(availableHC));
 
             if (alreadySelectedArray[i] == -1) {
-              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
+              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[i].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
               _resultDiv2.innerHTML += results;
             }
           }
@@ -1155,8 +1155,8 @@ window.onload = function () {
 
         _itemsArray.push({
           'name': e.target.getAttribute('data-analysisName'),
-          'id': e.target.getAttribute('data-analysisid') // 'logo':e.target.getAttribute('data-iconPath')
-
+          'id': e.target.getAttribute('data-analysisid'),
+          'logo': e.target.getAttribute('data-iconPath')
         });
 
         numOfAnalysis.innerHTML = "Broj odabranih analiza (".concat(_itemsArray.length, ")");

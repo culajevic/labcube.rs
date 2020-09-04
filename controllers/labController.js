@@ -200,6 +200,7 @@ exports.getLabInfo = async (req,res) => {
           {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
           {$sort:{name:1}}
        ])
+       // console.log(selectedAnalysis)
        // for(i=0; i<selectedAnalysis.length;i++) {
        //   total += selectedAnalysis[i].cenovnik.cena
        // }
@@ -299,12 +300,14 @@ exports.getAdditionalAnalysis = async (req,res) => {
                alt:'$analiza.alt',
                availableHC:'$analiza.availableHC',
                preview:'$analiza.preview',
-               slug:'$analiza.slug'
+               slug:'$analiza.slug',
+               group:'$analiza.groupId'
              }},
     {$match:{'name':{$regex:req.params.analysisName, "$options": "i"}}},
-
+    {$lookup:{from:'groups', localField:'group', foreignField:'_id', as:'groupID'}},
     {$sort:{name:1}}
   ])
+  console.log(searchForAnalysis[0].groupID[0].iconPath)
   res.json(searchForAnalysis)
   // let searchForAnalysis = await Analysis.aggregate([
   //   {$match:{'analysisName':{$regex:req.params.analysisName, "$options": "i"}}}

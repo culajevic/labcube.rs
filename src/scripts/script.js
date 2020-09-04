@@ -129,7 +129,7 @@ if (document.getElementById('results')!=null) {
   const urlParams = new URLSearchParams(window.location.search)
   let myValue = urlParams.get('name')
   let myFilter = urlParams.get('filter')
-  // history.replaceState(null,null,`/`)
+  history.replaceState(null,null,`/`)
 
   // creating variable for search field and assigning value from search string
   let innerSearch = document.getElementById('searchResultPage')
@@ -331,7 +331,7 @@ if(urlArr[1] == 'laboratorija') {
                     <td>${result[i].alt}</td>
                     <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
                     <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
-                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
+                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[i].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
                   </tr>
                 `
                 resultDiv.innerHTML += results
@@ -356,8 +356,8 @@ if(urlArr[1] == 'laboratorija') {
           checkout.classList.remove('d-none')
           itemsArray.push({
             'name':e.target.getAttribute('data-analysisName'),
-            'id':e.target.getAttribute('data-analysisid')
-            // 'logo':e.target.getAttribute('data-iconPath')
+            'id':e.target.getAttribute('data-analysisid'),
+            'logo':e.target.getAttribute('data-iconPath')
            })
            numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
            checkout.textContent = itemsArray.length
