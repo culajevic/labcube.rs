@@ -8336,8 +8336,8 @@ footer {
   background-color: #FF9600;
   color: white; }
 
-#mapDetails {
-  height: 360px; }
+#mapDetails, #mapPrices {
+  height: 460px; }
 
 .aboutUs {
   display: block;

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Price = mongoose.model('Price')
+const Place = mongoose.model('Place')
+const Lab = mongoose.model('Lab')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -134,4 +136,41 @@ exports.deletePriceList = async (req,res) => {
   const deletePricelist = await Price.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Cenovnik je uspesno obrisan.')
   res.json()
+}
+
+exports.getPrices = async (req,res) => {
+  let municipality = []
+  let labIds = []
+  let labIdsObject = []
+  let newids = []
+  let newObjectArr = []
+  newids = req.params.ids.split(',')
+  // numofanalysis = newids.length
+   newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
+  //nadji sva mesta koja pripadaju odabranoj opstini
+  const getMunicipalityIds = await Place.find({municipality:req.params.grad})
+  for(i=0; i<getMunicipalityIds.length; i++) {
+    municipality.push(getMunicipalityIds[i]._id)
+  }
+  //nadji sve laboratorije u mestima koja pripadaju odabranoj opstini
+  const getLabs = await Lab.aggregate([
+      {$match:{'placeId':{$in:municipality}}}
+    ])
+  for(i=0; i<getLabs.length; i++) {
+    labIds.push(getLabs[i]._id)
+  }
+
+// nadji cene odabranih analiza u laboratorijama na odabranoj opstini
+  labIdsObject = labIds.map(item => mongoose.Types.ObjectId(item))
+  const getPrices = await Price.aggregate([
+    {$match:{'lab':{$in:labIdsObject}}},
+    {$unwind:'$cenovnik'},
+    {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
+    {$group:{_id:'$lab', total:{$sum:'$cenovnik.cena'}}},
+    {$lookup:{from:'labs', localField:'_id', foreignField:'_id', as:'lab'}},
+    {$project:{lab:1, total:1, _id:0}},
+    {$sort:{total:1}}
+  ])
+  res.json(getPrices)
+  // res.render('najboljacena', {test:'test'})
 }

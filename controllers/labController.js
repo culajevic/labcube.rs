@@ -307,7 +307,7 @@ exports.getAdditionalAnalysis = async (req,res) => {
     {$lookup:{from:'groups', localField:'group', foreignField:'_id', as:'groupID'}},
     {$sort:{name:1}}
   ])
-  console.log(searchForAnalysis[0].groupID[0].iconPath)
+  // console.log(searchForAnalysis[0].groupID[0].iconPath)
   res.json(searchForAnalysis)
   // let searchForAnalysis = await Analysis.aggregate([
   //   {$match:{'analysisName':{$regex:req.params.analysisName, "$options": "i"}}}

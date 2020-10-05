@@ -100,5 +100,7 @@ router.get('/diseases/:diseaseName', diseaseController.getDiseases)
 router.get('/reference/:referenceTitle', referenceController.getReferences)
 router.get('/editors/:lastName', editorController.getEditors)
 router.get('/lab/:lab', labController.getLab)
+router.get('/cenovnik/:grad/:ids', priceController.getPrices)
+// router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
 module.exports = router

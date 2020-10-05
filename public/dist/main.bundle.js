@@ -900,6 +900,11 @@ window.onload = function () {
     helper.searchLabAnalysis(mainSearch, analysisRadio);
   } // INDEX page end
 
+  /* NAJBOLJA CENA **************/
+  // if(document.getElementById('najboljacena') != null) {
+  //   console.log('ovde sad')
+  // }
+
   /* RESULTS PAGE ***************/
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
@@ -917,10 +922,274 @@ window.onload = function () {
         analysis.classList.remove('addAnalysis');
         analysis.classList.add('deleteAnalysis');
       }
+    }); //show prices
+
+    var resultDiv = document.getElementById('resultTable');
+
+    var _municipality = document.getElementById('municipality');
+
+    var showPriceBtn = document.querySelector('.showPrice');
+    var mapArea = document.getElementById('mapPrices');
+    showPriceBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      mapArea.classList.remove('d-none');
+      var passIds = [];
+      resultDiv.innerHTML = '';
+      itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+      itemsArray.forEach(function (item) {
+        passIds.push(item.id);
+      });
+      var municipalityValue = _municipality.options[_municipality.selectedIndex].value;
+      var markers = [];
+      fetch('/cenovnik/' + municipalityValue + '/' + passIds).then(function (data) {
+        data.json().then(function (result) {
+          loaderWrapper.style.opacity = 0;
+          var labTemplate = document.createElement('div');
+          labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
+
+          for (var _i = 0; _i < result.length; _i++) {
+            markers.push({
+              lat: result[_i].lab[0].location.coordinates[1],
+              lng: result[_i].lab[0].location.coordinates[0],
+              iconImage: '/images/pinopen.svg',
+              total: result[_i].total,
+              name: result[_i].lab[0].labName
+            });
+            resultDiv.innerHTML = '';
+            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="llaboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].total, "</p>\n                 <p class=\"labInfoWindowGrad\"></p>\n                 <p class=\"labInfoWindowTelefoni\"></p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno").concat(_i, " status'></div>\n\n              </div>\n              <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[_i].slug, "\">saznaj vi\u0161e</button>\n           </div>");
+            resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
+
+            document.querySelector('.labContainer').appendChild(labTemplate);
+          } // map options
+
+
+          var options = {
+            zoom: 14,
+            // center: {lat:44.808048, lng:20.462796},
+            disableDefaultUI: true,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: true,
+            rotateControl: false,
+            fullscreenControl: true,
+            fullscreenControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_BOTTOM
+            },
+            styles: [{
+              "featureType": "administrative.country",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#fbd2d9"
+              }, {
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "administrative.country",
+              "elementType": "geometry.stroke",
+              "stylers": [{
+                "color": "#9896a9"
+              }, {
+                "weight": 2
+              }]
+            }, {
+              "featureType": "administrative.land_parcel",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#9896a9"
+              }]
+            }, {
+              "featureType": "administrative.land_parcel",
+              "elementType": "labels",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "administrative.locality",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "administrative.neighborhood",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "administrative.neighborhood",
+              "elementType": "labels",
+              "stylers": [{
+                "color": "#aaa9b1"
+              }, {
+                "visibility": "simplified"
+              }]
+            }, {
+              "featureType": "poi",
+              "elementType": "labels.text",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "poi.business",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "poi.park",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#aadc55"
+              }]
+            }, {
+              "featureType": "poi.park",
+              "elementType": "labels.text",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "road",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#ecebed"
+              }, {
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "road",
+              "elementType": "labels.text",
+              "stylers": [{
+                "color": "#d8d6dc"
+              }]
+            }, {
+              "featureType": "road.arterial",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#fefefe"
+              }]
+            }, {
+              "featureType": "road.arterial",
+              "elementType": "labels.text",
+              "stylers": [{
+                "color": "#9a9a9a"
+              }, {
+                "visibility": "simplified"
+              }]
+            }, {
+              "featureType": "road.highway",
+              "elementType": "labels",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "road.local",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "road.local",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#eaecec"
+              }, {
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "road.local",
+              "elementType": "labels",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "road.local",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#9ba4a4"
+              }, {
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "transit",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            }, {
+              "featureType": "transit.station",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "visibility": "on"
+              }]
+            }, {
+              "featureType": "transit.station.bus",
+              "stylers": [{
+                "visibility": "simplified"
+              }]
+            }, {
+              "featureType": "transit.station.bus",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#ff00ff"
+              }, {
+                "visibility": "simplified"
+              }]
+            }, {
+              "featureType": "water",
+              "elementType": "geometry.fill",
+              "stylers": [{
+                "color": "#1d88e5"
+              }, {
+                "lightness": 15
+              }]
+            }]
+          }; // new map
+
+          var map = new google.maps.Map(document.getElementById('mapPrices'), options);
+          map.setCenter({
+            lat: result[0].lab[0].location.coordinates[1],
+            lng: result[0].lab[0].location.coordinates[0]
+          });
+
+          for (i = 0; i < markers.length; i++) {
+            addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name);
+          } // console.log(markers)
+
+
+          function addMarker(lat, lng, total, name) {
+            var marker = new google.maps.Marker({
+              position: {
+                lat: lat,
+                lng: lng
+              },
+              icon: {
+                url: '/images/pinprice.svg',
+                labelOrigin: {
+                  x: 30,
+                  y: 29
+                },
+                scaledSize: new google.maps.Size(55, 55)
+              },
+              label: {
+                text: total.toString(),
+                fontWeight: 'bold',
+                fontSize: '12px',
+                color: 'white'
+              },
+              map: map
+            });
+            var infoWindow = new google.maps.InfoWindow({
+              maxWidth: 310,
+              content: total.toString() + name
+            });
+            marker.addListener('click', function () {
+              var placeMarker = infoWindow.open(map, marker);
+            });
+          }
+        });
+      });
     }); //create wrapper for live search icon
 
-    var loaderWrapper = document.querySelector('.loader-wrapper');
-    loaderWrapper.style.opacity = 0; //get seachstring
+    var loaderWrapper = document.querySelector('.loader-wrapper'); //get seachstring
     // let mainSearchinner = document.getElementById('searchResultPage')
     //ger reference to filter
     // let analysisRadioinner = document.querySelectorAll('input[name=searchFilter]')
@@ -947,8 +1216,8 @@ window.onload = function () {
         console.log('checked ' + myFilter);
       }
     }); // if user is searching from home page take result div
-
-    var resultDiv = document.getElementById('resultTable'); // if filter value is changed on result searchResultPage
+    // let resultDiv = document.getElementById('resultTable')
+    // if filter value is changed on result searchResultPage
     // taking filter value
 
     var _analysisRadio = document.querySelectorAll('input[name=searchFilter]');
