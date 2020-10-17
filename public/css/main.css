@@ -7542,8 +7542,7 @@ input[name="searchFilter"] {
   text-transform: uppercase; }
 
 .num {
-  color: #FFF;
-  opacity: 0; }
+  color: #FFF; }
 
 .numOn {
   opacity: 1;
@@ -7664,7 +7663,7 @@ input[name="searchFilter"] {
   background-color: #FFF;
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
-  width: 333px !important; }
+  width: 470px !important; }
 
 /* lab search results
 *********************************************************/
@@ -7676,6 +7675,9 @@ input[name="searchFilter"] {
     margin-bottom: 40px; }
   #labDetails h1 {
     margin-top: 60px; }
+
+.whInside {
+  font-size: 10px; }
 
 .lab-card, .cardBenefits, .beReady {
   border: 1px solid #E6E6E6;
@@ -7812,8 +7814,7 @@ div.status.closedSoon::before {
       padding-left: 0.625rem; }
 
 #faq {
-  margin-top: 2.5rem;
-  min-height: 40rem; }
+  margin-top: 2.5rem; }
   #faq h2 {
     color: #1D88E5;
     margin-bottom: 2.5rem; }
@@ -8337,7 +8338,7 @@ footer {
   color: white; }
 
 #mapDetails, #mapPrices {
-  height: 460px; }
+  height: calc(100vh - 210px); }
 
 .aboutUs {
   display: block;

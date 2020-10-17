@@ -857,7 +857,14 @@ $(window).scroll(function () {
   } else {
     $(".odabraneAnalize").removeClass('fixed-right');
   }
-});
+}); // scrol to top button
+
+$('.backTotop').on('click', function () {
+  $('html, body').animate({
+    scrollTop: 0
+  }, 1200); // return false;
+}); //animate numbers on google map header
+
 var location = window.location.pathname; // GLOBAL VARIABLES
 //set filter by default to analiza
 
@@ -932,6 +939,10 @@ window.onload = function () {
     var mapArea = document.getElementById('mapPrices');
     showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
       mapArea.classList.remove('d-none');
       var passIds = [];
       resultDiv.innerHTML = '';
@@ -948,15 +959,20 @@ window.onload = function () {
           labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
 
           for (var _i = 0; _i < result.length; _i++) {
+            // console.log(result[i].lab[0].workingHours)
             markers.push({
               lat: result[_i].lab[0].location.coordinates[1],
               lng: result[_i].lab[0].location.coordinates[0],
               iconImage: '/images/pinopen.svg',
               total: result[_i].total,
-              name: result[_i].lab[0].labName
+              name: result[_i].lab[0].labName,
+              address: result[_i].lab[0].address,
+              phone: result[_i].lab[0].phone,
+              workinghours: result[_i].lab[0].workingHours,
+              slug: result[_i].lab[0].slug
             });
             resultDiv.innerHTML = '';
-            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="llaboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].total, "</p>\n                 <p class=\"labInfoWindowGrad\"></p>\n                 <p class=\"labInfoWindowTelefoni\"></p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno").concat(_i, " status'></div>\n\n              </div>\n              <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[_i].slug, "\">saznaj vi\u0161e</button>\n           </div>");
+            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="llaboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n                 <p class=\"labInfoWindowGrad\"></p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                   <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                   <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n                 </div>\n              </div>\n              <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n           </div>");
             resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
 
             document.querySelector('.labContainer').appendChild(labTemplate);
@@ -964,7 +980,7 @@ window.onload = function () {
 
 
           var options = {
-            zoom: 14,
+            zoom: 16,
             // center: {lat:44.808048, lng:20.462796},
             disableDefaultUI: true,
             zoomControl: false,
@@ -1151,11 +1167,11 @@ window.onload = function () {
           });
 
           for (i = 0; i < markers.length; i++) {
-            addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name);
+            addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name, markers[i].address, markers[i].phone, markers[i].workinghours, markers[i].slug);
           } // console.log(markers)
 
 
-          function addMarker(lat, lng, total, name) {
+          function addMarker(lat, lng, total, name, address, phone, workinghours, slug) {
             var marker = new google.maps.Marker({
               position: {
                 lat: lat,
@@ -1164,10 +1180,10 @@ window.onload = function () {
               icon: {
                 url: '/images/pinprice.svg',
                 labelOrigin: {
-                  x: 30,
-                  y: 29
+                  x: 32,
+                  y: 32
                 },
-                scaledSize: new google.maps.Size(55, 55)
+                scaledSize: new google.maps.Size(60, 60)
               },
               label: {
                 text: total.toString(),
@@ -1178,15 +1194,18 @@ window.onload = function () {
               map: map
             });
             var infoWindow = new google.maps.InfoWindow({
-              maxWidth: 310,
-              content: total.toString() + name
+              maxWidth: 600,
+              content: "<p class=\"labInfoWindowTitle mb-0 pb-0\"><a href=\"/laboratorija/".concat(slug, "\">").concat(name, "</a></p>\n                      <p class=\"\">").concat(address, "</p>\n                    <p class=\"labInfoWindowTelefoni\">").concat(phone, " </p>\n                    <table class=\"table table-sm workingHoursLabDetails mt-2\">\n                      <thead>\n                        <tr>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">U</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">\u010C</th>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">N</th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center radnoVreme open\">").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</td>\n                          <td class=\" whInside px-0 text-center\">").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</td>\n                        </tr>\n                      </tbody>\n                    </table>\n                    ")
             });
             marker.addListener('click', function () {
               var placeMarker = infoWindow.open(map, marker);
             });
+            google.maps.event.addListener(map, 'click', function () {
+              infoWindow.close();
+            });
           }
-        });
-      });
+        }); //data json end
+      }); //fetch end
     }); //create wrapper for live search icon
 
     var loaderWrapper = document.querySelector('.loader-wrapper'); //get seachstring
@@ -1261,7 +1280,9 @@ window.onload = function () {
 
 
     innerSearch.addEventListener('input', function (e) {
-      console.log('searching' + filter);
+      // console.log('searching'+ filter)
+      var mapFrame = document.getElementById('mapPrices');
+      mapFrame.classList.add('d-none');
       var searchstring = e.target.value;
       loaderWrapper.style.opacity = 1;
 

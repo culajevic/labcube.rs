@@ -25,7 +25,7 @@ const upload = multer({storage:storage})
 
 exports.upload = upload.single('iconPath')
 
-// display groups on index page
+// display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
 sortByPriority = {priority:-1}
   try {
@@ -37,17 +37,90 @@ sortByPriority = {priority:-1}
       {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
       {$sort:{'grupa.priority':-1}}
     ])
-    // res.json(groups)
+    const labNum = await Lab.countDocuments({})
+    const analysisNum = await Analysis.countDocuments({})
+    //trenutno otvorene laboratorije
+
+    const labInfo = await Lab.find({}).populate('placeId')
+    let now = new Date()
+    let day = now.getDay()
+    let date = now.getDate()
+    let year = now.getFullYear()
+    let month = now.getMonth()
+    let today = (month + 1) + "/" + date + "/" + year
+    let numOpen = 0
+    let labStatus = []
+
+    let currentDay
+    let currentDayNum
+
+    switch (day) {
+      case 0:
+        currentDay = 'sunday'
+        currentDayNum = 0
+        break
+      case 1:
+        currentDay = 'monday'
+        currentDayNum = 1
+        break
+      case 2:
+        currentDay = 'tuesday'
+        currentDayNum = 2
+        break
+      case 3:
+        currentDay = 'wednesday'
+        currentDayNum = 3
+        break
+      case 4:
+        currentDay = 'thursday'
+        currentDayNum = 4
+        break
+      case 5:
+        currentDay = 'friday'
+        currentDayNum = 5
+        break
+      case 6:
+        currentDay = 'saturday'
+        currentDayNum = 6
+        break
+      default:
+        console.log('dan nije ok')
+    }
+
+    if(day == currentDayNum) {
+      for(i=0; i<labInfo.length; i++) {
+        let openTime = labInfo[i].workingHours[currentDay].opens
+        let closingTime = labInfo[i].workingHours[currentDay].closes
+        let todayOpenTime = new Date(today +' '+ openTime +':00')
+        let todayClosingTime = new Date(today +' '+ closingTime +':00')
+        let nowTimeStamp = now.getTime()
+        if(nowTimeStamp > todayOpenTime.getTime() &&
+          todayClosingTime.getTime() > nowTimeStamp) {
+          numOpen +=1
+          labStatus.push(labInfo[i]._id)
+          console.log(labStatus)
+        }
+      }
+    }
+
+
       res.render('index',{
         title:'labcube - Sve o laboratorijskim analizama',
         faqtitle:'Najčešće postavljana pitanja',
         groups,
-        faqFP
+        faqFP,
+        labNum,
+        analysisNum,
+        numOpen,
+        labDetails : encodeURIComponent(JSON.stringify(labInfo)),
+        labOpen : encodeURIComponent(JSON.stringify(labStatus))
       })
+
   } catch(e) {
     req.flash('error_msg', `Doslo je do greske, pokusajte kasnije ${e}`)
   }
 }
+
 
 // display single group // TODO: create page for single group display
 exports.displayGroup = async (req,res) => {

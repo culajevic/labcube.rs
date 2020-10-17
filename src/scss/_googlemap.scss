@@ -36,7 +36,7 @@
 // numbers counter
 .num {
   color:$white-color;
-  opacity: 0;
+  // opacity: 0;
 }
 .numOn {
   opacity:1;
@@ -198,7 +198,9 @@
 background-color: $white-color;
 border-top-left-radius: px-to-rem(4px);
 border-bottom-left-radius: px-to-rem(4px);
-width: 333px !important;
+// width: 333px !important;
+width:470px !important;
+
 }
 
 /* lab search results
@@ -219,7 +221,9 @@ width: 333px !important;
   }
 }
 
-
+.whInside {
+  font-size: 10px;
+}
 
 .lab-card {
   border:1px solid $labBoxBorder;

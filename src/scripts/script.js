@@ -50,6 +50,15 @@ $(window).scroll(function(){
     }
 })
 
+// scrol to top button
+$('.backTotop').on('click',function(){
+  $('html, body').animate({scrollTop:0}, 1200);
+    // return false;
+});
+
+//animate numbers on google map header
+
+
 let location = window.location.pathname
 
 
@@ -129,6 +138,9 @@ if (document.getElementById('results')!=null) {
   let mapArea = document.getElementById('mapPrices')
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+    window.scrollTo({
+    top:0,
+    behavior:'smooth'})
     mapArea.classList.remove('d-none')
     let passIds = []
     resultDiv.innerHTML = ''
@@ -147,13 +159,18 @@ if (document.getElementById('results')!=null) {
           labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
         for(let i=0; i<result.length; i++) {
+// console.log(result[i].lab[0].workingHours)
 
         markers.push(
           {
             lat:result[i].lab[0].location.coordinates[1], lng:result[i].lab[0].location.coordinates[0],
             iconImage:'/images/pinopen.svg',
             total:result[i].total,
-            name:result[i].lab[0].labName
+            name:result[i].lab[0].labName,
+            address:result[i].lab[0].address,
+            phone:result[i].lab[0].phone,
+            workinghours:result[i].lab[0].workingHours,
+            slug:result[i].lab[0].slug
           }
         )
           resultDiv.innerHTML = ''
@@ -167,17 +184,26 @@ if (document.getElementById('results')!=null) {
            </div>
              <div class="labInfoWindow">
                  <img src="/images/lablogo/${result[i].lab[0].logo}" class="labLogoInfoWindow">
-                 <p class="labInfoWindowAdresa">${result[i].total}</p>
+
+                 <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
                  <p class="labInfoWindowGrad"></p>
-                 <p class="labInfoWindowTelefoni"></p>
+                 <p class="labInfoWindowTelefoni"> ${result[i].lab[0].phone} </p>
              </div>
              <div class="labInfoFooter">
                  <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                  <div class="radnoVreme">Radno vreme</div>
-                 <div id='otvoreno' class='otvoreno${i} status'></div>
-
+                 <div id='otvoreno' class='otvoreno status'></div>
+                 <div class="labInfoRadnoVremeDetalji">
+                   <p class="daysInWeek monday${result[i]} text-center">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
+                   <p class="daysInWeek tuesday${result[i]} text-center">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
+                   <p class="daysInWeek wednesday${result[i]} text-center">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
+                   <p class="daysInWeek thursday${result[i]} text-center">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
+                   <p class="daysInWeek friday${result[i]} text-center">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
+                   <p class="daysInWeek saturday${result[i]} text-center">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
+                   <p class="daysInWeek sunday${result[i]} text-center">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
+                 </div>
               </div>
-              <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
+              <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result[i].lab[0].slug}/${passIds}">saznaj više</a>
            </div>`
 
            resultDiv.innerHTML = `
@@ -193,7 +219,7 @@ if (document.getElementById('results')!=null) {
         }
         // map options
         let options = {
-          zoom:14,
+          zoom:16,
           // center: {lat:44.808048, lng:20.462796},
           disableDefaultUI: true,
           zoomControl: false,
@@ -462,17 +488,24 @@ if (document.getElementById('results')!=null) {
             map.setCenter({lat:result[0].lab[0].location.coordinates[1], lng:result[0].lab[0].location.coordinates[0]});
 
         for(i=0; i<markers.length; i++) {
-        addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name)
-      }
+        addMarker(markers[i].lat,
+                  markers[i].lng,
+                  markers[i].total,
+                  markers[i].name,
+                  markers[i].address,
+                  markers[i].phone,
+                  markers[i].workinghours,
+                  markers[i].slug)
+        }
 
       // console.log(markers)
-        function addMarker(lat, lng, total,name) {
+        function addMarker(lat, lng, total, name, address, phone, workinghours,slug) {
           let marker = new google.maps.Marker({
             position:{lat:lat, lng:lng},
             icon:{
               url:'/images/pinprice.svg',
-              labelOrigin: {x: 30, y: 29},
-              scaledSize: new google.maps.Size(55, 55)
+              labelOrigin: {x: 32, y: 32},
+              scaledSize: new google.maps.Size(60, 60)
             },
             label:{
               text:total.toString(),
@@ -484,20 +517,48 @@ if (document.getElementById('results')!=null) {
             })
 
             let infoWindow = new google.maps.InfoWindow({
-              maxWidth:310,
-              content:total.toString() + name
+              maxWidth:600,
+              content:`<p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}">${name}</a></p>
+                      <p class="">${address}</p>
+                    <p class="labInfoWindowTelefoni">${phone} </p>
+                    <table class="table table-sm workingHoursLabDetails mt-2">
+                      <thead>
+                        <tr>
+                          <th class="text-center px-0 whInside">P</th>
+                          <th class="text-center px-0 whInside">U</th>
+                          <th class="text-center px-0 whInside">S</th>
+                          <th class="text-center px-0 whInside">Č</th>
+                          <th class="text-center px-0 whInside">P</th>
+                          <th class="text-center px-0 whInside">S</th>
+                          <th class="text-center px-0 whInside">N</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="whInside px-0 text-center">${workinghours.monday.opens} - ${workinghours.monday.closes}</td>
+                          <td class="whInside px-0 text-center">${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</td>
+                          <td class="whInside px-0 text-center radnoVreme open">${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</td>
+                          <td class="whInside px-0 text-center">${workinghours.thursday.opens} - ${workinghours.thursday.closes}</td>
+                          <td class="whInside px-0 text-center">${workinghours.friday.opens} - ${workinghours.friday.closes}</td>
+                          <td class=" whInside px-0 text-center">${workinghours.saturday.opens} - ${workinghours.saturday.closes}</td>
+                          <td class="whInside px-0 text-center">${workinghours.sunday.opens} - ${workinghours.sunday.closes}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    `
+
             });
 
             marker.addListener('click', function(){
               var placeMarker = infoWindow.open(map, marker);
             });
+
+            google.maps.event.addListener(map, 'click', function() {
+              infoWindow.close();
+            });
         }
-
-
-
-      })
-
-    })
+      })//data json end
+    })//fetch end
   })
 
   //create wrapper for live search icon
@@ -574,7 +635,9 @@ if (document.getElementById('results')!=null) {
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
-      console.log('searching'+ filter)
+      // console.log('searching'+ filter)
+    let mapFrame = document.getElementById('mapPrices')
+    mapFrame.classList.add('d-none')
         let searchstring = e.target.value
         loaderWrapper.style.opacity = 1
         if(myFilter == 'analiza' && searchstring.length>=2) {

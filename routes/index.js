@@ -14,6 +14,7 @@ const resultController = require('../controllers/resultController')
 
 // display groups on front page
 router.get('/', groupController.getGroups)
+// router.get('/', labController.getAllLabs)
 
 //display single group
 router.get('/group/:slug', groupController.displayGroup)

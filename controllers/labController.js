@@ -31,6 +31,13 @@ exports.addLab = (req,res) => {
   })
 }
 
+// exports.getAllLabs = async (req,res) => {
+//   let labInfo = await Lab.find({})
+//   // console.log(labInfo)
+//   res.json('test')
+// }
+
+
 exports.createLab = async (req,res) => {
   let errors = []
   if(!req.body.labName) {

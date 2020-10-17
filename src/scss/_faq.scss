@@ -1,10 +1,14 @@
 #faq {
   margin-top:px-to-rem(40px);
-  min-height: px-to-rem(640px);
+  // min-height: px-to-rem(640px);
   & h2 {
     color:$primary-color;
     margin-bottom: px-to-rem(40px);
   }
+}
+
+#accordion {
+  // margin-bottom: 90px;
 }
 
 #accordion > h5 {
