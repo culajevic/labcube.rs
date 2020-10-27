@@ -10,3 +10,5 @@ variables.env.now
 *.PNG
 public/dist/main.bundle.js
 public/dist/main.bundle.js.map
+
+.vercel
