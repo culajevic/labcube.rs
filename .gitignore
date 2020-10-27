@@ -4,7 +4,8 @@ node_modules
 *.jpeg
 *.jpg
 *.txt
-.env
+*.env
+variables.env.now
 *.png
 *.PNG
 public/dist/main.bundle.js

@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "start.js",
+  "now":{
+    "dotenv":"variables.env.now"
+  }
   "scripts": {
-    "prod": "nodemon ./start.js",
+    "start": "nodemon ./start.js",
     "watch": "nodemon ./start.js",
     "prodwebpack": "webpack --config webpack.prod.js",
-    "dev": "webpack --config webpack.dev.js --watch",
-    "start": "concurrently \"npm run watch\" \"npm run dev\""
+    "devOld": "webpack --config webpack.dev.js --watch",
+    "dev": "concurrently \"npm run watch\" \"npm run devOld\""
   },
   "author": "",
   "license": "ISC",

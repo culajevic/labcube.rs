@@ -657,8 +657,7 @@ if (document.getElementById('results')!=null) {
                 for(i=0; i<analysis.length; i++) {
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
-                  if(typeof(pricesMin[i])!=="undefined") {
-                    console.log('undefiffff')
+                  if(typeof(prices)!=="undefined") {
                    helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray)
                  } else {
                    console.log('nema cene za ovu analizu')
