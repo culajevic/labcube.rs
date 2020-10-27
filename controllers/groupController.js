@@ -98,11 +98,9 @@ sortByPriority = {priority:-1}
           todayClosingTime.getTime() > nowTimeStamp) {
           numOpen +=1
           labStatus.push(labInfo[i]._id)
-          console.log(labStatus)
         }
       }
     }
-
 
       res.render('index',{
         title:'labcube - Sve o laboratorijskim analizama',

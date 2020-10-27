@@ -13,7 +13,7 @@
           <span class="d-flex align-self-start num justify-content-md-start justify-content-lg-end">{{numOpen}}</span>
         </div>
         <div class="d-none d-md-block col-sm-2 align-self-center flex-column">
-          <span class="d-flex align-self-start labMapInfo justify-content-end">dostupnih analiza</span>
+          <span class="d-flex align-self-start labMapInfo justify-content-end">laboratorijskih analiza</span><!-- razmisliti o imenu-->
           <span class="d-flex align-self-start num justify-content-md-start justify-content-lg-end">{{analysisNum}}</span>
         </div>
       </div><!--  row end-->
@@ -28,6 +28,12 @@ let labData = JSON.parse(decodedJson)
 let decodedJsonStatus = decodeURIComponent("{{{labOpen}}}")
 let labStatus = JSON.parse(decodedJsonStatus)
 let markers = []
+
+let passIds = []
+itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+  itemsArray.forEach(item => {
+  passIds.push(item.id)
+  });
 
 let options = {
   zoom:15,
@@ -295,15 +301,20 @@ let options = {
 }
 
 for(i=0; i<labData.length; i++) {
+  let status = labStatus.indexOf(labData[i]._id)
+
   markers.push(
     {
+      status:status,
       name:labData[i].labName,
       address:labData[i].address,
       city:labData[i].placeId.place,
-      phone:labData[i].placeId.phone,
+      phone:labData[i].phone,
       municipality:labData[i].placeId.municipality,
       lat:labData[i].location.coordinates[1],
-      lng:labData[i].location.coordinates[0]
+      lng:labData[i].location.coordinates[0],
+      slug:labData[i].slug,
+      workingTime:labData[i].workingHours
     }
   )
 }
@@ -317,15 +328,19 @@ addMarker(markers[i].lat,
           markers[i].lng,
           markers[i].name,
           markers[i].address,
-          markers[i].phone)
+          markers[i].phone,
+          markers[i].status,
+          markers[i].slug,
+          markers[i].workingTime,
+          markers[i].city)
 }
 
 // console.log(markers)
-function addMarker(lat, lng, name, address, phone) {
+function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city) {
   let marker = new google.maps.Marker({
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
-      url:'/images/pinOpen.svg',
+      url:(status!==-1) ? '/images/pinOpen.svg' : '/images/pinclosed.svg',
       scaledSize: new google.maps.Size(40, 40)
     },
     map:map
@@ -333,12 +348,39 @@ function addMarker(lat, lng, name, address, phone) {
 
     let infoWindow = new google.maps.InfoWindow({
       maxWidth:600,
-      content:'test'
+      content:`<p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
+              <p class="">${address} / ${city}</p>
+            <p class="labInfoWindowTelefoni">${phone} </p>
+            <table class="table table-sm workingHoursLabDetails mt-2">
+              <thead>
+                <tr>
+                  <th class="text-center px-0 whInside">P</th>
+                  <th class="text-center px-0 whInside">U</th>
+                  <th class="text-center px-0 whInside">S</th>
+                  <th class="text-center px-0 whInside">Č</th>
+                  <th class="text-center px-0 whInside">P</th>
+                  <th class="text-center px-0 whInside">S</th>
+                  <th class="text-center px-0 whInside">N</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="whInside px-0 text-center">${workingTime.monday.opens} - ${workingTime.monday.closes}</td>
+                  <td class="whInside px-0 text-center">${workingTime.tuesday.opens} - ${workingTime.tuesday.closes}</td>
+                  <td class="whInside px-0 text-center">${workingTime.wednesday.opens} - ${workingTime.wednesday.closes}</td>
+                  <td class="whInside px-0 text-center">${workingTime.thursday.opens} - ${workingTime.thursday.closes}</td>
+                  <td class="whInside px-0 text-center">${workingTime.friday.opens} - ${workingTime.friday.closes}</td>
+                  <td class=" whInside px-0 text-center">${workingTime.saturday.opens} - ${workingTime.saturday.closes}</td>
+                  <td class="whInside px-0 text-center">${workingTime.sunday.opens} - ${workingTime.sunday.closes}</td>
+                </tr>
+              </tbody>
+            </table>
+            `
 
     });
 
     marker.addListener('click', function(){
-      var placeMarker = infoWindow.open(map, marker);
+      let placeMarker = infoWindow.open(map, marker);
     });
 
     google.maps.event.addListener(map, 'click', function() {

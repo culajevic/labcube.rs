@@ -37,7 +37,7 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
     })
 }
 
-exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, itemsArray) => {
+exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
@@ -50,7 +50,7 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
   let tdName = document.createElement('td')
   let analysisName = document.createTextNode(analysis[i].analysisName)
   let analysisLink = document.createElement('a')
-      analysisLink.setAttribute('href', 'analysis/'+analysis[i].slug)
+      analysisLink.setAttribute('href', '/results/analysis/'+analysis[i].slug)
       analysisLink.className = 'nolink'
       analysisLink.appendChild(analysisName)
 
@@ -119,7 +119,8 @@ exports.renderAnalysisResult = (analysis, pricesMin ,pricesMax, resultDiv, items
   let priceSpan = document.createElement('span')
     priceSpan.className = 'font-weight-bold'
 
-      let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
+      // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
+      let priceRange = document.createTextNode(`${prices[i].minPrice} - ${prices[i].maxPrice}`)
       priceSpan.appendChild(priceRange)
       minmaxPrice.appendChild(priceSpan)
       tr.appendChild(minmaxPrice)

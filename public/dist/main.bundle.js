@@ -219,7 +219,7 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
   });
 };
 
-exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultDiv, itemsArray) {
+exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray) {
   //check if analysis is already in localstorage
   var analysisPositionArr = itemsArray.findIndex(function (item) {
     return item.name === analysis[i].analysisName;
@@ -229,7 +229,7 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
   var tdName = document.createElement('td');
   var analysisName = document.createTextNode(analysis[i].analysisName);
   var analysisLink = document.createElement('a');
-  analysisLink.setAttribute('href', 'analysis/' + analysis[i].slug);
+  analysisLink.setAttribute('href', '/results/analysis/' + analysis[i].slug);
   analysisLink.className = 'nolink';
   analysisLink.appendChild(analysisName);
   var previewIcon = document.createElement('img');
@@ -293,8 +293,9 @@ exports.renderAnalysisResult = function (analysis, pricesMin, pricesMax, resultD
 
   var minmaxPrice = document.createElement('td');
   var priceSpan = document.createElement('span');
-  priceSpan.className = 'font-weight-bold';
-  var priceRange = document.createTextNode("".concat(pricesMin[i][0].cenovnik[0].cena, " - ").concat(pricesMax[i][0].cenovnik[0].cena));
+  priceSpan.className = 'font-weight-bold'; // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
+
+  var priceRange = document.createTextNode("".concat(prices[i].minPrice, " - ").concat(prices[i].maxPrice));
   priceSpan.appendChild(priceRange);
   minmaxPrice.appendChild(priceSpan);
   tr.appendChild(minmaxPrice); //create btn for adding analysis to basket
@@ -972,7 +973,7 @@ window.onload = function () {
               slug: result[_i].lab[0].slug
             });
             resultDiv.innerHTML = '';
-            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="llaboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n                 <p class=\"labInfoWindowGrad\"></p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                   <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                   <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n                 </div>\n              </div>\n              <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n           </div>");
+            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n                 <p class=\"labInfoWindowGrad\"></p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                   <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                   <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n                 </div>\n              </div>\n              <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n           </div>");
             resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
 
             document.querySelector('.labContainer').appendChild(labTemplate);
@@ -1195,7 +1196,7 @@ window.onload = function () {
             });
             var infoWindow = new google.maps.InfoWindow({
               maxWidth: 600,
-              content: "<p class=\"labInfoWindowTitle mb-0 pb-0\"><a href=\"/laboratorija/".concat(slug, "\">").concat(name, "</a></p>\n                      <p class=\"\">").concat(address, "</p>\n                    <p class=\"labInfoWindowTelefoni\">").concat(phone, " </p>\n                    <table class=\"table table-sm workingHoursLabDetails mt-2\">\n                      <thead>\n                        <tr>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">U</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">\u010C</th>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">N</th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center radnoVreme open\">").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</td>\n                          <td class=\" whInside px-0 text-center\">").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</td>\n                        </tr>\n                      </tbody>\n                    </table>\n                    ")
+              content: "<p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n\n                      <div class=\"labInfoWindow\">\n                        <img src=\"images/placeholder.svg\" class=\"labLogoInfoWindow\">\n                        <span class=\"\">").concat(address, "</span>\n                        <span class=\"labInfoWindowTelefoni\">").concat(phone, " </span>\n                    </div>\n                    <table class=\"table table-sm workingHoursLabDetails mt-2\">\n                      <thead>\n                        <tr>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">U</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">\u010C</th>\n                          <th class=\"text-center px-0 whInside\">P</th>\n                          <th class=\"text-center px-0 whInside\">S</th>\n                          <th class=\"text-center px-0 whInside\">N</th>\n                        </tr>\n                      </thead>\n                      <tbody>\n                        <tr>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center radnoVreme open\">").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</td>\n                          <td class=\" whInside px-0 text-center\">").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</td>\n                          <td class=\"whInside px-0 text-center\">").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</td>\n                        </tr>\n                      </tbody>\n                    </table>\n                    ")
             });
             marker.addListener('click', function () {
               var placeMarker = infoWindow.open(map, marker);
@@ -1255,14 +1256,16 @@ window.onload = function () {
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         // loaderWrapper.style.opacity = 1
         data.json().then(function (result) {
+          console.log(result);
           resultDiv.innerHTML = '';
-          var analysis = result.analysisName;
-          var pricesMin = result.minPriceArr;
-          var pricesMax = result.maxPriceArr;
+          var analysis = result.analysisName; // let pricesMin = result.minPriceArr
+          // let pricesMax = result.maxPriceArr
+
+          var prices = result.prices;
 
           for (i = 0; i < analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
+            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray);
           } // for end
           //when result is found remove loading icon
 
@@ -1289,16 +1292,20 @@ window.onload = function () {
       if (myFilter == 'analiza' && searchstring.length >= 2) {
         fetch('/analysis/prices/' + searchstring).then(function (data) {
           data.json().then(function (result) {
-            var analysis = result.analysisName;
-            var pricesMin = result.minPriceArr;
-            var pricesMax = result.maxPriceArr;
+            var analysis = result.analysisName; // let pricesMin = result.minPriceArr
+            // let pricesMax = result.maxPriceArr
+
+            var prices = result.prices;
             resultDiv.innerHTML = '';
 
             for (i = 0; i < analysis.length; i++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof pricesMin[i] !== "undefined") {
-                helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray);
+                console.log('undefiffff');
+                helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray);
+              } else {
+                console.log('nema cene za ovu analizu');
               }
             } // for end
 

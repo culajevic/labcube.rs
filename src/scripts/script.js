@@ -179,7 +179,7 @@ if (document.getElementById('results')!=null) {
           <div class="lab-card">
             <div>
             ${(result[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
-            ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="llaboratorija je akreditovana">' : ''}
+            ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
             <span class="labInfoWindowTitle">${result[i].lab[0].labName}</span>
            </div>
              <div class="labInfoWindow">
@@ -518,9 +518,13 @@ if (document.getElementById('results')!=null) {
 
             let infoWindow = new google.maps.InfoWindow({
               maxWidth:600,
-              content:`<p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}">${name}</a></p>
-                      <p class="">${address}</p>
-                    <p class="labInfoWindowTelefoni">${phone} </p>
+              content:`<p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
+
+                      <div class="labInfoWindow">
+                        <img src="images/placeholder.svg" class="labLogoInfoWindow">
+                        <span class="">${address}</span>
+                        <span class="labInfoWindowTelefoni">${phone} </span>
+                    </div>
                     <table class="table table-sm workingHoursLabDetails mt-2">
                       <thead>
                         <tr>
@@ -614,13 +618,15 @@ if (document.getElementById('results')!=null) {
       fetch('/analysis/prices/'+searchStr).then((data) => {
         // loaderWrapper.style.opacity = 1
         data.json().then((result) => {
+          console.log(result)
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
-          let pricesMin = result.minPriceArr
-          let pricesMax = result.maxPriceArr
+          // let pricesMin = result.minPriceArr
+          // let pricesMax = result.maxPriceArr
+          let prices = result.prices
           for(i=0; i<analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
+            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray)
           }// for end
           //when result is found remove loading icon
           loaderWrapper.style.opacity = 0
@@ -644,15 +650,19 @@ if (document.getElementById('results')!=null) {
           fetch('/analysis/prices/'+searchstring).then((data) => {
             data.json().then((result) => {
               let analysis = result.analysisName
-              let pricesMin = result.minPriceArr
-              let pricesMax = result.maxPriceArr
+              // let pricesMin = result.minPriceArr
+              // let pricesMax = result.maxPriceArr
+              let prices = result.prices
               resultDiv.innerHTML = ''
                 for(i=0; i<analysis.length; i++) {
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
                   if(typeof(pricesMin[i])!=="undefined") {
-                   helper.renderAnalysisResult(analysis, pricesMin, pricesMax, resultDiv, itemsArray)
-                  }
+                    console.log('undefiffff')
+                   helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray)
+                 } else {
+                   console.log('nema cene za ovu analizu')
+                 }
                 }// for end
                 if(data.status == 200) {
                   loaderWrapper.style.opacity = 0

@@ -11,7 +11,6 @@ const path = require('path')
 const mime = require('mime-types')
 
 
-
 let storage = multer.diskStorage({
   destination:function (req,file,cb) {
     cb(null, 'src/images/lablogo')
@@ -22,9 +21,9 @@ let storage = multer.diskStorage({
   }
 })
 
+
 const upload = multer({storage:storage})
 exports.upload = upload.single('logo')
-
 exports.addLab = (req,res) => {
   res.render('addLab', {
     title:'Dodaj novu laboratoriju'
@@ -96,6 +95,7 @@ exports.createLab = async (req,res) => {
     })
   } else {
     if(typeof(req.file) !== 'undefined') {
+      console.log(req.file)
       req.body.logo = req.file.filename
     }
     // else {
@@ -148,10 +148,12 @@ exports.updateLab = async (req,res) => {
     req.body.private = false
   }
 
-  req.body.date = Date.now()
-  if(req.filename) {
+  if(typeof(req.file) !== 'undefined') {
     req.body.logo = req.file.filename
   }
+
+  req.body.date = Date.now()
+
   try {
   const lab = await Lab.findOneAndUpdate(
     {_id:req.params.id},

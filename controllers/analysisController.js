@@ -4,6 +4,7 @@ const Price = mongoose.model('Price')
 const moment = require('moment')
 moment.locale('sr')
 
+
 exports.addAnalysis = (req,res) => {
   res.render('addAnalysis', {
     title:'Dodaj novu analizu'
@@ -157,23 +158,40 @@ exports.getAnalyisisNameResult = async (req, res) => {
   const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}},{alt:{$regex: req.params.analysisName, $options: 'i'}}]})
     .populate('groupId', 'name iconPath')
 
+  let selectedAnalysis =[]
+  let analysisObject = []
   let minPriceArr = []
   let maxPriceArr = []
 
-    for(i=0; i<analysisName.length; i++) {
-      let minPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
-      .sort({"cenovnik.cena":1})
-      .limit(1)
-      minPriceArr.push(minPrice)
 
-      let maxPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
-      .sort({"cenovnik.cena":-1})
-      .limit(1)
-      maxPriceArr.push(maxPrice)
+  for (i=0; i<analysisName.length; i++) {
+    selectedAnalysis.push(analysisName[i]._id)
   }
 
+analysisObject = selectedAnalysis.map(item => mongoose.Types.ObjectId(item))
+
+
+const prices = await Price.aggregate([
+  {$unwind:'$cenovnik'},
+  {$match:{'cenovnik.analiza':{$in:analysisObject}}},
+  {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+  {$project:{minPrice:1,
+            maxPrice:1}}
+])
+
+  //   for(i=0; i<analysisName.length; i++) {
+  //     let minPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
+  //     .sort({"cenovnik.cena":1})
+  //     minPriceArr.push(minPrice)
+  //     let maxPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
+  //     .sort({"cenovnik.cena":-1})
+  //     maxPriceArr.push(maxPrice)
+  // }
+// console.log(prices)
   // res.render(analysisName)
-res.json({analysisName, minPriceArr, maxPriceArr})
+  // res.json({analysisName, minPriceArr, maxPriceArr})
+  res.json({analysisName, prices})
+
 
 }
 
