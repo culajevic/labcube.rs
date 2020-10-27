@@ -2,7 +2,7 @@
   "name": "labcubers",
   "version": "1.0.0",
   "description": "",
-  "main": "start.js",
+  "main": "./start.js",
   "now": {
     "dotenv": "variables.env.now"
   },
