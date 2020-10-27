@@ -1,14 +1,4 @@
 .DS_store
 node_modules
-*.svg
-*.jpeg
-*.jpg
-*.txt
 *.env
 variables.env.now
-*.png
-*.PNG
-public/dist/main.bundle.js
-public/dist/main.bundle.js.map
-
-.vercel

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="413px" height="237px" viewBox="0 0 413 237" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>crveno</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Main_nav" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Analiza-Page" transform="translate(-577.000000, -2795.000000)" fill="#FF3B3B" fill-rule="nonzero">
+            <g id="crveno" transform="translate(577.000000, 2795.000000)">
+                <rect id="Rectangle-2" opacity="0.05" transform="translate(206.500000, 118.500000) scale(-1, -1) translate(-206.500000, -118.500000) " x="0" y="0" width="413" height="237"></rect>
+                <polygon id="Rectangle-2-Copy" opacity="0.049999997" transform="translate(206.500000, 174.500000) scale(-1, -1) translate(-206.500000, -174.500000) " points="0 112 413 112 413 151.165146 354 154.121607 295 164.934052 236 175.065889 177 164.934052 118 201.388162 59 207.738397 0 237"></polygon>
+                <polygon id="Rectangle-2-Copy" opacity="0.049999997" transform="translate(206.500000, 187.000000) scale(-1, -1) translate(-206.500000, -187.000000) " points="0 137 413 137 413 168.332117 354 170.697286 295 179.347242 236 187.452711 177 179.347242 118 208.51053 59 213.590717 0 237"></polygon>
+                <polygon id="Rectangle-2-Copy" opacity="0.049999997" transform="translate(206.500000, 205.500000) scale(-1, -1) translate(-206.500000, -205.500000) " points="0 174 413 174 413 193.739234 354 195.22929 295 200.678762 236 205.785208 177 200.678762 118 219.051634 59 222.252152 0 237"></polygon>
+            </g>
+        </g>
+        <g id="Page"></g>
+    </g>
+</svg>
