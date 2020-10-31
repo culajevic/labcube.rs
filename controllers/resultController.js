@@ -18,22 +18,23 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('groupId', 'iconPath')
 
 
-// const prices = await Price.aggregate([
-//   {$unwind:'$cenovnik'},
-//   {$match:{'cenovnik.analiza':ObjectId(analysisDetails._id)}},
-//   {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
-//   {$project:{minPrice:1,
-//             maxPrice:1}}
-// ])
+const prices = await Price.aggregate([
+  {$unwind:'$cenovnik'},
+  {$match:{'cenovnik.analiza':ObjectId(analysisDetails._id)}},
+  {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+  {$project:{minPrice:1,
+            maxPrice:1}}
+])
 
-  let minPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
-  .sort({'cenovnik.cena':1})
+  // let minPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
+  // .sort({'cenovnik.cena':1})
+  //
+  // let maxPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
+  // .sort({'cenovnik.cena':-1})
+  // console.log(prices)
 
-  let maxPrice = await Price.findOne({'cenovnik.analiza':analysisDetails._id},{'cenovnik.$':1})
-  .sort({'cenovnik.cena':-1})
-
-
-  res.render('details',{analysisDetails,minPrice,maxPrice,sidebarNav:true})
+  // res.render('details',{analysisDetails,minPrice,maxPrice,sidebarNav:true})
+  res.render('details',{analysisDetails,prices,sidebarNav:true})
   // res.send({analysisDetails, minPrice, maxPrice})
 
 }

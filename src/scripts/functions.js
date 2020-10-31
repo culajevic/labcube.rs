@@ -42,21 +42,22 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
 
-    return item.name === analysis[i].analysisName
+    return item.name === prices[i].name
   })
 
   let tr = document.createElement('tr')
   //td analysis name and preview icon
   let tdName = document.createElement('td')
-  let analysisName = document.createTextNode(analysis[i].analysisName)
+  let analysisName = document.createTextNode(prices[i].name)
+
   let analysisLink = document.createElement('a')
-      analysisLink.setAttribute('href', '/results/analysis/'+analysis[i].slug)
+      analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
       analysisLink.className = 'nolink'
       analysisLink.appendChild(analysisName)
 
   let previewIcon = document.createElement('img')
     previewIcon.setAttribute('src', '/images/detail.svg')
-    previewIcon.setAttribute('title', analysis[i].preview)
+    previewIcon.setAttribute('title', prices[i].preview)
     previewIcon.className = "tooltipImg mr-2"
     previewIcon.setAttribute('data-toggle', 'tooltip')
   tdName.appendChild(previewIcon)
@@ -81,11 +82,11 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   let alt = document.createElement('td')
   let altName
 
-  for(y=0; y<analysis[i].alt.length; y++) {
-    if(y != (analysis[i].alt.length)-1 ) {
-     altName = document.createTextNode(analysis[i].alt[y]+', ')
+  for(y=0; y<prices[i].alt.length; y++) {
+    if(y != (prices[i].alt.length)-1 ) {
+     altName = document.createTextNode(prices[i].alt[y]+', ')
     } else {
-     altName = document.createTextNode(analysis[i].alt[y])
+     altName = document.createTextNode(prices[i].alt[y])
     }
     alt.appendChild(altName)
     tr.appendChild(alt)
@@ -93,7 +94,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   //display analysis groupName
   let tdGroupName = document.createElement('td')
-    let groupName = document.createTextNode(analysis[i].groupId.name)
+    let groupName = document.createTextNode(prices[i].groupName)
     tdGroupName.appendChild(groupName)
     tr.appendChild(tdGroupName)
 
@@ -102,7 +103,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   let hospital = document.createElement('td')
   let hospitalIcon = document.createElement('img')
-    if(analysis[i].availableHC) {
+    if(prices[i].availableHC) {
       hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
       hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
@@ -138,9 +139,9 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
     addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
     addAnalysisBtn.disabled = true
   }
-    addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id)
-    addAnalysisBtn.setAttribute('data-analysisName', analysis[i].analysisName)
-    addAnalysisBtn.setAttribute('data-groupImg', analysis[i].groupId.iconPath)
+    addAnalysisBtn.setAttribute('data-analysisId', prices[i]._id)
+    addAnalysisBtn.setAttribute('data-analysisName', prices[i].name)
+    addAnalysisBtn.setAttribute('data-groupImg', prices[i].iconPath)
 
   addAnalysisBtn.appendChild(addAnalysisBtnText)
   addAnalysisBtnTd.appendChild(addAnalysisBtn)

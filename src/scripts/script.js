@@ -674,6 +674,7 @@ if (document.getElementById('results')!=null) {
             helper.searchLab(searchstring, loaderWrapper, resultDiv)
           } else {
             console.log('unesite vise od 2 karaktera da zapocnete pretragu')
+            resultDiv.innerHTML += ''
             resultDiv.innerHTML = 'Unesite nesto'
             loaderWrapper.style.opacity = 0
           }

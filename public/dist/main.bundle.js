@@ -222,19 +222,19 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
 exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray) {
   //check if analysis is already in localstorage
   var analysisPositionArr = itemsArray.findIndex(function (item) {
-    return item.name === analysis[i].analysisName;
+    return item.name === prices[i].name;
   });
   var tr = document.createElement('tr'); //td analysis name and preview icon
 
   var tdName = document.createElement('td');
-  var analysisName = document.createTextNode(analysis[i].analysisName);
+  var analysisName = document.createTextNode(prices[i].name);
   var analysisLink = document.createElement('a');
-  analysisLink.setAttribute('href', '/results/analysis/' + analysis[i].slug);
+  analysisLink.setAttribute('href', '/results/analysis/' + prices[i].slug);
   analysisLink.className = 'nolink';
   analysisLink.appendChild(analysisName);
   var previewIcon = document.createElement('img');
   previewIcon.setAttribute('src', '/images/detail.svg');
-  previewIcon.setAttribute('title', analysis[i].preview);
+  previewIcon.setAttribute('title', prices[i].preview);
   previewIcon.className = "tooltipImg mr-2";
   previewIcon.setAttribute('data-toggle', 'tooltip');
   tdName.appendChild(previewIcon);
@@ -257,11 +257,11 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var alt = document.createElement('td');
   var altName;
 
-  for (y = 0; y < analysis[i].alt.length; y++) {
-    if (y != analysis[i].alt.length - 1) {
-      altName = document.createTextNode(analysis[i].alt[y] + ', ');
+  for (y = 0; y < prices[i].alt.length; y++) {
+    if (y != prices[i].alt.length - 1) {
+      altName = document.createTextNode(prices[i].alt[y] + ', ');
     } else {
-      altName = document.createTextNode(analysis[i].alt[y]);
+      altName = document.createTextNode(prices[i].alt[y]);
     }
 
     alt.appendChild(altName);
@@ -270,7 +270,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
 
   var tdGroupName = document.createElement('td');
-  var groupName = document.createTextNode(analysis[i].groupId.name);
+  var groupName = document.createTextNode(prices[i].groupName);
   tdGroupName.appendChild(groupName);
   tr.appendChild(tdGroupName); //display hospital icon if analysis is available
   //ako nije dostupna stavi hospital-alt-off.svg
@@ -278,7 +278,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var hospital = document.createElement('td');
   var hospitalIcon = document.createElement('img');
 
-  if (analysis[i].availableHC) {
+  if (prices[i].availableHC) {
     hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
     hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
@@ -313,9 +313,9 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
     addAnalysisBtn.disabled = true;
   }
 
-  addAnalysisBtn.setAttribute('data-analysisId', analysis[i]._id);
-  addAnalysisBtn.setAttribute('data-analysisName', analysis[i].analysisName);
-  addAnalysisBtn.setAttribute('data-groupImg', analysis[i].groupId.iconPath);
+  addAnalysisBtn.setAttribute('data-analysisId', prices[i]._id);
+  addAnalysisBtn.setAttribute('data-analysisName', prices[i].name);
+  addAnalysisBtn.setAttribute('data-groupImg', prices[i].iconPath);
   addAnalysisBtn.appendChild(addAnalysisBtnText);
   addAnalysisBtnTd.appendChild(addAnalysisBtn);
   tr.appendChild(addAnalysisBtnTd);
@@ -1319,6 +1319,7 @@ window.onload = function () {
         helper.searchLab(searchstring, loaderWrapper, resultDiv);
       } else {
         console.log('unesite vise od 2 karaktera da zapocnete pretragu');
+        resultDiv.innerHTML += '';
         resultDiv.innerHTML = 'Unesite nesto';
         loaderWrapper.style.opacity = 0;
       }

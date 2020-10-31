@@ -175,8 +175,21 @@ const prices = await Price.aggregate([
   {$unwind:'$cenovnik'},
   {$match:{'cenovnik.analiza':{$in:analysisObject}}},
   {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+  {$lookup: {from:'analyses', localField:'_id', foreignField:'_id', as:'analiza'}},
+  {$lookup: {from:'groups', localField:'analiza.groupId', foreignField:'_id', as:'group'}},
   {$project:{minPrice:1,
-            maxPrice:1}}
+            maxPrice:1,
+            name:'$analiza.analysisName',
+            abbr:'$analiza.abbr',
+            alt:'$analiza.alt',
+            availableHC:'$analiza.availableHC',
+            preview:'$analiza.preview',
+            slug:'$analiza.slug',
+            groupName:'$group.name',
+            iconPath:'$group.iconPath',
+            slug:'$analiza.slug'}},
+  {$unwind:"$name"}
+
 ])
 
   //   for(i=0; i<analysisName.length; i++) {
@@ -190,6 +203,7 @@ const prices = await Price.aggregate([
 // console.log(prices)
   // res.render(analysisName)
   // res.json({analysisName, minPriceArr, maxPriceArr})
+  // console.log(prices)
   res.json({analysisName, prices})
 
 
