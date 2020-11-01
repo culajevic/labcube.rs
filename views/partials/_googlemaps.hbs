@@ -340,7 +340,8 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
   let marker = new google.maps.Marker({
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
-      url:(status!==-1) ? '/images/pinopen.svg' : '/images/pinclosed.svg',
+      // url:(status!==-1) ? '/images/pinopen.svg' : '/images/pinclosed.svg',
+      url:(status!==-1) ? '/images/openGreen.svg' : '/images/closedRed.svg',
       scaledSize: new google.maps.Size(40, 40)
     },
     map:map
