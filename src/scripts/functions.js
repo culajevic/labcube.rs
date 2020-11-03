@@ -68,12 +68,8 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   // let abbr = document.createElement('td')
   // let abbrName
   //
-  // for(y=0; y<analysis[i].abbr.length; y++) {
-  //   if(y != (analysis[i].abbr.length)-1 ) {
-  //    abbrName = document.createTextNode(analysis[i].abbr[y]+', ')
-  //   } else {
-  //    abbrName = document.createTextNode(analysis[i].abbr[y])
-  //   }
+  // for(y=0; y<prices[i].abbr.length; y++) {
+  //   abbrName = document.createTextNode(prices[i].abbr[y].join(', '))
   //   abbr.appendChild(abbrName)
   //   tr.appendChild(abbr)
   // }
@@ -83,11 +79,8 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   let altName
 
   for(y=0; y<prices[i].alt.length; y++) {
-    if(y != (prices[i].alt.length)-1 ) {
-     altName = document.createTextNode(prices[i].alt[y]+', ')
-    } else {
-     altName = document.createTextNode(prices[i].alt[y])
-    }
+    console.log(prices[i].alt[y].join(', '))
+     altName = document.createTextNode((prices[i].alt[y]).join(', '))
     alt.appendChild(altName)
     tr.appendChild(alt)
   }

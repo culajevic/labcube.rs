@@ -243,12 +243,8 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   // let abbr = document.createElement('td')
   // let abbrName
   //
-  // for(y=0; y<analysis[i].abbr.length; y++) {
-  //   if(y != (analysis[i].abbr.length)-1 ) {
-  //    abbrName = document.createTextNode(analysis[i].abbr[y]+', ')
-  //   } else {
-  //    abbrName = document.createTextNode(analysis[i].abbr[y])
-  //   }
+  // for(y=0; y<prices[i].abbr.length; y++) {
+  //   abbrName = document.createTextNode(prices[i].abbr[y].join(', '))
   //   abbr.appendChild(abbrName)
   //   tr.appendChild(abbr)
   // }
@@ -258,12 +254,8 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var altName;
 
   for (y = 0; y < prices[i].alt.length; y++) {
-    if (y != prices[i].alt.length - 1) {
-      altName = document.createTextNode(prices[i].alt[y] + ', ');
-    } else {
-      altName = document.createTextNode(prices[i].alt[y]);
-    }
-
+    console.log(prices[i].alt[y].join(', '));
+    altName = document.createTextNode(prices[i].alt[y].join(', '));
     alt.appendChild(altName);
     tr.appendChild(alt);
   } //display analysis groupName
@@ -834,6 +826,9 @@ $(document).ready(function () {
   }).on('mouseleave', 'tr>td>img.tooltipImg', function () {
     $(this).attr('src', '/images/detail.svg');
   });
+  $('.fa-angle-down').on('click', function () {
+    $(this).toggleClass('rotate');
+  });
 }); // changing analysis number color on hover
 
 $('.click-more').hover(function () {
@@ -866,7 +861,8 @@ $('.backTotop').on('click', function () {
   }, 1200); // return false;
 }); //animate numbers on google map header
 
-var location = window.location.pathname; // GLOBAL VARIABLES
+var location = window.location.pathname;
+console.log(location); // GLOBAL VARIABLES
 //set filter by default to analiza
 
 var filter = 'analiza';
@@ -1360,6 +1356,16 @@ window.onload = function () {
     helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
     helper.addAnalysis(itemsArray, _resultDiv, checkout);
     helper.removeAnalysis(itemsArray, checkout);
+  }
+
+  if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
+    var _mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
+
+
+    var _analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+
+
+    helper.searchLabAnalysis(_mainSearchinner, _analysisRadioinner);
   } // lab details PAGE
 
 

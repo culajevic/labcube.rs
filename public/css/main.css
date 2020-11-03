@@ -8125,7 +8125,8 @@ span.remove:hover {
   background-size: cover;
   color: #3B3B3B;
   padding: 20px;
-  border-bottom: 10px solid rgba(26, 233, 182, 0.5); }
+  border-bottom: 10px solid rgba(26, 233, 182, 0.5);
+  position: relative; }
   .snizeneVrednosti > h5 {
     font-size: 22px;
     color: #3B3B3B;
@@ -8134,12 +8135,24 @@ span.remove:hover {
       content: url(../images/snizeneVrednosti.svg);
       padding-right: 8px; }
 
+.rotate {
+  -webkit-animation: spin1 2s  linear;
+  -moz-animation: spin1 2s  linear;
+  -o-animation: spin1 2s  linear;
+  -ms-animation: spin1 2s  linear;
+  animation: spin1 2s  linear;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform: rotate(180deg); }
+
 .poviseneVrednosti {
   background: url(../images/crveno.svg);
   background-size: cover;
   color: #3B3B3B;
   padding: 20px;
-  border-bottom: 10px solid rgba(255, 59, 59, 0.5); }
+  border-bottom: 10px solid rgba(255, 59, 59, 0.5);
+  position: relative; }
   .poviseneVrednosti > h5 {
     font-size: 22px;
     color: #3B3B3B;
@@ -8310,6 +8323,11 @@ footer {
   height: 141px;
   margin-right: 12px;
   float: left; }
+
+.expandDetails {
+  position: absolute;
+  bottom: 15px;
+  right: 15px; }
 
 .labDetailsAdresa,
 .labDetailsGrad,
@@ -8880,6 +8898,12 @@ input[type="range"] {
   margin-bottom: 2.5rem; }
   #paketi p {
     font-size: 1.25rem; }
+  #paketi .benefits {
+    font-size: 1rem; }
+
+#details p {
+  font-size: 1.125rem;
+  line-height: 1.75rem !important; }
 
 .sectionTitle {
   margin-top: 30px;

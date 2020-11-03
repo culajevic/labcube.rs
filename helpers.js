@@ -12,11 +12,11 @@ hbs.registerHelper('groupSummary', (prop) =>  prop.split(' ').slice(0,30).join('
 
 // high and low values on analysis detail page
 hbs.registerHelper('highAndLowValues', (highLow) => {
-    return highLow.split(' ').slice(0,30).join(' ')
+    return highLow.split(' ').slice(0,28).join(' ')
 })
 
 hbs.registerHelper('highAndLowValuesExtend', (highLow) => {
-    return highLow.split(' ').slice(30).join(' ')
+    return highLow.split(' ').slice(28).join(' ')
 })
 
 hbs.registerHelper('strLength', (prop) => (prop.length>240))

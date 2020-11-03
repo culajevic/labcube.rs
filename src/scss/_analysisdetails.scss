@@ -91,6 +91,7 @@
 
 .snizeneVrednosti {
   @include results('../images/zeleno.svg',rgba(26,233,182,.5));
+  position: relative;
   &>h5 {
   font-size: 22px;
   color:$fontColorResultsTable;
@@ -102,8 +103,21 @@
   }
 }
 
+.rotate {
+-webkit-animation: spin1 2s  linear;
+-moz-animation: spin1 2s  linear;
+-o-animation: spin1 2s  linear;
+-ms-animation: spin1 2s  linear;
+animation: spin1 2s  linear;
+-webkit-transform-origin: 50% 50%;
+-moz-transform-origin: 50% 50%;
+-o-transform-origin: 50% 50%;
+transform:rotate(180deg);
+}
+
 .poviseneVrednosti {
   @include results('../images/crveno.svg',rgba(255,59,59,0.5));
+  position:relative;
   &>h5 {
   font-size: 22px;
   color:$fontColorResultsTable;

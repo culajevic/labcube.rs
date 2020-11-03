@@ -21,6 +21,10 @@ $(document).ready(function(){
     }).on('mouseleave','tr>td>img.tooltipImg', function(){
       $(this).attr('src', '/images/detail.svg');
     })
+
+  $('.fa-angle-down').on('click', function() {
+      $(this).toggleClass('rotate');
+  })
 });
 
 // changing analysis number color on hover
@@ -61,7 +65,7 @@ $('.backTotop').on('click',function(){
 
 let location = window.location.pathname
 
-
+console.log(location)
 // GLOBAL VARIABLES
 //set filter by default to analiza
 let filter = 'analiza'
@@ -714,6 +718,14 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
   helper.addAnalysis(itemsArray, resultDiv, checkout)
   helper.removeAnalysis(itemsArray, checkout)
+}
+
+if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
+  let mainSearchinner = document.getElementById('searchResultPage')
+  // ger reference to filter
+  let analysisRadioinner = document.querySelectorAll('input[name=searchFilter]')
+  // search for analysis or lab
+  helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 }
 
 // lab details PAGE

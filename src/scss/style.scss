@@ -36,6 +36,12 @@
   float:left;
 }
 
+.expandDetails {
+  position:absolute;
+  bottom: 15px;
+  right:15px;
+}
+
 .labDetailsAdresa,
 .labDetailsGrad,
 .labDetailsTelefoni,
@@ -732,6 +738,14 @@ input[type="range"] {
   p {
     font-size: px-to-rem(20px);
   }
+  .benefits {
+    font-size: px-to-rem(16px);
+  }
+}
+
+#details p {
+  font-size: px-to-rem(18px);
+  line-height: px-to-rem(28px) !important;
 }
 
 .sectionTitle {

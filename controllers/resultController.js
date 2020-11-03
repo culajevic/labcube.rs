@@ -36,5 +36,8 @@ const prices = await Price.aggregate([
   // res.render('details',{analysisDetails,minPrice,maxPrice,sidebarNav:true})
   res.render('details',{analysisDetails,prices,sidebarNav:true})
   // res.send({analysisDetails, minPrice, maxPrice})
+}
 
+exports.labRestultsAnalysis = (req,res) => {
+  res.render('labResultsAnalysis')
 }

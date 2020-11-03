@@ -31,6 +31,9 @@ router.get('/addGroup/:name', groupController.editGroup)
 router.post('/addGroup/:name', groupController.upload, groupController.updateGroup)
 router.delete('/allGroupsList/:id', groupController.deleteGroup)
 
+//tumacenje rezultata
+router.get('/tumacanje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
+
 //prices
 router.get('/allPrices', priceController.allPrices)
 router.get('/addPrice', priceController.addPrice)

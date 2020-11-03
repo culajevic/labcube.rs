@@ -3,9 +3,9 @@ const Reference = mongoose.model('Reference')
 
 exports.allReferences = async (req,res) => {
   const numOfReferences = await Reference.find().countDocuments()
-  const allReferences = await Reference.find()
+  const allReferences = await Reference.find().sort({referenceTitle:1})
   res.render('allReferences', {
-    title:'Sve reference',
+    title:'Reference',
     numOfReferences,
     allReferences
   })
