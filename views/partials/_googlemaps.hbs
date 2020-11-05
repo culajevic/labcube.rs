@@ -335,6 +335,35 @@ addMarker(markers[i].lat,
           markers[i].city)
 }
 
+// geo location *************************************************************/
+if(navigator.geolocation){
+  navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
+} else {
+  console.log("Your browser doesn't support geo location!")
+}
+
+function mylocation(position) {
+  let myLocation = new google.maps.Marker({
+    position:{lat:position.coords.latitude, lng:position.coords.longitude},
+    map:map,
+    icon:'images/red.svg',
+    title:'moja trenutna lokacija'
+  });
+  map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
+}
+
+function error(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+var myLocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+/////////////////////////// geolocation end /////////////////////////////
+
+
 // console.log(markers)
 function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city) {
   let marker = new google.maps.Marker({
@@ -387,7 +416,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     google.maps.event.addListener(map, 'click', function() {
       infoWindow.close();
     });
-    //async 
+    //async
     setTimeout(function() {
       let markerCluster = new MarkerClusterer(map, markersCluster,
         {imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'

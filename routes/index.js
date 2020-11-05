@@ -10,6 +10,7 @@ const referenceController = require('../controllers/referenceController')
 const faqController = require('../controllers/faqController')
 const priceController = require('../controllers/priceController')
 const resultController = require('../controllers/resultController')
+const authenticationController = require('../controllers/authenticationController')
 
 
 // display groups on front page
@@ -22,6 +23,11 @@ router.get('/group/:slug', groupController.displayGroup)
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)
 router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
+
+//registration
+router.get('/prijava', authenticationController.signin)
+router.get('/google', authenticationController.google)
+router.get('/logout', authenticationController.logout)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
