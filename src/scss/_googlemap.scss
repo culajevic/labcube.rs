@@ -113,7 +113,7 @@
 
 .radnoVremeDetalji {
   display: block;
-  height: px-to-rem(128px);
+  height: px-to-rem(130px);
   // min-height: px-to-rem(300px);
   top:px-to-rem(-122px);
   right:-510px;
@@ -130,7 +130,7 @@
     padding-left: px-to-rem(6px);
     margin-bottom: px-to-rem(5px);
     margin-top: px-to-rem(5px);
-    font-size: 14px;
+    font-size: 13px;
     &.open {
       background-color: $button-green;
       width: 100%;

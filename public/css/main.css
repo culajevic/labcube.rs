@@ -7595,7 +7595,7 @@ input[name="searchFilter"] {
 
 .radnoVremeDetalji {
   display: block;
-  height: 8rem;
+  height: 8.125rem;
   top: -7.625rem;
   right: -510px;
   width: 21.875rem;
@@ -7609,7 +7609,7 @@ input[name="searchFilter"] {
     padding-left: 0.375rem;
     margin-bottom: 0.3125rem;
     margin-top: 0.3125rem;
-    font-size: 14px; }
+    font-size: 13px; }
     .radnoVremeDetalji > p.open {
       background-color: #55D159;
       width: 100%;
