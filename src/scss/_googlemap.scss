@@ -128,7 +128,7 @@
     // line-height: px-to-rem(14px);
     font-weight: 500;
     padding-left: px-to-rem(6px);
-    margin-bottom: px-to-rem(5px);
+    margin-bottom: px-to-rem(4px);
     // margin-top: px-to-rem(4px);
     font-size: 13px;
     &.open {
@@ -156,6 +156,9 @@
   }
   & > p:first-child {
     margin-top: 10px;
+  }
+  & > p:first-child {
+    bottom: 10px;
   }
 }
 

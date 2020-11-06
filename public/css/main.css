@@ -7607,7 +7607,7 @@ input[name="searchFilter"] {
   .radnoVremeDetalji > p {
     font-weight: 500;
     padding-left: 0.375rem;
-    margin-bottom: 0.3125rem;
+    margin-bottom: 0.25rem;
     font-size: 13px; }
     .radnoVremeDetalji > p.open {
       background-color: #55D159;
@@ -7629,6 +7629,8 @@ input[name="searchFilter"] {
       padding-left: 0.625rem; }
   .radnoVremeDetalji > p:first-child {
     margin-top: 10px; }
+  .radnoVremeDetalji > p:first-child {
+    bottom: 10px; }
 
 .labInfoWindowFooter:hover, .labInfoWindowFooterSelected:hover {
   cursor: pointer; }
