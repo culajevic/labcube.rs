@@ -79,8 +79,10 @@
 }
 
 #mapDetails, #mapPrices {
-  // height: 560px;
-  height: calc(100vh - 210px);
+  height: 380px;
+  padding: 0;
+  margin: 0;
+  // height: calc(100vh - 210px);
 }
 
 .aboutUs {

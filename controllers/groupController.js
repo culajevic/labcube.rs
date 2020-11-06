@@ -87,6 +87,8 @@ sortByPriority = {priority:-1}
         console.log('dan nije ok')
     }
 
+    let status
+
     if(day == currentDayNum) {
       for(i=0; i<labInfo.length; i++) {
         let openTime = labInfo[i].workingHours[currentDay].opens
@@ -97,7 +99,12 @@ sortByPriority = {priority:-1}
         if(nowTimeStamp > todayOpenTime.getTime() &&
           todayClosingTime.getTime() > nowTimeStamp) {
           numOpen +=1
-          labStatus.push(labInfo[i]._id)
+          status = 'open'
+          labStatus.push({'id':labInfo[i]._id, 'status':status})
+        }
+        else {
+          status = 'closed'
+          labStatus.push({'id':labInfo[i]._id, 'status':status})
         }
       }
     }

@@ -401,7 +401,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                  <div class="radnoVreme">Radno vreme</div>
                  <div id='otvoreno' class='otvoreno${i} status'></div>
                  <div class="labInfoRadnoVremeDetalji">
-                   <p class="daysInWeek monday${i} text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
+                   <p class="daysInWeek text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
                    <p class="daysInWeek tuesday${i} text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
                    <p class="daysInWeek wednesday${i} text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
                    <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
@@ -492,7 +492,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         if(result[i].open24h) {
           radnoVreme.classList.add('open')
           radnoVreme.innerText = 'otvoreno 24h'
-          todayIs.classList.add('active')
+          todayIs.classList.add('open')
         } else if(day === currentDayNum) {
 
           let openTime = result[i].workingHours[currentDay].opens
@@ -513,12 +513,12 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                 todayClosingTime.getTime() > nowTimeStamp) {
                 radnoVreme.classList.add('open')
                 radnoVreme.innerText = 'otvoreno'
-                todayIs.classList.add('active')
+                todayIs.classList.add('open')
             }
             else {
                 radnoVreme.classList.add('closed')
                 radnoVreme.innerText = 'zatvoreno'
-                todayIs.classList.add('activeClosed')
+                todayIs.classList.add('closed')
             }
           } else {
             console.log('lab nije odredio radno vreme')

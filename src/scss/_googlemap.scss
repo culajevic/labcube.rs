@@ -72,7 +72,8 @@
 .labInfoWindowFooter {
   background-color: $primary-color;
   height: px-to-rem(36px);
-  min-width: px-to-rem(333px);
+  min-width: px-to-rem(350px);
+  // width:100%;
   position: absolute;
   bottom: px-to-rem(0px);
   left: 0;
@@ -92,16 +93,16 @@
     padding-top: px-to-rem(10px);
     padding-right: px-to-rem(12px);
     font-weight: 500;
-    &::before {
-      content:'';
-      width: px-to-rem(10px);
-      height: px-to-rem(10px);
-      border-radius: px-to-rem(20px);
-      background-color: $button-green;
-      float:left;
-      margin-right: px-to-rem(8px);
-      margin-top: px-to-rem(3px);
-    }
+    // &::before {
+    //   content:'';
+    //   width: px-to-rem(10px);
+    //   height: px-to-rem(10px);
+    //   border-radius: px-to-rem(20px);
+    //   background-color: $button-green;
+    //   float:left;
+    //   margin-right: px-to-rem(8px);
+    //   margin-top: px-to-rem(3px);
+    // }
   }
 }
 
@@ -113,12 +114,13 @@
 .radnoVremeDetalji {
   display: block;
   height: px-to-rem(128px);
+  // min-height: px-to-rem(300px);
   top:px-to-rem(-122px);
-  right:0;
-  width:px-to-rem(110px);
+  right:-110px;
+  width:px-to-rem(120px);
   opacity: 1;
-  // z-index: -9;
-  // transition: .3s linear;
+  z-index: 2289;
+  transition: .3s linear;
   background-color: $primary-color;
   position: absolute;
   & > p {
@@ -126,13 +128,24 @@
     // line-height: px-to-rem(14px);
     font-weight: 500;
     padding-left: px-to-rem(6px);
-    margin-bottom: px-to-rem(4px);
+    margin-bottom: px-to-rem(7px);
     font-size: 12px;
-    &.active {
+    &.open {
       background-color: $button-green;
       width: 100%;
+      padding-top:3px;
+      padding-bottom: 3px;
       color:$infoWindowContactColor;
       font-weight: 900;
+    }
+    &.closed {
+      background-color: $danger;
+      width: 100%;
+      padding-top:3px;
+      padding-bottom: 3px;
+      color:$infoWindowContactColor;
+      font-weight: 900;
+      position: relative;
     }
   & > span {
     display: inline-block;
@@ -143,12 +156,13 @@
 
 .labInfoWindowFooter:hover {
   cursor:pointer;
-  // & .radnoVremeDetalji {
-  //     opacity: .8;
-  //     border-top-right-radius: px-to-rem(4px);
-  //     border-bottom-right-radius: px-to-rem(4px);
-  //     right:-110px;
-  //   }
+  & .radnoVremeDetalji {
+      opacity: 1;
+      border-top-right-radius: px-to-rem(4px);
+      border-bottom-right-radius: px-to-rem(4px);
+      // right:-110px;
+      right:0;
+    }
 }
 
 .labInfoWindowWorkingHoursIcon {
@@ -198,8 +212,8 @@
 background-color: $white-color;
 border-top-left-radius: px-to-rem(4px);
 border-bottom-left-radius: px-to-rem(4px);
-// width: 333px !important;
-width:470px !important;
+width: 333px !important;
+// width:470px !important;
 
 }
 
@@ -290,6 +304,7 @@ div.status.open::before {
     background-color: $button-green;
     margin-right: px-to-rem(6px);
     margin-top: px-to-rem(4px);
+    z-index: 10000;
 }
 
 div.status.closed::before {
@@ -301,6 +316,7 @@ div.status.closed::before {
     background-color: $danger;
     margin-right: px-to-rem(6px);
     margin-top: px-to-rem(4px);
+    z-index: 22222;
 }
 
 div.status.closedSoon::before {
@@ -358,7 +374,7 @@ div.status.closedSoon::before {
     color:$white-color;
     font-size: 14px;
     font-weight: 500;
-    &.active {
+    &.open {
       background-color: $button-green;
       width: 100%;
       color:$infoWindowContactColor;
@@ -366,7 +382,7 @@ div.status.closedSoon::before {
       margin: 0;
       padding: 5px;
     }
-    &.activeClosed {
+    &.closed {
       background-color: $danger;
       width: 100%;
       color:$infoWindowContactColor;

@@ -260,8 +260,8 @@ exports.getLabInfo = async (req,res) => {
   }
 
 let status
-
 let closingSoon
+
   if(labDetails.open24h) {
      status = 'open'
   } else if(day === currentDayNum) {

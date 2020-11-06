@@ -41,7 +41,7 @@ hbs.registerHelper('displayPhoneList', (phones) => {
 return phonesNewList
 })
 
-//display if lab is open on lab details pageAboutUs
+//display if lab is open on lab details page
 hbs.registerHelper('isItOpen', (status, currentDayNum ) => {
   let now = new Date()
   let day = now.getDay()
