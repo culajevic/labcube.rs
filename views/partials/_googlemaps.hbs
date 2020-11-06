@@ -383,7 +383,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
 
     let infoWindow = new google.maps.InfoWindow({
       maxWidth:600,
-      content:`<div class="" style="min-height:134px; width:220px;">
+      content:`<div class="" style="min-height:134px">
               <p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
               <p>${address} / ${city}</p>
               <p class="labInfoWindowTelefoni">${phone.join(', ')} </p>
@@ -394,13 +394,13 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
             <div class="status ${status}"></div>
             <div class="radnoVremeDetalji">
 
-            <p class="whInside ${(day == 1) ? status : ''}">P<span>${workingTime.monday.opens} - ${workingTime.monday.closes}</span></p>
-            <p class="whInside ${(day == 2) ? status : ''}">U<span>${workingTime.tuesday.opens} - ${workingTime.tuesday.closes}</span></p>
-            <p class="whInside ${(day == 3) ? status : ''}">S<span>${workingTime.wednesday.opens} - ${workingTime.wednesday.closes}</p>
-            <p class="whInside ${(day == 4) ? status : ''}">Č<span>${workingTime.thursday.opens} - ${workingTime.thursday.closes}</span></p>
-            <p class="whInside ${(day == 5) ? status : ''}">P<span>${workingTime.friday.opens} - ${workingTime.friday.closes}</span></p>
-            <p class="whInside ${(day == 6) ? status : ''}">S<span>${workingTime.saturday.opens} - ${workingTime.saturday.closes}</span></p>
-            <p class="whInside ${(day == 0) ? status : ''}">N<span>${workingTime.sunday.opens} - ${workingTime.sunday.closes}</span></p>
+            <p class="whInside text-center ${(day == 1) ? status : ''}">P<span>${workingTime.monday.opens} - ${workingTime.monday.closes}</span></p>
+            <p class="whInside text-center ${(day == 2) ? status : ''}">U<span>${workingTime.tuesday.opens} - ${workingTime.tuesday.closes}</span></p>
+            <p class="whInside text-center ${(day == 3) ? status : ''}">S<span>${workingTime.wednesday.opens} - ${workingTime.wednesday.closes}</span></p>
+            <p class="whInside text-center ${(day == 4) ? status : ''}">Č<span>${workingTime.thursday.opens} - ${workingTime.thursday.closes}</span></p>
+            <p class="whInside text-center ${(day == 5) ? status : ''}">P<span>${workingTime.friday.opens} - ${workingTime.friday.closes}</span></p>
+            <p class="whInside text-center ${(day == 6) ? status : ''}">S<span>${workingTime.saturday.opens} - ${workingTime.saturday.closes}</span></p>
+            <p class="whInside text-center ${(day == 0) ? status : ''}">N<span>${workingTime.sunday.opens} - ${workingTime.sunday.closes}</span></p>
             </div>
             </div>
             `

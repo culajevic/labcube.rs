@@ -116,20 +116,21 @@
   height: px-to-rem(128px);
   // min-height: px-to-rem(300px);
   top:px-to-rem(-122px);
-  right:-110px;
-  width:px-to-rem(120px);
+  right:-510px;
+  width:px-to-rem(350px);
   opacity: 1;
   z-index: 2289;
-  transition: .3s linear;
+  transition: .5s linear;
   background-color: $primary-color;
   position: absolute;
   & > p {
-    display: inline-block;
+    // display: inline-block;
     // line-height: px-to-rem(14px);
     font-weight: 500;
     padding-left: px-to-rem(6px);
-    margin-bottom: px-to-rem(7px);
-    font-size: 12px;
+    margin-bottom: px-to-rem(5px);
+    margin-top: px-to-rem(5px);
+    font-size: 14px;
     &.open {
       background-color: $button-green;
       width: 100%;
@@ -212,7 +213,7 @@
 background-color: $white-color;
 border-top-left-radius: px-to-rem(4px);
 border-bottom-left-radius: px-to-rem(4px);
-width: 333px !important;
+min-width: 333px !important;
 // width:470px !important;
 
 }
