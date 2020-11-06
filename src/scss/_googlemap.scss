@@ -113,9 +113,9 @@
 
 .radnoVremeDetalji {
   display: block;
-  height: px-to-rem(128px);
+  height: px-to-rem(138px);
   // min-height: px-t-rem(300px);
-  top:px-to-rem(-122px);
+  top:px-to-rem(-132px);
   right:-510px;
   width:px-to-rem(350px);
   opacity: 1;
@@ -155,7 +155,7 @@
     }
   }
   & > p:first-child {
-    margin-top: 5px;
+    margin-top: 10px;
   }
 }
 
