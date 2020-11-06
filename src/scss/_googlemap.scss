@@ -113,14 +113,14 @@
 
 .radnoVremeDetalji {
   display: block;
-  height: px-to-rem(130px);
-  // min-height: px-to-rem(300px);
+  height: px-to-rem(128px);
+  // min-height: px-t-rem(300px);
   top:px-to-rem(-122px);
   right:-510px;
   width:px-to-rem(350px);
   opacity: 1;
   z-index: 2289;
-  transition: .5s linear;
+  transition: .4s linear;
   background-color: $primary-color;
   position: absolute;
   & > p {
@@ -129,21 +129,22 @@
     font-weight: 500;
     padding-left: px-to-rem(6px);
     margin-bottom: px-to-rem(5px);
-    margin-top: px-to-rem(5px);
+    // margin-top: px-to-rem(4px);
     font-size: 13px;
     &.open {
       background-color: $button-green;
       width: 100%;
-      padding-top:3px;
-      padding-bottom: 3px;
+      padding-top:4px;
+      padding-bottom: 4px;
       color:$infoWindowContactColor;
+      // color:$white-color;
       font-weight: 900;
     }
     &.closed {
       background-color: $danger;
       width: 100%;
-      padding-top:3px;
-      padding-bottom: 3px;
+      padding-top:2px;
+      padding-bottom: 2px;
       color:$infoWindowContactColor;
       font-weight: 900;
       position: relative;
@@ -152,6 +153,9 @@
     display: inline-block;
     padding-left: px-to-rem(10px);
     }
+  }
+  & > p:first-child {
+    margin-top: 5px;
   }
 }
 
