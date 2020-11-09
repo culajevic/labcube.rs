@@ -129,7 +129,7 @@
     font-weight: 500;
     padding-left: px-to-rem(6px);
     margin-bottom: px-to-rem(4px);
-    // margin-top: px-to-rem(4px);
+    margin-top: px-to-rem(4px);
     font-size: 13px;
     &.open {
       background-color: $button-green;
@@ -143,8 +143,8 @@
     &.closed {
       background-color: $danger;
       width: 100%;
-      padding-top:2px;
-      padding-bottom: 2px;
+      padding-top:4px;
+      padding-bottom: 4px;
       color:$infoWindowContactColor;
       font-weight: 900;
       position: relative;
@@ -155,10 +155,10 @@
     }
   }
   & > p:first-child {
-    margin-top: 10px;
+    margin-top: 12px;
   }
-  & > p:first-child {
-    bottom: 10px;
+  & > p:last-child {
+    margin-bottom: 12px;
   }
 }
 
