@@ -11,7 +11,7 @@ const faqController = require('../controllers/faqController')
 const priceController = require('../controllers/priceController')
 const resultController = require('../controllers/resultController')
 const authenticationController = require('../controllers/authenticationController')
-
+const passport = require('passport')
 
 // display groups on front page
 router.get('/', groupController.getGroups)
@@ -28,6 +28,9 @@ router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 router.get('/prijava', authenticationController.signin)
 router.get('/google', authenticationController.google)
 router.get('/logout', authenticationController.logout)
+router.get('/google/redirect', authenticationController.redirect)
+router.get('/profile', authenticationController.profile)
+
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)

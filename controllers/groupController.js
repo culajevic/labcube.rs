@@ -117,6 +117,7 @@ sortByPriority = {priority:-1}
         labNum,
         analysisNum,
         numOpen,
+        user:req.user,
         labDetails : encodeURIComponent(JSON.stringify(labInfo)),
         labOpen : encodeURIComponent(JSON.stringify(labStatus))
       })

@@ -10,12 +10,27 @@ const path = require('path')
 const routes = require('./routes/index')
 const session = require('express-session')
 const dotenv = require('dotenv')
+const keys = require('./keys')
+const cookieSession = require('cookie-session')
+const passport = require('passport')
+const passportSetup = require('./passport-setup')
+
 
 const app = express()
 
 //  mandatory for using req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(cookieSession({
+  maxAge:24*60*60*1000,
+  keys:[keys.session.sessionKey]
+}))
+
+//initialize passport
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 // handlebars middleware
 app.engine('.hbs', exphbs({
