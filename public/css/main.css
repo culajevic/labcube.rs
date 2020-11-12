@@ -7597,8 +7597,8 @@ input[name="searchFilter"] {
   display: block;
   height: 8.625rem;
   top: -8.25rem;
-  right: -510px;
-  width: 21.875rem;
+  right: -400px;
+  width: 22.5rem;
   opacity: 1;
   z-index: 2289;
   transition: .4s linear;
@@ -8954,17 +8954,34 @@ input[type="range"] {
 .btn-outline-danger.focus {
   box-shadow: none; }
 
-.najpopularnije {
+#odabirPaketa input[type=radio] {
+  display: none; }
+
+#odabirPaketa input[type=radio]:checked + label {
+  background-color: #1D88E5;
+  color: #FFF !important;
+  border: 1px solid #1D88E5; }
+
+.najpopularnije, .najpopularnije_besplatno {
   position: absolute;
   background-color: #1D88E5;
   color: #FFF;
-  font-size: 0.5625rem;
+  font-size: 0.625rem;
   border-top-left-radius: 3px;
   border-bottom-right-radius: 5px;
   text-transform: uppercase;
   padding: 10px 14px;
   top: 0;
   left: 0; }
+
+.najpopularnije_besplatno {
+  background-color: #FF6F6F;
+  right: 0;
+  font-size: 0.625rem;
+  text-align: center; }
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "Elegir"; }
 
 .__connectedAnalysis {
   background-color: #1D88E5;
@@ -8985,6 +9002,9 @@ input[type="range"] {
 
 .analysisBasketLiItem:hover {
   color: #6b6b6b; }
+
+.alert {
+  margin-bottom: 0; }
 
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {

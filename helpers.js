@@ -27,6 +27,14 @@ hbs.registerHelper('checkUrlName', (prop) => (prop) ? prop+'/' : '')
 // keep submited form database
 hbs.registerHelper('keepData', (prop1,prop2) => (prop1 || prop2))
 
+hbs.registerHelper('checkBox', (prop1, prop2) => {
+  if(prop1==prop2) {
+    return true
+  } else {
+    return false
+  }
+})
+
 // increment indexes
 hbs.registerHelper('increment', (index) => {
   index++

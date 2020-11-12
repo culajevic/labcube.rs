@@ -25,6 +25,46 @@ const upload = multer({storage:storage})
 
 exports.upload = upload.single('iconPath')
 
+
+// add a new group to database
+exports.createGroup = async (req,res) => {
+  let errors = []
+  if(!req.body.name) {
+    errors.push({text:'Unesite ime grupe'})
+  }
+  if(!req.body.description) {
+    errors.push({text:'Unesite opis grupe'})
+  }
+  if(errors.length > 0) {
+    res.render('addGroup',{
+      errors,
+      title:'Dodaj novu grupu',
+      name:req.body.name,
+      description:req.body.description,
+      iconPath:req.body.iconPath,
+      frontPage:req.body.frontPage,
+      priority:req.body.priority
+    })
+  } else {
+    if(req.file) {
+        req.body.iconPath = req.file.filename
+      } else {
+        req.flash('error_msg', 'doslo je do greske prilikom uploada')
+      }
+
+      const group = new Group(req.body)
+      try {
+        await group.save()
+        req.flash('success_msg','Grupa analiza je uspešno kreirana')
+        res.redirect('/allGroupsList')
+        }
+      catch (e){
+        req.flash('error_msg', `Dogodila se greška prilikom upisa nove grupe u bazu ${e}`)
+        res.redirect('/addGroup')
+      }
+  }
+}
+
 // display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
 sortByPriority = {priority:-1}
@@ -202,44 +242,7 @@ exports.updateGroup = async (req,res) => {
   }
 }
 
-// add a new group to database
-exports.createGroup = async (req,res) => {
-  let errors = []
-  if(!req.body.name) {
-    errors.push({text:'Unesite ime grupe'})
-  }
-  if(!req.body.description) {
-    errors.push({text:'Unesite opis grupe'})
-  }
-  if(errors.length > 0) {
-    res.render('addGroup',{
-      errors,
-      title:'Dodaj novu grupu',
-      name:req.body.name,
-      description:req.body.description,
-      iconPath:req.body.iconPath,
-      frontPage:req.body.frontPage,
-      priority:req.body.priority
-    })
-  } else {
-    if(req.file) {
-      req.body.iconPath = req.file.filename
-    } else {
-      req.flash('error_msg', 'doslo je do greske prilikom uploada')
-    }
 
-    const group = new Group(req.body)
-    try {
-      await group.save()
-      req.flash('success_msg','Grupa analiza je uspešno kreirana')
-      res.redirect('/allGroupsList')
-      }
-    catch (e){
-      req.flash('error_msg', `Dogodila se greška prilikom upisa nove grupe u bazu ${e}`)
-      res.redirect('/addGroup')
-    }
-  }
-}
 
 // display all groups in backend as a list
 exports.listAllGroups = async(req,res) => {

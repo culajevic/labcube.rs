@@ -791,11 +791,27 @@ input[type="range"] {
    box-shadow: none;
 }
 
+#odabirPaketa {
+  input[type=radio] {
+    display: none;
+  }
+}
+
+#odabirPaketa .customRadio {
+  // background-color: red;
+}
+
+#odabirPaketa input[type=radio]:checked + label{
+    background-color:$primary-color;
+    color:$white-color !important;
+    border:1px solid $primary-color;
+}
+
 .najpopularnije {
   position:absolute;
   background-color: $primary-color;
   color:$white-color;
-  font-size: px-to-rem(9px);
+  font-size: px-to-rem(10px);
   border-top-left-radius: 3px;
   border-bottom-right-radius: 5px;
   text-transform: uppercase;
@@ -803,6 +819,30 @@ input[type="range"] {
   top:0;
   left:0;
 }
+
+.najpopularnije_besplatno {
+  @extend .najpopularnije;
+  background-color: $danger;
+  right:0;
+  // top:-20px;
+  font-size: px-to-rem(10px);
+  text-align: center;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+    content: "Elegir";
+}
+
+// input[type="file"] {
+//     display: none;
+// }
+//
+// .custom-file-upload {
+//     border: 1px solid #ccc;
+//     display: inline-block;
+//     padding: 6px 12px;
+//     cursor: pointer;
+// }
 
 .__connectedAnalysis {
   background-color: $primary-color;
@@ -836,5 +876,8 @@ input[type="range"] {
   color: lighten(#3B3B3B, 19);
 }
 
+.alert {
+  margin-bottom: 0;
+}
 
 @import 'media.scss';

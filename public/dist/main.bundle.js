@@ -829,6 +829,10 @@ $(document).ready(function () {
   $('.fa-angle-down').on('click', function () {
     $(this).toggleClass('rotate');
   });
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
 }); // changing analysis number color on hover
 
 $('.click-more').hover(function () {
