@@ -16,11 +16,11 @@ require('./models/Result')
 
 const app = require('./app')
 
-// set a PORT
-const port = process.env.PORT || 1606
-
 // use variables.env for sensitive data
 dotenv.config({path:'variables.env'})
+
+// set a PORT
+const port = process.env.PORT || 1606
 
 // connect to database
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true } )

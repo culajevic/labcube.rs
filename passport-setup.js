@@ -1,8 +1,12 @@
 const dotenv = require('dotenv')
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20')
+const path = require('path')
 // const keys = require('./keys')
 const User = require('./models/User')
+
+// use variables.env for sensitive data
+dotenv.config({path:'variables.env'})
 
 
 passport.serializeUser((user, done) => {
@@ -18,8 +22,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new GoogleStrategy({
     callbackURL:'/google/redirect',
-    clientID: '396875767246-9j0etj12m52m749ftuj7k7ej9f8hgqt2.apps.googleusercontent.com',
-    clientSecret: 'VLJN_WYwPVFH86EkLo_VZuW-'
+    clientID: process.env.CLIENTID,
+    clientSecret: process.env.CLIENTSECRET
   }, (accessToken, refreshToken, profile, done) => {
     // check if user already exists in our database
     let find =  User.findOne({googleId:profile.id}).then((currentUser) => {
