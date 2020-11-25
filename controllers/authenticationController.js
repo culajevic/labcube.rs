@@ -4,7 +4,6 @@ const passport = require('passport')
 const validator = require("email-validator")
 const bcrypt = require('bcrypt')
 let User = mongoose.model('User')
-const randomString = require('randomString')
 const nodemailer = require('nodemailer')
 
 dotenv.config({path:'variables.env'})
