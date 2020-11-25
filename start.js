@@ -12,6 +12,8 @@ require('./models/Analysis')
 require('./models/Faq')
 require('./models/Prices')
 require('./models/Result')
+require('./models/User')
+require('./models/Schedule')
 
 
 const app = require('./app')

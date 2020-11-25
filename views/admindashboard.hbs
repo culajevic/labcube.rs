@@ -1,0 +1,115 @@
+{{#each errors}}
+  <div class="alert alert-danger text-center alert-dismissible fade show">{{text}}
+  <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
+  </div>
+{{/each}}
+<section id="">
+  <div class="container-fluid">
+    <div class="row mb-0">
+      <!--  visible only on md and bigger -->
+      <!-- <div class="d-none d-md-flex col-md-4" id="loginLeftSide">
+        <div class="loginLeftSide">
+          <a href="/">
+          <img src="images/logoSmallSlice.svg" alt="labcube" class="smallLogo img-fluid">
+          </a>
+        </div>
+        <div class="socialLogin">
+          <a href="#" class=""><i class="fab fa-twitter"></i></a>
+          <a href="#" class=""><i class="fab fa-instagram"></i></a>
+          <a href="#" class=""><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class=""><i class="fab fa-youtube"></i></a>
+        </div>
+      </div> -->
+
+      <div class="col-sm-12 col-md-12 pl-0 pr-0">
+        <div class="backgroundImageAdmin">
+          <div class="blueOverlayAdmin">
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Grupe analiza</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addGroup" class="btn btn-outline-light ">dodaj novu</a>
+                <a href="/allGroupsList" class="btn btn-outline-light mt-2">pogledaj sve</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Laboratorije</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addLab" class="btn btn-outline-light ">dodaj novu</a>
+                <a href="/allLabs" class="btn btn-outline-light mt-2">pogledaj sve</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Analize</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addAnalysis" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allAnalysis" class="btn btn-outline-light mt-2">pogledaj sve</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Oboljenja</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addDisease" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allDiseases" class="btn btn-outline-light mt-2">pogledaj sve</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Urednici</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addEditor" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allEditors" class="btn btn-outline-light mt-2">pogledaj sve</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Reference</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addReference" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allReferences" class="btn btn-outline-light mt-2">pogledaj</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Cenovnik</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addPrice" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allPrices" class="btn btn-outline-light mt-2">pogledaj</a>
+              </div>
+            </div>
+
+            <div class="card ml-2 mr-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Korisnici</h5>
+                <p class="card-text text-white"></p>
+                <a href="/" class="btn btn-outline-light ">dodaj</a>
+                <a href="/" class="btn btn-outline-light mt-2">pogledaj</a>
+              </div>
+            </div>
+
+            <div class="card mr-2 ml-2">
+              <div class="card-body">
+                <h5 class="card-title text-white">Česta pitanja</h5>
+                <p class="card-text text-white"></p>
+                <a href="/addFaq" class="btn btn-outline-light ">dodaj</a>
+                <a href="/allFaqs" class="btn btn-outline-light mt-2">pogledaj</a>
+              </div>
+            </div>
+
+          </div><!-- blueoverlay -->
+        </div><!-- backgroundImage -->
+
+      </div><!-- col-8 -->
+    </div><!-- row -->
+  </div><!-- container-fluid -->
+</section>

@@ -15,6 +15,20 @@
 @import 'analysisdetails.scss';
 @import 'footer.scss';
 
+.container-fluid {
+  padding: 0;
+}
+
+.registerForm .form-control {
+  background-color: transparent;
+  border:none;
+  border-radius: 0;
+  border-bottom: 1px solid $white-color;
+  color:$white-color;
+  // font-size: px-to-rem(98px);
+  // text-align: center;
+}
+
 
 #labDetails,  #groupDetails, #labDetailsInner   {
   & h1 {
@@ -23,6 +37,10 @@
   font-weight: bold;
     // margin-bottom: 0.5rem;
  }
+}
+
+.p18 {
+  font-size: px-to-rem(18px);
 }
 
 .headTitle {
@@ -327,8 +345,18 @@
   @include backgroundImage('../images/corbavia1.jpg', -50px, 0);
 }
 
+.backgroundImageAdmin {
+  @include backgroundImage('../images/corbavia1.jpg', 0, 0);
+
+}
+
+
 .backgroundImageRegister {
   @include backgroundImage('../images/corbavia2.jpg', 0, 0);
+}
+
+.backgroundImageVerify {
+  @include backgroundImage('../images/corbavia3.jpg', -940px, 0);
 }
 
 .blueOverlay {
@@ -345,7 +373,7 @@
   h2 {
     color:$white-color;
     font-size: 42px;
-    margin-left: 80px;
+    // margin-left: 80px;
   }
   & > small {
       margin-left: 80px;
@@ -355,9 +383,26 @@
       margin-bottom: 30px;
     }
   .login {
-    margin-left: 100px;
+    padding-left: 0;
   }
 
+}
+
+.blueOverlayAdmin  {
+  @extend .blueOverlay;
+  flex-direction:row;
+  flex-wrap: wrap;
+  flex:0;
+  // display:inline-block;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+  & > .card {
+    background-color: transparent;
+    // border:1px solid white;
+    border:none;
+
+  }
 }
 
 .input-field {

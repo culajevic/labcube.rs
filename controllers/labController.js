@@ -180,6 +180,24 @@ exports.getLabInfo = async (req,res) => {
 
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
+  let userId
+  let userName
+  if(req.user != null) {
+    userId = req.user._id
+    userName = req.user.username
+  } else {
+      userId = ''
+      userName = ''
+  }
+
+  // if (req.user.id) {
+  //   userId = req.user.id
+  //   userName = req.user.username
+  // } else {
+  //   userId = ''
+  //   userName = ''
+  // }
+
   let newids = []
   let selectedAnalysis
   let labId = labDetails._id
@@ -209,10 +227,10 @@ exports.getLabInfo = async (req,res) => {
           {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
           {$sort:{name:1}}
        ])
-       // console.log(selectedAnalysis)
-       // for(i=0; i<selectedAnalysis.length;i++) {
-       //   total += selectedAnalysis[i].cenovnik.cena
-       // }
+     }
+
+     for(i=0; i<selectedAnalysis.length; i++) {
+       total += selectedAnalysis[i].cenovnik.cena
      }
 
 
@@ -288,8 +306,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-
-  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis})
+  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName})
 
 }
 

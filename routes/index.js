@@ -11,6 +11,7 @@ const faqController = require('../controllers/faqController')
 const priceController = require('../controllers/priceController')
 const resultController = require('../controllers/resultController')
 const authenticationController = require('../controllers/authenticationController')
+const scheduleController = require('../controllers/scheduleController')
 const passport = require('passport')
 
 // display groups on front page
@@ -26,11 +27,16 @@ router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 
 //registration
 router.get('/prijava', authenticationController.signin)
+router.post('/prijava', authenticationController.login)
 router.get('/google', authenticationController.google)
 router.get('/logout', authenticationController.logout)
 router.get('/google/redirect', authenticationController.redirect)
 router.get('/profile', authenticationController.profile)
-
+router.get('/registracija', authenticationController.registerForm)
+router.post('/register', authenticationController.register)
+router.get('/verify', authenticationController.verify)
+router.post('/verify', authenticationController.verifyToken)
+router.get('/admindashboard', authenticationController.admindasboard)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
@@ -43,7 +49,7 @@ router.delete('/allGroupsList/:id', groupController.deleteGroup)
 //tumacenje rezultata
 router.get('/tumacanje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
 router.post('/tumacanje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
-              
+
 //prices
 router.get('/allPrices', priceController.allPrices)
 router.get('/addPrice', priceController.addPrice)
@@ -51,6 +57,11 @@ router.post('/addPrice', priceController.createPrice)
 router.get('/addPrice/:id', priceController.editPrice)
 router.post('/addPrice/:id', priceController.updatePrice)
 router.delete('/allPrices/:id', priceController.deletePriceList)
+
+// router.get('/schedule/:labId/:analysis/:userId/:total', scheduleController.scheduleVisit)
+// router.get('/schedule/:scheduleString', scheduleController.scheduleVisit)
+router.post('/schedule', scheduleController.scheduleVisit)
+router.get('/hvala', scheduleController.thankyou)
 
 // labs
 router.get('/allLabs', labController.allLabs)

@@ -1396,7 +1396,8 @@ window.onload = function () {
 
     var _checkout = document.querySelector('.checkout');
 
-    var filterValue = 'analiza'; //check the filter value on INDEX PAGE
+    var filterValue = 'analiza';
+    var schedule = []; //check the filter value on INDEX PAGE
 
     _filter.forEach(function (item) {
       item.addEventListener('click', function (e) {
@@ -1418,6 +1419,15 @@ window.onload = function () {
     prices.forEach(function (item) {
       totalPrice += parseInt(item.getAttribute('data-price'));
     });
+    schedule.push({
+      "total": totalPrice
+    });
+    schedule.push({
+      "analysis": _itemsArray
+    });
+    scheduleString = JSON.stringify(schedule); // console.log('1' + scheduleString)
+    //search and add analysis from lab details page
+
     searchString.addEventListener('input', function (e) {
       if (searchString.value.length >= 3 && filterValue == 'analiza') {
         var _searchString = e.target.value; // fetch('/analysis/prices/'+searchString)
@@ -1466,6 +1476,9 @@ window.onload = function () {
           'logo': e.target.getAttribute('data-iconPath')
         });
 
+        schedule[0].total = totalPrice;
+        schedule[1].analysis = _itemsArray;
+        scheduleString = JSON.stringify(schedule);
         numOfAnalysis.innerHTML = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
         _checkout.textContent = _itemsArray.length;
 
@@ -1488,7 +1501,8 @@ window.onload = function () {
 
       _checkout.classList.add('d-none');
     } else {
-      totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+      totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din."); //remove analysis from basket
+
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
         if (e.target.classList.contains('removeAnalysis')) {
@@ -1509,6 +1523,10 @@ window.onload = function () {
 
           items = JSON.stringify(_itemsArray);
           localStorage.setItem('items', items);
+          schedule[0].total = totalPrice;
+          schedule[1].analysis = _itemsArray;
+          scheduleString = JSON.stringify(schedule); // console.log('2' + scheduleString)
+
           var numAnalysis = document.querySelector('.numAnalysis');
           numAnalysis.textContent = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
           _checkout.textContent = _itemsArray.length;
@@ -1521,6 +1539,22 @@ window.onload = function () {
         }
       });
     }
+
+    var scheduleBtn = document.getElementById('schedule'); // console.log('3'+ scheduleString)
+
+    scheduleBtn.addEventListener('click', function () {
+      fetch('/schedule/', {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: scheduleString
+      }).then(function (response) {
+        console.log(response);
+        window.location.href = "/hvala";
+      });
+    });
   }
   /* ANALYSIS DETAILS PAGE ***************/
 

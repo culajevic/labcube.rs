@@ -1,0 +1,46 @@
+{{#each errors}}
+  <div class="alert alert-danger text-center alert-dismissible fade show">{{text}}
+  <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
+  </div>
+{{/each}}
+<section id="registerForm">
+  <div class="container-fluid">
+    <div class="row mb-0">
+      <!--  visible only on md and bigger -->
+      <div class="d-none d-md-flex col-md-4" id="loginLeftSide">
+        <div class="loginLeftSide">
+          <a href="/">
+          <img src="images/logoSmallSlice.svg" alt="labcube" class="smallLogo img-fluid">
+          </a>
+        </div>
+        <div class="socialLogin">
+          <a href="#" class=""><i class="fab fa-twitter"></i></a>
+          <a href="#" class=""><i class="fab fa-instagram"></i></a>
+          <a href="#" class=""><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class=""><i class="fab fa-youtube"></i></a>
+        </div><!-- social col-md-4 end -->
+      </div><!-- login leftside end -->
+
+      <div class="col-sm-12 col-md-8 pl-0 pr-0">
+
+        <div class="backgroundImageVerify">
+          <div class="blueOverlay">
+            <h2 class="ml-5">Verifikacija naloga</h2>
+            <small class="ml-5">unesite kod koji ste dobili putem mejla, proverite spam folder.</small>
+                <form action="/verify" method="POST" class="registerForm login ml-5 col-5" >
+                  <div class="form-group">
+                    <input id="" type="text" name="emailToken" class="form-control">
+                    <!-- <label for="emailValue" class="text-white">unesite kod koji ste dobi</label> -->
+                  </div>
+                    <button class="btn btnLogin btn-block mb-5">verifikuj nalog</button>
+
+
+                </form>
+              <!-- </form> -->
+          </div><!-- blueoverlay -->
+        </div><!-- backgroundImage -->
+
+      </div><!-- col-8 -->
+    </div><!-- row -->
+  </div><!-- container-fluid -->
+</section>

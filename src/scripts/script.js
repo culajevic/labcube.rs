@@ -750,14 +750,13 @@ if(urlArr[1] == 'laboratorija') {
   let numOfAnalysis = document.querySelector('.numAnalysis')
   let checkout = document.querySelector('.checkout')
   let filterValue = 'analiza'
-
-
-      //check the filter value on INDEX PAGE
-          filter.forEach((item) => {
-            item.addEventListener('click', (e) => {
-              filterValue = e.target.value
-            })
-          })
+  let schedule = []
+  //check the filter value on INDEX PAGE
+      filter.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          filterValue = e.target.value
+        })
+      })
 
       /* by default filter is set to analiza, after 500ms
         user is redirected to results page */
@@ -773,7 +772,12 @@ if(urlArr[1] == 'laboratorija') {
       totalPrice += parseInt(item.getAttribute('data-price'))
     })
 
+    schedule.push({"total":totalPrice})
+    schedule.push({"analysis":itemsArray})
+    scheduleString = JSON.stringify(schedule)
+    // console.log('1' + scheduleString)
 
+    //search and add analysis from lab details page
     searchString.addEventListener('input', (e) => {
       if(searchString.value.length>=3 && filterValue == 'analiza' ) {
         let searchString = e.target.value
@@ -820,7 +824,6 @@ if(urlArr[1] == 'laboratorija') {
     })
 
 
-
     let addAnalysisBtn = document.getElementById('resultTableAnalysis')
       addAnalysisBtn.addEventListener('click', e => {
         if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
@@ -835,6 +838,11 @@ if(urlArr[1] == 'laboratorija') {
             'id':e.target.getAttribute('data-analysisid'),
             'logo':e.target.getAttribute('data-iconPath')
            })
+
+           schedule[0].total=totalPrice
+           schedule[1].analysis = itemsArray
+           scheduleString = JSON.stringify(schedule)
+
            numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
            checkout.textContent = itemsArray.length
            itemsArray.sort((a,b) => {
@@ -866,9 +874,11 @@ if(urlArr[1] == 'laboratorija') {
       checkout.classList.add('d-none')
     } else {
       totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+
+      //remove analysis from basket
       let removeAnalysisLabPage = document.getElementById('resultTable')
         removeAnalysisLabPage.addEventListener('click', e => {
-          if(e.target.classList.contains('removeAnalysis')) {
+            if(e.target.classList.contains('removeAnalysis')) {
             resultDiv.innerHTML = ''
             searchString.value = ''
             let toBeDeleted = e.target.getAttribute('data-analysisid')
@@ -883,6 +893,12 @@ if(urlArr[1] == 'laboratorija') {
             itemsArray.splice(nameIndex,1)
             items = JSON.stringify(itemsArray)
             localStorage.setItem('items', items)
+
+            schedule[0].total=totalPrice
+            schedule[1].analysis = itemsArray
+            scheduleString = JSON.stringify(schedule)
+            // console.log('2' + scheduleString)
+
             let numAnalysis = document.querySelector('.numAnalysis')
             numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
             checkout.textContent = itemsArray.length
@@ -894,7 +910,24 @@ if(urlArr[1] == 'laboratorija') {
         })
       }
 
+      let scheduleBtn = document.getElementById('schedule')
 
+      // console.log('3'+ scheduleString)
+
+      scheduleBtn.addEventListener('click', ()=>{
+        fetch('/schedule/',{
+          method:"post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body:scheduleString
+        }).then(response => {
+          console.log(response)
+          window.location.href="/hvala"
+        })
+
+      })
 
     }
 /* ANALYSIS DETAILS PAGE ***************/

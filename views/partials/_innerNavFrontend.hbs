@@ -13,9 +13,21 @@
           <li class="nav-item">
             <a href="#" class="nav-link"><i class="fas fa-map-marker-alt"></i>Sve laboratorije</a>
           </li>
+          {{#if userId}}
           <li class="nav-item">
-            <a href="#" class="nav-link"><i class="far fa-user"></i>Prijava</a>
+            <a href="/profile" class="nav-link">{{userName}}</a>
           </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link"><i class="fa fa-sign-out-alt"></i></a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a href="/prijava" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
+          </li>
+          <li class="nav-item">
+            <a href="/registracija" class="nav-link"><i class="fas fa-user-plus"></i> Registracija</a>
+          </li>
+          {{/if}}
           <li class="nav-item">
             <button class="nav-link checkout d-none"></button>
           </li>
