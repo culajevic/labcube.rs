@@ -4,7 +4,12 @@ const passport = require('passport')
 const validator = require("email-validator")
 const bcrypt = require('bcrypt')
 let User = mongoose.model('User')
+const Schedule = mongoose.model('Schedule')
+const Lab = mongoose.model('Lab')
+const Place = mongoose.model('Place')
 const nodemailer = require('nodemailer')
+const moment = require('moment')
+moment.locale('sr')
 
 dotenv.config({path:'variables.env'})
 
@@ -30,6 +35,7 @@ exports.signin = (req,res) => {
 exports.login = (req,res,next) => {
   passport.authenticate('local', {
     successRedirect:'/profile',
+    // successRedirect:'/',
     failureRedirect:'/prijava',
     failureFlash:true
   })(req,res,next)
@@ -53,9 +59,21 @@ const authCheck = (req,res, next) => {
   }
 }
 
-exports.profile = [authCheck, (req,res) => {
+exports.profile = [authCheck, async (req,res) => {
   if(req.user.admin == 0) {
-    res.send(`<a href=/logout>log out</a> ${req.user.username}`)
+    const myAppointments = await Schedule.find({user:req.user.id})
+    .populate('lab')
+    .sort({createdDate:-1})
+    let cities = await Place.distinct("municipality")
+    const numOfMyAnalysis = myAppointments.length
+
+    res.render('profile',{
+      user:req.user,
+      cities:cities,
+      myAppointments:myAppointments,
+      numOfMyAnalysis:numOfMyAnalysis
+    })
+    // res.send(`<a href=/logout>log out</a> ${req.user.username}`)
   } else {
     res.redirect('/admindashboard')
   }

@@ -1,0 +1,343 @@
+{{> _innerNavFrontend}}
+
+
+<div class="container mb-4" id="profileDetails">
+    <h1 class="sectionTitle mt-6">Zdravo, {{user.username}}</h1>
+ 		<div class="row">
+
+ 			<div class="col-md-12 col-lg-12 table-responsive">
+
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+
+        <li class="nav-item">
+          <a class="nav-link active link-unstyled" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" aria-selected="false" >Osnovne informacije</a>
+        </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link link-unstyled" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link  link-unstyled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Moji rezultati ({{numOfMyAnalysis}})</a>
+      </li>
+
+
+
+
+
+
+</ul>
+<div class="tab-content" id="myTabContent">
+
+  <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+    <div class="profileCard" >
+      <form action="/myProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center">
+        <div class="basicInfo col-8 mb-4">
+          <div class="form-group col-12">
+            <p class="">Osnovne informacije</p>
+            <label for="">Ime</label>
+            <input type="text" class="form-control" name="ime" placeholder="Ime" value="{{user.username}}">
+          </div>
+          <div class="form-group col-12">
+            <input type="text" class="form-control" placeholder="Email" value="{{user.email}}" disabled>
+          </div>
+          <div class="form-group col-12">
+            <input type="number" class="form-control" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
+          </div>
+          <div class="form-group col-12">
+            <p class="mb-1">Pol</p>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="polM" name="pol" Value="M" class="custom-control-input" {{#if (checkBox user.gender 'M')}} checked {{/if}}>
+              <label class="custom-control-label" for="polM">M</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="polZ" name="pol" Value="Ž" class="custom-control-input" {{#if (checkBox user.gender 'Ž')}} checked {{/if}}>
+            <label class="custom-control-label" for="polZ">Ž</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="polBinary" name="pol" value="N/A" class="custom-control-input" {{#if (checkBox user.gender 'N/A')}} checked {{/if}}>
+          <label class="custom-control-label" for="polBinary">Nije važno</label>
+        </div>
+          </div>
+        <!-- <div class="form-group col-12">
+          <label for="">Mobilni telefon</label>
+          <input type="text" class="form-control" name="mobilniTelefon" value="{{user.mobile}}" placeholder="Mobilni telefon u fomatu 06XXXXXXX">
+        </div> -->
+        <div class="form-group col-12">
+          <!-- <label for="">Adresa</label> -->
+          <small>Ukoliko želite da zakažete patronažu neophodno je upisati adresu, grad i mobilni telefon</small>
+          <input type="text" class="form-control" name="adresa" value="{{user.address}}">
+        </div>
+        <div class="form-group col-12">
+          <select class="form-control" name="city" id="municipality">
+            {{#each cities}}
+            <option value="{{this}}" {{#if (checkBox this ../user.city)}} selected {{/if}}>{{this}}</option>
+            {{/each}}
+
+          </select>
+        </div>
+        <div class="form-group col-12">
+          <!-- <label for="">Mobilni telefon</label> -->
+          <input type="text" class="form-control" name="mobilniTelefon" value={{user.mobile}} placeholder="Mobilni telefon u fomatu 06XXXXXXX">
+        </div>
+        <div class="form-group col-12">
+          <button class="btn btn-block btn-info">Sačuvaj</button>
+        </div>
+      </div>
+    </form><!-- basic information form end -->
+
+        <!-- update password -->
+
+          <form class="d-flex flex-column align-items-center" action="" method="post">
+            <div class="updatePassowrd col-8 mb-5">
+            <div class="form-group col-12">
+              <p class="">Promena lozinke</p>
+              <input type="text" class="form-control mt-4" placeholder="nova lozinka">
+                </div>
+                <div class="form-group col-12">
+                  <input type="text" class="form-control" placeholder="ponovite novu lozinku">
+                </div>
+                <div class="form-group col-12">
+                  <button type="button" class="btn btn-block btn-info">Promeni</button>
+                </div>
+              </form>
+          </div>
+    </div><!-- profile card end -->
+  </div><!-- tab pane end -->
+
+  <div class="tab-pane fade" id="healthProfile" role="tabpanel" aria-labelledby="profile-tab">
+    <form action="/healthProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center" id="healthProfileForm">
+      <div class="basicHealthInfo col-8 mb-4">
+        <div class="form-group col-12">
+          <p class="">Osnovne informacije o vašem zdravtvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo vašu privatnost, vaši podaci su bezbedni. Pročitajte našu politiku privatnosti. </p>
+          <label for="visina">Visina (cm)</label>
+          <input type="number" class="form-control" id="visina" name="visina" placeholder="Visina(cm)" value="{{user.height}}">
+
+        </div>
+        <div class="form-group col-12">
+          <label for="tezina">Težina (kg)</label>
+          <input type="number" class="form-control" id="tezina" name="tezina" placeholder="Težina(kg)" value="{{user.weight}}">
+        </div>
+        <div class="form-group col-12">
+          <label for="bmi">BMI (Body Mass Index)</label>
+          <input type="number" class="form-control" id="bmi" step="0.01" name="bmi" readonly="readonly" value={{user.bmi}} placeholder="BMI">
+        </div>
+        <div class="form-group col-12">
+          <p>Da li pušite?</p>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pusacDa" name="pusac" value="Da" class="custom-control-input" {{#if (checkBox user.smoking 'Da')}} checked {{/if}}>
+            <label class="custom-control-label" for="pusacDa">Da</label>
+          </div>
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pusacNe" name="pusac" value="Ne" class="custom-control-input" {{#if (checkBox user.smoking 'Ne')}} checked {{/if}}>
+            <label class="custom-control-label" for="pusacNe">Ne</label>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <p>Da li često konzumirate alkohol?</p>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="alkoholDa" name="alkohol" value="Da" class="custom-control-input" {{#if (checkBox user.alcohol 'Da')}} checked {{/if}}>
+            <label class="custom-control-label" for="alkoholDa">Da</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="alkoholNe" name="alkohol" value="Ne" class="custom-control-input" {{#if (checkBox user.alcohol 'Ne')}} checked {{/if}}>
+            <label class="custom-control-label" for="alkoholNe">Ne</label>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <p>Da li ste imali ili imate povišen krvni pritisak?</p>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pritisakDa" name="pritisak" value="Da" class="custom-control-input"
+            {{#if (checkBox user.bloodPresure 'Da')}} checked {{/if}}>
+            <label class="custom-control-label" for="pritisakDa">Da</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pritisakNe" name="pritisak" value="Ne" class="custom-control-input" {{#if (checkBox user.bloodPresure 'Ne')}} checked {{/if}}>
+            <label class="custom-control-label" for="pritisakNe">Ne</label>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <p>Kakva je vaša ishrana?</p>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="ishranaZdrava" name="ishrana" value="Zdrava" class="custom-control-input" {{#if (checkBox user.nutrition 'Zdrava')}} checked {{/if}}>
+            <label class="custom-control-label" for="ishranaZdrava">Zdrava</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="ishranaUmerena" name="ishrana" value="Umerena" class="custom-control-input" {{#if (checkBox user.nutrition 'Umerena')}} checked {{/if}}>
+            <label class="custom-control-label" for="ishranaUmerena">Umereno zdrava</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="ishranaNezdrava" name="ishrana" value="Nezdrava" class="custom-control-input" {{#if (checkBox user.nutrition 'Nezdrava')}} checked {{/if}}>
+            <label class="custom-control-label" for="ishranaNezdrava">Nezdrava</label>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <p>Da li osećate da ste pod stresom?</p>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="stresDa" name="stres" value="Da" class="custom-control-input" {{#if (checkBox user.stress 'Da')}} checked {{/if}}>
+            <label class="custom-control-label" for="stresDa">Da</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="stresNe" name="stres" value="Ne" class="custom-control-input" {{#if (checkBox user.stress 'Ne')}} checked {{/if}}>
+            <label class="custom-control-label" for="stresNe">Ne</label>
+          </div>
+        </div>
+      <div class="form-group col-12">
+        <label for="">Koliko sati nedeljno vežbate?</label>
+        <input type="number" class="form-control" name="vezbe" placeholder="Koliko sati nedeljno vežbate?" value="{{user.hoursExcercise}}">
+      </div>
+      <div class="form-group col-12">
+        <p>Da li ste ikada imali povišen šećer?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="secerDa" name="secer" value="Da" class="custom-control-input" {{#if (checkBox user.sweets 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="secerDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="secerNe" name="secer" value="Ne" class="custom-control-input" {{#if (checkBox user.sweets 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="secerNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Da li ste trenutno koristite neke dodatke ishrani (vitamini, minerali..)?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="dodaciIshraniDa" name="dodaciIshrani" value="Da" class="custom-control-input" {{#if (checkBox user.foodSuplements 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="dodaciIshraniDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="dodaciIshraniNe" name="dodaciIshrani" value="Ne" class="custom-control-input" {{#if (checkBox user.foodSuplements 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="dodaciIshraniNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Da li trenutno uzimate neku terapiju?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="terapijaDa" name="terapija" value="Da" class="custom-control-input" {{#if (checkBox user.therapy 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="terapijaDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="terapijaNe" name="terapija" value="Ne" class="custom-control-input" {{#if (checkBox user.therapy 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="terapijaNe">Ne</label>
+        </div>
+        <textarea name="terapijaKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
+      </div>
+      <div class="form-group col-12">
+        <p>Da li ste trenutno bolesni ili imate neki medicinksi problem?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="trenutnoBolesniDa" name="trenutnoBolesni" value="Da" class="custom-control-input" {{#if (checkBox user.currentStatus 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="trenutnoBolesniDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="trenutnoBolesniNe" name="trenutnoBolesni" value="Ne" class="custom-control-input" {{#if (checkBox user.currentStatus 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="trenutnoBolesniNe">Ne</label>
+        </div>
+        <textarea name="trenutnaBolestKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.currentStatusComment}}{{/if}}</textarea>
+      </div>
+      <div class="form-group col-12">
+        <p>  Dа li Vаm nеki člаn pоrоdicе bоluје оd nеkоg oboljenja (srčanog, ima povišen krvni pritisak, preminuo je od srčanog ili moždanog udara, ima bolest krvi, astmu, probleme sa bubrezima, šećernu bolest, maligno oboljenje)?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="anamnezaDa" name="anamneza" value="Da" class="custom-control-input" {{#if (checkBox user.anamnesis 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="anamnezaDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="anamnezaNe" name="anamneza" value="Ne" class="custom-control-input" {{#if (checkBox user.anamnesis 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="anamnezaNe">Ne</label>
+        </div>
+        <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.anamnesisComment}}{{/if}}</textarea>
+      </div>
+
+      {{#if (checkBox user.gender 'Ž')}}
+      <div class="form-group col-12">
+        <p>Dа li imate menstruacije?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="menstruacijaDa" name="menstruacija" value="Da" class="custom-control-input" {{#if (checkBox user.menstruation 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="menstruacijaDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="menstruacijaNe" name="menstruacija" value="Ne" class="custom-control-input" {{#if (checkBox user.menstruation 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="menstruacijaNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Dа li su ciklusi uredni?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="ciklusUredanDa" name="ciklusUredan" value="Da" class="custom-control-input" {{#if (checkBox user.regularMenstruation 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="ciklusUredanDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="ciklusUredanNe" name="ciklusUredan" value="Ne" class="custom-control-input" {{#if (checkBox user.regularMenstruation 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="ciklusUredanNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Dа li redovno idete na ginekološke preglede?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="redovanPregledGinekologaDa" name="redovanPregledGinekologa" value="Da" class="custom-control-input" {{#if (checkBox user.regularGinecologyChecks 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="redovanPregledGinekologaDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="redovanPregledGinekologaNe" name="redovanPregledGinekologa" value="Ne" class="custom-control-input" {{#if (checkBox user.regularGinecologyChecks 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="redovanPregledGinekologaNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Dа li ste trenutno trudni?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="trudnocaDa" name="trudnoca" value="Da" class="custom-control-input" {{#if (checkBox user.pregnancy 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="trudnocaDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="trudnocaNe" name="trudnoca" value="Ne" class="custom-control-input" {{#if (checkBox user.pregnancy 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="trudnocaNe">Ne</label>
+        </div>
+      </div>
+      <div class="form-group col-12">
+        <p>Dа li trenutno dojite?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="dojenjeDa" name="dojenje" value="Da" class="custom-control-input" {{#if (checkBox user.breastfeeding 'Da')}} checked {{/if}}>
+          <label class="custom-control-label" for="dojenjeDa">Da</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="dojenjeNe" name="dojenje" value="Ne" class="custom-control-input" {{#if (checkBox user.breastfeeding 'Ne')}} checked {{/if}}>
+          <label class="custom-control-label" for="dojenjeNe">Ne</label>
+        </div>
+      </div>
+      {{/if}}
+
+      <div class="form-group col-12">
+        <button  class="btn btn-block btnLabDetails mt-2" id="healthProfileBtn">Sačuvaj</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+  <div class="tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    <table class="table" id="myLabResults">
+      <tbody>
+        {{#each myAppointments}}
+        <tr class="dashboardResults">
+          <td>{{this.lab.labName}}</td>
+          <td>{{formatRsDateOnly this.createdDate}}</td>
+          <td>{{this.total}} rsd</td>
+          <td>{{this.status}}</td>
+          <td><button class="btn btn-info">detalji</button></td>
+        </tr>
+
+
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+ 			</div><!-- table-responsive -->
+ 		</div><!-- table row end  -->
+ </div> <!-- results container end -->
+
+
+
+ {{> _footer}}

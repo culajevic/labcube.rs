@@ -11,7 +11,8 @@ module.exports = {
   mode:"production",
   entry:{
     main:'./src/scripts/script.js',
-    vendor:'./src/scripts/vendor.js'
+    vendor:'./src/scripts/vendor.js',
+    datepicker:'./src/scripts/datepicker.js'
   },
   output: {
     path:path.resolves(__dirname,'/public/dist/'),

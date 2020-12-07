@@ -7,6 +7,11 @@ hbs.registerHelper('formatRsDate', (prop) => {
   return moment(prop).format('LLL')
 })
 
+// format RS Date without time
+hbs.registerHelper('formatRsDateOnly', (prop) => {
+  return moment(prop).format('L')
+})
+
 // front page group summary
 hbs.registerHelper('groupSummary', (prop) =>  prop.split(' ').slice(0,30).join(' ')+'...')
 

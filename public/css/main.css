@@ -8966,10 +8966,39 @@ input[type="range"] {
   color: #1D88E5;
   font-weight: bold; }
 
+#profileDetails > h1 {
+  margin-top: 4.375rem;
+  margin-bottom: 4.375rem; }
+
+.basicInfo, .updatePassowrd, .basicHealthInfo {
+  -webkit-box-shadow: 3px 5px 12px 5px #94818D;
+  box-shadow: 3px 5px 12px 5px #94818D;
+  background-color: #FFF;
+  padding: 50px; }
+
+.link-unstyled {
+  text-decoration: none !important;
+  color: #8F8F8F; }
+
+.link-unstyled:hover {
+  color: #3B3B3B; }
+
 .paketiCena {
   color: #1D88E5;
   font-size: 1.5rem;
   font-weight: 500; }
+
+#myLabResults {
+  margin-top: 3.125rem; }
+
+.dashboardResults {
+  background: #fcfcf0;
+  background: -webkit-linear-gradient(left, #fcfcf0 0%, #fafafa 100%, #fafafa 100%);
+  background: -o-linear-gradient(left, #fcfcf0 0%, #fafafa 100%, #fafafa 100%);
+  background: linear-gradient(to right, #fcfcf0 0%, #fafafa 100%, #fafafa 100%); }
+
+#myLabResults .table tr.dashboardResults {
+  border-top: 2px solid red !important; }
 
 .btn-outline-success {
   border-color: #55D159;

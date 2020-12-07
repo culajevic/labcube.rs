@@ -1,9 +1,14 @@
 require('../scss/style.scss')
+const flatpickr = require("flatpickr")
+const Serbian = require("flatpickr/dist/l10n/sr.js").default.sr;
+
+
 
 // let summernote = require('./summernote-ext-addclass')
 let NewElement = require('./class')
 let PriceList = require('./price')
 let helper = require('./functions')
+
 
 //tooltip initialization
 $(document).ready(function(){
@@ -14,6 +19,31 @@ $(document).ready(function(){
     boundary: 'window',
     tooltipClass: "tooltip"
   })
+
+let maxDate = new Date()
+maxDate.setDate(maxDate.getDate() + 7)
+console.log(maxDate)
+
+let datePicker1 = flatpickr('#datepicker1',{
+  dateFormat: 'd-m-Y',
+  enableTime: false,
+  time_24hr: true,
+  "locale": Serbian,
+  minDate: "today",
+  allowInput:true,
+  maxDate: maxDate
+});
+
+let datePicker2 = flatpickr('#datepicker2',{
+  dateFormat: 'd-m-Y H:i',
+  enableTime: true,
+  time_24hr: true,
+  "locale": Serbian,
+  minDate: "today",
+  allowInput:true,
+  maxDate:maxDate
+});
+
   $('#resultTable, #resultTableAnalysis').on('mouseenter','tr>td>img.tooltipImg', function(){
     var imageSrc = $(this).attr('src');
     // if (imageSrc == '/images/detail.svg') {
@@ -35,6 +65,7 @@ $(document).ready(function(){
 $('.click-more').hover(function(){
   $(this).find("span").toggleClass("broj-analiza-hover");
 });
+
 
 // sticky navigation for index page
 $(window).scroll(function(){
@@ -736,6 +767,33 @@ if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
 if(urlArr[1] == 'laboratorija') {
   let labLocationUrl = location.split('/')
   let labName = labLocationUrl[2]
+
+  let uzorakLab = document.querySelector('.uzorakLab')
+  let uzorakPatronaza = document.querySelector('.uzorakPatronaza')
+
+  const dateLab = document.getElementById('datepicker1')
+  const datePatronaza = document.getElementById('datepicker2')
+
+
+  let uzimanjeUzorka = document.querySelectorAll('input[name=uzimanjeUzorka]')
+   uzimanjeUzorka.forEach(item => {
+      item.addEventListener('change', e => {
+        if(e.target.value == 'laboratorija') {
+            uzorakLab.classList.toggle('d-none')
+            uzorakPatronaza.classList.add('d-none')
+            datePatronaza.value=''
+
+        } else {
+          uzorakPatronaza.classList.toggle('d-none')
+          uzorakLab.classList.add('d-none')
+          dateLab.value = ''
+
+        }
+
+      })
+   });
+
+
   history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
   //take input values from search box and filter reference
   let innerPageSearch = document.getElementById('searchResultPage')
@@ -772,10 +830,16 @@ if(urlArr[1] == 'laboratorija') {
       totalPrice += parseInt(item.getAttribute('data-price'))
     })
 
+    const labIdName = document.getElementById('labName')
+    labId = labIdName.getAttribute('data-id')
+
     schedule.push({"total":totalPrice})
     schedule.push({"analysis":itemsArray})
+    schedule.push({"labId":labId})
+    schedule.push({"date":''})
     scheduleString = JSON.stringify(schedule)
     // console.log('1' + scheduleString)
+
 
     //search and add analysis from lab details page
     searchString.addEventListener('input', (e) => {
@@ -841,6 +905,7 @@ if(urlArr[1] == 'laboratorija') {
 
            schedule[0].total=totalPrice
            schedule[1].analysis = itemsArray
+           schedule[2].labId = labId
            scheduleString = JSON.stringify(schedule)
 
            numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
@@ -896,7 +961,8 @@ if(urlArr[1] == 'laboratorija') {
 
             schedule[0].total=totalPrice
             schedule[1].analysis = itemsArray
-            scheduleString = JSON.stringify(schedule)
+            schedule[2].labId = labId
+
             // console.log('2' + scheduleString)
 
             let numAnalysis = document.querySelector('.numAnalysis')
@@ -912,9 +978,13 @@ if(urlArr[1] == 'laboratorija') {
 
       let scheduleBtn = document.getElementById('schedule')
 
+
       // console.log('3'+ scheduleString)
 
       scheduleBtn.addEventListener('click', ()=>{
+
+        schedule[3].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+        scheduleString = JSON.stringify(schedule)
         fetch('/schedule/',{
           method:"post",
           headers: {
@@ -930,6 +1000,21 @@ if(urlArr[1] == 'laboratorija') {
       })
 
     }
+
+if(urlArr[1] == 'profile') {
+  const visina = document.getElementById('visina')
+  const tezina = document.getElementById('tezina')
+  const bmi = document.getElementById('bmi')
+
+  visina.addEventListener('input', () => {
+    bmi.value = ((tezina.value)/((visina.value/100)*(visina.value/100))).toFixed(2)
+  })
+
+  tezina.addEventListener('input', () => {
+    bmi.value = ((tezina.value)/((visina.value/100)*(visina.value/100))).toFixed(2)
+  })
+}
+
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
 //scrollspy initialization for side navigation

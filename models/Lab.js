@@ -92,6 +92,7 @@ const labSchema = new mongoose.Schema({
   },
   description:String,
   comment:String,
+  discount:Number,
   date:{
     type:Date,
     default:Date.now()

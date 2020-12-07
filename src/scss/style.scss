@@ -15,6 +15,7 @@
 @import 'analysisdetails.scss';
 @import 'footer.scss';
 
+
 .container-fluid {
   padding: 0;
 }
@@ -802,11 +803,48 @@ input[type="range"] {
   font-weight: bold;
 }
 
+#profileDetails > h1 {
+  margin-top: px-to-rem(70px);
+  margin-bottom: px-to-rem(70px);
+}
+
+.basicInfo, .updatePassowrd, .basicHealthInfo{
+  -webkit-box-shadow: 3px 5px 12px 5px #94818D;
+box-shadow: 3px 5px 12px 5px #94818D;
+  background-color: $white-color;
+  padding: 50px;
+}
+
+.link-unstyled {
+  text-decoration:none !important;
+  color:$button-grey;
+}
+
+.link-unstyled:hover {
+  color: $fontColorResultsTable;
+}
+
 .paketiCena {
   color:$primary-color;
   font-size: px-to-rem(24px);
   font-weight: 500;
 }
+
+#myLabResults {
+  margin-top: px-to-rem(50px);
+}
+
+.dashboardResults {
+  background: rgb(252,252,240);
+  background: -webkit-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+  background: -o-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+  background: linear-gradient(to right, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+}
+
+#myLabResults  .table tr.dashboardResults {
+  border-top:2px solid red !important;
+}
+
 
 .btn-outline-success {
   border-color: $button-green;

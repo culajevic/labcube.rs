@@ -10,6 +10,7 @@ const scheduleSchema = new mongoose.Schema({
     type:Date,
     default:Date.now()
   },
+  scheduledFor:String,
   user:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'

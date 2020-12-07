@@ -12,6 +12,7 @@ const priceController = require('../controllers/priceController')
 const resultController = require('../controllers/resultController')
 const authenticationController = require('../controllers/authenticationController')
 const scheduleController = require('../controllers/scheduleController')
+const profileController = require('../controllers/profileController')
 const passport = require('passport')
 
 // display groups on front page
@@ -62,6 +63,11 @@ router.delete('/allPrices/:id', priceController.deletePriceList)
 // router.get('/schedule/:scheduleString', scheduleController.scheduleVisit)
 router.post('/schedule', scheduleController.scheduleVisit)
 router.get('/hvala', scheduleController.thankyou)
+
+//healthProfile
+router.post('/healthProfile/:id', profileController.updateHealthProfile)
+router.post('/myProfile/:id', profileController.updateProfile)
+// router.get('/profile', profileController.getMyAppointments)
 
 // labs
 router.get('/allLabs', labController.allLabs)
