@@ -95,7 +95,7 @@ const labSchema = new mongoose.Schema({
   discount:Number,
   date:{
     type:Date,
-    default:Date.now()
+    default:Date.now
   }
 })
 

@@ -1,14 +1,16 @@
 const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
 const dotenv = require('dotenv')
 const passport = require('passport')
 const validator = require("email-validator")
 const bcrypt = require('bcrypt')
-let User = mongoose.model('User')
+const User = mongoose.model('User')
 const Schedule = mongoose.model('Schedule')
 const Lab = mongoose.model('Lab')
 const Place = mongoose.model('Place')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
+const crypto = require('crypto')
 moment.locale('sr')
 
 dotenv.config({path:'variables.env'})
@@ -60,7 +62,21 @@ const authCheck = (req,res, next) => {
 }
 
 exports.profile = [authCheck, async (req,res) => {
-  if(req.user.admin == 0) {
+  //if user is lab redirect it to lab page
+  const lastLoginDate = await User.findOneAndUpdate(
+    {email:req.user.email},
+    {lastLoginDate:Date.now()},
+    {new:true,
+    useFindAndModify:false}).exec()
+
+  if(req.user.lab == 1 ) {
+
+    const findLab = await Lab.findOne({_id:req.user.labId})
+    const findScheduledAnalysis = await Schedule.find({lab:req.user.labId})
+      .populate('user').sort({createdDate:-1})
+    res.render('labDashboard', {findLab, findScheduledAnalysis})
+  } //if regular user
+    else if(req.user.admin == 0) {
     const myAppointments = await Schedule.find({user:req.user.id})
     .populate('lab')
     .sort({createdDate:-1})
@@ -73,8 +89,11 @@ exports.profile = [authCheck, async (req,res) => {
       myAppointments:myAppointments,
       numOfMyAnalysis:numOfMyAnalysis
     })
+
     // res.send(`<a href=/logout>log out</a> ${req.user.username}`)
-  } else {
+  }
+
+  else {
     res.redirect('/admindashboard')
   }
 }]
@@ -87,6 +106,8 @@ exports.admindasboard =  [authCheck, (req,res) => {
   let errors = []
   if(req.user.admin == 1) {
     res.render('admindashboard')
+  } else if(req.user.lab == 1) {
+    res.send('ne moze')
   } else {
     errors.push({text:'Nice try'})
     res.render('signin',{errors})
@@ -118,6 +139,7 @@ exports.register =  async (req,res) => {
           signupDate:Date.now(),
           isVerified:false,
           admin:0,
+          lab:0,
           emailToken:'',
           password:password
         })
@@ -165,6 +187,27 @@ exports.register =  async (req,res) => {
   }
 }
 
+exports.findUserEmail =  async (req,res) => {
+  if(req.params.userEmail) {
+    console.log('razliciti od 0')
+  let userIdArr = []
+  const findUserEmail = await User.find({email:{$regex: req.params.userEmail, $options: 'i'}})
+
+  for(let i=0; i<findUserEmail.length; i++) {
+   userIdArr.push(findUserEmail[i]._id)
+   newObjectArr = userIdArr.map(i => mongoose.Types.ObjectId(i))
+  }
+
+  const findMyLabUsers  = await Schedule.find({lab:req.user.labId, user: { $in: newObjectArr}}).populate('user')
+      .sort({createdDate:-1})
+  res.json(findMyLabUsers)
+} else {
+  let myLabScheduledAnalysis = await Schedule.find({lab:req.user.labId}).populate('user').sort({createdDate:-1})
+  res.json(myLabScheduledAnalysis)
+  }
+}
+
+
 exports.verify = (req,res) => {
   res.render('verify')
 }
@@ -187,6 +230,98 @@ exports.verifyToken = async (req, res) => {
       req.flash('error_msg', 'Verifikacioni kod nije dobar, pokušajte ponovo')
       res.redirect('/verify')
     }
+  }
+}
+
+exports.forgot = (req,res) => {
+  res.render('forgot')
+}
+
+exports.resetPassLink = async (req,res) => {
+
+  let token
+  const resetLinkExp = Date.now() + 360000
+  //  crypto.randomBytes(30, (err,buf) => {
+  //     token = buf.toString('hex')
+  // })
+  const buf = crypto.randomBytes(20)
+  token =  buf.toString('hex')
+
+  const findUser = await User.findOne({email:req.body.email})
+
+  if (!findUser) {
+    req.flash('error_msg', 'Korisnik sa ovom mejl adresom nije registrovan')
+    res.redirect('/registracija')
+  } else {
+    try {
+
+      const findUserAndUpdate = await User.findOneAndUpdate(
+        {email:req.body.email},
+        {
+          resetLink:token,
+          resetLinkExpires:resetLinkExp
+        },
+        {
+          new:true,
+          runValidators:true,
+          useFindAndModify:false
+        }).exec()
+
+        let mailOptions = {
+          from:'labcubee@gmail.com',
+          to:req.body.email,
+          subject:'Reset lab cube lozinke',
+          text:'',
+          html:`<a href="http://${req.headers.host}/reset/${token}"a>kliknite ovde</a>`
+        }
+        transporter.sendMail(mailOptions, (error, info) => {
+            if(error) {
+              return console.log(error)
+          } else {
+            console.log('message sent', info.messageId)
+          }
+          })
+      req.flash('success_msg', 'prosledjen vam je mejl sa reset linkom')
+      res.redirect('/')
+    } catch(e) {
+      req.flash('error_msg', `doslo je do greske ${e}`)
+    }
+  }
+}
+
+exports.resetPass = async (req,res) => {
+   const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
+   if(!findUser) {
+     req.flash('error_msg', 'Neispravan link za promenu lozinke ili je link istekao')
+     res.redirect('../prijava')
+   } else {
+     res.render('reset', {token:req.params.token})
+   }
+}
+
+exports.updatePassword = async (req,res,next) => {
+  const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
+  if(!findUser) {
+    req.flash('error_msg', 'Neispravan link za promenu lozinke ili je link istekao')
+    res.redirect('../prijava')
+  } else {
+      if(req.body.password === req.body.confirm && req.body.password.length>6) {
+        bcrypt.genSalt(10, (err,salt) => {
+         bcrypt.hash(req.body.password, salt, (err,hash) => {
+           if(err) throw err
+           findUser.password = hash
+           findUser.save()
+           findUser.resetLink = undefined
+           findUser.resetLinkExpires = undefined
+         })
+       })
+       req.flash('success_msg', 'Uspesno ste postavili novu lozinku, možete se ulogovati')
+       res.redirect('/prijava')
+       //direktno ulogovati korisnika
+     } else {
+       req.flash('error_msg', 'Proverite li se unete lozinke podudaraju i da li lozinka ima više od 6 karaktera')
+       res.redirect(`/reset/${req.params.token}`)
+     }
   }
 }
 

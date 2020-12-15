@@ -1,6 +1,5 @@
 {{> _innerNavFrontend}}
 
-
 <div class="container mb-4" id="profileDetails">
     <h1 class="sectionTitle mt-6">Zdravo, {{user.username}}</h1>
  		<div class="row">
@@ -10,30 +9,25 @@
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
 
         <li class="nav-item">
-          <a class="nav-link active link-unstyled" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" aria-selected="false" >Osnovne informacije</a>
+          <a class="nav-link active link-unstyled dashboardTabs" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" aria-selected="false" >Osnovne informacije</a>
         </li>
 
 
       <li class="nav-item">
-        <a class="nav-link link-unstyled" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
+        <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link  link-unstyled" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Moji rezultati ({{numOfMyAnalysis}})</a>
+        <a class="nav-link  link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Moji rezultati ({{numOfMyAnalysis}})</a>
       </li>
-
-
-
-
-
-
 </ul>
+
 <div class="tab-content" id="myTabContent">
 
   <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="profileCard" >
       <form action="/myProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center">
-        <div class="basicInfo col-8 mb-4">
+        <div class="basicInfo col-8 my-4">
           <div class="form-group col-12">
             <p class="">Osnovne informacije</p>
             <label for="">Ime</label>
@@ -43,7 +37,8 @@
             <input type="text" class="form-control" placeholder="Email" value="{{user.email}}" disabled>
           </div>
           <div class="form-group col-12">
-            <input type="number" class="form-control" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
+            <label for="godinaRodjenja">Godina rođenja</label>
+            <input type="number" class="form-control" id="godinaRodjenja" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
           </div>
           <div class="form-group col-12">
             <p class="mb-1">Pol</p>
@@ -64,12 +59,15 @@
           <label for="">Mobilni telefon</label>
           <input type="text" class="form-control" name="mobilniTelefon" value="{{user.mobile}}" placeholder="Mobilni telefon u fomatu 06XXXXXXX">
         </div> -->
+
         <div class="form-group col-12">
           <!-- <label for="">Adresa</label> -->
-          <small>Ukoliko želite da zakažete patronažu neophodno je upisati adresu, grad i mobilni telefon</small>
-          <input type="text" class="form-control" name="adresa" value="{{user.address}}">
+          <p><small>Ukoliko želite da zakažete patronažu neophodno je upisati adresu, grad i mobilni telefon</small></p>
+          <label for="adresa">Adresa</label>
+          <input type="text" id="adresa" class="form-control" name="adresa" value="{{user.address}}">
         </div>
         <div class="form-group col-12">
+          <label for="municipality">Opština</label>
           <select class="form-control" name="city" id="municipality">
             {{#each cities}}
             <option value="{{this}}" {{#if (checkBox this ../user.city)}} selected {{/if}}>{{this}}</option>
@@ -78,8 +76,8 @@
           </select>
         </div>
         <div class="form-group col-12">
-          <!-- <label for="">Mobilni telefon</label> -->
-          <input type="text" class="form-control" name="mobilniTelefon" value={{user.mobile}} placeholder="Mobilni telefon u fomatu 06XXXXXXX">
+          <label for="">Mobilni telefon</label>
+          <input type="text" id="mobilniTelefon" class="form-control" name="mobilniTelefon" value="{{user.mobile}}" placeholder="Mobilni telefon u fomatu 06XXXXXXX">
         </div>
         <div class="form-group col-12">
           <button class="btn btn-block btn-info">Sačuvaj</button>
@@ -314,8 +312,8 @@
 </div>
 
 
-  <div class="tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-    <table class="table" id="myLabResults">
+  <div class="tab-pane table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    <table class="tableLabResults" id="myLabResults">
       <tbody>
         {{#each myAppointments}}
         <tr class="dashboardResults">
@@ -323,10 +321,10 @@
           <td>{{formatRsDateOnly this.createdDate}}</td>
           <td>{{this.total}} rsd</td>
           <td>{{this.status}}</td>
-          <td><button class="btn btn-info">detalji</button></td>
+          <td><span class="vanGranica" title="broj rezultata koji su van graničnih vrednosti">6</span></td>
+          <td><button class="btn btn-res-success">prosledi lekaru</button></td>
+          <td><button class="btn btn-res-success">detalji</button></td>
         </tr>
-
-
         {{/each}}
       </tbody>
     </table>

@@ -16,23 +16,33 @@ exports.scheduleVisit = async (req,res) => {
   let total = req.body[0].total
   let labId = req.body[2].labId
 
-  console.log(req.body[3].date)
+  let uzimanjeUzorka = (req.body[3].date.length>10) ? 'patronaza' : 'laboratorija'
+
 
   for(i=0; i<req.body[1].analysis.length;i++) {
     analysisArr.push(req.body[1].analysis[i].name)
   }
   // console.log(total)
   // console.log(analysisArr)
+//   let schedule = req.body[3].date.split('-')
+// console.log(schedule)
+// let test = new Date()
+//   let newDate = new Date(schedule[2],schedule[1]-1,schedule[0])
+//   newDate.setHours(test.getHours() + 2)
 
+  console.log(req.body[3].date)
+
+// console.log(typeof(schedule))
 
   let newSchedule = new Schedule({
-      // lab:23323,
+      uzimanjeUzorka:uzimanjeUzorka,
       total:total,
       analiza:analysisArr,
       status:'Zakazano',
       user:req.user._id,
       lab:labId,
       scheduledFor:req.body[3].date
+
     })
     try {
       await newSchedule.save()

@@ -7,6 +7,14 @@ hbs.registerHelper('formatRsDate', (prop) => {
   return moment(prop).format('LLL')
 })
 
+hbs.registerHelper('formatLabScheduleDate', (date,place) => {
+  if(place=='patronaza') {
+    return moment(date).format('D.M.Y / H:mm')
+  } else {
+    return moment(date).format('L')
+  }
+})
+
 // format RS Date without time
 hbs.registerHelper('formatRsDateOnly', (prop) => {
   return moment(prop).format('L')
@@ -52,6 +60,10 @@ hbs.registerHelper('displayPhoneList', (phones) => {
     phonesNewList = phones.join(', ')
     }
 return phonesNewList
+})
+
+hbs.registerHelper('countItems', (items) => {
+  return items.length
 })
 
 //display if lab is open on lab details page

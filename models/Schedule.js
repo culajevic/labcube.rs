@@ -8,13 +8,14 @@ const scheduleSchema = new mongoose.Schema({
   analiza:[String],
   createdDate:{
     type:Date,
-    default:Date.now()
+    default:Date.now
   },
-  scheduledFor:String,
+  scheduledFor:Date,
   user:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'
   },
+  uzimanjeUzorka:String,
   total:Number,
   status:String
 })

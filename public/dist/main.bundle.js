@@ -3571,9 +3571,10 @@ $(document).ready(function () {
   });
   var maxDate = new Date();
   maxDate.setDate(maxDate.getDate() + 7);
-  console.log(maxDate);
   var datePicker1 = flatpickr('#datepicker1', {
-    dateFormat: 'd-m-Y',
+    dateFormat: 'Y-m-d',
+    altInput: true,
+    altFormat: "F j, Y",
     enableTime: false,
     time_24hr: true,
     "locale": Serbian,
@@ -3582,7 +3583,9 @@ $(document).ready(function () {
     maxDate: maxDate
   });
   var datePicker2 = flatpickr('#datepicker2', {
-    dateFormat: 'd-m-Y H:i',
+    dateFormat: 'Y-m-d H:i',
+    altFormat: "F j, Y H:i",
+    altInput: true,
     enableTime: true,
     time_24hr: true,
     "locale": Serbian,
@@ -3662,8 +3665,9 @@ if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl))
 
 var checkCMSAdd = /add.*/;
 var checkCMSAll = /all.*/;
+var findUserByEmail = document.getElementById('searchForUserEmail');
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
@@ -4357,7 +4361,7 @@ window.onload = function () {
     });
   }
 
-  if (urlArr[1] == 'profile') {
+  if (urlArr[1] == 'profile' && !findUserByEmail) {
     var visina = document.getElementById('visina');
     var tezina = document.getElementById('tezina');
     var bmi = document.getElementById('bmi');
@@ -4366,6 +4370,25 @@ window.onload = function () {
     });
     tezina.addEventListener('input', function () {
       bmi.value = (tezina.value / (visina.value / 100 * (visina.value / 100))).toFixed(2);
+    });
+    var searchUserEmail = document.getElementById('searchForUserEmail'); // if(searchUserEmail) {
+    // console.log(searchUserEmail)
+    // }
+  } else {
+    // const labDashResults = document.getElementById('labDashboard')
+    var labDashTable = document.getElementById('labDashResults');
+    console.log(labDashTable);
+    findUserByEmail.addEventListener('input', function () {
+      var searchStr = findUserByEmail.value;
+      fetch('/users/' + searchStr).then(function (data) {
+        labDashTable.innerHTML = '';
+        data.json().then(function (result) {
+          // console.log(result)
+          for (var _i2 = 0; _i2 < result.length; _i2++) {
+            labDashTable.innerHTML += "\n\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].scheduledFor, "</td>\n                    <td>").concat(result[_i2].status, "</td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i2].analiza.length, "</strong></td>\n                    <td><img src=\"../images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i2].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i2]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i2]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Modal title</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          ").concat(result[_i2].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n                          <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n\n              ");
+          }
+        });
+      });
     });
   }
   /* ANALYSIS DETAILS PAGE ***************/

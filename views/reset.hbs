@@ -10,7 +10,7 @@
       <div class="d-none d-md-flex col-md-4" id="loginLeftSide">
         <div class="loginLeftSide">
           <a href="/">
-          <img src="images/logoSmallSlice.svg" alt="labcube" class="smallLogo img-fluid">
+          <img src="../images/logoSmallSlice.svg" alt="labcube" class="smallLogo img-fluid">
           </a>
         </div>
         <div class="socialLogin">
@@ -22,32 +22,23 @@
       </div><!-- login leftside end -->
 
       <div class="col-sm-12 col-md-8 pl-0 pr-0">
-
         <div class="backgroundImage">
           <div class="blueOverlay">
-            <h2 class="ml-5">Prijava</h2>
-            <small class="ml-5">prijavite se i saznajte sve o laboratorijskim analizama i laboratorijama. Ako nemate nalog, <a href="/registracija" class="register">ovde se možete registrovati</a>, jednostavno je.</small>
-                <form action="/prijava" method="POST" class="registerForm login ml-5 col-5" >
-                  <div class="form-group">
-                    <input id="email" type="email" name="email" class="form-control">
-                    <label for="email" class="text-white">email</label>
-                  </div>
+            <h2 class="ml-5">Zaboravljena lozinka</h2>
+                <form action="/resetPass/{{token}}" method="POST" class="registerForm login ml-5 col-5" >
                   <div class="form-group">
                     <input id="password" type="password" name="password" class="form-control">
-                    <label for="password" class="text-white">lozinka</label>
+                    <label for="password" class="text-white">nova lozinka</label>
                   </div>
-                  <!-- <div class="row"> -->
-                    <button class="btn btnLogin btn-block">prijava</button>
-                  <!-- </div> -->
-                  <a href="/forgot" class="text-white">Zaboravili ste lozinku?</a>
-
-            <p><a href="/google"  class="btn btnLogin btn-block">google</a></p>
-
+                  <div class="form-group">
+                    <input id="confirm" type="password" name="confirm" class="form-control">
+                    <label for="confirm" class="text-white">ponovite novu lozinku</label>
+                  </div>
+                  <button class="btn btnLogin btn-block">postavi novu lozinku</button>
                 </form>
               <!-- </form> -->
           </div><!-- blueoverlay -->
         </div><!-- backgroundImage -->
-
       </div><!-- col-8 -->
     </div><!-- row -->
   </div><!-- container-fluid -->

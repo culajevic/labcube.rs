@@ -52,3 +52,20 @@
     margin-bottom: 0;
   }
 }
+
+#smallHeaderLab {
+  // @extend #header;
+  height: 450px;
+  width: 100%;
+  background-image: url('../images/labdashboard.jpg');
+  background-position:0 -350px;
+  background-size:cover;
+  background-repeat: no-repeat;
+  .container {
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .table thead th {
+    border-bottom: 1px solid white;
+  }
+}

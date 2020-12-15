@@ -15,7 +15,7 @@ const priceSchema = new mongoose.Schema({
   }],
   lastUpdated:{
     type:Date,
-    default:Date.now()
+    default:Date.now
   },
   comment:String
 })

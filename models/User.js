@@ -5,7 +5,16 @@ const userSchema = new mongoose.Schema({
   googleId:String,
   email:String,
   admin:Number,
+  lab:Number,
+  labId:[{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Lab'
+    }],
   signupDate:Date,
+  lastLoginDate:{
+    type:Date,
+    default:Date.now
+  },
   password:String,
   birthYear:Number,
   gender:String,
@@ -35,7 +44,9 @@ const userSchema = new mongoose.Schema({
   regularMenstruation:String,
   regularGinecologyChecks:String,
   pregnancy:String,
-  breastfeeding:String
+  breastfeeding:String,
+  resetLink:String,
+  resetLinkExpires:Date
 })
 
 module.exports = mongoose.model('User', userSchema)

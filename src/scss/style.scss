@@ -40,6 +40,15 @@
  }
 }
 
+.labDashDetails p{
+  margin-bottom:px-to-rem(4px);
+}
+
+.labDashDetails span {
+  margin-right: 15px;
+  color:white;
+}
+
 .p18 {
   font-size: px-to-rem(18px);
 }
@@ -98,10 +107,10 @@
 }
 
 #mapDetails, #mapPrices {
-  height: 380px;
+  // height: 100vh;
   padding: 0;
   margin: 0;
-  // height: calc(100vh - 210px);
+  height: calc(100vh - 210px);
 }
 
 .aboutUs {
@@ -346,6 +355,13 @@
   @include backgroundImage('../images/corbavia1.jpg', -50px, 0);
 }
 
+.backgroundImageLabDash {
+  // @include backgroundImage('../images/labdashboard.jpg', 0, 0);
+  // height: 310px;
+  // background-size: cover;
+}
+
+
 .backgroundImageAdmin {
   @include backgroundImage('../images/corbavia1.jpg', 0, 0);
 
@@ -386,7 +402,6 @@
   .login {
     padding-left: 0;
   }
-
 }
 
 .blueOverlayAdmin  {
@@ -404,6 +419,18 @@
     border:none;
 
   }
+}
+
+.blueOverlayLab {
+  @extend .blueOverlay;
+  height: 450px;
+  background-color: rgba(29,136,229,.94);
+  margin: 0;
+}
+
+.searchForUser {
+  position: absolute;
+  margin-top: 55px;
 }
 
 .input-field {
@@ -425,6 +452,10 @@
   &:hover {
     background-color: darken($button-green, 8%);
   }
+}
+
+.z {
+  z-index: 999;
 }
 
 small {
@@ -834,16 +865,74 @@ box-shadow: 3px 5px 12px 5px #94818D;
   margin-top: px-to-rem(50px);
 }
 
-.dashboardResults {
-  background: rgb(252,252,240);
-  background: -webkit-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
-  background: -o-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
-  background: linear-gradient(to right, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+#labDashResults {
+  margin-top:px-to-rem(50px);
 }
 
-#myLabResults  .table tr.dashboardResults {
-  border-top:2px solid red !important;
+
+.dashboardResults {
+  // background: rgb(252,252,240);
+  // background: -webkit-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+  // background: -o-linear-gradient(left, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+  // background: linear-gradient(to right, rgba(252,252,240,1) 0%, rgba(250,250,250,1) 100%, rgba(250,250,250,1) 100%);
+  // background-color: red;
+  background: #fcfcfc;
+background: -moz-linear-gradient(left,  #fcfcfc 0%, #fafafa 100%);
+background: -webkit-linear-gradient(left,  #fcfcfc 0%,#fafafa 100%);
+background: linear-gradient(to right,  #fcfcfc 0%,#fafafa 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fafafa',GradientType=1 );
+
 }
+
+.tableLabResults {
+   @extend .table;
+   border-collapse: separate;
+   border-spacing: 0 32px;
+   td {
+     border-top:0;
+     height:106px;
+     color:rgba(59, 59, 59, 0.8);
+     font-size: px-to-rem(20px);
+   }
+}
+
+.btn-res-success {
+  @extend .btn-success;
+  margin-top:0;
+  margin-bottom: 0;
+  padding:px-to-rem(10px) px-to-rem(36px);
+  background-color: $button-green;
+  font-weight: 400;
+}
+
+.dashboardTabs {
+  font-size: px-to-rem(22px);
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  border:none;
+  border-bottom: 4px solid $primary-color;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.vanGranica {
+  // padding:15px;
+  padding: 9px;
+  // width: px-to-rem(38px);
+  // height: px-to-rem(38px);
+  background-color: $danger;
+  color:$white-color;
+  // font-size: px-to-rem(14px);
+  border-radius: 10%;
+}
+
+
+
+
 
 
 .btn-outline-success {

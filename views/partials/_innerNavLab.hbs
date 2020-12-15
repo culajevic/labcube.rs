@@ -1,0 +1,68 @@
+<header id="smallHeaderLab">
+  <nav class="navbar navbar-expand-md navbar-dark mb-auto z" >
+    <div class="container">
+      <a href="/" class="navbar-brand">
+        <img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+      </div><!-- collapse -->
+    </div><!-- container end -->
+  </nav><!-- nav end -->
+  <div class="blueOverlayLab">
+    <div class="container ">
+      <div class="labDashDetails">
+        <h1 class="text-light mt-4">{{findLab.labName}}</h1>
+        <p class="text-light">{{findLab.address}}</p>
+        <p class="text-light">{{findLab.web}}</p>
+        <p class="text-light">{{displayPhoneList findLab.phone}}</p>
+
+        <div class="labFeatures my-3">
+          {{#if findLab.private}}
+          <span><img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Sarađujemo sa privatnim osiguranjem</span>
+          {{/if}}
+          {{#if findLab.accredited}}
+          <span><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</span>
+          {{/if}}
+          {{#if findLab.patronage}}
+          <span><img src="/images/ambulance_2.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Radimo patronažu</span>
+          {{/if}}
+          {{#if findLab.disability}}
+          <span><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</span>
+          {{/if}}
+        </div>
+        <table class="table table-sm workingHoursLabDetails">
+          <thead>
+            <tr>
+              <th class="text-center text-light">P</th>
+              <th class="text-center text-light">U</th>
+              <th class="text-center text-light">S</th>
+              <th class="text-center text-light">Č</th>
+              <th class="text-center text-light">P</th>
+              <th class="text-center text-light">S</th>
+              <th class="text-center text-light">N</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center text-light {{isItOpen status 1 }}">{{findLab.workingHours.monday.opens}} - {{findLab.workingHours.monday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 2}}">{{findLab.workingHours.tuesday.opens}} - {{findLab.workingHours.tuesday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 3}}">{{findLab.workingHours.wednesday.opens}} - {{findLab.workingHours.wednesday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 4}}"> {{findLab.workingHours.thursday.opens}} - {{findLab.workingHours.thursday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 5}}"> {{findLab.workingHours.friday.opens}} - {{findLab.workingHours.friday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 6}}">{{findLab.workingHours.saturday.opens}} - {{findLab.workingHours.saturday.closes}}</td>
+              <td class="text-center text-light {{isItOpen status 0}}">{{findLab.workingHours.sunday.opens}} - {{findLab.workingHours.sunday.closes}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- {{findLab.labName}} -->
+
+          <form>
+            <div class="row d-flex align-items-end">
+              <div class="col-sm-12 col-lg-8 mx-auto ">
+                <input type="text" class="form-control searchForUser z" name="innerSearch" id="searchForUserEmail" placeholder="Unesite email pacijenta">
+              </div> <!-- searchField -->
+            </div><!-- row -->
+          </form><!-- form end -->
+
+      </div>
+    </div>
+  </div>
+</header>

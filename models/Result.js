@@ -5,7 +5,7 @@ const resultSchema = new mongoose.Schema({
   email:String,
   date:{
     type:Date,
-    default:Date.now()
+    default:Date.now
   },
   package:String,
   status:{

@@ -22,10 +22,13 @@ $(document).ready(function(){
 
 let maxDate = new Date()
 maxDate.setDate(maxDate.getDate() + 7)
-console.log(maxDate)
+
+
 
 let datePicker1 = flatpickr('#datepicker1',{
-  dateFormat: 'd-m-Y',
+  dateFormat: 'Y-m-d',
+  altInput:true,
+  altFormat: "F j, Y",
   enableTime: false,
   time_24hr: true,
   "locale": Serbian,
@@ -35,7 +38,9 @@ let datePicker1 = flatpickr('#datepicker1',{
 });
 
 let datePicker2 = flatpickr('#datepicker2',{
-  dateFormat: 'd-m-Y H:i',
+  dateFormat: 'Y-m-d H:i',
+  altFormat: "F j, Y H:i",
+  altInput:true,
   enableTime: true,
   time_24hr: true,
   "locale": Serbian,
@@ -99,7 +104,6 @@ $('.backTotop').on('click',function(){
 
 
 let location = window.location.pathname
-
 console.log(location)
 // GLOBAL VARIABLES
 //set filter by default to analiza
@@ -124,7 +128,9 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl))) {
 //get reference to checkout element which displays number of selected analysis in navigation
 const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll)) {
+let findUserByEmail = document.getElementById('searchForUserEmail')
+
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -1001,10 +1007,15 @@ if(urlArr[1] == 'laboratorija') {
 
     }
 
-if(urlArr[1] == 'profile') {
+
+
+
+if(urlArr[1] == 'profile' && !findUserByEmail) {
+
   const visina = document.getElementById('visina')
   const tezina = document.getElementById('tezina')
   const bmi = document.getElementById('bmi')
+
 
   visina.addEventListener('input', () => {
     bmi.value = ((tezina.value)/((visina.value/100)*(visina.value/100))).toFixed(2)
@@ -1013,7 +1024,67 @@ if(urlArr[1] == 'profile') {
   tezina.addEventListener('input', () => {
     bmi.value = ((tezina.value)/((visina.value/100)*(visina.value/100))).toFixed(2)
   })
-}
+
+  const searchUserEmail = document.getElementById('searchForUserEmail')
+    // if(searchUserEmail) {
+      // console.log(searchUserEmail)
+    // }
+} else {
+    // const labDashResults = document.getElementById('labDashboard')
+    const labDashTable = document.getElementById('labDashResults')
+    console.log(labDashTable)
+      findUserByEmail.addEventListener('input', () => {
+
+        let searchStr = findUserByEmail.value
+        fetch('/users/'+searchStr).then((data) => {
+          labDashTable.innerHTML = ''
+          data.json().then((result) => {
+            // console.log(result)
+            for(let i=0; i<result.length; i++){
+              labDashTable.innerHTML += `
+
+                <tbody>
+                  <tr class="dashboardResults">
+                    <td>${result[i].user.username}</td>
+                    <td>${result[i].user.mobile}</td>
+                    <td align="align-left">${result[i].user.email}</td>
+                    <td align="align-left">${result[i].scheduledFor}</td>
+                    <td>${result[i].status}</td>
+                    <td title="broj potrebnih analiza"><strong>${result[i].analiza.length}</strong></td>
+                    <td><img src="../images/${result[i].uzimanjeUzorka}.svg" title="${result[i].uzimanjeUzorka}" class="mb-1"></td>
+                    <td>${result[i].total}<small>rsd</small></td>
+                    <td><button class="btn btn-outline-success" data-toggle="modal" data-target="#modal${result[i]._id}">detalji</button></td>
+                  </tr>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="modal${result[i]._id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          ${result[i].analiza}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </tbody>
+
+              `
+            }
+          })
+        })
+      })
+
+  }
 
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {

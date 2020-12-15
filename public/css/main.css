@@ -1140,19 +1140,20 @@ pre {
   .offset-xl-11 {
     margin-left: 91.66667%; } }
 
-.table {
+.table, .tableLabResults {
   width: 100%;
   margin-bottom: 1rem;
   color: #212529; }
-  .table th,
-  .table td {
+  .table th, .tableLabResults th,
+  .table td,
+  .tableLabResults td {
     padding: 0.75rem;
     vertical-align: top;
     border-top: 1px solid #dee2e6; }
-  .table thead th {
+  .table thead th, .tableLabResults thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #dee2e6; }
-  .table tbody + tbody {
+  .table tbody + tbody, .tableLabResults tbody + tbody {
     border-top: 2px solid #dee2e6; }
 
 .table-sm th,
@@ -1328,12 +1329,12 @@ pre {
   .table-hover .table-active:hover > th {
     background-color: rgba(0, 0, 0, 0.075); }
 
-.table .thead-dark th {
+.table .thead-dark th, .tableLabResults .thead-dark th {
   color: #fff;
   background-color: #343a40;
   border-color: #454d55; }
 
-.table .thead-light th {
+.table .thead-light th, .tableLabResults .thead-light th {
   color: #495057;
   background-color: #e9ecef;
   border-color: #dee2e6; }
@@ -1828,32 +1829,34 @@ fieldset:disabled a.btn {
     .show > .btn-secondary.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5); }
 
-.btn-success, .btnLogin {
+.btn-success, .btnLogin, .btn-res-success {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745; }
-  .btn-success:hover, .btnLogin:hover {
+  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34; }
-  .btn-success:focus, .btnLogin:focus, .btn-success.focus, .focus.btnLogin {
+  .btn-success:focus, .btnLogin:focus, .btn-res-success:focus, .btn-success.focus, .focus.btnLogin, .focus.btn-res-success {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34;
     box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
-  .btn-success.disabled, .disabled.btnLogin, .btn-success:disabled, .btnLogin:disabled {
+  .btn-success.disabled, .disabled.btnLogin, .disabled.btn-res-success, .btn-success:disabled, .btnLogin:disabled, .btn-res-success:disabled {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745; }
-  .btn-success:not(:disabled):not(.disabled):active, .btnLogin:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .btnLogin:not(:disabled):not(.disabled).active,
+  .btn-success:not(:disabled):not(.disabled):active, .btnLogin:not(:disabled):not(.disabled):active, .btn-res-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .btnLogin:not(:disabled):not(.disabled).active, .btn-res-success:not(:disabled):not(.disabled).active,
   .show > .btn-success.dropdown-toggle,
-  .show > .dropdown-toggle.btnLogin {
+  .show > .dropdown-toggle.btnLogin,
+  .show > .dropdown-toggle.btn-res-success {
     color: #fff;
     background-color: #1e7e34;
     border-color: #1c7430; }
-    .btn-success:not(:disabled):not(.disabled):active:focus, .btnLogin:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus, .btnLogin:not(:disabled):not(.disabled).active:focus,
+    .btn-success:not(:disabled):not(.disabled):active:focus, .btnLogin:not(:disabled):not(.disabled):active:focus, .btn-res-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus, .btnLogin:not(:disabled):not(.disabled).active:focus, .btn-res-success:not(:disabled):not(.disabled).active:focus,
     .show > .btn-success.dropdown-toggle:focus,
-    .show > .dropdown-toggle.btnLogin:focus {
+    .show > .dropdown-toggle.btnLogin:focus,
+    .show > .dropdown-toggle.btn-res-success:focus {
       box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
 
 .btn-info {
@@ -7122,10 +7125,11 @@ a.text-dark:hover, a.text-dark:focus {
     display: none; }
   .badge {
     border: 1px solid #000; }
-  .table {
+  .table, .tableLabResults {
     border-collapse: collapse !important; }
+    
     .table td,
-    .table th {
+    .tableLabResults td, .table th, .tableLabResults th {
       background-color: #fff !important; }
   .table-bordered th,
   .table-bordered td {
@@ -7137,7 +7141,7 @@ a.text-dark:hover, a.text-dark:focus {
     .table-dark thead th,
     .table-dark tbody + tbody {
       border-color: #dee2e6; }
-  .table .thead-dark th {
+  .table .thead-dark th, .tableLabResults .thead-dark th {
     color: inherit;
     border-color: #dee2e6; } }
 
@@ -7284,6 +7288,19 @@ a:focus {
   height: 210px; }
   #smallHeader .container {
     margin-bottom: 0; }
+
+#smallHeaderLab {
+  height: 450px;
+  width: 100%;
+  background-image: url(../images/labdashboard.jpg);
+  background-position: 0 -350px;
+  background-size: cover;
+  background-repeat: no-repeat; }
+  #smallHeaderLab .container {
+    margin-bottom: 0;
+    padding: 0; }
+  #smallHeaderLab .table thead th, #smallHeaderLab .tableLabResults thead th {
+    border-bottom: 1px solid white; }
 
 .logoFull {
   align-self: center;
@@ -7492,7 +7509,7 @@ input[name="searchFilter"] {
 .broj-analiza-hover {
   color: white; }
 
-.btn-success, .btnLogin {
+.btn-success, .btnLogin, .btn-res-success {
   background-color: #55D159;
   border: none;
   padding: 0.6875rem 2.25rem;
@@ -7501,7 +7518,7 @@ input[name="searchFilter"] {
   line-height: 23px;
   font-weight: 500;
   height: 40px; }
-  .btn-success:hover, .btnLogin:hover {
+  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover {
     background-color: #36c73b; }
 
 .groupTitle {
@@ -7866,11 +7883,11 @@ div.status.closedSoon::before {
 #results, #details, #resultsGroupDetails, #resultsLabDetails, #labDetailsInner {
   margin-top: 5rem;
   margin-bottom: 9.375rem; }
-  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #labDetailsInner .btn-success, #labDetailsInner .btnLogin {
+  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #results .btn-res-success, #details .btn-res-success, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsGroupDetails .btn-res-success, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #resultsLabDetails .btn-res-success, #labDetailsInner .btn-success, #labDetailsInner .btnLogin, #labDetailsInner .btn-res-success {
     margin-bottom: 0; }
   #results .btn, #details .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
-    font-size: 0.75rem;
-    padding: 0.375rem 1.5625rem; }
+    font-size: 0.8125rem;
+    padding: 0.5625rem 1.5625rem; }
 
 #resultsLabDetails, #labDetailsInner {
   margin-bottom: 3.75rem; }
@@ -7909,8 +7926,9 @@ div.status.closedSoon::before {
     bottom: 2.3125rem;
     position: absolute; }
 
-.table th,
-.table td {
+.table th, .tableLabResults th,
+.table td,
+.tableLabResults td {
   vertical-align: middle; }
 
 .table-hover tbody tr:hover td {
@@ -8339,6 +8357,13 @@ footer {
   font-size: 2.625rem;
   font-weight: bold; }
 
+.labDashDetails p {
+  margin-bottom: 0.25rem; }
+
+.labDashDetails span {
+  margin-right: 15px;
+  color: white; }
+
 .p18 {
   font-size: 1.125rem; }
 
@@ -8383,9 +8408,9 @@ footer {
   color: white; }
 
 #mapDetails, #mapPrices {
-  height: 380px;
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  height: calc(100vh - 210px); }
 
 .aboutUs {
   display: block;
@@ -8593,7 +8618,7 @@ footer {
   background-size: cover;
   position: relative; }
 
-.blueOverlay, .blueOverlayAdmin {
+.blueOverlay, .blueOverlayAdmin, .blueOverlayLab {
   position: absolute;
   top: 0;
   left: 0;
@@ -8604,16 +8629,16 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  .blueOverlay h2, .blueOverlayAdmin h2 {
+  .blueOverlay h2, .blueOverlayAdmin h2, .blueOverlayLab h2 {
     color: #FFF;
     font-size: 42px; }
-  .blueOverlay > small, .blueOverlayAdmin > small {
+  .blueOverlay > small, .blueOverlayAdmin > small, .blueOverlayLab > small {
     margin-left: 80px;
     margin-right: 80px;
     margin-top: -5px;
     color: #FFF;
     margin-bottom: 30px; }
-  .blueOverlay .login, .blueOverlayAdmin .login {
+  .blueOverlay .login, .blueOverlayAdmin .login, .blueOverlayLab .login {
     padding-left: 0; }
 
 .blueOverlayAdmin {
@@ -8626,6 +8651,15 @@ footer {
   .blueOverlayAdmin > .card {
     background-color: transparent;
     border: none; }
+
+.blueOverlayLab {
+  height: 450px;
+  background-color: rgba(29, 136, 229, 0.94);
+  margin: 0; }
+
+.searchForUser {
+  position: absolute;
+  margin-top: 55px; }
 
 .input-field {
   margin-bottom: 0;
@@ -8668,6 +8702,9 @@ footer {
   padding: 0; }
   .btnLogin:hover {
     background-color: #36c73b; }
+
+.z {
+  z-index: 999; }
 
 small a:link {
   text-decoration: none;
@@ -8991,14 +9028,48 @@ input[type="range"] {
 #myLabResults {
   margin-top: 3.125rem; }
 
-.dashboardResults {
-  background: #fcfcf0;
-  background: -webkit-linear-gradient(left, #fcfcf0 0%, #fafafa 100%, #fafafa 100%);
-  background: -o-linear-gradient(left, #fcfcf0 0%, #fafafa 100%, #fafafa 100%);
-  background: linear-gradient(to right, #fcfcf0 0%, #fafafa 100%, #fafafa 100%); }
+#labDashResults {
+  margin-top: 3.125rem; }
 
-#myLabResults .table tr.dashboardResults {
-  border-top: 2px solid red !important; }
+.dashboardResults {
+  background: #fcfcfc;
+  background: -moz-linear-gradient(left, #fcfcfc 0%, #fafafa 100%);
+  background: -webkit-linear-gradient(left, #fcfcfc 0%, #fafafa 100%);
+  background: linear-gradient(to right, #fcfcfc 0%, #fafafa 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#fafafa',GradientType=1 ); }
+
+.tableLabResults {
+  border-collapse: separate;
+  border-spacing: 0 32px; }
+  .tableLabResults td {
+    border-top: 0;
+    height: 106px;
+    color: rgba(59, 59, 59, 0.8);
+    font-size: 1.25rem; }
+
+.btn-res-success {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0.625rem 2.25rem;
+  background-color: #55D159;
+  font-weight: 400; }
+
+.dashboardTabs {
+  font-size: 1.375rem; }
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  border: none;
+  border-bottom: 4px solid #1D88E5; }
+
+.nav-tabs {
+  border-bottom: none; }
+
+.vanGranica {
+  padding: 9px;
+  background-color: #FF6F6F;
+  color: #FFF;
+  border-radius: 10%; }
 
 .btn-outline-success {
   border-color: #55D159;
