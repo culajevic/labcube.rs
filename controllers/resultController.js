@@ -131,7 +131,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   let analysisDetails = await Analysis.findOne({slug:req.params.slug})
   .populate('connectedTo', 'analysisName slug')
   .populate('references')
-  .populate('groupId', 'iconPath')
+  .populate('groupId', 'iconPath') 
 
 
 const prices = await Price.aggregate([
@@ -141,9 +141,9 @@ const prices = await Price.aggregate([
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails,prices,sidebarNav:true})
+  res.render('details',{analysisDetails,prices,sidebarNav:true, user:req.user})
 }
 
 exports.labRestultsAnalysis = (req,res) => {
-  res.render('labResultsAnalysis')
+  res.render('labResultsAnalysis', {user:req.user})
 }

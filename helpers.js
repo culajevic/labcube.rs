@@ -62,8 +62,120 @@ hbs.registerHelper('displayPhoneList', (phones) => {
 return phonesNewList
 })
 
+hbs.registerHelper('displayAnalysis', (analysis) => {
+  return analysis.join("<br />")
+})
+
+hbs.registerHelper('displayScheduledAnalysis', (item) => {
+  let scheduledAnalysisFormat = []
+  let commaList
+  for (i=0; i<item.length; i++) {
+    scheduledAnalysisFormat.push(item[i].analysis)
+    commaList = scheduledAnalysisFormat.join(', ')
+    }
+return commaList
+})
+
 hbs.registerHelper('countItems', (items) => {
   return items.length
+})
+
+hbs.registerHelper('pagination', (value1, value2) => {
+  if (value1 > value2) {
+    return true
+  }
+})
+
+hbs.registerHelper('paginationNext', (value1, value2) => {
+  if (value1 < value2) {
+    return true
+  }
+})
+
+hbs.registerHelper('minus', (value1, value2) => {
+  return value1 - value2
+})
+
+hbs.registerHelper('plus', (value1, value2) => {
+  return parseInt(value1) + parseInt(value2)
+})
+
+hbs.registerHelper('lowValue', (value1, value2) => {
+  let v1 = parseFloat(value1)
+  let v2 = parseFloat(value2)
+  if (v1 < v2) {
+    return 'showRed'
+  }
+})
+
+hbs.registerHelper('lessThenCheck', (valueA,valueB) => {
+  let v1 = parseFloat(valueA)
+  let v2 = parseFloat(valueB)
+  if (v1 < v2) {
+    return 'showGreen'
+  }
+})
+
+hbs.registerHelper('lessThenCheckNotOk', (valueA,valueB) => {
+  let v1 = parseFloat(valueA)
+  let v2 = parseFloat(valueB)
+  if (v1 < v2) {
+    return 'showRed'
+  }
+})
+
+hbs.registerHelper('greaterThenOk', (value1, value2) => {
+  let v1 = parseFloat(value1)
+  let v2 = parseFloat(value2)
+  if (v1 > v2) {
+    return 'showGreen'
+  }
+})
+
+hbs.registerHelper('outsideOfTheRange', (value) => {
+  if (value) {
+    return 'valueNotOk'
+  } else {
+    return 'valueOk'
+  }
+})
+
+
+
+hbs.registerHelper('greaterThen', (value1, value2) => {
+  let v1 = parseFloat(value1)
+  let v2 = parseFloat(value2)
+  if (v1 > v2) {
+    return 'showRed'
+  }
+})
+
+hbs.registerHelper('betweenRange', (value1, value2, value3) => {
+  let v1 = parseFloat(value1)
+  let v2 = parseFloat(value2)
+  let v3 = parseFloat(value3)
+
+  if (v1 >= v2 && v1<= v3) {
+    return 'showGreen'
+  }
+})
+
+hbs.registerHelper('highValue', (value1, value2) => {
+  let v1 = parseFloat(value1)
+  let v2 = parseFloat(value2)
+  if (v1 > v2) {
+    return 'showRed'
+  }
+})
+
+hbs.registerHelper('addMaxValue', (value1) => {
+  return Math.ceil(parseFloat(value1)+(parseFloat(value1)/2))
+})
+
+hbs.registerHelper('notZero', (value) => {
+  if(parseFloat(value) != 0) {
+    return true
+  }
 })
 
 //display if lab is open on lab details page

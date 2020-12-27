@@ -6,15 +6,18 @@
       <div class="table-responsive mt-4" id="labDashboard">
         <table class="table" id="labDashResults">
           <tbody>
+
             {{#each findScheduledAnalysis}}
+
             <tr class="dashboardResults">
               <td>{{this.user.username}}</td>
+              <!-- <td>{{this.user.birthYear}}</td> -->
               <td>{{this.user.mobile}}</td>
               <td>{{this.user.email}}</td>
               <td>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</td>
-              <td>{{this.status}}</td>
-              <td title="broj potrebnih analiza"><strong>{{countItems this.analiza}}</strong></td>
-              <td><img src="../images/{{this.uzimanjeUzorka}}.svg" title="{{this.uzimanjeUzorka}}" class="mb-1"></td>
+              <td><span class={{this.status}}>{{this.status}}</span></td>
+              <td title="broj potrebnih analiza">{{countItems this.analyses}}</td>
+              <td><img src="/images/{{this.uzimanjeUzorka}}.svg" title="{{this.uzimanjeUzorka}}" class="mb-1"></td>
               <td>{{this.total}}<small>rsd</small></td>
               <td><button class="btn btn-outline-success" data-toggle="modal" data-target="#modal{{this._id}}">detalji</button></td>
             </tr>
@@ -24,24 +27,46 @@
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Pregled detalja</h5>
+                    <span class="float-right"><a href="javascript:window.print()"><i class="fas fa-print"></i></a></span>
                   </div>
                   <div class="modal-body">
-                    {{displayPhoneList this.analiza}}
+                    <form class="" action="/updateSchedule/{{this._id}}" method="post">
+
+                    <h3>{{this.user.username}} <span class="float-right">{{this.total}} rsd</span></h3>
+
+                    <p>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</p>
+
+                    <p>{{this.user.address}}, {{this.user.city}}</p>
+                    <p>{{this.user.mobile}}</p>
+                    <p>{{this.user.birthYear}}</p>
+                    <p>Potrebne analize<br />
+                    {{displayScheduledAnalysis this.analyses}}</p>
+
+                    <div class="form-group">
+                    <textarea name="komentar" class="form-control rounded-0" rows="4" cols="55" placeholder="Komentar">{{this.comment}}</textarea>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <div id="status" class="mb-4 m-auto">
+                      <input type="radio" name="status{{this._id}}" value="Zakazano" id="zakazano{{this._id}}" {{#if (checkBox this.status 'Zakazano')}} checked {{/if}} />
+                      <label for="zakazano{{this._id}}"  class="btn btn-outline-success text-uppercase mt-4 customRadio">Zakazano</label>
+                      <input type="radio" name="status{{this._id}}" value="Uzorkovanje" id="uzorkovanje{{this._id}}" {{#if (checkBox this.status 'Uzorkovanje')}} checked {{/if}} />
+                      <label for="uzorkovanje{{this._id}}"  class="btn btn-outline-success text-uppercase mt-4 customRadio">Uzorkovanje</label>
+                      <input type="radio" name="status{{this._id}}" value="Završeno" id="zavrseno{{this._id}}" {{#if (checkBox this.status 'Završeno')}} checked {{/if}} />
+                      <label for="zavrseno{{this._id}}"  class="btn btn-outline-success text-uppercase mt-4 customRadio">Završeno</label>
+                    </div>
+                    <button class="btn btn-success btn-block mb-0">sačuvaj</button>
+                  </form>
                   </div>
+                  <!-- <div class="modal-footer"> -->
+                    <!-- <button type="button" class="btn btn-success" data-dismiss="modal">Close</button> -->
+                  <!-- </div> -->
                 </div>
               </div>
             </div>
             {{/each}}
           </tbody>
         </table>
+        {{> _pagination}}
       </div>
     </div>
   </div>

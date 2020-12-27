@@ -413,6 +413,10 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
       let placeMarker = infoWindow.open(map, marker);
     });
 
+    // marker.addListener('mouseout', function() {
+    //  infoWindow.close();
+    // })
+
     google.maps.event.addListener(map, 'click', function() {
       infoWindow.close();
     });

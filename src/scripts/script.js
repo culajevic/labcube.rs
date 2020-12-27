@@ -3,7 +3,8 @@ const flatpickr = require("flatpickr")
 const Serbian = require("flatpickr/dist/l10n/sr.js").default.sr;
 
 
-
+const moment = require('moment')
+moment.locale('sr')
 // let summernote = require('./summernote-ext-addclass')
 let NewElement = require('./class')
 let PriceList = require('./price')
@@ -1029,29 +1030,38 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
     // if(searchUserEmail) {
       // console.log(searchUserEmail)
     // }
-} else {
+} else if(findUserByEmail){
     // const labDashResults = document.getElementById('labDashboard')
     const labDashTable = document.getElementById('labDashResults')
-    console.log(labDashTable)
+
       findUserByEmail.addEventListener('input', () => {
 
         let searchStr = findUserByEmail.value
+        const pagination = document.getElementById('pagination')
+        pagination.classList.add('d-none')
         fetch('/users/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
           data.json().then((result) => {
-            // console.log(result)
+            console.log(result)
             for(let i=0; i<result.length; i++){
-              labDashTable.innerHTML += `
 
+              let formatDate
+              if (result[i].uzimanjeUzorka == 'patronaza') {
+               formatDate = moment(result[i].scheduledFor).format('D.M.Y / H:mm')
+             } else {
+               formatDate = moment(result[i].scheduledFor).format('D.M.Y')
+             }
+
+              labDashTable.innerHTML += `
                 <tbody>
                   <tr class="dashboardResults">
                     <td>${result[i].user.username}</td>
                     <td>${result[i].user.mobile}</td>
                     <td align="align-left">${result[i].user.email}</td>
-                    <td align="align-left">${result[i].scheduledFor}</td>
-                    <td>${result[i].status}</td>
-                    <td title="broj potrebnih analiza"><strong>${result[i].analiza.length}</strong></td>
-                    <td><img src="../images/${result[i].uzimanjeUzorka}.svg" title="${result[i].uzimanjeUzorka}" class="mb-1"></td>
+                    <td align="align-left">${formatDate}</td>
+                    <td><span class="${result[i].status}">${result[i].status}</span></td>
+                    <td title="broj potrebnih analiza"><strong>${result[i].analyses.length}</strong></td>
+                    <td><img src="/images/${result[i].uzimanjeUzorka}.svg" title="${result[i].uzimanjeUzorka}" class="mb-1"></td>
                     <td>${result[i].total}<small>rsd</small></td>
                     <td><button class="btn btn-outline-success" data-toggle="modal" data-target="#modal${result[i]._id}">detalji</button></td>
                   </tr>
@@ -1061,17 +1071,18 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <h5 class="modal-title" id="exampleModalLongTitle">Prikaz detalja za ${result[i].user.username}</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
+                          <p>${result[i].user.username}</p>
                           ${result[i].analiza}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Save changes</button>
+
                         </div>
                       </div>
                     </div>
@@ -1082,6 +1093,7 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
             }
           })
         })
+
       })
 
   }

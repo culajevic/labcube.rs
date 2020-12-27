@@ -5,7 +5,24 @@ const scheduleSchema = new mongoose.Schema({
       type:mongoose.Schema.Types.ObjectId,
       ref:'Lab'
     },
-  analiza:[String],
+  analyses:[{
+    _id:false,
+    analysis:String,
+    analysisId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Analysis'
+    },
+    value:mongoose.Decimal128,
+    outsideOfTheRange:Boolean,
+    measure:String,
+    valueFrom:mongoose.Decimal128,
+    valueTo:mongoose.Decimal128,
+    lessThen:mongoose.Decimal128,
+    greaterThen:mongoose.Decimal128,
+    status:String,
+    comment:String,
+    commentResult:String
+  }],
   createdDate:{
     type:Date,
     default:Date.now
@@ -17,7 +34,8 @@ const scheduleSchema = new mongoose.Schema({
   },
   uzimanjeUzorka:String,
   total:Number,
-  status:String
+  status:String,
+  comment:String
 })
 
 module.exports = mongoose.model('Schedule', scheduleSchema)

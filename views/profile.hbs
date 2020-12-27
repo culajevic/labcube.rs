@@ -318,12 +318,13 @@
         {{#each myAppointments}}
         <tr class="dashboardResults">
           <td>{{this.lab.labName}}</td>
-          <td>{{formatRsDateOnly this.createdDate}}</td>
+          <td>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</td>
           <td>{{this.total}} rsd</td>
-          <td>{{this.status}}</td>
-          <td><span class="vanGranica" title="broj rezultata koji su van graničnih vrednosti">6</span></td>
-          <td><button class="btn btn-res-success">prosledi lekaru</button></td>
-          <td><button class="btn btn-res-success">detalji</button></td>
+          <td><span class="{{this.status}}">{{this.status}}</span></td>
+          <td><span class="okvrednosti text-center" title="broj rezultata koji su u granicama">2</span></td>
+          <td><span class="vangranica text-center" title="broj rezultata koji su povišeni">6</span></td>
+          <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td>
+          <td><a href="/myresults/{{this.id}}" class="btn btn-res-success">detalji</button></a>
         </tr>
         {{/each}}
       </tbody>

@@ -33,6 +33,8 @@ router.get('/google', authenticationController.google)
 router.get('/logout', authenticationController.logout)
 router.get('/google/redirect', authenticationController.redirect)
 router.get('/profile', authenticationController.profile)
+router.get('/profile/page/:page', authenticationController.profile)
+
 router.get('/users/:userEmail?', authenticationController.findUserEmail)
 router.get('/registracija', authenticationController.registerForm)
 router.post('/register', authenticationController.register)
@@ -43,6 +45,7 @@ router.get('/forgot', authenticationController.forgot)
 router.post('/forgot', authenticationController.resetPassLink)
 router.get('/reset/:token', authenticationController.resetPass)
 router.post('/resetPass/:token', authenticationController.updatePassword)
+router.get('/myresults/:id', scheduleController.myResults)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
@@ -68,7 +71,7 @@ router.delete('/allPrices/:id', priceController.deletePriceList)
 // router.get('/schedule/:scheduleString', scheduleController.scheduleVisit)
 router.post('/schedule', scheduleController.scheduleVisit)
 router.get('/hvala', scheduleController.thankyou)
-
+router.post('/updateSchedule/:scheduleId', scheduleController.updateSchedule)
 //healthProfile
 router.post('/healthProfile/:id', profileController.updateHealthProfile)
 router.post('/myProfile/:id', profileController.updateProfile)

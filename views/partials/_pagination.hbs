@@ -1,0 +1,16 @@
+<!-- faq -->
+<div id="pagination">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-2">
+        {{#if (pagination page 1)}}
+          <a href="/profile/page/{{minus page 1}}"><span><</span></a>
+          {{/if}}
+          <span class="text-center">Stranica {{page}} od {{pages}}</span>
+        {{#if (paginationNext page pages)}}
+          <a href="/profile/page/{{plus page 1}}">></a>
+          {{/if}}
+      </div><!-- col-12 -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+</div><!-- faq end -->

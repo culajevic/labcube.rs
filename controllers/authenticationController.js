@@ -72,9 +72,28 @@ exports.profile = [authCheck, async (req,res) => {
   if(req.user.lab == 1 ) {
 
     const findLab = await Lab.findOne({_id:req.user.labId})
-    const findScheduledAnalysis = await Schedule.find({lab:req.user.labId})
-      .populate('user').sort({createdDate:-1})
-    res.render('labDashboard', {findLab, findScheduledAnalysis})
+
+    //total number of records
+    const countTotal = await Schedule.countDocuments({lab:req.user.labId})
+
+    const page = req.params.page || 1
+    const limit = 10
+    const pages = Math.ceil(countTotal / limit)
+    const skip = (page * limit) - limit
+
+
+    const findScheduledAnalysis = await Schedule
+      .find({lab:req.user.labId})
+      .skip(skip)
+      .limit(limit)
+      .populate('user')
+      .sort({createdDate:-1})
+    if(!findScheduledAnalysis.length && skip) {
+      req.flash('error_msg', 'ne postoji ova strana')
+      res.redirect('/profile/page/'+pages)
+      return
+    }
+    res.render('labDashboard', {findLab, findScheduledAnalysis, page, countTotal, pages})
   } //if regular user
     else if(req.user.admin == 0) {
     const myAppointments = await Schedule.find({user:req.user.id})
@@ -189,8 +208,8 @@ exports.register =  async (req,res) => {
 
 exports.findUserEmail =  async (req,res) => {
   if(req.params.userEmail) {
-    console.log('razliciti od 0')
   let userIdArr = []
+  let newObjectArr = []
   const findUserEmail = await User.find({email:{$regex: req.params.userEmail, $options: 'i'}})
 
   for(let i=0; i<findUserEmail.length; i++) {
@@ -198,12 +217,17 @@ exports.findUserEmail =  async (req,res) => {
    newObjectArr = userIdArr.map(i => mongoose.Types.ObjectId(i))
   }
 
-  const findMyLabUsers  = await Schedule.find({lab:req.user.labId, user: { $in: newObjectArr}}).populate('user')
+  const findMyLabUsers  = await Schedule
+      .find({lab:req.user.labId, user: { $in: newObjectArr}})
+      .populate('user')
       .sort({createdDate:-1})
-  res.json(findMyLabUsers)
+      res.json(findMyLabUsers)
 } else {
+  
   let myLabScheduledAnalysis = await Schedule.find({lab:req.user.labId}).populate('user').sort({createdDate:-1})
   res.json(myLabScheduledAnalysis)
+  // res.json({myLabScheduledAnalysis, page})
+  // res.render('index')
   }
 }
 
