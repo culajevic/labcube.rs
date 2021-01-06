@@ -5,13 +5,21 @@ const moment = require('moment')
 moment.locale('sr')
 
 
-exports.addAnalysis = (req,res) => {
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
+exports.addAnalysis = [authCheck, (req,res) => {
   res.render('addAnalysis', {
     title:'Dodaj novu analizu'
   })
-}
+}]
 
-exports.allAnalysis = async (req,res) => {
+exports.allAnalysis = [authCheck, async (req,res) => {
   const analysisNumber = await Analysis.find().countDocuments()
   const allAnalysis = await Analysis.find({}).sort({analysisName:1})
     .populate('groupId', 'name')
@@ -21,9 +29,9 @@ exports.allAnalysis = async (req,res) => {
     allAnalysis,
     analysisNumber
   })
-}
+}]
 
-exports.createAnalysis = async (req,res) => {
+exports.createAnalysis = [authCheck, async (req,res) => {
   let errors = []
   if(!req.body.analysisName) {
     errors.push({text:'Unesi ime analize'})
@@ -106,9 +114,9 @@ exports.createAnalysis = async (req,res) => {
         res.redirect('/addAnalysis')
       }
     }
-}
+}]
 
-exports.editAnalysis =  async (req,res) => {
+exports.editAnalysis =  [authCheck, async (req,res) => {
   const analysis = await Analysis.findOne({_id:req.params.id})
     .populate('groupId', 'name')
     .populate('diseasesId', 'name _id')
@@ -119,17 +127,13 @@ exports.editAnalysis =  async (req,res) => {
     title:'Izmena podataka o analizi',
     analysis
   })
-  // res.json(analysis)
-}
+}]
 
-exports.updateAnalysis = async (req,res) => {
+exports.updateAnalysis = [authCheck, async (req,res) => {
   req.body.date = Date.now()
   if (req.body.availableHC == undefined) {
     req.body.availableHC = false
   }
-  // if(typeof(req.body.writtenBy) == 'undefined') {
-  //   req.flash('error_msg', 'Obavezno je uneti podatke o autoru')
-  // }
   try {
     const analysis = await Analysis.findOneAndUpdate(
       {_id:req.params.id},
@@ -145,11 +149,11 @@ exports.updateAnalysis = async (req,res) => {
   catch(e){
     req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o analizi`)
   }
-}
+}]
+
 exports.getAnalyisisName = async (req,res) => {
   const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
   res.json(analysisName)
-
 }
 
 exports.getAnalyisisNameResult = async (req, res) => {
@@ -191,26 +195,11 @@ const prices = await Price.aggregate([
   {$unwind:"$name"}
 
 ])
-
-  //   for(i=0; i<analysisName.length; i++) {
-  //     let minPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
-  //     .sort({"cenovnik.cena":1})
-  //     minPriceArr.push(minPrice)
-  //     let maxPrice = await Price.find({'cenovnik.analiza':analysisName[i]._id},{cena:1,'cenovnik.$':1})
-  //     .sort({"cenovnik.cena":-1})
-  //     maxPriceArr.push(maxPrice)
-  // }
-// console.log(prices)
-  // res.render(analysisName)
-  // res.json({analysisName, minPriceArr, maxPriceArr})
-  // console.log(prices)
   res.json({analysisName, prices})
-
-
 }
 
-exports.deleteAnalysis = async (req,res) => {
+exports.deleteAnalysis = [authCheck, async (req,res) => {
   const deleteAnalysis = await Analysis.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Analiza je uspesno obrisana.')
   res.send()
-}
+}]

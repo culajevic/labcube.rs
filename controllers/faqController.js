@@ -1,6 +1,14 @@
 const mongoose = require('mongoose')
 const Faq = mongoose.model('Faq')
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
 // exports.getFaqs = async (req,res) => {
 //   const faqFP = await Faq.find({frontPage:true})
 //   res.render('index', {
@@ -9,7 +17,7 @@ const Faq = mongoose.model('Faq')
 //   })
 // }
 
-exports.allFaqs = async (req,res) => {
+exports.allFaqs = [authCheck, async (req,res) => {
   const numOfFaqs = await Faq.find().countDocuments()
   const allFaqs = await Faq.find()
   // console.log(allFaqs)
@@ -18,15 +26,15 @@ exports.allFaqs = async (req,res) => {
     allFaqs,
     numOfFaqs
   })
-}
+}]
 
-exports.addFaq = (req,res) => {
+exports.addFaq = [authCheck, (req,res) => {
   res.render('addFaq', {
     title:'Dodaj pitanje i odgovor'
   })
-}
+}]
 
-exports.createFaq = async (req,res) => {
+exports.createFaq = [authCheck, async (req,res) => {
   let errors = []
   if(!req.body.question) {
     errors.push({'text':'Obavezno je uneti pitanje'})
@@ -50,18 +58,18 @@ exports.createFaq = async (req,res) => {
       res.redirect('/addFaq')
     }
   }
-}
+}]
 
 
-exports.editFaq = async (req,res) => {
+exports.editFaq = [authCheck, async (req,res) => {
   const faq = await Faq.findOne({_id:req.params.id})
   res.render('addFaq', {
     title:'Izmeni pitanje ili odgovor',
     faq
   })
-}
+}]
 
-exports.updateFaq = async (req, res) => {
+exports.updateFaq = [authCheck, async (req, res) => {
   if(req.body.frontPage == undefined) {
     req.body.frontPage = false
   }  try {
@@ -80,10 +88,10 @@ exports.updateFaq = async (req, res) => {
     req.flash('error_msg', `doslo je do greske ${e} prilikomm azuriranja pitanja/odgovora`)
     res.redirect('back')
     }
-}
+}]
 
-exports.deleteFaq= async (req,res) => {
+exports.deleteFaq = [authCheck, async (req,res) => {
   const deleteFaq = await Faq.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Cesto postavljano pitanje je uspesno obrisano.')
   res.json()
-}
+}]

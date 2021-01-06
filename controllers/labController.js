@@ -10,6 +10,13 @@ const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
 
 let storage = multer.diskStorage({
   destination:function (req,file,cb) {
@@ -24,20 +31,16 @@ let storage = multer.diskStorage({
 
 const upload = multer({storage:storage})
 exports.upload = upload.single('logo')
-exports.addLab = (req,res) => {
+
+// display add lab form
+exports.addLab = [authCheck, (req,res) => {
   res.render('addLab', {
     title:'Dodaj novu laboratoriju'
   })
-}
+}]
 
-// exports.getAllLabs = async (req,res) => {
-//   let labInfo = await Lab.find({})
-//   // console.log(labInfo)
-//   res.json('test')
-// }
-
-
-exports.createLab = async (req,res) => {
+// put lab into database
+exports.createLab = [authCheck, async (req,res) => {
   let errors = []
   if(!req.body.labName) {
     errors.push({'text':'Unesi ime laboratorije'})
@@ -95,12 +98,8 @@ exports.createLab = async (req,res) => {
     })
   } else {
     if(typeof(req.file) !== 'undefined') {
-      console.log(req.file)
       req.body.logo = req.file.filename
     }
-    // else {
-    //   req.flash('error_msg', 'doslo je do greske prilikom uploada')
-    // }
       const lab = new Lab(req.body)
       try {
         await lab.save()
@@ -112,26 +111,25 @@ exports.createLab = async (req,res) => {
         res.redirect('/addLab')
       }
   }
-}
+}]
 
-exports.allLabs = async (req,res) => {
+exports.allLabs = [authCheck, async (req,res) => {
   const allLab = await Lab.find({}).populate('placeId').sort({date:-1})
   res.render('allLabs', {
     title:'All labs',
     allLab
   })
-}
+}]
 
-exports.editLab = async (req,res) => {
+exports.editLab = [authCheck, async (req,res) => {
   const lab = await Lab.findOne({_id:req.params.id}).populate('placeId')
   res.render('addLab', {
     title:lab.labName,
     lab
   })
-  // res.send(lab.labName)
-}
+}]
 
-exports.updateLab = async (req,res) => {
+exports.updateLab = [authCheck, async (req,res) => {
   if (req.body.open24h == undefined) {
     req.body.open24h = false
   }
@@ -168,35 +166,27 @@ exports.updateLab = async (req,res) => {
   } catch(e) {
     req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o laboratoriji`)
   }
-}
+}]
 
-exports.deleteLab = async (req,res) => {
+exports.deleteLab = [authCheck, async (req,res) => {
   const deleteLab = await Lab.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Laboratorija je uspesno obrisana.')
   res.send('success')
-}
+}]
+
 
 exports.getLabInfo = async (req,res) => {
-
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
   let userId
   let userName
-  if(req.user != null) {
+  if (req.user != null) {
     userId = req.user._id
     userName = req.user.username
   } else {
       userId = ''
       userName = ''
   }
-
-  // if (req.user.id) {
-  //   userId = req.user.id
-  //   userName = req.user.username
-  // } else {
-  //   userId = ''
-  //   userName = ''
-  // }
 
   let newids = []
   let selectedAnalysis

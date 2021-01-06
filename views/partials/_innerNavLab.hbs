@@ -8,8 +8,18 @@
   </nav><!-- nav end -->
   <div class="blueOverlayLab">
     <div class="container ">
-      <div class="labDashDetails">
+
+      <div class="labDashDetails" style="position:relative;">
+        <div class="feedback" style="position:absolute; right:0; top:12px;">
+          <p class="text-white float-right">ljubaznost  <progress   max=5 value={{hospitality}}> </progress> {{hospitality}}</p>
+
+          <p class="text-white text-right">venepunkcija  <progress max=5 value="{{venipuncture}}"></progress> {{venipuncture}}</p>
+          <p class="text-white text-right">izdavanje rezultata  <progress value="{{speed}}" max="5"> </progress> {{speed}}</p>
+          <p class="text-white text-right">covid odgovorni <progress value="{{covid}}" max="5"></progress> {{covid}}</p>
+          <p class="text-white text-right">opšti utisak <progress value="{{overall}}" max="5"></progress> {{overall}}</p>
+        </div>
         <h1 class="text-light mt-4">{{findLab.labName}}</h1>
+        <span></span>
         <p class="text-light">{{findLab.address}}</p>
         <p class="text-light">{{findLab.web}}</p>
         <p class="text-light">{{displayPhoneList findLab.phone}}</p>

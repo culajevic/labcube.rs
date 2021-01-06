@@ -45,7 +45,8 @@ router.get('/forgot', authenticationController.forgot)
 router.post('/forgot', authenticationController.resetPassLink)
 router.get('/reset/:token', authenticationController.resetPass)
 router.post('/resetPass/:token', authenticationController.updatePassword)
-router.get('/myresults/:id', scheduleController.myResults)
+router.get('/mojirezultati/:id', scheduleController.myResults)
+router.post('/submitRating', scheduleController.userFeedback)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
@@ -75,6 +76,10 @@ router.post('/updateSchedule/:scheduleId', scheduleController.updateSchedule)
 //healthProfile
 router.post('/healthProfile/:id', profileController.updateHealthProfile)
 router.post('/myProfile/:id', profileController.updateProfile)
+router.get('/interpretation', scheduleController.resultsInterpretation)
+router.get('/interpretation/:id', scheduleController.resultsInterpretationValues)
+router.post('/analysisInterpretation/:id', scheduleController.analysisInterpretation)
+router.post('/lockTheInterpretation', scheduleController.lockTheInterpretation)
 // router.get('/profile', profileController.getMyAppointments)
 
 // labs

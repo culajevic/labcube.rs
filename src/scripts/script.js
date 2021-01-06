@@ -105,7 +105,7 @@ $('.backTotop').on('click',function(){
 
 
 let location = window.location.pathname
-console.log(location)
+
 // GLOBAL VARIABLES
 //set filter by default to analiza
 let filter = 'analiza'
@@ -121,8 +121,12 @@ let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem
 in sidebar basket on any page which is not index */
 const checkUrl = /result.*/
 const group = /group/
+
+
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl))) {
+console.log('da')
   helper.displayBasket(itemsArray)
+
 }
 
 //MUST CHECK THIS!!!!!!!
@@ -137,11 +141,14 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 }
 
 
+
+
 window.onload = () => {
 
 /* INDEX PAGE ***************/
 
 if(location === '/') {
+
 
   //get seachstring
   let mainSearch = document.getElementById('searchAnalysis')
@@ -1008,9 +1015,6 @@ if(urlArr[1] == 'laboratorija') {
 
     }
 
-
-
-
 if(urlArr[1] == 'profile' && !findUserByEmail) {
 
   const visina = document.getElementById('visina')
@@ -1095,6 +1099,54 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
         })
 
       })
+
+  }
+
+  //interpratation
+
+  if(urlArr[1] == 'interpretation') {
+    let ownerId
+    let interpretation = document.getElementById('interpretationId').value
+    let lockTheRecord = document.getElementById('zakljucaj')
+    let lockStatus = document.getElementById('lockStatus')
+    let lockTheRecordArr = []
+
+    lockTheRecord.addEventListener('click', e => {
+      if(lockTheRecord.checked == true) {
+        ownerId = lockTheRecord.value
+        lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+        lockingInterpretation = JSON.stringify(lockTheRecordArr)
+        lockStatus.innerHTML = 'Zaključano'
+
+        fetch('/lockTheInterpretation/',{
+          method:"post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body:lockingInterpretation
+        }).then(response => {
+          console.log(response)
+        })
+      }
+      else {
+        ownerId = null
+        lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+        lockingInterpretation = JSON.stringify(lockTheRecordArr)
+        lockStatus.innerHTML = 'Zaključaj'
+        fetch('/lockTheInterpretation/',{
+          method:"post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body:lockingInterpretation
+        }).then(response => {
+          console.log(response)
+        })
+      }
+    })
+
 
   }
 

@@ -14,6 +14,8 @@ require('./models/Prices')
 require('./models/Result')
 require('./models/User')
 require('./models/Schedule')
+require('./models/Feedback')
+
 
 
 const app = require('./app')

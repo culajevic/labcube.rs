@@ -1,0 +1,86 @@
+{{> _innerNavFrontend}}
+
+
+
+<div class="container-fluid" id="">
+ 		<div class="row">
+
+      <div class="col-12">
+        <div class="table-responsive mt-4 px-5" id="labDashboard">
+          <form class="" action="" method="post" id="lockTheRecord">
+            {{#each analysisValues}}
+
+              <div class="form-check">
+                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
+                {{#if this.owner}}
+                <label for="zakljucaj" id="lockStatus">Zaključano</label>
+                {{else}}
+                <label for="zakljucaj" id="lockStatus">Zaključaj</label>
+                {{/if}}
+              </div>
+              <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
+
+            {{/each}}
+          </form>
+          <table class="table" id="labDashResults">
+            <tbody>
+
+                <tr>
+                  <th class="text-info">Ime analize</th>
+                  <th class="text-info">Vrednost</th>
+                  <th class="text-info">Jedinica</th>
+                  <th class="text-info"><</th>
+                  <th class="text-info">></th>
+                  <th class="text-info">Od</th>
+                  <th class="text-info">Do</th>
+                  <th class="text-info">Van granica?</th>
+                  <th class="text-info">Komentar</th>
+                </tr>
+
+
+              {{#each analysisValues}}
+
+                {{#each this.analyses}}
+                <form  action="/analysisInterpretation/{{../this._id}}" method="post">
+                <tr>
+
+
+                  <td>{{this.analysis}}</td>
+                  <input type="hidden" value="{{this.analysisId}}" name="analysisId">
+                  <td><input type="text" class="form-control" value="{{this.value}}" name="value"></td>
+                  <td><input type="text" class="form-control" value="{{this.measure}}" name="measure"></td>
+                  <td><input type="text" class="form-control" value="{{this.lessThen}}" name="lessThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.greaterThen}}" name="greaterThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
+                  <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{this.analysisId}}" value="true" {{#if (checkBox this.outsideOfTheRange true)}} checked="checked"{{/if}}></div></td>
+                  <td><textarea rows=3 cols=35 name="commentResult">{{this.commentResult}}</textarea></td>
+                </tr>
+
+              {{/each}}
+            {{/each}}
+          </table>
+          {{#each analysisValues}}
+          <p>Glavni komentar</p>
+          <textarea name="commentCube" rows="8" cols="70" id="cubeComment">{{this.commentCube}}</textarea>
+          {{/each}}
+
+            <button class="btn btn-success  mb-4">sačuvaj</button>
+            </form>
+        </div>
+      </div>
+
+      <!-- <div class="col-6 mt-4">
+          {{#each analysisValues}}
+              {{this}}
+          {{/each}}
+      </div> -->
+
+
+
+ 		</div><!-- table row end  -->
+ </div> <!-- results container end -->
+
+
+
+ {{> _footer}}

@@ -35,7 +35,13 @@ const scheduleSchema = new mongoose.Schema({
   uzimanjeUzorka:String,
   total:Number,
   status:String,
-  comment:String
+  commentLab:String,
+  commentCube:String,
+  feedback:Boolean,
+  owner:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  },
 })
 
 module.exports = mongoose.model('Schedule', scheduleSchema)

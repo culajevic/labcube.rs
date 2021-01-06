@@ -69,3 +69,9 @@
     border-bottom: 1px solid white;
   }
 }
+
+#smallHeaderTumacenje {
+  @extend #smallHeaderLab;
+  background-image: url('../images/interpretation.jpg');
+  background-position:0 -400px;
+}

@@ -5,6 +5,7 @@ const validator = require("email-validator")
 const bcrypt = require('bcrypt')
 let User = mongoose.model('User')
 let Schedule = mongoose.model('Schedule')
+let Feedback = mongoose.model('Feedback')
 const nodemailer = require('nodemailer')
 
 
@@ -24,8 +25,11 @@ exports.scheduleVisit = async (req,res) => {
   let greaterThen = 0
   let status = ''
   let comment = ''
+  let commentCube = ''
   let commentResult = ''
   let measure = ''
+  let feedback = false
+  let owner = null
 
   for(i=0; i<req.body[1].analysis.length;i++) {
     analysisArr.push({"analysis":req.body[1].analysis[i].name,
@@ -38,7 +42,6 @@ exports.scheduleVisit = async (req,res) => {
     "greaterThen" : greaterThen,
     "status" : status,
     "measure" : measure,
-    "comment":comment,
     "commentResult":commentResult})
   }
 
@@ -61,8 +64,11 @@ exports.scheduleVisit = async (req,res) => {
       status:'Zakazano',
       user:req.user._id,
       lab:labId,
-      scheduledFor:req.body[3].date
-
+      scheduledFor:req.body[3].date,
+      commentLab:comment,
+      commentCube:commentCube,
+      feedback:feedback,
+      owner:owner
     })
     try {
       await newSchedule.save()
@@ -80,7 +86,7 @@ exports.updateSchedule = async (req,res) => {
 
     {_id:req.params.scheduleId},
     {status:req.body['status'+req.params.scheduleId],
-    comment:req.body.komentar},
+    commentLab:req.body.komentar},
     {
       new:true,
       runValidators:true,
@@ -100,6 +106,116 @@ exports.myResults = async (req,res) => {
   .populate('lab')
   .populate('user', 'username')
   .populate('analyses.analysisId')
-
   res.render('myresults', {myResults})
+}
+
+exports.userFeedback = async (req,res) => {
+  const updateSchedule = await Schedule.findOneAndUpdate(
+    {_id:req.body.scheduleId},
+    {feedback:true},
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+
+
+  let newFeedback = new Feedback({
+    lab:req.body.lab,
+    hospitality:req.body.hospitality,
+    venipuncture:req.body.venipuncture,
+    speed:req.body.speed,
+    covid:req.body.covid,
+    comment:req.body.comment
+  })
+    try {
+      await newFeedback.save()
+      req.flash('success_msg', 'Uspesno ste ocenili laboratoriju, hvala!')
+      res.redirect('/profile')
+      }
+    catch (e){
+      req.flash('error_msg', `Dogodila se greška ${e}`)
+      res.redirect('/')
+    }
+}
+
+exports.resultsInterpretation = async (req,res) => {
+  const resultsForInterpretation = await Schedule.find({$or:[{status:'Završeno'},{status:'Uzorkovanje'}]})
+    .populate('lab')
+    .populate('user')
+    .populate('analyses.analysisId')
+    .populate('owner')
+    .sort({createdDate:-1})
+  res.render('resultsInterpretation', {resultsForInterpretation, title:'Tumačenje rezultata'})
+}
+
+exports.resultsInterpretationValues = async (req,res) => {
+
+  const analysisValues = await Schedule.find({_id:req.params.id})
+  .populate('lab')
+  .populate('user')
+  res.render('analysisInterpretation', {analysisValues, user:req.user})
+}
+
+exports.analysisInterpretation = async (req,res) => {
+console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
+
+let outsideOfTheRange = []
+let test = []
+let updateInterpretation
+
+
+  for (let i = 0; i<req.body.value.length; i++) {
+
+    if(req.body['outsideOfTheRange'+req.body.analysisId[i]] ==  undefined) {
+      outsideOfTheRange = false
+    } else {
+      outsideOfTheRange = true
+    }
+
+
+    test.push({
+      'id':req.body.analysisId[i],
+      'value':req.body.value[i],
+      'range':outsideOfTheRange
+    })
+//
+
+
+  updateInterpretation = await Schedule.findOneAndUpdate(
+    {_id:req.params.id, 'analyses.analysisId':req.body.analysisId[i]},
+    {$set:{
+      'analyses.$.value':req.body.value[i],
+      'analyses.$.measure':req.body.measure[i],
+      'analyses.$.commentResult':req.body.commentResult[i],
+      'analyses.$.outsideOfTheRange':outsideOfTheRange,
+      'analyses.$.lessThen':req.body.lessThen[i],
+      'analyses.$.greaterThen':req.body.greaterThen[i],
+      'analyses.$.valueFrom':req.body.valueFrom[i],
+      'analyses.$.valueTo':req.body.valueTo[i],
+      commentCube:req.body.commentCube
+      }
+    },
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+  }
+  console.log(test)
+  res.send(updateInterpretation)
+}
+
+exports.lockTheInterpretation =  async (req,res) => {
+  console.log(req.body[0].ownerId)
+  console.log(req.body[0].interpretationId)
+  let lockTheInterpretation = await Schedule.findOneAndUpdate(
+    {_id:req.body[0].interpretationId},
+    {owner:req.body[0].ownerId},
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+    res.send('ok je')
 }

@@ -8,6 +8,7 @@ const User = mongoose.model('User')
 const Schedule = mongoose.model('Schedule')
 const Lab = mongoose.model('Lab')
 const Place = mongoose.model('Place')
+const Feedback = mongoose.model('Feedback')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
 const crypto = require('crypto')
@@ -73,6 +74,25 @@ exports.profile = [authCheck, async (req,res) => {
 
     const findLab = await Lab.findOne({_id:req.user.labId})
 
+    const findFeedback = await Feedback.find({lab:req.user.labId})
+    let hospitality = 0
+    let venipuncture = 0
+    let speed = 0
+    let covid = 0
+    let overall = 0
+    for (let i = 0; i<findFeedback.length; i++){
+      hospitality += ((findFeedback[i].hospitality) / findFeedback.length)
+      venipuncture += ((findFeedback[i].venipuncture) / findFeedback.length)
+      speed += ((findFeedback[i].speed) / findFeedback.length)
+      covid += ((findFeedback[i].covid) / findFeedback.length)
+    }
+  hospitality = hospitality.toFixed(1)
+  venipuncture = venipuncture.toFixed(1)
+  speed = speed.toFixed(1)
+  covid = covid.toFixed(1)
+  overall = ((parseFloat(hospitality) + parseFloat(venipuncture) + parseFloat(speed) + parseFloat(covid))/4).toFixed(1)
+
+
     //total number of records
     const countTotal = await Schedule.countDocuments({lab:req.user.labId})
 
@@ -93,7 +113,7 @@ exports.profile = [authCheck, async (req,res) => {
       res.redirect('/profile/page/'+pages)
       return
     }
-    res.render('labDashboard', {findLab, findScheduledAnalysis, page, countTotal, pages})
+    res.render('labDashboard', {findLab, findScheduledAnalysis, page, countTotal, pages, hospitality, speed, covid, venipuncture,overall})
   } //if regular user
     else if(req.user.admin == 0) {
     const myAppointments = await Schedule.find({user:req.user.id})
@@ -223,7 +243,7 @@ exports.findUserEmail =  async (req,res) => {
       .sort({createdDate:-1})
       res.json(findMyLabUsers)
 } else {
-  
+
   let myLabScheduledAnalysis = await Schedule.find({lab:req.user.labId}).populate('user').sort({createdDate:-1})
   res.json(myLabScheduledAnalysis)
   // res.json({myLabScheduledAnalysis, page})

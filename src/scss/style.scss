@@ -424,13 +424,13 @@
 .blueOverlayLab {
   @extend .blueOverlay;
   height: 450px;
-  background-color: rgba(29,136,229,.94);
+  background-color: rgba(29,136,229,.90);
   margin: 0;
 }
 
 .searchForUser {
   position: absolute;
-  margin-top: 55px;
+  margin-top: 44px;
 }
 
 .input-field {
@@ -496,11 +496,20 @@ small {
 }
 
 #my-results {
-  margin-top: 40px;
+  margin-top: 60px;
   h1 {
     margin-bottom: 40px;
     color:$primary-color;
   }
+}
+
+.rating {
+  width: 82%;
+}
+
+.back {
+  font-size: px-to-rem(20px);
+  // padding-top: px-to-rem(10px);
 }
 
 .myData {
@@ -717,6 +726,23 @@ input[type="range"] {
   // margin-bottom: 16px; only on xs and sm
 }
 
+progress {
+    background:crimson;
+    vertical-align: baseline;
+    height: 0.5rem;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+progress::-webkit-progress-value {
+  background: lightblue;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: white;
+  // border-radius: 2px;
+}
+
 .min,
 .max {
   -webkit-appearance: none;
@@ -768,10 +794,24 @@ input[type="range"] {
   color:$danger;
 }
 
+.myResultsComment {
+  display: inline-block;
+  border-left: 10px solid $primary-color;
+  padding-left: 20px;
+  font-size: px-to-rem(20px);
+  > span {
+    opacity: .6;
+  }
+}
+
 .analysisComment {
   position:absolute;
   top:0;
   right:0;
+}
+
+.list-group-item {
+  margin-bottom: 0;
 }
 
 .min::-webkit-slider-thumb,
@@ -941,6 +981,11 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
   display: inline-block;
 }
 
+.brojPotrebnihAnaliza {
+  @extend .vangranica;
+  background-color: $orange;
+}
+
 .okvrednosti {
   @extend .vangranica;
   background-color: $button-green;
@@ -1073,10 +1118,6 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 
 .deleteAnalysis {
     width: 96px;
-  // float:right;
-  // margin-left: 35px;
-  // padding:0 35.9px !important;
-
 }
 
 .analysisBasketLiItem:hover {
@@ -1085,6 +1126,12 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 
 .alert {
   margin-bottom: 0;
+}
+
+@media print {
+  body {
+    background-color: red;
+  }
 }
 
 @import 'media.scss';

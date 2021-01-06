@@ -5,13 +5,21 @@ const Lab = mongoose.model('Lab')
 const moment = require('moment')
 moment.locale('sr')
 
-exports.addPrice =  (req,res) => {
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
+exports.addPrice =  [authCheck, (req,res) => {
   res.render('addPrice',{
     title:'Dodaj cenu'
   })
-}
+}]
 
-exports.createPrice = async (req,res) => {
+exports.createPrice = [authCheck, async (req,res) => {
 
   let errors = []
   let pricelist = []
@@ -59,9 +67,9 @@ exports.createPrice = async (req,res) => {
           res.redirect('/addPrice')
         }
     }// else end
-} // addprice end
+}] // addprice end
 
-exports.editPrice = async (req,res) => {
+exports.editPrice = [authCheck, async (req,res) => {
   const editPrice = await Price.findOne({_id:req.params.id})
   .populate('lab', 'labName')
   .populate('cenovnik.analiza', 'analysisName')
@@ -69,9 +77,9 @@ exports.editPrice = async (req,res) => {
     title:'Pregled cenovnika',
     editPrice
   })
-}
+}]
 
-exports.updatePrice = async (req,res) => {
+exports.updatePrice = [authCheck, async (req,res) => {
 
   let errors = []
   let pricelist = []
@@ -119,7 +127,7 @@ exports.updatePrice = async (req,res) => {
       console.log(e)
     }
   }// else end
-}// updateprice end
+}] // updateprice end
 
 exports.allPrices = async (req,res) => {
   const priceListNumber = await Price.find().countDocuments()
@@ -132,11 +140,11 @@ exports.allPrices = async (req,res) => {
   })
 }
 
-exports.deletePriceList = async (req,res) => {
+exports.deletePriceList = [authCheck, async (req,res) => {
   const deletePricelist = await Price.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Cenovnik je uspesno obrisan.')
   res.json()
-}
+}]
 
 exports.getPrices = async (req,res) => {
   let municipality = []

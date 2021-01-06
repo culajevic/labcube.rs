@@ -7290,18 +7290,22 @@ a:focus {
   #smallHeader .container {
     margin-bottom: 0; }
 
-#smallHeaderLab {
+#smallHeaderLab, #smallHeaderTumacenje {
   height: 450px;
   width: 100%;
   background-image: url(../images/labdashboard.jpg);
   background-position: 0 -350px;
   background-size: cover;
   background-repeat: no-repeat; }
-  #smallHeaderLab .container {
+  #smallHeaderLab .container, #smallHeaderTumacenje .container {
     margin-bottom: 0;
     padding: 0; }
-  #smallHeaderLab .table thead th, #smallHeaderLab .tableLabResults thead th {
+  #smallHeaderLab .table thead th, #smallHeaderTumacenje .table thead th, #smallHeaderLab .tableLabResults thead th, #smallHeaderTumacenje .tableLabResults thead th {
     border-bottom: 1px solid white; }
+
+#smallHeaderTumacenje {
+  background-image: url(../images/interpretation.jpg);
+  background-position: 0 -400px; }
 
 .logoFull {
   align-self: center;
@@ -8655,12 +8659,12 @@ footer {
 
 .blueOverlayLab {
   height: 450px;
-  background-color: rgba(29, 136, 229, 0.94);
+  background-color: rgba(29, 136, 229, 0.9);
   margin: 0; }
 
 .searchForUser {
   position: absolute;
-  margin-top: 55px; }
+  margin-top: 44px; }
 
 .input-field {
   margin-bottom: 0;
@@ -8735,10 +8739,16 @@ small a:hover {
       margin-right: 0; }
 
 #my-results {
-  margin-top: 40px; }
+  margin-top: 60px; }
   #my-results h1 {
     margin-bottom: 40px;
     color: #1D88E5; }
+
+.rating {
+  width: 82%; }
+
+.back {
+  font-size: 1.25rem; }
 
 .myData {
   -webkit-box-shadow: 18px -6px 26px -16px #e3d7e3;
@@ -8914,6 +8924,19 @@ small a:hover {
 input[type="range"] {
   margin-right: 8px; }
 
+progress {
+  background: crimson;
+  vertical-align: baseline;
+  height: 0.5rem;
+  margin-top: 8px;
+  margin-left: 10px; }
+
+progress::-webkit-progress-value {
+  background: lightblue; }
+
+progress[value]::-webkit-progress-bar {
+  background-color: white; }
+
 .min, .regularResults,
 .max {
   -webkit-appearance: none;
@@ -8954,10 +8977,21 @@ input[type="range"] {
 .valueNotOk {
   color: #FF6F6F; }
 
+.myResultsComment {
+  display: inline-block;
+  border-left: 10px solid #1D88E5;
+  padding-left: 20px;
+  font-size: 1.25rem; }
+  .myResultsComment > span {
+    opacity: .6; }
+
 .analysisComment {
   position: absolute;
   top: 0;
   right: 0; }
+
+.list-group-item {
+  margin-bottom: 0; }
 
 .min::-webkit-slider-thumb, .regularResults::-webkit-slider-thumb,
 .max::-webkit-slider-thumb {
@@ -9088,7 +9122,7 @@ input[type="range"] {
 .nav-tabs {
   border-bottom: none; }
 
-.vangranica, .okvrednosti {
+.vangranica, .brojPotrebnihAnaliza, .okvrednosti {
   width: 1.75rem;
   height: 1.75rem;
   background-color: #FF6F6F;
@@ -9097,6 +9131,9 @@ input[type="range"] {
   font-size: 1rem;
   border-radius: 14px;
   display: inline-block; }
+
+.brojPotrebnihAnaliza {
+  background-color: #FF9600; }
 
 .okvrednosti {
   background-color: #55D159; }
@@ -9194,6 +9231,10 @@ input[type="range"] {
 
 .alert {
   margin-bottom: 0; }
+
+@media print {
+  body {
+    background-color: red; } }
 
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {

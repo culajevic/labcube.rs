@@ -6,6 +6,14 @@ const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
 let storage = multer.diskStorage({
   destination:function (req, file, cb) {
     cb(null, 'src/images/editors')
@@ -19,7 +27,7 @@ let storage = multer.diskStorage({
 const upload = multer({storage:storage})
 exports.upload = upload.single('picture')
 
-exports.allEditors = async (req,res) => {
+exports.allEditors = [authCheck, async (req,res) => {
   const numOfEditors = await Editor.find().countDocuments()
   const allEditors = await Editor.find()
   res.render('allEditors',{
@@ -27,15 +35,15 @@ exports.allEditors = async (req,res) => {
     numOfEditors,
     allEditors
   })
-}
+}]
 
-exports.addEditor = (req,res) => {
+exports.addEditor = [authCheck, (req,res) => {
   res.render('addEditor',{
     title:'Dodaj novog urednika'
   })
-}
+}]
 
-exports.createEditor = async (req, res) => {
+exports.createEditor = [authCheck, async (req, res) => {
   let errors = []
   if(!req.body.editorTitle) {
     errors.push({'text':'obavezno je uneti titulu urednika'})
@@ -73,17 +81,17 @@ exports.createEditor = async (req, res) => {
       res.redirect('/addEditor')
     }
   }
-}
+}]
 
-exports.editEditor = async (req,res) => {
+exports.editEditor = [authCheck, async (req,res) => {
   const editor = await Editor.findOne({_id:req.params.id})
   res.render('addEditor', {
     title:'Izmena podataka o uredniku',
     editor
   })
-}
+}]
 
-exports.updateEditor = async (req,res) => {
+exports.updateEditor = [authCheck, async (req,res) => {
   req.body.date = Date.now()
   if(req.file) {
     req.body.picture = req.file.filename
@@ -119,15 +127,15 @@ exports.updateEditor = async (req,res) => {
       res.redirect('/allEditors')
     }
   }
-}
+}]
 
 exports.getEditors = async(req,res) => {
   let editor = await Editor.find({lastName:{"$regex":req.params.lastName, "$options":"i"}})
   res.json(editor)
 }
 
-exports.deleteEditor = async (req,res) => {
+exports.deleteEditor = [authCheck, async (req,res) => {
   const deleteEditor = await Editor.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'urednik uspesno obrisan.')
   res.send()
-}
+}]

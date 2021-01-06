@@ -44,7 +44,7 @@
                     {{displayScheduledAnalysis this.analyses}}</p>
 
                     <div class="form-group">
-                    <textarea name="komentar" class="form-control rounded-0" rows="4" cols="55" placeholder="Komentar">{{this.comment}}</textarea>
+                    <textarea name="komentar" class="form-control rounded-0" rows="4" cols="55" placeholder="Komentar">{{this.commentLab}}</textarea>
                   </div>
                     <div id="status" class="mb-4 m-auto">
                       <input type="radio" name="status{{this._id}}" value="Zakazano" id="zakazano{{this._id}}" {{#if (checkBox this.status 'Zakazano')}} checked {{/if}} />
@@ -71,9 +71,6 @@
     </div>
   </div>
 </div>
-
-
-
 
 
  {{> _footer}}

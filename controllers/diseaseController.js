@@ -3,6 +3,15 @@ const Disease = mongoose.model('Disease')
 const moment = require('moment')
 moment.locale('sr')
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
+
 exports.allDiseases = async (req,res) => {
   const diseaseNumber = await Disease.find().countDocuments()
   const allDiseases = await Disease.find()
@@ -13,13 +22,13 @@ exports.allDiseases = async (req,res) => {
   })
 }
 
-exports.addDisease = (req, res) => {
+exports.addDisease = [authCheck, (req, res) => {
   res.render('addDisease', {
     title:'Dodaj novo oboljenje'
   })
-}
+}]
 
-exports.createDisease = async (req, res) => {
+exports.createDisease = [authCheck, async (req, res) => {
   let errors = []
   if(!req.body.name) {
     errors.push({text:'Unesi ime oboljenja'})
@@ -50,17 +59,17 @@ exports.createDisease = async (req, res) => {
       req.redirect('/addDiseases')
     }
   }
-}
+}]
 
-exports.editDisease = async (req,res) => {
+exports.editDisease = [authCheck, async (req,res) => {
   const disease = await Disease.findOne({_id:req.params.id})
   res.render('addDisease', {
     title:'Izmena podataka o oboljenju',
     disease
   })
-}
+}]
 
-exports.updateDisease = async (req,res) => {
+exports.updateDisease = [authCheck, async (req,res) => {
   req.body.date = Date.now()
   try {
     const disease = await Disease.findOneAndUpdate(
@@ -77,15 +86,15 @@ exports.updateDisease = async (req,res) => {
     req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o oboljenu`)
     // res.redirect('/allDiseases')
   }
-}
+}]
 
 exports.getDiseases = async (req,res) => {
   const diseaseList = await Disease.find({name:{"$regex":req.params.diseaseName,"$options":"i"}})
   res.json(diseaseList)
 }
 
-exports.deleteDisease = async (req,res) => {
+exports.deleteDisease = [authCheck, async (req,res) => {
   const deleteDisease = await Disease.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'oboljnje uspesno obrisano.')
   res.send()
-}
+}]

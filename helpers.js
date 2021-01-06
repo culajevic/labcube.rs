@@ -80,6 +80,22 @@ hbs.registerHelper('countItems', (items) => {
   return items.length
 })
 
+hbs.registerHelper('countHighValues', (items) => {
+  let highValues = 0
+  for (i=0; i<items.length; i++) {
+    if(items[i].outsideOfTheRange == true) {
+      highValues += 1
+    }
+  }
+  return highValues
+})
+
+hbs.registerHelper('countOkValues', (value1, value2) => {
+  let totalNumOfAnalysis = value2.length
+  let okValues = parseInt(totalNumOfAnalysis) - parseInt(value1)
+  return okValues
+})
+
 hbs.registerHelper('pagination', (value1, value2) => {
   if (value1 > value2) {
     return true
@@ -176,6 +192,20 @@ hbs.registerHelper('notZero', (value) => {
   if(parseFloat(value) != 0) {
     return true
   }
+})
+
+hbs.registerHelper('notBlank', (value) => {
+  if (value.length>0){
+    return true
+  }
+})
+
+hbs.registerHelper('checkStatus', (value1) => {
+  if (value1 == 'Završeno') return true
+})
+
+hbs.registerHelper('checkStatusFeedback', (value1,value2) => {
+  if (value1 == 'Završeno' && value2 == false) return true
 })
 
 //display if lab is open on lab details page

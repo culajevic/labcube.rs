@@ -21280,8 +21280,7 @@ $('.backTotop').on('click', function () {
   }, 1200); // return false;
 }); //animate numbers on google map header
 
-var location = window.location.pathname;
-console.log(location); // GLOBAL VARIABLES
+var location = window.location.pathname; // GLOBAL VARIABLES
 //set filter by default to analiza
 
 var filter = 'analiza';
@@ -21299,6 +21298,7 @@ var checkUrl = /result.*/;
 var group = /group/;
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl))) {
+  console.log('da');
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -22040,6 +22040,54 @@ window.onload = function () {
           }
         });
       });
+    });
+  } //interpratation
+
+
+  if (urlArr[1] == 'interpretation') {
+    var ownerId;
+    var interpretation = document.getElementById('interpretationId').value;
+    var lockTheRecord = document.getElementById('zakljucaj');
+    var lockStatus = document.getElementById('lockStatus');
+    var lockTheRecordArr = [];
+    lockTheRecord.addEventListener('click', function (e) {
+      if (lockTheRecord.checked == true) {
+        ownerId = lockTheRecord.value;
+        lockTheRecordArr.push({
+          'ownerId': ownerId,
+          'interpretationId': interpretation
+        });
+        lockingInterpretation = JSON.stringify(lockTheRecordArr);
+        lockStatus.innerHTML = 'Zaključano';
+        fetch('/lockTheInterpretation/', {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: lockingInterpretation
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        ownerId = null;
+        lockTheRecordArr.push({
+          'ownerId': ownerId,
+          'interpretationId': interpretation
+        });
+        lockingInterpretation = JSON.stringify(lockTheRecordArr);
+        lockStatus.innerHTML = 'Zaključaj';
+        fetch('/lockTheInterpretation/', {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: lockingInterpretation
+        }).then(function (response) {
+          console.log(response);
+        });
+      }
     });
   }
   /* ANALYSIS DETAILS PAGE ***************/

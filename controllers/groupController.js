@@ -5,11 +5,17 @@ const Analysis = mongoose.model('Analysis')
 //for test only
 const Price = mongoose.model('Price')
 const Lab = mongoose.model('Lab')
-
-//
 const multer = require('multer')
 const path = require('path')
 const mime = require('mime-types')
+
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
 
 let storage = multer.diskStorage({
   destination:function (req,file,cb) {
@@ -27,7 +33,7 @@ exports.upload = upload.single('iconPath')
 
 
 // add a new group to database
-exports.createGroup = async (req,res) => {
+exports.createGroup = [authCheck, async (req,res) => {
   let errors = []
   if(!req.body.name) {
     errors.push({text:'Unesite ime grupe'})
@@ -63,7 +69,7 @@ exports.createGroup = async (req,res) => {
         res.redirect('/addGroup')
       }
   }
-}
+}]
 
 // display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
@@ -198,14 +204,14 @@ exports.displayGroup = async (req,res) => {
 }
 
 // display form for adding a new group
-exports.addGroup = (req,res) => {
+exports.addGroup = [authCheck, (req,res) => {
   res.render('addGroup', {
     title:'Dodaj novu grupu analiza'
   })
-}
+}]
 
 // display single group for edit
-exports.editGroup = async (req,res) => {
+exports.editGroup = [authCheck, async (req,res) => {
   try{
     const group = await Group.findOne({name:req.params.name})
     res.render('addGroup',{
@@ -216,9 +222,9 @@ exports.editGroup = async (req,res) => {
     req.flash('error_msg', `doslo je do greske ${e}`)
     res.redirect('/addGroup')
   }
-}
+}]
 
-exports.updateGroup = async (req,res) => {
+exports.updateGroup = [authCheck, async (req,res) => {
   if (req.body.frontPage == undefined) {
     req.body.frontPage = false
   }
@@ -240,27 +246,26 @@ exports.updateGroup = async (req,res) => {
   } catch(e) {
     console.log(e)
   }
-}
-
+}]
 
 
 // display all groups in backend as a list
-exports.listAllGroups = async(req,res) => {
+exports.listAllGroups = [authCheck, async(req,res) => {
   // const countGroups = await Group.find().count()
   const allGroups = await Group.find().sort({name:1})
     res.render('allGroupsList',{
       title:'Sve grupe analiza',
       allGroups
     })
-}
+}]
 
 exports.getGroupNames = async (req,res) => {
   const group = await Group.find({name:{ "$regex": req.params.groupName , "$options": "i" }})
   res.json(group)
 }
 
-exports.deleteGroup = async (req,res) => {
+exports.deleteGroup = [authCheck, async (req,res) => {
   const deleteGroup = await Group.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Grupa je uspesno obrisana.')
   res.json()
-}
+}]

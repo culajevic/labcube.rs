@@ -9,15 +9,17 @@
   </div>
 </div>
 
-<div class="container" id="results">
+<div class="container" id="myresults">
  		<div class="row">
       <!-- {{name}} -->
  			<div class="col-md-12 col-lg-12">
 
-        <section id="my-results">
+        <section id="my-results" >
           <div class="container">
-            <p class="pb-2"><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
-              <h1 >{{myResults.lab.labName}} - {{formatLabScheduleDate myResults.scheduledFor myResults.uzimanjeUzorka}}</h1>
+
+            <p class="pb-4"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
+
+              <h1 class="mt-4">{{myResults.lab.labName}} - {{formatLabScheduleDate myResults.scheduledFor myResults.uzimanjeUzorka}}</h1>
               <div class="col-12 doctorDetails">
                 <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">
                 <div class="hcpBio">
@@ -25,6 +27,7 @@
                     <p>icing elit. Accusamujdskjdks kjs kjds kdjs s illum, sequi asperiorconsec. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit id quas, molestiae aut nemo modi quasi cupiditate dicta delectus esse, ratione expedita!</p>
                 </div>
               </div>
+
             <div class="row">
 
               {{#each myResults.analyses}}
@@ -32,6 +35,7 @@
               <div class="resultDetails">
                   <div class="col-12 col-md-7 pr-4">
                     <h4 class="analysisName">{{this.analysis}} <span class="{{outsideOfTheRange this.outsideOfTheRange}}">{{this.value}} {{{this.measure}}}</span></h4>
+                    <!-- <p>{{this.comment}}</p> -->
                     <p>{{this.analysisId.shortDesc}}</p>
                   </div>
                   <div class="col-12 col-md-5 analysisResults">
@@ -40,7 +44,7 @@
 
                       <div>
                         <input type="range" class="regularResults min {{lessThenCheck this.value  this.lessThen}}"
-                        data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.lessThen}}  value={{this.value}}  step="0.1" disabled>
+                        data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.lessThen}}  value={{this.value}}  step="0.1" disabled data-slider-id='ex1Slider'>
                         <div class="rangeLabels">&lt {{this.lessThen}}</div>
                       </div>
                       <div>
@@ -50,7 +54,7 @@
                         <div class="rangeLabels">&gt {{this.lessThen}}</div>
                       </div>
 
-                    <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span>
+                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
 
                     {{else if (notZero this.greaterThen)}}
 
@@ -66,7 +70,7 @@
                       <div class="rangeLabels">&gt {{this.greaterThen}}</div>
                     </div>
 
-                    <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span>
+                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
 
                     {{else}}
                         <div>
@@ -83,16 +87,107 @@
                           <input type="range" class="max {{highValue this.value this.valueTo}}" name="high" min="{{this.valueTo}}" max={{addMaxValue this.valueTo}} value={{this.value}} step="0.1"  disabled>
                           <div class="rangeLabels">&gt {{this.valueTo}}</div>
                         </div>
-                        <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span>
+                        <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
+
+
                   {{/if}}
                   </div><!-- analysis result -->
+                  <div class="col-12">
+
+                    {{#if (notBlank this.commentResult)}}
+                    <p class="myResultsComment">
+                      <span>{{{this.commentResult}}} </span>
+                    </p>
+                      {{/if}}
+
+
+                  </div>
               </div><!-- resultDetails -->
+
               {{/each}}
-              <!-- <p class="mt-4">{{myResults.commentResult}}</p> -->
+              <div class="col-12">
+                <p class="mt-4">{{{myResults.commentCube}}}</p>
+              </div>
+
             </div> <!-- row end -->
-          </div> <!-- container end -->
+          </div>
+          <!-- container end -->
         </section><!-- settings id end -->
 
+        {{#if (checkStatusFeedback myResults.status myResults.feedback)}}
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+
+              <form class="" action="/submitRating" method="post">
+                <p>Komentari su potpuno anonimni, laboratorija neće videti vaše podatke.</p>
+                <div class="form-row">
+
+                  <div class="card mr-2" style="width:24%;" >
+                    <div class="card-body">
+                      <h5 class="card-title">Ljubaznost</h5>
+                      <span class="card-text">Ocenite ljubaznost zaposlenih u laboratoriji</span>
+                      <div class="form-group">
+                          <span class="">1</span>
+                        <input type="range" id="ljubaznost" class="rating" name="hospitality" style=""  min=1 max=5 step=1 value=5>
+                        <span class="">5</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card mr-2" style="width:24%;">
+                    <div class="card-body">
+                      <h5 class="card-title">Venepunkcija</h5>
+                      <p class="card-text">Koliko je vađenje krvi bilo bezbolno?</p>
+                      <div class="form-group">
+                          <span class="">1</span>
+                        <input type="range" class="rating" id="venepunkcija" name="venipuncture" min=1 max=5 step=1 value=5>
+                        <span class="">5</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card mr-2" style="width:24%;">
+                    <div class="card-body">
+                      <h5 class="card-title">Izdavanje rezultata</h5>
+                      <p class="card-text">Da li su vam rezultati dostavljeni u obećanom roku?</p>
+                        <div class="form-group">
+                          <span class="">1</span>
+                          <input type="range" id="speed" class="rating" name="speed" style=""  min=1 max=5 step=1 value=5>
+                          <span class="">5</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="card mr-2" style="width:24%;">
+                      <div class="card-body">
+                        <h5 class="card-title">Covid odgovorni</h5>
+                        <p class="card-text">Da li laboratorija poštuje epidemiološke mere?</p>
+                          <div class="form-group">
+                            <span class="">1</span>
+                            <input type="range" id="covid" class="rating" name="covid" style=""  min=1 max=5 step=1 value=5>
+                            <span class="">5</span>
+                          </div>
+                      </div>
+                    </div>
+
+                    <input type="hidden" name="scheduleId" value="{{myResults.id}}">
+                    <input type="hidden" name="lab" value="{{myResults.lab.id}}">
+
+
+                </div><!-- form row end -->
+
+                <div class="form-group mt-3">
+                  <p>Da li želite još nešto da dodate?</p>
+                  <textarea for="komentarKorisnika" name="comment" rows="4" cols="80"></textarea>
+                </div>
+
+                <button class="btn btn-outline-primary mb-4 btn-block" name="button">vaše mišljenje je važno</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {{/if}}
       </div>
  		</div><!-- table row end  -->
  </div> <!-- results container end -->

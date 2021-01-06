@@ -1,7 +1,15 @@
 const mongoose = require('mongoose')
 const Reference = mongoose.model('Reference')
 
-exports.allReferences = async (req,res) => {
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
+exports.allReferences = [authCheck, async (req,res) => {
   const numOfReferences = await Reference.find().countDocuments()
   const allReferences = await Reference.find().sort({referenceTitle:1})
   res.render('allReferences', {
@@ -9,15 +17,15 @@ exports.allReferences = async (req,res) => {
     numOfReferences,
     allReferences
   })
-}
+}]
 
-exports.addReference = (req,res) => {
+exports.addReference = [authCheck, (req,res) => {
   res.render('addReference', {
     title:'Dodaj referencu'
   })
-}
+}]
 
-exports.createReference = async (req,res) => {
+exports.createReference = [authCheck, async (req,res) => {
   let errors = []
   if(!req.body.referenceTitle) {
     errors.push({'text':'Obavezno je uneti naslov reference'})
@@ -38,18 +46,18 @@ exports.createReference = async (req,res) => {
       res.redirect('/addReference')
     }
   }
-}
+}]
 
 
-exports.editReference = async (req,res) => {
+exports.editReference = [authCheck, async (req,res) => {
   const reference = await Reference.findOne({_id:req.params.id})
   res.render('addReference', {
     title:'Izmeni referencu',
     reference
   })
-}
+}]
 
-exports.updateReference = async (req, res) => {
+exports.updateReference = [authCheck, async (req, res) => {
   try {
     const reference = await Reference.findOneAndUpdate({_id:req.params.id},
       req.body,
@@ -65,15 +73,15 @@ exports.updateReference = async (req, res) => {
     req.flash('error_msg', `doslo je do greske ${e} prilikomm azuriranja podataka o referenci`)
     res.redirect('back')
     }
-}
+}]
 
 exports.getReferences = async(req,res) => {
   const references = await Reference.find({referenceTitle:{"$regex":req.params.referenceTitle, "$options":"i"}})
   res.json(references)
 }
 
-exports.deleteReference = async (req,res) => {
+exports.deleteReference = [authCheck, async (req,res) => {
   const deleteReference = await Reference.findOneAndDelete({_id:req.params.id})
   req.flash('success_msg', 'Referenca je uspesno obrisana.')
   res.json()
-}
+}]

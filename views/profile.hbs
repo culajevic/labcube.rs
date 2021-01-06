@@ -9,7 +9,11 @@
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
 
         <li class="nav-item">
-          <a class="nav-link active link-unstyled dashboardTabs" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" aria-selected="false" >Osnovne informacije</a>
+          <a class="nav-link  active link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Moji rezultati ({{numOfMyAnalysis}})</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link  link-unstyled dashboardTabs" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"  aria-selected="false" >Osnovne informacije</a>
         </li>
 
 
@@ -17,14 +21,12 @@
         <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link  link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" >Moji rezultati ({{numOfMyAnalysis}})</a>
-      </li>
+
 </ul>
 
 <div class="tab-content" id="myTabContent">
 
-  <div class="tab-pane show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <div class="tab-pane show" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="profileCard" >
       <form action="/myProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center">
         <div class="basicInfo col-8 my-4">
@@ -312,19 +314,28 @@
 </div>
 
 
-  <div class="tab-pane table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+  <div class="tab-pane active table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
     <table class="tableLabResults" id="myLabResults">
       <tbody>
+
         {{#each myAppointments}}
+
         <tr class="dashboardResults">
           <td>{{this.lab.labName}}</td>
           <td>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</td>
           <td>{{this.total}} rsd</td>
+
           <td><span class="{{this.status}}">{{this.status}}</span></td>
-          <td><span class="okvrednosti text-center" title="broj rezultata koji su u granicama">2</span></td>
-          <td><span class="vangranica text-center" title="broj rezultata koji su povišeni">6</span></td>
+
+          {{#if (checkStatus this.status)}}
+          <td><span class="okvrednosti text-center" title="broj rezultata u granicama">{{countOkValues (countHighValues this.analyses) this.analyses }}</span></td>
+          <td><span class="vangranica text-center" title="broj rezultata koji su van dozvoljenih vrednosti">{{countHighValues this.analyses}}</span></td>
+          {{else}}
+          <td><span class="brojPotrebnihAnaliza text-center" title="broj potrebnih analiza">{{countItems this.analyses}}</span></td>
+          <td></td>
+          {{/if}}
           <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td>
-          <td><a href="/myresults/{{this.id}}" class="btn btn-res-success">detalji</button></a>
+          <td><a href="/mojirezultati/{{this.id}}" class="btn btn-res-success ">detalji</button></a>
         </tr>
         {{/each}}
       </tbody>
