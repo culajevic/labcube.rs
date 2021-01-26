@@ -2,20 +2,56 @@
 
 
 
-<div class="container-fluid" id="">
+<div class="container" id="">
  		<div class="row">
 
+
       <div class="col-12">
-        <div class="table-responsive mt-4 px-5" id="labDashboard">
+        <a href="/interpretation">nazad</a>
+        {{#each analysisValues}}
+        <div class="userDetails mt-4" >
+            <h1 class="headTitle">{{this.user.username}}</h1>
+            <h4>Mobilni: {{this.user.mobile}}</h4>
+            <h4>Godina rođenja: {{this.user.birthYear}}</h3>
+            <h4>{{this.user.height}}cm, {{this.user.weight}}kg, BMI: {{this.user.bmi}}</h4>
+            <h4>Pušač: {{this.user.smoking}}</h4>
+            <h4>Alkohol: {{this.user.alcohol}}</h4>
+            <h4>Povišen krvni pritisak: {{this.user.bloodPresure}}</h4>
+            <h4>Ishrana: {{this.user.nutrition}}</h4>
+            <h4>Trenutno pod stresom: {{this.user.stress}}</h4>
+            <h4>Nedeljno vežba (sat): {{this.user.hoursExcercise}}</h4>
+            <h4>Dodaci ishrani: {{this.user.foodSuplements}}</h4>
+            <h4>Da li je ikada imao povišen šećer: {{this.user.sweets}}</h4>
+            <h4>Trenutno na terapiji: {{this.user.therapy}}</h4>
+            <h4>Komentar za terapiju: {{this.user.therapyComment}}</h4>
+            <h4>Trenutno bolestan/bolesna: {{this.user.currentStatus}}</h4>
+            <h4>Opis trenutnog stanja: {{this.user.currentStatusComment}}</h4>
+            <h4>Oboljenja u porodici: {{this.user.anamnesis}}</h4>
+            <h4>Anamneza komentar: {{this.user.anamnesisComment}}</h4>
+
+            <h4>Trenutno doji: {{this.user.breastfeeding}}</h4>
+            <h4>Ima menstruacije: {{this.user.menstruation}}</h4>
+            <h4>Uredan ciklus: {{this.user.regularMenstruation}}</h4>
+            <h4>Trenutno trudna: {{this.user.pregnancy}}</h4>
+            <h4>Redovno odlazi kod ginekologa: {{this.user.regularGinecologyChecks}}</h4>
+        </div>
+          {{/each}}
+
+      </div>
+
+      <div class="col-12">
+        <div class="table-responsive mt-4" id="labDashboard">
           <form class="" action="" method="post" id="lockTheRecord">
             {{#each analysisValues}}
-
               <div class="form-check">
                 <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
                 {{#if this.owner}}
                 <label for="zakljucaj" id="lockStatus">Zaključano</label>
+
                 {{else}}
                 <label for="zakljucaj" id="lockStatus">Zaključaj</label>
+
+
                 {{/if}}
               </div>
               <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
@@ -26,15 +62,15 @@
             <tbody>
 
                 <tr>
-                  <th class="text-info">Ime analize</th>
-                  <th class="text-info">Vrednost</th>
-                  <th class="text-info">Jedinica</th>
-                  <th class="text-info"><</th>
-                  <th class="text-info">></th>
-                  <th class="text-info">Od</th>
-                  <th class="text-info">Do</th>
-                  <th class="text-info">Van granica?</th>
-                  <th class="text-info">Komentar</th>
+                  <th class="small text-info">Ime analize</th>
+                  <th class="small text-info">Vrednost</th>
+                  <th class="small text-info">Jedinica</th>
+                  <th class="small text-info"><</th>
+                  <th class="small text-info">></th>
+                  <th class="small text-info">Od</th>
+                  <th class="small text-info">Do</th>
+                  <th class="small text-info">Van granica?</th>
+                  <th class="small text-info">Komentar</th>
                 </tr>
 
 
@@ -62,10 +98,10 @@
           </table>
           {{#each analysisValues}}
           <p>Glavni komentar</p>
-          <textarea name="commentCube" rows="8" cols="70" id="cubeComment">{{this.commentCube}}</textarea>
+          <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{this.commentCube}}</textarea>
           {{/each}}
 
-            <button class="btn btn-success  mb-4">sačuvaj</button>
+            <button class="btn btn-outline-primary mb-4 btn-block mt-3">sačuvaj</button>
             </form>
         </div>
       </div>

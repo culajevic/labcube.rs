@@ -23,7 +23,7 @@
               <div class="col-12 doctorDetails">
                 <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">
                 <div class="hcpBio">
-                    <p class="h5">dr Miroslav Janković</p>
+                    <p class="h5">{{myResults.owner.username}}</p>
                     <p>icing elit. Accusamujdskjdks kjs kjds kdjs s illum, sequi asperiorconsec. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit id quas, molestiae aut nemo modi quasi cupiditate dicta delectus esse, ratione expedita!</p>
                 </div>
               </div>
@@ -106,8 +106,12 @@
 
               {{/each}}
               <div class="col-12">
-                <p class="mt-4">{{{myResults.commentCube}}}</p>
+                <div class="col-12 myResultsComment my-4">
+                  <h1 class="headTitle">Lab cube zaključak</h1>
+                  <span class="">{{{myResults.commentCube}}}</span>
+                </div>
               </div>
+
 
             </div> <!-- row end -->
           </div>
@@ -120,7 +124,7 @@
             <div class="col-12">
 
               <form class="" action="/submitRating" method="post">
-                <p>Komentari su potpuno anonimni, laboratorija neće videti vaše podatke.</p>
+                <p>Molili bismo vas da odvojite jedan minut i ocenite uslug i iskustvo sa laboratorijom, komentari su potpuno anonimni. Hvala</p>
                 <div class="form-row">
 
                   <div class="card mr-2" style="width:24%;" >

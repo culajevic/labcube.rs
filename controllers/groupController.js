@@ -17,6 +17,8 @@ const authCheck = (req,res, next) => {
   }
 }
 
+
+
 let storage = multer.diskStorage({
   destination:function (req,file,cb) {
     cb(null, 'src/images')
@@ -73,6 +75,7 @@ exports.createGroup = [authCheck, async (req,res) => {
 
 // display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
+
 sortByPriority = {priority:-1}
   try {
     const faqFP = await Faq.find({frontPage:true}).sort(sortByPriority)
@@ -199,7 +202,8 @@ exports.displayGroup = async (req,res) => {
 
   res.render('groupDetails',{
     group:groupDetails,
-    analyisisdata:analysis
+    analyisisdata:analysis,
+    user:req.user
   })
 }
 

@@ -29,6 +29,7 @@ const labSchema = new mongoose.Schema({
   vatNumber:Number,
   logo:String,
   priority:String,
+  discount:Number,
   location:{
     type:{
       type:String,

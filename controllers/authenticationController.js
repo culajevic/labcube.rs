@@ -97,7 +97,7 @@ exports.profile = [authCheck, async (req,res) => {
     const countTotal = await Schedule.countDocuments({lab:req.user.labId})
 
     const page = req.params.page || 1
-    const limit = 10
+    const limit = 4
     const pages = Math.ceil(countTotal / limit)
     const skip = (page * limit) - limit
 
@@ -245,6 +245,45 @@ exports.findUserEmail =  async (req,res) => {
 } else {
 
   let myLabScheduledAnalysis = await Schedule.find({lab:req.user.labId}).populate('user').sort({createdDate:-1})
+  res.json(myLabScheduledAnalysis)
+  // res.json({myLabScheduledAnalysis, page})
+  // res.render('index')
+  }
+}
+
+exports.findUserEmailByLabCube =  async (req,res) => {
+  if(req.params.userEmail) {
+  let userIdArr = []
+  let newObjectArr = []
+  const findUserEmail = await User.find({email:{$regex: req.params.userEmail, $options: 'i'}})
+
+  for(let i=0; i<findUserEmail.length; i++) {
+   userIdArr.push(findUserEmail[i]._id)
+   newObjectArr = userIdArr.map(i => mongoose.Types.ObjectId(i))
+  }
+
+  const findMyLabUsers  = await Schedule
+      .find({user: { $in: newObjectArr}})
+      .populate('user')
+      .populate('owner', 'username')
+      .sort({createdDate:-1})
+      res.json(findMyLabUsers)
+  // const findMyLabUsers  = await Schedule.aggregate([
+  //     {$match:{user: { $in: newObjectArr}}},
+  //     {$lookup:{from:'users', localField:'user', foreignField:'_id', as:'user'}},
+  //     {$lookup:{from:'users', localField:'owner', foreignField:'_id', as:'owner'}},
+  //     {$project:{user:1,
+  //               fields:"$$ROOT",
+  //               owner:'$owner.username'
+  //     }}
+  //   ])
+  //     res.json(findMyLabUsers)
+} else {
+
+  let myLabScheduledAnalysis = await Schedule.find({})
+  .populate('user')
+  .populate('owner', 'username')
+  .sort({createdDate:-1})
   res.json(myLabScheduledAnalysis)
   // res.json({myLabScheduledAnalysis, page})
   // res.render('index')

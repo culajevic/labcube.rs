@@ -9,11 +9,10 @@
       <div class="col-12">
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
         <h1 class="mb-5" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}<span class="float-right">1.9km</span></h1>
-
       </div>
-      <div class="col-sm-12 col-lg-8">
+      <div class="col-sm-12 col-lg-5">
         <div class="labInfoWindowDetails">
-           <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo">
+           <!-- <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo"> -->
            <p class="labDetailsAdresa">{{labDetails.address}} </p>
            <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p>
            <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
@@ -21,8 +20,9 @@
            <!-- <p><</p> -->
         </div>
       </div><!-- col-6 -->
-      <div class="col-sm-12 col-lg-4">
+      <div class="col-sm-12 col-lg-3">
         <div class="labFeatures">
+
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
           {{/if}}
@@ -35,6 +35,15 @@
           {{#if labDetails.disability}}
           <p><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
           {{/if}}
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="feedback" style="">
+          <p class="float-right mb-0">ljubaznost  <progress max=5 value={{hospitality}}> </progress> {{hospitality}}</p>
+          <p class="text-right mb-0">venepunkcija  <progress max=5 value="{{venipuncture}}"></progress> {{venipuncture}}</p>
+          <p class="text-right mb-0">izdavanje rezultata  <progress value="{{speed}}" max="5"> </progress> {{speed}}</p>
+          <p class="text-right mb-0">covid odgovorni <progress value="{{covid}}" max="5"></progress> {{covid}}</p>
+          <p class="text-right mb-0">opšti utisak <progress value="{{overall}}" max="5"></progress> {{overall}}</p>
         </div>
       </div>
     </div>
@@ -99,7 +108,8 @@
                 </tbody>
        				</table><!-- table -->
               <div class="mt-1">
-                <p class="aboutUs"><span class="numAnalysis">Broj odabranih analiza ({{numofanalysis}})</span> <span class="totalPrice"></span></p>
+                <p class="aboutUs"><span class="numAnalysis">Broj odabranih analiza ({{numofanalysis}})</span> <span class="totalPrice" ></span></p>
+                <p class="aboutUs" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Cena za lab cube korisnike</span> <span class="labCubePrice" id="labCubePrice"></span></p>
                 <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
               </div>
             </div><!-- col 12 end -->

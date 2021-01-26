@@ -21844,7 +21844,12 @@ window.onload = function () {
 
 
     var prices = document.querySelectorAll('.price');
-    var totalPriceSpan = document.querySelector('.totalPrice');
+    var totalPriceSpan = document.querySelector('.totalPrice'); //calculate labcube price
+
+    var totalLabCubePrice = document.getElementById('labCubePrice');
+    var discount = document.getElementById('discount');
+    var discountValue = discount.getAttribute('data-discount');
+    var labCubePrice = 0;
     var resultSection = document.getElementById('resultsLabDetails'); // let table = document.getElementById('resultTableAnalysis')
 
     var _itemsArray = JSON.parse(localStorage.getItem('items'));
@@ -21852,7 +21857,10 @@ window.onload = function () {
     var totalPrice = 0;
     prices.forEach(function (item) {
       totalPrice += parseInt(item.getAttribute('data-price'));
-    });
+    }); // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
+
+    labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
+    totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
     var labIdName = document.getElementById('labName');
     labId = labIdName.getAttribute('data-id');
     schedule.push({
@@ -21908,6 +21916,8 @@ window.onload = function () {
         e.target.disabled = true;
         totalPrice += parseInt(e.target.getAttribute('data-price'));
         totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+        labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
+        totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
         resultSection.classList.remove('d-none');
 
         _checkout.classList.remove('d-none');
@@ -21957,6 +21967,8 @@ window.onload = function () {
 
           totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText);
           totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+          labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
+          totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
 
           var nameIndex = _itemsArray.findIndex(function (item) {
             return item.id === toBeDeleted;
@@ -21983,8 +21995,7 @@ window.onload = function () {
       });
     }
 
-    var scheduleBtn = document.getElementById('schedule'); // console.log('3'+ scheduleString)
-
+    var scheduleBtn = document.getElementById('schedule');
     scheduleBtn.addEventListener('click', function () {
       schedule[3].date = dateLab.value != "" ? dateLab.value : datePatronaza.value;
       scheduleString = JSON.stringify(schedule);
@@ -22044,12 +22055,15 @@ window.onload = function () {
   } //interpratation
 
 
-  if (urlArr[1] == 'interpretation') {
+  var interpretationPage = document.getElementById('interpretationId');
+
+  if (urlArr[1] == 'interpretation' && interpretationPage) {
     var ownerId;
-    var interpretation = document.getElementById('interpretationId').value;
+    var interpretation = interpretationPage.value;
     var lockTheRecord = document.getElementById('zakljucaj');
     var lockStatus = document.getElementById('lockStatus');
-    var lockTheRecordArr = [];
+    var lockTheRecordArr = []; // lock the record for interpretation
+
     lockTheRecord.addEventListener('click', function (e) {
       if (lockTheRecord.checked == true) {
         ownerId = lockTheRecord.value;
@@ -22088,7 +22102,34 @@ window.onload = function () {
           console.log(response);
         });
       }
-    });
+    }); //lock the record end
+  } else if (urlArr[1] == 'interpretation') {
+    //search for results by patient email
+    var _labDashTable = document.getElementById('analysisResultsCube');
+
+    findUserByEmail.addEventListener('input', function () {
+      var searchStr = findUserByEmail.value;
+      var pagination = document.getElementById('pagination');
+      pagination.classList.add('d-none');
+      fetch('/usersLabCube/' + searchStr).then(function (data) {
+        _labDashTable.innerHTML = '';
+        data.json().then(function (result) {
+          console.log(result);
+
+          for (var _i3 = 0; _i3 < result.length; _i3++) {
+            var formatDate = void 0;
+
+            if (result[_i3].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
+            } else {
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
+            }
+
+            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i3].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i3]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i3].owner ? result[_i3].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
+          }
+        });
+      });
+    }); // search end
   }
   /* ANALYSIS DETAILS PAGE ***************/
 

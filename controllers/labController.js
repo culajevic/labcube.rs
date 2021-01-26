@@ -3,6 +3,7 @@ const Lab = mongoose.model('Lab')
 const Analysis = mongoose.model('Analysis')
 const ObjectId = mongoose.Types.ObjectId
 const Price = mongoose.model('Price')
+const Feedback = mongoose.model('Feedback')
 const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
@@ -61,6 +62,7 @@ exports.createLab = [authCheck, async (req,res) => {
       id:req.body._id,
       labName:req.body.labName,
       slug:req.body.slug,
+      discount:req.body.discount,
       placeId:req.body.placeId,
       address:req.body.address,
       city:req.body.city,
@@ -176,8 +178,30 @@ exports.deleteLab = [authCheck, async (req,res) => {
 
 
 exports.getLabInfo = async (req,res) => {
+
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
+let user = req.user
+
+  //display feedback for the lab
+  const findFeedback = await Feedback.find({lab:labDetails.id})
+  let hospitality = 0
+  let venipuncture = 0
+  let speed = 0
+  let covid = 0
+  let overall = 0
+  for (let i = 0; i<findFeedback.length; i++){
+    hospitality += ((findFeedback[i].hospitality) / findFeedback.length)
+    venipuncture += ((findFeedback[i].venipuncture) / findFeedback.length)
+    speed += ((findFeedback[i].speed) / findFeedback.length)
+    covid += ((findFeedback[i].covid) / findFeedback.length)
+  }
+  hospitality = hospitality.toFixed(1)
+  venipuncture = venipuncture.toFixed(1)
+  speed = speed.toFixed(1)
+  covid = covid.toFixed(1)
+  overall = ((parseFloat(hospitality) + parseFloat(venipuncture) + parseFloat(speed) + parseFloat(covid))/4).toFixed(1)
+
   let userId
   let userName
   if (req.user != null) {
@@ -296,7 +320,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName})
+  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
 
 }
 

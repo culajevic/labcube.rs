@@ -142,6 +142,13 @@
   position: absolute;
   right: 0;
   top:0;
+  text-decoration: line-through;
+}
+
+.labCubePrice {
+  @extend .totalPrice;
+  background-color: $button-green;
+  text-decoration: none;
 }
 
 #resultsLabDetails .labDetailsActionBtn {

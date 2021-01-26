@@ -836,14 +836,25 @@ if(urlArr[1] == 'laboratorija') {
   //show totalPrice
   let prices = document.querySelectorAll('.price')
   let totalPriceSpan = document.querySelector('.totalPrice')
+
+//calculate labcube price
+  let totalLabCubePrice = document.getElementById('labCubePrice')
+  let discount = document.getElementById('discount')
+  let discountValue = discount.getAttribute('data-discount')
+  let labCubePrice = 0
   let resultSection = document.getElementById('resultsLabDetails')
   // let table = document.getElementById('resultTableAnalysis')
+
   let itemsArray = JSON.parse(localStorage.getItem('items'))
   let totalPrice = 0
     prices.forEach(item =>  {
       totalPrice += parseInt(item.getAttribute('data-price'))
     })
 
+    // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
+    labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+
+    totalLabCubePrice.innerText = `${labCubePrice} din.`
     const labIdName = document.getElementById('labName')
     labId = labIdName.getAttribute('data-id')
 
@@ -909,6 +920,8 @@ if(urlArr[1] == 'laboratorija') {
           e.target.disabled = true
           totalPrice  += parseInt(e.target.getAttribute('data-price'))
           totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+          labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+          totalLabCubePrice.innerText = `${labCubePrice} din.`
           resultSection.classList.remove('d-none')
           checkout.classList.remove('d-none')
           itemsArray.push({
@@ -966,6 +979,8 @@ if(urlArr[1] == 'laboratorija') {
             //update total price by substracting from total
             totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText)
             totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+            labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+            totalLabCubePrice.innerText = `${labCubePrice} din.`
             let nameIndex = itemsArray.findIndex((item) => {
                 return item.id === toBeDeleted
               })
@@ -990,10 +1005,8 @@ if(urlArr[1] == 'laboratorija') {
         })
       }
 
+
       let scheduleBtn = document.getElementById('schedule')
-
-
-      // console.log('3'+ scheduleString)
 
       scheduleBtn.addEventListener('click', ()=>{
 
@@ -1041,7 +1054,7 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
       findUserByEmail.addEventListener('input', () => {
 
         let searchStr = findUserByEmail.value
-        const pagination = document.getElementById('pagination')
+          const pagination = document.getElementById('pagination')
         pagination.classList.add('d-none')
         fetch('/users/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
@@ -1097,20 +1110,22 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
             }
           })
         })
-
       })
 
   }
 
   //interpratation
+let interpretationPage = document.getElementById('interpretationId')
 
-  if(urlArr[1] == 'interpretation') {
+  if(urlArr[1] == 'interpretation' && interpretationPage) {
+
     let ownerId
-    let interpretation = document.getElementById('interpretationId').value
+    let interpretation = interpretationPage.value
     let lockTheRecord = document.getElementById('zakljucaj')
     let lockStatus = document.getElementById('lockStatus')
     let lockTheRecordArr = []
 
+    // lock the record for interpretation
     lockTheRecord.addEventListener('click', e => {
       if(lockTheRecord.checked == true) {
         ownerId = lockTheRecord.value
@@ -1145,9 +1160,50 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
           console.log(response)
         })
       }
-    })
+    })//lock the record end
+  } else if(urlArr[1] == 'interpretation') {
 
+    //search for results by patient email
+    const labDashTable = document.getElementById('analysisResultsCube')
 
+      findUserByEmail.addEventListener('input', () => {
+
+        let searchStr = findUserByEmail.value
+
+        const pagination = document.getElementById('pagination')
+        pagination.classList.add('d-none')
+        fetch('/usersLabCube/'+searchStr).then((data) => {
+          labDashTable.innerHTML = ''
+          data.json().then((result) => {
+            console.log(result)
+            for(let i=0; i<result.length; i++){
+
+              let formatDate
+              if (result[i].uzimanjeUzorka == 'patronaza') {
+               formatDate = moment(result[i].scheduledFor).format('D.M.Y / H:mm')
+             } else {
+               formatDate = moment(result[i].scheduledFor).format('D.M.Y')
+             }
+
+              labDashTable.innerHTML += `
+                <tbody>
+                  <tr class="dashboardResults">
+                    <td>${result[i].user.username}</td>
+                    <td>${result[i].user.mobile}</td>
+                    <td align="align-left">${result[i].user.email}</td>
+                    <td align="align-left">${formatDate}</td>
+                    <td><span class="${result[i].status}">${result[i].status}</span></td>
+                    <td title="broj potrebnih analiza">${result[i].analyses.length}</td>
+                    <td><img src="/images/${result[i].uzimanjeUzorka}.svg" title="${result[i].uzimanjeUzorka}" class="mb-1"></td>
+                    <td><a  href="/interpretation/${result[i]._id}">protumači</a></td>
+                    <td>${result[i].owner ?  result[i].owner.username : ' '}</td>
+                  </tr>
+                </tbody>
+                `
+            }
+          })
+        })
+      })// search end
   }
 
 /* ANALYSIS DETAILS PAGE ***************/

@@ -17,14 +17,18 @@
 
         <!-- street / city / postal code -->
         <div class="form-row">
-          <div class="form-group col-sm-6">
+          <div class="form-group col-sm-4">
             <small class="form-text text-muted">place id</small>
             <input type="text" class="form-control" name="placeId" id="searchPlaces" placeholder="search for place name*" value={{keepData lab.placeId._id placeId}}>
             <ul class="list-group" style="position:absolute; width:98%; background-color:white;  z-index:999" id="result"></ul>
           </div>
-          <div class="form-group col-sm-6">
+          <div class="form-group col-sm-4">
             <small class="form-text text-muted">address</small>
             <input type="text" id="address" name="address" class="form-control" value="{{keepData lab.address address}}" placeholder="address*">
+          </div>
+          <div class="form-group col-sm-4">
+            <small class="form-text text-muted">discount</small>
+            <input type="text" id="discount" name="discount" class="form-control" value="{{keepData lab.discount discount}}" placeholder="discount">
           </div>
           <div class="form-group col-sm-4">
             <small class="form-text text-muted">city</small>

@@ -8432,7 +8432,7 @@ footer {
   opacity: .7;
   cursor: pointer; }
 
-.totalPrice {
+.totalPrice, .labCubePrice {
   float: right;
   background-color: #1D88E5;
   padding: 10px 16px;
@@ -8441,7 +8441,12 @@ footer {
   font-weight: bold;
   position: absolute;
   right: 0;
-  top: 0; }
+  top: 0;
+  text-decoration: line-through; }
+
+.labCubePrice {
+  background-color: #55D159;
+  text-decoration: none; }
 
 #resultsLabDetails .labDetailsActionBtn {
   display: flex;

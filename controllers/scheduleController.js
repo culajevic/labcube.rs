@@ -9,6 +9,14 @@ let Feedback = mongoose.model('Feedback')
 const nodemailer = require('nodemailer')
 
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.redirect('/prijava')
+  } else {
+    next()
+  }
+}
+
 exports.scheduleVisit = async (req,res) => {
 
   let analysisArr = []
@@ -106,6 +114,7 @@ exports.myResults = async (req,res) => {
   .populate('lab')
   .populate('user', 'username')
   .populate('analyses.analysisId')
+  .populate('owner')
   res.render('myresults', {myResults})
 }
 
@@ -139,26 +148,35 @@ exports.userFeedback = async (req,res) => {
     }
 }
 
-exports.resultsInterpretation = async (req,res) => {
+exports.resultsInterpretation = [authCheck, async (req,res) => {
+
+  const countTotal = await Schedule.countDocuments({$or:[{status:'Završeno'},{status:'Uzorkovanje'}]})
+  const page = req.params.page || 1
+  const limit = 4
+  const pages = Math.ceil(countTotal / limit)
+  const skip = (page * limit) - limit
+
   const resultsForInterpretation = await Schedule.find({$or:[{status:'Završeno'},{status:'Uzorkovanje'}]})
+    .skip(skip)
+    .limit(limit)
     .populate('lab')
     .populate('user')
     .populate('analyses.analysisId')
     .populate('owner')
+
     .sort({createdDate:-1})
-  res.render('resultsInterpretation', {resultsForInterpretation, title:'Tumačenje rezultata'})
-}
+  res.render('resultsInterpretation', {resultsForInterpretation, title:'Tumačenje rezultata', page, countTotal, pages})
+}]
 
-exports.resultsInterpretationValues = async (req,res) => {
-
+exports.resultsInterpretationValues = [authCheck, async (req,res) => {
   const analysisValues = await Schedule.find({_id:req.params.id})
   .populate('lab')
   .populate('user')
   res.render('analysisInterpretation', {analysisValues, user:req.user})
-}
+}]
 
 exports.analysisInterpretation = async (req,res) => {
-console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
+// console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
 
 let outsideOfTheRange = []
 let test = []
@@ -166,20 +184,18 @@ let updateInterpretation
 
 
   for (let i = 0; i<req.body.value.length; i++) {
-
     if(req.body['outsideOfTheRange'+req.body.analysisId[i]] ==  undefined) {
       outsideOfTheRange = false
     } else {
       outsideOfTheRange = true
     }
 
-
     test.push({
       'id':req.body.analysisId[i],
       'value':req.body.value[i],
       'range':outsideOfTheRange
     })
-//
+
 
 
   updateInterpretation = await Schedule.findOneAndUpdate(
@@ -202,13 +218,13 @@ let updateInterpretation
       useFindAndModify:false
     }).exec()
   }
-  console.log(test)
   res.send(updateInterpretation)
 }
 
 exports.lockTheInterpretation =  async (req,res) => {
-  console.log(req.body[0].ownerId)
-  console.log(req.body[0].interpretationId)
+  // console.log(req.body[0].ownerId)
+  // console.log(req.body[0].interpretationId)
+  console.log(req.body[0])
   let lockTheInterpretation = await Schedule.findOneAndUpdate(
     {_id:req.body[0].interpretationId},
     {owner:req.body[0].ownerId},
