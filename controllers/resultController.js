@@ -131,7 +131,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   let analysisDetails = await Analysis.findOne({slug:req.params.slug})
   .populate('connectedTo', 'analysisName slug')
   .populate('references')
-  .populate('groupId', 'iconPath') 
+  .populate('groupId', 'iconPath')
 
 
 const prices = await Price.aggregate([
