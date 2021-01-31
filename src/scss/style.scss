@@ -20,6 +20,28 @@
   padding: 0;
 }
 
+.icon {
+  // display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-left: 24px;
+}
+.iconSvgLokacije {
+  background-image: url('../images/sveLab.svg');
+  background-repeat: no-repeat;
+  &:hover {
+    filter: invert(8%);
+  }
+}
+
+.iconSvgPrijava {
+  background-image: url('../images/prijava.svg');
+  background-repeat: no-repeat;
+  &:hover {
+    filter: invert(8%);
+  }
+}
+
 .registerForm .form-control {
   background-color: transparent;
   border:none;

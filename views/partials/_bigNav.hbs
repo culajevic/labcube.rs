@@ -9,13 +9,19 @@
       </button>
       <div class="collapse navbar-collapse my-1" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
+          <!-- <li class="nav-item">
+            <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
+          </li> -->
           <li class="nav-item">
             <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link"><i class="fa fa-map-marker-alt"></i>Sve laboratorije</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="#" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
-          
+
           {{#if user.id}}
           <li class="nav-item">
             <a href="/profile" class="nav-link">{{user.username}}</a>
@@ -24,8 +30,11 @@
             <a href="/logout" class="nav-link"><i class="fa fa-sign-out-alt"></i></a>
           </li>
           {{else}}
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="/prijava" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
           </li>
           <li class="nav-item">
             <a href="/registracija" class="nav-link"><i class="fas fa-user-plus"></i> Registracija</a>

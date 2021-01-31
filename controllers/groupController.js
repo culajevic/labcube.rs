@@ -86,6 +86,12 @@ sortByPriority = {priority:-1}
       {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
       {$sort:{'grupa.priority':-1}}
     ])
+    // const groups = await Group.aggregate([
+    //   {$match:{}},
+    //   {$lookup:{from: 'analyses', localField:"_id", foreignField:"groupId", as:"analiza"}}
+    // ])
+    // console.log(groups)
+
     const labNum = await Lab.countDocuments({})
     const analysisNum = await Analysis.countDocuments({})
     //trenutno otvorene laboratorije
