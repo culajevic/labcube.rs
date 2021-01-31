@@ -8361,6 +8361,12 @@ footer {
   .iconSvgLokacije:hover {
     filter: invert(8%); }
 
+.list-group-item {
+  border: 1px solid #F3F7FB; }
+
+.card-header {
+  border-bottom: none; }
+
 .iconSvgPrijava {
   background-image: url(../images/prijava.svg);
   background-repeat: no-repeat; }
