@@ -15,7 +15,7 @@ const authCheck = (req,res, next) => {
 
 exports.addAnalysis = [authCheck, (req,res) => {
   res.render('addAnalysis', {
-    title:'Dodaj novu analizu'
+    title:'Dodaj novu analizuu'
   })
 }]
 
