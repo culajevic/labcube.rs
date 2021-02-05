@@ -8361,6 +8361,9 @@ footer {
   .iconSvgLokacije:hover {
     filter: invert(8%); }
 
+.table thead th, .tableLabResults thead th {
+  border-bottom: 0px; }
+
 .list-group-item {
   border: 1px solid #F3F7FB; }
 

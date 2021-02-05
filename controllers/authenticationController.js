@@ -156,7 +156,10 @@ exports.admindasboard =  [authCheck, (req,res) => {
 
 exports.register =  async (req,res) => {
   let errors = []
-  let {email,password} = req.body
+  let {email,password, privacy, conditions} = req.body
+  if(!privacy || !conditions) {
+    errors.push({text:'Neophodno je da potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti'})
+  }
   if(!validator.validate(email)) {
     errors.push({text:'Email adresa nije ispravna'})
   }
@@ -175,6 +178,8 @@ exports.register =  async (req,res) => {
         const newUser = new User({
           username:email,
           email:email,
+          conditions:true,
+          privacy:true,
           signupDate:Date.now(),
           isVerified:false,
           admin:0,
