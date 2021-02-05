@@ -20891,7 +20891,7 @@ exports.searchLabAnalysis = function (searchString, filter) {
       setTimeout(function () {
         var searchString = e.target.value;
         window.location.href = '/results/?name=' + searchString + '&filter=' + filterValue;
-      }, 500);
+      }, 400);
     }
   });
 };
