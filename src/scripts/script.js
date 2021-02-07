@@ -210,9 +210,8 @@ if (document.getElementById('results')!=null) {
         loaderWrapper.style.opacity = 0
         let labTemplate = document.createElement('div')
           labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
-
+          console.log(result)
         for(let i=0; i<result.length; i++) {
-// console.log(result[i].lab[0].workingHours)
 
         markers.push(
           {
@@ -221,6 +220,7 @@ if (document.getElementById('results')!=null) {
             total:result[i].total,
             name:result[i].lab[0].labName,
             address:result[i].lab[0].address,
+            city:result[i].labPlace[0].place,
             phone:result[i].lab[0].phone,
             workinghours:result[i].lab[0].workingHours,
             slug:result[i].lab[0].slug
@@ -239,7 +239,7 @@ if (document.getElementById('results')!=null) {
                  <img src="/images/lablogo/${result[i].lab[0].logo}" class="labLogoInfoWindow">
 
                  <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
-                 <p class="labInfoWindowGrad"></p>
+                 <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>
                  <p class="labInfoWindowTelefoni"> ${result[i].lab[0].phone} </p>
              </div>
              <div class="labInfoFooter">
@@ -546,13 +546,14 @@ if (document.getElementById('results')!=null) {
                   markers[i].total,
                   markers[i].name,
                   markers[i].address,
+                  markers[i].city,
                   markers[i].phone,
                   markers[i].workinghours,
                   markers[i].slug)
         }
 
       // console.log(markers)
-        function addMarker(lat, lng, total, name, address, phone, workinghours,slug) {
+        function addMarker(lat, lng, total, name, address, city, phone, workinghours,slug) {
           let marker = new google.maps.Marker({
             position:{lat:lat, lng:lng},
             icon:{
@@ -569,39 +570,31 @@ if (document.getElementById('results')!=null) {
             map:map
             })
 
+
+
             let infoWindow = new google.maps.InfoWindow({
               maxWidth:600,
-              content:`<p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
+              content:`<div class="" style="min-height:142px; max-width:380px;">
+                          <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
+                          <span class="">${address}</span>
+                          <p class="">${city}</p>
+                          <span class="labInfoWindowTelefoni">${phone.join(', ')}</span>
 
-                      <div class="labInfoWindow">
-                        <img src="images/placeholder.svg" class="labLogoInfoWindow">
-                        <span class="">${address}</span>
-                        <span class="labInfoWindowTelefoni">${phone} </span>
-                    </div>
-                    <table class="table table-sm workingHoursLabDetails mt-2">
-                      <thead>
-                        <tr>
-                          <th class="text-center px-0 whInside">P</th>
-                          <th class="text-center px-0 whInside">U</th>
-                          <th class="text-center px-0 whInside">S</th>
-                          <th class="text-center px-0 whInside">Č</th>
-                          <th class="text-center px-0 whInside">P</th>
-                          <th class="text-center px-0 whInside">S</th>
-                          <th class="text-center px-0 whInside">N</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="whInside px-0 text-center">${workinghours.monday.opens} - ${workinghours.monday.closes}</td>
-                          <td class="whInside px-0 text-center">${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</td>
-                          <td class="whInside px-0 text-center radnoVreme open">${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</td>
-                          <td class="whInside px-0 text-center">${workinghours.thursday.opens} - ${workinghours.thursday.closes}</td>
-                          <td class="whInside px-0 text-center">${workinghours.friday.opens} - ${workinghours.friday.closes}</td>
-                          <td class=" whInside px-0 text-center">${workinghours.saturday.opens} - ${workinghours.saturday.closes}</td>
-                          <td class="whInside px-0 text-center">${workinghours.sunday.opens} - ${workinghours.sunday.closes}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                          <div class="labInfoWindowFooter">
+                            <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">
+                          <div class="radnoVreme">Radno vreme</div>
+                          <div class="status "></div>
+                          <div class="radnoVremeDetalji">
+                            <p class="whInside text-center">P<span>${workinghours.monday.opens} - ${workinghours.monday.closes}</span></p>
+                            <p class="whInside text-center">U<span>${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</span></p>
+                            <p class="whInside text-center">S<span>${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</span></p>
+                            <p class="whInside text-center">Č<span>${workinghours.thursday.opens} - ${workinghours.thursday.closes}</span></p>
+                            <p class="whInside text-center">P<span>${workinghours.friday.opens} - ${workinghours.friday.closes}</span></p>
+                            <p class="whInside text-center">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
+                            <p class="whInside text-center">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
+                          </div>
+                        </div>
+
                     `
 
             });
