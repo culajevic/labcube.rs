@@ -183,73 +183,73 @@ exports.getPrices = async (req,res) => {
     {$sort:{total:1}}
   ])
 
-  let now = new Date()
-  let day = now.getDay()
-  let date = now.getDate()
-  let year = now.getFullYear()
-  let month = now.getMonth()
-  let today = (month + 1) + "/" + date + "/" + year
-  let numOpen = 0
-  let labStatus = []
-
-  let currentDay
-  let currentDayNum
-
-  switch (day) {
-    case 0:
-      currentDay = 'sunday'
-      currentDayNum = 0
-      break
-    case 1:
-      currentDay = 'monday'
-      currentDayNum = 1
-      break
-    case 2:
-      currentDay = 'tuesday'
-      currentDayNum = 2
-      break
-    case 3:
-      currentDay = 'wednesday'
-      currentDayNum = 3
-      break
-    case 4:
-      currentDay = 'thursday'
-      currentDayNum = 4
-      break
-    case 5:
-      currentDay = 'friday'
-      currentDayNum = 5
-      break
-    case 6:
-      currentDay = 'saturday'
-      currentDayNum = 6
-      break
-    default:
-      console.log('dan nije ok')
-  }
-
-  let status
-
-  if(day == currentDayNum) {
-    for(i=0; i<getLabs.length; i++) {
-      let openTime = getLabs[i].workingHours[currentDay].opens
-      let closingTime = getLabs[i].workingHours[currentDay].closes
-      let todayOpenTime = new Date(today +' '+ openTime +':00')
-      let todayClosingTime = new Date(today +' '+ closingTime +':00')
-      let nowTimeStamp = now.getTime()
-      if(nowTimeStamp > todayOpenTime.getTime() &&
-        todayClosingTime.getTime() > nowTimeStamp) {
-        numOpen +=1
-        status = 'open'
-        labStatus.push({'id':getLabs[i]._id, 'status':status})
-      }
-      else {
-        status = 'closed'
-        labStatus.push({'id':getLabs[i]._id, 'status':status})
-      }
-    }
-  }
-  console.log(labStatus)
+  // let now = new Date()
+  // let day = now.getDay()
+  // let date = now.getDate()
+  // let year = now.getFullYear()
+  // let month = now.getMonth()
+  // let today = (month + 1) + "/" + date + "/" + year
+  // let numOpen = 0
+  // let labStatus = []
+  //
+  // let currentDay
+  // let currentDayNum
+  //
+  // switch (day) {
+  //   case 0:
+  //     currentDay = 'sunday'
+  //     currentDayNum = 0
+  //     break
+  //   case 1:
+  //     currentDay = 'monday'
+  //     currentDayNum = 1
+  //     break
+  //   case 2:
+  //     currentDay = 'tuesday'
+  //     currentDayNum = 2
+  //     break
+  //   case 3:
+  //     currentDay = 'wednesday'
+  //     currentDayNum = 3
+  //     break
+  //   case 4:
+  //     currentDay = 'thursday'
+  //     currentDayNum = 4
+  //     break
+  //   case 5:
+  //     currentDay = 'friday'
+  //     currentDayNum = 5
+  //     break
+  //   case 6:
+  //     currentDay = 'saturday'
+  //     currentDayNum = 6
+  //     break
+  //   default:
+  //     console.log('dan nije ok')
+  // }
+  //
+  // let status
+  //
+  // if(day == currentDayNum) {
+  //   for(i=0; i<getLabs.length; i++) {
+  //     let openTime = getLabs[i].workingHours[currentDay].opens
+  //     let closingTime = getLabs[i].workingHours[currentDay].closes
+  //     let todayOpenTime = new Date(today +' '+ openTime +':00')
+  //     let todayClosingTime = new Date(today +' '+ closingTime +':00')
+  //     let nowTimeStamp = now.getTime()
+  //     if(nowTimeStamp > todayOpenTime.getTime() &&
+  //       todayClosingTime.getTime() > nowTimeStamp) {
+  //       numOpen +=1
+  //       status = 'open'
+  //       labStatus.push({'id':getLabs[i]._id, 'status':status})
+  //     }
+  //     else {
+  //       status = 'closed'
+  //       labStatus.push({'id':getLabs[i]._id, 'status':status})
+  //     }
+  //   }
+  // }
+  // console.log(labStatus)
 
 
 

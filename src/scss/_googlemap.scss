@@ -113,10 +113,10 @@
 
 .radnoVremeDetalji {
   display: block;
-  height: px-to-rem(138px);
+  height: px-to-rem(180px);
   // min-height: px-t-rem(300px);
   top:px-to-rem(-132px);
-  right:-400px;
+  right:-350px;
   width:px-to-rem(360px);
   opacity: 1;
   z-index: 2289;
@@ -281,7 +281,7 @@ margin-right: 12px;
   border-bottom: 1px solid rgba(31,31,31,.1);
   cursor:pointer;
   &:hover .labInfoRadnoVremeDetalji{
-    opacity: .8;
+    opacity: .9;
     cursor: pointer;
   }
   & > .radnoVreme {
