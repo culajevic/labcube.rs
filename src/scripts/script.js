@@ -205,13 +205,82 @@ if (document.getElementById('results')!=null) {
     let municipalityValue = municipality.options[municipality.selectedIndex].value
     let markers = []
 
+    //take working timeout
+        let now = new Date()
+        let day = now.getDay()
+        let date = now.getDate()
+        let year = now.getFullYear()
+        let month = now.getMonth()
+        let today = (month + 1) + "/" + date + "/" + year
+
+        let numOpen = 0
+        let labStatus = []
+        let status
+        let currentDay
+        let currentDayNum
+
+        switch (day) {
+          case 0:
+            currentDay = 'sunday'
+            currentDayNum = 0
+            break
+          case 1:
+            currentDay = 'monday'
+            currentDayNum = 1
+            break
+          case 2:
+            currentDay = 'tuesday'
+            currentDayNum = 2
+            break
+          case 3:
+            currentDay = 'wednesday'
+            currentDayNum = 3
+            break
+          case 4:
+            currentDay = 'thursday'
+            currentDayNum = 4
+            break
+          case 5:
+            currentDay = 'friday'
+            currentDayNum = 5
+            break
+          case 6:
+            currentDay = 'saturday'
+            currentDayNum = 6
+            break
+          default:
+            console.log('dan nije ok')
+        }
+    // working time end
+
     fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
       data.json().then(result => {
         loaderWrapper.style.opacity = 0
         let labTemplate = document.createElement('div')
           labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
-          console.log(result)
+
         for(let i=0; i<result.length; i++) {
+
+          if(day == currentDayNum) {
+
+              let openTime = result[i].lab[0].workingHours[currentDay].opens
+              let closingTime = result[i].lab[0].workingHours[currentDay].closes
+              let todayOpenTime = new Date(today +' '+ openTime +':00')
+              let todayClosingTime = new Date(today +' '+ closingTime +':00')
+              let nowTimeStamp = now.getTime()
+              if(nowTimeStamp > todayOpenTime.getTime() &&
+                todayClosingTime.getTime() > nowTimeStamp) {
+                numOpen +=1
+                status = 'open'
+                labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              }
+              else {
+                status = 'closed'
+                labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              }
+              console.log(labStatus)
+          }
+
 
         markers.push(
           {
@@ -226,6 +295,7 @@ if (document.getElementById('results')!=null) {
             slug:result[i].lab[0].slug
           }
         )
+
           resultDiv.innerHTML = ''
           labTemplate.innerHTML += `
 
@@ -233,7 +303,7 @@ if (document.getElementById('results')!=null) {
             <div>
             ${(result[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
             ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-            <span class="labInfoWindowTitle">${result[i].lab[0].labName}</span>
+            <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
            </div>
              <div class="labInfoWindow">
                  <img src="/images/lablogo/${result[i].lab[0].logo}" class="labLogoInfoWindow">
@@ -245,7 +315,7 @@ if (document.getElementById('results')!=null) {
              <div class="labInfoFooter">
                  <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                  <div class="radnoVreme">Radno vreme</div>
-                 <div id='otvoreno' class='otvoreno status'></div>
+                 <div id='otvoreno' class='status otvoreno'></div>
                  <div class="labInfoRadnoVremeDetalji">
                    <p class="daysInWeek monday${result[i]} text-center">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
                    <p class="daysInWeek tuesday${result[i]} text-center">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
@@ -557,10 +627,15 @@ if (document.getElementById('results')!=null) {
           let marker = new google.maps.Marker({
             position:{lat:lat, lng:lng},
             icon:{
-              url:'/images/pinprice.svg',
+              url:(labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
               labelOrigin: {x: 32, y: 32},
               scaledSize: new google.maps.Size(60, 60)
             },
+            // icon:{
+            //   url:'/images/pinprice.svg',
+            //   labelOrigin: {x: 32, y: 32},
+            //   scaledSize: new google.maps.Size(60, 60)
+            // },
             label:{
               text:total.toString(),
               fontWeight: 'bold',
@@ -583,15 +658,15 @@ if (document.getElementById('results')!=null) {
                           <div class="labInfoWindowFooter">
                             <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">
                           <div class="radnoVreme">Radno vreme</div>
-                          <div class="status "></div>
+                          <div class="status ${labStatus[i].status}"></div>
                           <div class="radnoVremeDetalji">
-                            <p class="whInside text-center">P<span>${workinghours.monday.opens} - ${workinghours.monday.closes}</span></p>
-                            <p class="whInside text-center">U<span>${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</span></p>
-                            <p class="whInside text-center">S<span>${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</span></p>
-                            <p class="whInside text-center">Č<span>${workinghours.thursday.opens} - ${workinghours.thursday.closes}</span></p>
-                            <p class="whInside text-center">P<span>${workinghours.friday.opens} - ${workinghours.friday.closes}</span></p>
-                            <p class="whInside text-center">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
-                            <p class="whInside text-center">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${workinghours.monday.opens} - ${workinghours.monday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${workinghours.thursday.opens} - ${workinghours.thursday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 5) ? labStatus[i].status : ''}">P<span>${workinghours.friday.opens} - ${workinghours.friday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 6) ? labStatus[i].status : ''}">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
+                            <p class="whInside text-center ${(day == 0) ? labStatus[i].status : ''}">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
                           </div>
                         </div>
 
