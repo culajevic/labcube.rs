@@ -21451,8 +21451,6 @@ window.onload = function () {
                   'status': status
                 });
               }
-
-              console.log(labStatus);
             }
 
             markers.push({
