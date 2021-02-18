@@ -153,6 +153,7 @@ exports.getPrices = async (req,res) => {
   let newids = []
   let newObjectArr = []
   newids = req.params.ids.split(',')
+
   // numofanalysis = newids.length
    newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
   //nadji sva mesta koja pripadaju odabranoj opstini
@@ -178,10 +179,12 @@ exports.getPrices = async (req,res) => {
     {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
     {$group:{_id:'$lab', total:{$sum:'$cenovnik.cena'}}},
     {$lookup:{from:'labs', localField:'_id', foreignField:'_id', as:'lab'}},
-    {$project:{lab:1, total:1, _id:0}},
+    {$project:{lab:1, total:1, _id:0, }},
     {$lookup:{from:'places', localField:'lab.placeId', foreignField:'_id', as:'labPlace'}},
     {$sort:{total:1}}
   ])
+
+console.log(getPrices)
 
   // let now = new Date()
   // let day = now.getDay()

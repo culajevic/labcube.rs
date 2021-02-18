@@ -278,8 +278,8 @@ if (document.getElementById('results')!=null) {
                 status = 'closed'
                 labStatus.push({'id':result[i].lab[0]._id, 'status':status})
               }
-              console.log(labStatus)
           }
+
 
 
         markers.push(
