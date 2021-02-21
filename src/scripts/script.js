@@ -115,7 +115,7 @@ let urlArr = location.split('/')
 /* check if local storage already exists,
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-
+let municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []
 //MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
@@ -186,508 +186,19 @@ if (document.getElementById('results')!=null) {
 
 //show prices
   let resultDiv = document.getElementById('resultTable')
-  const municipality = document.getElementById('municipality')
+
+  let loaderWrapper = document.querySelector('.loader-wrapper')
   const showPriceBtn = document.querySelector('.showPrice')
   let mapArea = document.getElementById('mapPrices')
+
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
-    window.scrollTo({
-    top:0,
-    behavior:'smooth'})
-    mapArea.classList.remove('d-none')
-    let passIds = []
-    resultDiv.innerHTML = ''
-    itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
-      itemsArray.forEach(item => {
-      passIds.push(item.id)
-      });
 
-    let municipalityValue = municipality.options[municipality.selectedIndex].value
-    let markers = []
-
-    //take working timeout
-        let now = new Date()
-        let day = now.getDay()
-        let date = now.getDate()
-        let year = now.getFullYear()
-        let month = now.getMonth()
-        let today = (month + 1) + "/" + date + "/" + year
-
-        let numOpen = 0
-        let labStatus = []
-        let status
-        let currentDay
-        let currentDayNum
-
-        switch (day) {
-          case 0:
-            currentDay = 'sunday'
-            currentDayNum = 0
-            break
-          case 1:
-            currentDay = 'monday'
-            currentDayNum = 1
-            break
-          case 2:
-            currentDay = 'tuesday'
-            currentDayNum = 2
-            break
-          case 3:
-            currentDay = 'wednesday'
-            currentDayNum = 3
-            break
-          case 4:
-            currentDay = 'thursday'
-            currentDayNum = 4
-            break
-          case 5:
-            currentDay = 'friday'
-            currentDayNum = 5
-            break
-          case 6:
-            currentDay = 'saturday'
-            currentDayNum = 6
-            break
-          default:
-            console.log('dan nije ok')
-        }
-    // working time end
-
-    fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
-      data.json().then(result => {
-        loaderWrapper.style.opacity = 0
-        let labTemplate = document.createElement('div')
-          labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
-
-        for(let i=0; i<result.length; i++) {
-
-          if(day == currentDayNum) {
-
-              let openTime = result[i].lab[0].workingHours[currentDay].opens
-              let closingTime = result[i].lab[0].workingHours[currentDay].closes
-              let todayOpenTime = new Date(today +' '+ openTime +':00')
-              let todayClosingTime = new Date(today +' '+ closingTime +':00')
-              let nowTimeStamp = now.getTime()
-              if(nowTimeStamp > todayOpenTime.getTime() &&
-                todayClosingTime.getTime() > nowTimeStamp) {
-                numOpen +=1
-                status = 'open'
-                labStatus.push({'id':result[i].lab[0]._id, 'status':status})
-              }
-              else {
-                status = 'closed'
-                labStatus.push({'id':result[i].lab[0]._id, 'status':status})
-              }
-          }
-
-
-
-        markers.push(
-          {
-            lat:result[i].lab[0].location.coordinates[1], lng:result[i].lab[0].location.coordinates[0],
-            iconImage:'/images/pinopen.svg',
-            total:result[i].total,
-            name:result[i].lab[0].labName,
-            address:result[i].lab[0].address,
-            city:result[i].labPlace[0].place,
-            phone:result[i].lab[0].phone,
-            workinghours:result[i].lab[0].workingHours,
-            slug:result[i].lab[0].slug
-          }
-        )
-
-          resultDiv.innerHTML = ''
-          labTemplate.innerHTML += `
-
-          <div class="lab-card">
-            <div>
-            ${(result[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
-            ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-            <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
-           </div>
-             <div class="labInfoWindow">
-                 <img src="/images/lablogo/${result[i].lab[0].logo}" class="labLogoInfoWindow">
-
-                 <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
-                 <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>
-                 <p class="labInfoWindowTelefoni"> ${result[i].lab[0].phone} </p>
-             </div>
-             <div class="labInfoFooter">
-                 <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                 <div class="radnoVreme">Radno vreme</div>
-                 <div id='otvoreno' class='status otvoreno'></div>
-                 <div class="labInfoRadnoVremeDetalji">
-                   <p class="daysInWeek monday${result[i]} text-center">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
-                   <p class="daysInWeek tuesday${result[i]} text-center">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
-                   <p class="daysInWeek wednesday${result[i]} text-center">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
-                   <p class="daysInWeek thursday${result[i]} text-center">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
-                   <p class="daysInWeek friday${result[i]} text-center">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
-                   <p class="daysInWeek saturday${result[i]} text-center">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
-                   <p class="daysInWeek sunday${result[i]} text-center">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
-                 </div>
-              </div>
-              <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result[i].lab[0].slug}/${passIds}">saznaj više</a>
-           </div>`
-
-           resultDiv.innerHTML = `
-           <section id="labDetails">
-             <div class="container">
-               <div class="row labContainer">
-               </div>
-             </div>
-           </section>`
-
-           //append labcard to page
-           document.querySelector('.labContainer').appendChild(labTemplate)
-        }
-        // map options
-        let options = {
-          zoom:16,
-          // center: {lat:44.808048, lng:20.462796},
-          disableDefaultUI: true,
-          zoomControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: true,
-          rotateControl: false,
-          fullscreenControl: true,
-          fullscreenControlOptions:{
-            position:google.maps.ControlPosition.RIGHT_BOTTOM
-          },
-          styles: [
-              {
-                "featureType": "administrative.country",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#fbd2d9"
-                  },
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.country",
-                "elementType": "geometry.stroke",
-                "stylers": [
-                  {
-                    "color": "#9896a9"
-                  },
-                  {
-                    "weight": 2
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.land_parcel",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#9896a9"
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.land_parcel",
-                "elementType": "labels",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.locality",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.neighborhood",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "administrative.neighborhood",
-                "elementType": "labels",
-                "stylers": [
-                  {
-                    "color": "#aaa9b1"
-                  },
-                  {
-                    "visibility": "simplified"
-                  }
-                ]
-              },
-              {
-                "featureType": "poi",
-                "elementType": "labels.text",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "poi.business",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "poi.park",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#aadc55"
-                  }
-                ]
-              },
-              {
-                "featureType": "poi.park",
-                "elementType": "labels.text",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "road",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#ecebed"
-                  },
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "road",
-                "elementType": "labels.text",
-                "stylers": [
-                  {
-                    "color": "#d8d6dc"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.arterial",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#fefefe"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.arterial",
-                "elementType": "labels.text",
-                "stylers": [
-                  {
-                    "color": "#9a9a9a"
-                  },
-                  {
-                    "visibility": "simplified"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.highway",
-                "elementType": "labels",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.local",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.local",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#eaecec"
-                  },
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.local",
-                "elementType": "labels",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "road.local",
-                "elementType": "labels.text.fill",
-                "stylers": [
-                  {
-                    "color": "#9ba4a4"
-                  },
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "transit",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "visibility": "off"
-                  }
-                ]
-              },
-              {
-                "featureType": "transit.station",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "visibility": "on"
-                  }
-                ]
-              },
-              {
-                "featureType": "transit.station.bus",
-                "stylers": [
-                  {
-                    "visibility": "simplified"
-                  }
-                ]
-              },
-              {
-                "featureType": "transit.station.bus",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#ff00ff"
-                  },
-                  {
-                    "visibility": "simplified"
-                  }
-                ]
-              },
-              {
-                "featureType": "water",
-                "elementType": "geometry.fill",
-                "stylers": [
-                  {
-                    "color": "#1d88e5"
-                  },
-                  {
-                    "lightness": 15
-                  }
-                ]
-              }
-            ]
-        }
-        // new map
-        let map = new google.maps.Map(document.getElementById('mapPrices'), options)
-            map.setCenter({lat:result[0].lab[0].location.coordinates[1], lng:result[0].lab[0].location.coordinates[0]});
-
-        for(i=0; i<markers.length; i++) {
-        addMarker(markers[i].lat,
-                  markers[i].lng,
-                  markers[i].total,
-                  markers[i].name,
-                  markers[i].address,
-                  markers[i].city,
-                  markers[i].phone,
-                  markers[i].workinghours,
-                  markers[i].slug)
-        }
-
-      // console.log(markers)
-        function addMarker(lat, lng, total, name, address, city, phone, workinghours,slug) {
-          let marker = new google.maps.Marker({
-            position:{lat:lat, lng:lng},
-            icon:{
-              url:(labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
-              labelOrigin: {x: 32, y: 32},
-              scaledSize: new google.maps.Size(60, 60)
-            },
-            // icon:{
-            //   url:'/images/pinprice.svg',
-            //   labelOrigin: {x: 32, y: 32},
-            //   scaledSize: new google.maps.Size(60, 60)
-            // },
-            label:{
-              text:total.toString(),
-              fontWeight: 'bold',
-              fontSize: '12px',
-              color:'white'
-            },
-            map:map
-            })
-
-
-
-            let infoWindow = new google.maps.InfoWindow({
-              maxWidth:600,
-              content:`<div class="" style="min-height:142px; max-width:380px;">
-                          <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
-                          <span class="">${address}</span>
-                          <p class="">${city}</p>
-                          <span class="labInfoWindowTelefoni">${phone.join(', ')}</span>
-
-                          <div class="labInfoWindowFooter">
-                            <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">
-                          <div class="radnoVreme">Radno vreme</div>
-                          <div class="status ${labStatus[i].status}"></div>
-                          <div class="radnoVremeDetalji">
-                            <p class="whInside text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${workinghours.monday.opens} - ${workinghours.monday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${workinghours.tuesday.opens} - ${workinghours.tuesday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${workinghours.wednesday.opens} - ${workinghours.wednesday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${workinghours.thursday.opens} - ${workinghours.thursday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 5) ? labStatus[i].status : ''}">P<span>${workinghours.friday.opens} - ${workinghours.friday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 6) ? labStatus[i].status : ''}">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
-                            <p class="whInside text-center ${(day == 0) ? labStatus[i].status : ''}">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
-                          </div>
-                        </div>
-
-                    `
-
-            });
-
-            marker.addListener('click', function(){
-              var placeMarker = infoWindow.open(map, marker);
-            });
-
-            google.maps.event.addListener(map, 'click', function() {
-              infoWindow.close();
-            });
-        }
-      })//data json end
-    })//fetch end
+    helper.bestPrice(mapArea, resultDiv)
   })
 
   //create wrapper for live search icon
-  let loaderWrapper = document.querySelector('.loader-wrapper')
+
   //get seachstring
   // let mainSearchinner = document.getElementById('searchResultPage')
   //ger reference to filter
@@ -847,6 +358,23 @@ if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
 
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
+
+  // let resultDiv = document.getElementById('resultTable')
+  // const municipality = document.getElementById('municipality')
+  // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
+  let loaderWrapper = document.querySelector('.loader-wrapper')
+  let backToMap = document.getElementById('backtoMap')
+  let mapArea = document.getElementById('mapPrices')
+  // let labDetailsInner = document.getElementById('labDetailsFull')
+
+  backToMap.addEventListener('click', e => {
+    e.preventDefault()
+    // history.replaceState(null,null,`/`)
+    helper.bestPrice(mapArea, resultDiv)
+  })
+
+
+
   let labLocationUrl = location.split('/')
   let labName = labLocationUrl[2]
 
@@ -1363,7 +891,8 @@ if (location.match('addLab')) {
   let searchPlaces = document.getElementById('searchPlaces')
   let resultDiv = document.getElementById('result')
   let city = document.getElementById('city')
-  let minicipality = document.getElementById('municipality')
+  // let minicipality = document.getElementById('municipality')
+  let municipality = document.getElementById('municipality')
   let postalCode = document.getElementById('postalCode')
 
   searchPlaces.addEventListener('input', (e) => {

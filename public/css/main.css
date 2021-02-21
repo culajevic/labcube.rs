@@ -8361,6 +8361,25 @@ footer {
   .iconSvgLokacije:hover {
     filter: invert(8%); }
 
+.iconSvgTumacenje {
+  background-image: url(../images/tumacenje.svg);
+  background-repeat: no-repeat; }
+  .iconSvgTumacenje:hover {
+    filter: invert(8%); }
+
+.iconSvgLogout {
+  background-image: url(../images/logout.svg);
+  background-repeat: no-repeat;
+  padding-bottom: 2px; }
+  .iconSvgLogout:hover {
+    filter: invert(8%); }
+
+.iconSvgRegister {
+  background-image: url(../images/register.svg);
+  background-repeat: no-repeat; }
+  .iconSvgRegister:hover {
+    filter: invert(8%); }
+
 .table thead th, .tableLabResults thead th {
   border-bottom: 0px; }
 

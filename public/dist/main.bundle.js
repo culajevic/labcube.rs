@@ -21025,6 +21025,371 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
   }); //fetch end
 };
 
+exports.bestPrice = function (mapArea, resultDiv) {
+  var municipalityValue;
+
+  if (document.getElementById('municipality') != null) {
+    var municipality = document.getElementById('municipality');
+    municipalityValue = municipality.options[municipality.selectedIndex].value;
+  } else {
+    municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+  mapArea.classList.remove('d-none');
+  var passIds = [];
+  resultDiv.innerHTML = '';
+  itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+  itemsArray.forEach(function (item) {
+    passIds.push(item.id);
+  }); // let municipalityStorage = municipality.options[municipality.selectedIndex].value
+  // localStorage.setItem('municipality', JSON.stringify(municipalityStorage))
+  // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
+
+  localStorage.setItem('municipality', JSON.stringify(municipalityValue));
+  var markers = []; //take working timeout
+
+  var now = new Date();
+  var day = now.getDay();
+  var date = now.getDate();
+  var year = now.getFullYear();
+  var month = now.getMonth();
+  var today = month + 1 + "/" + date + "/" + year;
+  var numOpen = 0;
+  var labStatus = [];
+  var status;
+  var currentDay;
+  var currentDayNum;
+
+  switch (day) {
+    case 0:
+      currentDay = 'sunday';
+      currentDayNum = 0;
+      break;
+
+    case 1:
+      currentDay = 'monday';
+      currentDayNum = 1;
+      break;
+
+    case 2:
+      currentDay = 'tuesday';
+      currentDayNum = 2;
+      break;
+
+    case 3:
+      currentDay = 'wednesday';
+      currentDayNum = 3;
+      break;
+
+    case 4:
+      currentDay = 'thursday';
+      currentDayNum = 4;
+      break;
+
+    case 5:
+      currentDay = 'friday';
+      currentDayNum = 5;
+      break;
+
+    case 6:
+      currentDay = 'saturday';
+      currentDayNum = 6;
+      break;
+
+    default:
+      console.log('dan nije ok');
+  } // working time end
+
+
+  fetch('/cenovnik/' + municipalityValue + '/' + passIds).then(function (data) {
+    data.json().then(function (result) {
+      // loaderWrapper.style.opacity = 0
+      var labTemplate = document.createElement('div');
+      labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
+      console.log(result);
+
+      for (var _i = 0; _i < result.length; _i++) {
+        if (day == currentDayNum) {
+          var openTime = result[_i].lab[0].workingHours[currentDay].opens;
+          var closingTime = result[_i].lab[0].workingHours[currentDay].closes;
+          var todayOpenTime = new Date(today + ' ' + openTime + ':00');
+          var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
+          var nowTimeStamp = now.getTime();
+
+          if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
+            numOpen += 1;
+            status = 'open';
+            labStatus.push({
+              'id': result[_i].lab[0]._id,
+              'status': status
+            });
+          } else {
+            status = 'closed';
+            labStatus.push({
+              'id': result[_i].lab[0]._id,
+              'status': status
+            });
+          }
+        }
+
+        markers.push({
+          lat: result[_i].lab[0].location.coordinates[1],
+          lng: result[_i].lab[0].location.coordinates[0],
+          iconImage: '/images/pinopen.svg',
+          total: result[_i].total,
+          name: result[_i].lab[0].labName,
+          address: result[_i].lab[0].address,
+          city: result[_i].labPlace[0].place,
+          phone: result[_i].lab[0].phone,
+          workinghours: result[_i].lab[0].workingHours,
+          slug: result[_i].lab[0].slug
+        });
+        resultDiv.innerHTML = '';
+        labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n               <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='status otvoreno'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
+        resultDiv.innerHTML = "\n         <section id=\"labDetails\">\n           <div class=\"container\">\n             <div class=\"row labContainer\">\n             </div>\n           </div>\n         </section>"; //append labcard to page
+
+        document.querySelector('.labContainer').appendChild(labTemplate);
+      } // map options
+
+
+      var options = {
+        zoom: 16,
+        // center: {lat:44.808048, lng:20.462796},
+        disableDefaultUI: true,
+        zoomControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: true,
+        rotateControl: false,
+        fullscreenControl: true,
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM
+        },
+        styles: [{
+          "featureType": "administrative.country",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#fbd2d9"
+          }, {
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [{
+            "color": "#9896a9"
+          }, {
+            "weight": 2
+          }]
+        }, {
+          "featureType": "administrative.land_parcel",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#9896a9"
+          }]
+        }, {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "administrative.locality",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "administrative.neighborhood",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "administrative.neighborhood",
+          "elementType": "labels",
+          "stylers": [{
+            "color": "#aaa9b1"
+          }, {
+            "visibility": "simplified"
+          }]
+        }, {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "poi.business",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#aadc55"
+          }]
+        }, {
+          "featureType": "poi.park",
+          "elementType": "labels.text",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#ecebed"
+          }, {
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "road",
+          "elementType": "labels.text",
+          "stylers": [{
+            "color": "#d8d6dc"
+          }]
+        }, {
+          "featureType": "road.arterial",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#fefefe"
+          }]
+        }, {
+          "featureType": "road.arterial",
+          "elementType": "labels.text",
+          "stylers": [{
+            "color": "#9a9a9a"
+          }, {
+            "visibility": "simplified"
+          }]
+        }, {
+          "featureType": "road.highway",
+          "elementType": "labels",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "road.local",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "road.local",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#eaecec"
+          }, {
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "road.local",
+          "elementType": "labels",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "road.local",
+          "elementType": "labels.text.fill",
+          "stylers": [{
+            "color": "#9ba4a4"
+          }, {
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "transit",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "off"
+          }]
+        }, {
+          "featureType": "transit.station",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "visibility": "on"
+          }]
+        }, {
+          "featureType": "transit.station.bus",
+          "stylers": [{
+            "visibility": "simplified"
+          }]
+        }, {
+          "featureType": "transit.station.bus",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#ff00ff"
+          }, {
+            "visibility": "simplified"
+          }]
+        }, {
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [{
+            "color": "#1d88e5"
+          }, {
+            "lightness": 15
+          }]
+        }]
+      }; // new map
+
+      var map = new google.maps.Map(document.getElementById('mapPrices'), options);
+      map.setCenter({
+        lat: result[0].lab[0].location.coordinates[1],
+        lng: result[0].lab[0].location.coordinates[0]
+      });
+
+      for (i = 0; i < markers.length; i++) {
+        addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name, markers[i].address, markers[i].city, markers[i].phone, markers[i].workinghours, markers[i].slug);
+      } // console.log(markers)
+
+
+      function addMarker(lat, lng, total, name, address, city, phone, workinghours, slug) {
+        var marker = new google.maps.Marker({
+          position: {
+            lat: lat,
+            lng: lng
+          },
+          icon: {
+            url: labStatus[i].status !== 'closed' ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
+            labelOrigin: {
+              x: 32,
+              y: 32
+            },
+            scaledSize: new google.maps.Size(60, 60)
+          },
+          // icon:{
+          //   url:'/images/pinprice.svg',
+          //   labelOrigin: {x: 32, y: 32},
+          //   scaledSize: new google.maps.Size(60, 60)
+          // },
+          label: {
+            text: total.toString(),
+            fontWeight: 'bold',
+            fontSize: '13px',
+            color: 'white'
+          },
+          map: map
+        });
+        var infoWindow = new google.maps.InfoWindow({
+          maxWidth: 600,
+          content: "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <span class=\"labInfoWindowTelefoni\">").concat(phone.join(', '), "</span>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>\n\n                  ")
+        });
+        marker.addListener('click', function () {
+          var placeMarker = infoWindow.open(map, marker);
+        });
+        google.maps.event.addListener(map, 'click', function () {
+          infoWindow.close();
+        });
+      }
+    }); //data json end
+  }); //fetch end
+};
+
 /***/ }),
 
 /***/ "./src/scripts/price.js":
@@ -21289,7 +21654,8 @@ var urlArr = location.split('/');
 /* check if local storage already exists,
 if not create an empty array */
 
-var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []; //MUST CHECK THIS!!!!!!!
+var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+var municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []; //MUST CHECK THIS!!!!!!!
 
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
@@ -21349,365 +21715,14 @@ window.onload = function () {
     }); //show prices
 
     var resultDiv = document.getElementById('resultTable');
-
-    var _municipality = document.getElementById('municipality');
-
+    var loaderWrapper = document.querySelector('.loader-wrapper');
     var showPriceBtn = document.querySelector('.showPrice');
     var mapArea = document.getElementById('mapPrices');
     showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-      mapArea.classList.remove('d-none');
-      var passIds = [];
-      resultDiv.innerHTML = '';
-      itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-      itemsArray.forEach(function (item) {
-        passIds.push(item.id);
-      });
-      var municipalityValue = _municipality.options[_municipality.selectedIndex].value;
-      var markers = []; //take working timeout
-
-      var now = new Date();
-      var day = now.getDay();
-      var date = now.getDate();
-      var year = now.getFullYear();
-      var month = now.getMonth();
-      var today = month + 1 + "/" + date + "/" + year;
-      var numOpen = 0;
-      var labStatus = [];
-      var status;
-      var currentDay;
-      var currentDayNum;
-
-      switch (day) {
-        case 0:
-          currentDay = 'sunday';
-          currentDayNum = 0;
-          break;
-
-        case 1:
-          currentDay = 'monday';
-          currentDayNum = 1;
-          break;
-
-        case 2:
-          currentDay = 'tuesday';
-          currentDayNum = 2;
-          break;
-
-        case 3:
-          currentDay = 'wednesday';
-          currentDayNum = 3;
-          break;
-
-        case 4:
-          currentDay = 'thursday';
-          currentDayNum = 4;
-          break;
-
-        case 5:
-          currentDay = 'friday';
-          currentDayNum = 5;
-          break;
-
-        case 6:
-          currentDay = 'saturday';
-          currentDayNum = 6;
-          break;
-
-        default:
-          console.log('dan nije ok');
-      } // working time end
-
-
-      fetch('/cenovnik/' + municipalityValue + '/' + passIds).then(function (data) {
-        data.json().then(function (result) {
-          loaderWrapper.style.opacity = 0;
-          var labTemplate = document.createElement('div');
-          labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
-
-          for (var _i = 0; _i < result.length; _i++) {
-            if (day == currentDayNum) {
-              var openTime = result[_i].lab[0].workingHours[currentDay].opens;
-              var closingTime = result[_i].lab[0].workingHours[currentDay].closes;
-              var todayOpenTime = new Date(today + ' ' + openTime + ':00');
-              var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
-              var nowTimeStamp = now.getTime();
-
-              if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
-                numOpen += 1;
-                status = 'open';
-                labStatus.push({
-                  'id': result[_i].lab[0]._id,
-                  'status': status
-                });
-              } else {
-                status = 'closed';
-                labStatus.push({
-                  'id': result[_i].lab[0]._id,
-                  'status': status
-                });
-              }
-            }
-
-            markers.push({
-              lat: result[_i].lab[0].location.coordinates[1],
-              lng: result[_i].lab[0].location.coordinates[0],
-              iconImage: '/images/pinopen.svg',
-              total: result[_i].total,
-              name: result[_i].lab[0].labName,
-              address: result[_i].lab[0].address,
-              city: result[_i].labPlace[0].place,
-              phone: result[_i].lab[0].phone,
-              workinghours: result[_i].lab[0].workingHours,
-              slug: result[_i].lab[0].slug
-            });
-            resultDiv.innerHTML = '';
-            labTemplate.innerHTML += "\n\n          <div class=\"lab-card\">\n            <div>\n            ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n            ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n            <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n                 <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n                 <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='status otvoreno'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                   <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                   <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n                 </div>\n              </div>\n              <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n           </div>");
-            resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
-
-            document.querySelector('.labContainer').appendChild(labTemplate);
-          } // map options
-
-
-          var options = {
-            zoom: 16,
-            // center: {lat:44.808048, lng:20.462796},
-            disableDefaultUI: true,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: true,
-            rotateControl: false,
-            fullscreenControl: true,
-            fullscreenControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_BOTTOM
-            },
-            styles: [{
-              "featureType": "administrative.country",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#fbd2d9"
-              }, {
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "administrative.country",
-              "elementType": "geometry.stroke",
-              "stylers": [{
-                "color": "#9896a9"
-              }, {
-                "weight": 2
-              }]
-            }, {
-              "featureType": "administrative.land_parcel",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#9896a9"
-              }]
-            }, {
-              "featureType": "administrative.land_parcel",
-              "elementType": "labels",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "administrative.locality",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "administrative.neighborhood",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "administrative.neighborhood",
-              "elementType": "labels",
-              "stylers": [{
-                "color": "#aaa9b1"
-              }, {
-                "visibility": "simplified"
-              }]
-            }, {
-              "featureType": "poi",
-              "elementType": "labels.text",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "poi.business",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "poi.park",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#aadc55"
-              }]
-            }, {
-              "featureType": "poi.park",
-              "elementType": "labels.text",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "road",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#ecebed"
-              }, {
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "road",
-              "elementType": "labels.text",
-              "stylers": [{
-                "color": "#d8d6dc"
-              }]
-            }, {
-              "featureType": "road.arterial",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#fefefe"
-              }]
-            }, {
-              "featureType": "road.arterial",
-              "elementType": "labels.text",
-              "stylers": [{
-                "color": "#9a9a9a"
-              }, {
-                "visibility": "simplified"
-              }]
-            }, {
-              "featureType": "road.highway",
-              "elementType": "labels",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "road.local",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "road.local",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#eaecec"
-              }, {
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "road.local",
-              "elementType": "labels",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "road.local",
-              "elementType": "labels.text.fill",
-              "stylers": [{
-                "color": "#9ba4a4"
-              }, {
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "transit",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "visibility": "off"
-              }]
-            }, {
-              "featureType": "transit.station",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "visibility": "on"
-              }]
-            }, {
-              "featureType": "transit.station.bus",
-              "stylers": [{
-                "visibility": "simplified"
-              }]
-            }, {
-              "featureType": "transit.station.bus",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#ff00ff"
-              }, {
-                "visibility": "simplified"
-              }]
-            }, {
-              "featureType": "water",
-              "elementType": "geometry.fill",
-              "stylers": [{
-                "color": "#1d88e5"
-              }, {
-                "lightness": 15
-              }]
-            }]
-          }; // new map
-
-          var map = new google.maps.Map(document.getElementById('mapPrices'), options);
-          map.setCenter({
-            lat: result[0].lab[0].location.coordinates[1],
-            lng: result[0].lab[0].location.coordinates[0]
-          });
-
-          for (i = 0; i < markers.length; i++) {
-            addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name, markers[i].address, markers[i].city, markers[i].phone, markers[i].workinghours, markers[i].slug);
-          } // console.log(markers)
-
-
-          function addMarker(lat, lng, total, name, address, city, phone, workinghours, slug) {
-            var marker = new google.maps.Marker({
-              position: {
-                lat: lat,
-                lng: lng
-              },
-              icon: {
-                url: labStatus[i].status !== 'closed' ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
-                labelOrigin: {
-                  x: 32,
-                  y: 32
-                },
-                scaledSize: new google.maps.Size(60, 60)
-              },
-              // icon:{
-              //   url:'/images/pinprice.svg',
-              //   labelOrigin: {x: 32, y: 32},
-              //   scaledSize: new google.maps.Size(60, 60)
-              // },
-              label: {
-                text: total.toString(),
-                fontWeight: 'bold',
-                fontSize: '12px',
-                color: 'white'
-              },
-              map: map
-            });
-            var infoWindow = new google.maps.InfoWindow({
-              maxWidth: 600,
-              content: "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                          <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                          <span class=\"\">").concat(address, "</span>\n                          <p class=\"\">").concat(city, "</p>\n                          <span class=\"labInfoWindowTelefoni\">").concat(phone.join(', '), "</span>\n\n                          <div class=\"labInfoWindowFooter\">\n                            <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                          <div class=\"radnoVreme\">Radno vreme</div>\n                          <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                          <div class=\"radnoVremeDetalji\">\n                            <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                            <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                          </div>\n                        </div>\n\n                    ")
-            });
-            marker.addListener('click', function () {
-              var placeMarker = infoWindow.open(map, marker);
-            });
-            google.maps.event.addListener(map, 'click', function () {
-              infoWindow.close();
-            });
-          }
-        }); //data json end
-      }); //fetch end
+      helper.bestPrice(mapArea, resultDiv);
     }); //create wrapper for live search icon
-
-    var loaderWrapper = document.querySelector('.loader-wrapper'); //get seachstring
+    //get seachstring
     // let mainSearchinner = document.getElementById('searchResultPage')
     //ger reference to filter
     // let analysisRadioinner = document.querySelectorAll('input[name=searchFilter]')
@@ -21872,6 +21887,21 @@ window.onload = function () {
 
 
   if (urlArr[1] == 'laboratorija') {
+    // let resultDiv = document.getElementById('resultTable')
+    // const municipality = document.getElementById('municipality')
+    // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
+    var _loaderWrapper2 = document.querySelector('.loader-wrapper');
+
+    var backToMap = document.getElementById('backtoMap');
+
+    var _mapArea = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
+
+
+    backToMap.addEventListener('click', function (e) {
+      e.preventDefault(); // history.replaceState(null,null,`/`)
+
+      helper.bestPrice(_mapArea, _resultDiv2);
+    });
     var labLocationUrl = location.split('/');
     var labName = labLocationUrl[2];
     var uzorakLab = document.querySelector('.uzorakLab');
@@ -22120,16 +22150,16 @@ window.onload = function () {
         data.json().then(function (result) {
           console.log(result);
 
-          for (var _i2 = 0; _i2 < result.length; _i2++) {
+          for (var _i = 0; _i < result.length; _i++) {
             var formatDate = void 0;
 
-            if (result[_i2].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i].scheduledFor).format('D.M.Y');
             }
 
-            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i2].status, "\">").concat(result[_i2].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i2].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i2].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i2]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i2]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i2].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i2].user.username, "</p>\n                          ").concat(result[_i2].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n\n              ");
+            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i].user.username, "</td>\n                    <td>").concat(result[_i].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i].status, "\">").concat(result[_i].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i].user.username, "</p>\n                          ").concat(result[_i].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n\n              ");
           }
         });
       });
@@ -22198,16 +22228,16 @@ window.onload = function () {
         data.json().then(function (result) {
           console.log(result);
 
-          for (var _i3 = 0; _i3 < result.length; _i3++) {
+          for (var _i2 = 0; _i2 < result.length; _i2++) {
             var formatDate = void 0;
 
-            if (result[_i3].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i2].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y');
             }
 
-            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i3].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i3]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i3].owner ? result[_i3].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
+            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i2].status, "\">").concat(result[_i2].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i2].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i2]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i2].owner ? result[_i2].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
           }
         });
       });
@@ -22305,8 +22335,9 @@ window.onload = function () {
 
     var _resultDiv3 = document.getElementById('result');
 
-    var city = document.getElementById('city');
-    var minicipality = document.getElementById('municipality');
+    var city = document.getElementById('city'); // let minicipality = document.getElementById('municipality')
+
+    var municipality = document.getElementById('municipality');
     var postalCode = document.getElementById('postalCode');
     searchPlaces.addEventListener('input', function (e) {
       if (searchPlaces.value.length >= 3) {
