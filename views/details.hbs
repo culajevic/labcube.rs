@@ -72,7 +72,7 @@
            <ol>
              <h5 class="literatura" id="literatura">Literatura</h5>
              {{#each analysisDetails.references}}
-              <li>{{referenceTitle}}</li>
+              <li>{{#if (notBlank referenceLink)}}<a href="http://{{referenceLink}}" target="_blank">{{referenceTitle}}</a>{{else}}{{referenceTitle}}{{/if}}</li>
              {{/each}}
            </ol>
         </ul><!-- analysisDescription end -->
@@ -81,7 +81,7 @@
           <ul class="povezaneAnalize">
             <h5>Povezane analize</h5>
             {{#each analysisDetails.connectedTo}}
-              <li><a href={{slug}} class="text-white">{{analysisName}}</a></li>
+              <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}}</a></li>
             {{/each}}
           </ul>
       </div> <!-- col-lg-9 -->
