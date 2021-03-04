@@ -45,6 +45,7 @@
 .iconSvgLogout {
   background-image: url('../images/logout.svg');
   background-repeat: no-repeat;
+  transform: rotate(45deg);
   padding-bottom: 2px;
   &:hover {
     filter: invert(8%);

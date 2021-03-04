@@ -952,7 +952,6 @@ if (location.match('addLab')) {
 
 
   if (location.match('addAnalysis')) {
-console.log('da')
     $('#summernote').summernote({
 
           styleTags: [
@@ -962,7 +961,7 @@ console.log('da')
           {title:'reset', tag:'p',className:'', value:'p'}
 
         ],
-          height: 220,
+          height: 280,
           toolbar: [
               ['view', ['codeview']],
               ['img', ['picture']],

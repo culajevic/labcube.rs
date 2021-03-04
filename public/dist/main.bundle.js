@@ -22395,7 +22395,6 @@ window.onload = function () {
 
 
   if (location.match('addAnalysis')) {
-    console.log('da');
     $('#summernote').summernote({
       styleTags: ['p', 'br', {
         title: 'orderList',
@@ -22413,7 +22412,7 @@ window.onload = function () {
         className: '',
         value: 'p'
       }],
-      height: 220,
+      height: 280,
       toolbar: [['view', ['codeview']], ['img', ['picture']], ['style', ['style', 'addclass', 'clear']], ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']], ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']]]
     });
     var addNewAbbr = document.querySelector('#addNewAbbr');

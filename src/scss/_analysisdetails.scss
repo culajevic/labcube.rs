@@ -73,6 +73,10 @@
 
 .textList {
   padding-left: px-to-rem(18px);
+  font-size: 1.125rem;
+  li {
+    line-height: 1.75rem !important;
+  }
 }
 
 .lead {
