@@ -247,9 +247,6 @@ let user = req.user
        }
      }
 
-
-
-
   let now = new Date()
   let month = now.getMonth()
   let date = now.getDate()
@@ -322,7 +319,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', { sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
+  res.render('labdetails', {sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
 
 }
 
