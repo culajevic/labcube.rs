@@ -219,7 +219,7 @@ let user = req.user
   let numofanalysis
   let total = 0
 
-    if(req.params.ids != undefined) {
+    if(req.params.ids !== undefined) {
 
        newids = req.params.ids.split(',')
        numofanalysis = newids.length
