@@ -8351,6 +8351,18 @@ footer {
   margin-top: 0.75rem;
   margin-bottom: 1rem; }
 
+.sectionParallax {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 501px; }
+
+.layer {
+  transition: all 0.7s linear; }
+
+.sectionParallax img {
+  position: absolute; }
+
 .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
   padding: 0; }
 

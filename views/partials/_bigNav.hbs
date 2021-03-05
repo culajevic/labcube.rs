@@ -1,5 +1,26 @@
 <div id="bodyOverlay"></div>
 <header id="header">
+  <div class="sectionParallax">
+    <img src="images/ikonica_1.svg" data-speed="-10" alt="" class="layer">
+    <img src="images/ikonica_2.svg" data-speed="1" alt="" class="layer">
+    <img src="images/ikonica_3.svg" data-speed="4" alt="" class="layer">
+    <img src="images/ikonica_4.svg" data-speed="3" alt="" class="layer">
+    <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer">
+    <img src="images/ikonica_6.svg" data-speed="9" alt="" class="layer">
+    <img src="images/ikonica_7.svg" data-speed="10" alt="" class="layer">
+    <img src="images/ikonica_8.svg" data-speed="-2" alt="" class="layer">
+    <img src="images/ikonica_9.svg" data-speed="-5" alt="" class="layer">
+    <img src="images/ikonica_10.svg" data-speed="4" alt="" class="layer">
+    <img src="images/ikonica_11.svg" data-speed="2" alt="" class="layer">
+    <img src="images/ikonica_12.svg" data-speed="3" alt="" class="layer">
+    <img src="images/ikonica_13.svg" data-speed="5" alt="" class="layer">
+    <img src="images/ikonica_14.svg" data-speed="4" alt="" class="layer">
+    <img src="images/ikonica_15.svg" data-speed="3" alt="" class="layer">
+    <img src="images/ikonica_16.svg" data-speed="7" alt="" class="layer">
+    <img src="images/ikonica_17.svg" data-speed="8" alt="" class="layer">
+    <img src="images/ikonica_18.svg" data-speed="10" alt="" class="layer">
+    <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer">
+  </div>
   <nav class="navbar navbar-expand-md navbar-dark mb-auto">
     <div class="container">
       <a href="/" class="navbar-brand">
@@ -74,15 +95,13 @@
             </div>
           </li> -->
       {{/if}}
-
-
           <li class="nav-item">
             <button class="nav-link checkout d-none"></button>
           </li>
         </ul>
+
       </div><!-- collapse -->
     </div><!-- container end -->
-
   </nav><!-- nav end -->
 
 
@@ -106,3 +125,40 @@
       </form><!-- form end -->
     </div><!-- container -->
   </header><!-- header end -->
+
+  <script type="text/javascript">
+
+    document.querySelectorAll('.layer').forEach(item => {
+
+      let baseX = Math.ceil(Math.random()*1000)
+      let baseY = Math.ceil(Math.random()*1050)
+      let positionX = 'top'
+      let positionY = 'left'
+      if(baseX%2) {
+        item.style.top = baseX*2+"px";
+        item.style.right = baseX*7/4+"px";
+      } else {
+        item.style.bottom = baseX+"px";
+        item.style.left = baseX*3+"px";
+      }
+      if (baseY%3) {
+        item.style.top = baseX*2/4+"px";
+        item.style.right = baseX*2+"px";
+      } else {
+        item.style.top = baseX*2+"px";
+        item.style.left = baseX/2+"px";
+      }
+    })
+
+    document.addEventListener('mousemove', parallax )
+    function parallax(e) {
+      document.querySelectorAll('.layer').forEach(move => {
+        let movingValue = move.getAttribute("data-speed")
+        let x = (e.clientX * movingValue)/200
+        let y = (e.clientY * movingValue)/200
+        move.style.transform = "translateX("+x+"px) translateY("+y+"px)"
+
+      })
+    }
+
+  </script>
