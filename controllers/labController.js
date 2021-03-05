@@ -219,33 +219,33 @@ let user = req.user
   let numofanalysis
   let total = 0
 
-    // if(req.params.ids !== undefined) {
-    //    newids = req.params.ids.split(',')
-    //    numofanalysis = newids.length
-    //     newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
-    //    // selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1, abbr:1, alt:1, availableHC:1,
-    //    // preview:1,slug:1, })
-    //    selectedAnalysis = await Price.aggregate([
-    //      {$match:{'lab':ObjectId(labId)}},
-    //      {$unwind:"$cenovnik"},
-    //      {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
-    //      {$project:{cenovnik:1,
-    //                 idAnalysis:'$analiza._id',
-    //                 name:'$analiza.analysisName',
-    //                 preview:'$analiza.preview',
-    //                 abbr:'$analiza.abbr',
-    //                 alt:'$analiza.alt',
-    //                 availableHC:'$analiza.availableHC',
-    //                 preview:'$analiza.preview',
-    //                 slug:'$analiza.slug'
-    //               }},
-    //       {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
-    //       {$sort:{name:1}}
-    //    ])
-    //    for(i=0; i<selectedAnalysis.length; i++) {
-    //      total += selectedAnalysis[i].cenovnik.cena
-    //    }
-    //  }
+    if(req.params.ids !== undefined) {
+       newids = req.params.ids.split(',')
+       numofanalysis = newids.length
+        newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
+       // selectedAnalysis = await Analysis.find({_id:{$in:newids}},{analysisName:1, abbr:1, alt:1, availableHC:1,
+       // preview:1,slug:1, })
+       selectedAnalysis = await Price.aggregate([
+         {$match:{'lab':ObjectId(labId)}},
+         {$unwind:"$cenovnik"},
+         {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+         {$project:{cenovnik:1,
+                    idAnalysis:'$analiza._id',
+                    name:'$analiza.analysisName',
+                    preview:'$analiza.preview',
+                    abbr:'$analiza.abbr',
+                    alt:'$analiza.alt',
+                    availableHC:'$analiza.availableHC',
+                    preview:'$analiza.preview',
+                    slug:'$analiza.slug'
+                  }},
+          {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
+          {$sort:{name:1}}
+       ])
+       for(i=0; i<selectedAnalysis.length; i++) {
+         total += selectedAnalysis[i].cenovnik.cena
+       }
+     }
 
 
 
