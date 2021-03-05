@@ -8,6 +8,7 @@ exports.createPrice = () => {
     if(searchLab.value.length>2) {
       fetch('/lab/'+e.target.value).then((data) => {
         data.json().then((result) => {
+          queryResultUl.innerHTML=''
           for(i=0; i<result.length; i++) {
             let liItem = document.createElement('li')
             liItem.className +="list-group-item"

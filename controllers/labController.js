@@ -218,7 +218,9 @@ let user = req.user
   let newObjectArr = []
   let numofanalysis
   let total = 0
-    if(req.params.ids) {
+
+    if(req.params.ids != undefined) {
+
        newids = req.params.ids.split(',')
        numofanalysis = newids.length
         newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
@@ -241,11 +243,12 @@ let user = req.user
           {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
           {$sort:{name:1}}
        ])
+       for(i=0; i<selectedAnalysis.length; i++) {
+         total += selectedAnalysis[i].cenovnik.cena
+       }
      }
 
-     for(i=0; i<selectedAnalysis.length; i++) {
-       total += selectedAnalysis[i].cenovnik.cena
-     }
+
 
 
   let now = new Date()

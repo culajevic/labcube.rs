@@ -8146,7 +8146,8 @@ span.remove:hover {
   padding-left: 1.125rem;
   font-size: 1.125rem; }
   .textList li {
-    line-height: 1.75rem !important; }
+    line-height: 1.75rem !important;
+    font-size: 1.125rem; }
 
 .lead {
   margin: 2.5rem 0;

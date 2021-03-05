@@ -21407,6 +21407,8 @@ exports.createPrice = function () {
     if (searchLab.value.length > 2) {
       fetch('/lab/' + e.target.value).then(function (data) {
         data.json().then(function (result) {
+          queryResultUl.innerHTML = '';
+
           for (i = 0; i < result.length; i++) {
             var liItem = document.createElement('li');
             liItem.className += "list-group-item";
