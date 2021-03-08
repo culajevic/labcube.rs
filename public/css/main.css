@@ -8143,8 +8143,9 @@ span.remove:hover {
   line-height: 2.5rem; }
 
 .textList {
-  padding-left: 1.125rem;
-  font-size: 1.125rem; }
+  padding-left: 2.25rem;
+  font-size: 1.125rem;
+  margin-bottom: 1.125rem; }
   .textList li {
     line-height: 1.75rem !important;
     font-size: 1.125rem; }
@@ -8152,14 +8153,10 @@ span.remove:hover {
 .lead {
   margin: 2.5rem 0;
   color: #3B3B3B;
-  font-size: 1.25rem; }
-  .lead::before {
-    content: '';
-    border-left: 5px solid #1D88E5;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem; }
+  font-size: 1.25rem;
+  border-left: 4px solid #1D88E5;
+  padding-left: 1.2rem;
+  text-align: left !important; }
 
 .snizeneVrednosti {
   background: url(../images/zeleno.svg);

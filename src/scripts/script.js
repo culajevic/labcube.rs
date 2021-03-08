@@ -961,7 +961,7 @@ if (location.match('addLab')) {
           {title:'reset', tag:'p',className:'', value:'p'}
 
         ],
-          height: 280,
+          height: 480,
           toolbar: [
               ['view', ['codeview']],
               ['img', ['picture']],
@@ -1199,7 +1199,7 @@ if (location.match('addLab')) {
             getDiseasesDiv.innerHTML = ''
           }
           else {
-            console.log('analiza vec dodata')
+            console.log('oboljenje vec dodato')
             connectedDiseases.value = ''
             connectedDiseases.focus()
             getDiseasesDiv.innerHTML = ''

@@ -22414,7 +22414,7 @@ window.onload = function () {
         className: '',
         value: 'p'
       }],
-      height: 280,
+      height: 480,
       toolbar: [['view', ['codeview']], ['img', ['picture']], ['style', ['style', 'addclass', 'clear']], ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']], ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']]]
     });
     var addNewAbbr = document.querySelector('#addNewAbbr');
@@ -22628,7 +22628,7 @@ window.onload = function () {
         connectedDiseases.focus();
         getDiseasesDiv.innerHTML = '';
       } else {
-        console.log('analiza vec dodata');
+        console.log('oboljenje vec dodato');
         connectedDiseases.value = '';
         connectedDiseases.focus();
         getDiseasesDiv.innerHTML = '';

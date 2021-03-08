@@ -8,7 +8,7 @@ exports.removeElement = (element1,element2) => {
       e.target.remove()
       element1.remove()
     } else {
-      e.target.remove() }
+      e.target.remove()}
   })
 }
 

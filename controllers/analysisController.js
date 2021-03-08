@@ -131,8 +131,15 @@ exports.editAnalysis =  [authCheck, async (req,res) => {
 
 exports.updateAnalysis = [authCheck, async (req,res) => {
   req.body.date = Date.now()
+
   if (req.body.availableHC == undefined) {
     req.body.availableHC = false
+  }
+  if(req.body.connectedTo == undefined) {
+    req.body.connectedTo = null
+  }
+  if(req.body.diseasesID == undefined) {
+    req.body.diseasesId = null
   }
   try {
     const analysis = await Analysis.findOneAndUpdate(
