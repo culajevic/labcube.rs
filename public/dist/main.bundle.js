@@ -20637,9 +20637,9 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var alt = document.createElement('td');
   var altName;
 
-  for (y = 0; y < prices[i].alt.length; y++) {
-    console.log(prices[i].alt[y].join(', '));
-    altName = document.createTextNode(prices[i].alt[y].join(', '));
+  for (y = 0; y < prices[i].abbr.length; y++) {
+    console.log(prices[i].abbr[y].join(', '));
+    altName = document.createTextNode(prices[i].abbr[y].join(', '));
     alt.appendChild(altName);
     tr.appendChild(alt);
   } //display analysis groupName

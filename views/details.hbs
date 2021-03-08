@@ -44,25 +44,27 @@
           <div class="d-flex flex-column flex-lg-row">
              <div class="flexFix justify-content-between snizeneVrednosti">
                 <h5 id="rezultati">Snižene vrednosti</h5>
-                {{{highAndLowValues analysisDetails.low}}}
-                {{#if (strLength analysisDetails.low)}}
+                <p>{{{analysisDetails.low}}}</p>
+                <!-- {{{highAndLowValues analysisDetails.low}}} -->
+                <!-- {{#if (strLength analysisDetails.low)}}
                   <a class="expandDetails" data-toggle="collapse" href="#collapsedDetailsLow"><i class="fas fa-angle-down"></i></a>
                   <div class="collapse" id="collapsedDetailsLow">
-                    {{{highAndLowValuesExtend analysisDetails.low}}}
+                    <p>{{{highAndLowValuesExtend analysisDetails.low}}}</p>
                   </div>
-               {{/if}}
+               {{/if}} -->
              </div>
 
              <div class="flexFix justify-content-between poviseneVrednosti">
                 <h5>Povišene vrednosti</h5>
-                  {{{highAndLowValues analysisDetails.high}}}
-                {{#if (strLength analysisDetails.high)}}
+                  <p>{{{analysisDetails.high}}}</p>
+                  <!-- {{{highAndLowValues analysisDetails.high}}} -->
+                <!-- {{#if (strLength analysisDetails.high)}}
                   <a class="expandDetails"  data-toggle="collapse" href="#collapsedDetailsHigh">
                     <i class="fas fa-angle-down"></i></a>
                   <div class="collapse" id="collapsedDetailsHigh">
-                    {{{highAndLowValuesExtend analysisDetails.high}}}
+                    <p>{{{highAndLowValuesExtend analysisDetails.high}}}</p>
                   </div>
-                {{/if}}
+                {{/if}} -->
               </div><!-- flexfix -->
            </div><!-- flex end snizene i povisene vrednosti -->
            <div class="napomena">

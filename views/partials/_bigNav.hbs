@@ -1,15 +1,15 @@
 <div id="bodyOverlay"></div>
 <header id="header">
   <div class="sectionParallax">
-    <img src="images/ikonica_1.svg" data-speed="-10" alt="" class="layer">
-    <img src="images/ikonica_2.svg" data-speed="1" alt="" class="layer">
-    <img src="images/ikonica_3.svg" data-speed="4" alt="" class="layer">
-    <img src="images/ikonica_4.svg" data-speed="3" alt="" class="layer">
+    <img src="images/ikonica_1.svg" data-speed="12" alt="" class="layer">
+    <img src="images/ikonica_2.svg" data-speed="10" alt="" class="layer">
+    <img src="images/ikonica_3.svg" data-speed="6" alt="" class="layer">
+    <img src="images/ikonica_4.svg" data-speed="5" alt="" class="layer">
     <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer">
     <img src="images/ikonica_6.svg" data-speed="9" alt="" class="layer">
-    <img src="images/ikonica_7.svg" data-speed="10" alt="" class="layer">
-    <img src="images/ikonica_8.svg" data-speed="-2" alt="" class="layer">
-    <img src="images/ikonica_9.svg" data-speed="-5" alt="" class="layer">
+    <img src="images/ikonica_7.svg" data-speed="13" alt="" class="layer">
+    <img src="images/ikonica_8.svg" data-speed="2" alt="" class="layer">
+    <img src="images/ikonica_9.svg" data-speed="5" alt="" class="layer">
     <img src="images/ikonica_10.svg" data-speed="4" alt="" class="layer">
     <img src="images/ikonica_11.svg" data-speed="2" alt="" class="layer">
     <img src="images/ikonica_12.svg" data-speed="3" alt="" class="layer">
@@ -131,7 +131,7 @@
     document.querySelectorAll('.layer').forEach(item => {
 
       let baseX = Math.ceil(Math.random()*1000)
-      let baseY = Math.ceil(Math.random()*1050)
+      let baseY = Math.ceil(Math.random()*500)
       let positionX = 'top'
       let positionY = 'left'
       if(baseX%2) {
@@ -142,7 +142,7 @@
         item.style.left = baseX*3+"px";
       }
       if (baseY%3) {
-        item.style.top = baseX*2/4+"px";
+        item.style.top = baseX*2/3+"px";
         item.style.right = baseX*2+"px";
       } else {
         item.style.top = baseX*2+"px";
@@ -154,8 +154,8 @@
     function parallax(e) {
       document.querySelectorAll('.layer').forEach(move => {
         let movingValue = move.getAttribute("data-speed")
-        let x = (e.clientX * movingValue)/200
-        let y = (e.clientY * movingValue)/200
+        let x = (e.clientX * movingValue)/180
+        let y = (e.clientY * movingValue)/180
         move.style.transform = "translateX("+x+"px) translateY("+y+"px)"
 
       })
