@@ -165,7 +165,7 @@ sortByPriority = {priority:-1}
     }
 
       res.render('index',{
-        title:'labcube - Sve o laboratorijskim analizama',
+        title:'Sve o laboratorijskim analizama',
         faqtitle:'Najčešće postavljana pitanja',
         groups,
         faqFP,

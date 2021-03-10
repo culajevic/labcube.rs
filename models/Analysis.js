@@ -75,8 +75,7 @@ const analysisSchema = new mongoose.Schema({
 
 analysisSchema.pre('save', function(next) {
   newSlug = this.analysisName.split(" ").join('-')
-  this.slug = encodeURIComponent(newSlug)
-  console.log(this.slug)
+  this.slug = newSlug
   next()
 })
 
