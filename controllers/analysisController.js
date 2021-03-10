@@ -25,9 +25,9 @@ exports.allAnalysis = [authCheck, async (req,res) => {
     .populate('groupId', 'name')
     .populate('writtenBy', 'firstName lastName')
   res.render('allAnalysis', {
-    title:'All analysis',
+    title:'Sve analize',
     allAnalysis,
-    analysisNumber
+    number:analysisNumber
   })
 }]
 
@@ -107,7 +107,7 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       try {
         await analysis.save()
         req.flash('success_msg','Analiza je uspešno kreirana')
-        res.redirect('/')
+        res.redirect('/admindashboard')
         }
       catch (e){
         req.flash('error_msg', `Dogodila se greška prilikom upisa nove analize u bazu${e}`)
@@ -150,11 +150,11 @@ exports.updateAnalysis = [authCheck, async (req,res) => {
         runValidators:true,
         useFindAndModify:false
       }).exec()
-      req.flash('success_msg', 'Uspesno su azurirani podaci o analizi')
+      req.flash('success_msg', 'Uspešno su ažurirani podaci o analizi')
       res.redirect('/allAnalysis')
   }
   catch(e){
-    req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o analizi`)
+    req.flash('error_msg', `došlo je do greške ${e} prilikom ažuriranja podataka o analizi`)
   }
 }]
 
@@ -207,6 +207,6 @@ const prices = await Price.aggregate([
 
 exports.deleteAnalysis = [authCheck, async (req,res) => {
   const deleteAnalysis = await Analysis.findOneAndDelete({_id:req.params.id})
-  req.flash('success_msg', 'Analiza je uspesno obrisana.')
+  req.flash('success_msg', 'Analiza je uspešno obrisana.')
   res.send()
 }]

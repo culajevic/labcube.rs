@@ -7859,6 +7859,7 @@ div.status.closedSoon::before {
   color: #3B3B3B;
   padding: 1rem 0;
   padding-right: .7rem;
+  padding-left: .7rem;
   border-bottom: 1px solid #E0E4EC;
   margin-bottom: 0; }
   #accordion > h5:hover {
@@ -7866,7 +7867,9 @@ div.status.closedSoon::before {
     background-color: #f7f8fb; }
 
 #accordion > div p {
-  padding-top: 1rem; }
+  padding-top: 1rem;
+  padding-left: .7rem;
+  padding-right: .7rem; }
 
 #accordion > [data-toggle="collapse"].collapsed::after {
   font-family: 'Font Awesome 5 Free';

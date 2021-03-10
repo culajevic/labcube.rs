@@ -133,15 +133,16 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('references')
   .populate('groupId', 'iconPath')
 
+  let title = analysisDetails.analysisName
 
-const prices = await Price.aggregate([
+  const prices = await Price.aggregate([
   {$unwind:'$cenovnik'},
   {$match:{'cenovnik.analiza':ObjectId(analysisDetails._id)}},
   {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails,prices,sidebarNav:true, user:req.user})
+  res.render('details',{analysisDetails,prices,title, sidebarNav:true, user:req.user})
 }
 
 exports.labRestultsAnalysis = (req,res) => {

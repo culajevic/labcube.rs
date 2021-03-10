@@ -16,6 +16,7 @@
     color:$fontColorResultsTable;
     padding: px-to-rem(16px) 0;
     padding-right: .7rem;
+    padding-left: .7rem;
     border-bottom:1px solid $line-color;
     margin-bottom: 0;
     &:hover {
@@ -26,6 +27,8 @@
 
 #accordion > div p {
   padding-top: px-to-rem(16px);
+  padding-left: .7rem;
+  padding-right: .7rem;
 }
 
 // faq colapsed section
