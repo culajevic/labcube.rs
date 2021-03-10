@@ -119,7 +119,7 @@ exports.allLabs = [authCheck, async (req,res) => {
   const labsNumber = await Lab.find().countDocuments()
   const allLab = await Lab.find({}).populate('placeId').sort({date:-1})
   res.render('allLabs', {
-    title:'All labs',
+    title:'Sve laboratorije',
     allLab,
     number:labsNumber
   })
