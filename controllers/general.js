@@ -6,7 +6,7 @@ moment.locale('sr')
 
 
 exports.aboutus = (req,res) => {
-  res.render('aboutUs',{
+  res.render('aboutus',{
     title:'O nama'
   })
 }
