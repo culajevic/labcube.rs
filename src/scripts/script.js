@@ -124,9 +124,7 @@ const group = /group/
 
 
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl))) {
-console.log('da')
   helper.displayBasket(itemsArray)
-
 }
 
 //MUST CHECK THIS!!!!!!!
@@ -167,9 +165,9 @@ if(location === '/') {
 
 /* RESULTS PAGE ***************/
 
-
+//ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
-if (document.getElementById('results')!=null) {
+if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
 
   const activeBtns = document.querySelectorAll('.addAnalysis')
   activeBtns.forEach(analysis => {

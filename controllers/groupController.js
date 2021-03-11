@@ -84,6 +84,8 @@ sortByPriority = {priority:-1}
       {$match:{}},
       {$group:{_id:{groupId:'$groupId'},total:{$sum:1}}},
       {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
+      //izbaciti match ispod ukoliok prikazujemo sve grupe na naslovnoj stranici
+      {$match:{'grupa.frontPage':true}},
       {$sort:{'grupa.priority':-1}}
     ])
     // const groups = await Group.aggregate([

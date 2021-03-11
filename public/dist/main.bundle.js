@@ -21666,7 +21666,6 @@ var checkUrl = /result.*/;
 var group = /group/;
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl))) {
-  console.log('da');
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -21698,10 +21697,11 @@ window.onload = function () {
   // }
 
   /* RESULTS PAGE ***************/
+  //ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (document.getElementById('results') != null) {
+  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
