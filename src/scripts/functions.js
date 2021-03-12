@@ -96,14 +96,15 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   let hospital = document.createElement('td')
   let hospitalIcon = document.createElement('img')
-    if(prices[i].availableHC) {
+  console.log(prices[i].availableHC)
+    if(prices[i].availableHC[0] == true) {
       hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'aaaAnalizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     } else {
       hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'aaaAnalizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     }
   hospital.appendChild(hospitalIcon)
   tr.appendChild(hospital)
