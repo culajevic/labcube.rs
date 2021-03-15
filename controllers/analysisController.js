@@ -166,7 +166,7 @@ exports.getAnalyisisName = async (req,res) => {
 exports.getAnalyisisNameResult = async (req, res) => {
   // const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
   // .populate('groupId', 'name iconPath')
-  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}},{alt:{$regex: req.params.analysisName, $options: 'i'}}]})
+  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}]})
     .populate('groupId', 'name iconPath')
 
   let selectedAnalysis =[]

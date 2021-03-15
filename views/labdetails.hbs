@@ -111,8 +111,8 @@
                   <tr>
                     <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
                       <a href="../../results/analysis/{{this.slug}}" class="nolink">{{this.name}}</a></td>
-                    <td>{{#each abbr}} {{this}} {{/each}}</td>
-                    <td>{{#each alt}} {{this}} {{/each}}</td>
+                    <td>{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
+                    <!-- <td>{{#each alt}} {{displayPhoneList this}} {{/each}}</td> -->
 
                     {{#if this.availableHC.[0]}}
                       <td><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>

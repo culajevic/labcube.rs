@@ -461,41 +461,60 @@ if(urlArr[1] == 'laboratorija') {
 
 
     //search and add analysis from lab details page
+
+      helper.searchLabAnalysis(searchString,analysisRadio)
+
     searchString.addEventListener('input', (e) => {
       if(searchString.value.length>=3 && filterValue == 'analiza' ) {
         let searchString = e.target.value
-        // fetch('/analysis/prices/'+searchString)
-        fetch('/search/analysis/'+searchString+'/'+labName)
+        fetch('/analysis/prices/'+searchString)
+
+        //search for analysis or lab
+
+        // fetch('/search/analysis/'+searchString+'/'+labName)
           .then(data => data.json())
           .then(result => {
-
+            console.log(result)
             resultDiv.innerHTML = ''
+
             let icon = []
             let alreadySelectedArray = []
+
+
             for(i=0; i<result.length; i++) {
+
 
               let alreadySelected = itemsArray.findIndex(item => {
                 return item.id == result[i].idAnalysis
               })
+
+
+
               alreadySelectedArray.push(alreadySelected)
 
               let availableHC = result[i].availableHC
               icon.push(...availableHC)
 
               if(alreadySelectedArray[i] == -1) {
+                //ispis alt i abbr sa razmakom posle zareza
+                  // <td>${altArr[0][0].join(', ')}</td>
+                let abbrArr = []
+                let altArr = []
+                abbrArr.push(result[i].abbr)
+                altArr.push(result[i].alt)
                 let results = `
                   <tr>
                     <td><img src="/images/detail.svg" data-toggle="tooltip" title="${result[i].preview}" class="tooltipImg mr-2">
                     <a href="../results/analysis/${result[i].slug}" class="nolink">${result[i].name}</a></td>
-                    <td>${result[i].abbr}</td>
-                    <td>${result[i].alt}</td>
+                    <td>${abbrArr[0][0].join(', ')}</td>
                     <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
                     <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
-                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[i].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
+                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[0].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
                   </tr>
                 `
-                resultDiv.innerHTML += results
+                  resultDiv.innerHTML += results
               }
+
             }
           })// data json end
 
@@ -524,6 +543,11 @@ if(urlArr[1] == 'laboratorija') {
             'logo':e.target.getAttribute('data-iconPath')
            })
 
+           let abbrArr = e.target.getAttribute('data-abbr')
+           let altArr = e.target.getAttribute('data-alt')
+           abbrArr = abbrArr.split(',')
+           altArr = altArr.split(',')
+
            schedule[0].total=totalPrice
            schedule[1].analysis = itemsArray
            schedule[2].labId = labId
@@ -539,12 +563,13 @@ if(urlArr[1] == 'laboratorija') {
              }
            })
            localStorage.setItem('items', JSON.stringify(itemsArray))
+           //  <td>${altArr.join(', ')}</td>
            let additionalResult = `
                <tr>
                  <td><img src="/images/detail.svg" data-toggle="tooltip" title="" class="tooltipImg mr-2">
                  <a href="../results/analysis/${e.target.getAttribute('data-analysisName')}" class="nolink">${e.target.getAttribute('data-analysisName')}</a></td>
-                 <td>${e.target.getAttribute('data-abbr')}</td>
-                 <td>${e.target.getAttribute('data-alt')}</td>
+                 <td>${abbrArr.join(', ')}</td>
+
                  <td><img src="${e.target.getAttribute('data-icon')}"></td>
                  <td><span class="font-weight-bold price">${e.target.getAttribute('data-price')}</span></td>
                  <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="${e.target.getAttribute('data-analysisid')}" data-groupImg="" data-analysisName="" >X</button></td>

@@ -21993,13 +21993,16 @@ window.onload = function () {
     scheduleString = JSON.stringify(schedule); // console.log('1' + scheduleString)
     //search and add analysis from lab details page
 
+    helper.searchLabAnalysis(searchString, _analysisRadio2);
     searchString.addEventListener('input', function (e) {
       if (searchString.value.length >= 3 && filterValue == 'analiza') {
-        var _searchString = e.target.value; // fetch('/analysis/prices/'+searchString)
-
-        fetch('/search/analysis/' + _searchString + '/' + labName).then(function (data) {
+        var _searchString = e.target.value;
+        fetch('/analysis/prices/' + _searchString) //search for analysis or lab
+        // fetch('/search/analysis/'+searchString+'/'+labName)
+        .then(function (data) {
           return data.json();
         }).then(function (result) {
+          console.log(result);
           _resultDiv2.innerHTML = '';
           var icon = [];
           var alreadySelectedArray = [];
@@ -22014,7 +22017,13 @@ window.onload = function () {
             icon.push.apply(icon, _toConsumableArray(availableHC));
 
             if (alreadySelectedArray[i] == -1) {
-              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[i].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
+              //ispis alt i abbr sa razmakom posle zareza
+              // <td>${altArr[0][0].join(', ')}</td>
+              var abbrArr = [];
+              var altArr = [];
+              abbrArr.push(result[i].abbr);
+              altArr.push(result[i].alt);
+              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(abbrArr[0][0].join(', '), "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[0].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
               _resultDiv2.innerHTML += results;
             }
           }
@@ -22043,6 +22052,10 @@ window.onload = function () {
           'logo': e.target.getAttribute('data-iconPath')
         });
 
+        var abbrArr = e.target.getAttribute('data-abbr');
+        var altArr = e.target.getAttribute('data-alt');
+        abbrArr = abbrArr.split(',');
+        altArr = altArr.split(',');
         schedule[0].total = totalPrice;
         schedule[1].analysis = _itemsArray;
         schedule[2].labId = labId;
@@ -22058,8 +22071,9 @@ window.onload = function () {
           }
         });
 
-        localStorage.setItem('items', JSON.stringify(_itemsArray));
-        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(e.target.getAttribute('data-abbr'), "</td>\n                 <td>").concat(e.target.getAttribute('data-alt'), "</td>\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
+        localStorage.setItem('items', JSON.stringify(_itemsArray)); //  <td>${altArr.join(', ')}</td>
+
+        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(abbrArr.join(', '), "</td>\n\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
         resultTable.innerHTML += additionalResult;
       }
     }); ///////////////////////////

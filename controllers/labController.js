@@ -321,7 +321,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', {sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
+  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
 
 }
 
@@ -344,11 +344,11 @@ exports.getAdditionalAnalysis = async (req,res) => {
                slug:'$analiza.slug',
                group:'$analiza.groupId'
              }},
-    {$match:{'name':{$regex:req.params.analysisName, "$options": "i"}}},
+    {$match:{'name':{$regex:req.params.analysisName, $options: 'i'}}},
     {$lookup:{from:'groups', localField:'group', foreignField:'_id', as:'groupID'}},
     {$sort:{name:1}}
   ])
-  // console.log(searchForAnalysis[0].groupID[0].iconPath)
+  console.log(searchForAnalysis)
   res.json(searchForAnalysis)
   // let searchForAnalysis = await Analysis.aggregate([
   //   {$match:{'analysisName':{$regex:req.params.analysisName, "$options": "i"}}}
