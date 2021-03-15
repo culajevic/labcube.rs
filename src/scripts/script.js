@@ -147,6 +147,31 @@ window.onload = () => {
 
 if(location === '/') {
 
+  //testing analysis box feature
+
+
+let krvnaSlika = document.getElementById('krvnaSlika')
+krvnaSlika.addEventListener('click', e => {
+  e.preventDefault
+  let analysisKS = JSON.parse(e.target.getAttribute('data-analysis'))
+  let itemsArrayKS = []
+  console.log(analysisKS.length)
+  for (i=0; i<analysisKS.length; i++) {
+
+  itemsArray.push({
+    'name':analysisKS[i].name,
+    'id':analysisKS[i].id,
+    'logo':analysisKS[i].logo
+   })
+ }
+    checkout.classList.remove('d-none')
+   checkout.innerHTML = itemsArray.length
+   localStorage.setItem('items', JSON.stringify(itemsArray))
+})
+
+
+  ///////test end
+
 
   //get seachstring
   let mainSearch = document.getElementById('searchAnalysis')

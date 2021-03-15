@@ -22,6 +22,20 @@
   height: 501px;
 }
 
+ul ol ul {
+  list-style-type: circle;
+  opacity: 1;
+  li:first-child {
+    margin-top: 1.2rem;
+  }
+}
+
+.grafik {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
 .layer {
   transition: all 0.7s linear;
 }

@@ -612,7 +612,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
         console.log(result)
       for(let i=0; i<result.length; i++) {
-
+console.log(result)
         if(day == currentDayNum) {
 
             let openTime = result[i].lab[0].workingHours[currentDay].opens

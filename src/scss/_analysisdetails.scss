@@ -171,7 +171,8 @@ ol {
      line-height: px-to-rem(28px);
      color:$fontColorResultsTable;
      font-size: px-to-rem(14px);
-     opacity: .6;
+     // opacity: .6;
+     opacity:1;
      margin-left: px-to-rem(16px);
      padding-left: px-to-rem(12px);
    }

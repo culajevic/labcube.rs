@@ -8230,7 +8230,7 @@ ol li {
   line-height: 1.75rem;
   color: #3B3B3B;
   font-size: 0.875rem;
-  opacity: .6;
+  opacity: 1;
   margin-left: 1rem;
   padding-left: 0.75rem; }
 
@@ -8356,6 +8356,17 @@ footer {
   overflow: hidden;
   width: 100%;
   height: 501px; }
+
+ul ol ul {
+  list-style-type: circle;
+  opacity: 1; }
+  ul ol ul li:first-child {
+    margin-top: 1.2rem; }
+
+.grafik {
+  width: 50%;
+  display: block;
+  margin: 0 auto; }
 
 .layer {
   transition: all 0.7s linear; }

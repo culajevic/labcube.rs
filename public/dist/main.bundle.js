@@ -21114,6 +21114,8 @@ exports.bestPrice = function (mapArea, resultDiv) {
       console.log(result);
 
       for (var _i = 0; _i < result.length; _i++) {
+        console.log(result);
+
         if (day == currentDayNum) {
           var openTime = result[_i].lab[0].workingHours[currentDay].opens;
           var closingTime = result[_i].lab[0].workingHours[currentDay].closes;
@@ -21684,7 +21686,28 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 window.onload = function () {
   /* INDEX PAGE ***************/
   if (location === '/') {
+    //testing analysis box feature
+    var krvnaSlika = document.getElementById('krvnaSlika');
+    krvnaSlika.addEventListener('click', function (e) {
+      e.preventDefault;
+      var analysisKS = JSON.parse(e.target.getAttribute('data-analysis'));
+      var itemsArrayKS = [];
+      console.log(analysisKS.length);
+
+      for (i = 0; i < analysisKS.length; i++) {
+        itemsArray.push({
+          'name': analysisKS[i].name,
+          'id': analysisKS[i].id,
+          'logo': analysisKS[i].logo
+        });
+      }
+
+      checkout.classList.remove('d-none');
+      checkout.innerHTML = itemsArray.length;
+      localStorage.setItem('items', JSON.stringify(itemsArray));
+    }); ///////test end
     //get seachstring
+
     var mainSearch = document.getElementById('searchAnalysis'); //ger reference to filter
 
     var analysisRadio = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
