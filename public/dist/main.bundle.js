@@ -21706,6 +21706,22 @@ window.onload = function () {
       checkout.innerHTML = itemsArray.length;
       localStorage.setItem('items', JSON.stringify(itemsArray));
     }); ///////test end
+    //testing display other groups
+
+    var buttonDisplayOtherAnalyises = document.getElementById('displayOtherGroups'); // let otherGroupsHidden = document.getElementById('otherGroups')
+
+    var otherGroupsHidden = document.querySelectorAll('.otherGroups');
+    buttonDisplayOtherAnalyises.addEventListener('click', function () {
+      if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
+        buttonDisplayOtherAnalyises.innerText = 'prikaži manje';
+      } else {
+        buttonDisplayOtherAnalyises.innerText = 'sve grupe analiza';
+      }
+
+      otherGroupsHidden.forEach(function (item) {
+        item.classList.toggle('d-none');
+      });
+    }); /////
     //get seachstring
 
     var mainSearch = document.getElementById('searchAnalysis'); //ger reference to filter

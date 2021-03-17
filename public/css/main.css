@@ -8363,6 +8363,9 @@ ul ol ul {
   ul ol ul li:first-child {
     margin-top: 1.2rem; }
 
+.btn-success, .btnLogin, .btn-res-success, .btnLogin, .btn-res-success {
+  padding: 0 1rem; }
+
 .grafik {
   width: 50%;
   display: block;

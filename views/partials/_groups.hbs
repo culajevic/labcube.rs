@@ -1,7 +1,11 @@
 <section id="analize-wrapper">
     <div class="container">
       <div class="row analize-container">
-{{#each groups }}
+
+
+
+{{#each groups}}
+{{#if (ifGT @index 9)}}
       <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
         <div class="card">
           <div class="card-body">
@@ -17,10 +21,27 @@
             </div><!-- card body end -->
           </div><!-- card end -->
         </div><!-- group div end -->
+        {{else}}
+        <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+          <div class="card d-none otherGroups">
+            <div class="card-body">
+              <div>
+                {{#each this.grupa}}
+                <img src="images/{{this.iconPath}}" alt="{{this.name}}" class="analiza-ikonica">
+                <span class="d-flex align-self-stretch">{{this.name}}</span>
+              </div>
+              <p class="card-text">{{groupSummary this.description}}</p>
+              <a href='/group/{{this.slug}}'><button class="button btn btn-secondary btn-block click-more">Saznaj više
+              {{/each}}
+              <span class="broj-analiza">{{this.total}}</span></button></a>
+              </div><!-- card body end -->
+            </div><!-- card end -->
+          </div><!-- group div end -->
+        {{/if}}
 {{/each}}
         </div>
         <div class="text-center">
-          <button class="btn btn-success text-uppercase">sve grupe analiza</button>
+          <button class="btn btn-success text-uppercase" id="displayOtherGroups">sve grupe analiza</button>
         </div>
     </div><!-- container end -->
   </section><!-- analize-wrapper end -->

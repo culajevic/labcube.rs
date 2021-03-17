@@ -80,6 +80,7 @@ sortByPriority = {priority:-1}
   try {
     const faqFP = await Faq.find({frontPage:true}).sort(sortByPriority)
     // const groups = await Group.find({frontPage:true}).sort(sortByPriority)
+    const numOfGroups = await Group.countDocuments({})
     const groups = await Analysis.aggregate([
       {$match:{}},
       {$group:{_id:{groupId:'$groupId'},total:{$sum:1}}},
@@ -174,6 +175,7 @@ sortByPriority = {priority:-1}
         labNum,
         analysisNum,
         numOpen,
+        numOfGroups,
         user:req.user,
         labDetails : encodeURIComponent(JSON.stringify(labInfo)),
         labOpen : encodeURIComponent(JSON.stringify(labStatus))

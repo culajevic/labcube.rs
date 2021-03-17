@@ -172,6 +172,28 @@ krvnaSlika.addEventListener('click', e => {
 
   ///////test end
 
+  //testing display other groups
+
+let buttonDisplayOtherAnalyises = document.getElementById('displayOtherGroups')
+// let otherGroupsHidden = document.getElementById('otherGroups')
+let otherGroupsHidden = document.querySelectorAll('.otherGroups')
+
+
+buttonDisplayOtherAnalyises.addEventListener('click', () => {
+if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
+  buttonDisplayOtherAnalyises.innerText = 'prikaži manje'
+} else {
+  buttonDisplayOtherAnalyises.innerText = 'sve grupe analiza'
+}
+  otherGroupsHidden.forEach(item => {
+    item.classList.toggle('d-none')
+
+  });
+
+})
+
+  /////
+
 
   //get seachstring
   let mainSearch = document.getElementById('searchAnalysis')
