@@ -181,13 +181,12 @@ let otherGroupsHidden = document.querySelectorAll('.otherGroups')
 
 buttonDisplayOtherAnalyises.addEventListener('click', () => {
 if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
-  buttonDisplayOtherAnalyises.innerText = 'prikaži manje'
+  buttonDisplayOtherAnalyises.remove()
 } else {
   buttonDisplayOtherAnalyises.innerText = 'sve grupe analiza'
 }
   otherGroupsHidden.forEach(item => {
-    item.classList.toggle('d-none')
-
+    item.classList.toggle('active')
   });
 
 })

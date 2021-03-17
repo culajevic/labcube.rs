@@ -21713,13 +21713,13 @@ window.onload = function () {
     var otherGroupsHidden = document.querySelectorAll('.otherGroups');
     buttonDisplayOtherAnalyises.addEventListener('click', function () {
       if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
-        buttonDisplayOtherAnalyises.innerText = 'prikaži manje';
+        buttonDisplayOtherAnalyises.remove();
       } else {
         buttonDisplayOtherAnalyises.innerText = 'sve grupe analiza';
       }
 
       otherGroupsHidden.forEach(function (item) {
-        item.classList.toggle('d-none');
+        item.classList.toggle('active');
       });
     }); /////
     //get seachstring
