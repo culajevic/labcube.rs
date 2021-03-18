@@ -8371,7 +8371,7 @@ ul ol ul {
   opacity: 0;
   transition: transform .3s ease-in-out, opacity .3s ease-in-out; }
   .groupHidden.active {
-    display: block;
+    display: flex;
     transform: scale(1);
     opacity: 1; }
     .groupHidden.active.good {

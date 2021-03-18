@@ -187,6 +187,7 @@ if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
 }
   otherGroupsHidden.forEach(item => {
     item.classList.toggle('active')
+    // item.classList.remove('')
   });
 
 })

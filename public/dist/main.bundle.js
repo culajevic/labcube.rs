@@ -21719,7 +21719,7 @@ window.onload = function () {
       }
 
       otherGroupsHidden.forEach(function (item) {
-        item.classList.toggle('active');
+        item.classList.toggle('active'); // item.classList.remove('')
       });
     }); /////
     //get seachstring
