@@ -27,6 +27,7 @@ const labSchema = new mongoose.Schema({
   // },
   email:String,
   vatNumber:Number,
+  companyNumber:Number,
   logo:String,
   priority:String,
   discount:Number,

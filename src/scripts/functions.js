@@ -384,6 +384,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         for(i=0; i<result.length; i++) {
           let flag = true
           resultDiv.innerHTML = ''
+             // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
           labTemplate.innerHTML += `
           <div class="lab-card">
             <div>
@@ -392,7 +393,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                <span class="labInfoWindowTitle">${result[i].labName}</span>
            </div>
              <div class="labInfoWindow">
-                 <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow">
+
                  <p class="labInfoWindowAdresa">${result[i].address}</p>
                  <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
                  <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>

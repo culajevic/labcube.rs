@@ -51,6 +51,10 @@ ul ol ul {
    }
 }
 
+#addNewAlt:hover, #addNewAbbr:hover, .removeField:hover, #addNewPhone:hover {
+  cursor: pointer;
+}
+
 @keyframes anim {
   0% {
     display: none;

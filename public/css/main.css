@@ -8377,6 +8377,9 @@ ul ol ul {
     .groupHidden.active.good {
       animation: anim .5s ease-in-out; }
 
+#addNewAlt:hover, #addNewAbbr:hover, .removeField:hover, #addNewPhone:hover {
+  cursor: pointer; }
+
 @keyframes anim {
   0% {
     display: none;

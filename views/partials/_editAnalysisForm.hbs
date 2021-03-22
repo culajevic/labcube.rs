@@ -43,7 +43,7 @@
           {{#if (keepData analysis.alt alt)}}
             {{#each (keepData analysis.alt alt)}}
           <div class="form-group col-sm-3">
-            {{#if @first}}<small>alt name</small><small class="float-right" id="addNewAlt">+</small>{{else}}<small>abbreviation</small><small class="float-right removeField">-</small>{{/if}}
+            {{#if @first}}<small>alt name</small><small class="float-right" id="addNewAlt">+</small>{{else}}<small>alt name</small><small class="float-right removeField">-</small>{{/if}}
             <input type="text" class="form-control" name="alt[]" id="" placeholder="alternative name" value="{{this}}">
           </div>
             {{/each}}

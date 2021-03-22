@@ -72,6 +72,7 @@ exports.createLab = [authCheck, async (req,res) => {
       web:req.body.web,
       email:req.body.email,
       vat:req.body.vatNumber,
+      companyNumber:req.body.companyNumber,
       priority:req.body.priority,
       locationLAT:req.body.location.coordinates[0],
       locationLNG:req.body.location.coordinates[1],
