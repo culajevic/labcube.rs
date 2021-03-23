@@ -8,7 +8,7 @@ exports.removeElement = (element1,element2) => {
       e.target.remove()
       element1.remove()
     } else {
-      e.target.remove() }
+      e.target.remove()}
   })
 }
 
@@ -96,14 +96,15 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   let hospital = document.createElement('td')
   let hospitalIcon = document.createElement('img')
-    if(prices[i].availableHC) {
+  console.log(prices[i].availableHC)
+    if(prices[i].availableHC[0] == true) {
       hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'aaaAnalizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     } else {
       hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'aaaAnalizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     }
   hospital.appendChild(hospitalIcon)
   tr.appendChild(hospital)
@@ -383,6 +384,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         for(i=0; i<result.length; i++) {
           let flag = true
           resultDiv.innerHTML = ''
+             // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
           labTemplate.innerHTML += `
           <div class="lab-card">
             <div>
@@ -391,7 +393,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                <span class="labInfoWindowTitle">${result[i].labName}</span>
            </div>
              <div class="labInfoWindow">
-                 <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow">
+
                  <p class="labInfoWindowAdresa">${result[i].address}</p>
                  <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
                  <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
@@ -611,7 +613,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
         console.log(result)
       for(let i=0; i<result.length; i++) {
-
+console.log(result)
         if(day == currentDayNum) {
 
             let openTime = result[i].lab[0].workingHours[currentDay].opens

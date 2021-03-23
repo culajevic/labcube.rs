@@ -72,6 +72,7 @@ exports.createLab = [authCheck, async (req,res) => {
       web:req.body.web,
       email:req.body.email,
       vat:req.body.vatNumber,
+      companyNumber:req.body.companyNumber,
       priority:req.body.priority,
       locationLAT:req.body.location.coordinates[0],
       locationLNG:req.body.location.coordinates[1],
@@ -116,10 +117,12 @@ exports.createLab = [authCheck, async (req,res) => {
 }]
 
 exports.allLabs = [authCheck, async (req,res) => {
+  const labsNumber = await Lab.find().countDocuments()
   const allLab = await Lab.find({}).populate('placeId').sort({date:-1})
   res.render('allLabs', {
-    title:'All labs',
-    allLab
+    title:'Sve laboratorije',
+    allLab,
+    number:labsNumber
   })
 }]
 
@@ -319,7 +322,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', {sidebarNav:false, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
+  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
 
 }
 
@@ -342,11 +345,11 @@ exports.getAdditionalAnalysis = async (req,res) => {
                slug:'$analiza.slug',
                group:'$analiza.groupId'
              }},
-    {$match:{'name':{$regex:req.params.analysisName, "$options": "i"}}},
+    {$match:{'name':{$regex:req.params.analysisName, $options: 'i'}}},
     {$lookup:{from:'groups', localField:'group', foreignField:'_id', as:'groupID'}},
     {$sort:{name:1}}
   ])
-  // console.log(searchForAnalysis[0].groupID[0].iconPath)
+  console.log(searchForAnalysis)
   res.json(searchForAnalysis)
   // let searchForAnalysis = await Analysis.aggregate([
   //   {$match:{'analysisName':{$regex:req.params.analysisName, "$options": "i"}}}

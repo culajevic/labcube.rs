@@ -80,10 +80,13 @@ sortByPriority = {priority:-1}
   try {
     const faqFP = await Faq.find({frontPage:true}).sort(sortByPriority)
     // const groups = await Group.find({frontPage:true}).sort(sortByPriority)
+    const numOfGroups = await Group.countDocuments({})
     const groups = await Analysis.aggregate([
       {$match:{}},
       {$group:{_id:{groupId:'$groupId'},total:{$sum:1}}},
       {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
+      //izbaciti match ispod ukoliok prikazujemo sve grupe na naslovnoj stranici
+      // {$match:{'grupa.frontPage':true}},
       {$sort:{'grupa.priority':-1}}
     ])
     // const groups = await Group.aggregate([
@@ -165,13 +168,14 @@ sortByPriority = {priority:-1}
     }
 
       res.render('index',{
-        title:'labcube - Sve o laboratorijskim analizama',
+        title:'Sve o laboratorijskim analizama',
         faqtitle:'Najčešće postavljana pitanja',
         groups,
         faqFP,
         labNum,
         analysisNum,
         numOpen,
+        numOfGroups,
         user:req.user,
         labDetails : encodeURIComponent(JSON.stringify(labInfo)),
         labOpen : encodeURIComponent(JSON.stringify(labStatus))

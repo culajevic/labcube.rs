@@ -25,9 +25,9 @@ exports.allAnalysis = [authCheck, async (req,res) => {
     .populate('groupId', 'name')
     .populate('writtenBy', 'firstName lastName')
   res.render('allAnalysis', {
-    title:'All analysis',
+    title:'Sve analize',
     allAnalysis,
-    analysisNumber
+    number:analysisNumber
   })
 }]
 
@@ -89,7 +89,8 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       examination:req.body.examination,
       low:req.body.low,
       high:req.body.high,
-      notes:req.body.sample,
+      notes:req.body.notes,
+      sample:req.body.sample,
       availableHC:req.body.availableHC,
       connectedAnalysis:connectedAnalysis,
       connectedTo:req.body.connectedTo,
@@ -107,7 +108,7 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       try {
         await analysis.save()
         req.flash('success_msg','Analiza je uspešno kreirana')
-        res.redirect('/')
+        res.redirect('/admindashboard')
         }
       catch (e){
         req.flash('error_msg', `Dogodila se greška prilikom upisa nove analize u bazu${e}`)
@@ -131,8 +132,15 @@ exports.editAnalysis =  [authCheck, async (req,res) => {
 
 exports.updateAnalysis = [authCheck, async (req,res) => {
   req.body.date = Date.now()
+
   if (req.body.availableHC == undefined) {
     req.body.availableHC = false
+  }
+  if(req.body.connectedTo == undefined) {
+    req.body.connectedTo = null
+  }
+  if(req.body.diseasesID == undefined) {
+    req.body.diseasesId = null
   }
   try {
     const analysis = await Analysis.findOneAndUpdate(
@@ -143,11 +151,11 @@ exports.updateAnalysis = [authCheck, async (req,res) => {
         runValidators:true,
         useFindAndModify:false
       }).exec()
-      req.flash('success_msg', 'Uspesno su azurirani podaci o analizi')
+      req.flash('success_msg', 'Uspešno su ažurirani podaci o analizi')
       res.redirect('/allAnalysis')
   }
   catch(e){
-    req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o analizi`)
+    req.flash('error_msg', `došlo je do greške ${e} prilikom ažuriranja podataka o analizi`)
   }
 }]
 
@@ -159,7 +167,7 @@ exports.getAnalyisisName = async (req,res) => {
 exports.getAnalyisisNameResult = async (req, res) => {
   // const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
   // .populate('groupId', 'name iconPath')
-  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}},{alt:{$regex: req.params.analysisName, $options: 'i'}}]})
+  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}]})
     .populate('groupId', 'name iconPath')
 
   let selectedAnalysis =[]
@@ -200,6 +208,6 @@ const prices = await Price.aggregate([
 
 exports.deleteAnalysis = [authCheck, async (req,res) => {
   const deleteAnalysis = await Analysis.findOneAndDelete({_id:req.params.id})
-  req.flash('success_msg', 'Analiza je uspesno obrisana.')
+  req.flash('success_msg', 'Analiza je uspešno obrisana.')
   res.send()
 }]

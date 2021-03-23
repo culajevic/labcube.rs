@@ -18,10 +18,10 @@
               <!-- <td>{{#each abbr}} {{this}} {{/each}}</td> -->
               <td>{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
 
-              {{#if this.availableHC}}
+              {{#if this.availableHC.[0]}}
                 <td><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
                 {{else}}
-                <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                  <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
               {{/if}}
               <td><span class="font-weight-bold">{{this.minPrice}} - {{this.maxPrice}}</span></td>
               <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="{{this._id}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">dodaj</button></td>

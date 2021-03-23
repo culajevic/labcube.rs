@@ -12,6 +12,7 @@ const priceController = require('../controllers/priceController')
 const resultController = require('../controllers/resultController')
 const authenticationController = require('../controllers/authenticationController')
 const scheduleController = require('../controllers/scheduleController')
+const generalController = require('../controllers/general')
 const profileController = require('../controllers/profileController')
 const passport = require('passport')
 
@@ -21,6 +22,11 @@ router.get('/', groupController.getGroups)
 
 //display single group
 router.get('/group/:slug', groupController.displayGroup)
+
+//display about us
+router.get('/o-nama/', generalController.aboutus)
+router.get('/politika-privatnosti/', generalController.privacy)
+router.get('/uslovi-koriscenja/', generalController.terms)
 
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)

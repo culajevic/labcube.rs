@@ -72,8 +72,9 @@
 // }
 
 .textList {
-  padding-left: px-to-rem(18px);
+  padding-left: px-to-rem(36px);
   font-size: 1.125rem;
+  margin-bottom: px-to-rem(18px);
   li {
     line-height: 1.75rem !important;
       font-size: 1.125rem;
@@ -84,14 +85,17 @@
   margin:px-to-rem(40px) 0;
   color:$fontColorResultsTable;
   font-size: px-to-rem(20px);
-    &::before {
-    content:'';
-    border-left:5px solid $primary-color;
-    margin-top: px-to-rem(20px);
-    padding-top: px-to-rem(16px);
-    padding-right: px-to-rem(16px);
-    padding-bottom: px-to-rem(16px);
-  }
+  border-left:4px solid $primary-color;
+  padding-left: 1.2rem;
+  text-align: left !important;
+  //   &::before {
+  //   content:'';
+  //   border-left:5px solid $primary-color;
+  //   margin-top: px-to-rem(20px);
+  //   padding-top: px-to-rem(16px);
+  //   padding-right: px-to-rem(16px);
+  //   padding-bottom: px-to-rem(16px);
+  // }
 }
 
 .snizeneVrednosti {
@@ -167,7 +171,8 @@ ol {
      line-height: px-to-rem(28px);
      color:$fontColorResultsTable;
      font-size: px-to-rem(14px);
-     opacity: .6;
+     // opacity: .6;
+     opacity:1;
      margin-left: px-to-rem(16px);
      padding-left: px-to-rem(12px);
    }

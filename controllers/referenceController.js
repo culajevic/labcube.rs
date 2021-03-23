@@ -82,6 +82,6 @@ exports.getReferences = async(req,res) => {
 
 exports.deleteReference = [authCheck, async (req,res) => {
   const deleteReference = await Reference.findOneAndDelete({_id:req.params.id})
-  req.flash('success_msg', 'Referenca je uspesno obrisana.')
+  req.flash('success_msg', 'Referenca je uspešno obrisana.')
   res.json()
 }]

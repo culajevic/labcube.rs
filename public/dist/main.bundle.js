@@ -20653,15 +20653,16 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
   var hospital = document.createElement('td');
   var hospitalIcon = document.createElement('img');
+  console.log(prices[i].availableHC);
 
-  if (prices[i].availableHC) {
+  if (prices[i].availableHC[0] == true) {
     hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute('title', 'aaaAnalizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
   } else {
     hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute('title', 'aaaAnalizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
   }
 
   hospital.appendChild(hospitalIcon);
@@ -20915,8 +20916,9 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
 
       for (i = 0; i < result.length; i++) {
         var flag = true;
-        resultDiv.innerHTML = '';
-        labTemplate.innerHTML += "\n          <div class=\"lab-card\">\n            <div>\n               <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n               <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n               <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n                 <img src=\"/images/lablogo/").concat(result[i].logo, "\" class=\"labLogoInfoWindow\">\n                 <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                 <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                   <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                   <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                 </div>\n              </div>\n              <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n           </div>");
+        resultDiv.innerHTML = ''; // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
+
+        labTemplate.innerHTML += "\n          <div class=\"lab-card\">\n            <div>\n               <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n               <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n               <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n           </div>\n             <div class=\"labInfoWindow\">\n\n                 <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                 <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " / ").concat(result[i].placeId.municipality, "</p>\n                 <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n             </div>\n             <div class=\"labInfoFooter\">\n                 <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                 <div class=\"radnoVreme\">Radno vreme</div>\n                 <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                 <div class=\"labInfoRadnoVremeDetalji\">\n                   <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                   <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                   <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                   <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                   <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                   <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                   <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                 </div>\n              </div>\n              <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n           </div>");
         resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
 
         document.querySelector('.labContainer').appendChild(labTemplate);
@@ -21113,6 +21115,8 @@ exports.bestPrice = function (mapArea, resultDiv) {
       console.log(result);
 
       for (var _i = 0; _i < result.length; _i++) {
+        console.log(result);
+
         if (day == currentDayNum) {
           var openTime = result[_i].lab[0].workingHours[currentDay].opens;
           var closingTime = result[_i].lab[0].workingHours[currentDay].closes;
@@ -21666,7 +21670,6 @@ var checkUrl = /result.*/;
 var group = /group/;
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl))) {
-  console.log('da');
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -21684,7 +21687,44 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 window.onload = function () {
   /* INDEX PAGE ***************/
   if (location === '/') {
+    //testing analysis box feature
+    var krvnaSlika = document.getElementById('krvnaSlika');
+    krvnaSlika.addEventListener('click', function (e) {
+      e.preventDefault;
+      var analysisKS = JSON.parse(e.target.getAttribute('data-analysis'));
+      var itemsArrayKS = [];
+      console.log(analysisKS.length);
+
+      for (i = 0; i < analysisKS.length; i++) {
+        itemsArray.push({
+          'name': analysisKS[i].name,
+          'id': analysisKS[i].id,
+          'logo': analysisKS[i].logo
+        });
+      }
+
+      checkout.classList.remove('d-none');
+      checkout.innerHTML = itemsArray.length;
+      localStorage.setItem('items', JSON.stringify(itemsArray));
+    }); ///////test end
+    //testing display other groups
+
+    var buttonDisplayOtherAnalyises = document.getElementById('displayOtherGroups'); // let otherGroupsHidden = document.getElementById('otherGroups')
+
+    var otherGroupsHidden = document.querySelectorAll('.otherGroups');
+    buttonDisplayOtherAnalyises.addEventListener('click', function () {
+      if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
+        buttonDisplayOtherAnalyises.remove();
+      } else {
+        buttonDisplayOtherAnalyises.innerText = 'sve grupe analiza';
+      }
+
+      otherGroupsHidden.forEach(function (item) {
+        item.classList.toggle('active'); // item.classList.remove('')
+      });
+    }); /////
     //get seachstring
+
     var mainSearch = document.getElementById('searchAnalysis'); //ger reference to filter
 
     var analysisRadio = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
@@ -21698,10 +21738,11 @@ window.onload = function () {
   // }
 
   /* RESULTS PAGE ***************/
+  //ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (document.getElementById('results') != null) {
+  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
@@ -21992,13 +22033,16 @@ window.onload = function () {
     scheduleString = JSON.stringify(schedule); // console.log('1' + scheduleString)
     //search and add analysis from lab details page
 
+    helper.searchLabAnalysis(searchString, _analysisRadio2);
     searchString.addEventListener('input', function (e) {
       if (searchString.value.length >= 3 && filterValue == 'analiza') {
-        var _searchString = e.target.value; // fetch('/analysis/prices/'+searchString)
-
-        fetch('/search/analysis/' + _searchString + '/' + labName).then(function (data) {
+        var _searchString = e.target.value;
+        fetch('/analysis/prices/' + _searchString) //search for analysis or lab
+        // fetch('/search/analysis/'+searchString+'/'+labName)
+        .then(function (data) {
           return data.json();
         }).then(function (result) {
+          console.log(result);
           _resultDiv2.innerHTML = '';
           var icon = [];
           var alreadySelectedArray = [];
@@ -22013,7 +22057,13 @@ window.onload = function () {
             icon.push.apply(icon, _toConsumableArray(availableHC));
 
             if (alreadySelectedArray[i] == -1) {
-              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(result[i].abbr, "</td>\n                    <td>").concat(result[i].alt, "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[i].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
+              //ispis alt i abbr sa razmakom posle zareza
+              // <td>${altArr[0][0].join(', ')}</td>
+              var abbrArr = [];
+              var altArr = [];
+              abbrArr.push(result[i].abbr);
+              altArr.push(result[i].alt);
+              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(abbrArr[0][0].join(', '), "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[0].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
               _resultDiv2.innerHTML += results;
             }
           }
@@ -22042,6 +22092,10 @@ window.onload = function () {
           'logo': e.target.getAttribute('data-iconPath')
         });
 
+        var abbrArr = e.target.getAttribute('data-abbr');
+        var altArr = e.target.getAttribute('data-alt');
+        abbrArr = abbrArr.split(',');
+        altArr = altArr.split(',');
         schedule[0].total = totalPrice;
         schedule[1].analysis = _itemsArray;
         schedule[2].labId = labId;
@@ -22057,8 +22111,9 @@ window.onload = function () {
           }
         });
 
-        localStorage.setItem('items', JSON.stringify(_itemsArray));
-        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(e.target.getAttribute('data-abbr'), "</td>\n                 <td>").concat(e.target.getAttribute('data-alt'), "</td>\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
+        localStorage.setItem('items', JSON.stringify(_itemsArray)); //  <td>${altArr.join(', ')}</td>
+
+        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(abbrArr.join(', '), "</td>\n\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
         resultTable.innerHTML += additionalResult;
       }
     }); ///////////////////////////
@@ -22414,7 +22469,7 @@ window.onload = function () {
         className: '',
         value: 'p'
       }],
-      height: 280,
+      height: 480,
       toolbar: [['view', ['codeview']], ['img', ['picture']], ['style', ['style', 'addclass', 'clear']], ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']], ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']]]
     });
     var addNewAbbr = document.querySelector('#addNewAbbr');
@@ -22628,7 +22683,7 @@ window.onload = function () {
         connectedDiseases.focus();
         getDiseasesDiv.innerHTML = '';
       } else {
-        console.log('analiza vec dodata');
+        console.log('oboljenje vec dodato');
         connectedDiseases.value = '';
         connectedDiseases.focus();
         getDiseasesDiv.innerHTML = '';

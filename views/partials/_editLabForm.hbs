@@ -76,6 +76,10 @@
             <small class="form-text text-muted">VAT</small>
             <input type="text" class="form-control" name="vatNumber" pattern="\d+" placeholder="VAT number*" value={{keepData lab.vatNumber vat}}>
           </div>
+          <div class="form-group col-sm-6 col-md-4">
+            <small class="form-text text-muted">company number</small>
+            <input type="text" class="form-control" name="companyNumber" pattern="\d+" placeholder="company number" value={{keepData lab.companyNumber companyNumber}}>
+          </div>
           <div class="form-group col-sm-4">
             <small class="form-text text-muted">logo path</small>
             <input type="file" class="form-control" name="logo" placeholder="logo path">
@@ -89,13 +93,14 @@
 
         <!-- lat and lng -->
         <div class="form-row">
-          <div class="form-group col-sm-6">
-            <small class="form-text text-muted">LNG</small>
-            <input type="text" class="form-control" name="location[coordinates][0]" value="{{keepData lab.location.coordinates.[0] locationLNG}}" placeholder="LNG">
-          </div>
+
           <div class="form-group col-sm-6">
             <small class="form-text text-muted">LAT</small>
             <input type="text" class="form-control" name="location[coordinates][1]" value="{{keepData lab.location.coordinates.[1] locationLAT}}" placeholder="LAT">
+          </div>
+          <div class="form-group col-sm-6">
+            <small class="form-text text-muted">LNG</small>
+            <input type="text" class="form-control" name="location[coordinates][0]" value="{{keepData lab.location.coordinates.[0] locationLNG}}" placeholder="LNG">
           </div>
         </div><!-- end of lat and lng -->
 

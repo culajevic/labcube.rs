@@ -204,6 +204,10 @@ hbs.registerHelper('checkStatus', (value1) => {
   if (value1 == 'Završeno') return true
 })
 
+hbs.registerHelper('ifGT', (value1, value2) => {
+  if (value1 < value2) return true
+})
+
 hbs.registerHelper('checkStatusFeedback', (value1,value2) => {
   if (value1 == 'Završeno' && value2 == false) return true
 })

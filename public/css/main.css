@@ -7859,6 +7859,7 @@ div.status.closedSoon::before {
   color: #3B3B3B;
   padding: 1rem 0;
   padding-right: .7rem;
+  padding-left: .7rem;
   border-bottom: 1px solid #E0E4EC;
   margin-bottom: 0; }
   #accordion > h5:hover {
@@ -7866,7 +7867,9 @@ div.status.closedSoon::before {
     background-color: #f7f8fb; }
 
 #accordion > div p {
-  padding-top: 1rem; }
+  padding-top: 1rem;
+  padding-left: .7rem;
+  padding-right: .7rem; }
 
 #accordion > [data-toggle="collapse"].collapsed::after {
   font-family: 'Font Awesome 5 Free';
@@ -8143,8 +8146,9 @@ span.remove:hover {
   line-height: 2.5rem; }
 
 .textList {
-  padding-left: 1.125rem;
-  font-size: 1.125rem; }
+  padding-left: 2.25rem;
+  font-size: 1.125rem;
+  margin-bottom: 1.125rem; }
   .textList li {
     line-height: 1.75rem !important;
     font-size: 1.125rem; }
@@ -8152,14 +8156,10 @@ span.remove:hover {
 .lead {
   margin: 2.5rem 0;
   color: #3B3B3B;
-  font-size: 1.25rem; }
-  .lead::before {
-    content: '';
-    border-left: 5px solid #1D88E5;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem; }
+  font-size: 1.25rem;
+  border-left: 4px solid #1D88E5;
+  padding-left: 1.2rem;
+  text-align: left !important; }
 
 .snizeneVrednosti {
   background: url(../images/zeleno.svg);
@@ -8230,7 +8230,7 @@ ol li {
   line-height: 1.75rem;
   color: #3B3B3B;
   font-size: 0.875rem;
-  opacity: .6;
+  opacity: 1;
   margin-left: 1rem;
   padding-left: 0.75rem; }
 
@@ -8356,6 +8356,49 @@ footer {
   overflow: hidden;
   width: 100%;
   height: 501px; }
+
+ul ol ul {
+  list-style-type: circle;
+  opacity: 1; }
+  ul ol ul li:first-child {
+    margin-top: 1.2rem; }
+
+.otherGroups {
+  transition: all 2s linear; }
+
+.groupHidden {
+  display: none;
+  opacity: 0;
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out; }
+  .groupHidden.active {
+    display: flex;
+    transform: scale(1);
+    opacity: 1; }
+    .groupHidden.active.good {
+      animation: anim .5s ease-in-out; }
+
+#addNewAlt:hover, #addNewAbbr:hover, .removeField:hover, #addNewPhone:hover {
+  cursor: pointer; }
+
+@keyframes anim {
+  0% {
+    display: none;
+    opacity: 0; }
+  20% {
+    display: block;
+    opacity: 0;
+    transform: scale(0.7); }
+  100% {
+    opacity: 1;
+    transform: scale(1); } }
+
+.btn-success, .btnLogin, .btn-res-success, .btnLogin, .btn-res-success {
+  padding: 0 1rem; }
+
+.grafik {
+  width: 70%;
+  display: block;
+  margin: 0 auto; }
 
 .layer {
   transition: all 0.7s linear; }
