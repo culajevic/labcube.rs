@@ -535,8 +535,6 @@ if(urlArr[1] == 'laboratorija') {
                 return item.id == result[i].idAnalysis
               })
 
-
-
               alreadySelectedArray.push(alreadySelected)
 
               let availableHC = result[i].availableHC

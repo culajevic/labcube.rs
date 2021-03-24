@@ -7907,8 +7907,7 @@ div.status.closedSoon::before {
 
 .results tr > td:first-child {
   max-width: 17.5rem;
-  font-weight: 500;
-  cursor: pointer; }
+  font-weight: 500; }
 
 .results tr > td:nth-child(2)::before {
   content: '';

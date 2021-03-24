@@ -20613,9 +20613,17 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var tdName = document.createElement('td');
   var analysisName = document.createTextNode(prices[i].name);
   var analysisLink = document.createElement('a');
-  analysisLink.setAttribute('href', '/results/analysis/' + prices[i].slug);
-  analysisLink.className = 'nolink';
-  analysisLink.appendChild(analysisName);
+
+  if (prices[i].preview == '') {
+    // analysisLink.setAttribute('href', '#')
+    analysisLink.className = 'nolink text-muted';
+    analysisLink.appendChild(analysisName);
+  } else {
+    analysisLink.setAttribute('href', '/results/analysis/' + prices[i].slug);
+    analysisLink.className = 'nolink';
+    analysisLink.appendChild(analysisName);
+  }
+
   var previewIcon = document.createElement('img');
   previewIcon.setAttribute('src', '/images/detail.svg');
   previewIcon.setAttribute('title', prices[i].preview);
@@ -20638,7 +20646,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var altName;
 
   for (y = 0; y < prices[i].abbr.length; y++) {
-    console.log(prices[i].abbr[y].join(', '));
+    // console.log(prices[i].abbr[y].join(', '))
     altName = document.createTextNode(prices[i].abbr[y].join(', '));
     alt.appendChild(altName);
     tr.appendChild(alt);
@@ -20652,8 +20660,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   //ako nije dostupna stavi hospital-alt-off.svg
 
   var hospital = document.createElement('td');
-  var hospitalIcon = document.createElement('img');
-  console.log(prices[i].availableHC);
+  var hospitalIcon = document.createElement('img'); // console.log(prices[i].availableHC)
 
   if (prices[i].availableHC[0] == true) {
     hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
@@ -21025,7 +21032,8 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
 
     }); //data json end
   }); //fetch end
-};
+}; //povratak sa detaljnog pregleda cene na mapu, belezenje poslednje odabrane laboratorije
+
 
 exports.bestPrice = function (mapArea, resultDiv) {
   var municipalityValue;

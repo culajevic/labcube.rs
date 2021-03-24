@@ -4,7 +4,8 @@
   <div class="container" id="resultsGroupDetails">
     <div class="row mb-4 mt-4">
         <p class="mt-2 mb-4 groupDescription">{{group.description}}</p>
-      <div class="col-9">
+      <!-- <div class="col-9"> -->
+      <div class="col-12">
 
         <table class="table results table-hover">
           <div class="loader-wrapper">
@@ -13,8 +14,15 @@
  					<tbody id="resultTable">
             {{#each analyisisdata}}
             <tr>
+
+              {{#if (empty this.preview)}}
               <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
-                <a href="../results/analysis/{{this.slug}}" class="nolink">{{this.name}}</a></td>
+                <a href="../results/analysis/{{this.slug}}" class="nolink">{{this.name}}</a>
+              </td>
+                {{else}}
+                <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
+                  <a class="text-muted">{{this.name}}</a></td>
+              {{/if}}
               <!-- <td>{{#each abbr}} {{this}} {{/each}}</td> -->
               <td>{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
 

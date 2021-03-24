@@ -200,6 +200,12 @@ hbs.registerHelper('notBlank', (value) => {
   }
 })
 
+hbs.registerHelper('empty', value => {
+  if(value != '') {
+    return true
+  }
+})
+
 hbs.registerHelper('checkStatus', (value1) => {
   if (value1 == 'Završeno') return true
 })

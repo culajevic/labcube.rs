@@ -51,9 +51,16 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   let analysisName = document.createTextNode(prices[i].name)
 
   let analysisLink = document.createElement('a')
-      analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
-      analysisLink.className = 'nolink'
-      analysisLink.appendChild(analysisName)
+  if(prices[i].preview == '') {
+    // analysisLink.setAttribute('href', '#')
+    analysisLink.className = 'nolink text-muted'
+    analysisLink.appendChild(analysisName)
+  } else {
+    analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
+    analysisLink.className = 'nolink'
+    analysisLink.appendChild(analysisName)
+  }
+
 
   let previewIcon = document.createElement('img')
     previewIcon.setAttribute('src', '/images/detail.svg')
@@ -79,7 +86,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   let altName
 
   for(y=0; y<prices[i].abbr.length; y++) {
-    console.log(prices[i].abbr[y].join(', '))
+    // console.log(prices[i].abbr[y].join(', '))
      altName = document.createTextNode((prices[i].abbr[y]).join(', '))
     alt.appendChild(altName)
     tr.appendChild(alt)
@@ -96,7 +103,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   let hospital = document.createElement('td')
   let hospitalIcon = document.createElement('img')
-  console.log(prices[i].availableHC)
+  // console.log(prices[i].availableHC)
     if(prices[i].availableHC[0] == true) {
       hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
@@ -531,6 +538,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
     })//fetch end
 }
 
+//povratak sa detaljnog pregleda cene na mapu, belezenje poslednje odabrane laboratorije
 exports.bestPrice = (mapArea, resultDiv) => {
   let municipalityValue
   if(document.getElementById('municipality')!= null) {

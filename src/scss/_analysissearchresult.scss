@@ -30,7 +30,7 @@
   &:first-child {
   max-width: px-to-rem(280px);
   font-weight: 500;
-  cursor:pointer;
+  // cursor:pointer;
   }
   // styling vertical line between first 2 tds
   &:nth-child(2)::before {
