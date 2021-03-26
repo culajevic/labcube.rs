@@ -40,7 +40,7 @@ itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('it
   });
 
 let options = {
-  zoom:15,
+  zoom:14,
   disableDefaultUI: true,
   zoomControl: false,
   mapTypeControl: false,
@@ -326,7 +326,7 @@ for(i=0; i<labData.length; i++) {
 
 // new map
 let map = new google.maps.Map(document.getElementById('map'), options)
-    map.setCenter({lat:44.81617, lng:20.469919})
+    // map.setCenter({lat:44.81617, lng:20.469919})
 
 for(i=0; i<markers.length; i++) {
 addMarker(markers[i].lat,
@@ -376,7 +376,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
       url:(status!== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
-      scaledSize: new google.maps.Size(40, 40)
+      scaledSize: new google.maps.Size(30,41)
     },
     map:map
     })
@@ -421,11 +421,11 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
       infoWindow.close();
     });
     //async
-    setTimeout(function() {
-      let markerCluster = new MarkerClusterer(map, markersCluster,
-        {imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-      });
-}, 1500);
+//     setTimeout(function() {
+//       let markerCluster = new MarkerClusterer(map, markersCluster,
+//         {imagePath:'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+//       });
+// }, 100);
 
 
 }
