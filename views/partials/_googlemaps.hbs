@@ -40,7 +40,7 @@ itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('it
   });
 
 let options = {
-  zoom:14,
+  zoom:16,
   disableDefaultUI: true,
   zoomControl: false,
   mapTypeControl: false,
@@ -326,7 +326,7 @@ for(i=0; i<labData.length; i++) {
 
 // new map
 let map = new google.maps.Map(document.getElementById('map'), options)
-    // map.setCenter({lat:44.81617, lng:20.469919})
+    map.setCenter({lat:44.81617, lng:20.469919})
 
 for(i=0; i<markers.length; i++) {
 addMarker(markers[i].lat,
@@ -341,32 +341,32 @@ addMarker(markers[i].lat,
 }
 
 // geo location *************************************************************/
-let myLocationOptions = {
-  enableHighAccuracy: true,
-  // timeout: 5000,
-  maximumAge: 0
-};
-
-if(navigator.geolocation){
-  // navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
-  navigator.geolocation.getCurrentPosition(mylocation, error, myLocationOptions)
-} else {
-  console.log("Your browser doesn't support geo location!")
-}
-
-function mylocation(position) {
-  let myLocation = new google.maps.Marker({
-    position:{lat:position.coords.latitude, lng:position.coords.longitude},
-    map:map,
-    icon:'images/red.svg',
-    title:'moja trenutna lokacija'
-  });
-  map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
-}
-
-function error(error) {
-  console.warn(`ERROR(${error.code}): ${error.message}`);
-}
+// let myLocationOptions = {
+//   enableHighAccuracy: true,
+//   // timeout: 5000,
+//   maximumAge: 0
+// };
+//
+// if(navigator.geolocation){
+//   // navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
+//   navigator.geolocation.getCurrentPosition(mylocation, error, myLocationOptions)
+// } else {
+//   console.log("Your browser doesn't support geo location!")
+// }
+//
+// function mylocation(position) {
+//   let myLocation = new google.maps.Marker({
+//     position:{lat:position.coords.latitude, lng:position.coords.longitude},
+//     map:map,
+//     icon:'images/red.svg',
+//     title:'moja trenutna lokacija'
+//   });
+//   map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
+// }
+//
+// function error(error) {
+//   console.warn(`ERROR(${error.code}): ${error.message}`);
+// }
 /////////////////////////// geolocation end /////////////////////////////
 
 

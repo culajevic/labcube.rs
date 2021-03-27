@@ -392,34 +392,39 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           let flag = true
           resultDiv.innerHTML = ''
              // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
+
+             //  ${result[i].placeId.municipality} dodati ako treba uz ispis mesta
           labTemplate.innerHTML += `
           <div class="lab-card">
-            <div>
-               <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
-               <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
-               <span class="labInfoWindowTitle">${result[i].labName}</span>
-           </div>
-             <div class="labInfoWindow">
+            <div class="testingFlex">
 
-                 <p class="labInfoWindowAdresa">${result[i].address}</p>
-                 <p class="labInfoWindowGrad">${result[i].placeId.place} / ${result[i].placeId.municipality}</p>
-                 <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
-             </div>
-             <div class="labInfoFooter">
-                 <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
-                 <div class="radnoVreme">Radno vreme</div>
-                 <div id='otvoreno' class='otvoreno${i} status'></div>
-                 <div class="labInfoRadnoVremeDetalji">
-                   <p class="daysInWeek monday${i} text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
-                   <p class="daysInWeek tuesday${i} text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
-                   <p class="daysInWeek wednesday${i} text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
-                   <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
-                   <p class="daysInWeek friday${i} text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
-                   <p class="daysInWeek saturday${i} text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
-                   <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
+                  <div>
+                     <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
+                     <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
+                     <span class="labInfoWindowTitle">${result[i].labName}</span>
                  </div>
+                   <div class="labInfoWindow">
+                       <p class="labInfoWindowAdresa">${result[i].address}</p>
+                       <p class="labInfoWindowGrad">${result[i].placeId.place} </p>
+                       <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
+                   </div>
+                   <div class="labInfoFooter">
+                       <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
+                       <div class="radnoVreme">Radno vreme</div>
+                       <div id='otvoreno' class='otvoreno${i} status'></div>
+                       <div class="labInfoRadnoVremeDetalji">
+                         <p class="daysInWeek monday${i} text-center">P<span>${result[i].workingHours.monday.opens} - ${result[i].workingHours.monday.closes}</span></p>
+                         <p class="daysInWeek tuesday${i} text-center">U<span>${result[i].workingHours.tuesday.opens} - ${result[i].workingHours.tuesday.closes}</span></p>
+                         <p class="daysInWeek wednesday${i} text-center">S<span>${result[i].workingHours.wednesday.opens} - ${result[i].workingHours.wednesday.closes}</span></p>
+                         <p class="daysInWeek thursday${i} text-center">Č<span>${result[i].workingHours.thursday.opens} - ${result[i].workingHours.thursday.closes}</span></p>
+                         <p class="daysInWeek friday${i} text-center">P<span>${result[i].workingHours.friday.opens} - ${result[i].workingHours.friday.closes}</span></p>
+                         <p class="daysInWeek saturday${i} text-center">S<span>${result[i].workingHours.saturday.opens} - ${result[i].workingHours.saturday.closes}</span></p>
+                         <p class="daysInWeek sunday${i} text-center">N<span>${result[i].workingHours.sunday.opens} - ${result[i].workingHours.sunday.closes}</span></p>
+                       </div>
+                    </div>
+                    <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
+
               </div>
-              <button type="button" class="btn btn-block btnLabDetails buttonId mt-2" data-labName="laboratorija/${result[i].slug}">saznaj više</button>
            </div>`
 
            resultDiv.innerHTML = `

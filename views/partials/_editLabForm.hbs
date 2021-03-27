@@ -51,13 +51,14 @@
             {{#each (keepData lab.phone phone)}}
             <div class="form-group col-sm-4">
               {{#if @first}}<small>phone {{increment @index}}</small><small class="float-right" id="addNewPhone">+</small>{{else}}<small>phone {{increment @index}}</small><small class="float-right removeField">-</small>{{/if}}
-              <input type="text" class="form-control" pattern="^0\d\d\/\d+" name="phone[]" placeholder="phone" value={{this}}>
+              <input type="text" class="form-control" pattern="^[0-9]{3,4}/\d+" name="phone[]" placeholder="phone" value={{this}}>
             </div>
             {{/each}}
           {{else}}
             <div class="form-group col-sm-4">
+              <!-- pattern="^0\d\d\/\d+" -->
               <small class="form-text text-muted">phone<span class="float-right" id="addNewPhone">+</span></small>
-              <input type="text" class="form-control" name="phone[]"  placeholder="e.g. 066/3423234" pattern="^0\d\d\/\d+" value={{keepData lab.phone phone}} >
+              <input type="text" class="form-control" name="phone[]"  placeholder="e.g. 066/3423234"  value={{keepData lab.phone phone}} >
             </div>
           {{/if}}
           <div class="form-group col-sm-4">
@@ -109,38 +110,38 @@
         <div class="form-row">
           <div class="form-group col">
             <small class="form-text text-muted">Monday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" id="mondayOpens" name="workingHours[monday][opens]" placeholder="opens" value={{keepData lab.workingHours.monday.opens mondayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" id="mondayCloses" name="workingHours[monday][closes]" placeholder="closes" value={{keepData lab.workingHours.monday.closes mondayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" id="mondayOpens" name="workingHours[monday][opens]" placeholder="opens" value={{keepData lab.workingHours.monday.opens mondayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" id="mondayCloses" name="workingHours[monday][closes]" placeholder="closes" value={{keepData lab.workingHours.monday.closes mondayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Tuesday</small>
-            <input type="text"  pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[tuesday][opens]" placeholder="opens" value={{keepData lab.workingHours.tuesday.opens tuesdayOpens}}>
-            <input type="text"  pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[tuesday][closes]" placeholder="closes" value={{keepData lab.workingHours.tuesday.closes tuesdayCloses}}>
+            <input type="text"  pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" name="workingHours[tuesday][opens]" placeholder="opens" value={{keepData lab.workingHours.tuesday.opens tuesdayOpens}}>
+            <input type="text"  pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[tuesday][closes]" placeholder="closes" value={{keepData lab.workingHours.tuesday.closes tuesdayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Wednesday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[wednesday][opens]" placeholder="opens" value={{keepData lab.workingHours.wednesday.opens wednesdayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[wednesday][closes]" placeholder="closes" value={{keepData lab.workingHours.wednesday.closes wednesdayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" name="workingHours[wednesday][opens]" placeholder="opens" value={{keepData lab.workingHours.wednesday.opens wednesdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[wednesday][closes]" placeholder="closes" value={{keepData lab.workingHours.wednesday.closes wednesdayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Thursday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[thursday][opens]" placeholder="opens" value={{keepData lab.workingHours.thursday.opens thursdayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[thursday][closes]" placeholder="opens" value={{keepData lab.workingHours.thursday.closes thursdayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" name="workingHours[thursday][opens]" placeholder="opens" value={{keepData lab.workingHours.thursday.opens thursdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[thursday][closes]" placeholder="opens" value={{keepData lab.workingHours.thursday.closes thursdayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Friday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[friday][opens]" placeholder="opens" value={{keepData lab.workingHours.friday.opens fridayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[friday][closes]" placeholder="closes" value={{keepData lab.workingHours.friday.closes fridayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" name="workingHours[friday][opens]" placeholder="opens" value={{keepData lab.workingHours.friday.opens fridayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[friday][closes]" placeholder="closes" value={{keepData lab.workingHours.friday.closes fridayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Saturday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" id="saturdayOpens" name="workingHours[saturday][opens]" placeholder="opens" value={{keepData lab.workingHours.saturday.opens saturdayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[saturday][closes]" placeholder="closes" value={{keepData lab.workingHours.saturday.closes saturdayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" id="saturdayOpens" name="workingHours[saturday][opens]" placeholder="opens" value={{keepData lab.workingHours.saturday.opens saturdayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[saturday][closes]" placeholder="closes" value={{keepData lab.workingHours.saturday.closes saturdayCloses}}>
           </div>
           <div class="form-group col">
             <small class="form-text text-muted">Sunday</small>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control mb-2" name="workingHours[sunday][opens]" placeholder="opens" value={{keepData lab.workingHours.sunday.opens sundayOpens}}>
-            <input type="text" pattern="^(0[056789]|1[\d]|2[01234]):[03]+" class="__working-hours form-control" name="workingHours[sunday][closes]" placeholder="closes" value={{keepData lab.workingHours.sunday.closes sundayCloses}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control mb-2" name="workingHours[sunday][opens]" placeholder="opens" value={{keepData lab.workingHours.sunday.opens sundayOpens}}>
+            <input type="text" pattern="^(0[056789]|1[\d]|2[012345]):[01345]+" class="__working-hours form-control" name="workingHours[sunday][closes]" placeholder="closes" value={{keepData lab.workingHours.sunday.closes sundayCloses}}>
             <a href=""><small class="d-block mt-2 text-right" id="deleteWH">delete working hours</small></a>
           </div>
         </div><!-- end of working hours -->

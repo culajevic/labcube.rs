@@ -7717,7 +7717,6 @@ input[name="searchFilter"] {
   border: 1px solid #E6E6E6;
   background-color: #FFF;
   opacity: .95;
-  max-width: 400px;
   margin-bottom: 1rem;
   margin-right: 1rem;
   padding: 16px;
@@ -7725,7 +7724,8 @@ input[name="searchFilter"] {
   flex: 1 1 0;
   flex-direction: column;
   min-width: 255px;
-  position: relative; }
+  position: relative;
+  flex-wrap: wrap; }
 
 .cardBenefits, .beReady {
   min-height: 230px;
@@ -7739,6 +7739,7 @@ input[name="searchFilter"] {
 
 .labInfoFooter {
   height: 2.25rem;
+  flex: 1;
   color: #3B3B3B;
   margin-bottom: 8px;
   border-bottom: 1px solid rgba(31, 31, 31, 0.1);
@@ -8349,6 +8350,19 @@ footer {
   color: #FFF;
   margin-top: 0.75rem;
   margin-bottom: 1rem; }
+
+.testingFlex {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1 1 auto; }
+
+.list-content {
+  display: flex;
+  flex-direction: column; }
+
+.list-content p {
+  flex: 1 0 auto; }
 
 .sectionParallax {
   position: absolute;
