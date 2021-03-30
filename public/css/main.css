@@ -7225,6 +7225,11 @@ a:focus {
   background-color: white;
   animation: loader-inner 2s infinite ease-in; }
 
+.groupIcon {
+  height: 60px;
+  left: -100px;
+  bottom: -24px; }
+
 @keyframes loader {
   0% {
     transform: rotate(0deg); }
@@ -7950,9 +7955,6 @@ div.status.closedSoon::before {
   padding-top: 1rem;
   padding-bottom: 0.5rem;
   vertical-align: bottom; }
-  .card-header:after {
-    content: url(../images/odabraneAnalize.svg);
-    float: right; }
 
 .card-header-basket {
   font-weight: 500;
@@ -8378,6 +8380,18 @@ ul ol ul {
 
 .otherGroups {
   transition: all 2s linear; }
+
+.hidePriceList {
+  transition: right 4s ease-in-out;
+  right: -10000px; }
+
+.unhidePriceList {
+  transition: right 1s ease;
+  right: 0; }
+
+.checkout:focus {
+  outline: none;
+  box-shadow: none; }
 
 .groupHidden {
   display: none;

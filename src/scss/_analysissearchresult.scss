@@ -75,10 +75,10 @@
   padding-top: px-to-rem(16px);
   padding-bottom: px-to-rem(8px);
   vertical-align: bottom;
-  &:after{
-    content:url(../images/odabraneAnalize.svg);
-    float:right;
-  }
+  // &:after{
+  //   content:url(../images/odabraneAnalize.svg);
+  //   float:right;
+  // }
 }
 
 .card-header-basket {

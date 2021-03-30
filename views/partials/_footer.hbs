@@ -15,7 +15,10 @@
 
             <div class="d-none d-sm-none col-sm-10 d-lg-block">
               <ul class="list-unstyled  linksFooter analizeFooter" >
-                <li><a href="" class="text-white">alergije</a></li>
+                {{#each groupNames}}
+                  <li><a href="/group/{{this.slug}}" class="text-white">{{this.name}}</a></li>
+                {{/each}}
+                <!-- <li><a href="" class="text-white">alergije</a></li>
                 <li><a href="" class="text-white">aminikosiline</a></li>
                 <li><a href="" class="text-white">anemije</a></li>
                 <li><a href="" class="text-white">antitela</a></li>
@@ -65,7 +68,7 @@
                 <li><a href="" class="text-white">urin</a></li>
                 <li><a href="" class="text-white">usluge</a></li>
                 <li><a href="" class="text-white">virusi</a></li>
-                <li><a href="" class="text-white">vitamini</a></li>
+                <li><a href="" class="text-white">vitamini</a></li> -->
               </ul><!-- analize footer list end -->
             </div> <!-- col-md-6 end -->
 

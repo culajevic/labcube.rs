@@ -146,10 +146,28 @@ window.onload = () => {
 /* INDEX PAGE ***************/
 
 if(location === '/') {
+let priceList = document.getElementById('priceList')
+let closePriceList = document.getElementById('closePriceList')
 
+  checkout.addEventListener('click', ()=> {
+    priceList.classList.add('unhidePriceList')
+    priceList.classList.remove('hidePriceList')
+  })
+
+  closePriceList.addEventListener('click', () => {
+    priceList.classList.add('hidePriceList')
+    priceList.classList.remove('unhidePriceList')
+  })
+
+  //display hidden shoping basket
+  helper.displayBasket(itemsArray)
+  helper.removeAnalysis(itemsArray, checkout)
+
+  // document.body.addEventListener('click', (e) => {
+  //   priceList.classList.remove('unhidePriceList')
+  //   priceList.classList.add('hidePriceList')
+  // })
   //testing analysis box feature
-
-
 let krvnaSlika = document.getElementById('krvnaSlika')
 krvnaSlika.addEventListener('click', e => {
   e.preventDefault

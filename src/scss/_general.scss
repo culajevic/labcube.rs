@@ -100,6 +100,14 @@ a:focus {
 }
 
 
+.groupIcon {
+  height:60px;
+  left:-100px;
+  bottom:-24px;
+}
+
+
+
 @keyframes loader {
   0% { transform: rotate(0deg);}
   25% { transform: rotate(180deg);}

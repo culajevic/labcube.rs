@@ -95,6 +95,7 @@ sortByPriority = {priority:-1}
     // ])
     // console.log(groups)
 
+    const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
     const labNum = await Lab.countDocuments({})
     const analysisNum = await Analysis.countDocuments({})
     //trenutno otvorene laboratorije
@@ -176,6 +177,7 @@ sortByPriority = {priority:-1}
         analysisNum,
         numOpen,
         numOfGroups,
+        groupNames,
         user:req.user,
         labDetails : encodeURIComponent(JSON.stringify(labInfo)),
         labOpen : encodeURIComponent(JSON.stringify(labStatus))
@@ -191,6 +193,7 @@ sortByPriority = {priority:-1}
 exports.displayGroup = async (req,res) => {
   const group = req.params.slug
   const groupDetails = await Group.findOne({slug:group},{iconPath:1, description:1, name:1})
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const ObjectId = mongoose.Types.ObjectId
   const analysis = await Price.aggregate([
     {$unwind : "$cenovnik"},
@@ -213,6 +216,7 @@ exports.displayGroup = async (req,res) => {
   res.render('groupDetails',{
     group:groupDetails,
     analyisisdata:analysis,
+    groupNames,
     user:req.user
   })
 }

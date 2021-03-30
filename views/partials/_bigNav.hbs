@@ -1,4 +1,41 @@
 <div id="bodyOverlay"></div>
+<div class="position-fixed h-100 hidePriceList" id="priceList" style="width:300px; z-index:1000">
+  <div class="sidebar">
+    <div class="odabraneAnalize">
+      <div class="card">
+        <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span><span class="float-right" id="closePriceList">X</span></div>
+          <ul class="list-group list-group-flush" id="selectedAnalysis">
+          <li class="list-group-item city">
+            <span class="d-block mb-2">Gde radite analize?</span>
+              <select class="form-control" id="municipality">
+                <option selected>odaberite opštinu</option>
+                <option value="Beograd - Novi Beograd">Novi Beograd</option>
+                <option value="Beograd - Stari grad">Beograd - Stari grad</option>
+                <option value="Beograd - Savski venac">Beograd - Savski venac</option>
+                <option value="Beograd - Zvezdara">Beograd - Zvezdara</option>
+                <option value="Novi Sad">Novi Sad</option>
+                <option value="Kragujevac">Kragujevac</option>
+                <option value="Bačla Palanka">Bačka Palanka</option>
+                <option value="Niš">Nis</option>
+                <option value="Subotica">Subotica</option>
+              </select>
+              <!-- <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span> -->
+            <a href="" class="btn btn-success btn-lg btn-block text-uppercase showPrice">najbolja cena</a>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
+      <!-- <div class="banner">
+        <img src="/images/banner.jpg" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
+        <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
+        <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
+      </div> -->
+      <!-- banner end -->
+    </div><!-- odabrane analize end -->
+  </div><!-- sidebar end -->
+</div>
 <header id="header">
   <div class="sectionParallax">
     <!-- <img src="images/ikonice/ikonica_1.svg" data-speed="12" alt="" class="layer">
@@ -124,6 +161,8 @@
   </nav><!-- nav end -->
 
 
+
+
     <!-- logo  -->
     <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFull">
 
@@ -143,6 +182,8 @@
         </div><!-- row -->
       </form><!-- form end -->
     </div><!-- container -->
+
+
   </header><!-- header end -->
 
   <script type="text/javascript">

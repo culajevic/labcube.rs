@@ -50,8 +50,22 @@ ul ol ul {
   transition:all 2s linear;
 }
 
-//testingAnimation
+.hidePriceList {
+  transition: right 4s ease-in-out;
+  right:-10000px;
+}
 
+.unhidePriceList {
+  transition: right 1s ease;
+  right:0;
+}
+
+.checkout:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+//testingAnimation
 .groupHidden {
   display:none;
   opacity: 0;
