@@ -95,11 +95,13 @@ margin-bottom: px-to-rem(20px);
 .btn-success {
   background-color: $button-green;
   border:none;
-  padding:px-to-rem(11px) px-to-rem(36px);
+  // padding:px-to-rem(11px) px-to-rem(36px);
   margin-top: px-to-rem(10px);
   margin-bottom:px-to-rem(60px);
-  line-height: 23px;
+  // line-height: 23px;
+  line-height: 40px;
   font-weight: 500;
+  font-size: 1rem;
   height: 40px;
   &:hover {
     background-color: darken($button-green, 8%);
