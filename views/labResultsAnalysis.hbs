@@ -17,25 +17,27 @@
                   <!-- <p class="mt-4">Odaberite vreme za koje želite da vam se protumače rezultati</p> -->
                 <div id="odabirPaketa" class="d-flex mt-4">
                   <form action='/tumacanje-laboratorijskih-analiza' method="POST" enctype="multipart/form-data">
-                    <div class="col-3 justify-content-center">
+
+                    <div class="col-3">
                       <div class="card">
                         <div class="card-body">
-                          <img src="images/1h.svg" alt="" class="mb-3 mt-3">
+                          <img src="images/1h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od sat vremena</p>
-                          <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p>
+                          <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">499.<sup>99</sup> din</span>
                           <input type="radio" name="package" value="1" id="t1" {{#if (checkBox package 1)}} checked {{/if}} />
                           <label for="t1"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
                         </div>
                       </div>
                     </div>
+
                     <div class="col-3">
                       <div class="card">
                         <div class="card-body" >
                           <div class="najpopularnije">najpopularnije</div>
-                          <img src="images/4h.svg" alt="" class="mb-3 mt-3">
+                          <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata</p>
-                          <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p>
+                          <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">399.<sup>99</sup> din</span>
                           <input type="radio" name="package" value="4" id="t4" {{#if (checkBox package 4)}} checked {{/if}} />
                           <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
@@ -45,9 +47,9 @@
                     <div class="col-3">
                       <div class="card">
                         <div class="card-body ">
-                          <img src="images/12h.svg" alt="" class="mb-3 mt-3">
+                          <img src="images/12h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
-                          <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p>
+                          <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">299.<sup>99</sup> din</span>
                           <input type="radio" name="package" value="12" id="t12" {{#if (checkBox package 12)}} checked {{/if}} />
                           <label for="t12"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
@@ -58,9 +60,9 @@
                       <div class="card">
                         <div class="card-body ">
                           <!-- <div class="najpopularnije_besplatno">besplatno za lab cube korisnike</div> -->
-                          <img src="images/24h.svg" alt="" style="" class="mb-3 mt-3">
+                          <img src="images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
-                          <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p>
+                          <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">199.<sup>99</sup> din</span>
                           <input type="radio" name="package" value="24" id="t24" {{#if (checkBox package 24)}} checked {{/if}} />
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>

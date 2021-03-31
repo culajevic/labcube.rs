@@ -21,9 +21,10 @@ exports.addAnalysis = [authCheck, (req,res) => {
 
 exports.allAnalysis = [authCheck, async (req,res) => {
   const analysisNumber = await Analysis.find().countDocuments()
-  const allAnalysis = await Analysis.find({}).sort({analysisName:1})
+  const allAnalysis = await Analysis.find({})
     .populate('groupId', 'name')
     .populate('writtenBy', 'firstName lastName')
+    .sort({"groupId.name":1})
   res.render('allAnalysis', {
     title:'Sve analize',
     allAnalysis,

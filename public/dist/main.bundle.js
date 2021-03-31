@@ -21635,12 +21635,30 @@ $('.click-more').hover(function () {
 }); // sticky navigation for index page
 
 $(window).scroll(function () {
+  var priceList = document.getElementById('priceList');
   var height = $(window).scrollTop();
 
   if (height > 460) {
     $("#header > nav").addClass('fixed-top-background fixed-top');
+    $(priceList).css({
+      top: "64px",
+      transition: 'top 1s ease'
+    });
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
+    $(priceList).css({
+      top: "0px"
+    });
+  }
+});
+$(window).scroll(function () {
+  // let priceList = document.getElementById('priceList')
+  var height = $(window).scrollTop();
+
+  if (height > 200) {
+    $("#smallHeader > nav").addClass('fixed-top-background fixed-top'); // priceList.css("top","20px")
+  } else {
+    $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
   }
 }); // sticky navigation for side menu
 

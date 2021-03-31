@@ -7331,6 +7331,10 @@ a:focus {
   animation-timing-function: linear;
   animation-fill-mode: forwards; }
 
+.invisible {
+  opacity: 0;
+  transition: opacity 2s; }
+
 @keyframes navanimation {
   0% {
     opacity: 0.1; }
@@ -8382,12 +8386,25 @@ ul ol ul {
   transition: all 2s linear; }
 
 .hidePriceList {
-  transition: right 4s ease-in-out;
-  right: -10000px; }
+  width: 300px;
+  right: 0;
+  opacity: 0;
+  transition: opacity 2s ease-in-out; }
+
+.scrollDownShoppingBasket {
+  top: 64px;
+  transition: top 2s ease; }
+
+.scrollTopShoppingBasket {
+  top: 0;
+  transition: top 1s ease; }
 
 .unhidePriceList {
-  transition: right 1s ease;
-  right: 0; }
+  width: 300px;
+  opacity: 1;
+  z-index: 10000;
+  right: 0;
+  transition: opacity .8s ease; }
 
 .checkout:focus {
   outline: none;
@@ -8508,7 +8525,7 @@ ul ol ul {
   font-size: 1.125rem; }
 
 .headTitle {
-  color: #1D88E5; }
+  color: #3B3B3B; }
 
 .labDetailsLogo {
   width: 141px;
@@ -8520,6 +8537,10 @@ ul ol ul {
   position: absolute;
   bottom: 15px;
   right: 15px; }
+
+.tumacenjeIkonice {
+  width: 6.25rem;
+  margin: 0 auto; }
 
 .labDetailsAdresa,
 .labDetailsGrad,

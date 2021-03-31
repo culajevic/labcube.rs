@@ -5,6 +5,7 @@ const Analysis = mongoose.model('Analysis')
 const Price = mongoose.model('Price')
 const ObjectId = mongoose.Types.ObjectId
 const Result = mongoose.model('Result')
+const Group = mongoose.model('Group')
 const multer = require('multer')
 const mime = require('mime-types')
 const nodemailer = require('nodemailer')
@@ -145,6 +146,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   res.render('details',{analysisDetails,prices,title, sidebarNav:true, user:req.user})
 }
 
-exports.labRestultsAnalysis = (req,res) => {
-  res.render('labResultsAnalysis', {user:req.user})
+exports.labRestultsAnalysis = async (req,res) => {
+  let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  res.render('labResultsAnalysis', {user:req.user, groupNames})
 }

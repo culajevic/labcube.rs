@@ -51,13 +51,32 @@ ul ol ul {
 }
 
 .hidePriceList {
-  transition: right 4s ease-in-out;
-  right:-10000px;
+  // transition: right 4s ease-in-out;
+  // right:-10000px;
+  // z-index: 1000
+  width:300px;
+  right:0;
+  opacity: 0;
+  // visibility:hidden;
+  transition: opacity 2s ease-in-out;
+}
+
+.scrollDownShoppingBasket {
+  top:64px;
+  transition:top 2s ease;
+}
+
+.scrollTopShoppingBasket {
+  top:0;
+  transition: top 1s ease;
 }
 
 .unhidePriceList {
-  transition: right 1s ease;
+  width:300px;
+  opacity:1;
+  z-index:10000;
   right:0;
+  transition: opacity .8s ease;
 }
 
 .checkout:focus {
@@ -127,6 +146,7 @@ position: absolute;
 
 .card {
   border-radius: 0;
+
 }
 
 .icon {
@@ -223,7 +243,8 @@ position: absolute;
 }
 
 .headTitle {
-  color:$primary-color;
+  // color:$primary-color;
+  color:$fontColorResultsTable;
 }
 
 .labDetailsLogo {
@@ -237,6 +258,11 @@ position: absolute;
   position:absolute;
   bottom: 15px;
   right:15px;
+}
+
+.tumacenjeIkonice {
+  width: px-to-rem(100px);
+  margin: 0 auto;
 }
 
 .labDetailsAdresa,
