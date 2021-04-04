@@ -30,7 +30,10 @@ exports.allAnalysis = [authCheck, async (req,res) => {
     allAnalysis,
     number:analysisNumber
   })
+
 }]
+
+
 
 exports.createAnalysis = [authCheck, async (req,res) => {
   let errors = []

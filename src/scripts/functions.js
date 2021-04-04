@@ -174,6 +174,7 @@ exports.displayBasket = (itemsArray) => {
     let slug = analysis.name.split(' ')
     let urlSlug = slug.join('-')
       analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
+      analysisLink.setAttribute('target', '_blank')
       analysisLink.className = 'nolink analysisBasketLiItem'
       // analysisLink.setAttribute('target', '_blank')
     analysisLink.appendChild(analysisName)
@@ -223,7 +224,7 @@ exports.removeAnalysis = (itemsArray, checkout) => {
         //hide basket if all analysis are removed
         if(itemsArray.length == 0) {
           document.querySelector('.card').classList.add('d-none')
-          checkout.classList.add('d-none')
+          // checkout.classList.add('d-none')
         }
 
         checkout.innerText = itemsArray.length
@@ -248,6 +249,12 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<30) {
+      checkout.removeAttribute('style')
+      setTimeout(()=>{
+        let priceList = document.getElementById('priceList')
+        priceList.classList.add('unhidePriceList')
+        priceList.classList.remove('hidePriceList')
+      },500)
 
       itemsArray.push({
         'name':e.target.getAttribute('data-analysisName'),
@@ -257,6 +264,11 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
 
        //add number of analysis to navigation
        checkout.classList.remove('d-none')
+       // checkout.style.color = 'red'
+       // checkout.style.transform = 'rotate(3600deg)'
+       // checkout.style.transition = 'transform 2s ease'
+       checkout.classList.add('rotateNumberOfAnalysis')
+
        checkout.innerHTML = itemsArray.length
 
        let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
@@ -546,12 +558,16 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
 //povratak sa detaljnog pregleda cene na mapu, belezenje poslednje odabrane laboratorije
 exports.bestPrice = (mapArea, resultDiv) => {
   let municipalityValue
+
   if(document.getElementById('municipality')!= null) {
     let municipality = document.getElementById('municipality')
     municipalityValue = municipality.options[municipality.selectedIndex].value
   } else {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'))
   }
+
+  console.log(municipalityValue)
+
   window.scrollTo({
   top:0,
   behavior:'smooth'})
@@ -566,6 +582,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
     // let municipalityStorage = municipality.options[municipality.selectedIndex].value
     // localStorage.setItem('municipality', JSON.stringify(municipalityStorage))
 
+  municipality.value = municipalityValue
   // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
 
   localStorage.setItem('municipality', JSON.stringify(municipalityValue))
@@ -626,7 +643,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
         console.log(result)
       for(let i=0; i<result.length; i++) {
-console.log(result)
+
         if(day == currentDayNum) {
 
             let openTime = result[i].lab[0].workingHours[currentDay].opens
@@ -672,7 +689,7 @@ console.log(result)
           <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
          </div>
            <div class="labInfoWindow">
-               <img src="/images/lablogo/${result[i].lab[0].logo}" class="labLogoInfoWindow">
+            
 
                <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
                <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>

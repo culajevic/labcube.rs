@@ -19,8 +19,8 @@ const passportSetup = require('./passport-setup')
 const app = express()
 
 //  mandatory for using req.body
-app.use(bodyParser.json({limit: '200mb'}));
-app.use(bodyParser.urlencoded({ extended: true, limit:'200mb' }))
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit:'200mb', parameterLimit: 1000000 }))
 
 app.use(cookieSession({
   maxAge:24*60*60*1000,

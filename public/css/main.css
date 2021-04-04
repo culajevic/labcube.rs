@@ -8370,17 +8370,30 @@ footer {
 .list-content p {
   flex: 1 0 auto; }
 
+.rotateNumberOfAnalysis {
+  transform: rotate(1800deg);
+  transition: transform 2s ease 0s; }
+
 .sectionParallax {
   position: absolute;
   overflow: hidden;
   width: 100%;
   height: 501px; }
 
+.closePriceList:hover {
+  color: #a1a1a1; }
+
 ul ol ul {
   list-style-type: circle;
   opacity: 1; }
   ul ol ul li:first-child {
     margin-top: 1.2rem; }
+
+#closePriceList {
+  cursor: pointer; }
+
+#priceList .card {
+  height: 100vh; }
 
 .otherGroups {
   transition: all 2s linear; }
@@ -8389,15 +8402,15 @@ ul ol ul {
   width: 300px;
   right: 0;
   opacity: 0;
-  transition: opacity 2s ease-in-out; }
+  transition: opacity .5s ease-in-out; }
 
 .scrollDownShoppingBasket {
   top: 64px;
-  transition: top 2s ease; }
+  transition: top 1s ease; }
 
 .scrollTopShoppingBasket {
   top: 0;
-  transition: top 1s ease; }
+  transition: top .4s ease; }
 
 .unhidePriceList {
   width: 300px;

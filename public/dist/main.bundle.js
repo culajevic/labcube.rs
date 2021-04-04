@@ -20728,6 +20728,7 @@ exports.displayBasket = function (itemsArray) {
     var slug = analysis.name.split(' ');
     var urlSlug = slug.join('-');
     analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
+    analysisLink.setAttribute('target', '_blank');
     analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
 
     analysisLink.appendChild(analysisName); //creating span element for remove icon
@@ -20773,8 +20774,7 @@ exports.removeAnalysis = function (itemsArray, checkout) {
       cardHeader.appendChild(basketTitle); //hide basket if all analysis are removed
 
       if (itemsArray.length == 0) {
-        document.querySelector('.card').classList.add('d-none');
-        checkout.classList.add('d-none');
+        document.querySelector('.card').classList.add('d-none'); // checkout.classList.add('d-none')
       }
 
       checkout.innerText = itemsArray.length; //enable button for the analysis removed
@@ -20798,13 +20798,23 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', function (e) {
     if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length < 30) {
+      checkout.removeAttribute('style');
+      setTimeout(function () {
+        var priceList = document.getElementById('priceList');
+        priceList.classList.add('unhidePriceList');
+        priceList.classList.remove('hidePriceList');
+      }, 500);
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),
         'id': e.target.getAttribute('data-analysisid'),
         'logo': e.target.getAttribute('data-groupimg')
       }); //add number of analysis to navigation
 
-      checkout.classList.remove('d-none');
+      checkout.classList.remove('d-none'); // checkout.style.color = 'red'
+      // checkout.style.transform = 'rotate(3600deg)'
+      // checkout.style.transition = 'transform 2s ease'
+
+      checkout.classList.add('rotateNumberOfAnalysis');
       checkout.innerHTML = itemsArray.length;
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
       var cardHeader = document.getElementById('numOfAnalysis');
@@ -21040,12 +21050,14 @@ exports.bestPrice = function (mapArea, resultDiv) {
   var municipalityValue;
 
   if (document.getElementById('municipality') != null) {
-    var municipality = document.getElementById('municipality');
-    municipalityValue = municipality.options[municipality.selectedIndex].value;
+    var _municipality = document.getElementById('municipality');
+
+    municipalityValue = _municipality.options[_municipality.selectedIndex].value;
   } else {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'));
   }
 
+  console.log(municipalityValue);
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -21058,7 +21070,8 @@ exports.bestPrice = function (mapArea, resultDiv) {
     passIds.push(item.id);
   }); // let municipalityStorage = municipality.options[municipality.selectedIndex].value
   // localStorage.setItem('municipality', JSON.stringify(municipalityStorage))
-  // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
+
+  municipality.value = municipalityValue; // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
 
   localStorage.setItem('municipality', JSON.stringify(municipalityValue));
   var markers = []; //take working timeout
@@ -21124,8 +21137,6 @@ exports.bestPrice = function (mapArea, resultDiv) {
       console.log(result);
 
       for (var _i = 0; _i < result.length; _i++) {
-        console.log(result);
-
         if (day == currentDayNum) {
           var openTime = result[_i].lab[0].workingHours[currentDay].opens;
           var closingTime = result[_i].lab[0].workingHours[currentDay].closes;
@@ -21162,7 +21173,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
           slug: result[_i].lab[0].slug
         });
         resultDiv.innerHTML = '';
-        labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n               <img src=\"/images/lablogo/").concat(result[_i].lab[0].logo, "\" class=\"labLogoInfoWindow\">\n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='status otvoreno'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
+        labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n            \n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='status otvoreno'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
         resultDiv.innerHTML = "\n         <section id=\"labDetails\">\n           <div class=\"container\">\n             <div class=\"row labContainer\">\n             </div>\n           </div>\n         </section>"; //append labcard to page
 
         document.querySelector('.labContainer').appendChild(labTemplate);
@@ -21642,7 +21653,7 @@ $(window).scroll(function () {
     $("#header > nav").addClass('fixed-top-background fixed-top');
     $(priceList).css({
       top: "64px",
-      transition: 'top 1s ease'
+      transition: 'top .5s ease'
     });
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
@@ -21695,8 +21706,10 @@ in sidebar basket on any page which is not index */
 
 var checkUrl = /result.*/;
 var group = /group/;
+var nadjiLab = /nadjiLab/;
+var laboratorija = /laboratorija.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -21714,15 +21727,40 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 window.onload = function () {
   /* INDEX PAGE ***************/
   if (location === '/') {
-    var priceList = document.getElementById('priceList');
-    var closePriceList = document.getElementById('closePriceList');
+    var _priceList = document.getElementById('priceList');
+
+    var _closePriceList = document.getElementById('closePriceList');
+
     checkout.addEventListener('click', function () {
-      priceList.classList.add('unhidePriceList');
-      priceList.classList.remove('hidePriceList');
+      _priceList.classList.add('unhidePriceList');
+
+      _priceList.classList.remove('hidePriceList');
     });
-    closePriceList.addEventListener('click', function () {
-      priceList.classList.add('hidePriceList');
-      priceList.classList.remove('unhidePriceList');
+
+    _closePriceList.addEventListener('click', function () {
+      _priceList.classList.add('hidePriceList');
+
+      _priceList.classList.remove('unhidePriceList');
+
+      _priceList.removeAttribute('style');
+    });
+
+    var municipality = document.getElementById('municipality');
+    var municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+
+    if (municipalityValue != null) {
+      municipality.value = municipalityValue;
+    } //display best price
+
+
+    var resultDiv = document.getElementById('resultTable');
+    var loaderWrapper = document.querySelector('.loader-wrapper');
+    var showPriceBtn = document.querySelector('.showPrice');
+    var mapArea = document.getElementById('mapPrices');
+    showPriceBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/nadjiLab';
+      helper.bestPrice(mapArea, resultDiv);
     }); //display hidden shoping basket
 
     helper.displayBasket(itemsArray);
@@ -21787,6 +21825,30 @@ window.onload = function () {
 
 
   if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
+    var _priceList2 = document.getElementById('priceList');
+
+    var _closePriceList2 = document.getElementById('closePriceList'); //
+
+
+    checkout.addEventListener('click', function () {
+      _priceList2.classList.add('unhidePriceList');
+
+      _priceList2.classList.remove('hidePriceList');
+    }); //
+
+    _closePriceList2.addEventListener('click', function () {
+      _priceList2.classList.add('hidePriceList');
+
+      _priceList2.classList.remove('unhidePriceList');
+
+      _priceList2.removeAttribute('style');
+    });
+
+    var _municipality = document.getElementById('municipality');
+
+    var _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+
+    _municipality.value = _municipalityValue;
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
@@ -21801,14 +21863,20 @@ window.onload = function () {
       }
     }); //show prices
 
-    var resultDiv = document.getElementById('resultTable');
-    var loaderWrapper = document.querySelector('.loader-wrapper');
-    var showPriceBtn = document.querySelector('.showPrice');
-    var mapArea = document.getElementById('mapPrices');
-    showPriceBtn.addEventListener('click', function (e) {
+    var _resultDiv = document.getElementById('resultTable');
+
+    var _loaderWrapper = document.querySelector('.loader-wrapper');
+
+    var _showPriceBtn = document.querySelector('.showPrice');
+
+    var _mapArea = document.getElementById('mapPrices');
+
+    _showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      helper.bestPrice(mapArea, resultDiv);
-    }); //create wrapper for live search icon
+      helper.bestPrice(_mapArea, _resultDiv);
+    }); //ovo staviti da bi se ispisivala lista odabranih analiza u soping karti
+    // helper.displayBasket(itemsArray)
+    //create wrapper for live search icon
     //get seachstring
     // let mainSearchinner = document.getElementById('searchResultPage')
     //ger reference to filter
@@ -21816,6 +21884,7 @@ window.onload = function () {
     //search for analysis or lab
     //proveriti da li je ovo ispod neophodno
     // helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
+
 
     var urlParams = new URLSearchParams(window.location.search);
     var myValue = urlParams.get('name');
@@ -21827,7 +21896,12 @@ window.onload = function () {
     innerSearch.value = myValue;
     innerSearch.focus(); //defining new variable which will be used in queries
 
-    var searchStr = myValue; // display checked filter
+    var searchStr = myValue;
+
+    if (myFilter == null) {
+      myFilter = 'analiza';
+    } // display checked filter
+
 
     var radioFilter = document.querySelectorAll('input[name=searchFilter]');
     radioFilter.forEach(function (item) {
@@ -21856,8 +21930,7 @@ window.onload = function () {
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         // loaderWrapper.style.opacity = 1
         data.json().then(function (result) {
-          console.log(result);
-          resultDiv.innerHTML = '';
+          _resultDiv.innerHTML = '';
           var analysis = result.analysisName; // let pricesMin = result.minPriceArr
           // let pricesMax = result.maxPriceArr
 
@@ -21865,18 +21938,18 @@ window.onload = function () {
 
           for (i = 0; i < analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray);
+            helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray);
           } // for end
           //when result is found remove loading icon
 
 
-          loaderWrapper.style.opacity = 0;
+          _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
     } // if my filter==analiza
     else if (myFilter == 'laboratorija') {
         console.log('pretraga lab sa index strance');
-        helper.searchLab(searchStr, loaderWrapper, resultDiv);
+        helper.searchLab(searchStr, _loaderWrapper, _resultDiv);
       } // else end
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
@@ -21887,7 +21960,7 @@ window.onload = function () {
       var mapFrame = document.getElementById('mapPrices');
       mapFrame.classList.add('d-none');
       var searchstring = e.target.value;
-      loaderWrapper.style.opacity = 1;
+      _loaderWrapper.style.opacity = 1;
 
       if (myFilter == 'analiza' && searchstring.length >= 2) {
         fetch('/analysis/prices/' + searchstring).then(function (data) {
@@ -21896,13 +21969,13 @@ window.onload = function () {
             // let pricesMax = result.maxPriceArr
 
             var prices = result.prices;
-            resultDiv.innerHTML = '';
+            _resultDiv.innerHTML = '';
 
             for (i = 0; i < analysis.length; i++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof prices !== "undefined") {
-                helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray);
+                helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray);
               } else {
                 console.log('nema cene za ovu analizu');
               }
@@ -21910,26 +21983,58 @@ window.onload = function () {
 
 
             if (data.status == 200) {
-              loaderWrapper.style.opacity = 0;
+              _loaderWrapper.style.opacity = 0;
             }
           }); // data json end
         }); //fetch end
       } else if (searchstring.length >= 2) {
         //searching for labs from result page
-        helper.searchLab(searchstring, loaderWrapper, resultDiv);
+        helper.searchLab(searchstring, _loaderWrapper, _resultDiv);
       } else {
         console.log('unesite vise od 2 karaktera da zapocnete pretragu');
-        resultDiv.innerHTML += '';
-        resultDiv.innerHTML = 'Unesite nesto';
-        loaderWrapper.style.opacity = 0;
+        _resultDiv.innerHTML += '';
+        _resultDiv.innerHTML = 'Unesite nesto';
+        _loaderWrapper.style.opacity = 0;
       }
     });
-    helper.addAnalysis(itemsArray, resultDiv, checkout);
+    helper.addAnalysis(itemsArray, _resultDiv, checkout);
     helper.removeAnalysis(itemsArray, checkout);
   } //group analysis page
 
 
   if (document.getElementById('resultsGroupDetails') != null) {
+    //prikaz shoping karte, prebaciti u funkciju
+    // let priceList = document.getElementById('priceList')
+    // let closePriceList = document.getElementById('closePriceList')
+    checkout.addEventListener('click', function () {
+      priceList.classList.add('unhidePriceList');
+      priceList.classList.remove('hidePriceList');
+    });
+    closePriceList.addEventListener('click', function () {
+      priceList.classList.add('hidePriceList');
+      priceList.classList.remove('unhidePriceList');
+      priceList.removeAttribute('style');
+    });
+
+    var _municipality2 = document.getElementById('municipality');
+
+    var _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
+
+    if (_municipalityValue2 != null) {
+      _municipality2.value = _municipalityValue2;
+    } //display best price
+
+
+    var _showPriceBtn2 = document.querySelector('.showPrice');
+
+    var _mapArea2 = document.getElementById('mapPrices');
+
+    _showPriceBtn2.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/nadjiLab';
+    }); ////////////////// prikaz shoping carte
+
+
     var _activeBtns = document.querySelectorAll('.addAnalysis');
 
     _activeBtns.forEach(function (analysis) {
@@ -21945,11 +22050,11 @@ window.onload = function () {
       }
     });
 
-    var _loaderWrapper = document.querySelector('.loader-wrapper');
+    var _loaderWrapper2 = document.querySelector('.loader-wrapper');
 
-    _loaderWrapper.style.opacity = 0;
+    _loaderWrapper2.style.opacity = 0;
 
-    var _resultDiv = document.getElementById('resultTable'); // get seachstring
+    var _resultDiv2 = document.getElementById('resultTable'); // get seachstring
 
 
     var mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
@@ -21958,7 +22063,7 @@ window.onload = function () {
     // proveriti da li je ovo ispod neophodno
 
     helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
-    helper.addAnalysis(itemsArray, _resultDiv, checkout);
+    helper.addAnalysis(itemsArray, _resultDiv2, checkout);
     helper.removeAnalysis(itemsArray, checkout);
   }
 
@@ -21974,20 +22079,39 @@ window.onload = function () {
 
 
   if (urlArr[1] == 'laboratorija') {
-    // let resultDiv = document.getElementById('resultTable')
+    var test = document.getElementById('smallHeader');
+    test.addEventListener('click', function (e) {
+      if (e.target.classList.contains('checkout')) {
+        priceList.classList.add('unhidePriceList');
+        priceList.classList.remove('hidePriceList');
+        closePriceList.addEventListener('click', function () {
+          priceList.classList.add('hidePriceList');
+          priceList.classList.remove('unhidePriceList');
+          priceList.removeAttribute('style');
+        });
+      }
+    });
+
+    var _municipality3 = document.getElementById('municipality');
+
+    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+
+    _municipality3.value = _municipalityValue3;
+    helper.removeAnalysis(_itemsArray, _checkout); // let resultDiv = document.getElementById('resultTable')
     // const municipality = document.getElementById('municipality')
     // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
-    var _loaderWrapper2 = document.querySelector('.loader-wrapper');
+
+    var _loaderWrapper3 = document.querySelector('.loader-wrapper');
 
     var backToMap = document.getElementById('backtoMap');
 
-    var _mapArea = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
+    var _mapArea3 = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
 
 
     backToMap.addEventListener('click', function (e) {
       e.preventDefault(); // history.replaceState(null,null,`/`)
 
-      helper.bestPrice(_mapArea, _resultDiv2);
+      helper.bestPrice(_mapArea3, _resultDiv3);
     });
     var labLocationUrl = location.split('/');
     var labName = labLocationUrl[2];
@@ -22022,7 +22146,7 @@ window.onload = function () {
 
     var _filter = document.querySelectorAll('input[name=searchFilter]');
 
-    var _resultDiv2 = document.getElementById('resultTableAnalysis');
+    var _resultDiv3 = document.getElementById('resultTableAnalysis');
 
     var resultTable = document.getElementById('resultTable');
     var numOfAnalysis = document.querySelector('.numAnalysis');
@@ -22087,7 +22211,7 @@ window.onload = function () {
           return data.json();
         }).then(function (result) {
           console.log(result);
-          _resultDiv2.innerHTML = '';
+          _resultDiv3.innerHTML = '';
           var icon = [];
           var alreadySelectedArray = [];
 
@@ -22108,13 +22232,13 @@ window.onload = function () {
               abbrArr.push(result[i].abbr);
               altArr.push(result[i].alt);
               var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(abbrArr[0][0].join(', '), "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[0].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
-              _resultDiv2.innerHTML += results;
+              _resultDiv3.innerHTML += results;
             }
           }
         }); // data json end
       } else {
         console.log('unesite vise od 2 karaktera');
-        _resultDiv2.innerHTML = '';
+        _resultDiv3.innerHTML = '';
       }
     });
     var addAnalysisBtn = document.getElementById('resultTableAnalysis');
@@ -22172,7 +22296,7 @@ window.onload = function () {
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
         if (e.target.classList.contains('removeAnalysis')) {
-          _resultDiv2.innerHTML = '';
+          _resultDiv3.innerHTML = '';
           searchString.value = '';
           var toBeDeleted = e.target.getAttribute('data-analysisid');
           var deleteAnalysis = e.target.parentNode.parentNode.remove();
@@ -22434,17 +22558,18 @@ window.onload = function () {
 
     var searchPlaces = document.getElementById('searchPlaces');
 
-    var _resultDiv3 = document.getElementById('result');
+    var _resultDiv4 = document.getElementById('result');
 
     var city = document.getElementById('city'); // let minicipality = document.getElementById('municipality')
 
-    var municipality = document.getElementById('municipality');
+    var _municipality4 = document.getElementById('municipality');
+
     var postalCode = document.getElementById('postalCode');
     searchPlaces.addEventListener('input', function (e) {
       if (searchPlaces.value.length >= 3) {
         fetch('/places/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
-            _resultDiv3.innerHTML = '';
+            _resultDiv4.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -22458,7 +22583,7 @@ window.onload = function () {
               var placeName = document.createTextNode(result[i].place);
               link.appendChild(placeName);
 
-              _resultDiv3.appendChild(liItem);
+              _resultDiv4.appendChild(liItem);
             } // for end
 
 
@@ -22468,18 +22593,18 @@ window.onload = function () {
                 e.preventDefault();
                 searchPlaces.value = e.srcElement.attributes.href.textContent;
                 city.value = e.target.innerText;
-                municipality.value = e.srcElement.getAttribute('data-municipality');
+                _municipality4.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
-                _resultDiv3.innerHTML = '';
+                _resultDiv4.innerHTML = '';
               });
             });
           }); // data json end
         });
       } else {
         console.log('enter at least 3 letters');
-        _resultDiv3.innerHTML = '';
+        _resultDiv4.innerHTML = '';
         city.value = '';
-        municipality.value = '';
+        _municipality4.value = '';
         postalCode.value = '';
       }
     }); // add new phone field icon

@@ -3,7 +3,7 @@
   <div class="sidebar">
     <div class="odabraneAnalize">
       <div class="card">
-        <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span><span class="float-right" id="closePriceList">X</span></div>
+        <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span><span class="float-right" id="closePriceList"><i class="far fa-times-circle closePriceList"></i></span></div>
           <ul class="list-group list-group-flush" id="selectedAnalysis">
           <li class="list-group-item city">
             <span class="d-block mb-2">Gde radite analize?</span>
@@ -24,7 +24,6 @@
           </li>
         </ul>
       </div>
-
 
       <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
       <!-- <div class="banner">
@@ -84,11 +83,16 @@
       <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse my-1" id="navbarCollapse">
+      <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
           <!-- <li class="nav-item">
             <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
           </li> -->
+
+          <li class="nav-item">
+            <!-- <a href="" class="nav-link"><img src="/images/home.svg"></a> -->
+          </li>
+
           <li class="nav-item">
             <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><span class="icon iconSvgTumacenje">Tumačenje rezultata</span></a>
           </li>
@@ -152,7 +156,7 @@
           </li> -->
       {{/if}}
           <li class="nav-item">
-            <button class="nav-link checkout d-none"></button>
+            <button class="nav-link checkout " title="broj odabranih analiza">0</button>
           </li>
         </ul>
 
@@ -179,6 +183,7 @@
           <div class="col-sm-12 text-center">
             <button type="button" class="btn btn-lg btn-outline-warning labCubeDemoBtn">Kako radi labcube?<i class="far fa-play-circle"></i></button>
           </div>
+
         </div><!-- row -->
       </form><!-- form end -->
     </div><!-- container -->

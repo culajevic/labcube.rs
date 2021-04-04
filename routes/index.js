@@ -32,6 +32,7 @@ router.get('/uslovi-koriscenja/', generalController.terms)
 router.get('/results/', resultController.displayResults)
 router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 
+
 //registration
 router.get('/prijava', authenticationController.signin)
 router.post('/prijava', authenticationController.login)
@@ -152,6 +153,7 @@ router.get('/reference/:referenceTitle', referenceController.getReferences)
 router.get('/editors/:lastName', editorController.getEditors)
 router.get('/lab/:lab', labController.getLab)
 router.get('/cenovnik/:grad/:ids', priceController.getPrices)
+router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
 module.exports = router

@@ -4,6 +4,7 @@ const Analysis = mongoose.model('Analysis')
 const ObjectId = mongoose.Types.ObjectId
 const Price = mongoose.model('Price')
 const Feedback = mongoose.model('Feedback')
+const Group = mongoose.model('Group')
 const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
@@ -184,7 +185,9 @@ exports.getLabInfo = async (req,res) => {
 
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
-let user = req.user
+  let user = req.user
+
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 
   //display feedback for the lab
   const findFeedback = await Feedback.find({lab:labDetails.id})
@@ -322,7 +325,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user})
+  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user, groupNames})
 
 }
 

@@ -79,7 +79,7 @@ $(window).scroll(function(){
   let height = $(window).scrollTop();
     if(height > 460) {
       $("#header > nav").addClass('fixed-top-background fixed-top');
-      $(priceList).css({top:"64px",transition:'top 1s ease'})
+      $(priceList).css({top:"64px",transition:'top .5s ease'})
     }
     else {
       $("#header > nav").removeClass('fixed-top-background fixed-top');
@@ -136,9 +136,11 @@ let municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(loca
 in sidebar basket on any page which is not index */
 const checkUrl = /result.*/
 const group = /group/
+const nadjiLab = /nadjiLab/
+const laboratorija = /laboratorija.*/
 
-
-if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl))) {
+//definisanje stranica na kojima se prikazuje shoping karta
+if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija))) {
   helper.displayBasket(itemsArray)
 }
 
@@ -153,14 +155,13 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
   checkout.textContent = itemsArray.length
 }
 
-
-
-
 window.onload = () => {
 
 /* INDEX PAGE ***************/
 
+
 if(location === '/') {
+
 let priceList = document.getElementById('priceList')
 let closePriceList = document.getElementById('closePriceList')
 
@@ -172,7 +173,29 @@ let closePriceList = document.getElementById('closePriceList')
   closePriceList.addEventListener('click', () => {
     priceList.classList.add('hidePriceList')
     priceList.classList.remove('unhidePriceList')
+    priceList.removeAttribute('style')
   })
+
+  let municipality = document.getElementById('municipality')
+  let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+  if (municipalityValue != null) {
+    municipality.value = municipalityValue
+  }
+
+
+  //display best price
+  let resultDiv = document.getElementById('resultTable')
+
+  let loaderWrapper = document.querySelector('.loader-wrapper')
+  const showPriceBtn = document.querySelector('.showPrice')
+  let mapArea = document.getElementById('mapPrices')
+
+  showPriceBtn.addEventListener('click', e => {
+    e.preventDefault()
+    window.location = '/nadjiLab'
+    helper.bestPrice(mapArea, resultDiv)
+  })
+
 
   //display hidden shoping basket
   helper.displayBasket(itemsArray)
@@ -247,7 +270,26 @@ if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
 
 //ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
-if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
+if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/' ) {
+
+  let priceList = document.getElementById('priceList')
+  let closePriceList = document.getElementById('closePriceList')
+  //
+    checkout.addEventListener('click', ()=> {
+      priceList.classList.add('unhidePriceList')
+      priceList.classList.remove('hidePriceList')
+    })
+  //
+    closePriceList.addEventListener('click', () => {
+      priceList.classList.add('hidePriceList')
+      priceList.classList.remove('unhidePriceList')
+      priceList.removeAttribute('style')
+    })
+
+
+    let municipality = document.getElementById('municipality')
+    let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    municipality.value = municipalityValue
 
   const activeBtns = document.querySelectorAll('.addAnalysis')
   activeBtns.forEach(analysis => {
@@ -271,10 +313,11 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
-
     helper.bestPrice(mapArea, resultDiv)
   })
 
+  //ovo staviti da bi se ispisivala lista odabranih analiza u soping karti
+  // helper.displayBasket(itemsArray)
   //create wrapper for live search icon
 
   //get seachstring
@@ -298,6 +341,9 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   //defining new variable which will be used in queries
   let searchStr = myValue
+  if(myFilter == null) {
+    myFilter = 'analiza'
+  }
   // display checked filter
   let radioFilter = document.querySelectorAll('input[name=searchFilter]')
     radioFilter.forEach((item) => {
@@ -328,7 +374,6 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
       fetch('/analysis/prices/'+searchStr).then((data) => {
         // loaderWrapper.style.opacity = 1
         data.json().then((result) => {
-          console.log(result)
           resultDiv.innerHTML = ''
           let analysis = result.analysisName
           // let pricesMin = result.minPriceArr
@@ -399,6 +444,38 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 //group analysis page
 if(document.getElementById('resultsGroupDetails')!= null) {
 
+//prikaz shoping karte, prebaciti u funkciju
+  // let priceList = document.getElementById('priceList')
+  // let closePriceList = document.getElementById('closePriceList')
+
+    checkout.addEventListener('click', ()=> {
+      priceList.classList.add('unhidePriceList')
+      priceList.classList.remove('hidePriceList')
+    })
+
+    closePriceList.addEventListener('click', () => {
+      priceList.classList.add('hidePriceList')
+      priceList.classList.remove('unhidePriceList')
+      priceList.removeAttribute('style')
+    })
+
+    let municipality = document.getElementById('municipality')
+    let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    if (municipalityValue != null) {
+      municipality.value = municipalityValue
+    }
+
+    //display best price
+    const showPriceBtn = document.querySelector('.showPrice')
+    let mapArea = document.getElementById('mapPrices')
+
+    showPriceBtn.addEventListener('click', e => {
+      e.preventDefault()
+      window.location = '/nadjiLab'
+    })
+
+////////////////// prikaz shoping carte
+
   const activeBtns = document.querySelectorAll('.addAnalysis')
   activeBtns.forEach(analysis => {
     let analysisPositionArr = itemsArray.findIndex((item) => {
@@ -437,6 +514,26 @@ if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
 
+const test = document.getElementById('smallHeader')
+test.addEventListener('click', e => {
+  if(e.target.classList.contains('checkout')) {
+
+      priceList.classList.add('unhidePriceList')
+      priceList.classList.remove('hidePriceList')
+
+    closePriceList.addEventListener('click', () => {
+      priceList.classList.add('hidePriceList')
+      priceList.classList.remove('unhidePriceList')
+      priceList.removeAttribute('style')
+    })
+  }
+})
+let municipality = document.getElementById('municipality')
+let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+municipality.value = municipalityValue
+
+helper.removeAnalysis(itemsArray, checkout)
+
   // let resultDiv = document.getElementById('resultTable')
   // const municipality = document.getElementById('municipality')
   // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
@@ -448,6 +545,7 @@ if(urlArr[1] == 'laboratorija') {
   backToMap.addEventListener('click', e => {
     e.preventDefault()
     // history.replaceState(null,null,`/`)
+
     helper.bestPrice(mapArea, resultDiv)
   })
 

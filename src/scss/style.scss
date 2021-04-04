@@ -31,11 +31,20 @@
   flex:1 0 auto;
 }
 
+.rotateNumberOfAnalysis {
+  transform: rotate(1800deg);
+  transition: transform 2s ease 0s;
+}
+
 .sectionParallax {
   position:absolute;
   overflow: hidden;
   width: 100%;
   height: 501px;
+}
+
+.closePriceList:hover {
+  color:lighten($fontColorResultsTable, 40%);
 }
 
 ul ol ul {
@@ -44,6 +53,14 @@ ul ol ul {
   li:first-child {
     margin-top: 1.2rem;
   }
+}
+
+#closePriceList {
+  cursor: pointer;
+}
+
+#priceList .card {
+  height: 100vh;
 }
 
 .otherGroups {
@@ -58,17 +75,17 @@ ul ol ul {
   right:0;
   opacity: 0;
   // visibility:hidden;
-  transition: opacity 2s ease-in-out;
+  transition: opacity .5s ease-in-out;
 }
 
 .scrollDownShoppingBasket {
   top:64px;
-  transition:top 2s ease;
+  transition:top 1s ease;
 }
 
 .scrollTopShoppingBasket {
   top:0;
-  transition: top 1s ease;
+  transition: top .4s ease;
 }
 
 .unhidePriceList {

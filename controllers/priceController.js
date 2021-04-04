@@ -77,6 +77,7 @@ exports.editPrice = [authCheck, async (req,res) => {
     title:'Pregled cenovnika',
     editPrice
   })
+
 }]
 
 exports.updatePrice = [authCheck, async (req,res) => {
@@ -145,6 +146,11 @@ exports.deletePriceList = [authCheck, async (req,res) => {
   req.flash('success_msg', 'Cenovnik je uspesno obrisan.')
   res.json()
 }]
+
+exports.getLabPrices = (req,res) => {
+  res.render('nadjiLab')
+
+}
 
 exports.getPrices = async (req,res) => {
   let municipality = []
