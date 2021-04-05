@@ -158,13 +158,21 @@ span.remove:hover{
 // arrow color for tooltip
 .bs-tooltip-auto[x-placement^=bottom] .arrow::before,
 .bs-tooltip-bottom .arrow::before {
-  border-bottom-color: $tooltipBorder;
+  // border-bottom-color: $tooltipBorder;
+  border-bottom-color: transparent !important;
+
+}
+
+
+.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
+    border-right-color: $white-color !important;
+    // border-right-color: transparent !important;
 }
 
 .tooltip-inner {
   background-color: $white-color !important;
   color: $fontColorResultsTable;
-  border:1px solid $tooltipBorder;
+  border:1px solid $primary-color;
   font-size: 16px;
   max-width: 350px;
   padding: 16px;

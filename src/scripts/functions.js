@@ -107,11 +107,11 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
     if(prices[i].availableHC[0] == true) {
       hospitalIcon.setAttribute('src', '/images/hospital-alt.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'aaaAnalizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     } else {
       hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg')
       hospitalIcon.setAttribute('data-toggle', 'tooltip')
-      hospitalIcon.setAttribute('title', 'aaaAnalizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
+      hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.')
     }
   hospital.appendChild(hospitalIcon)
   tr.appendChild(hospital)
@@ -341,7 +341,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
 
   // let filter = 'analiza'
   // let filterValue
-  searchString.focus()
+  // searchString.focus()
 
     filter.forEach((item) => {
       if(item.checked) {
@@ -651,6 +651,14 @@ exports.bestPrice = (mapArea, resultDiv) => {
             let todayOpenTime = new Date(today +' '+ openTime +':00')
             let todayClosingTime = new Date(today +' '+ closingTime +':00')
             let nowTimeStamp = now.getTime()
+            let closingSoon = todayClosingTime - nowTimeStamp
+            let closingIn = (Math.ceil(closingSoon/1000/60))
+
+            if (closingIn < 60 && closingIn > 0) {
+              status = 'closedSoon'
+              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+            }
+
             if(nowTimeStamp > todayOpenTime.getTime() &&
               todayClosingTime.getTime() > nowTimeStamp) {
               numOpen +=1
@@ -689,7 +697,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
           <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
          </div>
            <div class="labInfoWindow">
-            
+
 
                <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
                <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>
@@ -698,15 +706,15 @@ exports.bestPrice = (mapArea, resultDiv) => {
            <div class="labInfoFooter">
                <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                <div class="radnoVreme">Radno vreme</div>
-               <div id='otvoreno' class='status otvoreno'></div>
+               <div id='otvoreno' class='${labStatus[i].status} status'></div>
                <div class="labInfoRadnoVremeDetalji">
-                 <p class="daysInWeek monday${result[i]} text-center">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
-                 <p class="daysInWeek tuesday${result[i]} text-center">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
-                 <p class="daysInWeek wednesday${result[i]} text-center">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
-                 <p class="daysInWeek thursday${result[i]} text-center">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
-                 <p class="daysInWeek friday${result[i]} text-center">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
-                 <p class="daysInWeek saturday${result[i]} text-center">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
-                 <p class="daysInWeek sunday${result[i]} text-center">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
+                 <p class="daysInWeek monday${result[i]} text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
+                 <p class="daysInWeek tuesday${result[i]} text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
+                 <p class="daysInWeek wednesday${result[i]} text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
+                 <p class="daysInWeek thursday${result[i]} text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
+                 <p class="daysInWeek friday${result[i]} text-center ${(day == 5) ? labStatus[i].status : ''}">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
+                 <p class="daysInWeek saturday${result[i]} text-center ${(day == 6) ? labStatus[i].status : ''}">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
+                 <p class="daysInWeek sunday${result[i]} text-center ${(day == 0) ? labStatus[i].status : ''}">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
                </div>
             </div>
             <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result[i].lab[0].slug}/${passIds}">saznaj više</a>

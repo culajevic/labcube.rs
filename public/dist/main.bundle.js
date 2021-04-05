@@ -20665,11 +20665,11 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   if (prices[i].availableHC[0] == true) {
     hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'aaaAnalizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
   } else {
     hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg');
     hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'aaaAnalizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
   }
 
   hospital.appendChild(hospitalIcon);
@@ -20879,7 +20879,7 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
 exports.searchLabAnalysis = function (searchString, filter) {
   // let filter = 'analiza'
   // let filterValue
-  searchString.focus();
+  // searchString.focus()
   filter.forEach(function (item) {
     if (item.checked) {
       filterValue = item.value;
@@ -21143,6 +21143,16 @@ exports.bestPrice = function (mapArea, resultDiv) {
           var todayOpenTime = new Date(today + ' ' + openTime + ':00');
           var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
           var nowTimeStamp = now.getTime();
+          var closingSoon = todayClosingTime - nowTimeStamp;
+          var closingIn = Math.ceil(closingSoon / 1000 / 60);
+
+          if (closingIn < 60 && closingIn > 0) {
+            status = 'closedSoon';
+            labStatus.push({
+              'id': result[_i].lab[0]._id,
+              'status': status
+            });
+          }
 
           if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
             numOpen += 1;
@@ -21173,7 +21183,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
           slug: result[_i].lab[0].slug
         });
         resultDiv.innerHTML = '';
-        labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n            \n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='status otvoreno'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
+        labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n\n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='").concat(labStatus[_i].status, " status'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center ").concat(day == 1 ? labStatus[_i].status : '', "\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center ").concat(day == 2 ? labStatus[_i].status : '', "\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center ").concat(day == 3 ? labStatus[_i].status : '', "\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center ").concat(day == 4 ? labStatus[_i].status : '', "\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center ").concat(day == 5 ? labStatus[_i].status : '', "\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center ").concat(day == 6 ? labStatus[_i].status : '', "\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center ").concat(day == 0 ? labStatus[_i].status : '', "\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
         resultDiv.innerHTML = "\n         <section id=\"labDetails\">\n           <div class=\"container\">\n             <div class=\"row labContainer\">\n             </div>\n           </div>\n         </section>"; //append labcard to page
 
         document.querySelector('.labContainer').appendChild(labTemplate);
@@ -21759,8 +21769,7 @@ window.onload = function () {
     var mapArea = document.getElementById('mapPrices');
     showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      window.location = '/nadjiLab';
-      helper.bestPrice(mapArea, resultDiv);
+      window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
     }); //display hidden shoping basket
 
     helper.displayBasket(itemsArray);
@@ -21874,9 +21883,7 @@ window.onload = function () {
     _showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
       helper.bestPrice(_mapArea, _resultDiv);
-    }); //ovo staviti da bi se ispisivala lista odabranih analiza u soping karti
-    // helper.displayBasket(itemsArray)
-    //create wrapper for live search icon
+    }); //create wrapper for live search icon
     //get seachstring
     // let mainSearchinner = document.getElementById('searchResultPage')
     //ger reference to filter
@@ -21893,8 +21900,8 @@ window.onload = function () {
 
     var innerSearch = document.getElementById('searchResultPage'); //keeps search string when page is changed
 
-    innerSearch.value = myValue;
-    innerSearch.focus(); //defining new variable which will be used in queries
+    innerSearch.value = myValue; // innerSearch.focus()
+    //defining new variable which will be used in queries
 
     var searchStr = myValue;
 
@@ -21920,8 +21927,7 @@ window.onload = function () {
       item.addEventListener('click', function (e) {
         myFilter = e.target.value;
         console.log('kada se promeni ' + myFilter);
-        innerSearch.value = '';
-        innerSearch.focus();
+        innerSearch.value = ''; // innerSearch.focus()
       });
     });
 
@@ -22141,8 +22147,7 @@ window.onload = function () {
     // helper.searchLabAnalysis(innerPageSearch,analysisRadio)
 
 
-    var searchString = document.getElementById('searchResultPage');
-    searchString.focus();
+    var searchString = document.getElementById('searchResultPage'); // searchString.focus()
 
     var _filter = document.querySelectorAll('input[name=searchFilter]');
 

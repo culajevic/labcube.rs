@@ -149,6 +149,15 @@
       font-weight: 900;
       position: relative;
     }
+    &.closingSoon {
+      background-color: $orange;
+      width: 100%;
+      padding-top:4px;
+      padding-bottom: 4px;
+      color:$infoWindowContactColor;
+      font-weight: 900;
+      position: relative;
+    }
   & > span {
     display: inline-block;
     padding-left: px-to-rem(10px);

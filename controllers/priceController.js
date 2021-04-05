@@ -178,10 +178,9 @@ exports.getPrices = async (req,res) => {
   for(i=0; i<getLabs.length; i++) {
     labIds.push(getLabs[i]._id)
   }
-// console.log(labIds)
+
 // nadji cene odabranih analiza u laboratorijama na odabranoj opstini
   labIdsObject = labIds.map(item => mongoose.Types.ObjectId(item))
-
   const getPrices = await Price.aggregate([
     {$match:{'lab':{$in:labIdsObject}}},
     {$unwind:'$cenovnik'},
@@ -193,7 +192,7 @@ exports.getPrices = async (req,res) => {
     {$lookup:{from:'places', localField:'lab.placeId', foreignField:'_id', as:'labPlace'}},
     {$sort:{total:1}}
   ])
-  // res.render('/priceDetails')
+  // res.render('najiLab')
   res.json(getPrices)
   // res.render('najboljacena', {test:'test'})
 }

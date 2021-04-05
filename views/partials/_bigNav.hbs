@@ -89,9 +89,9 @@
             <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
           </li> -->
 
-          <li class="nav-item">
-            <!-- <a href="" class="nav-link"><img src="/images/home.svg"></a> -->
-          </li>
+          <!-- <li class="nav-item">
+            <a href="/" class="nav-link"><span class="icon iconHome"></span></a>
+          </li> -->
 
           <li class="nav-item">
             <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><span class="icon iconSvgTumacenje">Tumačenje rezultata</span></a>
@@ -173,12 +173,12 @@
     <div class="container searchFieldContainer">
       <form>
         <div class="row">
-          <div class="col-sm-12 col-lg-8 mx-auto">
-            <input type="text" class="form-control search" id="searchAnalysis" name="searchAnalysis" placeholder="Unesite naziv analize/laboratorije">
+          <div class="col-sm-12 col-lg-8 mx-auto" data-toggle="tooltip" data-placement="right" data-html="true" title="Odaberite filter <strong>analiza</strong> ukoliko želite da pretražujete analize odnosno <strong>laboratorija</strong> ukoliko tražite informacije o laboratorijama.">
+            <input type="text" class="form-control search" id="searchAnalysis" name="searchAnalysis" placeholder="Unesite ime analize ili laboratorije">
             <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
-            <label for="analizeRadioButton" class="analizeSearchFilter">analiza</label>
+            <label for="analizeRadioButton" class="analizeSearchFilter" >analiza</label>
             <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
-            <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter">laboratorija</label>
+            <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite analize kliknite ovde">laboratorija</label>
           </div> <!-- searchField -->
           <div class="col-sm-12 text-center">
             <button type="button" class="btn btn-lg btn-outline-warning labCubeDemoBtn">Kako radi labcube?<i class="far fa-play-circle"></i></button>

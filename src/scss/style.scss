@@ -188,6 +188,14 @@ position: absolute;
   }
 }
 
+.iconHome {
+  background-image: url('../images/home_white.svg');
+  background-repeat: no-repeat;
+  &:hover {
+    filter: invert(8%);
+  }
+}
+
 .iconSvgLogout {
   background-image: url('../images/logout.svg');
   background-repeat: no-repeat;
@@ -317,6 +325,10 @@ position: absolute;
     background-color: $orange;
     color:white;
 }
+
+// .closingSoon {
+//   background-color: $orange;
+// }
 
 #mapDetails, #mapPrices {
   // height: 100vh;
@@ -896,7 +908,8 @@ small {
 }
 
 .tooltip-inner {
-  border:1px solid lighten($fontColorResultsTable, 45%);
+  // border:1px solid lighten($fontColorResultsTable, 45%);
+  border:1px solid $primary-color;
 }
 
 .tooltip.bs-tooltip-bottom .arrow::before {

@@ -193,7 +193,7 @@ let closePriceList = document.getElementById('closePriceList')
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
     window.location = '/nadjiLab'
-    helper.bestPrice(mapArea, resultDiv)
+    // helper.bestPrice(mapArea, resultDiv)
   })
 
 
@@ -316,8 +316,6 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     helper.bestPrice(mapArea, resultDiv)
   })
 
-  //ovo staviti da bi se ispisivala lista odabranih analiza u soping karti
-  // helper.displayBasket(itemsArray)
   //create wrapper for live search icon
 
   //get seachstring
@@ -337,7 +335,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
   let innerSearch = document.getElementById('searchResultPage')
     //keeps search string when page is changed
     innerSearch.value = myValue
-    innerSearch.focus()
+    // innerSearch.focus()
 
   //defining new variable which will be used in queries
   let searchStr = myValue
@@ -364,7 +362,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
             myFilter = e.target.value
             console.log('kada se promeni ' + myFilter)
             innerSearch.value=''
-            innerSearch.focus()
+            // innerSearch.focus()
           })
         })
 
@@ -587,7 +585,7 @@ helper.removeAnalysis(itemsArray, checkout)
   // search for analysis or lab
   // helper.searchLabAnalysis(innerPageSearch,analysisRadio)
   let searchString = document.getElementById('searchResultPage')
-    searchString.focus()
+    // searchString.focus()
   let filter = document.querySelectorAll('input[name=searchFilter]')
   let resultDiv = document.getElementById('resultTableAnalysis')
   let resultTable = document.getElementById('resultTable')

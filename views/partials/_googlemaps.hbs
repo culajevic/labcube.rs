@@ -30,6 +30,7 @@ let labStatus = JSON.parse(decodedJsonStatus)
 let now = new Date()
 let day = now.getDay()
 let currentDayNum = now.getDay()
+let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
 
 let markers = []
 let markersCluster = [];
@@ -324,11 +325,15 @@ for(i=0; i<labData.length; i++) {
   )
 }
 
+
 // new map
 let map = new google.maps.Map(document.getElementById('map'), options)
     map.setCenter({lat:44.81617, lng:20.469919})
 
+
+
 for(i=0; i<markers.length; i++) {
+
 addMarker(markers[i].lat,
           markers[i].lng,
           markers[i].name,
@@ -338,7 +343,10 @@ addMarker(markers[i].lat,
           markers[i].slug,
           markers[i].workingTime,
           markers[i].city)
+
 }
+
+
 
 // geo location *************************************************************/
 // let myLocationOptions = {
@@ -369,9 +377,13 @@ addMarker(markers[i].lat,
 // }
 /////////////////////////// geolocation end /////////////////////////////
 
-
 // console.log(markers)
+
+
+
+
 function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city) {
+
   let marker = new google.maps.Marker({
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
@@ -380,9 +392,10 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     },
     map:map
     })
-    markersCluster.push(marker)
 
-    let infoWindow = new google.maps.InfoWindow({
+    markersCluster.push(marker)
+    //vratiti let infoWindow
+    infoWindow = new google.maps.InfoWindow({
       maxWidth:600,
       content:`<div class="" style="min-height:142px; max-width:380px;">
               <p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
@@ -406,12 +419,16 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
             </div>
             </div>
             `
-
     });
 
-    marker.addListener('click', function(){
-      let placeMarker = infoWindow.open(map, marker);
-    });
+
+    google.maps.event.addListener(marker, 'click', function(){
+      infoWindow.close()
+      infoWindow.open(map, marker)
+    })
+    // marker.addListener('click', function(){
+    //   let placeMarker = infoWindow.open(map, marker);
+    // })
 
     // marker.addListener('mouseout', function() {
     //  infoWindow.close();
@@ -420,6 +437,10 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     google.maps.event.addListener(map, 'click', function() {
       infoWindow.close();
     });
+
+
+
+
     //async
 //     setTimeout(function() {
 //       let markerCluster = new MarkerClusterer(map, markersCluster,
@@ -429,4 +450,6 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
 
 
 }
+
+
 </script>
