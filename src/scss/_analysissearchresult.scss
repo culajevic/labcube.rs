@@ -164,8 +164,8 @@ span.remove:hover{
 }
 
 
-.bs-tooltip-auto[x-placement^=right] .arrow::before, .bs-tooltip-right .arrow::before {
-    border-right-color: $white-color !important;
+.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .bs-tooltip-bottom .arrow::before {
+    border-bottom-color: $white-color !important;
     // border-right-color: transparent !important;
 }
 
