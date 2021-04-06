@@ -30,7 +30,8 @@ let labStatus = JSON.parse(decodedJsonStatus)
 let now = new Date()
 let day = now.getDay()
 let currentDayNum = now.getDay()
-let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
+// let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
+let infoWindow = new google.maps.InfoWindow
 
 let markers = []
 let markersCluster = [];
@@ -395,9 +396,9 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
 
     markersCluster.push(marker)
     //vratiti let infoWindow
-    infoWindow = new google.maps.InfoWindow({
-      maxWidth:600,
-      content:`<div class="" style="min-height:142px; max-width:380px;">
+     // infoWindow.setContent(content)
+     //
+    let content = `<div class="" style="min-height:142px; max-width:380px;">
               <p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
               <p class="mb-0 pb-0">${address}</p>
               <p> ${city}</p>
@@ -419,12 +420,14 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
             </div>
             </div>
             `
-    });
+
 
 
     google.maps.event.addListener(marker, 'click', function(){
       infoWindow.close()
-      infoWindow.open(map, marker)
+      infoWindow.setContent(content)
+      infoWindow.open(map, this)
+
     })
     // marker.addListener('click', function(){
     //   let placeMarker = infoWindow.open(map, marker);
