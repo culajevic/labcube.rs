@@ -17,11 +17,11 @@
           {{#each allAnalysis}}
           <tr>
             <td>{{this.analysisName}}</td>
-            <td>{{this.groupId.name}}</td>
+            <td>{{this.groupName}}</td>
             <td>{{this.preview}}</td>
-            <td>{{this.writtenBy.firstName}} {{this.writtenBy.lastName}}</td>
-            <td><a href='addAnalysis/{{this.id}}' class="btn btn-info">Edit</a></td>
-            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
+            <td>{{this.writtenByfirstName}} {{this.writtenBylastName}}</td>
+            <td><a href='addAnalysis/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='' data-id={{this._id}} class="btn btn-danger deleteDocument">Delete</a></td
 
           </tr>
           {{/each}}

@@ -156,7 +156,7 @@
           </li> -->
       {{/if}}
           <li class="nav-item">
-            <button class="nav-link checkout " title="broj odabranih analiza">0</button>
+            <button class="nav-link checkout " title="broj odabranih analiza" id="analysisBasket">0</button>
           </li>
         </ul>
 
@@ -174,7 +174,7 @@
       <form>
         <div class="row">
           <div class="col-sm-12 col-lg-8 mx-auto" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Odaberite filter <strong>analiza</strong> ukoliko želite da pretražujete analize odnosno <strong>laboratorija</strong> ukoliko tražite informacije o laboratorijama.">
-            <input type="text" class="form-control search" id="searchAnalysis" name="searchAnalysis" placeholder="Unesite ime analize ili laboratorije" >
+            <input type="text" class="form-control search" id="searchAnalysis" name="searchAnalysis" autocomplete="off" placeholder="Unesite ime analize ili laboratorije" >
             <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
             <label for="analizeRadioButton" class="analizeSearchFilter" >analiza</label>
             <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >

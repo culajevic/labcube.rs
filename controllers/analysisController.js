@@ -21,10 +21,20 @@ exports.addAnalysis = [authCheck, (req,res) => {
 
 exports.allAnalysis = [authCheck, async (req,res) => {
   const analysisNumber = await Analysis.find().countDocuments()
-  const allAnalysis = await Analysis.find({})
-    .populate('groupId', 'name')
-    .populate('writtenBy', 'firstName lastName')
-    .sort({"groupId.name":1})
+  const allAnalysis = await Analysis.aggregate([
+    {$lookup:{from:'groups', localField:'groupId', foreignField:'_id', as:'group'}},
+    {$lookup:{from:'editors', localField:'writtenBy', foreignField:'_id', as:'writtenBy'}},
+    {$project:{groupName:'$group.name',
+              analysisName:'$analysisName',
+              preview:'$preview',
+              writtenByfirstName:'$writtenBy.firstName',
+              writtenBylastName:'$writtenBy.lastName'}},
+    {$sort:{groupName:1, analysisName:1}}
+  ])
+  // const allAnalysis = await Analysis.find({})
+  //   .populate('groupId', 'name')
+  //   .populate('writtenBy', 'firstName lastName')
+  //   .sort({"groupId.name":1})
   res.render('allAnalysis', {
     title:'Sve analize',
     allAnalysis,
