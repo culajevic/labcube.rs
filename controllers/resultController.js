@@ -122,9 +122,11 @@ exports.labResult = async (req,res) => {
 
 
 
-exports.displayResults = (req,res) => {
+exports.displayResults = async (req,res) => {
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('results',{
-    sidebarNav:false
+    sidebarNav:false,
+    groupNames
   })
 }
 
@@ -135,7 +137,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('groupId', 'iconPath')
 
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  let title = analysisDetails.analysisName
+  // let title = analysisDetails.analysisName
 
   const prices = await Price.aggregate([
   {$unwind:'$cenovnik'},
@@ -144,7 +146,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails,prices,title, sidebarNav:true, user:req.user, groupNames})
+  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames})
 }
 
 exports.labRestultsAnalysis = async (req,res) => {

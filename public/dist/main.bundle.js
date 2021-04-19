@@ -21134,7 +21134,6 @@ exports.bestPrice = function (mapArea, resultDiv) {
       // loaderWrapper.style.opacity = 0
       var labTemplate = document.createElement('div');
       labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
-      console.log(result);
 
       for (var _i = 0; _i < result.length; _i++) {
         if (day == currentDayNum) {
@@ -21717,9 +21716,10 @@ in sidebar basket on any page which is not index */
 var checkUrl = /result.*/;
 var group = /group/;
 var nadjiLab = /nadjiLab/;
-var laboratorija = /laboratorija.*/; //definisanje stranica na kojima se prikazuje shoping karta
+var laboratorija = /laboratorija.*/;
+var tumacenje = /tumacenje.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -22108,11 +22108,51 @@ window.onload = function () {
     helper.removeAnalysis(itemsArray, checkout);
   }
 
-  if (urlArr[1] == 'tumacanje-laboratorijskih-analiza') {
+  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
     var _mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
 
 
-    var _analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    var _analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); //remember municipalityValue
+
+
+    var _municipality3 = document.getElementById('municipality');
+
+    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+
+    if (_municipalityValue3 != null) {
+      _municipality3.value = _municipalityValue3;
+    }
+
+    var _priceList3 = document.getElementById('priceList');
+
+    var _closePriceList3 = document.getElementById('closePriceList'); // display and hide price list
+
+
+    checkout.addEventListener('click', function () {
+      _priceList3.classList.add('unhidePriceList');
+
+      _priceList3.classList.remove('hidePriceList');
+    }); //
+
+    _closePriceList3.addEventListener('click', function () {
+      _priceList3.classList.add('hidePriceList');
+
+      _priceList3.classList.remove('unhidePriceList');
+
+      _priceList3.removeAttribute('style');
+    }); //remove analysis
+
+
+    helper.removeAnalysis(itemsArray, checkout); //display best price
+
+    var _showPriceBtn3 = document.querySelector('.showPrice');
+
+    var _mapArea3 = document.getElementById('mapPrices');
+
+    _showPriceBtn3.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/nadjiLab';
+    }); // search for analysis or lab
 
 
     helper.searchLabAnalysis(_mainSearchinner, _analysisRadioinner);
@@ -22133,11 +22173,11 @@ window.onload = function () {
       }
     });
 
-    var _municipality3 = document.getElementById('municipality');
+    var _municipality4 = document.getElementById('municipality');
 
-    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
 
-    _municipality3.value = _municipalityValue3;
+    _municipality4.value = _municipalityValue4;
     helper.removeAnalysis(_itemsArray, _checkout); // let resultDiv = document.getElementById('resultTable')
     // const municipality = document.getElementById('municipality')
     // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
@@ -22146,13 +22186,13 @@ window.onload = function () {
 
     var backToMap = document.getElementById('backtoMap');
 
-    var _mapArea3 = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
+    var _mapArea4 = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
 
 
     backToMap.addEventListener('click', function (e) {
       e.preventDefault(); // history.replaceState(null,null,`/`)
 
-      helper.bestPrice(_mapArea3, _resultDiv3);
+      helper.bestPrice(_mapArea4, _resultDiv3);
     });
     var labLocationUrl = location.split('/');
     var labName = labLocationUrl[2];
@@ -22517,7 +22557,47 @@ window.onload = function () {
     $('body').scrollspy({
       target: '#sideMenu',
       offset: 30
+    }); //remember municipalityValue
+
+    var _municipality5 = document.getElementById('municipality');
+
+    var _municipalityValue5 = JSON.parse(localStorage.getItem('municipality'));
+
+    if (_municipalityValue5 != null) {
+      _municipality5.value = _municipalityValue5;
+    }
+
+    var _priceList4 = document.getElementById('priceList');
+
+    var _closePriceList4 = document.getElementById('closePriceList'); // display and hide price list
+
+
+    checkout.addEventListener('click', function () {
+      _priceList4.classList.add('unhidePriceList');
+
+      _priceList4.classList.remove('hidePriceList');
+    }); //
+
+    _closePriceList4.addEventListener('click', function () {
+      _priceList4.classList.add('hidePriceList');
+
+      _priceList4.classList.remove('unhidePriceList');
+
+      _priceList4.removeAttribute('style');
+    }); //remove analysis
+
+
+    helper.removeAnalysis(itemsArray, checkout); //display best price
+
+    var _showPriceBtn4 = document.querySelector('.showPrice');
+
+    var _mapArea5 = document.getElementById('mapPrices');
+
+    _showPriceBtn4.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/nadjiLab';
     }); //take input values from search box and filter reference
+
 
     var _innerPageSearch = document.getElementById('searchResultPage');
 
@@ -22603,7 +22683,7 @@ window.onload = function () {
 
     var city = document.getElementById('city'); // let minicipality = document.getElementById('municipality')
 
-    var _municipality4 = document.getElementById('municipality');
+    var _municipality6 = document.getElementById('municipality');
 
     var postalCode = document.getElementById('postalCode');
     searchPlaces.addEventListener('input', function (e) {
@@ -22634,7 +22714,7 @@ window.onload = function () {
                 e.preventDefault();
                 searchPlaces.value = e.srcElement.attributes.href.textContent;
                 city.value = e.target.innerText;
-                _municipality4.value = e.srcElement.getAttribute('data-municipality');
+                _municipality6.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
                 _resultDiv4.innerHTML = '';
               });
@@ -22645,7 +22725,7 @@ window.onload = function () {
         console.log('enter at least 3 letters');
         _resultDiv4.innerHTML = '';
         city.value = '';
-        _municipality4.value = '';
+        _municipality6.value = '';
         postalCode.value = '';
       }
     }); // add new phone field icon

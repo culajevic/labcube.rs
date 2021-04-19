@@ -8083,8 +8083,7 @@ span.remove:hover {
     list-style-type: none;
     display: inline-block;
     color: #3B3B3B;
-    font-weight: 500;
-    margin-bottom: 1.5rem; }
+    font-weight: 500; }
     .headTitle + ul > li::after {
       content: " | ";
       color: #4B4B4B; }
@@ -8410,10 +8409,10 @@ ul ol ul {
   transition: all 2s linear; }
 
 .hidePriceList {
-  width: 300px;
-  right: 0;
-  opacity: 0;
-  transition: opacity .5s ease-in-out; }
+  transition: right 2s ease-in-out;
+  right: -10000px;
+  z-index: 1000;
+  width: 300px; }
 
 .scrollDownShoppingBasket {
   top: 64px;
@@ -8425,10 +8424,9 @@ ul ol ul {
 
 .unhidePriceList {
   width: 300px;
-  opacity: 1;
-  z-index: 10000;
+  z-index: 1000;
   right: 0;
-  transition: opacity .8s ease; }
+  transition: right .3s ease-in-out; }
 
 .checkout:focus {
   outline: none;
@@ -8570,7 +8568,8 @@ ul ol ul {
 
 .tumacenjeIkonice {
   width: 6.25rem;
-  margin: 0 auto; }
+  margin: 0 auto;
+  height: 108px; }
 
 .labDetailsAdresa,
 .labDetailsGrad,

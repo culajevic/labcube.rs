@@ -4,6 +4,7 @@
     <div class="row" >
       <div class="col-md-8 col-lg-9">
         <!-- header -->
+
         <p class="float-right">
           <!-- <span class="titleDetails mx-4">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span> -->
           {{#each prices}}
@@ -12,16 +13,22 @@
           <img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2" />
           <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">dodaj</button>
         </p>
-        {{! display analysis name}}
-        <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
-        {{! display abbr}}
-        <ul>
-          {{#each analysisDetails.abbr}}
-            <li>{{this}}</li>
-          {{/each}}
-        </ul>
 
-        <ul class="analysisDescription">
+        <div class="float-left">
+          <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
+          <ul>
+            {{#each analysisDetails.abbr}}
+              <li>{{this}}</li>
+            {{/each}}
+            {{#each analysisDetails.alt}}
+              <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
+
+        {{! display abbr}}
+
+        <ul class="analysisDescription float-left mt-4">
           <li>
             <h5 id="oAnalizi">O analizi</h5>
             <p>{{{analysisDetails.shortDesc}}}</p>
@@ -80,7 +87,7 @@
         </ul><!-- analysisDescription end -->
 
 
-          <ul class="povezaneAnalize">
+          <ul class="povezaneAnalize float-left">
             <h5>Povezane analize</h5>
             {{#each analysisDetails.connectedTo}}
               <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}}</a></li>

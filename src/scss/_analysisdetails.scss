@@ -8,7 +8,7 @@
     display: inline-block;
     color:$fontColorResultsTable;
     font-weight: 500;
-    margin-bottom: px-to-rem(24px);
+    // margin-bottom: px-to-rem(24px);
     &::after {
       content:" | ";
       color:$cardHeader;

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Price = mongoose.model('Price')
 const Place = mongoose.model('Place')
 const Lab = mongoose.model('Lab')
+const Group = mongoose.model('Group')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -147,9 +148,11 @@ exports.deletePriceList = [authCheck, async (req,res) => {
   res.json()
 }]
 
-exports.getLabPrices = (req,res) => {
-  res.render('nadjiLab')
 
+//display group names on nadjilab inner page
+exports.getLabPrices = async (req,res) => {
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  res.render('nadjiLab', {groupNames})
 }
 
 exports.getPrices = async (req,res) => {
@@ -162,7 +165,6 @@ exports.getPrices = async (req,res) => {
 
   //broj odabrnih analiza
   // console.log(newids.length)
-
   // numofanalysis = newids.length
    newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
   //nadji sva mesta koja pripadaju odabranoj opstini

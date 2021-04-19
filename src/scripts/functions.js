@@ -641,7 +641,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
-        console.log(result)
+
       for(let i=0; i<result.length; i++) {
 
         if(day == currentDayNum) {
