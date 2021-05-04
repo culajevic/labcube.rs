@@ -13,8 +13,9 @@
 
 #accordion > h5 {
     // color:#042A37;
+    font-weight: 400;
     color:$fontColorResultsTable;
-    padding: px-to-rem(16px) 0;
+    padding: px-to-rem(24px) 0;
     padding-right: .7rem;
     padding-left: .7rem;
     border-bottom:1px solid $line-color;
@@ -34,13 +35,19 @@
 // faq colapsed section
 #accordion > [data-toggle="collapse"].collapsed::after {
   font-family: 'Font Awesome 5 Free';
-  content: "\f0fe";
+  font-weight: 600;
+  // content: "\f0fe";
+  color:$primary-color;
+  content: "\f055";
 }
 
 // faq expanded section
 #accordion > [data-toggle="collapse"]::after {
   font-family: 'Font Awesome 5 Free';
-  content: "\f146";
+  // content: "\f146";
+  content: "\f056";
+  font-weight: 600;
+  color:$primary-color;
   padding-right: px-to-rem(8px);
   float: right;
 }

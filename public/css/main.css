@@ -7874,8 +7874,9 @@ div.status.closedSoon::before {
     margin-bottom: 2.5rem; }
 
 #accordion > h5 {
+  font-weight: 400;
   color: #3B3B3B;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
   padding-right: .7rem;
   padding-left: .7rem;
   border-bottom: 1px solid #E0E4EC;
@@ -7891,11 +7892,15 @@ div.status.closedSoon::before {
 
 #accordion > [data-toggle="collapse"].collapsed::after {
   font-family: 'Font Awesome 5 Free';
-  content: "\f0fe"; }
+  font-weight: 600;
+  color: #1D88E5;
+  content: "\f055"; }
 
 #accordion > [data-toggle="collapse"]::after {
   font-family: 'Font Awesome 5 Free';
-  content: "\f146";
+  content: "\f056";
+  font-weight: 600;
+  color: #1D88E5;
   padding-right: 0.5rem;
   float: right; }
 
@@ -8379,6 +8384,13 @@ footer {
 
 .list-content p {
   flex: 1 0 auto; }
+
+.functionalitiesTitle {
+  color: #1D88E5; }
+
+.functionalityIcons {
+  border-bottom: 1px solid #E0E4EC;
+  padding: 2.5rem; }
 
 .rotateNumberOfAnalysis {
   transform: rotate(1800deg);

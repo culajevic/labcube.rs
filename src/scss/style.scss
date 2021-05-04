@@ -31,6 +31,14 @@
   flex:1 0 auto;
 }
 
+.functionalitiesTitle {
+  color:$primary-color;
+}
+.functionalityIcons {
+  border-bottom:1px solid $line-color;
+  padding:px-to-rem(40px);
+}
+
 .rotateNumberOfAnalysis {
   transform: rotate(1800deg);
   transition: transform 2s ease 0s;
