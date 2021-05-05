@@ -21611,7 +21611,31 @@ $(document).ready(function () {
     tooltipClass: "tooltip"
   });
   var maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() + 7);
+  maxDate.setDate(maxDate.getDate() + 7); //lazy load testing
+
+  var targets = document.querySelectorAll('.imgLazy');
+  var targetsText = document.querySelectorAll('.textLazy');
+
+  var lazyLoad = function lazyLoad(target) {
+    var io = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          console.log(entry.target);
+          var img = entry.target;
+          var src = img.getAttribute('data-lazy');
+          img.setAttribute('src', src);
+          img.classList.add('fadeLazy');
+          observer.disconnect();
+        }
+      });
+    }, {
+      rootMargin: "0px 0px -200px 0px"
+    });
+    io.observe(target);
+  };
+
+  targets.forEach(lazyLoad);
+  targetsText.forEach(lazyLoad);
   var datePicker1 = flatpickr('#datepicker1', {
     dateFormat: 'Y-m-d',
     altInput: true,

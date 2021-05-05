@@ -8372,6 +8372,16 @@ footer {
   margin-top: 0.75rem;
   margin-bottom: 1rem; }
 
+.imgLazy, .textLazy {
+  transform: translateX(50%);
+  opacity: 0;
+  transition: all 1000ms; }
+
+.fadeLazy {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 1000ms; }
+
 .testingFlex {
   display: flex;
   flex-direction: column;

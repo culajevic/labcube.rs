@@ -24,6 +24,33 @@ $(document).ready(function(){
 let maxDate = new Date()
 maxDate.setDate(maxDate.getDate() + 7)
 
+//lazy load testing
+const targets = document.querySelectorAll('.imgLazy')
+const targetsText = document.querySelectorAll('.textLazy')
+
+const lazyLoad = target => {
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting) {
+          console.log(entry.target)
+          const img = entry.target
+          const src = img.getAttribute('data-lazy')
+
+
+
+          img.setAttribute('src', src)
+          img.classList.add('fadeLazy')
+
+          observer.disconnect()
+        }
+    })
+  },{rootMargin: "0px 0px -200px 0px"})
+  io.observe(target)
+}
+
+targets.forEach(lazyLoad)
+targetsText.forEach(lazyLoad)
 
 
 let datePicker1 = flatpickr('#datepicker1',{
