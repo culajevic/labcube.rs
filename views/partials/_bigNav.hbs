@@ -1,4 +1,5 @@
 <div id="bodyOverlay"></div>
+<!-- sidebar -->
 <div class="position-fixed h-100 hidePriceList" id="priceList">
   <div class="sidebar">
     <div class="odabraneAnalize">
@@ -22,60 +23,14 @@
               <!-- <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span> -->
             <a href="" class="btn btn-success btn-lg btn-block text-uppercase showPrice">nađi najbolju cenu</a>
           </li>
-        </ul>
-      </div>
-
-      <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
-      <!-- <div class="banner">
-        <img src="/images/banner.jpg" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
-        <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
-        <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
-      </div> -->
-      <!-- banner end -->
+        </ul><!-- selected analysis end -->
+      </div><!-- card end -->
     </div><!-- odabrane analize end -->
   </div><!-- sidebar end -->
-</div>
+</div><!-- pricelist end -->
+
 <header id="header">
-  <div class="sectionParallax">
-    <!-- <img src="images/ikonice/ikonica_1.svg" data-speed="12" alt="" class="layer">
-    <img src="images/ikonice/ikonica_2.svg" data-speed="10" alt="" class="layer">
-    <img src="images/ikonice/ikonica_3.svg" data-speed="6" alt="" class="layer">
-    <img src="images/ikonice/ikonica_4.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonice/ikonica_5.svg" data-speed="7" alt="" class="layer">
-    <img src="images/ikonice/ikonica_6.svg" data-speed="9" alt="" class="layer">
-    <img src="images/ikonice/ikonica_7.svg" data-speed="13" alt="" class="layer">
-    <img src="images/ikonice/ikonica_8.svg" data-speed="2" alt="" class="layer">
-    <img src="images/ikonice/ikonica_9.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonice/ikonica_10.svg" data-speed="4" alt="" class="layer">
-    <img src="images/ikonice/ikonica_11.svg" data-speed="2" alt="" class="layer">
-    <img src="images/ikonice/ikonica_12.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonice/ikonica_13.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonice/ikonica_14.svg" data-speed="4" alt="" class="layer">
-    <img src="images/ikonice/ikonica_15.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonice/ikonica_16.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonice/ikonica_17.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonice/ikonica_18.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonice/ikonica_19.svg" data-speed="3" alt="" class="layer"> -->
-    <img src="images/ikonica_1.svg" data-speed="12" alt="" class="layer">
-    <img src="images/ikonica_2.svg" data-speed="10" alt="" class="layer">
-    <img src="images/ikonica_3.svg" data-speed="6" alt="" class="layer">
-    <img src="images/ikonica_4.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer">
-    <img src="images/ikonica_6.svg" data-speed="9" alt="" class="layer">
-    <img src="images/ikonica_7.svg" data-speed="13" alt="" class="layer">
-    <img src="images/ikonica_8.svg" data-speed="2" alt="" class="layer">
-    <img src="images/ikonica_9.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonica_10.svg" data-speed="4" alt="" class="layer">
-    <img src="images/ikonica_11.svg" data-speed="2" alt="" class="layer">
-    <img src="images/ikonica_12.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonica_13.svg" data-speed="5" alt="" class="layer">
-    <img src="images/ikonica_14.svg" data-speed="4" alt="" class="layer">
-    <img src="images/ikonica_15.svg" data-speed="3" alt="" class="layer">
-    <img src="images/ikonica_16.svg" data-speed="7" alt="" class="layer">
-    <img src="images/ikonica_17.svg" data-speed="8" alt="" class="layer">
-    <img src="images/ikonica_18.svg" data-speed="10" alt="" class="layer">
-    <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer">
-  </div>
+
   <nav class="navbar navbar-expand-md navbar-dark mb-auto">
     <div class="container">
       <a href="/" class="navbar-brand">
@@ -85,85 +40,66 @@
       </button>
       <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
-          <!-- <li class="nav-item">
-            <a href="tumacanje-laboratorijskih-analiza" class="nav-link"><i class="fa fa-comments"></i>Tumačenje rezultata</a>
-          </li> -->
-
-          <!-- <li class="nav-item">
-            <a href="/" class="nav-link"><span class="icon iconHome"></span></a>
-          </li> -->
-
           <li class="nav-item">
             <a href="tumacenje-laboratorijskih-analiza" class="nav-link"><span class="icon iconSvgTumacenje">Tumačenje rezultata</span></a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link"><i class="fa fa-map-marker-alt"></i>Sve laboratorije</a>
-          </li> -->
           <li class="nav-item">
             <a href="#google-map" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
 
           {{#if user.id}}
-          <li class="nav-item">
-            <a href="/profile" class="nav-link">{{user.username}}</a>
-          </li>
-          <li class="nav-item">
-            <a href="/logout" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a>
-          </li>
+            <li class="nav-item">
+              <a href="/profile" class="nav-link">{{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a href="/logout" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a>
+            </li>
           {{else}}
-          <!-- <li class="nav-item">
-            <a href="/prijava" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
-          </li> -->
-          <li class="nav-item">
-            <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
-          </li>
-          <li class="nav-item">
-            <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
-          </li>
-
+            <li class="nav-item">
+              <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
+            </li>
+            <li class="nav-item">
+              <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
+            </li>
           {{/if}}
-          <!-- <li class="nav-item">
-            <a href="/registracija" class="nav-link"><i class="fas fa-plus"></i> Registracija</a>
-          </li> -->
-          {{#if user.admin}}
-          <!-- <li class="nav-item">
-            <a href="/admindashboard" class="nav-link"> admin</a>
-          </li> -->
-          <!-- <li class="nav-item ">
-            <div class="dropdown nav-link" >
-              <a class="dropdown-toggle"  data-toggle="dropdown">
-                Admin
-              </a>
-              <div class="dropdown-menu" style="z-index:2000;">
-                <a href="/addGroup" class="dropdown-item py-1">Nova grupa</a>
-                <a href="/allGroupsList" class="dropdown-item py-1">Sve grupe</a>
-                <a href="/addLab" class="dropdown-item py-1">Novi lab</a>
-                <a href="/allLabs" class="dropdown-item py-1">Sve laboratorije</a>
-                <a href="/addAnalysis" class="dropdown-item py-1">Nova analiza</a>
-                <a href="/allAnalysis" class="dropdown-item py-1">Sve analize</a>
-                <a href="/addDisease" class="dropdown-item py-1">Novo oboljenje</a>
-                <a href="/allDiseases" class="dropdown-item py-1">Sva oboljenja</a>
-                <a href="/addEditor" class="dropdown-item py-1">Novi urednik</a>
-                <a href="/allEditors" class="dropdown-item py-1">Svi urednici</a>
-                <a href="/addReference" class="dropdown-item py-1">Nova referenca</a>
-                <a href="/allReferences" class="dropdown-item py-1">Sve reference</a>
-                <a href="/addFaq" class="dropdown-item py-1">Dodaj faq</a>
-                <a href="/allFaqs" class="dropdown-item py-1">All faq</a>
-                <a href="/addPrice" class="dropdown-item py-1">Novi cenovnik</a>
-                <a href="/allPrices" class="dropdown-item py-1">Svi cenovnici</a>
-              </div>
-            </div>
-          </li> -->
-      {{/if}}
+
           <li class="nav-item">
             <button class="nav-link checkout" title="broj odabranih analiza" id="analysisBasket">0</button>
           </li>
         </ul>
 
       </div><!-- collapse -->
+
     </div><!-- container end -->
   </nav><!-- nav end -->
 
+  <div class="container" >
+    <div class="row">
+      <div class="col-12">
+        <div class="sectionParallax">
+          <img src="images/ikonica_2.svg" data-speed="12" alt="" class="layer layer2">
+          <img src="images/ikonica_3.svg" data-speed="6" alt="" class="layer layer3">
+          <img src="images/ikonica_4.svg" data-speed="5" alt="" class="layer layer4">
+          <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer  layer5">
+          <img src="images/ikonica_6.svg" data-speed="9" alt="" class="layer layer6">
+          <img src="images/ikonica_7.svg" data-speed="13" alt="" class="layer layer7">
+          <img src="images/ikonica_8.svg" data-speed="2" alt="" class="layer layer8">
+          <img src="images/ikonica_9.svg" data-speed="5" alt="" class="layer layer9">
+          <img src="images/ikonica_10.svg" data-speed="4" alt="" class="layer layer10">
+          <img src="images/ikonica_11.svg" data-speed="2" alt="" class="layer layer11">
+          <img src="images/ikonica_12.svg" data-speed="3" alt="" class="layer layer12">
+          <img src="images/ikonica_13.svg" data-speed="5" alt="" class="layer layer13">
+          <img src="images/ikonica_14.svg" data-speed="4" alt="" class="layer layer14">
+          <img src="images/ikonica_15.svg" data-speed="3" alt="" class="layer layer15">
+          <img src="images/ikonica_16.svg" data-speed="7" alt="" class="layer layer16">
+          <img src="images/ikonica_17.svg" data-speed="8" alt="" class="layer layer17">
+          <img src="images/ikonica_18.svg" data-speed="10" alt="" class="layer layer18">
+          <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer layer19">
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 
 
@@ -193,34 +129,34 @@
 
   <script type="text/javascript">
 
-    document.querySelectorAll('.layer').forEach(item => {
+    // document.querySelectorAll('.layer').forEach(item => {
 
-      let baseX = Math.ceil(Math.random()*1000)
-      let baseY = Math.ceil(Math.random()*500)
-      let positionX = 'top'
-      let positionY = 'left'
-      if(baseX%2) {
-        item.style.top = baseX*2+"px";
-        item.style.right = baseX*7/4+"px";
-      } else {
-        item.style.bottom = baseX+"px";
-        item.style.left = baseX*3+"px";
-      }
-      if (baseY%3) {
-        item.style.top = baseX*2/3+"px";
-        item.style.right = baseX*2+"px";
-      } else {
-        item.style.top = baseX*2+"px";
-        item.style.left = baseX/2+"px";
-      }
-    })
+    //   let baseX = Math.ceil(Math.random()*1000)
+    //   let baseY = Math.ceil(Math.random()*500)
+    //   let positionX = 'top'
+    //   let positionY = 'left'
+    //   if(baseX%2) {
+    //     item.style.top = baseX*2+"px";
+    //     item.style.right = baseX*7/4+"px";
+    //   } else {
+    //     item.style.bottom = baseX+"px";
+    //     item.style.left = baseX*3+"px";
+    //   }
+    //   if (baseY%3) {
+    //     item.style.top = baseX*2/3+"px";
+    //     item.style.right = baseX*2+"px";
+    //   } else {
+    //     item.style.top = baseX*2+"px";
+    //     item.style.left = baseX/2+"px";
+    //   }
+    // })
 
     document.addEventListener('mousemove', parallax )
     function parallax(e) {
       document.querySelectorAll('.layer').forEach(move => {
         let movingValue = move.getAttribute("data-speed")
-        let x = (e.clientX * movingValue)/180
-        let y = (e.clientY * movingValue)/180
+        let x = (e.clientX * movingValue)/400
+        let y = (e.clientY * movingValue)/400
         move.style.transform = "translateX("+x+"px) translateY("+y+"px)"
 
       })

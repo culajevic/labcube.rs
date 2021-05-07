@@ -27,7 +27,6 @@ maxDate.setDate(maxDate.getDate() + 7)
 //lazy load testing
 const targets = document.querySelectorAll('.imgLazy')
 const targetsText = document.querySelectorAll('.textLazy')
-
 const lazyLoad = target => {
   const io = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -51,6 +50,7 @@ const lazyLoad = target => {
 
 targets.forEach(lazyLoad)
 targetsText.forEach(lazyLoad)
+//lazy load end
 
 
 let datePicker1 = flatpickr('#datepicker1',{

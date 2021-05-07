@@ -21635,7 +21635,8 @@ $(document).ready(function () {
   };
 
   targets.forEach(lazyLoad);
-  targetsText.forEach(lazyLoad);
+  targetsText.forEach(lazyLoad); //lazy load end
+
   var datePicker1 = flatpickr('#datepicker1', {
     dateFormat: 'Y-m-d',
     altInput: true,
