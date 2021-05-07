@@ -126,7 +126,8 @@ exports.displayResults = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('results',{
     sidebarNav:false,
-    groupNames
+    groupNames,
+    title:'Labcube - Pretraga'
   })
 }
 
@@ -151,5 +152,5 @@ exports.displayAnalysisDetails = async (req,res) => {
 
 exports.labRestultsAnalysis = async (req,res) => {
   let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('labResultsAnalysis', {user:req.user, groupNames})
+  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube - Tumačenje laboratorijskih analiza'})
 }

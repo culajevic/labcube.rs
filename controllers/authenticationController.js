@@ -32,7 +32,7 @@ let transporter = nodemailer.createTransport({
 })
 
 exports.signin = (req,res) => {
-  res.render('signin')
+  res.render('signin',{title:'Labcube - Prijava'})
 }
 
 exports.login = (req,res,next) => {
@@ -138,13 +138,13 @@ exports.profile = [authCheck, async (req,res) => {
 }]
 
 exports.registerForm = (req,res) => {
-  res.render('register')
+  res.render('register',{title:'Labcube - Kreirajte nalog'})
 }
 
 exports.admindasboard =  [authCheck, (req,res) => {
   let errors = []
   if(req.user.admin == 1) {
-    res.render('admindashboard')
+    res.render('admindashboard', {title:'Admin panel'})
   } else if(req.user.lab == 1) {
     res.send('ne moze')
   } else {
@@ -172,7 +172,7 @@ exports.register =  async (req,res) => {
     let findUser = await User.findOne({email:email})
       if(findUser) {
         errors.push({text:'Već postoji nalog koji koristi ovaj email'})
-        res.render('register',{errors})
+        res.render('register',{errors, title:'Labcube - Kreirajte labcube nalog'})
       } else {
 
         const newUser = new User({
