@@ -117,9 +117,11 @@ setTimeout(() => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-      // loaderWrapper.style.opacity = 0
+
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
+
+
 
       for(let i=0; i<result.length; i++) {
 
@@ -131,25 +133,31 @@ setTimeout(() => {
             let todayClosingTime = new Date(today +' '+ closingTime +':00')
             let nowTimeStamp = now.getTime()
 
+
             let closingSoon = todayClosingTime - nowTimeStamp
             let closingIn = (Math.ceil(closingSoon/1000/60))
 
-            if (closingIn < 60 && closingIn > 0) {
+            if(result[i].lab[0].open24h) {
+              status = 'open'
+              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+            }
+
+            else if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon'
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
             }
 
-            if(nowTimeStamp > todayOpenTime.getTime() &&
+
+            else if(nowTimeStamp > todayOpenTime.getTime() &&
               todayClosingTime.getTime() > nowTimeStamp) {
               numOpen +=1
               status = 'open'
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
-              console.log(labStatus)
             }
             else {
               status = 'closed'
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
-              console.log(labStatus)
+              // console.log('closed')
             }
         }
 
@@ -210,6 +218,7 @@ setTimeout(() => {
          //append labcard to page
          document.querySelector('.labContainer').appendChild(labTemplate)
       }
+
       // map options
       let options = {
         zoom:16,

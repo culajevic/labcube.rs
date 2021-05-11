@@ -194,7 +194,6 @@ exports.getPrices = async (req,res) => {
     {$lookup:{from:'places', localField:'lab.placeId', foreignField:'_id', as:'labPlace'}},
     {$sort:{total:1}}
   ])
-  // res.render('najiLab')
   res.json(getPrices)
   // res.render('najboljacena', {test:'test'})
 }

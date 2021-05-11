@@ -21057,7 +21057,6 @@ exports.bestPrice = function (mapArea, resultDiv) {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'));
   }
 
-  console.log(municipalityValue);
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -21144,6 +21143,14 @@ exports.bestPrice = function (mapArea, resultDiv) {
           var nowTimeStamp = now.getTime();
           var closingSoon = todayClosingTime - nowTimeStamp;
           var closingIn = Math.ceil(closingSoon / 1000 / 60);
+
+          if (result[_i].lab[0].open24h) {
+            status = 'open';
+            labStatus.push({
+              'id': result[_i].lab[0]._id,
+              'status': status
+            });
+          }
 
           if (closingIn < 60 && closingIn > 0) {
             status = 'closedSoon';

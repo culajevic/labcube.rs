@@ -529,6 +529,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           let closingSoon = todayClosingTime - nowTimeStamp
           let closingIn = (Math.ceil(closingSoon/1000/60))
 
+
           if (closingIn < 60 && closingIn > 0) {
             radnoVreme.classList.add('closedSoon')
             radnoVreme.innerText = `zatvara se za ${closingIn} min.`
@@ -566,7 +567,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'))
   }
 
-  console.log(municipalityValue)
+
 
   window.scrollTo({
   top:0,
@@ -638,11 +639,13 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
+
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
       for(let i=0; i<result.length; i++) {
+
 
         if(day == currentDayNum) {
 
@@ -653,6 +656,11 @@ exports.bestPrice = (mapArea, resultDiv) => {
             let nowTimeStamp = now.getTime()
             let closingSoon = todayClosingTime - nowTimeStamp
             let closingIn = (Math.ceil(closingSoon/1000/60))
+
+            if (result[i].lab[0].open24h) {
+              status = 'open'
+              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+            }
 
             if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon'
@@ -670,6 +678,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
             }
         }
+
 
 
 
