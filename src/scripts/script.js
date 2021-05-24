@@ -32,11 +32,9 @@ const lazyLoad = target => {
     entries.forEach(entry => {
 
         if(entry.isIntersecting) {
-          console.log(entry.target)
+
           const img = entry.target
           const src = img.getAttribute('data-lazy')
-
-
 
           img.setAttribute('src', src)
           img.classList.add('fadeLazy')

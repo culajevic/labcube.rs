@@ -30,6 +30,34 @@
   transition: all 1000ms;
 }
 
+.editorName {
+  color:#6A757D;
+}
+
+.editorImg {
+  width: 200px;
+}
+
+.negativeMargin {
+  margin-top:-15px;
+}
+
+.labDetailsAdresa::before {
+  content:url('../images/addressIcon.svg');
+  padding-right:4px;
+}
+
+.labDetailsTelefoni::before {
+  content:url('../images/phonesIcon.svg');
+  margin-left: 1px;
+  padding-right: 12px;
+}
+
+.web::before {
+  content:url('../images/websiteIcon.svg');
+  padding-right: 5px;
+}
+
 .signUpFunc {
   width: 312px;
   height: 340px;
@@ -421,18 +449,43 @@ position: absolute;
 .labDetailsTelefoni,
 .web ,  {
   font-size: px-to-rem(18px);
-  line-height: px-to-rem(26px);
+  line-height: px-to-rem(32px);
   display: block;
   margin-bottom: px-to-rem(2px);
   color:$infoWindowContactColor;
 }
 
 .labFeatures {
-    // padding-left: 15px;
+  background-color: $tableHover;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  line-height: px-to-rem(32px);
+  padding:20px 10px;
+  padding-left: 30px;
+  border-right: 1px solid rgba(112, 112, 112, 0.1);
+  border-bottom-right-radius: 0;
+  // padding: 0px;
+  // padding-left: 15px;
     // margin-top: 30px;
     p {
-    font-size: px-to-rem(17px);
+    font-size: px-to-rem(16px);
     margin-bottom: 8px;
+    font-weight: 500;
+    color:#6A757D;
+    }
+}
+.feedback {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: $tableHover;
+  line-height: px-to-rem(32px);
+  padding:20px 10px;
+  padding-left: 0;
+  p {
+    font-size: px-to-rem(16px);
+    margin-bottom: 8px;
+    font-weight: 500;
+    color:#6A757D;
     }
 }
 
@@ -1085,9 +1138,10 @@ input[type="range"] {
 }
 
 progress {
-    background:crimson;
+    background-color:#0088EC;
+      // background-color: rgba(0, 136, 236, .2);
     vertical-align: baseline;
-    height: 0.5rem;
+    height: 0.6rem;
     margin-top: 8px;
     margin-left: 10px;
 }
@@ -1097,8 +1151,10 @@ progress::-webkit-progress-value {
 }
 
 progress[value]::-webkit-progress-bar {
-  background-color: white;
+  // background-color: white;
+  background-color: rgba(0, 136, 236, .2);
   // border-radius: 2px;
+  // background-color:#0088EC;
 }
 
 .min,

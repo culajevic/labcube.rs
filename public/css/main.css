@@ -8382,6 +8382,28 @@ footer {
   opacity: 1;
   transition: all 1000ms; }
 
+.editorName {
+  color: #6A757D; }
+
+.editorImg {
+  width: 200px; }
+
+.negativeMargin {
+  margin-top: -15px; }
+
+.labDetailsAdresa::before {
+  content: url(../images/addressIcon.svg);
+  padding-right: 4px; }
+
+.labDetailsTelefoni::before {
+  content: url(../images/phonesIcon.svg);
+  margin-left: 1px;
+  padding-right: 12px; }
+
+.web::before {
+  content: url(../images/websiteIcon.svg);
+  padding-right: 5px; }
+
 .signUpFunc {
   width: 312px;
   height: 340px; }
@@ -8683,14 +8705,38 @@ ul ol ul {
 .labDetailsTelefoni,
 .web {
   font-size: 1.125rem;
-  line-height: 1.625rem;
+  line-height: 2rem;
   display: block;
   margin-bottom: 0.125rem;
   color: #1F1F1F; }
 
-.labFeatures p {
-  font-size: 1.0625rem;
-  margin-bottom: 8px; }
+.labFeatures {
+  background-color: #FAFAFA;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  line-height: 2rem;
+  padding: 20px 10px;
+  padding-left: 30px;
+  border-right: 1px solid rgba(112, 112, 112, 0.1);
+  border-bottom-right-radius: 0; }
+  .labFeatures p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #6A757D; }
+
+.feedback {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #FAFAFA;
+  line-height: 2rem;
+  padding: 20px 10px;
+  padding-left: 0; }
+  .feedback p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #6A757D; }
 
 .workingHoursLabDetails > tbody > tr > td.open {
   background-color: #55D159;
@@ -9222,9 +9268,9 @@ input[type="range"] {
   margin-right: 8px; }
 
 progress {
-  background: crimson;
+  background-color: #0088EC;
   vertical-align: baseline;
-  height: 0.5rem;
+  height: 0.6rem;
   margin-top: 8px;
   margin-left: 10px; }
 
@@ -9232,7 +9278,7 @@ progress::-webkit-progress-value {
   background: lightblue; }
 
 progress[value]::-webkit-progress-bar {
-  background-color: white; }
+  background-color: rgba(0, 136, 236, 0.2); }
 
 .min, .regularResults,
 .max {

@@ -78,6 +78,7 @@
              <h5 id="napomena">Napomena</h5>
              <p>{{{analysisDetails.notes}}}</p>
            </div>
+
            <ol>
              <h5 class="literatura" id="literatura">Literatura</h5>
              {{#each analysisDetails.references}}
@@ -93,9 +94,24 @@
               <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}}</a></li>
             {{/each}}
           </ul>
+
       </div> <!-- col-lg-9 -->
 
+
+
       {{> _sidebar}}
+
+      <div class="d-flex col-12">
+        <div class="col-2 pl-0">
+            <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg pr-4" />
+          </div>
+        <div class="col-9 d-flex flex-column justify-content-center " >
+          <p class="editorName font-weight-bold">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}</p>
+          <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p>
+        </div>
+      </div>
+
+
 
 
 	  </div><!--  row end  -->

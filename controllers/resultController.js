@@ -135,6 +135,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   let analysisDetails = await Analysis.findOne({slug:req.params.slug})
   .populate('connectedTo', 'analysisName slug')
   .populate('references')
+  .populate('writtenBy')
   .populate('groupId', 'iconPath')
 
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})

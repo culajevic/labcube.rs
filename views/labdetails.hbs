@@ -12,35 +12,41 @@
 
 <section id="labDetailsInner" class="labDetailsInnerPage">
   <div class="container">
-    <div class="container-fluid pr-0 pl-0">
+    <!-- <div class="container-fluid pr-0 pl-0">
       <div class="row">
 
       </div>
-    </div>
+    </div> -->
     <table class="table results table-hover">
       <tbody id="resultTableAnalysis">
       </tbody>
     </table><!-- table -->
     <div class="row mt-2 mb-4">
       <div class="col-12">
-        <span id="backtoMap">povratak na mapu</span>
+        <!-- <span id="backtoMap">povratak na mapu</span> -->
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
-        <h1 class="mb-5" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}<span class="float-right">1.9km</span></h1>
+        <h1 class="mb-5 d-inline" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}</h1>
       </div>
-      <div class="col-sm-12 col-lg-5">
+
+      <div class="col-sm-12 col-lg-5 mt-4 d-inline">
         <div class="labInfoWindowDetails">
 
            <!-- <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo"> -->
-           <p class="labDetailsAdresa">{{labDetails.address}} </p>
-           <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p>
+           <p class="labDetailsAdresa">{{labDetails.address}}, {{labDetails.placeId.place}}</p>
+           <!-- <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p> -->
            <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
+           {{#if (notBlank labDetails.web)}}
            <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
+           {{/if}}
            <!-- <p><</p> -->
         </div>
       </div><!-- col-6 -->
-      <div class="col-sm-12 col-lg-3">
-        <div class="labFeatures">
 
+
+      <div class="col-sm-12 col-lg-3 mt-4 pr-0">
+        <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
+        {{#if labDetails.accredited}}
+        <div class="labFeatures">
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
           {{/if}}
@@ -54,14 +60,23 @@
           <p><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
           {{/if}}
         </div>
+        {{/if}}
       </div>
-      <div class="col-lg-4">
-        <div class="feedback" style="">
-          <p class="float-right mb-0">ljubaznost  <progress max=5 value={{hospitality}}> </progress> {{hospitality}}</p>
-          <p class="text-right mb-0">venepunkcija  <progress max=5 value="{{venipuncture}}"></progress> {{venipuncture}}</p>
-          <p class="text-right mb-0">izdavanje rezultata  <progress value="{{speed}}" max="5"> </progress> {{speed}}</p>
-          <p class="text-right mb-0">covid odgovorni <progress value="{{covid}}" max="5"></progress> {{covid}}</p>
-          <p class="text-right mb-0">opšti utisak <progress value="{{overall}}" max="5"></progress> {{overall}}</p>
+      <div class="col-lg-4 mt-4 pl-0">
+        <!-- <div class="feedback" >
+          <p class="float-right mb-0"><progress max=5 value="3"> </progress> {{hospitality}} ljubaznost</p>
+          <p class="text-right mb-0"><progress max=5 value="{{venipuncture}}"> </progress> {{venipuncture}} venepunkcija</p>
+          <p class="text-right mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} izdavanje rezultata</p>
+          <p class="text-right mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} covid odgovorni</p>
+          <p class="text-right mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} opšti utisak</p>
+        </div> -->
+
+        <div class="feedback pl-4" >
+          <p class="mb-0"><progress value="4" max=5> </progress> {{hospitality}} - <span class="text-left"> Ljubaznost</span></p>
+          <p class="mb-0"><progress value="5" max=5> </progress> {{venipuncture}} - <span class="text-left"> Venepunkcija</span></p>
+          <p class="mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} - <span class="text-left"> Rezultati</span></p>
+          <p class="mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} - <span class="text-left"> Covid odgovorni</span></p>
+          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} - <span class="text-left"> Opšti utisak</span>
         </div>
       </div>
     </div>

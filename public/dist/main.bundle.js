@@ -21627,7 +21627,6 @@ $(document).ready(function () {
     var io = new IntersectionObserver(function (entries, observer) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          console.log(entry.target);
           var img = entry.target;
           var src = img.getAttribute('data-lazy');
           img.setAttribute('src', src);
