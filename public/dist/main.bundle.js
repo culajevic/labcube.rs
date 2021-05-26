@@ -21898,7 +21898,7 @@ window.onload = function () {
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/') {
+  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/') {
     var _priceList2 = document.getElementById('priceList');
 
     var _closePriceList2 = document.getElementById('closePriceList'); //
@@ -22191,6 +22191,13 @@ window.onload = function () {
 
 
   if (urlArr[1] == 'laboratorija') {
+    var _showPriceBtn4 = document.querySelector('.showPrice');
+
+    _showPriceBtn4.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
+    });
+
     var test = document.getElementById('smallHeader');
     test.addEventListener('click', function (e) {
       if (e.target.classList.contains('checkout')) {
@@ -22213,18 +22220,17 @@ window.onload = function () {
     // const municipality = document.getElementById('municipality')
     // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
 
-    var _loaderWrapper3 = document.querySelector('.loader-wrapper');
+    var _loaderWrapper3 = document.querySelector('.loader-wrapper'); // let backToMap = document.getElementById('backtoMap')
 
-    var backToMap = document.getElementById('backtoMap');
 
     var _mapArea4 = document.getElementById('mapPrices'); // let labDetailsInner = document.getElementById('labDetailsFull')
+    // backToMap.addEventListener('click', e => {
+    // e.preventDefault()
+    // history.replaceState(null,null,`/`)
+    // helper.bestPrice(mapArea, resultDiv)
+    // })
 
 
-    backToMap.addEventListener('click', function (e) {
-      e.preventDefault(); // history.replaceState(null,null,`/`)
-
-      helper.bestPrice(_mapArea4, _resultDiv3);
-    });
     var labLocationUrl = location.split('/');
     var labName = labLocationUrl[2];
     var uzorakLab = document.querySelector('.uzorakLab');
@@ -22620,11 +22626,11 @@ window.onload = function () {
 
     helper.removeAnalysis(itemsArray, checkout); //display best price
 
-    var _showPriceBtn4 = document.querySelector('.showPrice');
+    var _showPriceBtn5 = document.querySelector('.showPrice');
 
     var _mapArea5 = document.getElementById('mapPrices');
 
-    _showPriceBtn4.addEventListener('click', function (e) {
+    _showPriceBtn5.addEventListener('click', function (e) {
       e.preventDefault();
       window.location = '/nadjiLab';
     }); //take input values from search box and filter reference
@@ -22654,8 +22660,7 @@ window.onload = function () {
       analysisBtn.classList.add('deleteAnalysis');
     }
 
-    helper.addAnalysis(itemsArray, analysisBtn, checkout);
-    helper.removeAnalysis(itemsArray, checkout);
+    helper.addAnalysis(itemsArray, analysisBtn, checkout); // helper.removeAnalysis(itemsArray, checkout)
   }
   /*********************** BACKEND ************************/
 

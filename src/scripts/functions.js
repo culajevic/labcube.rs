@@ -198,6 +198,7 @@ exports.displayBasket = (itemsArray) => {
 }
 
 exports.removeAnalysis = (itemsArray, checkout) => {
+
   //remove analysis from local storage
   let analysisBasket = document.getElementById('selectedAnalysis')
     analysisBasket.addEventListener('click', (e) => {

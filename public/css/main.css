@@ -8740,15 +8740,18 @@ ul ol ul {
 
 .workingHoursLabDetails > tbody > tr > td.open {
   background-color: #55D159;
-  color: white; }
+  color: white;
+  border-radius: 20px; }
 
 .workingHoursLabDetails > tbody > tr > td.closed {
   background-color: #FF6F6F;
-  color: white; }
+  color: white;
+  border-radius: 20px; }
 
 .workingHoursLabDetails > tbody > tr > td.closingSoon {
   background-color: #FF9600;
-  color: white; }
+  color: white;
+  border-radius: 20px; }
 
 #mapDetails, #mapPrices {
   padding: 0;
@@ -9265,20 +9268,24 @@ small a:hover {
   align-items: center; }
 
 input[type="range"] {
-  margin-right: 8px; }
+  margin-right: 8px;
+  border-radius: 8px; }
 
 progress {
-  background-color: #0088EC;
+  background-color: rgba(0, 136, 236, 0.2);
   vertical-align: baseline;
   height: 0.6rem;
   margin-top: 8px;
-  margin-left: 10px; }
+  margin-left: 10px;
+  border-radius: 8px; }
 
 progress::-webkit-progress-value {
-  background: lightblue; }
+  background-color: #0088ec;
+  border-radius: 8px; }
 
 progress[value]::-webkit-progress-bar {
-  background-color: rgba(0, 136, 236, 0.2); }
+  background: #C8E3F7;
+  border-radius: 8px; }
 
 .min, .regularResults,
 .max {
@@ -9319,6 +9326,19 @@ progress[value]::-webkit-progress-bar {
 
 .valueNotOk {
   color: #FF6F6F; }
+
+
+.table td,
+.tableLabResults td, .table th, .tableLabResults th {
+  border: none; }
+
+.dayWeek {
+  background-color: #fafafa;
+  border-radius: 20px; }
+
+table.workingHoursLabDetails {
+  border-collapse: separate;
+  border-spacing: 15px 15px; }
 
 .myResultsComment {
   display: inline-block;

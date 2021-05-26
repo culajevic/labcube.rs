@@ -339,7 +339,7 @@ if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
 
 //ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
-if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscejna/' ) {
+if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/' ) {
 
   let priceList = document.getElementById('priceList')
   let closePriceList = document.getElementById('closePriceList')
@@ -614,6 +614,13 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
 
+  let showPriceBtn = document.querySelector('.showPrice')
+  showPriceBtn.addEventListener('click', e => {
+    e.preventDefault()
+    window.location = '/nadjiLab'
+    // helper.bestPrice(mapArea, resultDiv)
+  })
+
 const test = document.getElementById('smallHeader')
 test.addEventListener('click', e => {
   if(e.target.classList.contains('checkout')) {
@@ -638,16 +645,16 @@ helper.removeAnalysis(itemsArray, checkout)
   // const municipality = document.getElementById('municipality')
   // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
   let loaderWrapper = document.querySelector('.loader-wrapper')
-  let backToMap = document.getElementById('backtoMap')
+  // let backToMap = document.getElementById('backtoMap')
   let mapArea = document.getElementById('mapPrices')
   // let labDetailsInner = document.getElementById('labDetailsFull')
 
-  backToMap.addEventListener('click', e => {
-    e.preventDefault()
+  // backToMap.addEventListener('click', e => {
+    // e.preventDefault()
     // history.replaceState(null,null,`/`)
 
-    helper.bestPrice(mapArea, resultDiv)
-  })
+    // helper.bestPrice(mapArea, resultDiv)
+  // })
 
 
 
@@ -1131,6 +1138,7 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
       priceList.removeAttribute('style')
     })
     //remove analysis
+
     helper.removeAnalysis(itemsArray, checkout)
 
     //display best price
@@ -1166,7 +1174,7 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
     analysisBtn.classList.add('deleteAnalysis')
   }
   helper.addAnalysis(itemsArray, analysisBtn, checkout)
-  helper.removeAnalysis(itemsArray, checkout)
+  // helper.removeAnalysis(itemsArray, checkout)
 }
 
 /*********************** BACKEND ************************/

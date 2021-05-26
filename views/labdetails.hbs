@@ -89,13 +89,13 @@
         <table class="table table-sm workingHoursLabDetails">
           <thead>
             <tr>
-              <th class="text-center">P</th>
-              <th class="text-center">U</th>
-              <th class="text-center">S</th>
-              <th class="text-center">Č</th>
-              <th class="text-center">P</th>
-              <th class="text-center">S</th>
-              <th class="text-center">N</th>
+              <td class="text-center dayWeek">P</td>
+              <td class="text-center dayWeek">U</td>
+              <td class="text-center dayWeek">S</td>
+              <td class="text-center dayWeek">Č</td>
+              <td class="text-center dayWeek">P</td>
+              <td class="text-center dayWeek">S</td>
+              <td class="text-center dayWeek">N</td>
             </tr>
           </thead>
           <tbody>
@@ -104,8 +104,8 @@
               <td class="text-center {{isItOpen status 2}}">{{labDetails.workingHours.tuesday.opens}} - {{labDetails.workingHours.tuesday.closes}}</td>
               <td class="text-center {{isItOpen status 3}}">{{labDetails.workingHours.wednesday.opens}} - {{labDetails.workingHours.wednesday.closes}}</td>
               <td class="text-center {{isItOpen status 4}}"> {{labDetails.workingHours.thursday.opens}} - {{labDetails.workingHours.thursday.closes}}</td>
-              <td class="text-center radnoVreme {{isItOpen status 5}}"> {{labDetails.workingHours.friday.opens}} - {{labDetails.workingHours.friday.closes}}</td>
-              <td class="text-center radnoVreme {{isItOpen status 6}}">{{labDetails.workingHours.saturday.opens}} - {{labDetails.workingHours.saturday.closes}}</td>
+              <td class="text-center {{isItOpen status 5}}"> {{labDetails.workingHours.friday.opens}} - {{labDetails.workingHours.friday.closes}}</td>
+              <td class="text-center {{isItOpen status 6}}">{{labDetails.workingHours.saturday.opens}} - {{labDetails.workingHours.saturday.closes}}</td>
               <td class="text-center {{isItOpen status 0}}">{{labDetails.workingHours.sunday.opens}} - {{labDetails.workingHours.sunday.closes}}</td>
             </tr>
           </tbody>

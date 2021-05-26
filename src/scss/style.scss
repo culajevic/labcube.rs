@@ -493,16 +493,19 @@ position: absolute;
 .workingHoursLabDetails > tbody > tr > td.open {
     background-color: $button-green;
     color:white;
+    border-radius: 20px;
 }
 
 .workingHoursLabDetails > tbody > tr > td.closed {
     background-color: $danger;
     color:white;
+    border-radius: 20px;
 }
 
 .workingHoursLabDetails > tbody > tr > td.closingSoon {
     background-color: $orange;
     color:white;
+    border-radius: 20px;
 }
 
 // .closingSoon {
@@ -1134,26 +1137,31 @@ small {
 
 input[type="range"] {
   margin-right: 8px;
+  border-radius: 8px;
   // margin-bottom: 16px; only on xs and sm
 }
 
 progress {
-    background-color:#0088EC;
-      // background-color: rgba(0, 136, 236, .2);
+    // background-color:#0088EC;
+      background-color: rgba(0, 136, 236, .2);
     vertical-align: baseline;
     height: 0.6rem;
     margin-top: 8px;
     margin-left: 10px;
+  border-radius: 8px;
 }
 
 progress::-webkit-progress-value {
-  background: lightblue;
+  background-color: rgb(0, 136, 236);
+  border-radius: 8px;
 }
 
 progress[value]::-webkit-progress-bar {
   // background-color: white;
-  background-color: rgba(0, 136, 236, .2);
+
+  background: #C8E3F7;
   // border-radius: 2px;
+  border-radius: 8px;
   // background-color:#0088EC;
 }
 
@@ -1206,6 +1214,21 @@ progress[value]::-webkit-progress-bar {
 
 .valueNotOk {
   color:$danger;
+}
+
+.table td, .table th {
+  border:none;
+
+}
+
+.dayWeek {
+  background-color: #fafafa;
+  border-radius: 20px;
+}
+
+table.workingHoursLabDetails {
+  border-collapse: separate;
+  border-spacing: 15px 15px;
 }
 
 .myResultsComment {
