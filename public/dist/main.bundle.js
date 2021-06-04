@@ -21844,11 +21844,10 @@ window.onload = function () {
 
 
     var municipality = document.getElementById('municipality');
+    var municipalityValue = JSON.parse(localStorage.getItem('municipality'));
 
-    var _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
-
-    if (_municipalityValue != null) {
-      municipality.value = _municipalityValue;
+    if (municipalityValue != null) {
+      municipality.value = municipalityValue;
     } //display best price
 
 
@@ -21862,10 +21861,10 @@ window.onload = function () {
       if (document.getElementById('municipality') != null) {
         var _municipality = document.getElementById('municipality');
 
-        _municipalityValue = _municipality.options[_municipality.selectedIndex].value;
-        localStorage.setItem('municipality', JSON.stringify(_municipalityValue));
+        municipalityValue = _municipality.options[_municipality.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(municipalityValue));
       } else {
-        _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+        municipalityValue = JSON.parse(localStorage.getItem('municipality'));
       } // municipality.value = municipalityValue
 
 
@@ -21937,9 +21936,9 @@ window.onload = function () {
 
     var _municipality2 = document.getElementById('municipality');
 
-    var _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
 
-    _municipality2.value = _municipalityValue2;
+    _municipality2.value = _municipalityValue;
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
@@ -22107,10 +22106,10 @@ window.onload = function () {
 
     var _municipality3 = document.getElementById('municipality');
 
-    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
 
-    if (_municipalityValue3 != null) {
-      _municipality3.value = _municipalityValue3;
+    if (_municipalityValue2 != null) {
+      _municipality3.value = _municipalityValue2;
     } //display best price
 
 
@@ -22124,10 +22123,10 @@ window.onload = function () {
       if (document.getElementById('municipality') != null) {
         var _municipality4 = document.getElementById('municipality');
 
-        _municipalityValue3 = _municipality4.options[_municipality4.selectedIndex].value;
-        localStorage.setItem('municipality', JSON.stringify(_municipalityValue3));
+        _municipalityValue2 = _municipality4.options[_municipality4.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue2));
       } else {
-        _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+        _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
       }
 
       window.location = '/nadjiLab';
@@ -22175,10 +22174,10 @@ window.onload = function () {
 
     var _municipality5 = document.getElementById('municipality');
 
-    var _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
 
-    if (_municipalityValue4 != null) {
-      _municipality5.value = _municipalityValue4;
+    if (_municipalityValue3 != null) {
+      _municipality5.value = _municipalityValue3;
     }
 
     var _priceList3 = document.getElementById('priceList');
@@ -22213,10 +22212,10 @@ window.onload = function () {
       if (document.getElementById('municipality') != null) {
         var _municipality6 = document.getElementById('municipality');
 
-        _municipalityValue4 = _municipality6.options[_municipality6.selectedIndex].value;
-        localStorage.setItem('municipality', JSON.stringify(_municipalityValue4));
+        _municipalityValue3 = _municipality6.options[_municipality6.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue3));
       } else {
-        _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
+        _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
       }
 
       window.location = '/nadjiLab';
@@ -22234,12 +22233,12 @@ window.onload = function () {
       e.preventDefault();
 
       if (document.getElementById('municipality') != null) {
-        var _municipality7 = document.getElementById('municipality');
+        var _municipality8 = document.getElementById('municipality');
 
-        municipalityValue = _municipality7.options[_municipality7.selectedIndex].value;
-        localStorage.setItem('municipality', JSON.stringify(municipalityValue));
+        _municipalityValue4 = _municipality8.options[_municipality8.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue4));
       } else {
-        municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+        _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
       }
 
       window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
@@ -22259,10 +22258,18 @@ window.onload = function () {
     }); // let municipality = document.getElementById('municipality')
     // let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
     // municipality.value = municipalityValue
-    // helper.removeAnalysis(itemsArray, checkout)
+
+    var _municipality7 = document.getElementById('municipality');
+
+    var _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
+
+    if (_municipalityValue4 != null) {
+      _municipality7.value = _municipalityValue4;
+    } // helper.removeAnalysis(itemsArray, checkout)
     // let resultDiv = document.getElementById('resultTable')
     // const municipality = document.getElementById('municipality')
     // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
+
 
     var _loaderWrapper3 = document.querySelector('.loader-wrapper'); // let backToMap = document.getElementById('backtoMap')
 
@@ -22710,12 +22717,12 @@ window.onload = function () {
       offset: 30
     }); //remember municipalityValue
 
-    var _municipality8 = document.getElementById('municipality');
+    var _municipality9 = document.getElementById('municipality');
 
     var _municipalityValue5 = JSON.parse(localStorage.getItem('municipality'));
 
     if (_municipalityValue5 != null) {
-      _municipality8.value = _municipalityValue5;
+      _municipality9.value = _municipalityValue5;
     }
 
     var _priceList5 = document.getElementById('priceList');
@@ -22748,9 +22755,9 @@ window.onload = function () {
       e.preventDefault();
 
       if (document.getElementById('municipality') != null) {
-        var _municipality9 = document.getElementById('municipality');
+        var _municipality10 = document.getElementById('municipality');
 
-        _municipalityValue5 = _municipality9.options[_municipality9.selectedIndex].value;
+        _municipalityValue5 = _municipality10.options[_municipality10.selectedIndex].value;
         localStorage.setItem('municipality', JSON.stringify(_municipalityValue5));
       } else {
         _municipalityValue5 = JSON.parse(localStorage.getItem('municipality'));
@@ -22843,7 +22850,7 @@ window.onload = function () {
 
     var city = document.getElementById('city'); // let minicipality = document.getElementById('municipality')
 
-    var _municipality10 = document.getElementById('municipality');
+    var _municipality11 = document.getElementById('municipality');
 
     var postalCode = document.getElementById('postalCode');
     searchPlaces.addEventListener('input', function (e) {
@@ -22874,7 +22881,7 @@ window.onload = function () {
                 e.preventDefault();
                 searchPlaces.value = e.srcElement.attributes.href.textContent;
                 city.value = e.target.innerText;
-                _municipality10.value = e.srcElement.getAttribute('data-municipality');
+                _municipality11.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
                 _resultDiv4.innerHTML = '';
               });
@@ -22885,7 +22892,7 @@ window.onload = function () {
         console.log('enter at least 3 letters');
         _resultDiv4.innerHTML = '';
         city.value = '';
-        _municipality10.value = '';
+        _municipality11.value = '';
         postalCode.value = '';
       }
     }); // add new phone field icon

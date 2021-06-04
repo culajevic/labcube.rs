@@ -680,6 +680,12 @@ test.addEventListener('click', e => {
 // let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
 // municipality.value = municipalityValue
 
+let municipality = document.getElementById('municipality')
+let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+if (municipalityValue != null) {
+  municipality.value = municipalityValue
+}
+
 // helper.removeAnalysis(itemsArray, checkout)
 
   // let resultDiv = document.getElementById('resultTable')
