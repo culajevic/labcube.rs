@@ -508,6 +508,14 @@ position: absolute;
     border-radius: 20px;
 }
 
+p.selectedAnalysisTitle {
+  background-color: #F3F7FB;
+  padding: 12px 15px;
+  text-transform: uppercase;
+  color: #042A37;
+  font-size: px-to-rem(20px);
+}
+
 // .closingSoon {
 //   background-color: $orange;
 // }
@@ -521,14 +529,25 @@ position: absolute;
 
 .aboutUs {
   display: block;
-  background-color: $labDetailsTitleBckg;
-  padding: px-to-rem(10px) px-to-rem(16px);
-  font-size: px-to-rem(20px);
+  // background-color: $labDetailsTitleBckg;
+  padding: px-to-rem(18px) px-to-rem(16px);
+  font-size: px-to-rem(16px);
+  width:50%;
   font-weight: 500;
   color:$labDetailsTitle;
   overflow: hidden;
   position: relative;
-  text-transform: uppercase;
+  border:2px solid darken($tableHover,10%);
+  margin: 0 auto;
+  // text-transform: uppercase;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
+
+.aboutUsDiscount {
+  @extend .aboutUs;
+  border: 2px solid $button-green;
+  background-color: lighten($button-green, 38%);
 }
 
 .remove {
@@ -540,10 +559,10 @@ position: absolute;
 
 .totalPrice {
   float:right;
-  background-color: $primary-color;
-  padding: 10px 16px;
-  color:$white-color;
-  font-size: 20px;
+  // background-color: rgba(29, 136, 229, .8);
+  padding: px-to-rem(18px) px-to-rem(16px);
+  color:$fontColorResultsTable;
+  font-size: px-to-rem(18px);
   font-weight: bold;
   position: absolute;
   right: 0;
@@ -553,7 +572,7 @@ position: absolute;
 
 .labCubePrice {
   @extend .totalPrice;
-  background-color: $button-green;
+  // background-color: #00D545;
   text-decoration: none;
 }
 

@@ -119,7 +119,7 @@
           <div class="row mb-2">
             <div class="col-12">
               {{#if numofanalysis}}
-              <p>odabrane analize</p>
+              <p class="selectedAnalysisTitle">odabrane analize</p>
               <table class="table results table-hover">
        					<tbody id="resultTable">
                   {{#each selectedAnalysis}}
@@ -141,9 +141,10 @@
                 </tbody>
        				</table><!-- table -->
               <div class="mt-1">
-                <p class="aboutUs"><span class="numAnalysis">Broj odabranih analiza ({{numofanalysis}})</span> <span class="totalPrice" ></span></p>
-                <p class="aboutUs" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Cena za lab cube korisnike</span> <span class="labCubePrice" id="labCubePrice"></span></p>
-                <small><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
+
+                <p class="aboutUs"><span class="numAnalysis">Redovna cena </span> <span class="totalPrice" ></span></p>
+                <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
+                <!-- <small class=""><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small> -->
               </div>
             </div><!-- col 12 end -->
             {{/if}}

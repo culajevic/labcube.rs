@@ -176,6 +176,7 @@ exports.displayBasket = (itemsArray) => {
       analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
       analysisLink.setAttribute('target', '_blank')
       analysisLink.className = 'nolink analysisBasketLiItem'
+      analysisLink.setAttribute('data-analysisid', analysis.id)
       // analysisLink.setAttribute('target', '_blank')
     analysisLink.appendChild(analysisName)
     //creating span element for remove icon
@@ -206,15 +207,20 @@ exports.removeAnalysis = (itemsArray, checkout) => {
 
         let selectedAnalysisBasket = e.target.parentNode.parentNode
         let indexOfAnalysisName = selectedAnalysisBasket.innerText
+
         let localStorageItems = JSON.parse(localStorage.getItem('items'))
         let nameIndex = localStorageItems.findIndex((item) => {
             return item.name === indexOfAnalysisName
           })
+
         localStorageItems.splice(nameIndex,1)
         items = JSON.stringify(localStorageItems)
-        selectedAnalysisBasket.remove()
+
         //remove element from itemsarray
-        let removedValue = itemsArray.splice(nameIndex,1)
+
+        let removedValue
+        removedValue = itemsArray.splice(nameIndex,1)
+        selectedAnalysisBasket.remove()
         localStorage.setItem('items', items)
 
         let basketTitle = document.createTextNode(` (${itemsArray.length}) `)

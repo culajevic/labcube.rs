@@ -8753,21 +8753,35 @@ ul ol ul {
   color: white;
   border-radius: 20px; }
 
+p.selectedAnalysisTitle {
+  background-color: #F3F7FB;
+  padding: 12px 15px;
+  text-transform: uppercase;
+  color: #042A37;
+  font-size: 1.25rem; }
+
 #mapDetails, #mapPrices {
   padding: 0;
   margin: 0;
   height: calc(100vh - 210px); }
 
-.aboutUs {
+.aboutUs, .aboutUsDiscount {
   display: block;
-  background-color: #F3F7FB;
-  padding: 0.625rem 1rem;
-  font-size: 1.25rem;
+  padding: 1.125rem 1rem;
+  font-size: 1rem;
+  width: 50%;
   font-weight: 500;
   color: #042A37;
   overflow: hidden;
   position: relative;
-  text-transform: uppercase; }
+  border: 2px solid #e1e1e1;
+  margin: 0 auto;
+  border-radius: 20px;
+  margin-bottom: 1rem; }
+
+.aboutUsDiscount {
+  border: 2px solid #55D159;
+  background-color: #eefaee; }
 
 .remove:hover {
   opacity: .7;
@@ -8775,10 +8789,9 @@ ul ol ul {
 
 .totalPrice, .labCubePrice {
   float: right;
-  background-color: #1D88E5;
-  padding: 10px 16px;
-  color: #FFF;
-  font-size: 20px;
+  padding: 1.125rem 1rem;
+  color: #3B3B3B;
+  font-size: 1.125rem;
   font-weight: bold;
   position: absolute;
   right: 0;
@@ -8786,7 +8799,6 @@ ul ol ul {
   text-decoration: line-through; }
 
 .labCubePrice {
-  background-color: #55D159;
   text-decoration: none; }
 
 #resultsLabDetails .labDetailsActionBtn {
@@ -9245,7 +9257,7 @@ small a:hover {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #F3F7FB;
+  background-color: #F5F8FB;
   margin-bottom: 60px; }
 
 .hcpImage {

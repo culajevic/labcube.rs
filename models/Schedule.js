@@ -34,6 +34,7 @@ const scheduleSchema = new mongoose.Schema({
   },
   uzimanjeUzorka:String,
   total:Number,
+  labCubePrice:Number,
   status:String,
   commentLab:String,
   commentCube:String,

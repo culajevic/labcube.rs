@@ -156,6 +156,7 @@ let urlArr = location.split('/')
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 let municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []
+console.log(municipalityStorage)
 //MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
@@ -259,6 +260,15 @@ let closePriceList = document.getElementById('closePriceList')
     priceList.removeAttribute('style')
   })
 
+  // let municipality = document.getElementById('municipality')
+  // localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+  // let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+  // if (municipalityValue != null) {
+  //   municipality.value = municipalityValue
+  //   console.log('upisana opstina')
+  // }
+  // let municipalityValue
+  //remember municipalityValue
   let municipality = document.getElementById('municipality')
   let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
   if (municipalityValue != null) {
@@ -275,7 +285,18 @@ let closePriceList = document.getElementById('closePriceList')
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+    if(document.getElementById('municipality')!= null) {
+      let municipality = document.getElementById('municipality')
+      municipalityValue = municipality.options[municipality.selectedIndex].value
+      localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+    } else {
+      municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    }
+
+    // municipality.value = municipalityValue
     window.location = '/nadjiLab'
+
+
     // helper.bestPrice(mapArea, resultDiv)
   })
 
@@ -292,9 +313,6 @@ let closePriceList = document.getElementById('closePriceList')
   //   priceList.classList.add('hidePriceList')
   // })
 
-
-
-
   ///////test end
 
   //testing display other groups
@@ -302,7 +320,6 @@ let closePriceList = document.getElementById('closePriceList')
 let buttonDisplayOtherAnalyises = document.getElementById('displayOtherGroups')
 // let otherGroupsHidden = document.getElementById('otherGroups')
 let otherGroupsHidden = document.querySelectorAll('.otherGroups')
-
 
 buttonDisplayOtherAnalyises.addEventListener('click', () => {
 if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
@@ -355,7 +372,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
       priceList.removeAttribute('style')
     })
 
-
+    //dodaj odaberi opstinu po defaultu ako nema vrednosti
     let municipality = document.getElementById('municipality')
     let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
     municipality.value = municipalityValue
@@ -383,6 +400,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
     helper.bestPrice(mapArea, resultDiv)
+
   })
 
   //create wrapper for live search icon
@@ -538,6 +556,13 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
+      if(document.getElementById('municipality')!= null) {
+        let municipality = document.getElementById('municipality')
+        municipalityValue = municipality.options[municipality.selectedIndex].value
+        localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+      } else {
+        municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+      }
       window.location = '/nadjiLab'
     })
 
@@ -604,6 +629,13 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
     let mapArea = document.getElementById('mapPrices')
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
+      if(document.getElementById('municipality')!= null) {
+        let municipality = document.getElementById('municipality')
+        municipalityValue = municipality.options[municipality.selectedIndex].value
+        localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+      } else {
+        municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+      }
       window.location = '/nadjiLab'
     })
 
@@ -614,9 +646,18 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
 
+
+
   let showPriceBtn = document.querySelector('.showPrice')
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+    if(document.getElementById('municipality')!= null) {
+      let municipality = document.getElementById('municipality')
+      municipalityValue = municipality.options[municipality.selectedIndex].value
+      localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+    } else {
+      municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    }
     window.location = '/nadjiLab'
     // helper.bestPrice(mapArea, resultDiv)
   })
@@ -635,11 +676,11 @@ test.addEventListener('click', e => {
     })
   }
 })
-let municipality = document.getElementById('municipality')
-let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
-municipality.value = municipalityValue
+// let municipality = document.getElementById('municipality')
+// let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+// municipality.value = municipalityValue
 
-helper.removeAnalysis(itemsArray, checkout)
+// helper.removeAnalysis(itemsArray, checkout)
 
   // let resultDiv = document.getElementById('resultTable')
   // const municipality = document.getElementById('municipality')
@@ -699,6 +740,7 @@ helper.removeAnalysis(itemsArray, checkout)
   let resultDiv = document.getElementById('resultTableAnalysis')
   let resultTable = document.getElementById('resultTable')
   let numOfAnalysis = document.querySelector('.numAnalysis')
+  let numOfAnalysisBasketTitle = document.getElementById('numOfAnalysis')
   let checkout = document.querySelector('.checkout')
   let filterValue = 'analiza'
   let schedule = []
@@ -733,15 +775,11 @@ helper.removeAnalysis(itemsArray, checkout)
     // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
     labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
 
-    totalLabCubePrice.innerText = `${labCubePrice} din.`
+    totalLabCubePrice.innerText = `${labCubePrice} RSD`
     const labIdName = document.getElementById('labName')
     labId = labIdName.getAttribute('data-id')
 
-    schedule.push({"total":totalPrice})
-    schedule.push({"analysis":itemsArray})
-    schedule.push({"labId":labId})
-    schedule.push({"date":''})
-    scheduleString = JSON.stringify(schedule)
+
     // console.log('1' + scheduleString)
 
 
@@ -749,129 +787,130 @@ helper.removeAnalysis(itemsArray, checkout)
 
       helper.searchLabAnalysis(searchString,analysisRadio)
 
-    searchString.addEventListener('input', (e) => {
-      if(searchString.value.length>=3 && filterValue == 'analiza' ) {
-        let searchString = e.target.value
-        fetch('/analysis/prices/'+searchString)
+    // searchString.addEventListener('input', (e) => {
+    //   if(searchString.value.length>=3 && filterValue == 'analiza' ) {
+    //     let searchString = e.target.value
+    //     fetch('/analysis/prices/'+searchString)
+    //
+    //     //search for analysis or lab
+    //
+    //     // fetch('/search/analysis/'+searchString+'/'+labName)
+    //       .then(data => data.json())
+    //       .then(result => {
+    //         console.log(result)
+    //         resultDiv.innerHTML = ''
+    //
+    //         let icon = []
+    //         let alreadySelectedArray = []
+    //
+    //
+    //         for(i=0; i<result.length; i++) {
+    //
+    //
+    //           let alreadySelected = itemsArray.findIndex(item => {
+    //             return item.id == result[i].idAnalysis
+    //           })
+    //
+    //           alreadySelectedArray.push(alreadySelected)
+    //
+    //           let availableHC = result[i].availableHC
+    //           icon.push(...availableHC)
+    //
+    //           if(alreadySelectedArray[i] == -1) {
+    //             //ispis alt i abbr sa razmakom posle zareza
+    //               // <td>${altArr[0][0].join(', ')}</td>
+    //             let abbrArr = []
+    //             let altArr = []
+    //             abbrArr.push(result[i].abbr)
+    //             altArr.push(result[i].alt)
+    //             let results = `
+    //               <tr>
+    //                 <td><img src="/images/detail.svg" data-toggle="tooltip" title="${result[i].preview}" class="tooltipImg mr-2">
+    //                 <a href="../results/analysis/${result[i].slug}" class="nolink">${result[i].name}</a></td>
+    //                 <td>${abbrArr[0][0].join(', ')}</td>
+    //                 <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
+    //                 <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
+    //                 <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[0].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
+    //               </tr>
+    //             `
+    //               resultDiv.innerHTML += results
+    //           }
+    //
+    //         }
+    //       })// data json end
+    //
+    //     }
+    //   else {
+    //     console.log('unesite vise od 2 karaktera')
+    //     resultDiv.innerHTML = ''
+    //   }
+    // })
 
-        //search for analysis or lab
 
-        // fetch('/search/analysis/'+searchString+'/'+labName)
-          .then(data => data.json())
-          .then(result => {
-            console.log(result)
-            resultDiv.innerHTML = ''
-
-            let icon = []
-            let alreadySelectedArray = []
-
-
-            for(i=0; i<result.length; i++) {
-
-
-              let alreadySelected = itemsArray.findIndex(item => {
-                return item.id == result[i].idAnalysis
-              })
-
-              alreadySelectedArray.push(alreadySelected)
-
-              let availableHC = result[i].availableHC
-              icon.push(...availableHC)
-
-              if(alreadySelectedArray[i] == -1) {
-                //ispis alt i abbr sa razmakom posle zareza
-                  // <td>${altArr[0][0].join(', ')}</td>
-                let abbrArr = []
-                let altArr = []
-                abbrArr.push(result[i].abbr)
-                altArr.push(result[i].alt)
-                let results = `
-                  <tr>
-                    <td><img src="/images/detail.svg" data-toggle="tooltip" title="${result[i].preview}" class="tooltipImg mr-2">
-                    <a href="../results/analysis/${result[i].slug}" class="nolink">${result[i].name}</a></td>
-                    <td>${abbrArr[0][0].join(', ')}</td>
-                    <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
-                    <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
-                    <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[0].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
-                  </tr>
-                `
-                  resultDiv.innerHTML += results
-              }
-
-            }
-          })// data json end
-
-        }
-      else {
-        console.log('unesite vise od 2 karaktera')
-        resultDiv.innerHTML = ''
-      }
-    })
-
-
-    let addAnalysisBtn = document.getElementById('resultTableAnalysis')
-      addAnalysisBtn.addEventListener('click', e => {
-        if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
-          e.target.innerHTML = '&#10004;'
-          e.target.disabled = true
-          totalPrice  += parseInt(e.target.getAttribute('data-price'))
-          totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
-          labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
-          totalLabCubePrice.innerText = `${labCubePrice} din.`
-          resultSection.classList.remove('d-none')
-          checkout.classList.remove('d-none')
-          itemsArray.push({
-            'name':e.target.getAttribute('data-analysisName'),
-            'id':e.target.getAttribute('data-analysisid'),
-            'logo':e.target.getAttribute('data-iconPath')
-           })
-
-           let abbrArr = e.target.getAttribute('data-abbr')
-           let altArr = e.target.getAttribute('data-alt')
-           abbrArr = abbrArr.split(',')
-           altArr = altArr.split(',')
-
-           schedule[0].total=totalPrice
-           schedule[1].analysis = itemsArray
-           schedule[2].labId = labId
-           scheduleString = JSON.stringify(schedule)
-
-           numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
-           checkout.textContent = itemsArray.length
-           itemsArray.sort((a,b) => {
-             if (a.name > b.name) {
-               return 1
-             } else {
-               return -1
-             }
-           })
-           localStorage.setItem('items', JSON.stringify(itemsArray))
-           //  <td>${altArr.join(', ')}</td>
-           let additionalResult = `
-               <tr>
-                 <td><img src="/images/detail.svg" data-toggle="tooltip" title="" class="tooltipImg mr-2">
-                 <a href="../results/analysis/${e.target.getAttribute('data-analysisName')}" class="nolink">${e.target.getAttribute('data-analysisName')}</a></td>
-                 <td>${abbrArr.join(', ')}</td>
-
-                 <td><img src="${e.target.getAttribute('data-icon')}"></td>
-                 <td><span class="font-weight-bold price">${e.target.getAttribute('data-price')}</span></td>
-                 <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="${e.target.getAttribute('data-analysisid')}" data-groupImg="" data-analysisName="" >X</button></td>
-               </tr>
-           `
-           resultTable.innerHTML += additionalResult
-        }
-      })
+    // let addAnalysisBtn = document.getElementById('resultTableAnalysis')
+    //   addAnalysisBtn.addEventListener('click', e => {
+    //     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
+    //       e.target.innerHTML = '&#10004;'
+    //       e.target.disabled = true
+    //       totalPrice  += parseInt(e.target.getAttribute('data-price'))
+    //       totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD`
+    //       labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+    //       totalLabCubePrice.innerText = `${labCubePrice} din.`
+    //       resultSection.classList.remove('d-none')
+    //       checkout.classList.remove('d-none')
+    //       itemsArray.push({
+    //         'name':e.target.getAttribute('data-analysisName'),
+    //         'id':e.target.getAttribute('data-analysisid'),
+    //         'logo':e.target.getAttribute('data-iconPath')
+    //        })
+    //
+    //        let abbrArr = e.target.getAttribute('data-abbr')
+    //        let altArr = e.target.getAttribute('data-alt')
+    //        abbrArr = abbrArr.split(',')
+    //        altArr = altArr.split(',')
+    //
+    //        schedule[0].total=totalPrice
+    //        schedule[1].analysis = itemsArray
+    //        schedule[2].labId = labId
+    //        scheduleString = JSON.stringify(schedule)
+    //
+    //        numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
+    //        checkout.textContent = itemsArray.length
+    //        itemsArray.sort((a,b) => {
+    //          if (a.name > b.name) {
+    //            return 1
+    //          } else {
+    //            return -1
+    //          }
+    //        })
+    //        localStorage.setItem('items', JSON.stringify(itemsArray))
+    //        //  <td>${altArr.join(', ')}</td>
+    //        let additionalResult = `
+    //            <tr>
+    //              <td><img src="/images/detail.svg" data-toggle="tooltip" title="" class="tooltipImg mr-2">
+    //              <a href="../results/analysis/${e.target.getAttribute('data-analysisName')}" class="nolink">${e.target.getAttribute('data-analysisName')}</a></td>
+    //              <td>${abbrArr.join(', ')}</td>
+    //
+    //              <td><img src="${e.target.getAttribute('data-icon')}"></td>
+    //              <td><span class="font-weight-bold price">${e.target.getAttribute('data-price')}</span></td>
+    //              <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="${e.target.getAttribute('data-analysisid')}" data-groupImg="" data-analysisName="" >X</button></td>
+    //            </tr>
+    //        `
+    //        resultTable.innerHTML += additionalResult
+    //     }
+    //   })
 
     ///////////////////////////
     if(itemsArray.length == 0) {
       resultSection.classList.add('d-none')
       checkout.classList.add('d-none')
     } else {
-      totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+      totalPriceSpan.innerText = `${totalPrice} RSD ovde`
 
-      //remove analysis from basket
+      //remove analysis from basket from lab page
       let removeAnalysisLabPage = document.getElementById('resultTable')
         removeAnalysisLabPage.addEventListener('click', e => {
+
             if(e.target.classList.contains('removeAnalysis')) {
             resultDiv.innerHTML = ''
             searchString.value = ''
@@ -880,9 +919,9 @@ helper.removeAnalysis(itemsArray, checkout)
             prices = document.querySelector('.price')
             //update total price by substracting from total
             totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText)
-            totalPriceSpan.innerText = `Ukupno: ${totalPrice} din.`
+            totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD dva`
             labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
-            totalLabCubePrice.innerText = `${labCubePrice} din.`
+            totalLabCubePrice.innerText = `${labCubePrice}  RSD tri`
             let nameIndex = itemsArray.findIndex((item) => {
                 return item.id === toBeDeleted
               })
@@ -892,27 +931,79 @@ helper.removeAnalysis(itemsArray, checkout)
 
             schedule[0].total=totalPrice
             schedule[1].analysis = itemsArray
-            schedule[2].labId = labId
+            schedule[2].labCubePrice = labCubePrice
+            schedule[3].labId = labId
 
             // console.log('2' + scheduleString)
+            //remove analysis from basket as well
+            // let analysisList = document.getElementById('selectedAnalysis')
+            let liItems = document.querySelectorAll(`#selectedAnalysis [data-analysisid]`)
+            liItems.forEach(item => {
+              if(item.getAttribute('data-analysisid') == toBeDeleted)
+                item.parentNode.remove()
+                numOfAnalysisBasketTitle.innerHTML=''
+                numOfAnalysisBasketTitle.textContent = ` (${itemsArray.length})`
+              })
+
+
+
+
+            // let analysisToBeDeleted = document.querySelector('analysisBasketLiItem' > )
+            // console.log(analysisBasket)
+
+
+
 
             let numAnalysis = document.querySelector('.numAnalysis')
-            numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
+            // numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
             checkout.textContent = itemsArray.length
+            let priceList = document.getElementById('priceList')
             if(itemsArray.length == 0) {
               resultSection.classList.add('d-none')
-              checkout.classList.add('d-none')
+              priceList.classList.remove('unhidePriceList')
+              priceList.classList.add('hidePriceList')
+              checkout.textContent = '0'
             }
           }
         })
+
+        //delete analysis from table when analysis is deleted from basket
+        let analysisList = document.getElementById('selectedAnalysis')
+        let newPrice
+          analysisList.addEventListener('click', (e) => {
+            let resultTableLiItems = document.querySelectorAll(`#resultTable > tr > td [data-analysisid]`)
+          resultTableLiItems.forEach( item  => {
+              if (e.target.parentNode.previousSibling.getAttribute('data-analysisid') == item.getAttribute('data-analysisid')) {
+                totalPrice = totalPrice - (item.parentNode.previousElementSibling.firstChild.getAttribute('data-price'))
+                totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD obrisano iz basketa`
+                labCubePrice= Math.ceil(totalPrice*((100-discountValue)/100))
+                totalLabCubePrice.innerText = `${labCubePrice}  RSD`
+                schedule[0].total=totalPrice
+                schedule[2].labCubePrice=labCubePrice
+                console.log(schedule)
+                item.parentNode.parentNode.remove()
+              }
+                // console.log(totalPrice)
+                // totalLabCubePrice.innerText = `${labCubePrice} RSD`
+              })
+          })
       }
+
+        helper.removeAnalysis(itemsArray, checkout)
+
+        schedule.push({"total":totalPrice})
+        schedule.push({"analysis":itemsArray})
+        schedule.push({"labCubePrice":labCubePrice})
+        schedule.push({"labId":labId})
+        schedule.push({"date":''})
+        scheduleString = JSON.stringify(schedule)
 
 
       let scheduleBtn = document.getElementById('schedule')
 
       scheduleBtn.addEventListener('click', ()=>{
 
-        schedule[3].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+        schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
         scheduleString = JSON.stringify(schedule)
         fetch('/schedule/',{
           method:"post",
@@ -924,10 +1015,9 @@ helper.removeAnalysis(itemsArray, checkout)
         }).then(response => {
           console.log(response)
           window.location.href="/hvala"
+          localStorage.removeItem('items')
         })
-
       })
-
     }
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
@@ -1146,6 +1236,13 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
     let mapArea = document.getElementById('mapPrices')
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
+      if(document.getElementById('municipality')!= null) {
+        let municipality = document.getElementById('municipality')
+        municipalityValue = municipality.options[municipality.selectedIndex].value
+        localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+      } else {
+        municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+      }
       window.location = '/nadjiLab'
     })
 

@@ -21,9 +21,11 @@ exports.scheduleVisit = async (req,res) => {
 
   let analysisArr = []
   let total = req.body[0].total
-  let labId = req.body[2].labId
+  let labId = req.body[3].labId
+  let labCubePrice = req.body[2].labCubePrice
+  console.log(req.body[4].date)
 
-  let uzimanjeUzorka = (req.body[3].date.length>10) ? 'patronaza' : 'laboratorija'
+  let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
 
   let value = 0
   let outsideOfTheRange = false
@@ -72,7 +74,8 @@ exports.scheduleVisit = async (req,res) => {
       status:'Zakazano',
       user:req.user._id,
       lab:labId,
-      scheduledFor:req.body[3].date,
+      scheduledFor:req.body[4].date,
+      labCubePrice:req.body[2].labCubePrice,
       commentLab:comment,
       commentCube:commentCube,
       feedback:feedback,

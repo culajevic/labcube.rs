@@ -20729,7 +20729,8 @@ exports.displayBasket = function (itemsArray) {
     var urlSlug = slug.join('-');
     analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
     analysisLink.setAttribute('target', '_blank');
-    analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
+    analysisLink.className = 'nolink analysisBasketLiItem';
+    analysisLink.setAttribute('data-analysisid', analysis.id); // analysisLink.setAttribute('target', '_blank')
 
     analysisLink.appendChild(analysisName); //creating span element for remove icon
 
@@ -20763,10 +20764,11 @@ exports.removeAnalysis = function (itemsArray, checkout) {
         return item.name === indexOfAnalysisName;
       });
       localStorageItems.splice(nameIndex, 1);
-      items = JSON.stringify(localStorageItems);
-      selectedAnalysisBasket.remove(); //remove element from itemsarray
+      items = JSON.stringify(localStorageItems); //remove element from itemsarray
 
-      var removedValue = itemsArray.splice(nameIndex, 1);
+      var removedValue;
+      removedValue = itemsArray.splice(nameIndex, 1);
+      selectedAnalysisBasket.remove();
       localStorage.setItem('items', items);
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
       var cardHeader = document.getElementById('numOfAnalysis');
@@ -21581,14 +21583,6 @@ exports.createPrice = function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 __webpack_require__(/*! ../scss/style.scss */ "./src/scss/style.scss");
 
 var flatpickr = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/flatpickr.js");
@@ -21739,7 +21733,8 @@ var urlArr = location.split('/');
 if not create an empty array */
 
 var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-var municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []; //MUST CHECK THIS!!!!!!!
+var municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : [];
+console.log(municipalityStorage); //MUST CHECK THIS!!!!!!!
 
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */
@@ -21837,13 +21832,23 @@ window.onload = function () {
       _priceList.classList.remove('unhidePriceList');
 
       _priceList.removeAttribute('style');
-    });
+    }); // let municipality = document.getElementById('municipality')
+    // localStorage.setItem('municipality', JSON.stringify(municipalityValue))
+    // let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    // if (municipalityValue != null) {
+    //   municipality.value = municipalityValue
+    //   console.log('upisana opstina')
+    // }
+    // let municipalityValue
+    //remember municipalityValue
+
 
     var municipality = document.getElementById('municipality');
-    var municipalityValue = JSON.parse(localStorage.getItem('municipality'));
 
-    if (municipalityValue != null) {
-      municipality.value = municipalityValue;
+    var _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+
+    if (_municipalityValue != null) {
+      municipality.value = _municipalityValue;
     } //display best price
 
 
@@ -21853,6 +21858,17 @@ window.onload = function () {
     var mapArea = document.getElementById('mapPrices');
     showPriceBtn.addEventListener('click', function (e) {
       e.preventDefault();
+
+      if (document.getElementById('municipality') != null) {
+        var _municipality = document.getElementById('municipality');
+
+        _municipalityValue = _municipality.options[_municipality.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue));
+      } else {
+        _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+      } // municipality.value = municipalityValue
+
+
       window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
     });
     helper.displayBasket(itemsArray);
@@ -21916,13 +21932,14 @@ window.onload = function () {
       _priceList2.classList.remove('unhidePriceList');
 
       _priceList2.removeAttribute('style');
-    });
+    }); //dodaj odaberi opstinu po defaultu ako nema vrednosti
 
-    var _municipality = document.getElementById('municipality');
 
-    var _municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+    var _municipality2 = document.getElementById('municipality');
 
-    _municipality.value = _municipalityValue;
+    var _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
+
+    _municipality2.value = _municipalityValue2;
     var activeBtns = document.querySelectorAll('.addAnalysis');
     activeBtns.forEach(function (analysis) {
       var analysisPositionArr = itemsArray.findIndex(function (item) {
@@ -22088,12 +22105,12 @@ window.onload = function () {
       priceList.removeAttribute('style');
     });
 
-    var _municipality2 = document.getElementById('municipality');
+    var _municipality3 = document.getElementById('municipality');
 
-    var _municipalityValue2 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
 
-    if (_municipalityValue2 != null) {
-      _municipality2.value = _municipalityValue2;
+    if (_municipalityValue3 != null) {
+      _municipality3.value = _municipalityValue3;
     } //display best price
 
 
@@ -22103,6 +22120,16 @@ window.onload = function () {
 
     _showPriceBtn2.addEventListener('click', function (e) {
       e.preventDefault();
+
+      if (document.getElementById('municipality') != null) {
+        var _municipality4 = document.getElementById('municipality');
+
+        _municipalityValue3 = _municipality4.options[_municipality4.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue3));
+      } else {
+        _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+      }
+
       window.location = '/nadjiLab';
     }); ////////////////// prikaz shoping carte
 
@@ -22146,12 +22173,12 @@ window.onload = function () {
     var _analysisRadioinner = document.querySelectorAll('input[name=searchFilter]'); //remember municipalityValue
 
 
-    var _municipality3 = document.getElementById('municipality');
+    var _municipality5 = document.getElementById('municipality');
 
-    var _municipalityValue3 = JSON.parse(localStorage.getItem('municipality'));
+    var _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
 
-    if (_municipalityValue3 != null) {
-      _municipality3.value = _municipalityValue3;
+    if (_municipalityValue4 != null) {
+      _municipality5.value = _municipalityValue4;
     }
 
     var _priceList3 = document.getElementById('priceList');
@@ -22182,6 +22209,16 @@ window.onload = function () {
 
     _showPriceBtn3.addEventListener('click', function (e) {
       e.preventDefault();
+
+      if (document.getElementById('municipality') != null) {
+        var _municipality6 = document.getElementById('municipality');
+
+        _municipalityValue4 = _municipality6.options[_municipality6.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue4));
+      } else {
+        _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
+      }
+
       window.location = '/nadjiLab';
     }); // search for analysis or lab
 
@@ -22195,6 +22232,16 @@ window.onload = function () {
 
     _showPriceBtn4.addEventListener('click', function (e) {
       e.preventDefault();
+
+      if (document.getElementById('municipality') != null) {
+        var _municipality7 = document.getElementById('municipality');
+
+        municipalityValue = _municipality7.options[_municipality7.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(municipalityValue));
+      } else {
+        municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+      }
+
       window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
     });
 
@@ -22209,14 +22256,11 @@ window.onload = function () {
           priceList.removeAttribute('style');
         });
       }
-    });
-
-    var _municipality4 = document.getElementById('municipality');
-
-    var _municipalityValue4 = JSON.parse(localStorage.getItem('municipality'));
-
-    _municipality4.value = _municipalityValue4;
-    helper.removeAnalysis(_itemsArray, _checkout); // let resultDiv = document.getElementById('resultTable')
+    }); // let municipality = document.getElementById('municipality')
+    // let municipalityValue = JSON.parse(localStorage.getItem('municipality'))
+    // municipality.value = municipalityValue
+    // helper.removeAnalysis(itemsArray, checkout)
+    // let resultDiv = document.getElementById('resultTable')
     // const municipality = document.getElementById('municipality')
     // let municipality =  (document.getElementById('municipality'))? 'da' : JSON.parse(localStorage.getItem('municipality'))
 
@@ -22268,6 +22312,7 @@ window.onload = function () {
 
     var resultTable = document.getElementById('resultTable');
     var numOfAnalysis = document.querySelector('.numAnalysis');
+    var numOfAnalysisBasketTitle = document.getElementById('numOfAnalysis');
 
     var _checkout = document.querySelector('.checkout');
 
@@ -22301,115 +22346,129 @@ window.onload = function () {
     }); // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
 
     labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-    totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
+    totalLabCubePrice.innerText = "".concat(labCubePrice, " RSD");
     var labIdName = document.getElementById('labName');
-    labId = labIdName.getAttribute('data-id');
-    schedule.push({
-      "total": totalPrice
-    });
-    schedule.push({
-      "analysis": _itemsArray
-    });
-    schedule.push({
-      "labId": labId
-    });
-    schedule.push({
-      "date": ''
-    });
-    scheduleString = JSON.stringify(schedule); // console.log('1' + scheduleString)
+    labId = labIdName.getAttribute('data-id'); // console.log('1' + scheduleString)
     //search and add analysis from lab details page
 
-    helper.searchLabAnalysis(searchString, _analysisRadio2);
-    searchString.addEventListener('input', function (e) {
-      if (searchString.value.length >= 3 && filterValue == 'analiza') {
-        var _searchString = e.target.value;
-        fetch('/analysis/prices/' + _searchString) //search for analysis or lab
-        // fetch('/search/analysis/'+searchString+'/'+labName)
-        .then(function (data) {
-          return data.json();
-        }).then(function (result) {
-          console.log(result);
-          _resultDiv3.innerHTML = '';
-          var icon = [];
-          var alreadySelectedArray = [];
-
-          for (i = 0; i < result.length; i++) {
-            var alreadySelected = _itemsArray.findIndex(function (item) {
-              return item.id == result[i].idAnalysis;
-            });
-
-            alreadySelectedArray.push(alreadySelected);
-            var availableHC = result[i].availableHC;
-            icon.push.apply(icon, _toConsumableArray(availableHC));
-
-            if (alreadySelectedArray[i] == -1) {
-              //ispis alt i abbr sa razmakom posle zareza
-              // <td>${altArr[0][0].join(', ')}</td>
-              var abbrArr = [];
-              var altArr = [];
-              abbrArr.push(result[i].abbr);
-              altArr.push(result[i].alt);
-              var results = "\n                  <tr>\n                    <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"".concat(result[i].preview, "\" class=\"tooltipImg mr-2\">\n                    <a href=\"../results/analysis/").concat(result[i].slug, "\" class=\"nolink\">").concat(result[i].name, "</a></td>\n                    <td>").concat(abbrArr[0][0].join(', '), "</td>\n                    <td><img src=").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "></td>\n                    <td><span class=\"font-weight-bold price\">").concat(result[i].cenovnik.cena, "</span></td>\n                    <td><button class=\"btn btn-outline-success float-right btn-block text-uppercase addAnalysis\" data-analysisid=\"").concat(result[i].idAnalysis, "\"  data-analysisName=\"").concat(result[i].name, "\" data-price=").concat(result[i].cenovnik.cena, " data-abbr=\"").concat(result[i].abbr, "\" data-iconPath=\"").concat(result[i].groupID[0].iconPath, "\" data-alt=\"").concat(result[i].alt, "\" data-icon=\"").concat(icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg', "\">dodaj</button></td>\n                  </tr>\n                ");
-              _resultDiv3.innerHTML += results;
-            }
-          }
-        }); // data json end
-      } else {
-        console.log('unesite vise od 2 karaktera');
-        _resultDiv3.innerHTML = '';
-      }
-    });
-    var addAnalysisBtn = document.getElementById('resultTableAnalysis');
-    addAnalysisBtn.addEventListener('click', function (e) {
-      if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
-        e.target.innerHTML = '&#10004;';
-        e.target.disabled = true;
-        totalPrice += parseInt(e.target.getAttribute('data-price'));
-        totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
-        labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-        totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
-        resultSection.classList.remove('d-none');
-
-        _checkout.classList.remove('d-none');
-
-        _itemsArray.push({
-          'name': e.target.getAttribute('data-analysisName'),
-          'id': e.target.getAttribute('data-analysisid'),
-          'logo': e.target.getAttribute('data-iconPath')
-        });
-
-        var abbrArr = e.target.getAttribute('data-abbr');
-        var altArr = e.target.getAttribute('data-alt');
-        abbrArr = abbrArr.split(',');
-        altArr = altArr.split(',');
-        schedule[0].total = totalPrice;
-        schedule[1].analysis = _itemsArray;
-        schedule[2].labId = labId;
-        scheduleString = JSON.stringify(schedule);
-        numOfAnalysis.innerHTML = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
-        _checkout.textContent = _itemsArray.length;
-
-        _itemsArray.sort(function (a, b) {
-          if (a.name > b.name) {
-            return 1;
-          } else {
-            return -1;
-          }
-        });
-
-        localStorage.setItem('items', JSON.stringify(_itemsArray)); //  <td>${altArr.join(', ')}</td>
-
-        var additionalResult = "\n               <tr>\n                 <td><img src=\"/images/detail.svg\" data-toggle=\"tooltip\" title=\"\" class=\"tooltipImg mr-2\">\n                 <a href=\"../results/analysis/".concat(e.target.getAttribute('data-analysisName'), "\" class=\"nolink\">").concat(e.target.getAttribute('data-analysisName'), "</a></td>\n                 <td>").concat(abbrArr.join(', '), "</td>\n\n                 <td><img src=\"").concat(e.target.getAttribute('data-icon'), "\"></td>\n                 <td><span class=\"font-weight-bold price\">").concat(e.target.getAttribute('data-price'), "</span></td>\n                 <td><button class=\"btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis\" data-analysisid=\"").concat(e.target.getAttribute('data-analysisid'), "\" data-groupImg=\"\" data-analysisName=\"\" >X</button></td>\n               </tr>\n           ");
-        resultTable.innerHTML += additionalResult;
-      }
-    }); ///////////////////////////
+    helper.searchLabAnalysis(searchString, _analysisRadio2); // searchString.addEventListener('input', (e) => {
+    //   if(searchString.value.length>=3 && filterValue == 'analiza' ) {
+    //     let searchString = e.target.value
+    //     fetch('/analysis/prices/'+searchString)
+    //
+    //     //search for analysis or lab
+    //
+    //     // fetch('/search/analysis/'+searchString+'/'+labName)
+    //       .then(data => data.json())
+    //       .then(result => {
+    //         console.log(result)
+    //         resultDiv.innerHTML = ''
+    //
+    //         let icon = []
+    //         let alreadySelectedArray = []
+    //
+    //
+    //         for(i=0; i<result.length; i++) {
+    //
+    //
+    //           let alreadySelected = itemsArray.findIndex(item => {
+    //             return item.id == result[i].idAnalysis
+    //           })
+    //
+    //           alreadySelectedArray.push(alreadySelected)
+    //
+    //           let availableHC = result[i].availableHC
+    //           icon.push(...availableHC)
+    //
+    //           if(alreadySelectedArray[i] == -1) {
+    //             //ispis alt i abbr sa razmakom posle zareza
+    //               // <td>${altArr[0][0].join(', ')}</td>
+    //             let abbrArr = []
+    //             let altArr = []
+    //             abbrArr.push(result[i].abbr)
+    //             altArr.push(result[i].alt)
+    //             let results = `
+    //               <tr>
+    //                 <td><img src="/images/detail.svg" data-toggle="tooltip" title="${result[i].preview}" class="tooltipImg mr-2">
+    //                 <a href="../results/analysis/${result[i].slug}" class="nolink">${result[i].name}</a></td>
+    //                 <td>${abbrArr[0][0].join(', ')}</td>
+    //                 <td><img src=${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}></td>
+    //                 <td><span class="font-weight-bold price">${result[i].cenovnik.cena}</span></td>
+    //                 <td><button class="btn btn-outline-success float-right btn-block text-uppercase addAnalysis" data-analysisid="${result[i].idAnalysis}"  data-analysisName="${result[i].name}" data-price=${result[i].cenovnik.cena} data-abbr="${result[i].abbr}" data-iconPath="${result[i].groupID[0].iconPath}" data-alt="${result[i].alt}" data-icon="${icon[i] ? '/images/hospital-alt.svg' : '/images/hospital-alt_off.svg'}">dodaj</button></td>
+    //               </tr>
+    //             `
+    //               resultDiv.innerHTML += results
+    //           }
+    //
+    //         }
+    //       })// data json end
+    //
+    //     }
+    //   else {
+    //     console.log('unesite vise od 2 karaktera')
+    //     resultDiv.innerHTML = ''
+    //   }
+    // })
+    // let addAnalysisBtn = document.getElementById('resultTableAnalysis')
+    //   addAnalysisBtn.addEventListener('click', e => {
+    //     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis')) {
+    //       e.target.innerHTML = '&#10004;'
+    //       e.target.disabled = true
+    //       totalPrice  += parseInt(e.target.getAttribute('data-price'))
+    //       totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD`
+    //       labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+    //       totalLabCubePrice.innerText = `${labCubePrice} din.`
+    //       resultSection.classList.remove('d-none')
+    //       checkout.classList.remove('d-none')
+    //       itemsArray.push({
+    //         'name':e.target.getAttribute('data-analysisName'),
+    //         'id':e.target.getAttribute('data-analysisid'),
+    //         'logo':e.target.getAttribute('data-iconPath')
+    //        })
+    //
+    //        let abbrArr = e.target.getAttribute('data-abbr')
+    //        let altArr = e.target.getAttribute('data-alt')
+    //        abbrArr = abbrArr.split(',')
+    //        altArr = altArr.split(',')
+    //
+    //        schedule[0].total=totalPrice
+    //        schedule[1].analysis = itemsArray
+    //        schedule[2].labId = labId
+    //        scheduleString = JSON.stringify(schedule)
+    //
+    //        numOfAnalysis.innerHTML = `Broj odabranih analiza (${itemsArray.length})`
+    //        checkout.textContent = itemsArray.length
+    //        itemsArray.sort((a,b) => {
+    //          if (a.name > b.name) {
+    //            return 1
+    //          } else {
+    //            return -1
+    //          }
+    //        })
+    //        localStorage.setItem('items', JSON.stringify(itemsArray))
+    //        //  <td>${altArr.join(', ')}</td>
+    //        let additionalResult = `
+    //            <tr>
+    //              <td><img src="/images/detail.svg" data-toggle="tooltip" title="" class="tooltipImg mr-2">
+    //              <a href="../results/analysis/${e.target.getAttribute('data-analysisName')}" class="nolink">${e.target.getAttribute('data-analysisName')}</a></td>
+    //              <td>${abbrArr.join(', ')}</td>
+    //
+    //              <td><img src="${e.target.getAttribute('data-icon')}"></td>
+    //              <td><span class="font-weight-bold price">${e.target.getAttribute('data-price')}</span></td>
+    //              <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="${e.target.getAttribute('data-analysisid')}" data-groupImg="" data-analysisName="" >X</button></td>
+    //            </tr>
+    //        `
+    //        resultTable.innerHTML += additionalResult
+    //     }
+    //   })
+    ///////////////////////////
 
     if (_itemsArray.length == 0) {
       resultSection.classList.add('d-none');
 
       _checkout.classList.add('d-none');
     } else {
-      totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din."); //remove analysis from basket
+      totalPriceSpan.innerText = "".concat(totalPrice, " RSD ovde"); //remove analysis from basket from lab page
 
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
@@ -22421,9 +22480,9 @@ window.onload = function () {
           prices = document.querySelector('.price'); //update total price by substracting from total
 
           totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText);
-          totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " din.");
+          totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " RSD dva");
           labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-          totalLabCubePrice.innerText = "".concat(labCubePrice, " din.");
+          totalLabCubePrice.innerText = "".concat(labCubePrice, "  RSD tri");
 
           var nameIndex = _itemsArray.findIndex(function (item) {
             return item.id === toBeDeleted;
@@ -22435,24 +22494,78 @@ window.onload = function () {
           localStorage.setItem('items', items);
           schedule[0].total = totalPrice;
           schedule[1].analysis = _itemsArray;
-          schedule[2].labId = labId; // console.log('2' + scheduleString)
+          schedule[2].labCubePrice = labCubePrice;
+          schedule[3].labId = labId; // console.log('2' + scheduleString)
+          //remove analysis from basket as well
+          // let analysisList = document.getElementById('selectedAnalysis')
 
-          var numAnalysis = document.querySelector('.numAnalysis');
-          numAnalysis.textContent = "Broj odabranih analiza (".concat(_itemsArray.length, ")");
+          var liItems = document.querySelectorAll("#selectedAnalysis [data-analysisid]");
+          liItems.forEach(function (item) {
+            if (item.getAttribute('data-analysisid') == toBeDeleted) item.parentNode.remove();
+            numOfAnalysisBasketTitle.innerHTML = '';
+            numOfAnalysisBasketTitle.textContent = " (".concat(_itemsArray.length, ")");
+          }); // let analysisToBeDeleted = document.querySelector('analysisBasketLiItem' > )
+          // console.log(analysisBasket)
+
+          var numAnalysis = document.querySelector('.numAnalysis'); // numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
+
           _checkout.textContent = _itemsArray.length;
+
+          var _priceList4 = document.getElementById('priceList');
 
           if (_itemsArray.length == 0) {
             resultSection.classList.add('d-none');
 
-            _checkout.classList.add('d-none');
+            _priceList4.classList.remove('unhidePriceList');
+
+            _priceList4.classList.add('hidePriceList');
+
+            _checkout.textContent = '0';
           }
         }
+      }); //delete analysis from table when analysis is deleted from basket
+
+      var analysisList = document.getElementById('selectedAnalysis');
+      var newPrice;
+      analysisList.addEventListener('click', function (e) {
+        var resultTableLiItems = document.querySelectorAll("#resultTable > tr > td [data-analysisid]");
+        resultTableLiItems.forEach(function (item) {
+          if (e.target.parentNode.previousSibling.getAttribute('data-analysisid') == item.getAttribute('data-analysisid')) {
+            totalPrice = totalPrice - item.parentNode.previousElementSibling.firstChild.getAttribute('data-price');
+            totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " RSD obrisano iz basketa");
+            labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
+            totalLabCubePrice.innerText = "".concat(labCubePrice, "  RSD");
+            schedule[0].total = totalPrice;
+            schedule[2].labCubePrice = labCubePrice;
+            console.log(schedule);
+            item.parentNode.parentNode.remove();
+          } // console.log(totalPrice)
+          // totalLabCubePrice.innerText = `${labCubePrice} RSD`
+
+        });
       });
     }
 
+    helper.removeAnalysis(_itemsArray, _checkout);
+    schedule.push({
+      "total": totalPrice
+    });
+    schedule.push({
+      "analysis": _itemsArray
+    });
+    schedule.push({
+      "labCubePrice": labCubePrice
+    });
+    schedule.push({
+      "labId": labId
+    });
+    schedule.push({
+      "date": ''
+    });
+    scheduleString = JSON.stringify(schedule);
     var scheduleBtn = document.getElementById('schedule');
     scheduleBtn.addEventListener('click', function () {
-      schedule[3].date = dateLab.value != "" ? dateLab.value : datePatronaza.value;
+      schedule[4].date = dateLab.value != "" ? dateLab.value : datePatronaza.value;
       scheduleString = JSON.stringify(schedule);
       fetch('/schedule/', {
         method: "post",
@@ -22464,6 +22577,7 @@ window.onload = function () {
       }).then(function (response) {
         console.log(response);
         window.location.href = "/hvala";
+        localStorage.removeItem('items');
       });
     });
   }
@@ -22596,31 +22710,31 @@ window.onload = function () {
       offset: 30
     }); //remember municipalityValue
 
-    var _municipality5 = document.getElementById('municipality');
+    var _municipality8 = document.getElementById('municipality');
 
     var _municipalityValue5 = JSON.parse(localStorage.getItem('municipality'));
 
     if (_municipalityValue5 != null) {
-      _municipality5.value = _municipalityValue5;
+      _municipality8.value = _municipalityValue5;
     }
 
-    var _priceList4 = document.getElementById('priceList');
+    var _priceList5 = document.getElementById('priceList');
 
     var _closePriceList4 = document.getElementById('closePriceList'); // display and hide price list
 
 
     checkout.addEventListener('click', function () {
-      _priceList4.classList.add('unhidePriceList');
+      _priceList5.classList.add('unhidePriceList');
 
-      _priceList4.classList.remove('hidePriceList');
+      _priceList5.classList.remove('hidePriceList');
     }); //
 
     _closePriceList4.addEventListener('click', function () {
-      _priceList4.classList.add('hidePriceList');
+      _priceList5.classList.add('hidePriceList');
 
-      _priceList4.classList.remove('unhidePriceList');
+      _priceList5.classList.remove('unhidePriceList');
 
-      _priceList4.removeAttribute('style');
+      _priceList5.removeAttribute('style');
     }); //remove analysis
 
 
@@ -22632,6 +22746,16 @@ window.onload = function () {
 
     _showPriceBtn5.addEventListener('click', function (e) {
       e.preventDefault();
+
+      if (document.getElementById('municipality') != null) {
+        var _municipality9 = document.getElementById('municipality');
+
+        _municipalityValue5 = _municipality9.options[_municipality9.selectedIndex].value;
+        localStorage.setItem('municipality', JSON.stringify(_municipalityValue5));
+      } else {
+        _municipalityValue5 = JSON.parse(localStorage.getItem('municipality'));
+      }
+
       window.location = '/nadjiLab';
     }); //take input values from search box and filter reference
 
@@ -22719,7 +22843,7 @@ window.onload = function () {
 
     var city = document.getElementById('city'); // let minicipality = document.getElementById('municipality')
 
-    var _municipality6 = document.getElementById('municipality');
+    var _municipality10 = document.getElementById('municipality');
 
     var postalCode = document.getElementById('postalCode');
     searchPlaces.addEventListener('input', function (e) {
@@ -22750,7 +22874,7 @@ window.onload = function () {
                 e.preventDefault();
                 searchPlaces.value = e.srcElement.attributes.href.textContent;
                 city.value = e.target.innerText;
-                _municipality6.value = e.srcElement.getAttribute('data-municipality');
+                _municipality10.value = e.srcElement.getAttribute('data-municipality');
                 postalCode.value = e.srcElement.getAttribute('data-postalCode');
                 _resultDiv4.innerHTML = '';
               });
@@ -22761,7 +22885,7 @@ window.onload = function () {
         console.log('enter at least 3 letters');
         _resultDiv4.innerHTML = '';
         city.value = '';
-        _municipality6.value = '';
+        _municipality10.value = '';
         postalCode.value = '';
       }
     }); // add new phone field icon
