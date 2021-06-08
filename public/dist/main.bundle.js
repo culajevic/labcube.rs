@@ -20777,6 +20777,12 @@ exports.removeAnalysis = function (itemsArray, checkout) {
 
       if (itemsArray.length == 0) {
         document.querySelector('.card').classList.add('d-none'); // checkout.classList.add('d-none')
+
+        var resultSection = document.getElementById('resultsLabDetails') ? document.getElementById('resultsLabDetails') : '';
+
+        if (resultSection) {
+          resultSection.classList.add('d-none');
+        }
       }
 
       checkout.innerText = itemsArray.length; //enable button for the analysis removed
@@ -21821,9 +21827,11 @@ window.onload = function () {
     var _closePriceList = document.getElementById('closePriceList');
 
     checkout.addEventListener('click', function () {
-      _priceList.classList.add('unhidePriceList');
+      if (itemsArray.length > 0) {
+        _priceList.classList.add('unhidePriceList');
 
-      _priceList.classList.remove('hidePriceList');
+        _priceList.classList.remove('hidePriceList');
+      }
     });
 
     _closePriceList.addEventListener('click', function () {
@@ -21865,10 +21873,13 @@ window.onload = function () {
         localStorage.setItem('municipality', JSON.stringify(municipalityValue));
       } else {
         municipalityValue = JSON.parse(localStorage.getItem('municipality'));
-      } // municipality.value = municipalityValue
+      }
 
+      if (itemsArray.length > 0) {
+        // municipality.value = municipalityValue
+        window.location = '/nadjiLab';
+      } // helper.bestPrice(mapArea, resultDiv)
 
-      window.location = '/nadjiLab'; // helper.bestPrice(mapArea, resultDiv)
     });
     helper.displayBasket(itemsArray);
     helper.removeAnalysis(itemsArray, checkout); //display hidden shoping basket
@@ -21920,9 +21931,11 @@ window.onload = function () {
 
 
     checkout.addEventListener('click', function () {
-      _priceList2.classList.add('unhidePriceList');
+      if (itemsArray.length > 0) {
+        _priceList2.classList.add('unhidePriceList');
 
-      _priceList2.classList.remove('hidePriceList');
+        _priceList2.classList.remove('hidePriceList');
+      }
     }); //
 
     _closePriceList2.addEventListener('click', function () {
@@ -22095,8 +22108,10 @@ window.onload = function () {
     // let priceList = document.getElementById('priceList')
     // let closePriceList = document.getElementById('closePriceList')
     checkout.addEventListener('click', function () {
-      priceList.classList.add('unhidePriceList');
-      priceList.classList.remove('hidePriceList');
+      if (itemsArray.length > 0) {
+        priceList.classList.add('unhidePriceList');
+        priceList.classList.remove('hidePriceList');
+      }
     });
     closePriceList.addEventListener('click', function () {
       priceList.classList.add('hidePriceList');
@@ -22186,9 +22201,11 @@ window.onload = function () {
 
 
     checkout.addEventListener('click', function () {
-      _priceList3.classList.add('unhidePriceList');
+      if (itemsArray.length > 0) {
+        _priceList3.classList.add('unhidePriceList');
 
-      _priceList3.classList.remove('hidePriceList');
+        _priceList3.classList.remove('hidePriceList');
+      }
     }); //
 
     _closePriceList3.addEventListener('click', function () {
@@ -22340,8 +22357,8 @@ window.onload = function () {
     var totalPriceSpan = document.querySelector('.totalPrice'); //calculate labcube price
 
     var totalLabCubePrice = document.getElementById('labCubePrice');
-    var discount = document.getElementById('discount');
-    var discountValue = discount.getAttribute('data-discount');
+    var discount = document.getElementById('discount') ? document.getElementById('discount') : '';
+    var discountValue = discount ? discount.getAttribute('data-discount') : '';
     var labCubePrice = 0;
     var resultSection = document.getElementById('resultsLabDetails'); // let table = document.getElementById('resultTableAnalysis')
 
@@ -22355,8 +22372,7 @@ window.onload = function () {
     labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
     totalLabCubePrice.innerText = "".concat(labCubePrice, " RSD");
     var labIdName = document.getElementById('labName');
-    labId = labIdName.getAttribute('data-id'); // console.log('1' + scheduleString)
-    //search and add analysis from lab details page
+    labId = labIdName.getAttribute('data-id'); //search and add analysis from lab details page
 
     helper.searchLabAnalysis(searchString, _analysisRadio2); // searchString.addEventListener('input', (e) => {
     //   if(searchString.value.length>=3 && filterValue == 'analiza' ) {
@@ -22472,10 +22488,8 @@ window.onload = function () {
 
     if (_itemsArray.length == 0) {
       resultSection.classList.add('d-none');
-
-      _checkout.classList.add('d-none');
     } else {
-      totalPriceSpan.innerText = "".concat(totalPrice, " RSD ovde"); //remove analysis from basket from lab page
+      totalPriceSpan.innerText = "".concat(totalPrice, " RSD"); //remove analysis from basket from lab page
 
       var removeAnalysisLabPage = document.getElementById('resultTable');
       removeAnalysisLabPage.addEventListener('click', function (e) {
@@ -22487,9 +22501,9 @@ window.onload = function () {
           prices = document.querySelector('.price'); //update total price by substracting from total
 
           totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText);
-          totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " RSD dva");
+          totalPriceSpan.innerText = "".concat(totalPrice, " RSD");
           labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-          totalLabCubePrice.innerText = "".concat(labCubePrice, "  RSD tri");
+          totalLabCubePrice.innerText = "".concat(labCubePrice, "  RSD");
 
           var nameIndex = _itemsArray.findIndex(function (item) {
             return item.id === toBeDeleted;
@@ -22539,12 +22553,11 @@ window.onload = function () {
         resultTableLiItems.forEach(function (item) {
           if (e.target.parentNode.previousSibling.getAttribute('data-analysisid') == item.getAttribute('data-analysisid')) {
             totalPrice = totalPrice - item.parentNode.previousElementSibling.firstChild.getAttribute('data-price');
-            totalPriceSpan.innerText = "Ukupno: ".concat(totalPrice, " RSD obrisano iz basketa");
+            totalPriceSpan.innerText = "".concat(totalPrice, " RSD");
             labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
             totalLabCubePrice.innerText = "".concat(labCubePrice, "  RSD");
             schedule[0].total = totalPrice;
             schedule[2].labCubePrice = labCubePrice;
-            console.log(schedule);
             item.parentNode.parentNode.remove();
           } // console.log(totalPrice)
           // totalLabCubePrice.innerText = `${labCubePrice} RSD`

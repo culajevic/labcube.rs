@@ -58,7 +58,7 @@ exports.upload =  (req,res, next) => {
   upload(req, res, (err) => {
     if(err) {
       req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
-      res.redirect('/tumacanje-laboratorijskih-analiza')
+      res.redirect('/tumacenje-laboratorijskih-analiza')
     } else {
       next()
     }

@@ -250,8 +250,10 @@ let priceList = document.getElementById('priceList')
 let closePriceList = document.getElementById('closePriceList')
 
   checkout.addEventListener('click', ()=> {
+    if (itemsArray.length > 0) {
     priceList.classList.add('unhidePriceList')
     priceList.classList.remove('hidePriceList')
+    }
   })
 
   closePriceList.addEventListener('click', () => {
@@ -292,9 +294,10 @@ let closePriceList = document.getElementById('closePriceList')
     } else {
       municipalityValue = JSON.parse(localStorage.getItem('municipality'))
     }
-
+    if (itemsArray.length > 0) {
     // municipality.value = municipalityValue
-    window.location = '/nadjiLab'
+      window.location = '/nadjiLab'
+    }
 
 
     // helper.bestPrice(mapArea, resultDiv)
@@ -362,8 +365,10 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
   let closePriceList = document.getElementById('closePriceList')
   //
     checkout.addEventListener('click', ()=> {
+      if (itemsArray.length > 0 ) {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      }
     })
   //
     closePriceList.addEventListener('click', () => {
@@ -534,8 +539,10 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   // let closePriceList = document.getElementById('closePriceList')
 
     checkout.addEventListener('click', ()=> {
-      priceList.classList.add('unhidePriceList')
-      priceList.classList.remove('hidePriceList')
+      if (itemsArray.length > 0) {
+        priceList.classList.add('unhidePriceList')
+        priceList.classList.remove('hidePriceList')
+      }
     })
 
     closePriceList.addEventListener('click', () => {
@@ -612,8 +619,10 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
   let closePriceList = document.getElementById('closePriceList')
   // display and hide price list
     checkout.addEventListener('click', ()=> {
-      priceList.classList.add('unhidePriceList')
-      priceList.classList.remove('hidePriceList')
+      if (itemsArray.length > 0 ) {
+        priceList.classList.add('unhidePriceList')
+        priceList.classList.remove('hidePriceList')
+      }
     })
   //
     closePriceList.addEventListener('click', () => {
@@ -647,7 +656,6 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
 if(urlArr[1] == 'laboratorija') {
 
 
-
   let showPriceBtn = document.querySelector('.showPrice')
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
@@ -668,6 +676,7 @@ test.addEventListener('click', e => {
 
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+
 
     closePriceList.addEventListener('click', () => {
       priceList.classList.add('hidePriceList')
@@ -766,27 +775,25 @@ if (municipalityValue != null) {
 
 //calculate labcube price
   let totalLabCubePrice = document.getElementById('labCubePrice')
-  let discount = document.getElementById('discount')
-  let discountValue = discount.getAttribute('data-discount')
+  let discount = (document.getElementById('discount')) ? document.getElementById('discount') : ''
+  let discountValue = (discount) ? discount.getAttribute('data-discount') : ''
   let labCubePrice = 0
   let resultSection = document.getElementById('resultsLabDetails')
   // let table = document.getElementById('resultTableAnalysis')
 
-  let itemsArray = JSON.parse(localStorage.getItem('items'))
-  let totalPrice = 0
-    prices.forEach(item =>  {
-      totalPrice += parseInt(item.getAttribute('data-price'))
-    })
 
-    // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
-    labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
+      let itemsArray = JSON.parse(localStorage.getItem('items'))
+      let totalPrice = 0
+        prices.forEach(item =>  {
+          totalPrice += parseInt(item.getAttribute('data-price'))
+        })
 
-    totalLabCubePrice.innerText = `${labCubePrice} RSD`
-    const labIdName = document.getElementById('labName')
-    labId = labIdName.getAttribute('data-id')
+        // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
+        labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
 
-
-    // console.log('1' + scheduleString)
+        totalLabCubePrice.innerText = `${labCubePrice} RSD`
+        const labIdName = document.getElementById('labName')
+        labId = labIdName.getAttribute('data-id')
 
 
     //search and add analysis from lab details page
@@ -909,9 +916,8 @@ if (municipalityValue != null) {
     ///////////////////////////
     if(itemsArray.length == 0) {
       resultSection.classList.add('d-none')
-      checkout.classList.add('d-none')
     } else {
-      totalPriceSpan.innerText = `${totalPrice} RSD ovde`
+      totalPriceSpan.innerText = `${totalPrice} RSD`
 
       //remove analysis from basket from lab page
       let removeAnalysisLabPage = document.getElementById('resultTable')
@@ -925,9 +931,9 @@ if (municipalityValue != null) {
             prices = document.querySelector('.price')
             //update total price by substracting from total
             totalPrice -= parseInt(e.target.parentNode.previousElementSibling.innerText)
-            totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD dva`
+            totalPriceSpan.innerText = `${totalPrice} RSD`
             labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
-            totalLabCubePrice.innerText = `${labCubePrice}  RSD tri`
+            totalLabCubePrice.innerText = `${labCubePrice}  RSD`
             let nameIndex = itemsArray.findIndex((item) => {
                 return item.id === toBeDeleted
               })
@@ -952,12 +958,8 @@ if (municipalityValue != null) {
               })
 
 
-
-
             // let analysisToBeDeleted = document.querySelector('analysisBasketLiItem' > )
             // console.log(analysisBasket)
-
-
 
 
             let numAnalysis = document.querySelector('.numAnalysis')
@@ -977,25 +979,30 @@ if (municipalityValue != null) {
         let analysisList = document.getElementById('selectedAnalysis')
         let newPrice
           analysisList.addEventListener('click', (e) => {
+
             let resultTableLiItems = document.querySelectorAll(`#resultTable > tr > td [data-analysisid]`)
           resultTableLiItems.forEach( item  => {
               if (e.target.parentNode.previousSibling.getAttribute('data-analysisid') == item.getAttribute('data-analysisid')) {
                 totalPrice = totalPrice - (item.parentNode.previousElementSibling.firstChild.getAttribute('data-price'))
-                totalPriceSpan.innerText = `Ukupno: ${totalPrice} RSD obrisano iz basketa`
+                totalPriceSpan.innerText = `${totalPrice} RSD`
                 labCubePrice= Math.ceil(totalPrice*((100-discountValue)/100))
                 totalLabCubePrice.innerText = `${labCubePrice}  RSD`
                 schedule[0].total=totalPrice
                 schedule[2].labCubePrice=labCubePrice
-                console.log(schedule)
+
                 item.parentNode.parentNode.remove()
               }
                 // console.log(totalPrice)
                 // totalLabCubePrice.innerText = `${labCubePrice} RSD`
               })
+
+
           })
       }
 
         helper.removeAnalysis(itemsArray, checkout)
+
+
 
         schedule.push({"total":totalPrice})
         schedule.push({"analysis":itemsArray})

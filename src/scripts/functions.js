@@ -232,6 +232,10 @@ exports.removeAnalysis = (itemsArray, checkout) => {
         if(itemsArray.length == 0) {
           document.querySelector('.card').classList.add('d-none')
           // checkout.classList.add('d-none')
+        let resultSection = (document.getElementById('resultsLabDetails')) ? document.getElementById('resultsLabDetails') : ''
+            if (resultSection) {
+                resultSection.classList.add('d-none')
+            }
         }
 
         checkout.innerText = itemsArray.length
