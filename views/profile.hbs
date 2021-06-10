@@ -7,24 +7,48 @@
  			<div class="col-md-12 col-lg-12 table-responsive">
 
       <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-
         <li class="nav-item">
-          <a class="nav-link  active link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Moji rezultati ({{numOfMyAnalysis}})</a>
+          <a class="nav-link  active link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Lab cube rezultati ({{numOfMyAnalysis}})</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link  link-unstyled dashboardTabs" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"  aria-selected="false" >Osnovne informacije</a>
+          <a class="nav-link  link-unstyled dashboardTabs" id="otherResults-tab" data-toggle="tab" href="#otherResults" role="tab" aria-controls="contact" aria-selected="true">Ostali rezultati ({{numOfMyOtherResults}})</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link  link-unstyled dashboardTabs" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"  aria-selected="false">Osnovne informacije</a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
-      </li>
-
-
-</ul>
+        <li class="nav-item">
+          <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
+        </li>
+      </ul>
 
 <div class="tab-content" id="myTabContent">
+
+
+  <div class="tab-pane show" id="otherResults" role="tabpanel" aria-labelledby="otherResults-tab">
+    <div class="profileCard" >
+      <table class="tableLabResults" id="myLabResults">
+        <tbody>
+          {{#each myOtherResults}}
+          <tr class="dashboardResults">
+            <td>{{this.status}}</td>
+            <td>{{formatLabScheduleDate this.date}}</td>
+            <td>{{this.package}}</td>
+            <td><a href="../results/{{this.result}}" target="_blank">Pogledaj rezultate</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+
+    </div><!-- profile card end -->
+  </div><!-- tab pane end -->
+
+
+
+
+
 
   <div class="tab-pane show" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="profileCard" >
@@ -315,8 +339,11 @@
 
 
   <div class="tab-pane active table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+    {{#if numOfMyAnalysis}}
+
     <table class="tableLabResults" id="myLabResults">
       <tbody>
+
 
         {{#each myAppointments}}
 
@@ -340,6 +367,12 @@
         {{/each}}
       </tbody>
     </table>
+    {{else}}
+    <div class="col-12 mt-4">
+      <h2>trenutno nema rezultata u ovoj kategoriji</h2>
+    </div>
+
+    {{/if}}
   </div>
 </div>
 

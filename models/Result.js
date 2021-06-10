@@ -12,6 +12,10 @@ const resultSchema = new mongoose.Schema({
     type:String,
     default:'Pending'
   },
+  userId:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  },
   owner:String
 })
 

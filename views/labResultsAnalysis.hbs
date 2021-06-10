@@ -4,6 +4,7 @@
   </div>
 {{/each}}
 {{> _innerNavFrontend}}
+
  			<div class="col-md-12 table-responsive">
  				<table class="table results table-hover">
           <section id="paketi">
@@ -12,9 +13,11 @@
                 <div class="col-12">
                   <h1 class="sectionTitle">Tumačenje rezultata laboratorijskih analiza</h1>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi soluta magnam aspernatur in dolore possimus ratione voluptas enim! Esse perspiciatis accusantium harum suscipit, ad? Quisquam sequi praesentium, id iure perspiciatis, recusandae! Placeat doloribus suscipit asperiores eveniet necessitatibus sed eos. Odio.</p>
-                  <p>Registrujte se, ukoliko već imate nalog, možete se prijaviti <a href="/prijava">ovde.</a></p>
+
                 </div>
                   <!-- <p class="mt-4">Odaberite vreme za koje želite da vam se protumače rezultati</p> -->
+                <!-- samo ulogovani korisnici mogu da urade upload rezultata -->
+              {{#if user.id}}
                 <div id="odabirPaketa" class="d-flex mt-4">
                   <form action='/tumacenje-laboratorijskih-analiza' method="POST" enctype="multipart/form-data">
 
@@ -33,7 +36,7 @@
 
                     <div class="col-3">
                       <div class="card">
-                        <div class="card-body" >
+                        <div class="card-body">
                           <div class="najpopularnije">najpopularnije</div>
                           <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata</p>
@@ -71,11 +74,9 @@
                     </div>
                 </div><!-- odabir paketa end -->
                 <div class="col-12 upload_file my-4">
-
                     <div class="form-row">
-                      <div class="col-6">
+                      <div class="col-12">
                         <div class="custom-file">
-
                             <input type="file" id="uploadResults" name="result" class="custom-file-input" placeholder="odaberite fajl"/>
                             <label for="uploadResults" class="custom-file-label">Odaberite rezultate *</label>
                             <small id="emailHelp" class="form-text text-muted">pdf, jpg, jpeg, png, do 3MB</small>
@@ -85,23 +86,192 @@
 
                       </div>
                       <div class="col-6">
-                        <input type="email" class="form-control" name="email" placeholder="Unesite mejl adresu" value="{{keepData '' email}}">
+                        <input type="hidden" class="form-control" name="email"  value="{{user.email}}">
+                        <input type="hidden" class="form-control" name="userId" value="{{user.id}}">
                         <small id="emailHelp" class="form-text text-muted">Mi poštujemo vašu privatnost! link ka politici privatnosti</small>
                       </div>
                     </div>
                     <div class="text-center mt-4">
-                        <button class="btn btn-success text-uppercase">plaćanje</button>
+                        <button class="btn btn-success text-uppercase">Nastavi na plaćanje</button>
                       </div>
                   </form>
-
                 </div>
+                {{else}}
+                <div class="col-12">
+                  <p><a href="/registracija">Kreirajte labcube nalog</a>, ukoliko već imate nalog, možete se prijaviti <a href="/prijava">ovde.</a></p>
+                </div>
+
+                {{/if}}
+
 
               </div><!-- row end -->
-              <div class="col-12">
-                <div class="row">
-                  <!-- <small class="text-muted">*Ukoliko ne dobijete tumačenje rezultata u okviru vremena koje ste odabrali, tumačenje je besplatno i dobijate kupon za popust od 20% koji možete iskoristiti kada vam naredni put butu potrebne neke analize....</small> -->
+
+                  <h2>Pogledaj kako izgleda kada protumačimo rezultate</h2>
+
+                  <div class="col-12 doctorDetails mt-4">
+                    <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">
+                    <div class="hcpBio">
+                        <p class="h5"></p>
+                        <p>icing elit. Accusamujdskjdks kjs kjds kdjs s illum, sequi asperiorconsec. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit id quas, molestiae aut nemo modi quasi cupiditate dicta delectus esse, ratione expedita!</p>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+
+
+                      <div class="resultDetails">
+                        <div class="col-12 col-md-7">
+                          <h4 class="analysisName">Leukociti <span class="valueOk">22 mol/l</span></h4>
+                          <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                        </div>
+
+                        <div class="col-12 col-md-5 analysisResults">
+                          <div>
+                            <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
+                            <div class="rangeLabels">&lt; 20</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="regularResults showGreen" name="regular" data-toggle="tooltip" tooltip="22" min="20" max="34" value="22" step="0.1" disabled="">
+                          <div class="rangeLabels">20 - 34</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="max " name="high" min="34" max="51" value="22" step="0.1" disabled="">
+                          <div class="rangeLabels">&gt; 34</div>
+                        </div>
+                      </div><!-- analysis result -->
+
+                      <div class="col-12">
+                        <p class="myResultsComment">
+                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </span>
+                        </p>
+                      </div>
+                  </div><!-- resultDetails -->
+
+                  <div class="resultDetails">
+                      <div class="col-12 col-md-7">
+                        <h4 class="analysisName">Leukociti <span class="valueNotOk">86 mol/l</span></h4>
+                        <!-- <p>{{this.comment}}</p> -->
+                        <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                      </div>
+
+                      <div class="col-12 col-md-5 analysisResults">
+                        <div>
+                          <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
+                          <div class="rangeLabels">&lt; 20</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="regularResults" name="regular" data-toggle="tooltip" tooltip="40" min="20" max="40" value="" step="0.1" disabled="">
+                          <div class="rangeLabels">20 - 54</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="max showRed" name="high" min="54" max="154" value="86" step="0.1" disabled="">
+                          <div class="rangeLabels">&gt; 54</div>
+                        </div>
+                      </div><!-- analysis result -->
+                      <div class="col-12">
+                        <p class="myResultsComment">
+                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris borum. </span>
+                        </p>
+                      </div>
+                  </div><!-- resultDetails -->
+
+                  <div class="resultDetails">
+                      <div class="col-12 col-md-7">
+                        <h4 class="analysisName">Leukociti <span class="valueNotOk">86 mol/l</span></h4>
+                        <!-- <p>{{this.comment}}</p> -->
+                        <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                      </div>
+
+                      <div class="col-12 col-md-5 analysisResults">
+                        <div>
+                          <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
+                          <div class="rangeLabels">&lt; 20</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="regularResults" name="regular" data-toggle="tooltip" tooltip="40" min="20" max="40" value="" step="0.1" disabled="">
+                          <div class="rangeLabels">20 - 54</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="max showRed" name="high" min="54" max="154" value="86" step="0.1" disabled="">
+                          <div class="rangeLabels">&gt; 54</div>
+                        </div>
+                      </div><!-- analysis result -->
+                      <div class="col-12">
+                        <p class="myResultsComment">
+                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris borum. </span>
+                        </p>
+                      </div>
+                  </div><!-- resultDetails -->
+                  <div class="resultDetails">
+                      <div class="col-12 col-md-7">
+                        <h4 class="analysisName">Leukociti <span class="valueNotOk">86 mol/l</span></h4>
+                        <!-- <p>{{this.comment}}</p> -->
+                        <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                      </div>
+
+                      <div class="col-12 col-md-5 analysisResults">
+                        <div>
+                          <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
+                          <div class="rangeLabels">&lt; 20</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="regularResults" name="regular" data-toggle="tooltip" tooltip="40" min="20" max="40" value="" step="0.1" disabled="">
+                          <div class="rangeLabels">20 - 54</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="max showRed" name="high" min="54" max="154" value="86" step="0.1" disabled="">
+                          <div class="rangeLabels">&gt; 54</div>
+                        </div>
+                      </div><!-- analysis result -->
+                      <div class="col-12">
+                        <p class="myResultsComment">
+                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris borum. </span>
+                        </p>
+                      </div>
+                  </div><!-- resultDetails -->
+                  <div class="resultDetails">
+                      <div class="col-12 col-md-7">
+                        <h4 class="analysisName">Leukociti <span class="valueNotOk">86 mol/l</span></h4>
+                        <!-- <p>{{this.comment}}</p> -->
+                        <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                      </div>
+
+                      <div class="col-12 col-md-5 analysisResults">
+                        <div>
+                          <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
+                          <div class="rangeLabels">&lt; 20</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="regularResults" name="regular" data-toggle="tooltip" tooltip="40" min="20" max="40" value="" step="0.1" disabled="">
+                          <div class="rangeLabels">20 - 54</div>
+                        </div>
+
+                        <div>
+                          <input type="range" class="max showRed" name="high" min="54" max="154" value="86" step="0.1" disabled="">
+                          <div class="rangeLabels">&gt; 54</div>
+                        </div>
+                      </div><!-- analysis result -->
+                      <div class="col-12">
+                        <p class="myResultsComment">
+                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris borum. </span>
+                        </p>
+                      </div>
+                  </div><!-- resultDetails -->
+
+
                 </div>
               </div>
+
             </div><!-- container end -->
           </section>
  				</table><!-- table -->

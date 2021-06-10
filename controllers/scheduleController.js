@@ -5,6 +5,7 @@ const validator = require("email-validator")
 const bcrypt = require('bcrypt')
 let User = mongoose.model('User')
 let Schedule = mongoose.model('Schedule')
+let Group = mongoose.model('Group')
 let Feedback = mongoose.model('Feedback')
 const nodemailer = require('nodemailer')
 
@@ -23,7 +24,6 @@ exports.scheduleVisit = async (req,res) => {
   let total = req.body[0].total
   let labId = req.body[3].labId
   let labCubePrice = req.body[2].labCubePrice
-  console.log(req.body[4].date)
 
   let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
 
@@ -108,8 +108,9 @@ exports.updateSchedule = async (req,res) => {
   // res.send(req.body['status'+req.params.scheduleId])
 }
 
-exports.thankyou = (req,res) => {
-  res.render('hvala')
+exports.thankyou = async (req,res) => {
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  res.render('hvala',{user:req.user, groupNames})
 }
 
 exports.myResults = async (req,res) => {

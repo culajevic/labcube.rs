@@ -9,6 +9,8 @@ const Schedule = mongoose.model('Schedule')
 const Lab = mongoose.model('Lab')
 const Place = mongoose.model('Place')
 const Feedback = mongoose.model('Feedback')
+const Result = mongoose.model('Result')
+const Group = mongoose.model('Group')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
 const crypto = require('crypto')
@@ -121,12 +123,18 @@ exports.profile = [authCheck, async (req,res) => {
     .sort({createdDate:-1})
     let cities = await Place.distinct("municipality")
     const numOfMyAnalysis = myAppointments.length
+    const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+    const myOtherResults = await Result.find({userId:req.user.id}).sort({date:-1})
+    const numOfMyOtherResults = myOtherResults.length
 
     res.render('profile',{
       user:req.user,
       cities:cities,
       myAppointments:myAppointments,
-      numOfMyAnalysis:numOfMyAnalysis
+      numOfMyAnalysis:numOfMyAnalysis,
+      myOtherResults:myOtherResults,
+      numOfMyOtherResults,
+      groupNames
     })
 
     // res.send(`<a href=/logout>log out</a> ${req.user.username}`)

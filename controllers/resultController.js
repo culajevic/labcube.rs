@@ -70,14 +70,20 @@ exports.labResult = async (req,res) => {
   if(!req.body.email) {
     errors.push({text:'Obavezno je uneti email adresu'})
   }
+
+  if(!req.body.package) {
+    errors.push({text:'Obavezno je odabrati vreme za koje želiš da ti se protumači rezultat'})
+  }
+
   if(!req.file) {
-    errors.push({text:'Niste postavili fajl sa rezultatima'})
+    errors.push({text:'Nedostaju rezultati koje želiš da ti protumačimo'})
   }
   if(errors.length > 0) {
     res.render('labResultsAnalysis', {
       errors,
       package:req.body.package,
-      email:req.body.email
+      email:req.body.email,
+      user:req.user
     })
   } else {
     if(req.file) {

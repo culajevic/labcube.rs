@@ -134,11 +134,11 @@ exports.updatePrice = [authCheck, async (req,res) => {
 exports.allPrices = async (req,res) => {
   const priceListNumber = await Price.find().countDocuments()
   const allPrices = await Price.find({})
-  .populate({path:'lab',select:'labName address', populate:{path:'placeId', select:'place'}})
+  .populate({path:'lab',select:'labName address', populate:{path:'placeId', select:'place'}}).sort({labName:1})
   res.render('allPrices',{
     title:'Svi cenovnici',
     allPrices,
-    priceListNumber
+    number:priceListNumber
   })
 }
 
