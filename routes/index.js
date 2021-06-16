@@ -21,7 +21,7 @@ router.get('/', groupController.getGroups)
 // router.get('/', labController.getAllLabs)
 
 //payment testing
-router.get('/checkout', resultController.paymentDone)
+router.get('/checkout/', resultController.paymentDone)
 
 //display single group
 router.get('/group/:slug', groupController.displayGroup)
@@ -69,8 +69,8 @@ router.delete('/allGroupsList/:id', groupController.deleteGroup)
 
 //tumacenje rezultata
 router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
-router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
-router.post('/payment', resultController.payment)
+// router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
+router.post('/payment', resultController.upload, resultController.payment )
 
 //prices
 router.get('/allPrices', priceController.allPrices)
