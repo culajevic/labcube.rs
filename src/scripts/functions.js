@@ -177,7 +177,6 @@ exports.displayBasket = (itemsArray) => {
       analysisLink.setAttribute('target', '_blank')
       analysisLink.className = 'nolink analysisBasketLiItem'
       analysisLink.setAttribute('data-analysisid', analysis.id)
-      // analysisLink.setAttribute('target', '_blank')
     analysisLink.appendChild(analysisName)
     //creating span element for remove icon
     let removeSpan = document.createElement('span')

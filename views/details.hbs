@@ -16,16 +16,17 @@
 
         <div class="float-left">
           <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
+
           <ul>
             {{#each analysisDetails.abbr}}
               <li>{{this}}</li>
             {{/each}}
-            {{#each analysisDetails.alt}}
+            <!-- {{#each analysisDetails.alt}}
               <li>{{this}}</li>
-            {{/each}}
+            {{/each}} -->
           </ul>
         </div>
-
+        {{#if (empty analysisDetails.preview)}}
         {{! display abbr}}
 
         <ul class="analysisDescription float-left mt-4">
@@ -91,7 +92,8 @@
           <ul class="povezaneAnalize float-left">
             <h5>Povezane analize</h5>
             {{#each analysisDetails.connectedTo}}
-              <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}}</a></li>
+                <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}} ({{abbr.[0]}})</a></li>
+
             {{/each}}
           </ul>
 
@@ -110,6 +112,13 @@
           <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p>
         </div>
       </div>
+
+      {{else}}
+    <p style="clear:both;">
+      Trenutno ne postoji opis za ovu analizu. Ukoliko želite da pišete za lab cube, javite se.
+    </p>
+
+      {{/if}}
 
 
 

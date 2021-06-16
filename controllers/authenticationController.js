@@ -124,7 +124,7 @@ exports.profile = [authCheck, async (req,res) => {
     let cities = await Place.distinct("municipality")
     const numOfMyAnalysis = myAppointments.length
     const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-    const myOtherResults = await Result.find({userId:req.user.id}).sort({date:-1})
+    const myOtherResults = await Result.find({userId:req.user.id}).sort({submitedDate:-1})
     const numOfMyOtherResults = myOtherResults.length
 
     res.render('profile',{

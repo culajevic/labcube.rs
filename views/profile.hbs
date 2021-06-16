@@ -34,9 +34,12 @@
           {{#each myOtherResults}}
           <tr class="dashboardResults">
             <td>{{this.status}}</td>
-            <td>{{formatLabScheduleDate this.date}}</td>
+            <td>{{displayTime this.submitedDate}}</td>
+            <td>{{displayTime this.deadline}}</td>
             <td>{{this.package}}</td>
-            <td><a href="../results/{{this.result}}" target="_blank">Pogledaj rezultate</a></td>
+            <td><a href="../results/{{this.result}}" target="_blank">Pogledaj fajl</a></td>
+            <td>Pogledaj tumačenje</td>
+            <td class="bg-danger text-white text-center" style="border-radius:0;">{{calculateTime this.deadline}}</td>
           </tr>
           {{/each}}
         </tbody>

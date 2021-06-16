@@ -20730,8 +20730,7 @@ exports.displayBasket = function (itemsArray) {
     analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
     analysisLink.setAttribute('target', '_blank');
     analysisLink.className = 'nolink analysisBasketLiItem';
-    analysisLink.setAttribute('data-analysisid', analysis.id); // analysisLink.setAttribute('target', '_blank')
-
+    analysisLink.setAttribute('data-analysisid', analysis.id);
     analysisLink.appendChild(analysisName); //creating span element for remove icon
 
     var removeSpan = document.createElement('span');
@@ -21749,9 +21748,10 @@ var checkUrl = /result.*/;
 var group = /group/;
 var nadjiLab = /nadjiLab/;
 var laboratorija = /laboratorija.*/;
-var tumacenje = /tumacenje.*/; //definisanje stranica na kojima se prikazuje shoping karta
+var tumacenje = /tumacenje.*/;
+var payment = /paymentPage/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation

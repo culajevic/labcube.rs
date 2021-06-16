@@ -67,6 +67,7 @@ router.delete('/allGroupsList/:id', groupController.deleteGroup)
 //tumacenje rezultata
 router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
 router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
+router.post('/payment', resultController.payment)
 
 //prices
 router.get('/allPrices', priceController.allPrices)

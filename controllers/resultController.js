@@ -11,6 +11,10 @@ const mime = require('mime-types')
 const nodemailer = require('nodemailer')
 moment.locale('sr')
 
+////////////////////////////////////////////////
+const https = require('https')              //
+const querystring = require('querystring') //
+////////////////////////////////////////////
 
 
 dotenv.config({path:'variables.env'})
@@ -65,7 +69,60 @@ exports.upload =  (req,res, next) => {
   })
 }
 
+exports.payment = (req,res) => {
+  // placanje testing
+  const request = async () => {
+  	const path='/v1/checkouts';
+  	const data = querystring.stringify({
+  		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
+  		'amount':'92.00',
+  		'currency':'RSD',
+  		'paymentType':'DB'
+  	});
+  	const options = {
+  		port: 443,
+  		host: 'test.oppwa.com',
+  		path: path,
+  		method: 'POST',
+  		headers: {
+  			'Content-Type': 'application/x-www-form-urlencoded',
+  			'Content-Length': data.length,
+  			'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  		}
+  	};
+  	return new Promise((resolve, reject) => {
+  		const postRequest = https.request(options, function(res) {
+  			const buf = [];
+  			res.on('data', chunk => {
+  				buf.push(Buffer.from(chunk));
+  			});
+  			res.on('end', () => {
+  				const jsonString = Buffer.concat(buf).toString('utf8');
+  				try {
+  					resolve(JSON.parse(jsonString));
+  				} catch (error) {
+  					reject(error);
+  				}
+  			});
+  		});
+  		postRequest.on('error', reject);
+  		postRequest.write(data);
+  		postRequest.end();
+  	});
+  };
+
+request()
+    .then(data => {
+      res.render('paymentPage', {data:data.id})
+    })
+    .catch(console.error)
+
+
+  //placanje test end
+}
+
 exports.labResult = async (req,res) => {
+
   let errors = []
   if(!req.body.email) {
     errors.push({text:'Obavezno je uneti email adresu'})
@@ -88,8 +145,11 @@ exports.labResult = async (req,res) => {
   } else {
     if(req.file) {
       req.body.result = req.file.filename
-      req.body.date = Date.now()
+      req.body.submitedDate = Date.now()
       req.body.owner = ''
+      let deadline = new Date()
+        deadline.setHours(deadline.getHours() + parseInt(req.body.package))
+      req.body.deadline = deadline
     } else {
       req.flash('error_msg', 'doslo je do greske prilikom uploada')
     }
@@ -139,7 +199,7 @@ exports.displayResults = async (req,res) => {
 
 exports.displayAnalysisDetails = async (req,res) => {
   let analysisDetails = await Analysis.findOne({slug:req.params.slug})
-  .populate('connectedTo', 'analysisName slug')
+  .populate('connectedTo', 'analysisName abbr slug')
   .populate('references')
   .populate('writtenBy')
   .populate('groupId', 'iconPath')

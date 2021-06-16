@@ -165,9 +165,10 @@ const group = /group/
 const nadjiLab = /nadjiLab/
 const laboratorija = /laboratorija.*/
 const tumacenje = /tumacenje.*/
+const payment = /paymentPage/
 
 //definisanje stranica na kojima se prikazuje shoping karta
-if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje))) {
+if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) )) {
   helper.displayBasket(itemsArray)
 }
 
@@ -603,6 +604,8 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 }
 
 if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
+
+
 
   let mainSearchinner = document.getElementById('searchResultPage')
   // ger reference to filter

@@ -249,6 +249,10 @@ ul ol ul {
   transition: right .3s ease-in-out;
 }
 
+#priceList {
+  overflow-y:scroll;
+}
+
 .checkout:focus {
   outline: none;
   box-shadow: none;

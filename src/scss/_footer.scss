@@ -9,8 +9,8 @@ footer {
     background-color: $primary-color;
     height: px-to-rem(500px);
     position: absolute;
-    left:0;
-    top:0;
+    // left:0;
+    bottom: 0;
     opacity: 0.97;
     width: 100%;
     }

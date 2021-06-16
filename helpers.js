@@ -15,6 +15,16 @@ hbs.registerHelper('formatLabScheduleDate', (date,place) => {
   }
 })
 
+hbs.registerHelper('displayTime', (value) => {
+  return moment(value).format('D.M.Y / H:mm')
+})
+
+hbs.registerHelper('calculateTime', (deadline) => {
+  let currentTime = Date.now()
+ let diff = Math.floor(Math.abs(deadline - currentTime) /  1000 / 60 )
+ return diff
+})
+
 // format RS Date without time
 hbs.registerHelper('formatRsDateOnly', (prop) => {
   return moment(prop).format('L')

@@ -18,6 +18,7 @@
 }
 
 #details {
+  min-height: calc(100vh - 900px);
   @extend #results;
 }
 

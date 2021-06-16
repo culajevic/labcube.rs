@@ -4,7 +4,9 @@
   </div>
 {{/each}}
 {{> _innerNavFrontend}}
-
+<form action="/payment" method="POST">
+    <button class="btn btn-success text-uppercase">payment gateway</button>
+</form>
  			<div class="col-md-12 table-responsive">
  				<table class="table results table-hover">
           <section id="paketi">
@@ -95,6 +97,9 @@
                         <button class="btn btn-success text-uppercase">Nastavi na plaćanje</button>
                       </div>
                   </form>
+
+
+
                 </div>
                 {{else}}
                 <div class="col-12">
