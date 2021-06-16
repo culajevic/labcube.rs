@@ -20,6 +20,9 @@ const passport = require('passport')
 router.get('/', groupController.getGroups)
 // router.get('/', labController.getAllLabs)
 
+//payment testing
+router.get('/checkout', resultController.paymentDone)
+
 //display single group
 router.get('/group/:slug', groupController.displayGroup)
 

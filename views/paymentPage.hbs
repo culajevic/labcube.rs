@@ -1,8 +1,12 @@
 <!-- {{#each data}}
   {{this}}
 {{/each}} -->
+
+<style>
+  body {background-color:#f6f6f5;}
+</style>
 <script>
   var wpwlOptions = {style:"card"}
 </script>
-{{data}}
 <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{data}}"></script>
+<form action="/checkout" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>

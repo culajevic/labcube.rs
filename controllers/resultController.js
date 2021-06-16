@@ -71,7 +71,9 @@ exports.upload =  (req,res, next) => {
 
 exports.payment = (req,res) => {
   // placanje testing
-  const request = async () => {
+
+
+  function request() {
   	const path='/v1/checkouts';
   	const data = querystring.stringify({
   		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
@@ -108,8 +110,8 @@ exports.payment = (req,res) => {
   		postRequest.on('error', reject);
   		postRequest.write(data);
   		postRequest.end();
-  	});
-  };
+  	})
+  }
 
 request()
     .then(data => {
@@ -119,6 +121,48 @@ request()
 
 
   //placanje test end
+}
+
+exports.paymentDone = (req,res) => {
+
+console.log(req.body)
+
+//   const requestCheckout = async (req,res) => {
+//   	var path='/v1/checkouts/{id}/payment';
+//   	path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
+//   	const options = {
+//   		port: 443,
+//   		host: 'test.oppwa.com',
+//   		path: path,
+//   		method: 'GET',
+//   		headers: {
+//   			'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+//   		}
+//   	};
+//   	return new Promise((resolve, reject) => {
+//   		const postRequest = https.request(options, function(res) {
+//   			const buf = [];
+//   			res.on('data', chunk => {
+//   				buf.push(Buffer.from(chunk));
+//   			});
+//   			res.on('end', () => {
+//   				const jsonString = Buffer.concat(buf).toString('utf8');
+//   				try {
+//   					resolve(JSON.parse(jsonString));
+//   				} catch (error) {
+//   					reject(error);
+//   				}
+//   			});
+//   		});
+//   		postRequest.on('error', reject);
+//   		postRequest.end();
+//   	});
+//   };
+//
+// requestCheckout()
+// .then(console.log)
+// .catch(console.error);
+
 }
 
 exports.labResult = async (req,res) => {
