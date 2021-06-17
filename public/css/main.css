@@ -7911,12 +7911,12 @@ div.status.closedSoon::before {
   font-size: 1.125rem;
   padding-left: 0.5rem; }
 
-#results, #details, #resultsGroupDetails, #resultsLabDetails, #labDetailsInner {
+#results, #details, #paymentCheckout, #resultsGroupDetails, #resultsLabDetails, #labDetailsInner {
   margin-top: 5rem;
   margin-bottom: 9.375rem; }
-  #results .btn-success, #details .btn-success, #results .btnLogin, #details .btnLogin, #results .btn-res-success, #details .btn-res-success, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsGroupDetails .btn-res-success, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #resultsLabDetails .btn-res-success, #labDetailsInner .btn-success, #labDetailsInner .btnLogin, #labDetailsInner .btn-res-success {
+  #results .btn-success, #details .btn-success, #paymentCheckout .btn-success, #results .btnLogin, #details .btnLogin, #paymentCheckout .btnLogin, #results .btn-res-success, #details .btn-res-success, #paymentCheckout .btn-res-success, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsGroupDetails .btn-res-success, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #resultsLabDetails .btn-res-success, #labDetailsInner .btn-success, #labDetailsInner .btnLogin, #labDetailsInner .btn-res-success {
     margin-bottom: 0; }
-  #results .btn, #details .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
+  #results .btn, #details .btn, #paymentCheckout .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
     font-size: 0.8125rem;
     padding: 0.5625rem 1.5625rem; }
 
@@ -7925,7 +7925,7 @@ div.status.closedSoon::before {
   #resultsLabDetails .btn, #labDetailsInner .btn {
     font-size: 0.75rem; }
 
-#details {
+#details, #paymentCheckout {
   min-height: calc(100vh - 900px); }
 
 .results tr:first-child > td {

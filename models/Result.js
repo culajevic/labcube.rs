@@ -17,6 +17,7 @@ const resultSchema = new mongoose.Schema({
     default:'Pending'
   },
   paid:mongoose.Decimal128,
+  ip:String,
   userId:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'

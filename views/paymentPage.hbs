@@ -1,12 +1,29 @@
-<!-- {{#each data}}
-  {{this}}
-{{/each}} -->
+{{> _innerNavFrontend}}
 
 <style>
   body {background-color:#f6f6f5;}
 </style>
+
 <script>
-  var wpwlOptions = {style:"card"}
+  var wpwlOptions = {style:"plain"}
 </script>
+
 <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{data}}"></script>
-<form action="/checkout/" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+
+
+<div class="container" id="paymentCheckout">
+ 		<div class="row">
+      <div class="col-12 mt-4 text-center">
+        <a href="../results/{{resultFile}}" target="_blank">pogledaj fajl</a>
+        <p>ID Korisnika {{userId}}</p>
+        <p>Cena: {{package}}</p>
+        <p>Tumačenje u roku od </p>
+          <form action="/checkout/" class="paymentWidgets" data-brands="VISA MASTER AMEX">
+
+
+          </form>
+      </div>
+    </div>
+</div>
+
+ {{> _footer}}

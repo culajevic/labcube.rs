@@ -91,7 +91,7 @@ exports.payment = async (req,res) => {
       email:req.body.email,
       user:req.user
     })
-    console.log('error')
+    return false
   } else {
     if(req.file) {
       req.body.result = req.file.filename
@@ -128,7 +128,7 @@ exports.payment = async (req,res) => {
         })
       req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
       // res.redirect('/')
-      console.log('uspeh')
+
       }
     catch (e) {
       req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
@@ -137,14 +137,13 @@ exports.payment = async (req,res) => {
   }
 //
   const request = async () => {
-    console.log(req.body)
   	const path='/v1/checkouts';
   	const data = querystring.stringify({
   		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
   		'amount':req.body.package,
       'customer.email':req.body.email,
-      'cart.items[0].name':req.body.package,
   		'currency':'RSD',
+      'customer.merchantCustomerId':req.body.userId,
   		'paymentType':'DB'
   	});
   	const options = {
@@ -181,14 +180,18 @@ exports.payment = async (req,res) => {
 
 request()
     .then(data => {
-      res.render('paymentPage', {data:data.id})
+      if(data.result.code == '000.200.100') {
+        res.render('paymentPage', {data:data.id, userId:req.body.userId, resultFile:req.body.result, package:req.body.package})
+      }
     })
-    .catch(console.error)
+    .catch(error => {
+      console.log('error')
+    })
   //placanje test end
 }
 
 exports.paymentDone = (req,res) => {
-
+console.log(req.body)
   // let id = req.query.resourcePath
 
   const requestCheckout = async () => {
