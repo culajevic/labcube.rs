@@ -8098,6 +8098,12 @@ span.remove:hover {
     .headTitle + ul > li:last-child::after {
       content: ''; }
 
+.headTitleAboutUs {
+  font-size: 2.625rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #1D88E5; }
+
 .titleDetails {
   color: #3B3B3B;
   font-size: 1.25rem;
@@ -8912,7 +8918,8 @@ p.selectedAnalysisTitle {
   margin-bottom: 40px; }
   #aboutUs p {
     font-size: 20px;
-    margin-bottom: 50px; }
+    margin-bottom: 20px;
+    line-height: 30px; }
 
 .pageAboutUs {
   margin-bottom: 30px;

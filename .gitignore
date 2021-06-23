@@ -4,4 +4,5 @@ node_modules
 variables.env.now
 keys.js
 *.pdf
+*.png
 /results/

@@ -19,6 +19,14 @@
   }
 }
 
+.headTitleAboutUs {
+  font-size: px-to-rem(42px);
+  margin-bottom: px-to-rem(8px);
+  font-weight: bold;
+  color: $primary-color;
+}
+
+
 .titleDetails {
   color:$fontColorResultsTable;
   font-size: px-to-rem(20px);

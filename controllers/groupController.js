@@ -171,6 +171,8 @@ sortByPriority = {priority:-1}
       res.render('index',{
         title:'Sve o laboratorijskim analizama',
         faqtitle:'Najčešće postavljana pitanja',
+        metaDescription:'Detaljni opisi biohemijskih analiza sa cenama i lokacijama laboratorija u Srbiji.',
+        metaKeywords:'Biohemijske analize, laboratorije, tumačenje rezultata, krvna slika',
         groups,
         faqFP,
         labNum,
@@ -216,6 +218,8 @@ exports.displayGroup = async (req,res) => {
   res.render('groupDetails',{
     group:groupDetails,
     analyisisdata:analysis,
+    metaDescription:groupDetails.description,
+    metaKeywords:groupDetails.name,
     groupNames,
     user:req.user
   })

@@ -58,20 +58,22 @@ const upload = multer({
     }
   }).single('result')
 
-exports.upload =  (req,res, next) => {
-  upload(req, res, (err) => {
-    if(err) {
-      req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
-      res.redirect('/tumacenje-laboratorijskih-analiza')
-    } else {
-      next()
-    }
-  })
-}
+  exports.upload =  (req,res, next) => {
+    upload(req, res, (err) => {
+      if(err) {
+        req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
+        // res.redirect('/tumacenje-laboratorijskih-analiza')
+      } else {
+        next()
+      }
+    })
+  }
+
 
 exports.payment = async (req,res) => {
   // placanje testing
-
+  let currentId
+  let resultUpload
   let errors = []
   if(!req.body.email) {
     errors.push({text:'Obavezno je uneti email adresu'})
@@ -94,49 +96,21 @@ exports.payment = async (req,res) => {
     return false
   } else {
     if(req.file) {
-      req.body.result = req.file.filename
-      req.body.submitedDate = Date.now()
-      req.body.owner = ''
+
       let deadline = new Date()
         deadline.setHours(deadline.getHours() + parseInt(req.body.package))
-      req.body.deadline = deadline
+
     } else {
       req.flash('error_msg', 'doslo je do greske prilikom uploada')
     }
 
-    const resultUpload = new Result(req.body)
-    try {
-      await resultUpload.save()
-      let mailOptions = {
-        from:'labcubee@gmail.com',
-        to:'culajevic@gmail.com',
-        subject:'lab results',
-        text:'',
-        html:`${req.body.email} i ${req.body.package}`,
-        attachments:[{
-          filename:req.file.filename,
-          path:req.file.path
-        }]
+    // resultUpload =  new Result(req.body)
+    // currentId = resultUpload._id
 
-      }
-      transporter.sendMail(mailOptions, (error, info) => {
-          if(error) {
-            return console.log(error)
-        } else {
-          console.log('message sent', info.messageId)
-        }
-        })
-      req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
-      // res.redirect('/')
 
-      }
-    catch (e) {
-      req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
-      res.redirect('/tumacenje-laboratorijskih-analiza')
-    }
   }
 //
-  const request = async () => {
+  const request = async() => {
   	const path='/v1/checkouts';
   	const data = querystring.stringify({
   		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
@@ -144,6 +118,8 @@ exports.payment = async (req,res) => {
       'customer.email':req.body.email,
   		'currency':'RSD',
       'customer.merchantCustomerId':req.body.userId,
+      'customParameters[SHOPPER_file]':req.file.filename,
+      'customParameters[SHOPPER_path]':req.file.path,
   		'paymentType':'DB'
   	});
   	const options = {
@@ -177,25 +153,22 @@ exports.payment = async (req,res) => {
   		postRequest.end();
   	})
   }
-
 request()
     .then(data => {
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, userId:req.body.userId, resultFile:req.body.result, package:req.body.package})
+        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.body.result, package:req.body.package, user:req.user})
       }
     })
     .catch(error => {
-      console.log('error')
+      console.log(error)
     })
   //placanje test end
 }
 
-exports.paymentDone = (req,res) => {
-console.log(req.body)
-  // let id = req.query.resourcePath
 
+
+exports.paymentDone = (req,res) => {
   const requestCheckout = async () => {
-    // console.log(req.query.resourcePath)
   	var path=`${req.query.resourcePath}`
   	path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
   	const options = {
@@ -229,9 +202,59 @@ console.log(req.body)
 
 requestCheckout()
 .then(data => {
-  console.log(data)
-  res.render('paymentSuccess', {data:data})
-})
+  if(data.result.code == '000.100.110') {
+    res.render('paymentSuccess', {data:data})
+    // let updatePaymentInfo = Result.findOneAndUpdate(
+    //   {_id:data.customParameters.SHOPPER_requestId},
+    //   {paid:data.amount, ip:data.customer.ip},
+    //   {
+    //     new:true,
+    //     runValidators:true,
+    //     useFindAndModify:false
+    //   }).exec()
+    const uploadResult = new Result({
+      userId:data.customer.merchantCustomerId,
+      email:data.customer.email,
+      status:'pending',
+      result:data.customParameters.SHOPPER_file,
+      package:data.amount,
+      paid:data.amount,
+      ip:data.customer.ip,
+      submitedDate: Date.now()
+      }
+    )
+       try {
+         uploadResult.save()
+         let mailOptions = {
+           from:'labcubee@gmail.com',
+           to:'culajevic@gmail.com',
+           subject:'lab results',
+           text:'',
+           html:`${data.customer.email} i ${data.amount}, id: ${uploadResult._id}`,
+           attachments:[{
+             filename:data.customParameters.SHOPPER_file,
+             path:data.customParameters.SHOPPER_path
+           }]
+         }
+         transporter.sendMail(mailOptions, (error, info) => {
+             if(error) {
+               return console.log(error)
+           } else {
+             console.log('message sent', info.messageId)
+           }
+           })
+         // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
+         // res.redirect('/')
+
+         }
+       catch (e) {
+         // req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
+         // res.redirect('/tumacenje-laboratorijskih-analiza')
+         console.log(e);
+       }
+
+     }
+   })
 .catch(console.error);
 
 }
@@ -329,7 +352,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames})
+  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames, metaDescription:analysisDetails.shortDesc, metaKeywords:analysisDetails.alt})
 }
 
 exports.labRestultsAnalysis = async (req,res) => {

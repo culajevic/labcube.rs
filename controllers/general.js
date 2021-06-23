@@ -6,9 +6,12 @@ const moment = require('moment')
 moment.locale('sr')
 
 
-exports.aboutus = (req,res) => {
+exports.aboutus = async (req,res) => {
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('aboutus',{
-    title:'O nama'
+    title:'O nama',
+    groupNames,
+    user:req.user
   })
 }
 
@@ -16,7 +19,8 @@ exports.privacy = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('privacy',{
     title:'Politika privatnosti',
-    groupNames
+    groupNames,
+    user:req.user
   })
 }
 
@@ -24,6 +28,7 @@ exports.terms = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('terms',{
     title:'Uslovi korišćenja',
-    groupNames
+    groupNames,
+    user:req.user
   })
 }
