@@ -1830,34 +1830,36 @@ fieldset:disabled a.btn {
     .show > .btn-secondary.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5); }
 
-.btn-success, .btnLogin, .btn-res-success {
+.btn-success, .btnLogin, .btn-res-success, .tumacenjeBtn {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745; }
-  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover {
+  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover, .tumacenjeBtn:hover {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34; }
-  .btn-success:focus, .btnLogin:focus, .btn-res-success:focus, .btn-success.focus, .focus.btnLogin, .focus.btn-res-success {
+  .btn-success:focus, .btnLogin:focus, .btn-res-success:focus, .tumacenjeBtn:focus, .btn-success.focus, .focus.btnLogin, .focus.btn-res-success, .focus.tumacenjeBtn {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34;
     box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
-  .btn-success.disabled, .disabled.btnLogin, .disabled.btn-res-success, .btn-success:disabled, .btnLogin:disabled, .btn-res-success:disabled {
+  .btn-success.disabled, .disabled.btnLogin, .disabled.btn-res-success, .disabled.tumacenjeBtn, .btn-success:disabled, .btnLogin:disabled, .btn-res-success:disabled, .tumacenjeBtn:disabled {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745; }
-  .btn-success:not(:disabled):not(.disabled):active, .btnLogin:not(:disabled):not(.disabled):active, .btn-res-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .btnLogin:not(:disabled):not(.disabled).active, .btn-res-success:not(:disabled):not(.disabled).active,
+  .btn-success:not(:disabled):not(.disabled):active, .btnLogin:not(:disabled):not(.disabled):active, .btn-res-success:not(:disabled):not(.disabled):active, .tumacenjeBtn:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .btnLogin:not(:disabled):not(.disabled).active, .btn-res-success:not(:disabled):not(.disabled).active, .tumacenjeBtn:not(:disabled):not(.disabled).active,
   .show > .btn-success.dropdown-toggle,
   .show > .dropdown-toggle.btnLogin,
-  .show > .dropdown-toggle.btn-res-success {
+  .show > .dropdown-toggle.btn-res-success,
+  .show > .dropdown-toggle.tumacenjeBtn {
     color: #fff;
     background-color: #1e7e34;
     border-color: #1c7430; }
-    .btn-success:not(:disabled):not(.disabled):active:focus, .btnLogin:not(:disabled):not(.disabled):active:focus, .btn-res-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus, .btnLogin:not(:disabled):not(.disabled).active:focus, .btn-res-success:not(:disabled):not(.disabled).active:focus,
+    .btn-success:not(:disabled):not(.disabled):active:focus, .btnLogin:not(:disabled):not(.disabled):active:focus, .btn-res-success:not(:disabled):not(.disabled):active:focus, .tumacenjeBtn:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus, .btnLogin:not(:disabled):not(.disabled).active:focus, .btn-res-success:not(:disabled):not(.disabled).active:focus, .tumacenjeBtn:not(:disabled):not(.disabled).active:focus,
     .show > .btn-success.dropdown-toggle:focus,
     .show > .dropdown-toggle.btnLogin:focus,
-    .show > .dropdown-toggle.btn-res-success:focus {
+    .show > .dropdown-toggle.btn-res-success:focus,
+    .show > .dropdown-toggle.tumacenjeBtn:focus {
       box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
 
 .btn-info {
@@ -7523,7 +7525,7 @@ input[name="searchFilter"] {
 .broj-analiza-hover {
   color: white; }
 
-.btn-success, .btnLogin, .btn-res-success {
+.btn-success, .btnLogin, .btn-res-success, .tumacenjeBtn {
   background-color: #55D159;
   border: none;
   margin-top: 0.625rem;
@@ -7532,7 +7534,7 @@ input[name="searchFilter"] {
   font-weight: 500;
   font-size: 1rem;
   height: 40px; }
-  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover {
+  .btn-success:hover, .btnLogin:hover, .btn-res-success:hover, .tumacenjeBtn:hover {
     background-color: #36c73b; }
 
 .groupTitle {
@@ -7914,7 +7916,7 @@ div.status.closedSoon::before {
 #results, #details, #paymentCheckout, #resultsGroupDetails, #resultsLabDetails, #labDetailsInner {
   margin-top: 5rem;
   margin-bottom: 9.375rem; }
-  #results .btn-success, #details .btn-success, #paymentCheckout .btn-success, #results .btnLogin, #details .btnLogin, #paymentCheckout .btnLogin, #results .btn-res-success, #details .btn-res-success, #paymentCheckout .btn-res-success, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsGroupDetails .btn-res-success, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #resultsLabDetails .btn-res-success, #labDetailsInner .btn-success, #labDetailsInner .btnLogin, #labDetailsInner .btn-res-success {
+  #results .btn-success, #details .btn-success, #paymentCheckout .btn-success, #results .btnLogin, #details .btnLogin, #paymentCheckout .btnLogin, #results .btn-res-success, #details .btn-res-success, #paymentCheckout .btn-res-success, #results .tumacenjeBtn, #details .tumacenjeBtn, #paymentCheckout .tumacenjeBtn, #resultsGroupDetails .btn-success, #resultsGroupDetails .btnLogin, #resultsGroupDetails .btn-res-success, #resultsGroupDetails .tumacenjeBtn, #resultsLabDetails .btn-success, #resultsLabDetails .btnLogin, #resultsLabDetails .btn-res-success, #resultsLabDetails .tumacenjeBtn, #labDetailsInner .btn-success, #labDetailsInner .btnLogin, #labDetailsInner .btn-res-success, #labDetailsInner .tumacenjeBtn {
     margin-bottom: 0; }
   #results .btn, #details .btn, #paymentCheckout .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
     font-size: 0.8125rem;
@@ -8098,7 +8100,9 @@ span.remove:hover {
     .headTitle + ul > li:last-child::after {
       content: ''; }
 
-.headTitleAboutUs {
+.headTitleAboutUs,
+.headTitleConditions,
+.headTitlePrivacy {
   font-size: 2.625rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
@@ -8598,7 +8602,7 @@ ul ol ul {
     opacity: 1;
     transform: scale(1); } }
 
-.btn-success, .btnLogin, .btn-res-success, .btnLogin, .btn-res-success {
+.btn-success, .btnLogin, .btn-res-success, .tumacenjeBtn, .btnLogin, .btn-res-success {
   padding: 0 1rem; }
 
 .grafik {
@@ -8913,10 +8917,10 @@ p.selectedAnalysisTitle {
 .beReady {
   justify-content: space-around; }
 
-#aboutUs {
+#aboutUs, #termsAndConditions, #privacyPolicy {
   margin-top: 60px;
   margin-bottom: 40px; }
-  #aboutUs p {
+  #aboutUs p, #termsAndConditions p, #privacyPolicy p {
     font-size: 20px;
     margin-bottom: 20px;
     line-height: 30px; }
@@ -8993,7 +8997,7 @@ p.selectedAnalysisTitle {
   background-size: cover;
   position: relative; }
 
-.blueOverlay, .blueOverlayAdmin, .blueOverlayLab {
+.blueOverlay, .blueOverlayLab {
   position: absolute;
   top: 0;
   left: 0;
@@ -9004,28 +9008,32 @@ p.selectedAnalysisTitle {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center; }
-  .blueOverlay h2, .blueOverlayAdmin h2, .blueOverlayLab h2 {
+  .blueOverlay h2, .blueOverlayLab h2 {
     color: #FFF;
     font-size: 42px; }
-  .blueOverlay > small, .blueOverlayAdmin > small, .blueOverlayLab > small {
+  .blueOverlay > small, .blueOverlayLab > small {
     margin-left: 80px;
     margin-right: 80px;
     margin-top: -5px;
     color: #FFF;
     margin-bottom: 30px; }
-  .blueOverlay .login, .blueOverlayAdmin .login, .blueOverlayLab .login {
+  .blueOverlay .login, .blueOverlayLab .login {
     padding-left: 0; }
 
+.testAdmin {
+  display: flex; }
+
 .blueOverlayAdmin {
-  flex-direction: row;
   flex-wrap: wrap;
-  flex: 0;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: center; }
+  flex-direction: row;
+  display: flex; }
   .blueOverlayAdmin > .card {
     background-color: transparent;
-    border: none; }
+    border: none;
+    flex: 1 1 auto; }
+
+.iconsTumacenje {
+  height: 40px; }
 
 .blueOverlayLab {
   height: 450px;
@@ -9618,6 +9626,27 @@ table.workingHoursLabDetails {
 
 .alert {
   margin-bottom: 0; }
+
+.tumacenjeBtn {
+  background-color: #1D88E5;
+  margin-top: 0;
+  margin-bottom: 0; }
+
+.tumacenjeIcon {
+  height: 50px; }
+
+.tumacenjeDiv {
+  border: 1px solid #e1e1e1; }
+
+.paid, .notPaid {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #55D159; }
+
+.notPaid {
+  background-color: #FF6F6F; }
 
 @media print {
   body {

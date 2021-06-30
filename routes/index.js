@@ -36,6 +36,10 @@ router.get('/results/', resultController.displayResults)
 router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 
 
+router.delete('/profile/:id/:location?', authenticationController.deleteOtherResult)
+
+
+
 //registration
 router.get('/prijava', authenticationController.signin)
 router.post('/prijava', authenticationController.login)
@@ -43,6 +47,9 @@ router.get('/google', authenticationController.google)
 router.get('/logout', authenticationController.logout)
 router.get('/google/redirect', authenticationController.redirect)
 router.get('/profile', authenticationController.profile)
+
+
+
 router.get('/profile/page/:page', authenticationController.profile)
 
 router.get('/users/:userEmail?', authenticationController.findUserEmail)
@@ -65,7 +72,8 @@ router.get('/addGroup', groupController.addGroup)
 router.post('/addGroup', groupController.upload, groupController.createGroup)
 router.get('/addGroup/:name', groupController.editGroup)
 router.post('/addGroup/:name', groupController.upload, groupController.updateGroup)
-router.delete('/allGroupsList/:id', groupController.deleteGroup)
+router.delete('/allGroupsList/:id/:location?', groupController.deleteGroup)
+//:location is added because of deletein analysis reports from user profile page
 
 //tumacenje rezultata
 router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
@@ -79,7 +87,7 @@ router.get('/addPrice', priceController.addPrice)
 router.post('/addPrice', priceController.createPrice)
 router.get('/addPrice/:id', priceController.editPrice)
 router.post('/addPrice/:id', priceController.updatePrice)
-router.delete('/allPrices/:id', priceController.deletePriceList)
+router.delete('/allPrices/:id:/location?', priceController.deletePriceList)
 
 // router.get('/schedule/:labId/:analysis/:userId/:total', scheduleController.scheduleVisit)
 // router.get('/schedule/:scheduleString', scheduleController.scheduleVisit)
@@ -90,7 +98,9 @@ router.post('/updateSchedule/:scheduleId', scheduleController.updateSchedule)
 router.post('/healthProfile/:id', profileController.updateHealthProfile)
 router.post('/myProfile/:id', profileController.updateProfile)
 router.get('/interpretation/page/:page', scheduleController.resultsInterpretation)
+router.get('/otherResultsInterpretation/page/:page', scheduleController.otherResultsInterpretation)
 router.get('/interpretation/:id', scheduleController.resultsInterpretationValues)
+router.get('/otherResultsInterpretation/:id', scheduleController.otherResultsInterpretationValues)
 router.post('/analysisInterpretation/:id', scheduleController.analysisInterpretation)
 router.post('/lockTheInterpretation', scheduleController.lockTheInterpretation)
 // router.get('/profile', profileController.getMyAppointments)
@@ -101,7 +111,7 @@ router.get('/addLab', labController.addLab)
 router.post('/addLab', labController.upload, labController.createLab)
 router.get('/addLab/:id/:name', labController.editLab)
 router.post('/addLab/:id/:name',labController.upload, labController.updateLab)
-router.delete('/allLabs/:id', labController.deleteLab)
+router.delete('/allLabs/:id/:location?', labController.deleteLab)
 router.get('/laboratorija/:slug/:ids?', labController.getLabInfo)
 // router.get('/laboratorija/:analysisName', labController.getLabInfo)
 router.get('/search/analysis/:analysisName/:labSlug', labController.getAdditionalAnalysis)
@@ -115,7 +125,7 @@ router.get('/addAnalysis', analysisController.addAnalysis)
 router.post('/addAnalysis', analysisController.createAnalysis)
 router.get('/addAnalysis/:id', analysisController.editAnalysis)
 router.post('/addAnalysis/:id/:name', analysisController.updateAnalysis)
-router.delete('/allAnalysis/:id', analysisController.deleteAnalysis)
+router.delete('/allAnalysis/:id/:location?', analysisController.deleteAnalysis)
 
 //disease
 router.get('/allDiseases', diseaseController.allDiseases)
@@ -123,7 +133,7 @@ router.get('/addDisease', diseaseController.addDisease)
 router.post('/addDisease', diseaseController.createDisease)
 router.get('/addDisease/:id/:name', diseaseController.editDisease)
 router.post('/addDisease/:id/:name', diseaseController.updateDisease)
-router.delete('/allDiseases/:id', diseaseController.deleteDisease)
+router.delete('/allDiseases/:id/:location?', diseaseController.deleteDisease)
 
 //editor
 router.get('/allEditors', editorController.allEditors)
@@ -131,7 +141,7 @@ router.get('/addEditor', editorController.addEditor)
 router.post('/addEditor', editorController.upload, editorController.createEditor)
 router.get('/addEditor/:id/', editorController.editEditor)
 router.post('/addEditor/:id/', editorController.upload, editorController.updateEditor)
-router.delete('/allEditors/:id', editorController.deleteEditor)
+router.delete('/allEditors/:id/:location?', editorController.deleteEditor)
 
 // reference
 router.get('/allReferences', referenceController.allReferences)
@@ -139,7 +149,7 @@ router.get('/addReference', referenceController.addReference)
 router.post('/addReference', referenceController.createReference)
 router.get('/addReference/:id', referenceController.editReference)
 router.post('/addReference/:id', referenceController.updateReference)
-router.delete('/allReferences/:id', referenceController.deleteReference)
+router.delete('/allReferences/:id/:location?', referenceController.deleteReference)
 
 // faq
 router.get('/allFaqs', faqController.allFaqs)
@@ -147,7 +157,7 @@ router.get('/addFaq', faqController.addFaq)
 router.post('/addFaq', faqController.createFaq)
 router.get('/addFaq/:id', faqController.editFaq)
 router.post('/addFaq/:id', faqController.updateFaq)
-router.delete('/allFaqs/:id', faqController.deleteFaq)
+router.delete('/allFaqs/:id/:location?', faqController.deleteFaq)
 
 router.get('/places/:place', placeController.getPlaces)
 router.get('/groups/:groupName', groupController.getGroupNames)

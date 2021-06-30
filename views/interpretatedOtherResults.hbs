@@ -1,0 +1,119 @@
+{{> _innerNavFrontend}}
+
+
+
+<div class="container" id="">
+ 		<div class="row">
+
+
+      <div class="col-12">
+        <a href="/otherResultsInterpretation/page/1">nazad</a>
+        {{#each findOtherResult}}
+        <div class="userDetails mt-4" >
+            <h1 class="headTitle">{{this.userId.username}}</h1>
+            <h4>Mobilni: {{this.userId.mobile}}</h4>
+            <h4>Godina rođenja: {{this.userId.birthYear}}</h3>
+            <h4>{{this.userId.height}}cm, {{this.userId.weight}}kg, BMI: {{this.userId.bmi}}</h4>
+            <h4>Pušač: {{this.userId.smoking}}</h4>
+            <h4>Alkohol: {{this.userId.alcohol}}</h4>
+            <h4>Povišen krvni pritisak: {{this.userId.bloodPresure}}</h4>
+            <h4>Ishrana: {{this.userId.nutrition}}</h4>
+            <h4>Trenutno pod stresom: {{this.userId.stress}}</h4>
+            <h4>Nedeljno vežba (sat): {{this.userId.hoursExcercise}}</h4>
+            <h4>Dodaci ishrani: {{this.userId.foodSuplements}}</h4>
+            <h4>Da li je ikada imao povišen šećer: {{this.userId.sweets}}</h4>
+            <h4>Trenutno na terapiji: {{this.userId.therapy}}</h4>
+            <h4>Komentar za terapiju: {{this.userId.therapyComment}}</h4>
+            <h4>Trenutno bolestan/bolesna: {{this.userId.currentStatus}}</h4>
+            <h4>Opis trenutnog stanja: {{this.userId.currentStatusComment}}</h4>
+            <h4>Oboljenja u porodici: {{this.userId.anamnesis}}</h4>
+            <h4>Anamneza komentar: {{this.userId.anamnesisComment}}</h4>
+
+            <h4>Trenutno doji: {{this.userId.breastfeeding}}</h4>
+            <h4>Ima menstruacije: {{this.userId.menstruation}}</h4>
+            <h4>Uredan ciklus: {{this.userId.regularMenstruation}}</h4>
+            <h4>Trenutno trudna: {{this.userId.pregnancy}}</h4>
+            <h4>Redovno odlazi kod ginekologa: {{this.userId.regularGinecologyChecks}}</h4>
+            <p><a href="/results/{{this.result}}" target="_blank">pogledaj rezultate</a></p>
+        </div>
+          {{/each}}
+
+      </div>
+
+      <div class="col-12">
+        <div class="table-responsive mt-4" id="labDashboard">
+          <form class="" action="" method="post" id="lockTheRecord">
+            {{#each analysisValues}}
+              <div class="form-check">
+                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
+                {{#if this.owner}}
+                <label for="zakljucaj" id="lockStatus">Zaključano</label>
+
+                {{else}}
+                <label for="zakljucaj" id="lockStatus">Zaključaj</label>
+
+
+                {{/if}}
+              </div>
+              <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
+
+            {{/each}}
+          </form>
+
+          <h2 id='newLine'>dodaj novi red</h2>
+          <table class="table" id="resultsUpload">
+
+                <tr>
+                  <th class="small text-info">Ime analize</th>
+                  <th class="small text-info">Vrednost</th>
+                  <th class="small text-info">Jedinica</th>
+                  <th class="small text-info"><</th>
+                  <th class="small text-info">></th>
+                  <th class="small text-info">Od</th>
+                  <th class="small text-info">Do</th>
+                  <th class="small text-info">Van granica?</th>
+                  <th class="small text-info">Komentar</th>
+                </tr>
+
+                <!-- izmeniti  -->
+                <form  action="/analysisInterpretation/{{../this._id}}" method="post">
+                <tr>
+
+                  <td>ime analize</td>
+                  <input type="hidden" value="{{this.analysisId}}" name="analysisId">
+                  <td><input type="text" class="form-control" value="{{this.value}}" name="value"></td>
+                  <td><input type="text" class="form-control" value="{{this.measure}}" name="measure"></td>
+                  <td><input type="text" class="form-control" value="{{this.lessThen}}" name="lessThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.greaterThen}}" name="greaterThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
+                  <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{this.analysisId}}" value="true" {{#if (checkBox this.outsideOfTheRange true)}} checked="checked"{{/if}}></div></td>
+                  <td><textarea rows=3 cols=35 name="commentResult">{{this.commentResult}}</textarea></td>
+
+                </tr>
+
+          </table>
+
+          <p>Glavni komentar</p>
+          <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{this.commentCube}}</textarea>
+
+
+            <button class="btn btn-outline-primary mb-4 btn-block mt-3">sačuvaj</button>
+            </form>
+        </div>
+      </div>
+
+      <!-- <div class="col-6 mt-4">
+          {{#each analysisValues}}
+              {{this}}
+          {{/each}}
+      </div> -->
+
+
+
+ 		</div><!-- table row end  -->
+ </div> <!-- results container end -->
+
+
+
+ {{> _footer}}

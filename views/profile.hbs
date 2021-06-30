@@ -27,19 +27,21 @@
 <div class="tab-content" id="myTabContent">
 
 
-  <div class="tab-pane show" id="otherResults" role="tabpanel" aria-labelledby="otherResults-tab">
+  <div class="tab-pane show" id="otherResults" role="tabpanel">
     <div class="profileCard" >
       <table class="tableLabResults" id="myLabResults">
         <tbody>
           {{#each myOtherResults}}
           <tr class="dashboardResults">
-            <td>{{this.status}}</td>
+            <td><i class="far fa-clock"></i></td>
             <td>{{displayTime this.submitedDate}}</td>
-            <td>{{displayTime this.deadline}}</td>
-            <td>{{this.package}}</td>
-            <td><a href="../results/{{this.result}}" target="_blank">Pogledaj fajl</a></td>
+
+            <!-- <td>{{displayTime this.deadline}}</td> -->
+            <td>{{this.package}} rsd</td>
+            <td><a href="../results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></a></td>
             <td>Pogledaj tumačenje</td>
-            <td class="bg-danger text-white text-center" style="border-radius:0;">{{calculateTime this.deadline}}</td>
+            <td><a href='' data-id={{this.id}} data-tab="otherResults" class="btn btn-danger deleteDocument">obriši</a></td>
+            <!-- <td class="bg-danger text-white text-center" style="border-radius:0;">{{calculateTime this.deadline}}</td> -->
           </tr>
           {{/each}}
         </tbody>
@@ -366,6 +368,7 @@
           {{/if}}
           <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td>
           <td><a href="/mojirezultati/{{this.id}}" class="btn btn-res-success ">detalji</button></a>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">obriši</a></td>
         </tr>
         {{/each}}
       </tbody>

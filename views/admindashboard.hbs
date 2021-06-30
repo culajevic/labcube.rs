@@ -4,53 +4,113 @@
   </div>
 {{/each}}
 <section id="">
-  <div class="container-fluid">
+  {{> _innerNavAdmin}}
+<div class="container">
+  <div class="row">
+    <div class="col-6 text-center p-4 mt-4 tumacenjeDiv">
+      <img src="images/icon_tumacenje.svg" class="pr-4 tumacenjeIcon">
+      <span class=><a href="/interpretation/page/1" class="btn btn-success text-uppercase ml-5 tumacenjeBtn">tumačenje lab cube rezultata</a></span>
+    </div>
+
+    <div class="col-6 text-center p-4 mt-4 tumacenjeDiv">
+      <img src="images/icon_tumacenje.svg" class="pr-4 tumacenjeIcon">
+      <span class=><a href="/otherResultsInterpretation/page/1" class="btn btn-success text-uppercase ml-5 tumacenjeBtn">tumačenje ostalih rezultata</a></span>
+    </div>
+
+  </row>
+</container>
+
+<div class="container">
+  <div class="row">
+    <div class="testAdmin mt-4">
+      <div class="blueOverlayAdmin">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_grupeAnaliza.svg" class="pr-3 iconsTumacenje" alt="">Grupe analiza</h5>
+
+            <a href="/addGroup" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allGroupsList" class="btn btn-outline-primary mt-2 text-uppercase">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4 ">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_laboratorije.svg" class="pr-3 iconsTumacenje" alt="">Laboratorije</h5>
+
+            <a href="/addLab" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allLabs" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_analize.svg" class="pr-3 iconsTumacenje" alt="">Analize</h5>
+
+            <a href="/addAnalysis" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allAnalysis" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_urednici.svg" class="pr-3 iconsTumacenje" alt="">Urednici</h5>
+            <a href="/addEditor" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allEditors" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4 ">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_reference.svg" class="pr-3 iconsTumacenje" alt="">Reference</h5>
+            <a href="/addReference" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allReferences" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_cenovnik.svg" class="pr-3 iconsTumacenje " alt="">Cenovnik</h5>
+            <a href="/addPrice" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allPrices" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_cestaPitanja.svg" class="pr-3 iconsTumacenje" alt="">Česta pitanja</h5>
+            <a href="/addFaq" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/allFaqs" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title"><img src="images/icon_korisnici.svg" class="pr-3 iconsTumacenje" alt="">Korisnici</h5>
+            <a href="/" class="btn btn-outline-primary text-uppercase mt-3">dodaj</a>
+            <a href="/" class="btn btn-outline-primary text-uppercase mt-2">pogledaj</a>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- <div class="container">
     <div class="row mb-0">
-      <!--  visible only on md and bigger -->
-      <!-- <div class="d-none d-md-flex col-md-4" id="loginLeftSide">
-        <div class="loginLeftSide">
-          <a href="/">
-          <img src="images/logoSmallSlice.svg" alt="labcube" class="smallLogo img-fluid">
-          </a>
-        </div>
-        <div class="socialLogin">
-          <a href="#" class=""><i class="fab fa-twitter"></i></a>
-          <a href="#" class=""><i class="fab fa-instagram"></i></a>
-          <a href="#" class=""><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class=""><i class="fab fa-youtube"></i></a>
-        </div>
-      </div> -->
 
       <div class="col-sm-12 col-md-12 pl-0 pr-0">
         <div class="backgroundImageAdmin">
           <div class="blueOverlayAdmin">
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Grupe analiza</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addGroup" class="btn btn-outline-light ">dodaj novu</a>
-                <a href="/allGroupsList" class="btn btn-outline-light mt-2">pogledaj sve</a>
-              </div>
-            </div>
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Laboratorije</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addLab" class="btn btn-outline-light ">dodaj novu</a>
-                <a href="/allLabs" class="btn btn-outline-light mt-2">pogledaj sve</a>
-              </div>
-            </div>
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Analize</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addAnalysis" class="btn btn-outline-light ">dodaj</a>
-                <a href="/allAnalysis" class="btn btn-outline-light mt-2">pogledaj sve</a>
-              </div>
-            </div>
+
 
             <div class="card ml-2 mr-2">
               <div class="card-body">
@@ -61,41 +121,8 @@
               </div>
             </div>
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Urednici</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addEditor" class="btn btn-outline-light ">dodaj</a>
-                <a href="/allEditors" class="btn btn-outline-light mt-2">pogledaj sve</a>
-              </div>
-            </div>
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Reference</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addReference" class="btn btn-outline-light ">dodaj</a>
-                <a href="/allReferences" class="btn btn-outline-light mt-2">pogledaj</a>
-              </div>
-            </div>
 
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Cenovnik</h5>
-                <p class="card-text text-white"></p>
-                <a href="/addPrice" class="btn btn-outline-light ">dodaj</a>
-                <a href="/allPrices" class="btn btn-outline-light mt-2">pogledaj</a>
-              </div>
-            </div>
-
-            <div class="card ml-2 mr-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Korisnici</h5>
-                <p class="card-text text-white"></p>
-                <a href="/" class="btn btn-outline-light ">dodaj</a>
-                <a href="/" class="btn btn-outline-light mt-2">pogledaj</a>
-              </div>
-            </div>
 
             <div class="card mr-2 ml-2">
               <div class="card-body">
@@ -106,18 +133,17 @@
               </div>
             </div>
 
-            <div class="card mr-2 ml-2">
-              <div class="card-body">
-                <h5 class="card-title text-white">Tumačenje rezultata</h5>
-                <p class="card-text text-white"></p>
-                <a href="/interpretation/page/1" class="btn btn-outline-light mt-2">pogledaj</a>
-              </div>
-            </div>
+
 
           </div><!-- blueoverlay -->
-        </div><!-- backgroundImage -->
+        <!-- </div> -->
+        <!-- backgroundImage -->
 
-      </div><!-- col-8 -->
-    </div><!-- row -->
-  </div><!-- container-fluid -->
+      <!-- </div> -->
+
+    <!-- </div> -->
+    <!-- row -->
+  <!-- </div> -->
+
+  <!-- container-fluid -->
 </section>

@@ -7,6 +7,7 @@ let User = mongoose.model('User')
 let Schedule = mongoose.model('Schedule')
 let Group = mongoose.model('Group')
 let Feedback = mongoose.model('Feedback')
+let Result = mongoose.model('Result')
 const nodemailer = require('nodemailer')
 
 
@@ -167,9 +168,32 @@ exports.resultsInterpretation = [authCheck, async (req,res) => {
     .populate('user')
     .populate('analyses.analysisId')
     .populate('owner')
-
     .sort({createdDate:-1})
-  res.render('resultsInterpretation', {resultsForInterpretation, title:'Tumačenje rezultata', page, countTotal, pages})
+  res.render('resultsInterpretation', {resultsForInterpretation, title:'Tumačenje rezultata', page, countTotal, pages, paginationURL:'resultsInterpretation'})
+}]
+
+exports.otherResultsInterpretation = [authCheck, async (req,res) => {
+  const countTotal = await Result.countDocuments({})
+  const page = req.params.page || 1
+  const limit = 40
+  const pages = Math.ceil(countTotal / limit)
+  const skip = (page * limit) - limit
+
+  const otherResultsForInterpretation = await Result.find({})
+    .skip(skip)
+    .limit(limit)
+    .populate('userId')
+    .sort({submitedDate:-1})
+    res.render('otherResultsInterpretation', {otherResultsForInterpretation, title:'Tumačenje ostalih rezultata', page, countTotal, pages, paginationURL:'otherResultsInterpretation'})
+}]
+
+exports.otherResultsInterpretationValues = [authCheck, async (req,res) => {
+  const findOtherResult = await Result.find({_id:req.params.id})
+
+    .populate('userId')
+    res.render('interpretatedOtherResults.hbs', {findOtherResult:findOtherResult})
+    // res.json(findOtherResult)
+
 }]
 
 exports.resultsInterpretationValues = [authCheck, async (req,res) => {

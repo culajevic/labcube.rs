@@ -421,6 +421,18 @@ exports.updatePassword = async (req,res,next) => {
   }
 }
 
+exports.deleteOtherResult =  [authCheck, async (req,res) => {
+  if (req.params.location == 'otherResults') {
+  const deleteResult = await Result.findOneAndDelete({_id:req.params.id})
+  req.flash('success_msg', 'Rezultat je uspesno obrisan.')
+  res.json()}
+  else {
+    const deleteLabCubeResult = await Schedule.findOneAndDelete({_id:req.params.id})
+      req.flash('success_msg', 'Rezultat je uspesno obrisan.')
+      res.json()
+  }
+}]
+
 exports.logout = (req,res) => {
   req.logout()
   res.redirect('/')

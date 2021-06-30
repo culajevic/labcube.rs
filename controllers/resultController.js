@@ -75,6 +75,7 @@ exports.payment = async (req,res) => {
   let currentId
   let resultUpload
   let errors = []
+
   if(!req.body.email) {
     errors.push({text:'Obavezno je uneti email adresu'})
   }
@@ -97,9 +98,8 @@ exports.payment = async (req,res) => {
   } else {
     if(req.file) {
 
-      let deadline = new Date()
-        deadline.setHours(deadline.getHours() + parseInt(req.body.package))
-
+      // let deadline = new Date()
+        // deadline.setHours(deadline.getHours() + parseInt(req.body.package))
     } else {
       req.flash('error_msg', 'doslo je do greske prilikom uploada')
     }
@@ -156,7 +156,7 @@ exports.payment = async (req,res) => {
 request()
     .then(data => {
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.body.result, package:req.body.package, user:req.user})
+        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user})
       }
     })
     .catch(error => {
@@ -203,6 +203,110 @@ exports.paymentDone = (req,res) => {
 requestCheckout()
 .then(data => {
   if(data.result.code == '000.100.110') {
+    let deadline = new Date()
+    let serviceClosingTime = new Date()
+    let ofHours
+    let tomorrow = new Date()
+    serviceClosingTime.setHours(17,0,0)
+
+
+  let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
+  let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
+  console.log(minRest)
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //paket sat vremena
+      if (deadline.getHours() > 9 && deadline.getHours() < 16 && data.amount == 999) {
+        deadline.setHours(deadline.getHours() + 1)
+      } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 999) {
+        // tomorrow.setDate(tomorrow.getDate() + 1)
+        // tomorrow.setHours(9,0,0)
+        deadline.setHours(9,0,0)
+        deadline = tomorrow.setHours(deadline.getHours() + 1)
+      } else if (deadline.getHours() >= 16 && deadline.getHours() < 17) {
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setHours(9,0,0)
+        deadline = tomorrow.setHours(tomorrow.getHours() + 1)
+        deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
+      } else if (data.amount == 999) {
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        tomorrow.setHours(9,0,0)
+        deadline = tomorrow.setHours(tomorrow.getHours() + 1)
+        // paket 4 sata
+      }  else if (deadline.getHours() > 9 && deadline.getHours() < 13 && data.amount == 699) {
+          deadline.setHours(deadline.getHours() + 4)
+        } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 699) {
+          deadline.setHours(9,0,0)
+          deadline = tomorrow.setHours(deadline.getHours() + 4)
+        } else if (deadline.getHours() >= 13 && deadline.getHours() < 17) {
+          tomorrow.setDate(tomorrow.getDate() + 1)
+          tomorrow.setHours(9,0,0)
+          deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+          deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
+        } else if (data.amount == 699) {
+          tomorrow.setDate(tomorrow.getDate() + 1)
+          tomorrow.setHours(9,0,0)
+          deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+        }
+
+
+      // else if ((deadline.getHours() > 8 && deadline.getHours() < 13) && data.amount == 699) {
+      //   console.log(3)
+      //       deadline.setHours(deadline.getHours() + 4)
+      //     } else if (data.amount == 699) {
+      //       console.log(4)
+      //       tomorrow.setDate(tomorrow.getDate() + 1)
+      //       tomorrow.setHours(9,0,0)
+      //       deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+      //     }
+
+      // if ((deadline.getHours() > 8 && deadline.getHours() < 13) && data.amount == 699) {
+      //   deadline.setHours(deadline.getHours() + 4)
+      //         console.log(3)
+      // } else if(data.amount == 699) {
+      //         console.log(4)
+      //   tomorrow.setDate(tomorrow.getDate() + 1)
+      //   tomorrow.setHours(9,0,0)
+      //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+      // }
+
+      // if (deadline.getHours() > 13 && deadline.getHours() < 0 && data.amount == 699) {
+      //   deadline.setHours(deadline.getHours() + 4)
+      // } else if(data.amount == 699) {
+      //   tomorrow.setDate(tomorrow.getDate() + 1)
+      //   tomorrow.setHours(9,0,0)
+      //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+      // }
+      //
+
+
+    // if (data.amount == 999 && ofHours) {
+    //     deadline = tomorrow.setHours(tomorrow.getHours() + 1)
+    //
+    //   }  else {
+    //     deadline.setHours(deadline.getHours() + 1)
+    //
+    //     }
+
+    //  if (data.amount == 699 && (deadline.getHours() > 13 || deadline.getHours() < 9)) {
+    //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+    // } else {
+    //     deadline.setHours(deadline.getHours() + 4)
+    // }
+    //
+    // if (data.amount == 499 && (deadline.getHours() > 16 || deadline.getHours() < 9)) {
+    //   deadline = tomorrow.setHours(tomorrow.getHours() + 12)
+    // } else {
+    //   deadline.setHours(deadline.getHours() + 12)
+    // }
+    //
+    // if (data.amount == 399 && (deadline.getHours() > 16 || deadline.getHours() < 9)) {
+    //   deadline = tomorrow.setHours(tomorrow.getHours() + 24)
+    // } else {
+    //   deadline.setHours(deadline.getHours() + 24)
+    // }
+
     res.render('paymentSuccess', {data:data})
     // let updatePaymentInfo = Result.findOneAndUpdate(
     //   {_id:data.customParameters.SHOPPER_requestId},
@@ -212,6 +316,7 @@ requestCheckout()
     //     runValidators:true,
     //     useFindAndModify:false
     //   }).exec()
+
     const uploadResult = new Result({
       userId:data.customer.merchantCustomerId,
       email:data.customer.email,
@@ -220,7 +325,8 @@ requestCheckout()
       package:data.amount,
       paid:data.amount,
       ip:data.customer.ip,
-      submitedDate: Date.now()
+      submitedDate: Date.now(),
+      deadline:deadline
       }
     )
        try {

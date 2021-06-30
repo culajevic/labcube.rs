@@ -152,6 +152,7 @@ let filter = 'analiza'
 let checkout = document.querySelector('.checkout')
 let urlArr = location.split('/')
 
+
 /* check if local storage already exists,
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
@@ -1038,6 +1039,11 @@ if (municipalityValue != null) {
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
 
+  const tabs = document.getElementById('myTab')
+  tabs.addEventListener('click', (e) => {
+    console.log(e.target.getAttribute("href"))
+  })
+
   const visina = document.getElementById('visina')
   const tezina = document.getElementById('tezina')
   const bmi = document.getElementById('bmi')
@@ -1213,6 +1219,73 @@ let interpretationPage = document.getElementById('interpretationId')
         })
       })// search end
   }
+
+
+//tumacenje ostalih rezultata
+
+  if(urlArr[1] == 'otherResultsInterpretation') {
+
+    let mins = document.querySelectorAll('.mins')
+    let secs = document.querySelectorAll('.secs')
+    let hour = document.querySelectorAll('.hours')
+    let day = document.querySelectorAll('.days')
+    let deadline = document.querySelectorAll('.deadline')
+    let deadlinesArr = []
+
+    for (let i = 0; i < deadline.length; i++) {
+      deadlinesArr.push(Date.parse(deadline[i].innerHTML))
+      var myfunc = setInterval(function() {
+        var now = new Date().getTime();
+        var timeleft = deadlinesArr[i] - now;
+
+        if (timeleft < 3600000) {
+          document.getElementById(hour[i].id).style.color="red"
+          document.getElementById(mins[i].id).style.color="red"
+          document.getElementById(secs[i].id).style.color="red"
+        }
+
+        if (timeleft < 7200000) {
+          document.getElementById(hour[i].id).style.color="orange"
+          document.getElementById(mins[i].id).style.color="orange"
+          document.getElementById(secs[i].id).style.color="orange"
+        }
+
+        var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+
+        document.getElementById(day[i].id).innerHTML = days + "d "
+        document.getElementById(hour[i].id).innerHTML = hours + "h "
+        document.getElementById(mins[i].id).innerHTML = minutes + "m "
+        document.getElementById(secs[i].id).innerHTML = seconds + "s "
+
+        if (timeleft < 0) {
+            clearInterval(myfunc);
+            document.getElementById(day[i].id).innerHTML = ""
+            document.getElementById(hour[i].id).innerHTML = ""
+            document.getElementById(mins[i].id).innerHTML = ""
+            document.getElementById(secs[i].id).innerHTML = ""
+        }
+
+      }, 1000)
+    }
+
+    // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
+} //end
+
+if (urlArr[1] == 'otherResultsInterpretation') {
+  const addNewLine = document.getElementById('newLine')
+  const otherResultsTable = document.getElementById('resultsUpload')
+  addNewLine.addEventListener('click', () => {
+    let newRow = otherResultsTable.insertRow()
+    let newCell = newRow.insertCell()
+    let newText = document.createTextNode('new')
+    newCell.appendChild(newText)
+    
+  })
+}
+
 
 /* ANALYSIS DETAILS PAGE ***************/
 if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
@@ -1901,5 +1974,11 @@ if (location.match('addLab')) {
   if(location.match('allPrices')) {
     helper.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika')
   }
+
+  //delete priceList
+    if(location.match('profile')) {
+      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat ce biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'doslo je do greske prilikom brisanja rezultata')
+    }
+
 
 }// window onload end

@@ -715,7 +715,7 @@ p.selectedAnalysisTitle {
 
 // about us
 
-#aboutUs {
+#aboutUs, #termsAndConditions, #privacyPolicy {
   margin-top: 60px;
   margin-bottom: 40px;
   p {
@@ -841,22 +841,36 @@ p.selectedAnalysisTitle {
   }
 }
 
+.testAdmin {
+  display: flex;
+}
+
+
 .blueOverlayAdmin  {
-  @extend .blueOverlay;
-  flex-direction:row;
+  // @extend .blueOverlay;
   flex-wrap: wrap;
-  flex:0;
-  // display:inline-block;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: center;
+  flex-direction:row;
+  display: flex;
+
+  // background-color: rgba(29,136,229,.7);
+
+  // align-content: flex-start;
+  // justify-content: left;
+
   & > .card {
     background-color: transparent;
     // border:1px solid white;
     border:none;
-
+    flex:1 1 auto;
+    // align-items:flex-start;
+    // justify-content:left;
   }
 }
+
+.iconsTumacenje {
+  height:40px;
+}
+
 
 .blueOverlayLab {
   @extend .blueOverlay;
@@ -1587,6 +1601,34 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 
 .alert {
   margin-bottom: 0;
+}
+
+.tumacenjeBtn {
+  @extend .btn-success;
+  background-color: $primary-color;
+  margin-top:0;
+  margin-bottom: 0;
+}
+
+.tumacenjeIcon {
+  height: 50px;
+}
+
+.tumacenjeDiv {
+  border:1px solid $border;
+}
+
+.paid {
+  display: block;
+  width:20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: $button-green;
+}
+
+.notPaid {
+  @extend .paid;
+  background-color: $danger;
 }
 
 @media print {

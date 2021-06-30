@@ -18,7 +18,8 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
       item.addEventListener('click', (e) => {
         if(confirm(message))  {
           let id = e.target.getAttribute('data-id')
-          url += id
+          let location = e.target.getAttribute('data-tab')
+          url += id +'/'+location
           fetch (url, {
             method: 'delete'
           }).then((response) => {

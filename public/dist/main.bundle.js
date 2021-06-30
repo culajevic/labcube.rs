@@ -20585,7 +20585,8 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
     item.addEventListener('click', function (e) {
       if (confirm(message)) {
         var id = e.target.getAttribute('data-id');
-        url += id;
+        var location = e.target.getAttribute('data-tab');
+        url += id + '/' + location;
         fetch(url, {
           method: 'delete'
         }).then(function (response) {
@@ -22603,6 +22604,10 @@ window.onload = function () {
   }
 
   if (urlArr[1] == 'profile' && !findUserByEmail) {
+    var tabs = document.getElementById('myTab');
+    tabs.addEventListener('click', function (e) {
+      console.log(e.target.getAttribute("href"));
+    });
     var visina = document.getElementById('visina');
     var tezina = document.getElementById('tezina');
     var bmi = document.getElementById('bmi');
@@ -22719,6 +22724,74 @@ window.onload = function () {
         });
       });
     }); // search end
+  } //tumacenje ostalih rezultata
+
+
+  if (urlArr[1] == 'otherResultsInterpretation') {
+    var myfunc;
+
+    (function () {
+      var mins = document.querySelectorAll('.mins');
+      var secs = document.querySelectorAll('.secs');
+      var hour = document.querySelectorAll('.hours');
+      var day = document.querySelectorAll('.days');
+      var deadline = document.querySelectorAll('.deadline');
+      var deadlinesArr = [];
+
+      var _loop = function _loop(_i3) {
+        deadlinesArr.push(Date.parse(deadline[_i3].innerHTML));
+        myfunc = setInterval(function () {
+          var now = new Date().getTime();
+          var timeleft = deadlinesArr[_i3] - now;
+
+          if (timeleft < 3600000) {
+            document.getElementById(hour[_i3].id).style.color = "red";
+            document.getElementById(mins[_i3].id).style.color = "red";
+            document.getElementById(secs[_i3].id).style.color = "red";
+          }
+
+          if (timeleft < 7200000) {
+            document.getElementById(hour[_i3].id).style.color = "orange";
+            document.getElementById(mins[_i3].id).style.color = "orange";
+            document.getElementById(secs[_i3].id).style.color = "orange";
+          }
+
+          var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+          var hours = Math.floor(timeleft % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+          var minutes = Math.floor(timeleft % (1000 * 60 * 60) / (1000 * 60));
+          var seconds = Math.floor(timeleft % (1000 * 60) / 1000);
+          document.getElementById(day[_i3].id).innerHTML = days + "d ";
+          document.getElementById(hour[_i3].id).innerHTML = hours + "h ";
+          document.getElementById(mins[_i3].id).innerHTML = minutes + "m ";
+          document.getElementById(secs[_i3].id).innerHTML = seconds + "s ";
+
+          if (timeleft < 0) {
+            clearInterval(myfunc);
+            document.getElementById(day[_i3].id).innerHTML = "";
+            document.getElementById(hour[_i3].id).innerHTML = "";
+            document.getElementById(mins[_i3].id).innerHTML = "";
+            document.getElementById(secs[_i3].id).innerHTML = "";
+          }
+        }, 1000);
+      };
+
+      for (var _i3 = 0; _i3 < deadline.length; _i3++) {
+        _loop(_i3);
+      } // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
+
+    })();
+  } //end
+
+
+  if (urlArr[1] == 'otherResultsInterpretation') {
+    var addNewLine = document.getElementById('newLine');
+    var otherResultsTable = document.getElementById('resultsUpload');
+    addNewLine.addEventListener('click', function () {
+      var newRow = otherResultsTable.insertRow();
+      var newCell = newRow.insertCell();
+      var newText = document.createTextNode('new');
+      newCell.appendChild(newText);
+    });
   }
   /* ANALYSIS DETAILS PAGE ***************/
 
@@ -23396,6 +23469,11 @@ window.onload = function () {
 
   if (location.match('allPrices')) {
     helper.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika');
+  } //delete priceList
+
+
+  if (location.match('profile')) {
+    helper.deleteDocument('.deleteDocument', 'Ovaj rezultat ce biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'doslo je do greske prilikom brisanja rezultata');
   }
 }; // window onload end
 

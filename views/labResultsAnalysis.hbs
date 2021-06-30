@@ -27,10 +27,10 @@
                       <div class="card">
                         <div class="card-body">
                           <img src="images/1h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od sat vremena</p>
+                          <p class="text-center font-weight-bold">Tumačenje u roku od sat<sup>*</sup> vremena</p>
                           <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">999 din</span>
-                          <input type="radio" name="package" value="999" id="t1" {{#if (checkBox package 1)}} checked {{/if}} />
+                          <input type="radio" name="package" value=999 id="t1" {{#if (checkBox package 1)}} checked {{/if}} />
                           <label for="t1"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
                         </div>
                       </div>
@@ -41,10 +41,10 @@
                         <div class="card-body">
                           <div class="najpopularnije">najpopularnije</div>
                           <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata</p>
+                          <p class="text-center font-weight-bold">Tumačenje u roku od 4<sup>*</sup> sata</p>
                           <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">699 din</span>
-                          <input type="radio" name="package" value="699" id="t4" {{#if (checkBox package 4)}} checked {{/if}} />
+                          <input type="radio" name="package" value=699 id="t4" {{#if (checkBox package 4)}} checked {{/if}} />
                           <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
                         </div>
                       </div>
@@ -53,10 +53,10 @@
                       <div class="card">
                         <div class="card-body ">
                           <img src="images/12h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                          <p class="text-center font-weight-bold">Tumačenje u roku od 12<sup>*</sup> sati</p>
                           <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">499 din</span>
-                          <input type="radio" name="package" value="499" id="t12" {{#if (checkBox package 12)}} checked {{/if}} />
+                          <input type="radio" name="package" value=499 id="t12" {{#if (checkBox package 12)}} checked {{/if}} />
                           <label for="t12"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
                         </div>
                       </div>
@@ -69,12 +69,17 @@
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
                           <!-- <p class="text-center benefits">+ dodatna pojašnjenja putem poruka na sajtu</p> -->
                           <span class="text-center paketiCena">399 din</span>
-                          <input type="radio" name="package" value="399" id="t24" {{#if (checkBox package 24)}} checked {{/if}} />
+                          <input type="radio" name="package" value=399 id="t24" {{#if (checkBox package 24)}} checked {{/if}} />
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
                         </div>
                       </div>
                     </div>
                 </div><!-- odabir paketa end -->
+
+                <div class="col-12">
+                  <p><sup>*</sup>Radno vreme serivsa za tumačenje rezultata je od 09 do 17h. Zahtevi za tumačenje rezultata u roku od sat vremena i 4 sata moraju biti prijavljeni do 16h odnosno 13h da biste ih dobili istog dana. Ukoliko vaše rezultate pošaljete nakon radnog vremena, tumačenje će te dobiti sutradan do 10h odnosno do 13h. </p>
+                </div>
+
                 <div class="col-12 upload_file my-4">
                     <div class="form-row">
                       <div class="col-12">
@@ -111,7 +116,7 @@
 
               </div><!-- row end -->
 
-                  <h2 class="pb-4">Pogledaj kako izgleda kada protumačimo rezultate</h2>
+                  <h2 class="mt-4 pb-4">Pogledajte ovde kako mi to radimo.</h2>
 
                   <div class="col-12 doctorDetails mt-4">
                     <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">

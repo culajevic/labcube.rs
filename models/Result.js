@@ -11,7 +11,7 @@ const resultSchema = new mongoose.Schema({
     type:Date,
     default:Date.now
   },
-  package:String,
+  package:mongoose.Decimal128,
   status:{
     type:String,
     default:'Pending'

@@ -15,6 +15,16 @@ hbs.registerHelper('formatLabScheduleDate', (date,place) => {
   }
 })
 
+hbs.registerHelper('checkInterpreatationStatus', status => {
+  if (status == 'pending') {
+    return '<i class="fas fa-spinner"></i>'
+  } else {
+    return '<i class="fas fa-tasks"></i>'
+  }
+})
+
+
+
 hbs.registerHelper('displayTime', (value) => {
   return moment(value).format('D.M.Y / H:mm')
 })
@@ -239,5 +249,17 @@ hbs.registerHelper('isItOpen', (status, currentDayNum ) => {
     return currentStatus = 'closingSoon'
   } else if (status ==='closed' && day == currentDayNum ){
     return currentStatus = 'closed'
+  }
+})
+
+
+//check if payment is ok
+hbs.registerHelper('checkPayment', (package, paid) => {
+  let v1 = parseFloat(package)
+  let v2 = parseFloat(paid)
+  if (v1 === v2 ) {
+    return 'paid'
+  } else {
+    return 'notPaid'
   }
 })

@@ -1,0 +1,37 @@
+{{> _innerNavTumacenje}}
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="table-responsive mt-4" id="labDashboard">
+        <table class="table" id="analysisResultsCube">
+          <tbody>
+
+          {{#each otherResultsForInterpretation}}
+            <tr class="dashboardResults">
+              <td>{{this.userId.email}}</td>
+              <td>{{formatRsDate this.submitedDate}}</td>
+              <td><span class="{{checkPayment this.package this.paid}}"></span></td>
+
+              <td>{{this.paid}} rsd</td>
+              <td>{{{checkInterpreatationStatus this.status}}}</td>
+              <td><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></td>
+              <td><a class="" href="/otherResultsInterpretation/{{this._id}}">protumači</a></td>
+              <td id="deadline{{this.id}}" class="deadline d-none">{{this.deadline}}</td>
+              <td>{{formatRsDate this.deadline}}</td>
+              <td></td>
+              <td id="days{{this.id}}" class="days"></td>
+              <td id="hours{{this.id}}" class="hours"></td>
+              <td id="mins{{this.id}}" class="mins"></td>
+              <td id="secs{{this.id}}" class="secs"></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{> _paginationCube}}
+      </div>
+    </div>
+  </div>
+</div>
