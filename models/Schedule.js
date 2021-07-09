@@ -42,7 +42,7 @@ const scheduleSchema = new mongoose.Schema({
   owner:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'
-  },
+  }
 })
 
 module.exports = mongoose.model('Schedule', scheduleSchema)

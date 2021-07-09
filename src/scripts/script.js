@@ -1140,12 +1140,18 @@ let interpretationPage = document.getElementById('interpretationId')
     let lockTheRecordArr = []
 
     // lock the record for interpretation
+
+    if(lockTheRecord.checked == true) {
+      lockTheRecord.disabled = true
+    }
+
     lockTheRecord.addEventListener('click', e => {
       if(lockTheRecord.checked == true) {
         ownerId = lockTheRecord.value
         lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
         lockingInterpretation = JSON.stringify(lockTheRecordArr)
         lockStatus.innerHTML = 'Zaključano'
+        lockTheRecord.disabled = true
 
         fetch('/lockTheInterpretation/',{
           method:"post",
@@ -1223,7 +1229,7 @@ let interpretationPage = document.getElementById('interpretationId')
 
 //tumacenje ostalih rezultata
 
-  if(urlArr[1] == 'otherResultsInterpretation') {
+  if(urlArr[1] == 'otherResultsInterpretation' && !interpretationPage) {
 
     let mins = document.querySelectorAll('.mins')
     let secs = document.querySelectorAll('.secs')
@@ -1272,19 +1278,114 @@ let interpretationPage = document.getElementById('interpretationId')
     }
 
     // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
-} //end
+} else if (urlArr[1] == 'otherResultsInterpretation') {
 
-if (urlArr[1] == 'otherResultsInterpretation') {
+  //lockTheRecord
+  let ownerId
+  let interpretation = interpretationPage.value
+  let lockTheRecord = document.getElementById('zakljucaj')
+  let lockStatus = document.getElementById('lockStatus')
+  let lockTheRecordArr = []
+
+  if(lockTheRecord.checked == true) {
+    lockTheRecord.disabled = true
+  }
+
+  lockTheRecord.addEventListener('click', e => {
+    if(lockTheRecord.checked == true) {
+      ownerId = lockTheRecord.value
+      lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+      lockingInterpretation = JSON.stringify(lockTheRecordArr)
+      lockStatus.innerHTML = 'Zaključano'
+      lockTheRecord.disabled = true
+
+
+      fetch('/lockTheOtherInterpretation/',{
+        method:"post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body:lockingInterpretation
+      }).then(response => {
+        console.log(response)
+      })
+    }
+    else {
+      ownerId = null
+      lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+      lockingInterpretation = JSON.stringify(lockTheRecordArr)
+      lockStatus.innerHTML = 'Zaključaj'
+      fetch('/lockTheOtherInterpretation/',{
+        method:"post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body:lockingInterpretation
+      }).then(response => {
+        console.log(response)
+      })
+    }
+  })//lock the record end
+
+  // add new lines
   const addNewLine = document.getElementById('newLine')
   const otherResultsTable = document.getElementById('resultsUpload')
   addNewLine.addEventListener('click', () => {
     let newRow = otherResultsTable.insertRow()
     let newCell = newRow.insertCell()
-    let newText = document.createTextNode('new')
     newCell.appendChild(newText)
-    
   })
+
+
+
+    let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
+    let getAnalyisisNameDiv = document.getElementById('analysisFound')
+    let results = document.querySelector('#resultsUpload > tbody')
+    let analysisId = document.querySelectorAll('.analysisId')
+
+    console.log(analysisId)
+
+    searchforAnalysis.forEach((item, index) => {
+      item.addEventListener('input', e => {
+        let searchStr = e.target.value
+        fetch('/analysis/prices/'+searchStr).then((data) => {
+          data.json().then((result) => {
+            console.log(result)
+            let analysis = result.analysisName
+            getAnalyisisNameDiv.innerHTML = ''
+            for(i=0; i<analysis.length; i++) {
+              let liItem = document.createElement('li')
+              liItem.className +="list-group-item"
+              let link = document.createElement('a')
+              link.href=analysis[i]._id
+              // let link = document.createElement('span')
+              link.setAttribute('data-analysisId',analysis[i]._id )
+              link.setAttribute('data-analysisName',analysis[i].analysisName )
+              liItem.appendChild(link)
+              let analysisName = document.createTextNode(analysis[i].analysisName)
+              link.appendChild(analysisName)
+              getAnalyisisNameDiv.appendChild(liItem)
+            } // for end
+
+
+            let resultList = document.querySelectorAll('#analysisFound li')
+            resultList.forEach((item) => {
+              item.addEventListener('click', (b) => {
+                b.preventDefault()
+                e.target.value = b.srcElement.getAttribute('data-analysisName')
+                analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'))
+                getAnalyisisNameDiv.innerHTML=''
+              })
+            })
+          })// data json end
+        })//fetch end
+      })
+    })
 }
+
+
 
 
 /* ANALYSIS DETAILS PAGE ***************/

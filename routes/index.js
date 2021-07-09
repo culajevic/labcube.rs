@@ -102,7 +102,9 @@ router.get('/otherResultsInterpretation/page/:page', scheduleController.otherRes
 router.get('/interpretation/:id', scheduleController.resultsInterpretationValues)
 router.get('/otherResultsInterpretation/:id', scheduleController.otherResultsInterpretationValues)
 router.post('/analysisInterpretation/:id', scheduleController.analysisInterpretation)
+router.post('/analysisOtherInterpretation/:id', scheduleController.analysisOtherInterpretation)
 router.post('/lockTheInterpretation', scheduleController.lockTheInterpretation)
+router.post('/lockTheOtherInterpretation', scheduleController.lockTheOtherInterpretation)
 // router.get('/profile', profileController.getMyAppointments)
 
 // labs

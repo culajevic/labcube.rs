@@ -183,6 +183,7 @@ exports.otherResultsInterpretation = [authCheck, async (req,res) => {
     .skip(skip)
     .limit(limit)
     .populate('userId')
+    .populate('owner')
     .sort({submitedDate:-1})
     res.render('otherResultsInterpretation', {otherResultsForInterpretation, title:'Tumačenje ostalih rezultata', page, countTotal, pages, paginationURL:'otherResultsInterpretation'})
 }]
@@ -191,7 +192,7 @@ exports.otherResultsInterpretationValues = [authCheck, async (req,res) => {
   const findOtherResult = await Result.find({_id:req.params.id})
 
     .populate('userId')
-    res.render('interpretatedOtherResults.hbs', {findOtherResult:findOtherResult})
+    res.render('interpretatedOtherResults.hbs', {findOtherResult:findOtherResult, user:req.user})
     // res.json(findOtherResult)
 
 }]
@@ -207,7 +208,7 @@ exports.analysisInterpretation = async (req,res) => {
 // console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
 
 let outsideOfTheRange = []
-let test = []
+// let test = []
 let updateInterpretation
 
 
@@ -218,11 +219,11 @@ let updateInterpretation
       outsideOfTheRange = true
     }
 
-    test.push({
-      'id':req.body.analysisId[i],
-      'value':req.body.value[i],
-      'range':outsideOfTheRange
-    })
+    // test.push({
+    //   'id':req.body.analysisId[i],
+    //   'value':req.body.value[i],
+    //   'range':outsideOfTheRange
+    // })
 
 
 
@@ -249,11 +250,74 @@ let updateInterpretation
   res.send(updateInterpretation)
 }
 
+
+exports.analysisOtherInterpretation = async (req,res) => {
+// console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
+
+// let test = []
+let outsideOfTheRange
+let updateInterpretation
+let analysisArr = []
+
+console.log(req.body)
+
+
+for (let i = 0; i<req.body.analysisName.length; i++) {
+  if(req.body['outsideOfTheRange'+i]  ==  undefined )  {
+    outsideOfTheRange = false
+  } else {
+    outsideOfTheRange = true
+  }
+
+
+  analysisArr.push({
+  "analysis":req.body.analysisName[i],
+  "analysisId":req.body.analysisId[i],
+  "value":req.body.value[i],
+  'measure':req.body.measure[i],
+  'lessThen':req.body.lessThen[i],
+  'greaterThen':req.body.greaterThen[i],
+  'commentResult':req.body.commentResult[i],
+  'outsideOfTheRange':outsideOfTheRange})
+
+
+  updateOtherInterpretation = await Result.findOneAndUpdate(
+    {_id:req.params.id},
+    {$set:{
+      analyses:analysisArr,
+      commentCube:req.body.commentCube
+      }
+    },
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+}
+  res.send(updateOtherInterpretation)
+}
+
+
 exports.lockTheInterpretation =  async (req,res) => {
   // console.log(req.body[0].ownerId)
   // console.log(req.body[0].interpretationId)
   console.log(req.body[0])
   let lockTheInterpretation = await Schedule.findOneAndUpdate(
+    {_id:req.body[0].interpretationId},
+    {owner:req.body[0].ownerId},
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+    res.send('ok je')
+}
+
+exports.lockTheOtherInterpretation =  async (req,res) => {
+  // console.log(req.body[0].ownerId)
+  // console.log(req.body[0].interpretationId)
+  console.log(req.body[0])
+  let lockTheInterpretation = await Result.findOneAndUpdate(
     {_id:req.body[0].interpretationId},
     {owner:req.body[0].ownerId},
     {

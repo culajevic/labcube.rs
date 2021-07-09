@@ -22658,6 +22658,10 @@ window.onload = function () {
     var lockStatus = document.getElementById('lockStatus');
     var lockTheRecordArr = []; // lock the record for interpretation
 
+    if (lockTheRecord.checked == true) {
+      lockTheRecord.disabled = true;
+    }
+
     lockTheRecord.addEventListener('click', function (e) {
       if (lockTheRecord.checked == true) {
         ownerId = lockTheRecord.value;
@@ -22667,6 +22671,7 @@ window.onload = function () {
         });
         lockingInterpretation = JSON.stringify(lockTheRecordArr);
         lockStatus.innerHTML = 'Zaključano';
+        lockTheRecord.disabled = true;
         fetch('/lockTheInterpretation/', {
           method: "post",
           headers: {
@@ -22727,7 +22732,7 @@ window.onload = function () {
   } //tumacenje ostalih rezultata
 
 
-  if (urlArr[1] == 'otherResultsInterpretation') {
+  if (urlArr[1] == 'otherResultsInterpretation' && !interpretationPage) {
     var myfunc;
 
     (function () {
@@ -22780,17 +22785,117 @@ window.onload = function () {
       } // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 
     })();
-  } //end
+  } else if (urlArr[1] == 'otherResultsInterpretation') {
+    //lockTheRecord
+    var _ownerId;
+
+    var _interpretation = interpretationPage.value;
+
+    var _lockTheRecord = document.getElementById('zakljucaj');
+
+    var _lockStatus = document.getElementById('lockStatus');
+
+    var _lockTheRecordArr = [];
+
+    if (_lockTheRecord.checked == true) {
+      _lockTheRecord.disabled = true;
+    }
+
+    _lockTheRecord.addEventListener('click', function (e) {
+      if (_lockTheRecord.checked == true) {
+        _ownerId = _lockTheRecord.value;
+
+        _lockTheRecordArr.push({
+          'ownerId': _ownerId,
+          'interpretationId': _interpretation
+        });
+
+        lockingInterpretation = JSON.stringify(_lockTheRecordArr);
+        _lockStatus.innerHTML = 'Zaključano';
+        _lockTheRecord.disabled = true;
+        fetch('/lockTheOtherInterpretation/', {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: lockingInterpretation
+        }).then(function (response) {
+          console.log(response);
+        });
+      } else {
+        _ownerId = null;
+
+        _lockTheRecordArr.push({
+          'ownerId': _ownerId,
+          'interpretationId': _interpretation
+        });
+
+        lockingInterpretation = JSON.stringify(_lockTheRecordArr);
+        _lockStatus.innerHTML = 'Zaključaj';
+        fetch('/lockTheOtherInterpretation/', {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: lockingInterpretation
+        }).then(function (response) {
+          console.log(response);
+        });
+      }
+    }); //lock the record end
+    // add new lines
 
 
-  if (urlArr[1] == 'otherResultsInterpretation') {
     var addNewLine = document.getElementById('newLine');
     var otherResultsTable = document.getElementById('resultsUpload');
     addNewLine.addEventListener('click', function () {
       var newRow = otherResultsTable.insertRow();
       var newCell = newRow.insertCell();
-      var newText = document.createTextNode('new');
       newCell.appendChild(newText);
+    });
+    var searchforAnalysis = document.querySelectorAll('.searchForAnalysis');
+    var getAnalyisisNameDiv = document.getElementById('analysisFound');
+    var results = document.querySelector('#resultsUpload > tbody');
+    var analysisId = document.querySelectorAll('.analysisId');
+    console.log(analysisId);
+    searchforAnalysis.forEach(function (item, index) {
+      item.addEventListener('input', function (e) {
+        var searchStr = e.target.value;
+        fetch('/analysis/prices/' + searchStr).then(function (data) {
+          data.json().then(function (result) {
+            console.log(result);
+            var analysis = result.analysisName;
+            getAnalyisisNameDiv.innerHTML = '';
+
+            for (i = 0; i < analysis.length; i++) {
+              var liItem = document.createElement('li');
+              liItem.className += "list-group-item";
+              var link = document.createElement('a');
+              link.href = analysis[i]._id; // let link = document.createElement('span')
+
+              link.setAttribute('data-analysisId', analysis[i]._id);
+              link.setAttribute('data-analysisName', analysis[i].analysisName);
+              liItem.appendChild(link);
+              var analysisName = document.createTextNode(analysis[i].analysisName);
+              link.appendChild(analysisName);
+              getAnalyisisNameDiv.appendChild(liItem);
+            } // for end
+
+
+            var resultList = document.querySelectorAll('#analysisFound li');
+            resultList.forEach(function (item) {
+              item.addEventListener('click', function (b) {
+                b.preventDefault();
+                e.target.value = b.srcElement.getAttribute('data-analysisName');
+                analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'));
+                getAnalyisisNameDiv.innerHTML = '';
+              });
+            });
+          }); // data json end
+        }); //fetch end
+      });
     });
   }
   /* ANALYSIS DETAILS PAGE ***************/
@@ -23074,7 +23179,9 @@ window.onload = function () {
     // searching for connected analyses
 
     var connectedAnalysis = document.getElementById('connectedAnalysis');
-    var getAnalyisisNameDiv = document.getElementById('resultConnectedAnalysis');
+
+    var _getAnalyisisNameDiv = document.getElementById('resultConnectedAnalysis');
+
     var relatedAnalysisParent = document.getElementById('relatedAnalysis');
     var parentUl = document.querySelector('.connAnalysisUl'); // let parentUl
 
@@ -23097,7 +23204,7 @@ window.onload = function () {
         fetch('/analysis/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
             // console.log(result)
-            getAnalyisisNameDiv.innerHTML = '';
+            _getAnalyisisNameDiv.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -23107,13 +23214,14 @@ window.onload = function () {
               liItem.appendChild(link);
               var analysisName = document.createTextNode(result[i].analysisName);
               link.appendChild(analysisName);
-              getAnalyisisNameDiv.appendChild(liItem);
+
+              _getAnalyisisNameDiv.appendChild(liItem);
             } // for end
 
           }); // datajson end
         }); // fetch end
       } else {
-        getAnalyisisNameDiv.innerHTML = '';
+        _getAnalyisisNameDiv.innerHTML = '';
       }
     }); // connectedAnalysis event listener end
 
@@ -23142,12 +23250,12 @@ window.onload = function () {
         relatedAnalysisParent.appendChild(parentUl);
         connectedAnalysis.value = '';
         connectedAnalysis.focus();
-        getAnalyisisNameDiv.innerHTML = '';
+        _getAnalyisisNameDiv.innerHTML = '';
       } else {
         console.log('analiza vec dodata');
         connectedAnalysis.value = '';
         connectedAnalysis.focus();
-        getAnalyisisNameDiv.innerHTML = '';
+        _getAnalyisisNameDiv.innerHTML = '';
       }
     }); // addevent listener end
     // remove connected analyses
