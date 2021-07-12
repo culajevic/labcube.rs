@@ -22898,10 +22898,10 @@ window.onload = function () {
       var analysisId = document.querySelectorAll('.analysisId');
 
       if (e.target.classList.contains('searchForAnalysis')) {
-        var parentUl = e.target.nextSibling;
         var searchValues = document.querySelectorAll('.searchForAnalysis');
         searchValues.forEach(function (item, index) {
           item.addEventListener('input', function (e) {
+            var parentUl = e.target.nextSibling;
             var searchStr = e.target.value;
 
             if (e.target.value.length > 2) {

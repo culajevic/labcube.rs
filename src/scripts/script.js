@@ -1389,12 +1389,12 @@ let interpretationPage = document.getElementById('interpretationId')
     // let getAnalyisisNameDiv = document.getElementById('analysisFound')
     let analysisId = document.querySelectorAll('.analysisId')
       if (e.target.classList.contains('searchForAnalysis')) {
-        let parentUl = e.target.nextSibling
+
         let searchValues = document.querySelectorAll('.searchForAnalysis')
 
         searchValues.forEach((item, index) => {
           item.addEventListener('input', e => {
-
+            let parentUl = e.target.nextSibling
             let searchStr = e.target.value
             if (e.target.value.length > 2 ) {
             fetch('/analysis/prices/'+searchStr).then((data) => {
