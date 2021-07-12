@@ -22881,6 +22881,36 @@ window.onload = function () {
       analysisMeasurementInput.classList.add('form-control');
       analysisMeasurementInput.setAttribute('type', 'text');
       analysisMeasurementInput.name = "measure";
+      var analysisLessThenInput = document.createElement('input');
+      analysisLessThenInput.classList.add('form-control');
+      analysisLessThenInput.setAttribute('type', 'text');
+      analysisLessThenInput.name = "lessThen";
+      var analysisGreaterThenInput = document.createElement('input');
+      analysisGreaterThenInput.classList.add('form-control');
+      analysisGreaterThenInput.setAttribute('type', 'text');
+      analysisGreaterThenInput.name = "greaterThen";
+      var analysisValueFromInput = document.createElement('input');
+      analysisValueFromInput.classList.add('form-control');
+      analysisValueFromInput.setAttribute('type', 'text');
+      analysisValueFromInput.name = "valueFrom";
+      var analysisValueToInput = document.createElement('input');
+      analysisValueToInput.classList.add('form-control');
+      analysisValueToInput.setAttribute('type', 'text');
+      analysisValueToInput.name = "valueTo";
+      var analysisOutOfRange = document.createElement('input');
+      analysisOutOfRange.classList.add('form-check-input', 'form-check-inline');
+      analysisOutOfRange.setAttribute('type', 'checkbox');
+      analysisOutOfRange.name = "outsideOfTheRange" + (counter - 1);
+      analysisOutOfRange.value = "true";
+      var analysisCommentInput = document.createElement('textarea');
+      analysisCommentInput.classList.add('form-control');
+      analysisCommentInput.setAttribute('rows', 3);
+      analysisCommentInput.setAttribute('cols', 35);
+      analysisCommentInput.name = "commentResult";
+      var removeRow = document.createElement('span');
+      var removeRowText = document.createTextNode('X');
+      removeRow.appendChild(removeRowText);
+      removeRow.setAttribute('class', 'removeRow');
       newCell.appendChild(analysisNameInput);
       newCell.appendChild(analysisFoundInput);
       newCell.appendChild(analysisIdHiddenInput);
@@ -22888,6 +22918,26 @@ window.onload = function () {
       newCellAnalysisValue.appendChild(analysisValueInput);
       var newCellAnalysisMeasurement = newRow.insertCell();
       newCellAnalysisMeasurement.appendChild(analysisMeasurementInput);
+      var newCellAnalysisLessThen = newRow.insertCell();
+      newCellAnalysisLessThen.appendChild(analysisLessThenInput);
+      var newCellAnalysisGreaterThen = newRow.insertCell();
+      newCellAnalysisGreaterThen.appendChild(analysisGreaterThenInput);
+      var newCellAnalysisValueFrom = newRow.insertCell();
+      newCellAnalysisValueFrom.appendChild(analysisValueFromInput);
+      var newCellAnalysisValueTo = newRow.insertCell();
+      newCellAnalysisValueTo.appendChild(analysisValueToInput);
+      var newCellAnalysisOutsideOfTheRange = newRow.insertCell();
+      newCellAnalysisOutsideOfTheRange.appendChild(analysisOutOfRange);
+      var newCellAnalysisComment = newRow.insertCell();
+      newCellAnalysisComment.appendChild(analysisCommentInput);
+      var newCellRemove = newRow.insertCell();
+      newCellRemove.appendChild(removeRow); // let removeRowButton = document.querySelectorAll('.removeRow')
+      // // console.log(removeRowButton)
+      //   removeRowButton.forEach(item => {
+      //      item.addEventListener('click', e => {
+      //        console.log(e.target)
+      //      })
+      //   });
     }); // let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
     // let searchForAnalysis = document.getElementById('resultsUpload')
 
@@ -22942,6 +22992,10 @@ window.onload = function () {
               }
           });
         });
+      } else if (e.target.classList.contains('removeRow')) {
+        e.target.parentNode.parentNode.remove();
+        counter -= 1;
+        counterValue.innerHTML = counter;
       }
     }); // })
   }

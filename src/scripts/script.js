@@ -1366,6 +1366,43 @@ let interpretationPage = document.getElementById('interpretationId')
       analysisMeasurementInput.setAttribute('type', 'text')
       analysisMeasurementInput.name = "measure"
 
+    let analysisLessThenInput = document.createElement('input')
+        analysisLessThenInput.classList.add('form-control')
+        analysisLessThenInput.setAttribute('type', 'text')
+        analysisLessThenInput.name = "lessThen"
+
+    let analysisGreaterThenInput = document.createElement('input')
+        analysisGreaterThenInput.classList.add('form-control')
+        analysisGreaterThenInput.setAttribute('type', 'text')
+        analysisGreaterThenInput.name = "greaterThen"
+
+    let analysisValueFromInput = document.createElement('input')
+        analysisValueFromInput.classList.add('form-control')
+        analysisValueFromInput.setAttribute('type', 'text')
+        analysisValueFromInput.name = "valueFrom"
+
+    let analysisValueToInput = document.createElement('input')
+        analysisValueToInput.classList.add('form-control')
+        analysisValueToInput.setAttribute('type', 'text')
+        analysisValueToInput.name = "valueTo"
+
+    let analysisOutOfRange = document.createElement('input')
+        analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
+        analysisOutOfRange.setAttribute('type', 'checkbox')
+        analysisOutOfRange.name = "outsideOfTheRange"+(counter-1)
+        analysisOutOfRange.value="true"
+
+    let analysisCommentInput = document.createElement('textarea')
+        analysisCommentInput.classList.add('form-control')
+        analysisCommentInput.setAttribute('rows', 3)
+        analysisCommentInput.setAttribute('cols', 35)
+        analysisCommentInput.name = "commentResult"
+
+    let removeRow = document.createElement('span')
+    let removeRowText = document.createTextNode('X')
+      removeRow.appendChild(removeRowText)
+      removeRow.setAttribute('class', 'removeRow')
+
       newCell.appendChild(analysisNameInput)
       newCell.appendChild(analysisFoundInput)
       newCell.appendChild(analysisIdHiddenInput)
@@ -1376,7 +1413,40 @@ let interpretationPage = document.getElementById('interpretationId')
     let newCellAnalysisMeasurement = newRow.insertCell()
       newCellAnalysisMeasurement.appendChild(analysisMeasurementInput)
 
-  })
+    let newCellAnalysisLessThen = newRow.insertCell()
+      newCellAnalysisLessThen.appendChild(analysisLessThenInput)
+
+    let newCellAnalysisGreaterThen = newRow.insertCell()
+      newCellAnalysisGreaterThen.appendChild(analysisGreaterThenInput)
+
+    let newCellAnalysisValueFrom = newRow.insertCell()
+      newCellAnalysisValueFrom.appendChild(analysisValueFromInput)
+
+    let newCellAnalysisValueTo = newRow.insertCell()
+      newCellAnalysisValueTo.appendChild(analysisValueToInput)
+
+    let newCellAnalysisOutsideOfTheRange = newRow.insertCell()
+      newCellAnalysisOutsideOfTheRange.appendChild(analysisOutOfRange)
+
+    let newCellAnalysisComment = newRow.insertCell()
+      newCellAnalysisComment.appendChild(analysisCommentInput)
+
+    let newCellRemove = newRow.insertCell()
+      newCellRemove.appendChild(removeRow)
+
+
+  // let removeRowButton = document.querySelectorAll('.removeRow')
+  // // console.log(removeRowButton)
+  //   removeRowButton.forEach(item => {
+  //      item.addEventListener('click', e => {
+  //        console.log(e.target)
+  //      })
+  //   });
+
+})
+
+
+
 
 
 
@@ -1386,6 +1456,7 @@ let interpretationPage = document.getElementById('interpretationId')
 
     // searchforAnalysis.forEach((item, index) => {
     otherResultsTable.addEventListener('click', e => {
+
     // let getAnalyisisNameDiv = document.getElementById('analysisFound')
     let analysisId = document.querySelectorAll('.analysisId')
       if (e.target.classList.contains('searchForAnalysis')) {
@@ -1434,7 +1505,12 @@ let interpretationPage = document.getElementById('interpretationId')
           }
           })
         })
-        }
+      } else if (e.target.classList.contains('removeRow')) {
+          e.target.parentNode.parentNode.remove()
+          counter -= 1
+          counterValue.innerHTML = counter
+
+      }
       })
 
     // })

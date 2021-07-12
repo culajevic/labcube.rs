@@ -259,6 +259,7 @@ let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
 
+console.log(req.body)
 
 
 for (let i = 0; i < req.body.analysisName.length; i++) {
@@ -273,7 +274,11 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
   "analysis":req.body.analysisName[i],
   "analysisId":req.body.analysisId[i],
   "value":req.body.value[i],
-  'measure':req.body.measure[i]})
+  'measure':req.body.measure[i],
+  'lessThen':req.body.lessThen[i],
+  'greaterThen':req.body.greaterThen[i],
+  'commentResult':req.body.commentResult[i],
+  'outsideOfTheRange':outsideOfTheRange})
 
 
   updateOtherInterpretation = await Result.findOneAndUpdate(

@@ -9,7 +9,7 @@ const resultSchema = new mongoose.Schema({
   },
   analyses:[{
     analysis:String,
-    value:mongoose.Decimal128,
+    value:Number,
     analysisId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Analysis'
