@@ -1331,58 +1331,113 @@ let interpretationPage = document.getElementById('interpretationId')
 
   // add new lines
   const addNewLine = document.getElementById('newLine')
-  const otherResultsTable = document.getElementById('resultsUpload')
+  const counterValue = document.getElementById('counter')
+  let counter = 0
+  // const otherResultsTable = document.getElementById('resultsUpload')
+  const otherResultsTable = document.querySelector('#resultsUpload > tbody')
   addNewLine.addEventListener('click', () => {
+    counter += 1
+    counterValue.innerHTML = counter
     let newRow = otherResultsTable.insertRow()
     let newCell = newRow.insertCell()
-    newCell.appendChild(newText)
+
+    let analysisNameInput = document.createElement('input')
+      analysisNameInput.classList.add('form-control', 'searchForAnalysis')
+      analysisNameInput.setAttribute('type', 'text')
+      analysisNameInput.style.position = 'relative'
+      analysisNameInput.name = "analysisName"
+    let analysisFoundInput = document.createElement('ul')
+      analysisFoundInput.setAttribute('id', 'analysisFound')
+      analysisFoundInput.classList.add('list-group')
+      analysisFoundInput.style.position = 'absolute'
+      analysisFoundInput.style.width = '100%'
+      analysisFoundInput.style.zIndex = 444
+    let analysisIdHiddenInput = document.createElement('input')
+      analysisIdHiddenInput.classList.add('form-control', 'analysisId')
+      analysisIdHiddenInput.type = 'hidden'
+      analysisIdHiddenInput.name = 'analysisId'
+    let analysisValueInput = document.createElement('input')
+      analysisValueInput.classList.add('form-control')
+      analysisValueInput.setAttribute('type', 'text')
+      analysisValueInput.name = "value"
+
+    let analysisMeasurementInput = document.createElement('input')
+      analysisMeasurementInput.classList.add('form-control')
+      analysisMeasurementInput.setAttribute('type', 'text')
+      analysisMeasurementInput.name = "measure"
+
+      newCell.appendChild(analysisNameInput)
+      newCell.appendChild(analysisFoundInput)
+      newCell.appendChild(analysisIdHiddenInput)
+
+    let newCellAnalysisValue = newRow.insertCell()
+      newCellAnalysisValue.appendChild(analysisValueInput)
+
+    let newCellAnalysisMeasurement = newRow.insertCell()
+      newCellAnalysisMeasurement.appendChild(analysisMeasurementInput)
+
   })
 
 
 
-    let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
-    let getAnalyisisNameDiv = document.getElementById('analysisFound')
+    // let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
+    // let searchForAnalysis = document.getElementById('resultsUpload')
     let results = document.querySelector('#resultsUpload > tbody')
+
+    // searchforAnalysis.forEach((item, index) => {
+    otherResultsTable.addEventListener('click', e => {
+    // let getAnalyisisNameDiv = document.getElementById('analysisFound')
     let analysisId = document.querySelectorAll('.analysisId')
+      if (e.target.classList.contains('searchForAnalysis')) {
+        let parentUl = e.target.nextSibling
+        let searchValues = document.querySelectorAll('.searchForAnalysis')
 
-    console.log(analysisId)
+        searchValues.forEach((item, index) => {
+          item.addEventListener('input', e => {
 
-    searchforAnalysis.forEach((item, index) => {
-      item.addEventListener('input', e => {
-        let searchStr = e.target.value
-        fetch('/analysis/prices/'+searchStr).then((data) => {
-          data.json().then((result) => {
-            console.log(result)
-            let analysis = result.analysisName
-            getAnalyisisNameDiv.innerHTML = ''
-            for(i=0; i<analysis.length; i++) {
-              let liItem = document.createElement('li')
-              liItem.className +="list-group-item"
-              let link = document.createElement('a')
-              link.href=analysis[i]._id
-              // let link = document.createElement('span')
-              link.setAttribute('data-analysisId',analysis[i]._id )
-              link.setAttribute('data-analysisName',analysis[i].analysisName )
-              liItem.appendChild(link)
-              let analysisName = document.createTextNode(analysis[i].analysisName)
-              link.appendChild(analysisName)
-              getAnalyisisNameDiv.appendChild(liItem)
-            } // for end
+            let searchStr = e.target.value
+            if (e.target.value.length > 2 ) {
+            fetch('/analysis/prices/'+searchStr).then((data) => {
+              data.json().then((result) => {
+
+                let analysis = result.analysisName
+                parentUl.innerHTML = ''
+                for(i=0; i<analysis.length; i++) {
+                  let liItem = document.createElement('li')
+                  liItem.className +="list-group-item"
+                  let link = document.createElement('a')
+                  link.href=analysis[i]._id
+                  // let link = document.createElement('span')
+                  link.setAttribute('data-analysisId',analysis[i]._id )
+                  link.setAttribute('data-analysisName',analysis[i].analysisName )
+                  liItem.appendChild(link)
+                  let analysisName = document.createTextNode(analysis[i].analysisName)
+                  link.appendChild(analysisName)
+                  parentUl.appendChild(liItem)
+                } // for end
 
 
-            let resultList = document.querySelectorAll('#analysisFound li')
-            resultList.forEach((item) => {
-              item.addEventListener('click', (b) => {
-                b.preventDefault()
-                e.target.value = b.srcElement.getAttribute('data-analysisName')
-                analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'))
-                getAnalyisisNameDiv.innerHTML=''
-              })
-            })
-          })// data json end
-        })//fetch end
+                let resultList = document.querySelectorAll('#analysisFound li')
+                resultList.forEach((item) => {
+                  item.addEventListener('click', (b) => {
+                    b.preventDefault()
+                    e.target.value = b.srcElement.getAttribute('data-analysisName')
+                    analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'))
+                    parentUl.innerHTML=''
+                  })
+                })
+              })// data json end
+            })//fetch end
+          } //if length>2
+          else {
+            parentUl.innerHTML=''
+          }
+          })
+        })
+        }
       })
-    })
+
+    // })
 }
 
 

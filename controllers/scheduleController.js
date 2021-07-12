@@ -259,10 +259,9 @@ let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
 
-console.log(req.body)
 
 
-for (let i = 0; i<req.body.analysisName.length; i++) {
+for (let i = 0; i < req.body.analysisName.length; i++) {
   if(req.body['outsideOfTheRange'+i]  ==  undefined )  {
     outsideOfTheRange = false
   } else {
@@ -274,11 +273,7 @@ for (let i = 0; i<req.body.analysisName.length; i++) {
   "analysis":req.body.analysisName[i],
   "analysisId":req.body.analysisId[i],
   "value":req.body.value[i],
-  'measure':req.body.measure[i],
-  'lessThen':req.body.lessThen[i],
-  'greaterThen':req.body.greaterThen[i],
-  'commentResult':req.body.commentResult[i],
-  'outsideOfTheRange':outsideOfTheRange})
+  'measure':req.body.measure[i]})
 
 
   updateOtherInterpretation = await Result.findOneAndUpdate(

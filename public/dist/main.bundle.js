@@ -22849,54 +22849,101 @@ window.onload = function () {
 
 
     var addNewLine = document.getElementById('newLine');
-    var otherResultsTable = document.getElementById('resultsUpload');
+    var counterValue = document.getElementById('counter');
+    var counter = 0; // const otherResultsTable = document.getElementById('resultsUpload')
+
+    var otherResultsTable = document.querySelector('#resultsUpload > tbody');
     addNewLine.addEventListener('click', function () {
+      counter += 1;
+      counterValue.innerHTML = counter;
       var newRow = otherResultsTable.insertRow();
       var newCell = newRow.insertCell();
-      newCell.appendChild(newText);
-    });
-    var searchforAnalysis = document.querySelectorAll('.searchForAnalysis');
-    var getAnalyisisNameDiv = document.getElementById('analysisFound');
-    var results = document.querySelector('#resultsUpload > tbody');
-    var analysisId = document.querySelectorAll('.analysisId');
-    console.log(analysisId);
-    searchforAnalysis.forEach(function (item, index) {
-      item.addEventListener('input', function (e) {
-        var searchStr = e.target.value;
-        fetch('/analysis/prices/' + searchStr).then(function (data) {
-          data.json().then(function (result) {
-            console.log(result);
-            var analysis = result.analysisName;
-            getAnalyisisNameDiv.innerHTML = '';
+      var analysisNameInput = document.createElement('input');
+      analysisNameInput.classList.add('form-control', 'searchForAnalysis');
+      analysisNameInput.setAttribute('type', 'text');
+      analysisNameInput.style.position = 'relative';
+      analysisNameInput.name = "analysisName";
+      var analysisFoundInput = document.createElement('ul');
+      analysisFoundInput.setAttribute('id', 'analysisFound');
+      analysisFoundInput.classList.add('list-group');
+      analysisFoundInput.style.position = 'absolute';
+      analysisFoundInput.style.width = '100%';
+      analysisFoundInput.style.zIndex = 444;
+      var analysisIdHiddenInput = document.createElement('input');
+      analysisIdHiddenInput.classList.add('form-control', 'analysisId');
+      analysisIdHiddenInput.type = 'hidden';
+      analysisIdHiddenInput.name = 'analysisId';
+      var analysisValueInput = document.createElement('input');
+      analysisValueInput.classList.add('form-control');
+      analysisValueInput.setAttribute('type', 'text');
+      analysisValueInput.name = "value";
+      var analysisMeasurementInput = document.createElement('input');
+      analysisMeasurementInput.classList.add('form-control');
+      analysisMeasurementInput.setAttribute('type', 'text');
+      analysisMeasurementInput.name = "measure";
+      newCell.appendChild(analysisNameInput);
+      newCell.appendChild(analysisFoundInput);
+      newCell.appendChild(analysisIdHiddenInput);
+      var newCellAnalysisValue = newRow.insertCell();
+      newCellAnalysisValue.appendChild(analysisValueInput);
+      var newCellAnalysisMeasurement = newRow.insertCell();
+      newCellAnalysisMeasurement.appendChild(analysisMeasurementInput);
+    }); // let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
+    // let searchForAnalysis = document.getElementById('resultsUpload')
 
-            for (i = 0; i < analysis.length; i++) {
-              var liItem = document.createElement('li');
-              liItem.className += "list-group-item";
-              var link = document.createElement('a');
-              link.href = analysis[i]._id; // let link = document.createElement('span')
+    var results = document.querySelector('#resultsUpload > tbody'); // searchforAnalysis.forEach((item, index) => {
 
-              link.setAttribute('data-analysisId', analysis[i]._id);
-              link.setAttribute('data-analysisName', analysis[i].analysisName);
-              liItem.appendChild(link);
-              var analysisName = document.createTextNode(analysis[i].analysisName);
-              link.appendChild(analysisName);
-              getAnalyisisNameDiv.appendChild(liItem);
-            } // for end
+    otherResultsTable.addEventListener('click', function (e) {
+      // let getAnalyisisNameDiv = document.getElementById('analysisFound')
+      var analysisId = document.querySelectorAll('.analysisId');
+
+      if (e.target.classList.contains('searchForAnalysis')) {
+        var parentUl = e.target.nextSibling;
+        var searchValues = document.querySelectorAll('.searchForAnalysis');
+        searchValues.forEach(function (item, index) {
+          item.addEventListener('input', function (e) {
+            var searchStr = e.target.value;
+
+            if (e.target.value.length > 2) {
+              fetch('/analysis/prices/' + searchStr).then(function (data) {
+                data.json().then(function (result) {
+                  var analysis = result.analysisName;
+                  parentUl.innerHTML = '';
+
+                  for (i = 0; i < analysis.length; i++) {
+                    var liItem = document.createElement('li');
+                    liItem.className += "list-group-item";
+                    var link = document.createElement('a');
+                    link.href = analysis[i]._id; // let link = document.createElement('span')
+
+                    link.setAttribute('data-analysisId', analysis[i]._id);
+                    link.setAttribute('data-analysisName', analysis[i].analysisName);
+                    liItem.appendChild(link);
+                    var analysisName = document.createTextNode(analysis[i].analysisName);
+                    link.appendChild(analysisName);
+                    parentUl.appendChild(liItem);
+                  } // for end
 
 
-            var resultList = document.querySelectorAll('#analysisFound li');
-            resultList.forEach(function (item) {
-              item.addEventListener('click', function (b) {
-                b.preventDefault();
-                e.target.value = b.srcElement.getAttribute('data-analysisName');
-                analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'));
-                getAnalyisisNameDiv.innerHTML = '';
-              });
-            });
-          }); // data json end
-        }); //fetch end
-      });
-    });
+                  var resultList = document.querySelectorAll('#analysisFound li');
+                  resultList.forEach(function (item) {
+                    item.addEventListener('click', function (b) {
+                      b.preventDefault();
+                      e.target.value = b.srcElement.getAttribute('data-analysisName');
+                      analysisId[index].setAttribute('value', b.srcElement.getAttribute('data-analysisId'));
+                      parentUl.innerHTML = '';
+                    });
+                  });
+                }); // data json end
+              }); //fetch end
+            } //if length>2
+            else {
+                parentUl.innerHTML = '';
+              }
+          });
+        });
+      }
+    }); // })
   }
   /* ANALYSIS DETAILS PAGE ***************/
 
@@ -23179,9 +23226,7 @@ window.onload = function () {
     // searching for connected analyses
 
     var connectedAnalysis = document.getElementById('connectedAnalysis');
-
-    var _getAnalyisisNameDiv = document.getElementById('resultConnectedAnalysis');
-
+    var getAnalyisisNameDiv = document.getElementById('resultConnectedAnalysis');
     var relatedAnalysisParent = document.getElementById('relatedAnalysis');
     var parentUl = document.querySelector('.connAnalysisUl'); // let parentUl
 
@@ -23204,7 +23249,7 @@ window.onload = function () {
         fetch('/analysis/' + e.target.value).then(function (data) {
           data.json().then(function (result) {
             // console.log(result)
-            _getAnalyisisNameDiv.innerHTML = '';
+            getAnalyisisNameDiv.innerHTML = '';
 
             for (i = 0; i < result.length; i++) {
               var liItem = document.createElement('li');
@@ -23214,14 +23259,13 @@ window.onload = function () {
               liItem.appendChild(link);
               var analysisName = document.createTextNode(result[i].analysisName);
               link.appendChild(analysisName);
-
-              _getAnalyisisNameDiv.appendChild(liItem);
+              getAnalyisisNameDiv.appendChild(liItem);
             } // for end
 
           }); // datajson end
         }); // fetch end
       } else {
-        _getAnalyisisNameDiv.innerHTML = '';
+        getAnalyisisNameDiv.innerHTML = '';
       }
     }); // connectedAnalysis event listener end
 
@@ -23250,12 +23294,12 @@ window.onload = function () {
         relatedAnalysisParent.appendChild(parentUl);
         connectedAnalysis.value = '';
         connectedAnalysis.focus();
-        _getAnalyisisNameDiv.innerHTML = '';
+        getAnalyisisNameDiv.innerHTML = '';
       } else {
         console.log('analiza vec dodata');
         connectedAnalysis.value = '';
         connectedAnalysis.focus();
-        _getAnalyisisNameDiv.innerHTML = '';
+        getAnalyisisNameDiv.innerHTML = '';
       }
     }); // addevent listener end
     // remove connected analyses
