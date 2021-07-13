@@ -1516,6 +1516,17 @@ let interpretationPage = document.getElementById('interpretationId')
     // })
 }
 
+if(urlArr[1] == 'o-nama') {
+
+  let audio = document.getElementsByTagName("audio")[0];
+  let theMusicPlay = document.getElementById('playMusic')
+    theMusicPlay.addEventListener('mouseenter', e => {
+      audio.play()
+    })
+
+
+  // audio.play();
+}
 
 
 

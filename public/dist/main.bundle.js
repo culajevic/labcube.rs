@@ -22999,6 +22999,14 @@ window.onload = function () {
       }
     }); // })
   }
+
+  if (urlArr[1] == 'o-nama') {
+    var audio = document.getElementsByTagName("audio")[0];
+    var theMusicPlay = document.getElementById('playMusic');
+    theMusicPlay.addEventListener('mouseenter', function (e) {
+      audio.play();
+    }); // audio.play();
+  }
   /* ANALYSIS DETAILS PAGE ***************/
 
 
