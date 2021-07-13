@@ -1522,6 +1522,7 @@ if(urlArr[1] == 'o-nama') {
   let theMusicPlay = document.getElementById('playMusic')
     theMusicPlay.addEventListener('mouseenter', e => {
       audio.play()
+      audio.muted = false
     })
 
 

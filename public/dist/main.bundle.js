@@ -23005,6 +23005,7 @@ window.onload = function () {
     var theMusicPlay = document.getElementById('playMusic');
     theMusicPlay.addEventListener('mouseenter', function (e) {
       audio.play();
+      audio.muted = false;
     }); // audio.play();
   }
   /* ANALYSIS DETAILS PAGE ***************/
