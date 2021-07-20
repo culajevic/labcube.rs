@@ -71,6 +71,9 @@ const upload = multer({
 
 
 exports.payment = async (req,res) => {
+  // let datum = new Date()
+
+    const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   // placanje testing
   let currentId
   let resultUpload
@@ -81,34 +84,42 @@ exports.payment = async (req,res) => {
   }
 
   if(!req.body.package) {
-    errors.push({text:'Obavezno je odabrati vreme za koje želiš da ti se protumači rezultat'})
+    errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
   }
 
   if(!req.file) {
-    errors.push({text:'Nedostaju rezultati koje želiš da ti protumačimo'})
+    errors.push({text:'Nedostaju rezultati koje želite da Vam protumačimo'})
   }
+
+  if(!req.body.consent) {
+    errors.push({text:'Potvrdite da ste saglasni sa uslovima plaćanja'})
+  }
+
+
   if(errors.length > 0) {
     res.render('labResultsAnalysis', {
       errors,
       package:req.body.package,
       email:req.body.email,
-      user:req.user
+      user:req.user,
+      consent:req.body.consent
     })
     return false
-  } else {
-    if(req.file) {
+  }
+  // else {
+    // if(req.file) {
 
       // let deadline = new Date()
         // deadline.setHours(deadline.getHours() + parseInt(req.body.package))
-    } else {
-      req.flash('error_msg', 'doslo je do greske prilikom uploada')
-    }
+    // } else {
+    //   req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    // }
 
     // resultUpload =  new Result(req.body)
     // currentId = resultUpload._id
 
 
-  }
+  // }
 //
   const request = async() => {
   	const path='/v1/checkouts';
@@ -156,7 +167,7 @@ exports.payment = async (req,res) => {
 request()
     .then(data => {
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user})
+        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames})
       }
     })
     .catch(error => {
@@ -167,7 +178,8 @@ request()
 
 
 
-exports.paymentDone = (req,res) => {
+exports.paymentDone = async (req,res) => {
+  const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const requestCheckout = async () => {
   	var path=`${req.query.resourcePath}`
   	path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
@@ -203,6 +215,11 @@ exports.paymentDone = (req,res) => {
 requestCheckout()
 .then(data => {
   if(data.result.code == '000.100.110') {
+    let newDate = moment(new Date()).format("DD-MM-YYYY HH:mm")
+
+    // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // let bgLocalTime = new Date().toLocaleString('sr-RS')
+    console.log(newDate)
     let deadline = new Date()
     let serviceClosingTime = new Date()
     let ofHours
@@ -212,7 +229,7 @@ requestCheckout()
 
   let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
-  console.log(minRest)
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -307,7 +324,7 @@ requestCheckout()
     //   deadline.setHours(deadline.getHours() + 24)
     // }
 
-    res.render('paymentSuccess', {data:data})
+
     // let updatePaymentInfo = Result.findOneAndUpdate(
     //   {_id:data.customParameters.SHOPPER_requestId},
     //   {paid:data.amount, ip:data.customer.ip},
@@ -326,9 +343,14 @@ requestCheckout()
       paid:data.amount,
       ip:data.customer.ip,
       submitedDate: Date.now(),
-      deadline:deadline
+      deadline:deadline,
+      paymentConsent:true
       }
     )
+    let currentId = uploadResult._id
+
+    let shortId = String(currentId)
+    shortId.substring(14,2)
        try {
          uploadResult.save()
          let mailOptions = {
@@ -336,19 +358,38 @@ requestCheckout()
            to:'culajevic@gmail.com',
            subject:'lab results',
            text:'',
-           html:`${data.customer.email} i ${data.amount}, id: ${uploadResult._id}`,
+           html:`
+           ${data.customer.email} i ${data.amount}, id: ${uploadResult._id}>`,
            attachments:[{
              filename:data.customParameters.SHOPPER_file,
              path:data.customParameters.SHOPPER_path
            }]
          }
+
+         let mailOptionsCustomer = {
+           from:'labcubee@gmail.com',
+           to:data.customer.email,
+           subject:'lab results',
+           text:'',
+           html:`
+           hvala na uplati, ${data.timestamp}, placeno:${data.amount}, vreme: ${newDate}`,
+         }
+
          transporter.sendMail(mailOptions, (error, info) => {
              if(error) {
                return console.log(error)
            } else {
-             console.log('message sent', info.messageId)
+             console.log(info.messageId)
            }
-           })
+         })
+
+         transporter.sendMail(mailOptionsCustomer, (error, info) => {
+             if(error) {
+               return console.log(error)
+           } else {
+             console.log(info.messageId)
+           }
+         })
          // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
          // res.redirect('/')
 
@@ -358,7 +399,7 @@ requestCheckout()
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log(e);
        }
-
+       res.render('paymentSuccess', {data:data, groupNames, shortId})
      }
    })
 .catch(console.error);

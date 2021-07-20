@@ -1,0 +1,87 @@
+<div class="position-fixed h-100 hidePriceList" id="priceList">
+  <div class="sidebar">
+    <div class="odabraneAnalize">
+      <div class="card">
+        <div class="card-header" id="basketTitle"><span>Odabrane analize</span><span id="numOfAnalysis"></span><span class="float-right" id="closePriceList"><i class="far fa-times-circle closePriceList"></i></span></div>
+          <ul class="list-group list-group-flush" id="selectedAnalysis">
+          <li class="list-group-item city">
+            <span class="d-block mb-2">Gde radite analize?</span>
+              <select class="form-control" id="municipality">
+                <option selected>odaberite opštinu</option>
+                <option value="Beograd - Novi Beograd">Novi Beograd</option>
+                <option value="Beograd - Stari grad">Beograd - Stari grad</option>
+                <option value="Beograd - Savski venac">Beograd - Savski venac</option>
+                <option value="Beograd - Zvezdara">Beograd - Zvezdara</option>
+                <option value="Novi Sad">Novi Sad</option>
+                <option value="Kragujevac">Kragujevac</option>
+                <option value="Bačla Palanka">Bačka Palanka</option>
+                <option value="Niš">Nis</option>
+                <option value="Subotica">Subotica</option>
+              </select>
+              <!-- <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span> -->
+            <a href="" class="btn btn-success btn-lg btn-block text-uppercase showPrice">nađi najbolju cenu</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- da li vam je potrebno tumacenje laboratorijskih rezultata banner -->
+      <!-- <div class="banner">
+        <img src="/images/banner.jpg" class="bannerTumacenjeAnaliza" alt="tumačenje rezultata laboratorijskih analiza" title="tumačenje rezultata laboratorijskih analiza">
+        <div class="bannerOverlay">Da li Vam je potrebno tumačenje rezultata laboratorijskih analiza?</div>
+        <button class="btn btn-success btnBanner text-uppercase">saznajte više</button>
+      </div> -->
+      <!-- banner end -->
+    </div><!-- odabrane analize end -->
+  </div><!-- sidebar end -->
+</div>
+
+<header id="smallHeader">
+  <nav class="navbar navbar-expand-md navbar-dark mb-auto">
+    <div class="container">
+      <a href="/" class="navbar-brand"><img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse my-1" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto ">
+
+          <!-- <li class="nav-item">
+            <a href="/" class="nav-link"><span class="icon iconHome"></span></a>
+          </li> -->
+
+          <li class="nav-item">
+            <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Tumačenje rezultata</a>
+          </li>
+          <li class="nav-item">
+            <a href="/#google-map" class="nav-link"><i class="fas fa-map-marker-alt"></i>Sve laboratorije</a>
+          </li>
+
+          {{#if user.id}}
+          <li class="nav-item">
+            <a href="/profile" class="nav-link">{{user.username}}</a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link"><i class="fa fa-sign-out-alt"></i></a>
+          </li>
+          {{else}}
+          <li class="nav-item">
+            <a href="/prijava" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
+          </li>
+          <li class="nav-item">
+            <a href="/registracija" class="nav-link"><i class="fas fa-user-plus"></i> Registracija</a>
+          </li>
+          {{/if}}
+          <li class="nav-item">
+            <button class="nav-link checkout">0</button>
+          </li>
+        </ul>
+      </div><!-- collapse -->
+    </div><!-- container end -->
+  </nav><!-- nav end -->
+
+  <!-- logo  -->
+  <!-- <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFull"> -->
+
+
+
+</header><!-- header end -->

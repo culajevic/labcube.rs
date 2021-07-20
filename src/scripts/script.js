@@ -207,7 +207,6 @@ if(location === '/') {
       'id':analysisKS[i].id,
       'logo':analysisKS[i].logo
      })
-
      //add analysis group on home page immediately - check the functions add analysis and refactor
      let analysisAdded = document.createElement('li')
        analysisAdded.className='list-group-item list-group-item-action'
@@ -215,6 +214,7 @@ if(location === '/') {
      let groupImage = document.createElement('img')
        groupImage.classList = 'labGroupIconSelectedAnalysis'
        groupImage.setAttribute('src', '/images/'+analysisKS[i].logo)
+
      //creating text with analysis name
      let analysisName = document.createTextNode(analysisKS[i].name)
      let analysisLink = document.createElement('a')
@@ -222,7 +222,7 @@ if(location === '/') {
      let urlSlug = slug.join('-')
        analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
        analysisLink.className = 'nolink analysisBasketLiItem'
-       // analysisLink.setAttribute('target', '_blank')
+       analysisLink.setAttribute('target', '_blank')
      analysisLink.appendChild(analysisName)
      //creating span element for remove icon
      let removeSpan = document.createElement('span')
@@ -1524,9 +1524,13 @@ if(urlArr[1] == 'o-nama') {
       audio.play()
       audio.muted = false
     })
+}
 
-
-  // audio.play();
+if (urlArr[1] == 'checkout') {
+  let unhide = document.querySelector('.paymentAccepted')
+  setTimeout(() => {
+    unhide.classList.add('workingonit')
+  },6000)
 }
 
 

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {background-color:#white;}
+
+.wpwl-form {
+  max-width: px-to-rem(550px);
+}
+/*Prilagođavanje polja*/
+.wpwl-form-card { margin-top:20px; background-color:#E0E4EC; padding: 15px; font-family: 'Roboto', sans-serif; font-size:1rem;}
+.wpwl-group-cardHolder {width: 100%;}
+.wpwl-group-expiry {width: 48%; float: left; margin-right: 4%}
+.wpwl-group-cvv {width: 48%; float: right; }
+.wpwl-group-submit {clear:both; margin-bottom: 0px;}
+.wpwl-label {width:100%; color:grey; }
+
+/*Ikonice kartica*/
+.wpwl-wrapper-brand, .wpwl-label-brand, .wpwl-brand { display: none;}
+.wpwl-brand-card {float: right; width: 45px; height:30px; margin-left:10px; margin-top:10px; background-size: 45px 30px!important;}
+
+.wpwl-brand-VISA { background: url(https://i.postimg.cc/jdSMRMSY/visa.png) no-repeat top left; }
+.wpwl-brand-MASTER { background: url(https://i.postimg.cc/c4WNTyhM/master.png) no-repeat top left; }
+.wpwl-brand-MAESTRO { background: url(https://i.postimg.cc/L8R6qgGS/maestro.png) no-repeat top left; }
+.wpwl-wrapper {width:100%;}
+
+.wpwl-wrapper>.wpwl-icon {
+  top:0.33rem;
+}
+
+/*Stilizovanje ivica i boja polja*/
+.wpwl-control {height: 35px;border: 1px solid #ddd;}
+.wpwl-control:hover, .wpwl-control:focus, .wpwl-control:active {border: 1px solid #1abc9c;}
+.wpwl-control:focus {border-color:#1e62ce;}
+.wpwl-control-brand {display: none; visibility:collapse;}
+
+/*Dugme potvrdi*/
+.wpwl-button-pay { background-color:#5ced6a;  color: #fff; border-radius: 4px; font-family: 'Roboto', sans-serif; width:48%; margin-top:1rem; float:left; margin-bottom:1rem; text-transform: uppercase;}
+.wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active { color:#4B4B4B; background-color: #1D88E5; border-color: #5ced6a;}
+
+/*Dugme otkazi*/
+.wpwl-button-cancel {background-color: #fff; margin-top:1rem; color: #95989b; border-radius: 4px; font-family: 'Roboto', sans-serif; font-weight: 600;  width:48%;  float:right;  text-transform: uppercase;}
+.wpwl-button-cancel:hover {color:#000; }
+
+/*Ukoliko se pojavi greska*/
+.wpwl-hint { margin-top: 1px;}
+.wpwl-has-error { border: 2px solid #a94442; }
+
+/*Logo*/
+#logo > img { max-width: 90%;}
+div#logo {float: left; max-width:100px; margin-top:10px; }
+
+/*Baner sa ikonicama 3d secure*/
+div#banner {display: flex; align-items: center; justify-content: center; padding-top:15px; margin-top:10px;}
+div#d1 { width: 33%; }
+div#d2 { width: 33%; }
+div#d3 { width: 33%; }
+#d1 > img {height: 25px; float: left; clear: left; }
+#d2 > img {height: 25px; text-align: center; }
+// #d3 > img {height: 25px; float: right; clear: right;}
+#d3 > img {height: 25px;  clear: right;}

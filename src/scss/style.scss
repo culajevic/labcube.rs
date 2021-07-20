@@ -14,8 +14,42 @@
 @import 'analysissearchresult.scss';
 @import 'analysisdetails.scss';
 @import 'footer.scss';
+@import 'allsecure.scss';
 
 
+.card {
+
+
+
+}
+
+.paymentSteps {
+    border-radius: 14px !important;
+    flex:1 1 auto;
+    width:320px;
+}
+
+.cardDisclaimer {
+  padding: 30px;
+  border-radius: 20px;
+  border:1px solid $primary-color;
+  color:$fontColorResultsTable;
+}
+
+.fileTypes {
+  position:absolute;
+  bottom:10px;
+}
+
+#emailHeder {
+    background-image:  url('/images/emailHeder.svg');
+    width: 100%;
+    height: 444px;
+}
+
+.success {
+  color:$button-green;
+}
 //testing lazy loading
 
 .imgLazy, .textLazy{
@@ -157,6 +191,17 @@ height: 23px;
   background-color: $line-color;
   height: 600px;
 }
+
+.paymentAccepted {
+  opacity:0;
+  transition:opacity 3s;
+}
+
+.workingonit {
+  opacity:1;
+}
+
+
 
 .testingFlex {
   display: flex;

@@ -1,11 +1,50 @@
-{{> _innerNavFrontend}}
+{{> _innerNavFrontendThanks}}
 
 <style>
   body {background-color:#f6f6f5;}
 </style>
 
 <script>
-  var wpwlOptions = {style:"plain"}
+var wpwlOptions = {style:"plain",
+locale:"rs",
+brandDetection:true,
+autofocus: 'card.number',
+showLabels:false,
+requireCvv: true,
+showCVVHint: true,
+showLabels:false,
+maskCvv: false,
+showPlaceholders:true,
+autofocus: 'card.number',
+placeholders: {
+  cardHolder: "Ime i prezime", cvv: "CVV kod", cardNumber:"Broj kartice", expiryDate:"Datum isteka kartice", cvvHint: "Tri broja sa poleđine kartice"
+},
+errorMessages: {cardNumberError:"Neispravan broj kartice",cardHolderError: "Ime korisnika kartice nije u odgovarajućem formatu", cvvError: "Neispravan cvv",expiryMonthError:"Unesite drugi datum isteka", expiryYearError:"Unesite drugi datum isteka" },
+
+
+onReady: function() {
+var LogoHtml = '<div id="logo"><img border="0" img src="https://i.postimg.cc/NFwkTMDP/logo1.png" alt="allsecure" ></div>';
+$('form.wpwl-form-card').find('.wpwl-wrapper-brand').before(LogoHtml); //ubacivanje loga
+
+var BannerHtml = '<div id="banner"><div id="d1"><img border="0" src="https://i.postimg.cc/MpbHtm1X/msc.png" alt="MasterCard SecureCode"></div><div id="d2"><img border="0" src="https://i.postimg.cc/LXyZD3Kj/vbv.png" alt="VerifiedByVISA"></div><a href="https://www.unicreditbank.rs/" target="_blank"><div id="d3"><img border="0" src="/images/unicredit.png" alt="UniCredit Banka"></div></a></div>';
+$('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner sa ikonicama 3d secure
+
+$(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
+$(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
+$('.wpwl-button-pay').html('Potvrdi'); //promena polja pay u potvrdi
+$('.wpwl-button-pay').css({'background-color':'#55D159'});
+var visa = $(".wpwl-brand:first").clone().removeAttr("class").attr("class", "wpwl-brand-card wpwl-brand-custom wpwl-brand-VISA");
+var master = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MASTER");
+var maestro = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MAESTRO");
+$(".wpwl-brand:first").after( $(visa)).after( $(master)) .after( $(maestro)); //Ubacivanje kartica
+
+var cancelPaymentHtml ='<button type="button" class="wpwl-button wpwl-button-cancel" onclick="history.go(0)">Otkaži</button>';
+$('form.wpwl-form-card').find('.wpwl-button-pay').before(cancelPaymentHtml);
+},
+onChangeBrand: function(e){
+$(".wpwl-brand-custom").css("opacity", "0.2");
+$(".wpwl-brand-" + e).css("opacity", "5");
+}}
 </script>
 
 <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId={{data}}"></script>
@@ -13,15 +52,24 @@
 
 <div class="container" id="paymentCheckout">
  		<div class="row">
-      <div class="col-12 mt-4 text-center">
-        <a href="../results/{{resultFile}}" target="_blank">pogledaj fajl</a>
-        <p>ID zahteva {{recordId}}</p>
-        <p>ID Korisnika {{userId}}</p>
-        <p>Cena: {{package}}</p>
-        <p>Tumačenje u roku od </p>
-          <form action="/checkout/" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+      <div class="col-7">
 
+          <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix" data-brands="VISA MASTER AMEX">
+
+          </form>
       </div>
+
+      <div class="col-5 mt-4">
+        <!-- <h3>Odabrali ste</h3> -->
+
+        <h2><a href="../results/{{resultFile}}" target="_blank">Pogledajte fajl koji ste poslali.</a></h2>
+        <h2>Cena: {{package}} RSD</h2>
+        <h2 class="mb-5">Vreme tumačenja: 24 sata</h2>
+        <p class="text-left text-muted">Informacione tehnologije Nouvelle doo, 11000 Beograd, PIB 106310784, MB 20575719</p>
+      </div>
+
+
+
     </div>
 </div>
 

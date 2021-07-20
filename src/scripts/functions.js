@@ -170,15 +170,20 @@ exports.displayBasket = (itemsArray) => {
       groupImage.classList = 'labGroupIconSelectedAnalysis'
       groupImage.setAttribute('src', '/images/'+analysis.logo)
     //creating text with analysis name
+    let newAnalysisName = analysis.name.replace(' - ', ' ').replace('/', ' ')
+
+
     let analysisName = document.createTextNode(analysis.name)
     let analysisLink = document.createElement('a')
-    let slug = analysis.name.split(' ')
+
+    let slug = newAnalysisName.split(' ')
+
     let urlSlug = slug.join('-')
       analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
       analysisLink.setAttribute('target', '_blank')
       analysisLink.className = 'nolink analysisBasketLiItem'
       analysisLink.setAttribute('data-analysisid', analysis.id)
-    analysisLink.appendChild(analysisName)
+      analysisLink.appendChild(analysisName)
     //creating span element for remove icon
     let removeSpan = document.createElement('span')
       removeSpan.className = 'float-right remove'
@@ -304,14 +309,16 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
       let groupImage = document.createElement('img')
         groupImage.classList = 'labGroupIconSelectedAnalysis'
         groupImage.setAttribute('src', '/images/'+e.target.getAttribute('data-groupImg'))
+        // console.log(e.target.getAttribute('data-analysisName'))
+      let newAnalysisName = e.target.getAttribute('data-analysisName').replace(' - ', ' ').replace('/', ' ')
       //creating text with analysis name
       let analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'))
       let analysisLink = document.createElement('a')
-      let slug = e.target.getAttribute('data-analysisName').split(' ')
+      let slug = newAnalysisName.split(' ')
       let urlSlug = slug.join('-')
         analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
         analysisLink.className = 'nolink analysisBasketLiItem'
-        // analysisLink.setAttribute('target', '_blank')
+        analysisLink.setAttribute('target', '_blank')
       analysisLink.appendChild(analysisName)
       //creating span element for remove icon
       let removeSpan = document.createElement('span')

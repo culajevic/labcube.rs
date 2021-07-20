@@ -38,6 +38,7 @@ const resultSchema = new mongoose.Schema({
   },
   paid:mongoose.Decimal128,
   ip:String,
+  paymentConsent:Boolean,
   userId:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'

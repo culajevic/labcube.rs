@@ -20724,9 +20724,10 @@ exports.displayBasket = function (itemsArray) {
     groupImage.classList = 'labGroupIconSelectedAnalysis';
     groupImage.setAttribute('src', '/images/' + analysis.logo); //creating text with analysis name
 
+    var newAnalysisName = analysis.name.replace(' - ', ' ').replace('/', ' ');
     var analysisName = document.createTextNode(analysis.name);
     var analysisLink = document.createElement('a');
-    var slug = analysis.name.split(' ');
+    var slug = newAnalysisName.split(' ');
     var urlSlug = slug.join('-');
     analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
     analysisLink.setAttribute('target', '_blank');
@@ -20842,15 +20843,17 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
 
       var groupImage = document.createElement('img');
       groupImage.classList = 'labGroupIconSelectedAnalysis';
-      groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); //creating text with analysis name
+      groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); // console.log(e.target.getAttribute('data-analysisName'))
+
+      var newAnalysisName = e.target.getAttribute('data-analysisName').replace(' - ', ' ').replace('/', ' '); //creating text with analysis name
 
       var analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'));
       var analysisLink = document.createElement('a');
-      var slug = e.target.getAttribute('data-analysisName').split(' ');
+      var slug = newAnalysisName.split(' ');
       var urlSlug = slug.join('-');
       analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-      analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
-
+      analysisLink.className = 'nolink analysisBasketLiItem';
+      analysisLink.setAttribute('target', '_blank');
       analysisLink.appendChild(analysisName); //creating span element for remove icon
 
       var removeSpan = document.createElement('span');
@@ -21798,8 +21801,8 @@ window.onload = function () {
         var slug = analysisKS[i].name.split(' ');
         var urlSlug = slug.join('-');
         analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-        analysisLink.className = 'nolink analysisBasketLiItem'; // analysisLink.setAttribute('target', '_blank')
-
+        analysisLink.className = 'nolink analysisBasketLiItem';
+        analysisLink.setAttribute('target', '_blank');
         analysisLink.appendChild(analysisName); //creating span element for remove icon
 
         var removeSpan = document.createElement('span');
@@ -23006,7 +23009,14 @@ window.onload = function () {
     theMusicPlay.addEventListener('mouseenter', function (e) {
       audio.play();
       audio.muted = false;
-    }); // audio.play();
+    });
+  }
+
+  if (urlArr[1] == 'checkout') {
+    var unhide = document.querySelector('.paymentAccepted');
+    setTimeout(function () {
+      unhide.classList.add('workingonit');
+    }, 6000);
   }
   /* ANALYSIS DETAILS PAGE ***************/
 
