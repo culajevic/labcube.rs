@@ -371,7 +371,7 @@ requestCheckout()
            to:data.customer.email,
            subject:'lab results',
            text:'',
-           html:`
+           html:`<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2853&q=80" style="width:300px; height:200px;">
            hvala na uplati, ${data.timestamp}, placeno:${data.amount}, vreme: ${newDate}`,
          }
 

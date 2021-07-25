@@ -26,7 +26,7 @@ onReady: function() {
 var LogoHtml = '<div id="logo"><img border="0" img src="https://i.postimg.cc/NFwkTMDP/logo1.png" alt="allsecure" ></div>';
 $('form.wpwl-form-card').find('.wpwl-wrapper-brand').before(LogoHtml); //ubacivanje loga
 
-var BannerHtml = '<div id="banner"><div id="d1"><img border="0" src="https://i.postimg.cc/MpbHtm1X/msc.png" alt="MasterCard SecureCode"></div><div id="d2"><img border="0" src="https://i.postimg.cc/LXyZD3Kj/vbv.png" alt="VerifiedByVISA"></div><a href="https://www.unicreditbank.rs/" target="_blank"><div id="d3"><img border="0" src="/images/unicredit.png" alt="UniCredit Banka"></div></a></div>';
+var BannerHtml = '<div id="banner"><div id="d1"><img border="0" src="https://i.postimg.cc/MpbHtm1X/msc.png" alt="MasterCard SecureCode"></div><div id="d2"><img border="0" src="https://i.postimg.cc/LXyZD3Kj/vbv.png" alt="VerifiedByVISA"></div><a href="https://www.unicreditbank.rs/" target="_blank"><div id="d3"><img border="0" src="images/unicredit.png" alt="UniCredit Banka"></div></a></div>';
 $('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner sa ikonicama 3d secure
 
 $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
@@ -54,18 +54,20 @@ $(".wpwl-brand-" + e).css("opacity", "5");
  		<div class="row">
       <div class="col-7">
 
-          <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix" data-brands="VISA MASTER AMEX">
+          <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix float-left" data-brands="VISA MASTER AMEX">
 
           </form>
+            <p class="text-left text-muted">Informacione tehnologije Nouvelle doo, 11000 Beograd, PIB 106310784, MB 20575719</p>
       </div>
 
       <div class="col-5 mt-4">
         <!-- <h3>Odabrali ste</h3> -->
 
-        <h2><a href="../results/{{resultFile}}" target="_blank">Pogledajte fajl koji ste poslali.</a></h2>
-        <h2>Cena: {{package}} RSD</h2>
-        <h2 class="mb-5">Vreme tumačenja: 24 sata</h2>
-        <p class="text-left text-muted">Informacione tehnologije Nouvelle doo, 11000 Beograd, PIB 106310784, MB 20575719</p>
+        <h3><a href="../results/{{resultFile}}" target="_blank" class="">Pogledajte fajl koji ste odabrali.</a></h3>
+
+        <h3 class="mt-4">Ukupno: {{package}} RSD</h3>
+        <h3 class="mb-5">Vreme tumačenja: 24 sata</h3>
+
       </div>
 
 

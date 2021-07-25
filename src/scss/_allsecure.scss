@@ -43,6 +43,10 @@ body {background-color:#white;}
 .wpwl-hint { margin-top: 1px;}
 .wpwl-has-error { border: 2px solid #a94442; }
 
+.wpwl-form {
+  margin-left: 0;
+}
+
 /*Logo*/
 #logo > img { max-width: 90%;}
 div#logo {float: left; max-width:100px; margin-top:10px; }

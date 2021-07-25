@@ -8500,6 +8500,9 @@ body {
 .wpwl-has-error {
   border: 2px solid #a94442; }
 
+.wpwl-form {
+  margin-left: 0; }
+
 /*Logo*/
 #logo > img {
   max-width: 90%; }
