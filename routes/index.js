@@ -124,7 +124,7 @@ router.get('/search/analysis/:analysisName/:labSlug', labController.getAdditiona
 // analysis
 router.get('/allAnalysis', analysisController.allAnalysis)
 router.get('/addAnalysis', analysisController.addAnalysis)
-router.post('/addAnalysis', analysisController.createAnalysis)
+router.post('/addAnalysis', analysisController.upload, analysisController.createAnalysis)
 router.get('/addAnalysis/:id', analysisController.editAnalysis)
 router.post('/addAnalysis/:id/:name', analysisController.updateAnalysis)
 router.delete('/allAnalysis/:id/:location?', analysisController.deleteAnalysis)

@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const Analysis = mongoose.model('Analysis')
 const Price = mongoose.model('Price')
 const moment = require('moment')
+const multer = require('multer')
+const path = require('path')
+const mime = require('mime-types')
 moment.locale('sr')
 
 
@@ -11,6 +14,29 @@ const authCheck = (req,res, next) => {
   } else {
     next()
   }
+}
+
+let storage = multer.diskStorage({
+  destination:function (req,file,cb) {
+    cb(null, 'src/images/banners')
+  },
+  filename: function (req,file,cb)  {
+    const fileExtension = mime.extension(file.mimetype)
+    cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
+  }
+})
+
+const upload = multer({storage:storage}).single('banner')
+
+exports.upload = (req,res, next) => {
+  upload(req, res, (err) => {
+    if(err) {
+      req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
+      // res.redirect('/tumacenje-laboratorijskih-analiza')
+    } else {
+      next()
+    }
+  })
 }
 
 exports.addAnalysis = [authCheck, (req,res) => {
@@ -46,6 +72,7 @@ exports.allAnalysis = [authCheck, async (req,res) => {
 
 
 exports.createAnalysis = [authCheck, async (req,res) => {
+  req.body.banner = req.file.filename
   let errors = []
   if(!req.body.analysisName) {
     errors.push({text:'Unesi ime analize'})
@@ -117,7 +144,7 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       editorList:editorList
     })
   } else {
-    console.log(req.body.description)
+
       const analysis = new Analysis(req.body)
       try {
         await analysis.save()

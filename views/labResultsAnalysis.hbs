@@ -15,9 +15,9 @@
                 <div class="col-12">
                   <h1 class="sectionTitle">Tumačenje rezultata laboratorijskih analiza</h1>
 
-                  <p>Mi Vam možemo pomoći da bolje razumete Vaše rezultate biohemijskih analiza i možemo da odgovorimo na sva Vaša pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+                  <p>
 
-
+                  Možemo Vam pomoći da bolje razumete rezultate biohemijskih analiza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
 
                 </div>
 
@@ -202,60 +202,55 @@
                   <div class="row">
                       <div class="resultDetails mb-4">
                         <div class="col-12 col-md-7">
-                          <h4 class="analysisName">Leukociti <span class="valueOk">22 mol/l</span></h4>
-                          <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                          <h4 class="analysisName">ATG <span class="valueOk">28 IU/ml</span></h4>
+                          <p>Ovaj parametar se koristi za dijagnozu i diferencijaciju autoimunih tiroidnih oboljenja (Hashimoto sindrom).</p>
                         </div>
 
                         <div class="col-12 col-md-5 analysisResults">
                           <div>
-                            <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
-                            <div class="rangeLabels">&lt; 20</div>
+                            <input type="range" class="regularResults showGreen" data-toggle="tooltip" tooltip="28" name="low" min="0" max="115" value="28" step="0.1" disabled="" data-original-title="" title="">
+                            <div class="rangeLabels"><115</div>
                         </div>
 
                         <div>
-                          <input type="range" class="regularResults showGreen" name="regular" data-toggle="tooltip" tooltip="22" min="20" max="34" value="22" step="0.1" disabled="">
-                          <div class="rangeLabels">20 - 34</div>
+                          <input type="range" class="min" name="regular" data-toggle="tooltip" tooltip="28" min="115" max="200" value="28" step="0.1" disabled="">
+                          <div class="rangeLabels">>115</div>
                         </div>
 
-                        <div>
-                          <input type="range" class="max " name="high" min="34" max="51" value="22" step="0.1" disabled="">
-                          <div class="rangeLabels">&gt; 34</div>
-                        </div>
+
                       </div><!-- analysis result -->
 
                       <div class="col-12">
                         <p class="myResultsComment">
-                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </span>
+
                         </p>
                       </div>
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
                       <div class="col-12 col-md-7">
-                        <h4 class="analysisName">Leukociti <span class="valueNotOk">86 mol/l</span></h4>
+                        <h4 class="analysisName">ATPO <span class="valueNotOk">38 IU/ml</span></h4>
                         <!-- <p>{{this.comment}}</p> -->
-                        <p>Leukociti ili bela krvna zrnca su ćelije krvi koje imaju važnu ulogu u imunskom sistemu čoveka. Pomažu u borbi protiv infekcije i imaju ulogu u zapaljenju, alergijskom odgovoru i zaštiti od kancera. Test se koristi za određivanje broja leukocita u sklopu određivanja kompletne krvne slike.</p>
+                        <p>atpo tekst</p>
                       </div>
 
                       <div class="col-12 col-md-5 analysisResults">
                         <div>
-                          <input type="range" class="min " data-toggle="tooltip" tooltip="22" name="low" min="0" max="20" value="22" step="0.1" disabled="" data-original-title="" title="">
-                          <div class="rangeLabels">&lt; 20</div>
+                          <input type="range" class=" regularResults" data-toggle="tooltip" tooltip="" name="low"  step="0.1" disabled="" data-original-title="" title="">
+                          <div class="rangeLabels">&lt; 34</div>
                         </div>
 
                         <div>
-                          <input type="range" class="regularResults" name="regular" data-toggle="tooltip" tooltip="40" min="20" max="40" value="" step="0.1" disabled="">
-                          <div class="rangeLabels">20 - 54</div>
+                          <input type="range" class="min showRed" name="regular" data-toggle="tooltip" tooltip="40" min="34" max="100" value="38" step="0.1" disabled="">
+                          <div class="rangeLabels">>34</div>
                         </div>
 
-                        <div>
-                          <input type="range" class="max showRed" name="high" min="54" max="154" value="86" step="0.1" disabled="">
-                          <div class="rangeLabels">&gt; 54</div>
-                        </div>
+
                       </div><!-- analysis result -->
                       <div class="col-12">
                         <p class="myResultsComment">
-                          <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris borum. </span>
+                          <span>rezultat je izvan referentnog opsega (<34), titar antitela na tireoidnu peroksidazu je blago povišen što može ukazivati na probleme u funkciji štitne žlezde ( hipertireoidizam ili hipotireoidizam)
+                          </span>
                         </p>
                       </div>
                   </div><!-- resultDetails -->

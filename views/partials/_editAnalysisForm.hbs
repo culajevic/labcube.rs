@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <form action="/addAnalysis/{{checkUrlName analysis._id}}{{checkUrlName analysis.slug}}" method="POST" class="mt-4">
+      <form action="/addAnalysis/{{checkUrlName analysis._id}}{{checkUrlName analysis.slug}}" method="POST" class="mt-4" enctype="multipart/form-data">
         <!-- analysis last update -->
         {{#if analysis.date}}
           <p class="text-right mb-2"><small>poslednja izmena: {{formatRsDate analysis.date}}</small></p>
@@ -163,6 +163,11 @@
               </ol>
             {{/if}}
           </div>
+        </div>
+
+        <div class="custom-file col my-4">
+          <input type="file" class="custom-file-input" name="banner"  placeholder="Banner" id="banner">
+          <label for="banner" class="custom-file-label">Banner</label>
         </div>
 
           <div class="form-row mt-1 mb-3" id="editor">

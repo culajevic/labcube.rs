@@ -139,7 +139,7 @@
     <form action="/healthProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center" id="healthProfileForm">
       <div class="basicHealthInfo col-8 mb-4">
         <div class="form-group col-12">
-          <p class="">Osnovne informacije o vašem zdravtvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo vašu privatnost, vaši podaci su bezbedni. Pročitajte našu politiku privatnosti. </p>
+          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo vašu privatnost, vaši podaci su bezbedni. Pročitajte našu politiku privatnosti. </p>
           <label for="visina">Visina (cm)</label>
           <input type="number" class="form-control" id="visina" name="visina" placeholder="Visina(cm)" value="{{user.height}}">
 
@@ -229,7 +229,7 @@
         </div>
       </div>
       <div class="form-group col-12">
-        <p>Da li ste trenutno koristite neke dodatke ishrani (vitamini, minerali..)?</p>
+        <p>Da li trenutno koristite neke dodatke ishrani (vitamini, minerali..)?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="dodaciIshraniDa" name="dodaciIshrani" value="Da" class="custom-control-input" {{#if (checkBox user.foodSuplements 'Da')}} checked {{/if}}>
           <label class="custom-control-label" for="dodaciIshraniDa">Da</label>
