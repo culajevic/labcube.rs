@@ -108,8 +108,9 @@
             <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg pr-4" />
           </div>
         <div class="col-9 d-flex flex-column justify-content-center " >
-          <p class="editorName font-weight-bold">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}</p>
-          <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p>
+          <p class="editorName font-weight-bold">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
+          <!-- <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p> -->
+          <p class=" negativeMargin editorName">{{analysisDetails.writtenBy.aboutMe}}</p>
         </div>
       </div>
 

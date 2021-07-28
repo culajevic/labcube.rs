@@ -289,6 +289,7 @@ let closePriceList = document.getElementById('closePriceList')
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+
     if(document.getElementById('municipality')!= null) {
       let municipality = document.getElementById('municipality')
       municipalityValue = municipality.options[municipality.selectedIndex].value
@@ -298,11 +299,11 @@ let closePriceList = document.getElementById('closePriceList')
     }
     if (itemsArray.length > 0) {
     // municipality.value = municipalityValue
+    console.log('da')
       window.location = '/nadjiLab'
     }
-
-
-    // helper.bestPrice(mapArea, resultDiv)
+    //ako nesto ne radi zakomentarisati red ispod
+    helper.bestPrice(mapArea, resultDiv)
   })
 
   helper.displayBasket(itemsArray)
