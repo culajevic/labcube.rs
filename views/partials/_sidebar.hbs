@@ -24,6 +24,9 @@
 
     {{#if sidebarNav}}
     <div id="sideMenu" class="">
+      {{#if analysisDetails.banner}}
+      <a href="http://www.{{analysisDetails.bannerUrl}}" target="_blank"><img src="/images/banners/{{analysisDetails.banner}}" class="mb-4" style="height:700px; width:200px;"><a/>
+        {{/if}}
       <ul class="textList">
         <li><a class="list-group-item" href="#oAnalizi">O Analizi</a></li>
         <li><a class="list-group-item" href="#uzorak">Uzorak</a></li>
@@ -33,8 +36,10 @@
         <li><a class="list-group-item" href="#rezultati">Rezultati</a></li>
         <li><a class="list-group-item" href="#napomena">Napomena</a></li>
         <li><a class="list-group-item" href="#literatura">Literatura</a></li>
+        <li><a class="list-group-item" href="#povezaneAnalize">Povezane analize</a></li>
       </ul>
     </div>
+
     {{/if}}
 
 

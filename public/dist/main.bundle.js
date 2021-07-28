@@ -23025,7 +23025,7 @@ window.onload = function () {
     //scrollspy initialization for side navigation
     $('body').scrollspy({
       target: '#sideMenu',
-      offset: 30
+      offset: 150
     }); //remember municipalityValue
 
     var _municipality9 = document.getElementById('municipality');

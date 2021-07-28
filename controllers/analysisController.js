@@ -172,6 +172,10 @@ exports.editAnalysis =  [authCheck, async (req,res) => {
 }]
 
 exports.updateAnalysis = [authCheck, async (req,res) => {
+  console.log(req.file)
+  if(req.file) {
+    req.body.banner = req.file.filename
+  }
   req.body.date = Date.now()
 
   if (req.body.availableHC == undefined) {

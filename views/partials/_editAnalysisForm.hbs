@@ -165,10 +165,22 @@
           </div>
         </div>
 
-        <div class="custom-file col my-4">
-          <input type="file" class="custom-file-input" name="banner"  placeholder="Banner" id="banner">
-          <label for="banner" class="custom-file-label">Banner</label>
+          {{#if analysis.banner}}
+            <img class="mt-4" src="/images/banners/{{analysis.banner}}" style="height:50px;">
+          {{/if}}
+
+        <div class="form-row">
+          <div class="col-8">
+            <small class="form-text text-muted">banner url</small>
+            <input type="text" class="form-control" name="bannerUrl" id="" placeholder="banner Url" value="{{keepData analysis.bannerUrl bannerUrl}}">
+          </div>
+          <div class="custom-file col-4 my-4">
+            <input type="file" class="custom-file-input" name="banner"  placeholder="Banner" id="banner">
+            <label for="banner" class="custom-file-label">Banner</label>
+          </div>
         </div>
+
+
 
           <div class="form-row mt-1 mb-3" id="editor">
             <div class="col-sm-12">

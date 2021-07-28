@@ -1541,7 +1541,7 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
 
   $('body').scrollspy({
     target: '#sideMenu',
-    offset: 30
+    offset: 150
   })
 
   //remember municipalityValue
