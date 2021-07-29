@@ -20777,7 +20777,10 @@ exports.removeAnalysis = function (itemsArray, checkout) {
       cardHeader.appendChild(basketTitle); //hide basket if all analysis are removed
 
       if (itemsArray.length == 0) {
-        document.querySelector('.card').classList.add('d-none'); // checkout.classList.add('d-none')
+        document.querySelector('.card').classList.add('d-none'); // document.getElementById('priceList').classList.add('hidePriceList')
+
+        document.getElementById('priceList').classList.add('d-none'); // document.querySelector('.card').classList.add('hidePriceList')
+        // checkout.classList.add('d-none')
 
         var resultSection = document.getElementById('resultsLabDetails') ? document.getElementById('resultsLabDetails') : '';
 
@@ -20807,17 +20810,29 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener('click', function (e) {
     if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length < 30) {
-      checkout.removeAttribute('style');
-      setTimeout(function () {
-        var priceList = document.getElementById('priceList');
-        priceList.classList.add('unhidePriceList');
-        priceList.classList.remove('hidePriceList');
-      }, 500);
+      checkout.removeAttribute('style'); //enable if shopping cart should be visible after each dodaj click
+      // setTimeout(()=>{
+      //   let priceList = document.getElementById('priceList')
+      //   priceList.classList.add('unhidePriceList')
+      //   priceList.classList.remove('hidePriceList')
+      // },500)
+
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),
         'id': e.target.getAttribute('data-analysisid'),
         'logo': e.target.getAttribute('data-groupimg')
-      }); //add number of analysis to navigation
+      });
+      var logoImg = document.createElement('img');
+      logoImg.setAttribute('src', "/images/".concat(e.target.getAttribute('data-groupimg')));
+      logoImg.classList.add('zoom');
+      checkout.parentNode.appendChild(logoImg);
+      setTimeout(function () {
+        var removeIcons = document.querySelectorAll('.zoom');
+        removeIcons.forEach(function (item) {
+          item.remove();
+          checkout.classList.remove('rotateNumberOfAnalysis');
+        });
+      }, 1000); //add number of analysis to navigation
 
       checkout.classList.remove('d-none'); // checkout.style.color = 'red'
       // checkout.style.transform = 'rotate(3600deg)'
@@ -21724,10 +21739,10 @@ $(window).scroll(function () {
 $(window).scroll(function () {
   var height = $(window).scrollTop();
 
-  if (height > 120) {
-    $(".odabraneAnalize").addClass('fixed-right');
+  if (height > 100) {
+    $(".odabraneAnalize").addClass('fixed-right'); // $(".odabraneAnalize").addClass('pt-4')
   } else {
-    $(".odabraneAnalize").removeClass('fixed-right');
+    $(".odabraneAnalize").removeClass('fixed-right'); // $(".odabraneAnalize").removeClass('pt-4')
   }
 }); // scrol to top button
 
@@ -21840,6 +21855,8 @@ window.onload = function () {
         _priceList.classList.add('unhidePriceList');
 
         _priceList.classList.remove('hidePriceList');
+
+        _priceList.classList.remove('d-none');
       }
     });
 
@@ -21947,6 +21964,8 @@ window.onload = function () {
         _priceList2.classList.add('unhidePriceList');
 
         _priceList2.classList.remove('hidePriceList');
+
+        _priceList2.classList.remove('d-none');
       }
     }); //
 
@@ -22123,6 +22142,7 @@ window.onload = function () {
       if (itemsArray.length > 0) {
         priceList.classList.add('unhidePriceList');
         priceList.classList.remove('hidePriceList');
+        priceList.classList.remove('d-none');
       }
     });
     closePriceList.addEventListener('click', function () {
@@ -22217,6 +22237,8 @@ window.onload = function () {
         _priceList3.classList.add('unhidePriceList');
 
         _priceList3.classList.remove('hidePriceList');
+
+        _priceList3.classList.remove('d-none');
       }
     }); //
 
@@ -22278,6 +22300,7 @@ window.onload = function () {
       if (e.target.classList.contains('checkout')) {
         priceList.classList.add('unhidePriceList');
         priceList.classList.remove('hidePriceList');
+        priceList.classList.remove('d-none');
         closePriceList.addEventListener('click', function () {
           priceList.classList.add('hidePriceList');
           priceList.classList.remove('unhidePriceList');
@@ -23053,6 +23076,8 @@ window.onload = function () {
       _priceList5.classList.add('unhidePriceList');
 
       _priceList5.classList.remove('hidePriceList');
+
+      _priceList5.classList.remove('d-none');
     }); //
 
     _closePriceList4.addEventListener('click', function () {

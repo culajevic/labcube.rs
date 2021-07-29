@@ -236,6 +236,9 @@ exports.removeAnalysis = (itemsArray, checkout) => {
         //hide basket if all analysis are removed
         if(itemsArray.length == 0) {
           document.querySelector('.card').classList.add('d-none')
+          // document.getElementById('priceList').classList.add('hidePriceList')
+          document.getElementById('priceList').classList.add('d-none')
+          // document.querySelector('.card').classList.add('hidePriceList')
           // checkout.classList.add('d-none')
         let resultSection = (document.getElementById('resultsLabDetails')) ? document.getElementById('resultsLabDetails') : ''
             if (resultSection) {
@@ -266,17 +269,36 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   resultDiv.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<30) {
       checkout.removeAttribute('style')
-      setTimeout(()=>{
-        let priceList = document.getElementById('priceList')
-        priceList.classList.add('unhidePriceList')
-        priceList.classList.remove('hidePriceList')
-      },500)
+
+      //enable if shopping cart should be visible after each dodaj click
+      // setTimeout(()=>{
+      //   let priceList = document.getElementById('priceList')
+      //   priceList.classList.add('unhidePriceList')
+      //   priceList.classList.remove('hidePriceList')
+      // },500)
+
+
+
 
       itemsArray.push({
         'name':e.target.getAttribute('data-analysisName'),
         'id':e.target.getAttribute('data-analysisid'),
         'logo':e.target.getAttribute('data-groupimg')
        })
+
+       let logoImg = document.createElement('img')
+       logoImg.setAttribute('src', `/images/${e.target.getAttribute('data-groupimg')}`)
+       logoImg.classList.add('zoom')
+       checkout.parentNode.appendChild(logoImg)
+
+       setTimeout(() => {
+         let removeIcons = document.querySelectorAll('.zoom')
+         removeIcons.forEach(item => {
+          item.remove()
+          checkout.classList.remove('rotateNumberOfAnalysis')
+         });
+       },1000)
+
 
        //add number of analysis to navigation
        checkout.classList.remove('d-none')
@@ -291,6 +313,7 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
        let cardHeader = document.getElementById('numOfAnalysis')
        cardHeader.innerHTML=''
        cardHeader.appendChild(basketTitle)
+
 
       // sorting array
       itemsArray.sort((a,b) => {
@@ -1102,7 +1125,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
       }
     } else {
       mapArea.classList.add('d-none')
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>` 
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
     }
     })//data json end
 

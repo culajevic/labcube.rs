@@ -127,11 +127,13 @@ $(window).scroll(function(){
 // sticky navigation for side menu
 $(window).scroll(function(){
   var height = $(window).scrollTop();
-    if(height > 120) {
+    if(height > 100) {
       $(".odabraneAnalize").addClass('fixed-right')
+      // $(".odabraneAnalize").addClass('pt-4')
     }
     else {
       $(".odabraneAnalize").removeClass('fixed-right')
+      // $(".odabraneAnalize").removeClass('pt-4')
     }
 })
 
@@ -255,6 +257,7 @@ let closePriceList = document.getElementById('closePriceList')
     if (itemsArray.length > 0) {
     priceList.classList.add('unhidePriceList')
     priceList.classList.remove('hidePriceList')
+    priceList.classList.remove('d-none')
     }
   })
 
@@ -371,6 +374,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
       if (itemsArray.length > 0 ) {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
       }
     })
   //
@@ -545,6 +549,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
       if (itemsArray.length > 0) {
         priceList.classList.add('unhidePriceList')
         priceList.classList.remove('hidePriceList')
+        priceList.classList.remove('d-none')
       }
     })
 
@@ -627,6 +632,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
       if (itemsArray.length > 0 ) {
         priceList.classList.add('unhidePriceList')
         priceList.classList.remove('hidePriceList')
+        priceList.classList.remove('d-none')
       }
     })
   //
@@ -681,6 +687,7 @@ test.addEventListener('click', e => {
 
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
 
 
     closePriceList.addEventListener('click', () => {
@@ -1558,6 +1565,7 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
     checkout.addEventListener('click', ()=> {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
     })
   //
     closePriceList.addEventListener('click', () => {

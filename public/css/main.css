@@ -8542,6 +8542,31 @@ div#d3 {
   height: 25px;
   clear: right; }
 
+.zoom {
+  position: absolute;
+  right: 23.4%;
+  top: 56px;
+  height: 120px;
+  width: 120px;
+  opacity: 0;
+  animation: zoom 1s ease-in;
+  z-index: 1; }
+
+@keyframes zoom {
+  0% {
+    opacity: 0; }
+  25% {
+    opacity: .6; }
+  50% {
+    opacity: .9; }
+  75% {
+    opacity: .1; }
+  100% {
+    opacity: 0;
+    top: 0px;
+    height: 14px;
+    width: 14px; } }
+
 .paymentSteps {
   border-radius: 14px !important;
   flex: 1 1 auto;

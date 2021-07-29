@@ -478,6 +478,7 @@ exports.displayResults = async (req,res) => {
   res.render('results',{
     sidebarNav:false,
     groupNames,
+    user:req.user,
     title:'Labcube - Pretraga'
   })
 }
