@@ -103,16 +103,19 @@
 
       {{> _sidebar}}
 
-      <div class="d-flex col-12">
-        <div class="col-2 pl-0">
-            <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg pr-4" />
+
+        <p><img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg img-fluid float-left" />{{analysisDetails.writtenBy.aboutMe}}</p>
+
+      <!-- <div class="col-12"> -->
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+            <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg img-fluid float-xs-left" />
           </div>
-        <div class="col-9 d-flex flex-column justify-content-center " >
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 float-left" >
           <p class="editorName font-weight-bold">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
           <!-- <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p> -->
           <p class=" negativeMargin editorName">{{analysisDetails.writtenBy.aboutMe}}</p>
         </div>
-      </div>
+      <!-- </div> -->
 
       {{else}}
     <p style="clear:both;">
