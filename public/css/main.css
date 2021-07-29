@@ -8544,10 +8544,9 @@ div#d3 {
 
 .zoom {
   position: absolute;
-  right: 23.4%;
-  top: 56px;
-  height: 120px;
-  width: 120px;
+  top: 16%;
+  height: 100px;
+  width: 100px;
   opacity: 0;
   animation: zoom 1s ease-in;
   z-index: 1; }
@@ -8563,9 +8562,9 @@ div#d3 {
     opacity: .1; }
   100% {
     opacity: 0;
-    top: 0px;
-    height: 14px;
-    width: 14px; } }
+    top: 0;
+    height: 12px;
+    width: 12px; } }
 
 .paymentSteps {
   border-radius: 14px !important;
