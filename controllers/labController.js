@@ -307,11 +307,11 @@ let closingSoon
     let todayOpenTime = new Date(today +' '+ openTime +':00')
     let todayClosingTime = new Date(today +' '+ closingTime +':00')
     let nowTimeStamp = now.getTime()
-    let closingSoon = todayClosingTime - nowTimeStamp
+    closingSoon = todayClosingTime - nowTimeStamp
     let closingIn = (Math.ceil(closingSoon/1000/60))
 
     if (closingIn < 60 && closingIn > 0) {
-      status = 'closingSoon'
+      status = 'closedSoon'
     }
 
       else if(nowTimeStamp > todayOpenTime.getTime() &&

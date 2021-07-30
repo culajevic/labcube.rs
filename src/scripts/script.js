@@ -302,7 +302,6 @@ let closePriceList = document.getElementById('closePriceList')
     }
     if (itemsArray.length > 0) {
     // municipality.value = municipalityValue
-    console.log('da')
       window.location = '/nadjiLab'
     }
     //ako nesto ne radi zakomentarisati red ispod
@@ -411,6 +410,9 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+    // priceList.classList.add('hidePriceList')
+    // priceList.classList.add('d-none')
+
     helper.bestPrice(mapArea, resultDiv)
 
   })
@@ -571,6 +573,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
+      console.log('d')
       if(document.getElementById('municipality')!= null) {
         let municipality = document.getElementById('municipality')
         municipalityValue = municipality.options[municipality.selectedIndex].value

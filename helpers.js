@@ -245,8 +245,8 @@ hbs.registerHelper('isItOpen', (status, currentDayNum ) => {
   let currentStatus
   if(status === 'open' && day === currentDayNum) {
     return currentStatus = 'open'
-  } else if (status==='closingSoon' && day == currentDayNum ) {
-    return currentStatus = 'closingSoon'
+  } else if (status==='closedSoon' && day == currentDayNum ) {
+    return currentStatus = 'closedSoon'
   } else if (status ==='closed' && day == currentDayNum ){
     return currentStatus = 'closed'
   }

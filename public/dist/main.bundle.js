@@ -21097,9 +21097,194 @@ exports.bestPrice = function (mapArea, resultDiv) {
   // localStorage.setItem('municipality', JSON.stringify(municipalityStorage))
 
   municipality.value = municipalityValue; // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
+  // comment if dont want to close pricelist when show price is displayed
 
+  priceList.classList.add('hidePriceList', 'd-none'); // map options
+
+  var options = {
+    zoom: 16,
+    // center: {lat:44.808048, lng:20.462796},
+    disableDefaultUI: true,
+    zoomControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: true,
+    rotateControl: false,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    styles: [{
+      "featureType": "administrative.country",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#fbd2d9"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "administrative.country",
+      "elementType": "geometry.stroke",
+      "stylers": [{
+        "color": "#9896a9"
+      }, {
+        "weight": 2
+      }]
+    }, {
+      "featureType": "administrative.land_parcel",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#9896a9"
+      }]
+    }, {
+      "featureType": "administrative.land_parcel",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "administrative.locality",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "administrative.neighborhood",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "administrative.neighborhood",
+      "elementType": "labels",
+      "stylers": [{
+        "color": "#aaa9b1"
+      }, {
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "poi",
+      "elementType": "labels.text",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "poi.business",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "poi.park",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#aadc55"
+      }]
+    }, {
+      "featureType": "poi.park",
+      "elementType": "labels.text",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "road",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#ecebed"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "road",
+      "elementType": "labels.text",
+      "stylers": [{
+        "color": "#d8d6dc"
+      }]
+    }, {
+      "featureType": "road.arterial",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#fefefe"
+      }]
+    }, {
+      "featureType": "road.arterial",
+      "elementType": "labels.text",
+      "stylers": [{
+        "color": "#9a9a9a"
+      }, {
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "road.highway",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "road.local",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "road.local",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#eaecec"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "road.local",
+      "elementType": "labels",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "road.local",
+      "elementType": "labels.text.fill",
+      "stylers": [{
+        "color": "#9ba4a4"
+      }, {
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "transit",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "off"
+      }]
+    }, {
+      "featureType": "transit.station",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "visibility": "on"
+      }]
+    }, {
+      "featureType": "transit.station.bus",
+      "stylers": [{
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "transit.station.bus",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#ff00ff"
+      }, {
+        "visibility": "simplified"
+      }]
+    }, {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [{
+        "color": "#1d88e5"
+      }, {
+        "lightness": 15
+      }]
+    }]
+  };
   localStorage.setItem('municipality', JSON.stringify(municipalityValue));
-  var markers = []; //take working timeout
+  var markers = [];
+  var infoWindow = new google.maps.InfoWindow();
+  var markersCluster = []; //take working timeout
 
   var now = new Date();
   var day = now.getDay();
@@ -21185,16 +21370,21 @@ exports.bestPrice = function (mapArea, resultDiv) {
             },
             map: map
           });
-          var infoWindow = new google.maps.InfoWindow({
-            maxWidth: 600,
-            content: "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <span class=\"labInfoWindowTelefoni\">").concat(phone.join(', '), "</span>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>\n\n                  ")
-          });
-          marker.addListener('click', function () {
-            var placeMarker = infoWindow.open(map, marker);
+          var content = "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <span class=\"labInfoWindowTelefoni\">").concat(phone.join(', '), "</span>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>");
+          google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.close();
+            infoWindow.setContent(content);
+            infoWindow.open(map, this);
           });
           google.maps.event.addListener(map, 'click', function () {
             infoWindow.close();
-          });
+          }); // marker.addListener('click', function(){
+          //   var placeMarker = infoWindow.open(map, marker);
+          // });
+          //
+          // google.maps.event.addListener(map, 'click', function() {
+          //   infoWindow.close();
+          // });
         };
 
         // loaderWrapper.style.opacity = 0
@@ -21217,17 +21407,13 @@ exports.bestPrice = function (mapArea, resultDiv) {
                 'id': result[_i].lab[0]._id,
                 'status': status
               });
-            }
-
-            if (closingIn < 60 && closingIn > 0) {
+            } else if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon';
               labStatus.push({
                 'id': result[_i].lab[0]._id,
                 'status': status
               });
-            }
-
-            if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
+            } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
               numOpen += 1;
               status = 'open';
               labStatus.push({
@@ -21243,6 +21429,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
             }
           }
 
+          console.log(labStatus);
           markers.push({
             lat: result[_i].lab[0].location.coordinates[1],
             lng: result[_i].lab[0].location.coordinates[0],
@@ -21256,193 +21443,12 @@ exports.bestPrice = function (mapArea, resultDiv) {
             slug: result[_i].lab[0].slug
           });
           resultDiv.innerHTML = '';
-          labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, " - ").concat(result[_i].total, "</span>\n         </div>\n           <div class=\"labInfoWindow\">\n\n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='").concat(labStatus[_i].status, " status'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center ").concat(day == 1 ? labStatus[_i].status : '', "\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center ").concat(day == 2 ? labStatus[_i].status : '', "\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center ").concat(day == 3 ? labStatus[_i].status : '', "\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center ").concat(day == 4 ? labStatus[_i].status : '', "\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center ").concat(day == 5 ? labStatus[_i].status : '', "\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center ").concat(day == 6 ? labStatus[_i].status : '', "\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center ").concat(day == 0 ? labStatus[_i].status : '', "\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
+          labTemplate.innerHTML += "\n\n        <div class=\"lab-card\">\n          <div>\n          ".concat(result[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result[_i].lab[0].labName, "</span><span class=\"float-right priceTag\">").concat(result[_i].total, " rsd</span>\n         </div>\n           <div class=\"labInfoWindow\">\n\n\n               <p class=\"labInfoWindowAdresa\">").concat(result[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='").concat(labStatus[_i].status, " status'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center ").concat(day == 1 ? labStatus[_i].status : '', "\">P<span>").concat(result[_i].lab[0].workingHours.monday.opens, " - ").concat(result[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center ").concat(day == 2 ? labStatus[_i].status : '', "\">U<span>").concat(result[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center ").concat(day == 3 ? labStatus[_i].status : '', "\">S<span>").concat(result[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center ").concat(day == 4 ? labStatus[_i].status : '', "\">\u010C<span>").concat(result[_i].lab[0].workingHours.thursday.opens, " - ").concat(result[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center ").concat(day == 5 ? labStatus[_i].status : '', "\">P<span></span>").concat(result[_i].lab[0].workingHours.friday.opens, " - ").concat(result[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center ").concat(day == 6 ? labStatus[_i].status : '', "\">S<span></span>").concat(result[_i].lab[0].workingHours.saturday.opens, " - ").concat(result[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center ").concat(day == 0 ? labStatus[_i].status : '', "\">N<span></span>").concat(result[_i].lab[0].workingHours.sunday.opens, " - ").concat(result[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
           resultDiv.innerHTML = "\n         <section id=\"labDetails\">\n           <div class=\"container\">\n             <div class=\"row labContainer\">\n             </div>\n           </div>\n         </section>"; //append labcard to page
 
           document.querySelector('.labContainer').appendChild(labTemplate);
-        } // map options
+        } // new map
 
-
-        var options = {
-          zoom: 16,
-          // center: {lat:44.808048, lng:20.462796},
-          disableDefaultUI: true,
-          zoomControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: true,
-          rotateControl: false,
-          fullscreenControl: true,
-          fullscreenControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_BOTTOM
-          },
-          styles: [{
-            "featureType": "administrative.country",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#fbd2d9"
-            }, {
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "administrative.country",
-            "elementType": "geometry.stroke",
-            "stylers": [{
-              "color": "#9896a9"
-            }, {
-              "weight": 2
-            }]
-          }, {
-            "featureType": "administrative.land_parcel",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#9896a9"
-            }]
-          }, {
-            "featureType": "administrative.land_parcel",
-            "elementType": "labels",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "administrative.locality",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "administrative.neighborhood",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "administrative.neighborhood",
-            "elementType": "labels",
-            "stylers": [{
-              "color": "#aaa9b1"
-            }, {
-              "visibility": "simplified"
-            }]
-          }, {
-            "featureType": "poi",
-            "elementType": "labels.text",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "poi.business",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "poi.park",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#aadc55"
-            }]
-          }, {
-            "featureType": "poi.park",
-            "elementType": "labels.text",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "road",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#ecebed"
-            }, {
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "road",
-            "elementType": "labels.text",
-            "stylers": [{
-              "color": "#d8d6dc"
-            }]
-          }, {
-            "featureType": "road.arterial",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#fefefe"
-            }]
-          }, {
-            "featureType": "road.arterial",
-            "elementType": "labels.text",
-            "stylers": [{
-              "color": "#9a9a9a"
-            }, {
-              "visibility": "simplified"
-            }]
-          }, {
-            "featureType": "road.highway",
-            "elementType": "labels",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "road.local",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "road.local",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#eaecec"
-            }, {
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "road.local",
-            "elementType": "labels",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "road.local",
-            "elementType": "labels.text.fill",
-            "stylers": [{
-              "color": "#9ba4a4"
-            }, {
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "transit",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "visibility": "off"
-            }]
-          }, {
-            "featureType": "transit.station",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "visibility": "on"
-            }]
-          }, {
-            "featureType": "transit.station.bus",
-            "stylers": [{
-              "visibility": "simplified"
-            }]
-          }, {
-            "featureType": "transit.station.bus",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#ff00ff"
-            }, {
-              "visibility": "simplified"
-            }]
-          }, {
-            "featureType": "water",
-            "elementType": "geometry.fill",
-            "stylers": [{
-              "color": "#1d88e5"
-            }, {
-              "lightness": 15
-            }]
-          }]
-        }; // new map
 
         var map = new google.maps.Map(document.getElementById('mapPrices'), options);
         map.setCenter({
@@ -21903,7 +21909,6 @@ window.onload = function () {
 
       if (itemsArray.length > 0) {
         // municipality.value = municipalityValue
-        console.log('da');
         window.location = '/nadjiLab';
       } //ako nesto ne radi zakomentarisati red ispod
 
@@ -22006,7 +22011,9 @@ window.onload = function () {
     var _mapArea = document.getElementById('mapPrices');
 
     _showPriceBtn.addEventListener('click', function (e) {
-      e.preventDefault();
+      e.preventDefault(); // priceList.classList.add('hidePriceList')
+      // priceList.classList.add('d-none')
+
       helper.bestPrice(_mapArea, _resultDiv);
     }); //create wrapper for live search icon
     //get seachstring
@@ -22166,6 +22173,7 @@ window.onload = function () {
 
     _showPriceBtn2.addEventListener('click', function (e) {
       e.preventDefault();
+      console.log('d');
 
       if (document.getElementById('municipality') != null) {
         var _municipality4 = document.getElementById('municipality');

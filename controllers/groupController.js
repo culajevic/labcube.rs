@@ -147,6 +147,7 @@ sortByPriority = {priority:-1}
     }
 
     let status
+    let closingSoon
 
     if(day == currentDayNum) {
       for(i=0; i<labInfo.length; i++) {
@@ -155,7 +156,15 @@ sortByPriority = {priority:-1}
         let todayOpenTime = new Date(today +' '+ openTime +':00')
         let todayClosingTime = new Date(today +' '+ closingTime +':00')
         let nowTimeStamp = now.getTime()
-        if(nowTimeStamp > todayOpenTime.getTime() &&
+        closingSoon = todayClosingTime - nowTimeStamp
+        let closingIn = (Math.ceil(closingSoon/1000/60))
+
+        if (closingIn < 60 && closingIn > 0) {
+          status = 'closedSoon'
+          labStatus.push({'id':labInfo[i]._id, 'status':status})
+        }
+
+       else if(nowTimeStamp > todayOpenTime.getTime() &&
           todayClosingTime.getTime() > nowTimeStamp) {
           numOpen +=1
           status = 'open'

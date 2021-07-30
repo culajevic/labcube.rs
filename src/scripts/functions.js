@@ -626,9 +626,279 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   municipality.value = municipalityValue
   // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
+  // comment if dont want to close pricelist when show price is displayed
+  priceList.classList.add('hidePriceList','d-none')
+  // map options
+  let options = {
+    zoom:16,
+    // center: {lat:44.808048, lng:20.462796},
+    disableDefaultUI: true,
+    zoomControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: true,
+    rotateControl: false,
+    fullscreenControl: true,
+    fullscreenControlOptions:{
+      position:google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    styles: [
+        {
+          "featureType": "administrative.country",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#fbd2d9"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#9896a9"
+            },
+            {
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#9896a9"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.locality",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.neighborhood",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.neighborhood",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "color": "#aaa9b1"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.business",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#aadc55"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#ecebed"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "color": "#d8d6dc"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#fefefe"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "color": "#9a9a9a"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#eaecec"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#9ba4a4"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.bus",
+          "stylers": [
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.bus",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#ff00ff"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#1d88e5"
+            },
+            {
+              "lightness": 15
+            }
+          ]
+        }
+      ]
+  }
 
   localStorage.setItem('municipality', JSON.stringify(municipalityValue))
   let markers = []
+  let infoWindow = new google.maps.InfoWindow
+  let markersCluster = []
 
   //take working timeout
       let now = new Date()
@@ -687,7 +957,6 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
       for(let i=0; i<result.length; i++) {
 
-
         if(day == currentDayNum) {
 
             let openTime = result[i].lab[0].workingHours[currentDay].opens
@@ -703,12 +972,12 @@ exports.bestPrice = (mapArea, resultDiv) => {
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
             }
 
-            if (closingIn < 60 && closingIn > 0) {
+           else if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon'
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
             }
 
-            if(nowTimeStamp > todayOpenTime.getTime() &&
+            else if (nowTimeStamp > todayOpenTime.getTime() &&
               todayClosingTime.getTime() > nowTimeStamp) {
               numOpen +=1
               status = 'open'
@@ -719,7 +988,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
               labStatus.push({'id':result[i].lab[0]._id, 'status':status})
             }
         }
-
+console.log(labStatus)
 
 
 
@@ -742,9 +1011,8 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
         <div class="lab-card">
           <div>
-          ${(result[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
           ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-          <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
+          <span class="labInfoWindowTitle">${result[i].lab[0].labName}</span><span class="float-right priceTag">${result[i].total} rsd</span>
          </div>
            <div class="labInfoWindow">
 
@@ -781,272 +1049,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
          //append labcard to page
          document.querySelector('.labContainer').appendChild(labTemplate)
       }
-      // map options
-      let options = {
-        zoom:16,
-        // center: {lat:44.808048, lng:20.462796},
-        disableDefaultUI: true,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: true,
-        rotateControl: false,
-        fullscreenControl: true,
-        fullscreenControlOptions:{
-          position:google.maps.ControlPosition.RIGHT_BOTTOM
-        },
-        styles: [
-            {
-              "featureType": "administrative.country",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#fbd2d9"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.country",
-              "elementType": "geometry.stroke",
-              "stylers": [
-                {
-                  "color": "#9896a9"
-                },
-                {
-                  "weight": 2
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.land_parcel",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#9896a9"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.land_parcel",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.locality",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.neighborhood",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.neighborhood",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "color": "#aaa9b1"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "poi",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.business",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#aadc55"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#ecebed"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "road",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "color": "#d8d6dc"
-                }
-              ]
-            },
-            {
-              "featureType": "road.arterial",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#fefefe"
-                }
-              ]
-            },
-            {
-              "featureType": "road.arterial",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "color": "#9a9a9a"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "road.highway",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#eaecec"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "labels.text.fill",
-              "stylers": [
-                {
-                  "color": "#9ba4a4"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "transit",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station.bus",
-              "stylers": [
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station.bus",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#ff00ff"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "water",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#1d88e5"
-                },
-                {
-                  "lightness": 15
-                }
-              ]
-            }
-          ]
-      }
+
       // new map
       let map = new google.maps.Map(document.getElementById('mapPrices'), options)
           map.setCenter({lat:result[0].lab[0].location.coordinates[1], lng:result[0].lab[0].location.coordinates[0]});
@@ -1088,9 +1091,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
 
 
-          let infoWindow = new google.maps.InfoWindow({
-            maxWidth:600,
-            content:`<div class="" style="min-height:142px; max-width:380px;">
+          let content = `<div class="" style="min-height:142px; max-width:380px;">
                         <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
                         <span class="">${address}</span>
                         <p class="">${city}</p>
@@ -1109,19 +1110,23 @@ exports.bestPrice = (mapArea, resultDiv) => {
                           <p class="whInside text-center ${(day == 6) ? labStatus[i].status : ''}">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
                           <p class="whInside text-center ${(day == 0) ? labStatus[i].status : ''}">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
                         </div>
-                      </div>
+                      </div>`
 
-                  `
-
-          });
-
-          marker.addListener('click', function(){
-            var placeMarker = infoWindow.open(map, marker);
-          });
-
+          google.maps.event.addListener(marker, 'click', function(){
+            infoWindow.close()
+            infoWindow.setContent(content)
+            infoWindow.open(map, this)
+          })
           google.maps.event.addListener(map, 'click', function() {
             infoWindow.close();
-          });
+          })
+          // marker.addListener('click', function(){
+          //   var placeMarker = infoWindow.open(map, marker);
+          // });
+          //
+          // google.maps.event.addListener(map, 'click', function() {
+          //   infoWindow.close();
+          // });
       }
     } else {
       mapArea.classList.add('d-none')

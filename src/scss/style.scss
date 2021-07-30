@@ -89,6 +89,18 @@
   margin-top:-15px;
 }
 
+
+.priceTag {
+  position: absolute;
+  top:-1px;
+  right: -1px;
+  border-bottom-left-radius:8px;
+  background-color: $primary-color;
+  color:$white-color;
+  padding:4px 10px;
+  font-size: px-to-rem(14px);
+}
+
 .labDetailsAdresa::before {
   content:url('../images/addressIcon.svg');
   padding-right:4px;
@@ -564,7 +576,7 @@ position: absolute;
     border-radius: 20px;
 }
 
-.workingHoursLabDetails > tbody > tr > td.closingSoon {
+.workingHoursLabDetails > tbody > tr > td.closedSoon {
     background-color: $orange;
     color:white;
     border-radius: 20px;
@@ -578,7 +590,7 @@ p.selectedAnalysisTitle {
   font-size: px-to-rem(20px);
 }
 
-// .closingSoon {
+// .closedSoon {
 //   background-color: $orange;
 // }
 
@@ -604,12 +616,14 @@ p.selectedAnalysisTitle {
   // text-transform: uppercase;
   border-radius: 20px;
   margin-bottom: 1rem;
+  min-width: 300px;
 }
 
 .aboutUsDiscount {
   @extend .aboutUs;
   border: 2px solid $button-green;
   background-color: lighten($button-green, 38%);
+  min-width: 300px;
 }
 
 .remove {
@@ -646,12 +660,14 @@ p.selectedAnalysisTitle {
   margin-top: 30px;
   // border-bottom:1px solid #E1E1E1;
   // padding-bottom: 50px;
-  & > .btn{
+  & > .btn-success {
     font-size: px-to-rem(14px);
-    padding: 10px;
-    // line-height: 10px;
+    padding: 10px 0;
+    line-height:0;
   }
 }
+
+
 
 .benefitsTitle {
   text-align: center;
