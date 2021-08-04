@@ -574,7 +574,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           if (closingIn < 60 && closingIn > 0) {
             radnoVreme.classList.add('closedSoon')
             radnoVreme.innerText = `zatvara se za ${closingIn} min.`
-            todayIs.classList.add('active')
+            todayIs.classList.add('closedSoon')
           }
 
             else if(nowTimeStamp > todayOpenTime.getTime() &&

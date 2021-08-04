@@ -21052,7 +21052,7 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
           if (closingIn < 60 && closingIn > 0) {
             radnoVreme.classList.add('closedSoon');
             radnoVreme.innerText = "zatvara se za ".concat(closingIn, " min.");
-            todayIs.classList.add('active');
+            todayIs.classList.add('closedSoon');
           } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
             radnoVreme.classList.add('open');
             radnoVreme.innerText = 'otvoreno';
