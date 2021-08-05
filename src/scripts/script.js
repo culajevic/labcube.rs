@@ -594,7 +594,6 @@ if(document.getElementById('resultsGroupDetails')!= null) {
       analysis.innerHTML = '&#10004;'
       analysis.disabled = true
       analysis.classList.remove('addAnalysis')
-      analysis.classList.add('deleteAnalysis')
     }
   })
 

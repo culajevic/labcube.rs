@@ -58,6 +58,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
     analysisLink.appendChild(analysisName)
   } else {
     analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
+    // analysisLink.setAttribute('target','_blank')
     analysisLink.className = 'nolink'
     analysisLink.appendChild(analysisName)
   }
@@ -950,57 +951,58 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-      if(result.length > 0) {
-
+      if(result.getPrices.length > 0) {
+          noResults.innerHTML = ''
+          resultDiv.innerHTML = ''
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
-      for(let i=0; i<result.length; i++) {
+      for(let i=0; i<result.getPrices.length; i++) {
 
         if(day == currentDayNum) {
 
-            let openTime = result[i].lab[0].workingHours[currentDay].opens
-            let closingTime = result[i].lab[0].workingHours[currentDay].closes
+            let openTime = result.getPrices[i].lab[0].workingHours[currentDay].opens
+            let closingTime = result.getPrices[i].lab[0].workingHours[currentDay].closes
             let todayOpenTime = new Date(today +' '+ openTime +':00')
             let todayClosingTime = new Date(today +' '+ closingTime +':00')
             let nowTimeStamp = now.getTime()
             let closingSoon = todayClosingTime - nowTimeStamp
             let closingIn = (Math.ceil(closingSoon/1000/60))
 
-            if (result[i].lab[0].open24h) {
+            if (result.getPrices[i].lab[0].open24h) {
               status = 'open'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
 
            else if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
 
             else if (nowTimeStamp > todayOpenTime.getTime() &&
               todayClosingTime.getTime() > nowTimeStamp) {
               numOpen +=1
               status = 'open'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
             else {
               status = 'closed'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
         }
 
       markers.push(
         {
-          lat:result[i].lab[0].location.coordinates[1], lng:result[i].lab[0].location.coordinates[0],
+          lat:result.getPrices[i].lab[0].location.coordinates[1], lng:result.getPrices[i].lab[0].location.coordinates[0],
           iconImage:'/images/pinopen.svg',
-          total:result[i].total,
-          name:result[i].lab[0].labName,
-          address:result[i].lab[0].address,
-          city:result[i].labPlace[0].place,
-          phone:result[i].lab[0].phone,
-          workinghours:result[i].lab[0].workingHours,
-          slug:result[i].lab[0].slug
+          total:result.getPrices[i].total,
+          name:result.getPrices[i].lab[0].labName,
+          address:result.getPrices[i].lab[0].address,
+          city:result.getPrices[i].labPlace[0].place,
+          phone:result.getPrices[i].lab[0].phone,
+          workinghours:result.getPrices[i].lab[0].workingHours,
+          slug:result.getPrices[i].lab[0].slug
         }
       )
 
@@ -1009,31 +1011,31 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
         <div class="lab-card">
           <div>
-          ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-          <span class="labInfoWindowTitle">${result[i].lab[0].labName}</span><span class="float-right priceTag">${result[i].total} rsd</span>
+          ${(result.getPrices[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
+          <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${result.getPrices[i].total} rsd</span>
          </div>
            <div class="labInfoWindow">
 
 
-               <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
-               <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>
-               <p class="labInfoWindowTelefoni"> ${result[i].lab[0].phone} </p>
+               <p class="labInfoWindowAdresa">${result.getPrices[i].lab[0].address}</p>
+               <p class="labInfoWindowGrad">${result.getPrices[i].labPlace[0].place}</p>
+               <p class="labInfoWindowTelefoni"> ${result.getPrices[i].lab[0].phone} </p>
            </div>
            <div class="labInfoFooter">
                <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                <div class="radnoVreme">Radno vreme</div>
                <div id='otvoreno' class='${labStatus[i].status} status'></div>
                <div class="labInfoRadnoVremeDetalji">
-                 <p class="daysInWeek monday${result[i]} text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
-                 <p class="daysInWeek tuesday${result[i]} text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
-                 <p class="daysInWeek wednesday${result[i]} text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
-                 <p class="daysInWeek thursday${result[i]} text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
-                 <p class="daysInWeek friday${result[i]} text-center ${(day == 5) ? labStatus[i].status : ''}">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
-                 <p class="daysInWeek saturday${result[i]} text-center ${(day == 6) ? labStatus[i].status : ''}">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
-                 <p class="daysInWeek sunday${result[i]} text-center ${(day == 0) ? labStatus[i].status : ''}">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
+                 <p class="daysInWeek monday${result[i]} text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${result.getPrices[i].lab[0].workingHours.monday.opens} - ${result.getPrices[i].lab[0].workingHours.monday.closes}</span></p>
+                 <p class="daysInWeek tuesday${result[i]} text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${result.getPrices[i].lab[0].workingHours.tuesday.opens} - ${result.getPrices[i].lab[0].workingHours.tuesday.closes}</span></p>
+                 <p class="daysInWeek wednesday${result[i]} text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${result.getPrices[i].lab[0].workingHours.wednesday.opens} - ${result.getPrices[i].lab[0].workingHours.wednesday.closes}</span></p>
+                 <p class="daysInWeek thursday${result[i]} text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${result.getPrices[i].lab[0].workingHours.thursday.opens} - ${result.getPrices[i].lab[0].workingHours.thursday.closes}</span></p>
+                 <p class="daysInWeek friday${result[i]} text-center ${(day == 5) ? labStatus[i].status : ''}">P<span></span>${result.getPrices[i].lab[0].workingHours.friday.opens} - ${result.getPrices[i].lab[0].workingHours.friday.closes}</p>
+                 <p class="daysInWeek saturday${result[i]} text-center ${(day == 6) ? labStatus[i].status : ''}">S<span></span>${result.getPrices[i].lab[0].workingHours.saturday.opens} - ${result.getPrices[i].lab[0].workingHours.saturday.closes}</p>
+                 <p class="daysInWeek sunday${result[i]} text-center ${(day == 0) ? labStatus[i].status : ''}">N<span></span>${result.getPrices[i].lab[0].workingHours.sunday.opens} - ${result.getPrices[i].lab[0].workingHours.sunday.closes}</p>
                </div>
             </div>
-            <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result[i].lab[0].slug}/${passIds}">saznaj više</a>
+            <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result.getPrices[i].lab[0].slug}/${passIds}">saznaj više</a>
          </div>`
 
          resultDiv.innerHTML = `
@@ -1050,7 +1052,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
       // new map
       let map = new google.maps.Map(document.getElementById('mapPrices'), options)
-          map.setCenter({lat:result[0].lab[0].location.coordinates[1], lng:result[0].lab[0].location.coordinates[0]});
+          map.setCenter({lat:result.getPrices[0].lab[0].location.coordinates[1], lng:result.getPrices[0].lab[0].location.coordinates[0]});
 
       for(i=0; i<markers.length; i++) {
       addMarker(markers[i].lat,
@@ -1128,9 +1130,13 @@ exports.bestPrice = (mapArea, resultDiv) => {
       }
     } else {
       mapArea.classList.add('d-none')
-      noResults.remove()
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
-      // console.log('skloni')
+      console.log('ds')
+      noResults.innerHTML = ''
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Pokušajte da uklonite neke od ovih analiza. </h2>`
+      
+      for (let i = 0; i< result.missingValues.length; i++) {
+          resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
+      }
     }
     })//data json end
 
