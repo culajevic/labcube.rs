@@ -21460,6 +21460,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
         }
       } else {
         mapArea.classList.add('d-none');
+        noResults.remove();
         resultDiv.innerHTML = "<h2 class=\"text-center\">Trenutno nijedna laboratorija na odabranoj op\u0161tini ne mo\u017Ee da uradi sve analize koje ste odabrali. Odaberite drugu op\u0161tinu</h2>"; // console.log('skloni')
       }
     }); //data json end

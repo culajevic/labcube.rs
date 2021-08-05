@@ -1128,6 +1128,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
       }
     } else {
       mapArea.classList.add('d-none')
+      noResults.remove()
       resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
       // console.log('skloni')
     }
