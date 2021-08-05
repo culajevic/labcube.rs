@@ -25,6 +25,10 @@
  				</table><!-- table -->
  			</div><!-- table-responsive -->
 
+      <div id='noResults'>
+
+      </div>
+
  		</div><!-- table row end  -->
  </div> <!-- results container end -->
 
@@ -38,6 +42,7 @@ setTimeout(() => {
   let mapArea = document.getElementById('mapPrices')
   let loaderWrapper = document.querySelector('.loader-wrapper')
   let municipalityValue
+  let noResults = document.getElementById('noResults')
   let municipality = document.getElementById('municipality')
 
   // if(document.getElementById('municipality')!= null) {
@@ -392,8 +397,6 @@ setTimeout(() => {
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
-
-
       for(let i=0; i<result.length; i++) {
 
         if(day == currentDayNum) {
@@ -563,7 +566,7 @@ setTimeout(() => {
 
     // /
 
-
+    noResults.remove()
      resultDiv.innerHTML = `
      <section id="labDetails">
        <div class="container">
@@ -577,9 +580,13 @@ setTimeout(() => {
      document.querySelector('.labContainer').appendChild(labTemplate)
 
     } else {
+      // let noResults = document.getElementById('noResults')
       mapArea.classList.add('d-none')
-      // resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna naslovna</h2>`
+      noResults.innerHTML = ''
+      noResults.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
+      console.log('skloni sa naslovne')
+
+
     }
 
     })//data json end

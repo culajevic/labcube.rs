@@ -285,14 +285,12 @@ let closePriceList = document.getElementById('closePriceList')
 
   //display best price
   let resultDiv = document.getElementById('resultTable')
-
   let loaderWrapper = document.querySelector('.loader-wrapper')
   const showPriceBtn = document.querySelector('.showPrice')
   let mapArea = document.getElementById('mapPrices')
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
-
     if(document.getElementById('municipality')!= null) {
       let municipality = document.getElementById('municipality')
       municipalityValue = municipality.options[municipality.selectedIndex].value
@@ -368,6 +366,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   let priceList = document.getElementById('priceList')
   let closePriceList = document.getElementById('closePriceList')
+
   //
     checkout.addEventListener('click', ()=> {
       if (itemsArray.length > 0 ) {
