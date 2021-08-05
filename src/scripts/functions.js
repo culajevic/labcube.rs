@@ -951,6 +951,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
       if(result.length > 0) {
+        cosole.log('dad')
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
@@ -1130,7 +1131,7 @@ console.log(labStatus)
       }
     } else {
       mapArea.classList.add('d-none')
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>`
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno</h2>`
     }
     })//data json end
 

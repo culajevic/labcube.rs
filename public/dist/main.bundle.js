@@ -21387,7 +21387,8 @@ exports.bestPrice = function (mapArea, resultDiv) {
           // });
         };
 
-        // loaderWrapper.style.opacity = 0
+        cosole.log('dad'); // loaderWrapper.style.opacity = 0
+
         var labTemplate = document.createElement('div');
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
 
@@ -21461,7 +21462,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
         }
       } else {
         mapArea.classList.add('d-none');
-        resultDiv.innerHTML = "<h2 class=\"text-center\">Trenutno nijedna laboratorija na odabranoj op\u0161tini ne mo\u017Ee da uradi sve analize koje ste odabrali. Odaberite drugu op\u0161tinu</h2>";
+        resultDiv.innerHTML = "<h2 class=\"text-center\">Trenutno</h2>";
       }
     }); //data json end
   }); //fetch end
