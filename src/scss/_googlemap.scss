@@ -149,7 +149,7 @@
       font-weight: 900;
       position: relative;
     }
-    &.closingSoon {
+    &.closedSoon {
       background-color: $orange;
       width: 100%;
       padding-top:4px;
@@ -403,6 +403,14 @@ div.status.closedSoon::before {
     }
     &.closed {
       background-color: $danger;
+      width: 100%;
+      color:$infoWindowContactColor;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px;
+    }
+    &.closedSoon {
+      background-color: $orange;
       width: 100%;
       color:$infoWindowContactColor;
       font-weight: bold;

@@ -7659,7 +7659,7 @@ input[name="searchFilter"] {
       color: #1F1F1F;
       font-weight: 900;
       position: relative; }
-    .radnoVremeDetalji > p.closingSoon {
+    .radnoVremeDetalji > p.closedSoon {
       background-color: #FF9600;
       width: 100%;
       padding-top: 4px;
@@ -7861,6 +7861,13 @@ div.status.closedSoon::before {
       padding: 5px; }
     .labInfoRadnoVremeDetalji > p.closed {
       background-color: #FF6F6F;
+      width: 100%;
+      color: #1F1F1F;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px; }
+    .labInfoRadnoVremeDetalji > p.closedSoon {
+      background-color: #FF9600;
       width: 100%;
       color: #1F1F1F;
       font-weight: bold;
@@ -8542,6 +8549,30 @@ div#d3 {
   height: 25px;
   clear: right; }
 
+.zoom {
+  position: absolute;
+  top: 16%;
+  height: 100px;
+  width: 100px;
+  opacity: 0;
+  animation: zoom 1s ease-in;
+  z-index: 1; }
+
+@keyframes zoom {
+  0% {
+    opacity: 0; }
+  25% {
+    opacity: .6; }
+  50% {
+    opacity: .9; }
+  75% {
+    opacity: .1; }
+  100% {
+    opacity: 0;
+    top: 0;
+    height: 12px;
+    width: 12px; } }
+
 .paymentSteps {
   border-radius: 14px !important;
   flex: 1 1 auto;
@@ -8579,10 +8610,20 @@ div#d3 {
   color: #6A757D; }
 
 .editorImg {
-  width: 200px; }
+  width: 250px; }
 
 .negativeMargin {
   margin-top: -15px; }
+
+.priceTag {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  border-bottom-left-radius: 8px;
+  background-color: #1D88E5;
+  color: #FFF;
+  padding: 4px 10px;
+  font-size: 0.875rem; }
 
 .labDetailsAdresa::before {
   content: url(../images/addressIcon.svg);
@@ -8951,7 +8992,7 @@ ul ol ul {
   color: white;
   border-radius: 20px; }
 
-.workingHoursLabDetails > tbody > tr > td.closingSoon {
+.workingHoursLabDetails > tbody > tr > td.closedSoon {
   background-color: #FF9600;
   color: white;
   border-radius: 20px; }
@@ -8980,11 +9021,13 @@ p.selectedAnalysisTitle {
   border: 2px solid #e1e1e1;
   margin: 0 auto;
   border-radius: 20px;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  min-width: 300px; }
 
 .aboutUsDiscount {
   border: 2px solid #55D159;
-  background-color: #eefaee; }
+  background-color: #eefaee;
+  min-width: 300px; }
 
 .remove:hover {
   opacity: .7;
@@ -9010,9 +9053,10 @@ p.selectedAnalysisTitle {
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 30px; }
-  #resultsLabDetails .labDetailsActionBtn > .btn {
+  #resultsLabDetails .labDetailsActionBtn > .btn-success, #resultsLabDetails .labDetailsActionBtn > .btnLogin, #resultsLabDetails .labDetailsActionBtn > .btn-res-success, #resultsLabDetails .labDetailsActionBtn > .tumacenjeBtn {
     font-size: 0.875rem;
-    padding: 10px; }
+    padding: 10px 0;
+    line-height: 0; }
 
 .benefitsTitle {
   text-align: center;
@@ -9470,8 +9514,8 @@ small a:hover {
 
 .hcpImage {
   border: 2px solid #1D88E5;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   margin: 20px 20px 20px 20px; }
 
 .hcpBio {

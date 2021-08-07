@@ -127,11 +127,13 @@ $(window).scroll(function(){
 // sticky navigation for side menu
 $(window).scroll(function(){
   var height = $(window).scrollTop();
-    if(height > 120) {
+    if(height > 100) {
       $(".odabraneAnalize").addClass('fixed-right')
+      // $(".odabraneAnalize").addClass('pt-4')
     }
     else {
       $(".odabraneAnalize").removeClass('fixed-right')
+      // $(".odabraneAnalize").removeClass('pt-4')
     }
 })
 
@@ -192,61 +194,59 @@ window.onload = () => {
 if(location === '/') {
 
   //testing analysis box feature
-  let analysisBasket = document.getElementById('analysisBasket')
-  let krvnaSlika = document.getElementById('krvnaSlika')
-  krvnaSlika.addEventListener('click', e => {
-    e.preventDefault
-    e.target.disabled = true
-    let analysisKS = JSON.parse(e.target.getAttribute('data-analysis'))
-    // let itemsArrayKS = []
-    // console.log(analysisKS.length)
-    for (i=0; i<analysisKS.length; i++) {
-
-    itemsArray.push({
-      'name':analysisKS[i].name,
-      'id':analysisKS[i].id,
-      'logo':analysisKS[i].logo
-     })
+  // let analysisBasket = document.getElementById('analysisBasket')
+  // let krvnaSlika = document.getElementById('krvnaSlika')
+  // krvnaSlika.addEventListener('click', e => {
+  //   e.preventDefault
+  //   e.target.disabled = true
+  //   let analysisKS = JSON.parse(e.target.getAttribute('data-analysis'))
+  //   for (i=0; i<analysisKS.length; i++) {
+  //
+  //   itemsArray.push({
+  //     'name':analysisKS[i].name,
+  //     'id':analysisKS[i].id,
+  //     'logo':analysisKS[i].logo
+  //    })
      //add analysis group on home page immediately - check the functions add analysis and refactor
-     let analysisAdded = document.createElement('li')
-       analysisAdded.className='list-group-item list-group-item-action'
+     // let analysisAdded = document.createElement('li')
+     //   analysisAdded.className='list-group-item list-group-item-action'
      //creating group image
-     let groupImage = document.createElement('img')
-       groupImage.classList = 'labGroupIconSelectedAnalysis'
-       groupImage.setAttribute('src', '/images/'+analysisKS[i].logo)
+     // let groupImage = document.createElement('img')
+     //   groupImage.classList = 'labGroupIconSelectedAnalysis'
+     //   groupImage.setAttribute('src', '/images/'+analysisKS[i].logo)
 
      //creating text with analysis name
-     let analysisName = document.createTextNode(analysisKS[i].name)
-     let analysisLink = document.createElement('a')
-     let slug = analysisKS[i].name.split(' ')
-     let urlSlug = slug.join('-')
-       analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
-       analysisLink.className = 'nolink analysisBasketLiItem'
-       analysisLink.setAttribute('target', '_blank')
-     analysisLink.appendChild(analysisName)
+     // let analysisName = document.createTextNode(analysisKS[i].name)
+     // let analysisLink = document.createElement('a')
+     // let slug = analysisKS[i].name.split(' ')
+     // let urlSlug = slug.join('--')
+     //   analysisLink.setAttribute('href', '/results/analysis/'+urlSlug)
+     //   analysisLink.className = 'nolink analysisBasketLiItem'
+     //   analysisLink.setAttribute('target', '_blank')
+     // analysisLink.appendChild(analysisName)
      //creating span element for remove icon
-     let removeSpan = document.createElement('span')
-       removeSpan.className = 'float-right remove'
-     let removeImg = document.createElement('img')
-       removeImg.setAttribute('src','/images/closeBtn.svg')
-       removeImg.className = 'remove-analysis-from-basket'
-       removeSpan.appendChild(removeImg)
-       analysisAdded.appendChild(groupImage)
-       analysisAdded.appendChild(analysisLink)
-       analysisAdded.appendChild(removeSpan)
+     // let removeSpan = document.createElement('span')
+     //   removeSpan.className = 'float-right remove'
+     // let removeImg = document.createElement('img')
+     //   removeImg.setAttribute('src','/images/closeBtn.svg')
+     //   removeImg.className = 'remove-analysis-from-basket'
+     //   removeSpan.appendChild(removeImg)
+     //   analysisAdded.appendChild(groupImage)
+     //   analysisAdded.appendChild(analysisLink)
+     //   analysisAdded.appendChild(removeSpan)
+     //
+     //   let analysisPositionArr = itemsArray.findIndex((item) => {
+     //     return item.name === analysisKS[i].name
+     //   })
+     //
+     //   let selectedAnalysis = document.getElementById('selectedAnalysis')
+     //    selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
+   // }
 
-       let analysisPositionArr = itemsArray.findIndex((item) => {
-         return item.name === analysisKS[i].name
-       })
-
-       let selectedAnalysis = document.getElementById('selectedAnalysis')
-        selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr])
-   }
-
-    checkout.classList.remove('d-none')
-     checkout.innerHTML = itemsArray.length
-     localStorage.setItem('items', JSON.stringify(itemsArray))
-  })
+    // checkout.classList.remove('d-none')
+    //  checkout.innerHTML = itemsArray.length
+    //  localStorage.setItem('items', JSON.stringify(itemsArray))
+  // })
 
 let priceList = document.getElementById('priceList')
 let closePriceList = document.getElementById('closePriceList')
@@ -255,6 +255,7 @@ let closePriceList = document.getElementById('closePriceList')
     if (itemsArray.length > 0) {
     priceList.classList.add('unhidePriceList')
     priceList.classList.remove('hidePriceList')
+    priceList.classList.remove('d-none')
     }
   })
 
@@ -282,14 +283,12 @@ let closePriceList = document.getElementById('closePriceList')
 
   //display best price
   let resultDiv = document.getElementById('resultTable')
-
   let loaderWrapper = document.querySelector('.loader-wrapper')
   const showPriceBtn = document.querySelector('.showPrice')
   let mapArea = document.getElementById('mapPrices')
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
-
     if(document.getElementById('municipality')!= null) {
       let municipality = document.getElementById('municipality')
       municipalityValue = municipality.options[municipality.selectedIndex].value
@@ -299,7 +298,6 @@ let closePriceList = document.getElementById('closePriceList')
     }
     if (itemsArray.length > 0) {
     // municipality.value = municipalityValue
-    console.log('da')
       window.location = '/nadjiLab'
     }
     //ako nesto ne radi zakomentarisati red ispod
@@ -366,11 +364,13 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   let priceList = document.getElementById('priceList')
   let closePriceList = document.getElementById('closePriceList')
+
   //
     checkout.addEventListener('click', ()=> {
       if (itemsArray.length > 0 ) {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
       }
     })
   //
@@ -407,6 +407,9 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   showPriceBtn.addEventListener('click', e => {
     e.preventDefault()
+    // priceList.classList.add('hidePriceList')
+    // priceList.classList.add('d-none')
+
     helper.bestPrice(mapArea, resultDiv)
 
   })
@@ -545,6 +548,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
       if (itemsArray.length > 0) {
         priceList.classList.add('unhidePriceList')
         priceList.classList.remove('hidePriceList')
+        priceList.classList.remove('d-none')
       }
     })
 
@@ -566,6 +570,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
+      console.log('d')
       if(document.getElementById('municipality')!= null) {
         let municipality = document.getElementById('municipality')
         municipalityValue = municipality.options[municipality.selectedIndex].value
@@ -627,6 +632,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
       if (itemsArray.length > 0 ) {
         priceList.classList.add('unhidePriceList')
         priceList.classList.remove('hidePriceList')
+        priceList.classList.remove('d-none')
       }
     })
   //
@@ -681,6 +687,7 @@ test.addEventListener('click', e => {
 
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
 
 
     closePriceList.addEventListener('click', () => {
@@ -1558,6 +1565,7 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
     checkout.addEventListener('click', ()=> {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
+      priceList.classList.remove('d-none')
     })
   //
     closePriceList.addEventListener('click', () => {

@@ -28,8 +28,10 @@
             <div class="card-body">
               <div>
                 {{#each this.grupa}}
-                <img src="images/{{this.iconPath}}" alt="{{this.name}}" class="analiza-ikonica">
-                <span class="d-flex align-self-stretch">{{this.name}}</span>
+                <a href="/group/{{this.slug}}" class="">
+                <img src="images/{{this.iconPath}}" alt="{{this.name}}" class="analiza-ikonica nolink">
+                <span class="d-flex align-self-stretch nolink">{{this.name}}</span>
+                </a>
               </div>
               <p class="card-text">{{groupSummary this.description}}</p>
               <a href='/group/{{this.slug}}'><button class="button btn btn-secondary btn-block click-more">Saznaj više

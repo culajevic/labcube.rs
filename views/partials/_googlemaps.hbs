@@ -34,7 +34,7 @@ let currentDayNum = now.getDay()
 let infoWindow = new google.maps.InfoWindow
 
 let markers = []
-let markersCluster = [];
+let markersCluster = []
 let passIds = []
 itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
   itemsArray.forEach(item => {
@@ -308,8 +308,9 @@ let options = {
 
 for(i=0; i<labData.length; i++) {
   // let status = (labStatus[i].id).indexOf(labData[i]._id)
-  // console.log(labStatus[i].id,labData[i]._id)
+
   let status = labStatus[i].status
+
   markers.push(
     {
       status:status,
@@ -388,7 +389,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
   let marker = new google.maps.Marker({
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
-      url:(status!== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
+      url:(status !== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
       scaledSize: new google.maps.Size(30,41)
     },
     map:map

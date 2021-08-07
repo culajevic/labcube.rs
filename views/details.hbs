@@ -2,7 +2,7 @@
 <section id="details">
   <div class="container">
     <div class="row" >
-      <div class="col-md-8 col-lg-9">
+      <div class="col-md-12 col-lg-9">
         <!-- header -->
 
         <p class="float-right">
@@ -92,7 +92,7 @@
           <ul class="povezaneAnalize float-left" >
             <h5 id="povezaneAnalize">Povezane analize</h5>
             {{#each analysisDetails.connectedTo}}
-                <li><a href={{slug}} class="text-white" class="nolink">{{analysisName}} ({{abbr.[0]}})</a></li>
+                <li><a href={{slug}} class="text-white nolink">{{analysisName}} ({{abbr.[0]}})</a></li>
 
             {{/each}}
           </ul>
@@ -103,16 +103,12 @@
 
       {{> _sidebar}}
 
-      <div class="d-flex col-12">
-        <div class="col-2 pl-0">
-            <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg pr-4" />
-          </div>
-        <div class="col-9 d-flex flex-column justify-content-center " >
-          <p class="editorName font-weight-bold">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
-          <!-- <p class="negativeMargin editorName">{{analysisDetails.writtenBy.editorTitle}}</p> -->
-          <p class=" negativeMargin editorName">{{analysisDetails.writtenBy.aboutMe}}</p>
+
+        <div class="col-12 p-2 mt-4"><img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg img-fluid float-left p-2" />
+            <p class="editorName font-weight-bold mt-4">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
+          <p class="negativeMargin editorName">{{analysisDetails.writtenBy.aboutMe}}</p>
         </div>
-      </div>
+
 
       {{else}}
     <p style="clear:both;">
@@ -124,9 +120,15 @@
 
 
 
+
+
 	  </div><!--  row end  -->
   </div> <!-- container end -->
 </section> <!-- section details end -->
 
+
+<div class="col-12 text-center">
+  <a href="#" class="btn btn-success text-uppercase backTotop">povratak na vrh <i class="fas fa-arrow-circle-up"></i></a>
+</div>
 
 {{> _footer}}

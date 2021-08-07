@@ -28,7 +28,7 @@
         <h1 class="mb-5 d-inline" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}</h1>
       </div>
 
-      <div class="col-sm-12 col-lg-5 mt-4 d-inline">
+      <div class="col-sm-12 col-md-12 col-lg-3 col-xl-5 mt-4 d-inline">
         <div class="labInfoWindowDetails">
 
            <!-- <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo"> -->
@@ -43,10 +43,10 @@
       </div><!-- col-6 -->
 
 
-      <div class="col-sm-12 col-lg-3 mt-4 pr-0">
+      <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-4 pr-0">
         <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
         {{#if labDetails.accredited}}
-        <div class="labFeatures">
+        <div class="labFeatures ">
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
           {{/if}}
@@ -61,31 +61,31 @@
           {{/if}}
         </div>
         {{/if}}
-      </div>
-      <div class="col-lg-4 mt-4 pl-0">
-        <!-- <div class="feedback" >
-          <p class="float-right mb-0"><progress max=5 value="3"> </progress> {{hospitality}} ljubaznost</p>
-          <p class="text-right mb-0"><progress max=5 value="{{venipuncture}}"> </progress> {{venipuncture}} venepunkcija</p>
-          <p class="text-right mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} izdavanje rezultata</p>
-          <p class="text-right mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} covid odgovorni</p>
-          <p class="text-right mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} opšti utisak</p>
-        </div> -->
 
-        <div class="feedback pl-4" >
-          <p class="mb-0"><progress value="4" max=5> </progress> {{hospitality}} - <span class="text-left"> Ljubaznost</span></p>
+      </div>
+      <div class="feedback col-md-7 col-lg-5 col-xl-4 mt-4 pl-0 pl-xs-4">
+        <!-- <div class="feedback" > -->
+          <p class="mb-0"><progress max=5 value="{{hospitality}}"> </progress> {{hospitality}} ljubaznost</p>
+          <p class="mb-0"><progress max=5 value="{{venipuncture}}"> </progress> {{venipuncture}} venepunkcija</p>
+          <p class="mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} izdavanje rezultata</p>
+          <p class="mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} covid odgovorni</p>
+          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} opšti utisak</p>
+        <!-- </div> -->
+
+        <!-- <div class=" " > -->
+          <!-- <p class="mb-0"><progress value="4" max=5> </progress> {{hospitality}} - <span class="text-left"> Ljubaznost</span></p>
           <p class="mb-0"><progress value="5" max=5> </progress> {{venipuncture}} - <span class="text-left"> Venepunkcija</span></p>
           <p class="mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} - <span class="text-left"> Rezultati</span></p>
           <p class="mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} - <span class="text-left"> Covid odgovorni</span></p>
-          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} - <span class="text-left"> Opšti utisak</span>
-        </div>
+          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} - <span class="text-left"> Opšti utisak</span> -->
+        <!-- </div> -->
       </div>
     </div>
   </section>
 
-
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-lg-12 mt-2">
+      <div class="col-sm-12 col-lg-12 mt-2 table-responsive">
         <table class="table table-sm workingHoursLabDetails">
           <thead>
             <tr>
@@ -117,7 +117,7 @@
       <section id="labPrices">
         <div class="container" id="resultsLabDetails">
           <div class="row mb-2">
-            <div class="col-12">
+            <div class="col-12 table-responsive">
               {{#if numofanalysis}}
               <p class="selectedAnalysisTitle">odabrane analize</p>
               <table class="table results table-hover">
@@ -126,15 +126,15 @@
                   <tr>
                     <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
                       <a href="../../results/analysis/{{this.slug}}" class="nolink" target="_blank">{{this.name}}</a></td>
-                    <td>{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
+                    <td class="d-none d-md-table-cell">{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
                     <!-- <td>{{#each alt}} {{displayPhoneList this}} {{/each}}</td> -->
 
                     {{#if this.availableHC.[0]}}
-                      <td><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                      <td class="d-none d-md-table-cell"><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
                       {{else}}
-                      <td><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
+                      <td class="d-none d-md-table-cell"><img src="/images/hospital-alt_off.svg" data-toggle='tooltip' title="Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
                     {{/if}}
-                    <td><span class="font-weight-bold price" data-price={{this.cenovnik.cena}}>{{this.cenovnik.cena}}</span></td>
+                    <td><span class="font-weight-bold price mr-sm-3" data-price={{this.cenovnik.cena}}>{{this.cenovnik.cena}}</span></td>
                     <td><button class="btn btn-outline-danger float-right btn-block text-uppercase removeAnalysis" data-analysisid="{{this.idAnalysis}}" data-groupImg="{{this.iconPath}}" data-analysisName="{{this.name}}">X</button></td>
                   </tr>
                   {{/each}}
@@ -143,7 +143,7 @@
               <div class="mt-1">
 
                 <p class="aboutUs"><span class="numAnalysis">Redovna cena </span> <span class="totalPrice" ></span></p>
-                <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
+                <p class="aboutUsDiscount" style="min-width: 300px;" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
                 <!-- <small class=""><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small> -->
               </div>
             </div><!-- col 12 end -->
@@ -179,7 +179,7 @@
             </div>
 
 
-            <btn class="btn btn-success text-uppercase col-12" id="schedule">prosledi laboratoriji</btn>
+            <button class="btn btn-success text-uppercase col-12" id="schedule">prosledite odabrane analize laboratoriji</button>
 
 
 

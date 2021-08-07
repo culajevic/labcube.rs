@@ -3,6 +3,7 @@ const Price = mongoose.model('Price')
 const Place = mongoose.model('Place')
 const Lab = mongoose.model('Lab')
 const Group = mongoose.model('Group')
+const Analysis = mongoose.model('Analysis')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -163,6 +164,9 @@ exports.getPrices = async (req,res) => {
   let newObjectArr = []
   newids = req.params.ids.split(',')
 
+  let analysisIdsAll = []
+  analysisIdsAll.push(...req.params.ids.split(','))
+
   //broj odabrnih analiza
   // console.log(newids.length)
   // numofanalysis = newids.length
@@ -183,6 +187,31 @@ exports.getPrices = async (req,res) => {
 
 // nadji cene odabranih analiza u laboratorijama na odabranoj opstini
   labIdsObject = labIds.map(item => mongoose.Types.ObjectId(item))
+
+
+let getAllPrices = await Price.aggregate([
+    {$match:{'lab':{$in:labIdsObject}}},
+    {$unwind:'$cenovnik'}
+  ])
+
+let foundPrices = []
+
+for(let i=0; i< getAllPrices.length; i++) {
+  foundPrices.push(getAllPrices[i].cenovnik.analiza.toString())
+}
+
+// console.log(foundPrices)
+let missingAnalysis = []
+missingAnalysis = analysisIdsAll.filter(item => !foundPrices.includes(item))
+
+let missingAnalysisConvert = missingAnalysis.map(item => mongoose.Types.ObjectId(item))
+
+
+const getMissingAnalysisNames = await Analysis.aggregate([
+  {$match:{'_id':{$in:missingAnalysisConvert}}},
+  {$project:{analysisName:1}}
+])
+
   const getPrices = await Price.aggregate([
     {$match:{'lab':{$in:labIdsObject}}},
     {$unwind:'$cenovnik'},
@@ -190,10 +219,15 @@ exports.getPrices = async (req,res) => {
     {$group:{_id:'$lab', totalAnalysis:{$sum:1}, total:{$sum:'$cenovnik.cena'}}},
     {$match:{totalAnalysis:{$eq:newids.length}}},
     {$lookup:{from:'labs', localField:'_id', foreignField:'_id', as:'lab'}},
-    {$project:{lab:1, total:1, _id:0, totalAnalysis:1}},
+    {$project:{lab:1, total:1, _id:0, totalAnalysis:1, }},
     {$lookup:{from:'places', localField:'lab.placeId', foreignField:'_id', as:'labPlace'}},
     {$sort:{total:1}}
   ])
-  res.json(getPrices)
+
+// console.log(getPrices)
+  res.json({
+    getPrices:getPrices,
+    missingValues:getMissingAnalysisNames
+  })
   // res.render('najboljacena', {test:'test'})
 }

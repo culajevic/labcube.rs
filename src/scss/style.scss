@@ -17,10 +17,23 @@
 @import 'allsecure.scss';
 
 
-.card {
+.zoom {
+  position: absolute;
+  // right:25%;
+  top:16%;
+  height: 100px;
+  width: 100px;
+  opacity: 0;
+  animation: zoom 1s ease-in;
+  z-index: 1;
+}
 
-
-
+@keyframes zoom {
+  0%{opacity:0}
+  25%{opacity:.6}
+  50%{opacity:.9}
+  75%{opacity:.1}
+  100%{opacity:0; top:0; height: 12px; width: 12px;}
 }
 
 .paymentSteps {
@@ -69,11 +82,23 @@
 }
 
 .editorImg {
-  width: 200px;
+  width: 250px;
 }
 
 .negativeMargin {
   margin-top:-15px;
+}
+
+
+.priceTag {
+  position: absolute;
+  top:-1px;
+  right: -1px;
+  border-bottom-left-radius:8px;
+  background-color: $primary-color;
+  color:$white-color;
+  padding:4px 10px;
+  font-size: px-to-rem(14px);
 }
 
 .labDetailsAdresa::before {
@@ -551,7 +576,7 @@ position: absolute;
     border-radius: 20px;
 }
 
-.workingHoursLabDetails > tbody > tr > td.closingSoon {
+.workingHoursLabDetails > tbody > tr > td.closedSoon {
     background-color: $orange;
     color:white;
     border-radius: 20px;
@@ -565,7 +590,7 @@ p.selectedAnalysisTitle {
   font-size: px-to-rem(20px);
 }
 
-// .closingSoon {
+// .closedSoon {
 //   background-color: $orange;
 // }
 
@@ -591,12 +616,14 @@ p.selectedAnalysisTitle {
   // text-transform: uppercase;
   border-radius: 20px;
   margin-bottom: 1rem;
+  min-width: 300px;
 }
 
 .aboutUsDiscount {
   @extend .aboutUs;
   border: 2px solid $button-green;
   background-color: lighten($button-green, 38%);
+  min-width: 300px;
 }
 
 .remove {
@@ -633,12 +660,14 @@ p.selectedAnalysisTitle {
   margin-top: 30px;
   // border-bottom:1px solid #E1E1E1;
   // padding-bottom: 50px;
-  & > .btn{
+  & > .btn-success {
     font-size: px-to-rem(14px);
-    padding: 10px;
-    // line-height: 10px;
+    padding: 10px 0;
+    line-height:0;
   }
 }
+
+
 
 .benefitsTitle {
   text-align: center;
@@ -1197,8 +1226,8 @@ small {
 }
 .hcpImage {
   border:2px solid $primary-color;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   margin: 20px 20px 20px 20px;
 }
 

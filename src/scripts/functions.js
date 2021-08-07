@@ -58,6 +58,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
     analysisLink.appendChild(analysisName)
   } else {
     analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
+    // analysisLink.setAttribute('target','_blank')
     analysisLink.className = 'nolink'
     analysisLink.appendChild(analysisName)
   }
@@ -236,6 +237,9 @@ exports.removeAnalysis = (itemsArray, checkout) => {
         //hide basket if all analysis are removed
         if(itemsArray.length == 0) {
           document.querySelector('.card').classList.add('d-none')
+          // document.getElementById('priceList').classList.add('hidePriceList')
+          document.getElementById('priceList').classList.add('d-none')
+          // document.querySelector('.card').classList.add('hidePriceList')
           // checkout.classList.add('d-none')
         let resultSection = (document.getElementById('resultsLabDetails')) ? document.getElementById('resultsLabDetails') : ''
             if (resultSection) {
@@ -266,17 +270,36 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   resultDiv.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<30) {
       checkout.removeAttribute('style')
-      setTimeout(()=>{
-        let priceList = document.getElementById('priceList')
-        priceList.classList.add('unhidePriceList')
-        priceList.classList.remove('hidePriceList')
-      },500)
+
+      //enable if shopping cart should be visible after each dodaj click
+      // setTimeout(()=>{
+      //   let priceList = document.getElementById('priceList')
+      //   priceList.classList.add('unhidePriceList')
+      //   priceList.classList.remove('hidePriceList')
+      // },500)
+
+
+
 
       itemsArray.push({
         'name':e.target.getAttribute('data-analysisName'),
         'id':e.target.getAttribute('data-analysisid'),
         'logo':e.target.getAttribute('data-groupimg')
        })
+
+       let logoImg = document.createElement('img')
+       logoImg.setAttribute('src', `/images/${e.target.getAttribute('data-groupimg')}`)
+       logoImg.classList.add('zoom')
+       checkout.parentNode.appendChild(logoImg)
+
+       setTimeout(() => {
+         let removeIcons = document.querySelectorAll('.zoom')
+         removeIcons.forEach(item => {
+          item.remove()
+          checkout.classList.remove('rotateNumberOfAnalysis')
+         });
+       },1000)
+
 
        //add number of analysis to navigation
        checkout.classList.remove('d-none')
@@ -291,6 +314,7 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
        let cardHeader = document.getElementById('numOfAnalysis')
        cardHeader.innerHTML=''
        cardHeader.appendChild(basketTitle)
+
 
       // sorting array
       itemsArray.sort((a,b) => {
@@ -551,7 +575,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           if (closingIn < 60 && closingIn > 0) {
             radnoVreme.classList.add('closedSoon')
             radnoVreme.innerText = `zatvara se za ${closingIn} min.`
-            todayIs.classList.add('active')
+            todayIs.classList.add('closedSoon')
           }
 
             else if(nowTimeStamp > todayOpenTime.getTime() &&
@@ -603,9 +627,279 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   municipality.value = municipalityValue
   // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
+  // comment if dont want to close pricelist when show price is displayed
+  priceList.classList.add('hidePriceList','d-none')
+  // map options
+  let options = {
+    zoom:16,
+    // center: {lat:44.808048, lng:20.462796},
+    disableDefaultUI: true,
+    zoomControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: true,
+    rotateControl: false,
+    fullscreenControl: true,
+    fullscreenControlOptions:{
+      position:google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    styles: [
+        {
+          "featureType": "administrative.country",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#fbd2d9"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "color": "#9896a9"
+            },
+            {
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#9896a9"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.locality",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.neighborhood",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.neighborhood",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "color": "#aaa9b1"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.business",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#aadc55"
+            }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#ecebed"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "color": "#d8d6dc"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#fefefe"
+            }
+          ]
+        },
+        {
+          "featureType": "road.arterial",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "color": "#9a9a9a"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#eaecec"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road.local",
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#9ba4a4"
+            },
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.bus",
+          "stylers": [
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "transit.station.bus",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#ff00ff"
+            },
+            {
+              "visibility": "simplified"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "color": "#1d88e5"
+            },
+            {
+              "lightness": 15
+            }
+          ]
+        }
+      ]
+  }
 
   localStorage.setItem('municipality', JSON.stringify(municipalityValue))
   let markers = []
+  let infoWindow = new google.maps.InfoWindow
+  let markersCluster = []
 
   //take working timeout
       let now = new Date()
@@ -657,60 +951,58 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-      if(result.length > 0) {
+      if(result.getPrices.length > 0) {
+          noResults.innerHTML = ''
+          resultDiv.innerHTML = ''
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
-      for(let i=0; i<result.length; i++) {
-
+      for(let i=0; i<result.getPrices.length; i++) {
 
         if(day == currentDayNum) {
 
-            let openTime = result[i].lab[0].workingHours[currentDay].opens
-            let closingTime = result[i].lab[0].workingHours[currentDay].closes
+            let openTime = result.getPrices[i].lab[0].workingHours[currentDay].opens
+            let closingTime = result.getPrices[i].lab[0].workingHours[currentDay].closes
             let todayOpenTime = new Date(today +' '+ openTime +':00')
             let todayClosingTime = new Date(today +' '+ closingTime +':00')
             let nowTimeStamp = now.getTime()
             let closingSoon = todayClosingTime - nowTimeStamp
             let closingIn = (Math.ceil(closingSoon/1000/60))
 
-            if (result[i].lab[0].open24h) {
+            if (result.getPrices[i].lab[0].open24h) {
               status = 'open'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
 
-            if (closingIn < 60 && closingIn > 0) {
+           else if (closingIn < 60 && closingIn > 0) {
               status = 'closedSoon'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
 
-            if(nowTimeStamp > todayOpenTime.getTime() &&
+            else if (nowTimeStamp > todayOpenTime.getTime() &&
               todayClosingTime.getTime() > nowTimeStamp) {
               numOpen +=1
               status = 'open'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
             else {
               status = 'closed'
-              labStatus.push({'id':result[i].lab[0]._id, 'status':status})
+              labStatus.push({'id':result.getPrices[i].lab[0]._id, 'status':status})
             }
         }
 
-
-
-
       markers.push(
         {
-          lat:result[i].lab[0].location.coordinates[1], lng:result[i].lab[0].location.coordinates[0],
+          lat:result.getPrices[i].lab[0].location.coordinates[1], lng:result.getPrices[i].lab[0].location.coordinates[0],
           iconImage:'/images/pinopen.svg',
-          total:result[i].total,
-          name:result[i].lab[0].labName,
-          address:result[i].lab[0].address,
-          city:result[i].labPlace[0].place,
-          phone:result[i].lab[0].phone,
-          workinghours:result[i].lab[0].workingHours,
-          slug:result[i].lab[0].slug
+          total:result.getPrices[i].total,
+          name:result.getPrices[i].lab[0].labName,
+          address:result.getPrices[i].lab[0].address,
+          city:result.getPrices[i].labPlace[0].place,
+          phone:result.getPrices[i].lab[0].phone,
+          workinghours:result.getPrices[i].lab[0].workingHours,
+          slug:result.getPrices[i].lab[0].slug
         }
       )
 
@@ -719,32 +1011,31 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
         <div class="lab-card">
           <div>
-          ${(result[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
-          ${(result[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-          <span class="labInfoWindowTitle">${result[i].lab[0].labName} - ${result[i].total}</span>
+          ${(result.getPrices[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
+          <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${result.getPrices[i].total} rsd</span>
          </div>
            <div class="labInfoWindow">
 
 
-               <p class="labInfoWindowAdresa">${result[i].lab[0].address}</p>
-               <p class="labInfoWindowGrad">${result[i].labPlace[0].place}</p>
-               <p class="labInfoWindowTelefoni"> ${result[i].lab[0].phone} </p>
+               <p class="labInfoWindowAdresa">${result.getPrices[i].lab[0].address}</p>
+               <p class="labInfoWindowGrad">${result.getPrices[i].labPlace[0].place}</p>
+               <p class="labInfoWindowTelefoni"> ${result.getPrices[i].lab[0].phone} </p>
            </div>
            <div class="labInfoFooter">
                <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
                <div class="radnoVreme">Radno vreme</div>
                <div id='otvoreno' class='${labStatus[i].status} status'></div>
                <div class="labInfoRadnoVremeDetalji">
-                 <p class="daysInWeek monday${result[i]} text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${result[i].lab[0].workingHours.monday.opens} - ${result[i].lab[0].workingHours.monday.closes}</span></p>
-                 <p class="daysInWeek tuesday${result[i]} text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${result[i].lab[0].workingHours.tuesday.opens} - ${result[i].lab[0].workingHours.tuesday.closes}</span></p>
-                 <p class="daysInWeek wednesday${result[i]} text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${result[i].lab[0].workingHours.wednesday.opens} - ${result[i].lab[0].workingHours.wednesday.closes}</span></p>
-                 <p class="daysInWeek thursday${result[i]} text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${result[i].lab[0].workingHours.thursday.opens} - ${result[i].lab[0].workingHours.thursday.closes}</span></p>
-                 <p class="daysInWeek friday${result[i]} text-center ${(day == 5) ? labStatus[i].status : ''}">P<span></span>${result[i].lab[0].workingHours.friday.opens} - ${result[i].lab[0].workingHours.friday.closes}</p>
-                 <p class="daysInWeek saturday${result[i]} text-center ${(day == 6) ? labStatus[i].status : ''}">S<span></span>${result[i].lab[0].workingHours.saturday.opens} - ${result[i].lab[0].workingHours.saturday.closes}</p>
-                 <p class="daysInWeek sunday${result[i]} text-center ${(day == 0) ? labStatus[i].status : ''}">N<span></span>${result[i].lab[0].workingHours.sunday.opens} - ${result[i].lab[0].workingHours.sunday.closes}</p>
+                 <p class="daysInWeek monday${result[i]} text-center ${(day == 1) ? labStatus[i].status : ''}">P<span>${result.getPrices[i].lab[0].workingHours.monday.opens} - ${result.getPrices[i].lab[0].workingHours.monday.closes}</span></p>
+                 <p class="daysInWeek tuesday${result[i]} text-center ${(day == 2) ? labStatus[i].status : ''}">U<span>${result.getPrices[i].lab[0].workingHours.tuesday.opens} - ${result.getPrices[i].lab[0].workingHours.tuesday.closes}</span></p>
+                 <p class="daysInWeek wednesday${result[i]} text-center ${(day == 3) ? labStatus[i].status : ''}">S<span>${result.getPrices[i].lab[0].workingHours.wednesday.opens} - ${result.getPrices[i].lab[0].workingHours.wednesday.closes}</span></p>
+                 <p class="daysInWeek thursday${result[i]} text-center ${(day == 4) ? labStatus[i].status : ''}">Č<span>${result.getPrices[i].lab[0].workingHours.thursday.opens} - ${result.getPrices[i].lab[0].workingHours.thursday.closes}</span></p>
+                 <p class="daysInWeek friday${result[i]} text-center ${(day == 5) ? labStatus[i].status : ''}">P<span></span>${result.getPrices[i].lab[0].workingHours.friday.opens} - ${result.getPrices[i].lab[0].workingHours.friday.closes}</p>
+                 <p class="daysInWeek saturday${result[i]} text-center ${(day == 6) ? labStatus[i].status : ''}">S<span></span>${result.getPrices[i].lab[0].workingHours.saturday.opens} - ${result.getPrices[i].lab[0].workingHours.saturday.closes}</p>
+                 <p class="daysInWeek sunday${result[i]} text-center ${(day == 0) ? labStatus[i].status : ''}">N<span></span>${result.getPrices[i].lab[0].workingHours.sunday.opens} - ${result.getPrices[i].lab[0].workingHours.sunday.closes}</p>
                </div>
             </div>
-            <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result[i].lab[0].slug}/${passIds}">saznaj više</a>
+            <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result.getPrices[i].lab[0].slug}/${passIds}">saznaj više</a>
          </div>`
 
          resultDiv.innerHTML = `
@@ -758,275 +1049,10 @@ exports.bestPrice = (mapArea, resultDiv) => {
          //append labcard to page
          document.querySelector('.labContainer').appendChild(labTemplate)
       }
-      // map options
-      let options = {
-        zoom:16,
-        // center: {lat:44.808048, lng:20.462796},
-        disableDefaultUI: true,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: true,
-        rotateControl: false,
-        fullscreenControl: true,
-        fullscreenControlOptions:{
-          position:google.maps.ControlPosition.RIGHT_BOTTOM
-        },
-        styles: [
-            {
-              "featureType": "administrative.country",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#fbd2d9"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.country",
-              "elementType": "geometry.stroke",
-              "stylers": [
-                {
-                  "color": "#9896a9"
-                },
-                {
-                  "weight": 2
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.land_parcel",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#9896a9"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.land_parcel",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.locality",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.neighborhood",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "administrative.neighborhood",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "color": "#aaa9b1"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "poi",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.business",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#aadc55"
-                }
-              ]
-            },
-            {
-              "featureType": "poi.park",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#ecebed"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "road",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "color": "#d8d6dc"
-                }
-              ]
-            },
-            {
-              "featureType": "road.arterial",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#fefefe"
-                }
-              ]
-            },
-            {
-              "featureType": "road.arterial",
-              "elementType": "labels.text",
-              "stylers": [
-                {
-                  "color": "#9a9a9a"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "road.highway",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#eaecec"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "labels",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "road.local",
-              "elementType": "labels.text.fill",
-              "stylers": [
-                {
-                  "color": "#9ba4a4"
-                },
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "transit",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "off"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "visibility": "on"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station.bus",
-              "stylers": [
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "transit.station.bus",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#ff00ff"
-                },
-                {
-                  "visibility": "simplified"
-                }
-              ]
-            },
-            {
-              "featureType": "water",
-              "elementType": "geometry.fill",
-              "stylers": [
-                {
-                  "color": "#1d88e5"
-                },
-                {
-                  "lightness": 15
-                }
-              ]
-            }
-          ]
-      }
+
       // new map
       let map = new google.maps.Map(document.getElementById('mapPrices'), options)
-          map.setCenter({lat:result[0].lab[0].location.coordinates[1], lng:result[0].lab[0].location.coordinates[0]});
+          map.setCenter({lat:result.getPrices[0].lab[0].location.coordinates[1], lng:result.getPrices[0].lab[0].location.coordinates[0]});
 
       for(i=0; i<markers.length; i++) {
       addMarker(markers[i].lat,
@@ -1065,9 +1091,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
 
 
-          let infoWindow = new google.maps.InfoWindow({
-            maxWidth:600,
-            content:`<div class="" style="min-height:142px; max-width:380px;">
+          let content = `<div class="" style="min-height:142px; max-width:380px;">
                         <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
                         <span class="">${address}</span>
                         <p class="">${city}</p>
@@ -1086,23 +1110,33 @@ exports.bestPrice = (mapArea, resultDiv) => {
                           <p class="whInside text-center ${(day == 6) ? labStatus[i].status : ''}">S<span>${workinghours.saturday.opens} - ${workinghours.saturday.closes}</span></p>
                           <p class="whInside text-center ${(day == 0) ? labStatus[i].status : ''}">N<span>${workinghours.sunday.opens} - ${workinghours.sunday.closes}</span></p>
                         </div>
-                      </div>
+                      </div>`
 
-                  `
-
-          });
-
-          marker.addListener('click', function(){
-            var placeMarker = infoWindow.open(map, marker);
-          });
-
+          google.maps.event.addListener(marker, 'click', function(){
+            infoWindow.close()
+            infoWindow.setContent(content)
+            infoWindow.open(map, this)
+          })
           google.maps.event.addListener(map, 'click', function() {
             infoWindow.close();
-          });
+          })
+          // marker.addListener('click', function(){
+          //   var placeMarker = infoWindow.open(map, marker);
+          // });
+          //
+          // google.maps.event.addListener(map, 'click', function() {
+          //   infoWindow.close();
+          // });
       }
     } else {
       mapArea.classList.add('d-none')
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Odaberite drugu opštinu</h2>` 
+      console.log('ds')
+      noResults.innerHTML = ''
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na odabranoj opštini ne mogu uraditi odabrane analize. Možete da promenite opštinu ili da uklonite sledeće analize:</h2>`
+
+      for (let i = 0; i< result.missingValues.length; i++) {
+          resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
+      }
     }
     })//data json end
 
