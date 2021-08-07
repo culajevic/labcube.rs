@@ -1132,8 +1132,8 @@ exports.bestPrice = (mapArea, resultDiv) => {
       mapArea.classList.add('d-none')
       console.log('ds')
       noResults.innerHTML = ''
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Pokušajte da uklonite neke od ovih analiza. </h2>`
-      
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na odabranoj opštini ne mogu uraditi odabrane analize. Možete da promenite opštinu ili da uklonite sledeće analize:</h2>`
+
       for (let i = 0; i< result.missingValues.length; i++) {
           resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
       }

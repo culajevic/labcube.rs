@@ -586,7 +586,7 @@ setTimeout(() => {
 
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
-      noResults.innerHTML = `<h2 class="text-center">Trenutno nijedna laboratorija na odabranoj opštini ne može da uradi sve analize koje ste odabrali. Pokušajte na drugoj opštini ilu uklonite sa spiska ove analize.</h2>`
+      noResults.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na odabranoj opštini ne mogu uraditi odabrane analize. Možete da promenite opštinu ili da uklonite sledeće analize:</h2>`
       for (let i = 0; i< result.missingValues.length; i++) {
           noResults.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
       }

@@ -118,26 +118,26 @@
       </button>
       <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
-          <li class="nav-item">
-            <a href="tumacenje-laboratorijskih-analiza" class="nav-link"><span class="icon iconSvgTumacenje">Tumačenje rezultata</span></a>
-          </li>
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link"><span class="icon iconSvgTumacenje">Tumačenje rezultata</span></a>
+          </li> -->
           <li class="nav-item">
             <a href="/#google-map" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
 
           {{#if user.id}}
             <li class="nav-item">
-              <a href="/profile" class="nav-link">{{user.username}}</a>
+              <!-- <a href="/#" class="nav-link">{{user.username}}</a> -->
             </li>
             <li class="nav-item">
-              <a href="/logout" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a>
+              <!-- <a href="/#" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a> -->
             </li>
           {{else}}
             <li class="nav-item">
-              <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
+              <a href="/#" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
             </li>
             <li class="nav-item">
-              <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
+              <a href="/#" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
             </li>
           {{/if}}
 
@@ -194,8 +194,8 @@
             <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
             <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite analize kliknite ovde">laboratorija</label>
           </div> <!-- searchField -->
-          <div class="col-sm-12 text-center">
-            <button type="button" class="btn btn-lg btn-outline-warning labCubeDemoBtn">Kako radi labcube?<i class="far fa-play-circle"></i></button>
+          <div class="col-sm-12 text-center mt-4">
+            <!-- <button type="button" class="btn btn-lg btn-outline-warning labCubeDemoBtn">Kako radi labcube?<i class="far fa-play-circle"></i></button> -->
           </div>
 
         </div><!-- row -->
