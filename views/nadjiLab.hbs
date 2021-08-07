@@ -486,6 +486,20 @@ setTimeout(() => {
           </div>
           <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result.getPrices[i].lab[0].slug}/${passIds}">saznaj više</a>
        </div>`
+
+       console.log('dss')
+           // noResults.remove()
+            resultDiv.innerHTML = `
+            <section id="labDetails">
+              <div class="container">
+                <div class="row labContainer">
+                
+                </div>
+              </div>
+            </section>`
+
+        //append labcard to page
+        document.querySelector('.labContainer').appendChild(labTemplate)
     }
 
     let map = new google.maps.Map(document.getElementById('mapPrices'), options)
@@ -568,20 +582,9 @@ setTimeout(() => {
         }
 
     // /
-console.log('dss')
-    // noResults.remove()
-     resultDiv.innerHTML += `
-     <section id="labDetails">
-       <div class="container">
-         <div class="row labContainer">
-         ds
-         </div>
-       </div>
-     </section>`
 
 
-     //append labcard to page
-     document.querySelector('.labContainer').appendChild(labTemplate)
+
 
     } else {
       // let noResults = document.getElementById('noResults')
