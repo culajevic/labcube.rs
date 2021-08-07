@@ -954,7 +954,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
     data.json().then(result => {
       if(result.getPrices.length > 0) {
           noResults.innerHTML = ''
-          resultDiv.innerHTML = ''
+          // resultDiv.innerHTML = ''
       // loaderWrapper.style.opacity = 0
       let labTemplate = document.createElement('div')
         labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
@@ -1043,6 +1043,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
          <section id="labDetails">
            <div class="container">
              <div class="row labContainer">
+             
              </div>
            </div>
          </section>`
