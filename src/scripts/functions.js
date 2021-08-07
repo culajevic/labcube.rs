@@ -601,6 +601,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
 //povratak sa detaljnog pregleda cene na mapu, belezenje poslednje odabrane laboratorije
 exports.bestPrice = (mapArea, resultDiv) => {
   let municipalityValue
+  let noResults = document.getElementById('noResults')
 
   if(document.getElementById('municipality')!= null) {
     let municipality = document.getElementById('municipality')

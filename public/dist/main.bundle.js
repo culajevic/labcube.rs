@@ -21075,6 +21075,7 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
 
 exports.bestPrice = function (mapArea, resultDiv) {
   var municipalityValue;
+  var noResults = document.getElementById('noResults');
 
   if (document.getElementById('municipality') != null) {
     var _municipality = document.getElementById('municipality');
