@@ -1039,7 +1039,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
             <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result.getPrices[i].lab[0].slug}/${passIds}">saznaj više</a>
          </div>`
 
-         resultDiv.innerHTML = `
+         resultDiv.innerHTML =`
          <section id="labDetails">
            <div class="container">
              <div class="row labContainer">
