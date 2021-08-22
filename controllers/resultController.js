@@ -166,6 +166,7 @@ exports.payment = async (req,res) => {
   }
 request()
     .then(data => {
+      console.log(data)
       if(data.result.code == '000.200.100') {
         res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames})
       }
@@ -214,6 +215,7 @@ exports.paymentDone = async (req,res) => {
 
 requestCheckout()
 .then(data => {
+  console.log(data)
   if(data.result.code == '000.100.110') {
     let newDate = moment(new Date()).format("DD-MM-YYYY HH:mm")
 
@@ -372,7 +374,7 @@ requestCheckout()
            subject:'lab results',
            text:'',
            html:`<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2853&q=80" style="width:300px; height:200px;">
-           hvala na uplati, ${data.timestamp}, placeno:${data.amount}, vreme: ${newDate}`,
+           hvala na uplati, <br /> placeno:${data.amount}, vreme: ${newDate}, broj porudžbenice: ${currentId}`,
          }
 
          transporter.sendMail(mailOptions, (error, info) => {
