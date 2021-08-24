@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const fs = require("fs")
+// const fs = require("fs")
 // const http = require('http')
 
 // const https = require('https')
@@ -31,11 +31,11 @@ dotenv.config({path:'variables.env'})
 const port = process.env.PORT || 1606
 
 // connect to database
-// mongoose.connect(process.env.DATABASE, { useNewUrlParser: true } )
-// mongoose.Promise = global.Promise
-// mongoose.connection.on('error', (err) => {
-//   console.log(`there is an error ${err}`)
-// })
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true } )
+mongoose.Promise = global.Promise
+mongoose.connection.on('error', (err) => {
+  console.log(`there is an error ${err}`)
+})
 //
 // if (process.env.NODE_ENV === "production") {
 //     const privateKey = fs.readFileSync('/etc/letsencrypt/live/labcube.rs/privkey.pem', 'utf8');
