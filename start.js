@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const fs = require("fs")
+// const http = require('http')
 const https = require('https')
 
 // import models
@@ -17,7 +18,7 @@ require('./models/Result')
 require('./models/User')
 require('./models/Schedule')
 require('./models/Feedback')
-const path = require('path')
+// const path = require('path')
 
 
 const app = require('./app')
@@ -53,12 +54,13 @@ if (process.env.NODE_ENV === "production") {
         res.end();
     }).listen(80);
 } else if (process.env.NODE_ENV === "development") {
-  app.listen(port, ()=>{
-    console.log(`listening on porttt ${port}`)
-  })
+    app.listen(1606);
 } else {
     app.listen(1606);
 }
 
 
 // start the app...
+// app.listen(port, ()=>{
+//   console.log(`listening on port ${port}`)
+// })
