@@ -30,8 +30,7 @@ let labStatus = JSON.parse(decodedJsonStatus)
 let now = new Date()
 let day = now.getDay()
 let currentDayNum = now.getDay()
-// let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
-let infoWindow = new google.maps.InfoWindow
+
 
 let markers = []
 let markersCluster = []
@@ -305,6 +304,10 @@ let options = {
       }
     ]
 }
+
+// let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
+let infoWindow = new google.maps.InfoWindow
+
 
 for(i=0; i<labData.length; i++) {
   // let status = (labStatus[i].id).indexOf(labData[i]._id)
