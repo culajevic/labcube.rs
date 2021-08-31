@@ -952,6 +952,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
+
       if(result.getPrices.length > 0) {
           noResults.innerHTML = ''
           // resultDiv.innerHTML = ''
@@ -1043,7 +1044,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
          <section id="labDetails">
            <div class="container">
              <div class="row labContainer">
-             
+
              </div>
            </div>
          </section>`
@@ -1130,11 +1131,11 @@ exports.bestPrice = (mapArea, resultDiv) => {
           //   infoWindow.close();
           // });
       }
-    } else {
+    }
+      else {
       mapArea.classList.add('d-none')
-      console.log('ds')
       noResults.innerHTML = ''
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na odabranoj opštini ne mogu uraditi odabrane analize. Možete da promenite opštinu ili da uklonite sledeće analize:</h2>`
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve odabrane analize. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
 
       for (let i = 0; i< result.missingValues.length; i++) {
           resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`

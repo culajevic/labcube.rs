@@ -259,9 +259,6 @@ let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
 
-console.log(req.body)
-
-
 for (let i = 0; i < req.body.analysisName.length; i++) {
   if(req.body['outsideOfTheRange'+i]  ==  undefined )  {
     outsideOfTheRange = false

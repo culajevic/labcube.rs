@@ -8601,6 +8601,16 @@ div#d3 {
   opacity: 0;
   transition: all 1000ms; }
 
+#paketi .finalThougths {
+  margin-top: 2.5rem;
+  padding: 80px;
+  background-color: #F5FAFF;
+  border-radius: 20px; }
+  #paketi .finalThougths p {
+    opacity: 0.6;
+    font-size: 1.25rem;
+    line-height: 2rem; }
+
 .fadeLazy {
   transform: translateX(0);
   opacity: 1;

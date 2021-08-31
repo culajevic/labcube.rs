@@ -31,12 +31,12 @@ const resultSchema = new mongoose.Schema({
     type:Date,
     default:Date.now
   },
-  package:mongoose.Decimal128,
+  package:Number,
   status:{
     type:String,
     default:'Pending'
   },
-  paid:mongoose.Decimal128,
+  paid:Number,
   ip:String,
   paymentConsent:Boolean,
   userId:{

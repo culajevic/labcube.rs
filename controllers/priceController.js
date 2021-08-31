@@ -127,7 +127,7 @@ exports.updatePrice = [authCheck, async (req,res) => {
       res.redirect('/allPrices')
     }
     catch(e) {
-      console.log(e)
+      console.log('dogodila se greska' + e)
     }
   }// else end
 }] // updateprice end
@@ -167,27 +167,33 @@ exports.getPrices = async (req,res) => {
   let analysisIdsAll = []
   analysisIdsAll.push(...req.params.ids.split(','))
 
+
   //broj odabrnih analiza
   // console.log(newids.length)
   // numofanalysis = newids.length
    newObjectArr = newids.map(i => mongoose.Types.ObjectId(i))
+
   //nadji sva mesta koja pripadaju odabranoj opstini
   const getMunicipalityIds = await Place.find({municipality:req.params.grad})
+
   for(i=0; i<getMunicipalityIds.length; i++) {
     municipality.push(getMunicipalityIds[i]._id)
   }
+  console.log('opstina'+ municipality)
+
   //nadji sve laboratorije u mestima koja pripadaju odabranoj opstini
   const getLabs = await Lab.aggregate([
       {$match:{'placeId':{$in:municipality}}}
     ])
 
+
   for(i=0; i<getLabs.length; i++) {
     labIds.push(getLabs[i]._id)
   }
 
+
 // nadji cene odabranih analiza u laboratorijama na odabranoj opstini
   labIdsObject = labIds.map(item => mongoose.Types.ObjectId(item))
-
 
 let getAllPrices = await Price.aggregate([
     {$match:{'lab':{$in:labIdsObject}}},
@@ -196,13 +202,15 @@ let getAllPrices = await Price.aggregate([
 
 let foundPrices = []
 
-for(let i=0; i< getAllPrices.length; i++) {
+for(let i=0; i < getAllPrices.length; i++) {
   foundPrices.push(getAllPrices[i].cenovnik.analiza.toString())
 }
 
-// console.log(foundPrices)
+console.log(foundPrices)
+
 let missingAnalysis = []
 missingAnalysis = analysisIdsAll.filter(item => !foundPrices.includes(item))
+
 
 let missingAnalysisConvert = missingAnalysis.map(item => mongoose.Types.ObjectId(item))
 
@@ -211,6 +219,8 @@ const getMissingAnalysisNames = await Analysis.aggregate([
   {$match:{'_id':{$in:missingAnalysisConvert}}},
   {$project:{analysisName:1}}
 ])
+
+
 
   const getPrices = await Price.aggregate([
     {$match:{'lab':{$in:labIdsObject}}},

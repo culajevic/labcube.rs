@@ -71,6 +71,18 @@
   transition:all 1000ms;
 }
 
+#paketi .finalThougths {
+  margin-top: px-to-rem(40px);
+  padding: 80px;
+  background-color: #F5FAFF;
+  border-radius: 20px;
+  & p {
+    opacity: 0.6;
+    font-size: 1.25rem;
+    line-height: px-to-rem(32px);
+  }
+}
+
 .fadeLazy {
   transform:translateX(0);
   opacity:1;

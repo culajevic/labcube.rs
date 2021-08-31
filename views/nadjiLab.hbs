@@ -583,15 +583,12 @@ setTimeout(() => {
 
     // /
 
-
-
-
-    } else {
+}
+    else {
       // let noResults = document.getElementById('noResults')
-
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
-      noResults.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na odabranoj opštini ne mogu uraditi odabrane analize. Možete da promenite opštinu ili da uklonite sledeće analize:</h2>`
+      noResults.innerHTML = `<h2 class="text-center">nadjilab Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve odabrane analize. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
       for (let i = 0; i< result.missingValues.length; i++) {
           noResults.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
       }
