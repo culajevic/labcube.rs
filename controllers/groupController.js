@@ -180,8 +180,8 @@ sortByPriority = {priority:-1}
       res.render('index',{
         title:'Razumljivi opisi biohemijskih analiza i lokacije labortorija',
         faqtitle:'Najčešće postavljana pitanja',
-        metaDescription:'Detaljni opisi biohemijskih analiza sa cenama i lokacijama laboratorija u Srbiji.',
-        metaKeywords:'Biohemijske analize, laboratorije, tumačenje rezultata, krvna slika',
+        metaDescription:'Detaljni opisi biohemijskih analiza sa cenama i lokacijama privatnih laboratorija u Srbiji.',
+        metaKeywords:'Biohemijske analize, biohemijske laboratorije, tumačenje rezultata, krvna slika',
         groups,
         faqFP,
         labNum,

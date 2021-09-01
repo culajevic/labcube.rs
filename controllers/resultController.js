@@ -20,18 +20,31 @@ const querystring = require('querystring') //
 dotenv.config({path:'variables.env'})
 
 //send email with verification code
+// let transporter = nodemailer.createTransport({
+//   host:'smtp.gmail.com',
+//   service:'gmail',
+//   port:464,
+//   auth: {
+//       type: "OAUTH2",
+//       user: "labcubee@gmail.com",
+//       clientId: process.env.CLIENTID,
+//       clientSecret: process.env.CLIENTSECRET,
+//       refreshToken: process.env.REFRESHTOKEN,
+//       accessToken:process.env.ACCESSTOKEN
+//   }
+// })
+
 let transporter = nodemailer.createTransport({
-  host:'smtp.gmail.com',
-  service:'gmail',
-  port:464,
+  host:'mail.labcube.rs',
+  port:465,
+  secure:true,
   auth: {
-      type: "OAUTH2",
-      user: "labcubee@gmail.com",
-      clientId: process.env.CLIENTID,
-      clientSecret: process.env.CLIENTSECRET,
-      refreshToken: process.env.REFRESHTOKEN,
-      accessToken:process.env.ACCESSTOKEN
-  }
+      user:"potrebno-tumacenje@labcube.rs",
+      pass:"firstwetakeBerlin45"
+  },
+  tls: {
+        rejectUnauthorized: false
+    }
 })
 
 //upload results
@@ -356,7 +369,7 @@ requestCheckout()
        try {
          uploadResult.save()
          let mailOptions = {
-           from:'labcubee@gmail.com',
+           from:'potrebno-tumacenje@labcube.rs',
            to:'culajevic@gmail.com',
            subject:'lab results',
            text:'',
