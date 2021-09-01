@@ -40,7 +40,7 @@ let transporter = nodemailer.createTransport({
   secure:true,
   auth: {
       user:"potrebno-tumacenje@labcube.rs",
-      pass:"firstwetakeBerlin45"
+      pass:process.env.PASS
   },
   tls: {
         rejectUnauthorized: false
@@ -369,7 +369,7 @@ requestCheckout()
        try {
          uploadResult.save()
          let mailOptions = {
-           from:'potrebno-tumacenje@labcube.rs',
+           from:data.customer.email,
            to:'culajevic@gmail.com',
            subject:'lab results',
            text:'',
