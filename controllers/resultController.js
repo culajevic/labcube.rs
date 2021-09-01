@@ -40,7 +40,7 @@ let transporter = nodemailer.createTransport({
   secure:true,
   auth: {
       user:"potrebno-tumacenje@labcube.rs",
-      pass:process.env.PASS
+      pass:process.env.EMAILPASS
   },
   tls: {
         rejectUnauthorized: false
@@ -369,9 +369,9 @@ requestCheckout()
        try {
          uploadResult.save()
          let mailOptions = {
-           from:data.customer.email,
+           from:'potrebno-tumacenje@labcube.rs',
            to:'culajevic@gmail.com',
-           subject:'lab results',
+           subject:'Novi rezultati za tumačenje',
            text:'',
            html:`
            ${data.customer.email} i ${data.amount}, id: ${uploadResult._id}>`,
