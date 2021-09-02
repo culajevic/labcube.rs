@@ -230,7 +230,7 @@ requestCheckout()
 .then(data => {
   console.log(data)
   if(data.result.code == '000.100.110') {
-    let newDate = moment(new Date()).format("DD-MM-YYYY HH:mm")
+    let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     // let bgLocalTime = new Date().toLocaleString('sr-RS')
@@ -369,25 +369,50 @@ requestCheckout()
        try {
          uploadResult.save()
          let mailOptions = {
-           from:'potrebno-tumacenje@labcube.rs',
-           to:'culajevic@gmail.com',
+           from:data.customer.email,
+           to:'tumacenje@labcube.rs',
            subject:'Novi rezultati za tumačenje',
            text:'',
            html:`
-           ${data.customer.email} i ${data.amount}, id: ${uploadResult._id}>`,
+           id: ${uploadResult._id}`,
            attachments:[{
              filename:data.customParameters.SHOPPER_file,
              path:data.customParameters.SHOPPER_path
            }]
          }
 
+         let userFirstName = req.user.username.split(' ')
+
          let mailOptionsCustomer = {
-           from:'labcubee@gmail.com',
+           from:'labcube-tumacenje-no-reply@labcube.rs',
            to:data.customer.email,
-           subject:'lab results',
+           subject:'Tumačenje laboratorijskih analiza',
            text:'',
-           html:`<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2853&q=80" style="width:300px; height:200px;">
-           hvala na uplati, <br /> placeno:${data.amount}, vreme: ${newDate}, broj porudžbenice: ${currentId}`,
+           html:`
+           <img src="cid:headerEmailBig">
+           <div style="width:80%; margin:0 auto; text-align:center">
+           <div style="text-align:center; font-family:sans-serif; color:#1D88E5; margin-top:30px; margin-bottom:20px;"><h1>${userFirstName[0]}, uspešno ste izvršili uplatu.</h1><h1>Hvala</h1></div>
+           <div style="text-align:center; font-family:sans-serif; font-size:20px; opacity:0.6; padding:20px;">
+           <p>Tumačenje u roku od 24h</p>
+           <p>broj fakture: ${currentId}</p>
+           <p>plaćeno: ${data.amount} RSD</p>
+           <p>${newDate}</p>
+           </div>
+           <div style="border-bottom:1px solid #E0E4EC;"><p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
+           <div style="text-align:center;">
+           <img style="margin-top:30px; padding-top:30px; padding-bottom:20px;" src="cid:logoFooter">
+           </div>
+           <small style="color:#E0E4EC; text-decoration:none;">informacione tehnologije nouvelle doo </small>
+           </div>`,
+           attachments:[{
+             filename: 'headerEmailBig.svg',
+             path: 'src/images/headerEmailBig.svg',
+             cid: 'headerEmailBig'},
+             {
+               filename: 'logoFooter.svg',
+               path: 'src/images/logoFooter.svg',
+               cid: 'logoFooter'
+             }]
          }
 
          transporter.sendMail(mailOptions, (error, info) => {
