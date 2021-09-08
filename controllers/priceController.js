@@ -179,7 +179,7 @@ exports.getPrices = async (req,res) => {
   for(i=0; i<getMunicipalityIds.length; i++) {
     municipality.push(getMunicipalityIds[i]._id)
   }
-  console.log('opstina'+ municipality)
+
 
   //nadji sve laboratorije u mestima koja pripadaju odabranoj opstini
   const getLabs = await Lab.aggregate([
@@ -206,7 +206,6 @@ for(let i=0; i < getAllPrices.length; i++) {
   foundPrices.push(getAllPrices[i].cenovnik.analiza.toString())
 }
 
-console.log(foundPrices)
 
 let missingAnalysis = []
 missingAnalysis = analysisIdsAll.filter(item => !foundPrices.includes(item))

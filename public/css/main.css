@@ -8815,6 +8815,59 @@ ul ol ul {
   outline: none;
   box-shadow: none; }
 
+#home input {
+  border: 0;
+  outline: 0; }
+
+#home select {
+  border: 0;
+  outline: 0; }
+
+#home input:focus {
+  outline: none !important; }
+
+#home input[type="text"]:disabled {
+  background: transparent; }
+
+#healthProfile input {
+  border: 0;
+  outline: 0; }
+
+#healthProfile select {
+  border: 0;
+  outline: 0; }
+
+#healthProfile input:focus {
+  outline: none !important; }
+
+#healthProfile textarea {
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  outline: 0; }
+
+#healthProfile textarea::placeholder {
+  color: #3B3B3B;
+  font-size: 1.2rem;
+  padding: 0.1875rem; }
+
+#healthProfile textarea {
+  color: #3B3B3B;
+  font-size: 1.2rem;
+  padding: 1.375rem; }
+
+.profileDataIcons {
+  width: 2.5rem;
+  height: 2.5rem; }
+
+.generalInformation {
+  font-size: 1.25rem;
+  color: rgba(59, 59, 59, 0.8); }
+
+.profilePersonalData {
+  font-size: 1.125rem;
+  width: 230px;
+  font-weight: 500; }
+
 .groupHidden {
   display: none;
   opacity: 0;
@@ -9813,17 +9866,37 @@ table.workingHoursLabDetails {
 .Zakazano {
   background-color: #FF9600;
   padding: 8px;
-  color: white; }
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase; }
 
 .Završeno {
   background-color: #55D159;
   padding: 8px;
-  color: white; }
+  color: white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 5px; }
 
 .Uzorkovanje {
   background-color: #FF6F6F;
   padding: 8px;
-  color: white; }
+  color: white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 5px; }
+
+.btnDetails {
+  background-color: #55D159;
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase; }
+  .btnDetails:hover {
+    background-color: #2eab32;
+    color: #FFF; }
 
 .najpopularnije, .najpopularnije_besplatno {
   position: absolute;

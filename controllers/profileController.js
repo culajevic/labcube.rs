@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const Schedule = mongoose.model('Schedule')
+const bcrypt = require('bcrypt')
 
 exports.updateHealthProfile = async (req, res) => {
   //check values
@@ -42,6 +43,32 @@ exports.updateHealthProfile = async (req, res) => {
   }
   catch(e) {
     console.log(e)
+  }
+}
+
+exports.updatePass = async (req,res) => {
+  console.log(req.body)
+  console.log(req.params)
+  const findUser = await User.findOne({_id:req.params.id})
+  if(!findUser) {
+    req.flash('error_msg', 'Nešto nije ok')
+    res.redirect('../profile')
+  } else {
+      if(req.body.password1 === req.body.password2 && req.body.password1.length>6) {
+        bcrypt.genSalt(10, (err,salt) => {
+         bcrypt.hash(req.body.password1, salt, (err,hash) => {
+           if(err) throw err
+           findUser.password = hash
+           findUser.save()
+         })
+       })
+       req.flash('success_msg', 'Uspešno ste resetovali lozinku')
+       res.redirect('/profile')
+       //direktno ulogovati korisnika
+     } else {
+       req.flash('error_msg', 'Proverite li se unete lozinke podudaraju i da li lozinka ima više od 6 karaktera')
+       res.redirect(`/reset/${req.params.token}`)
+     }
   }
 }
 

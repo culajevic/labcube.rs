@@ -191,6 +191,7 @@ exports.register =  async (req,res) => {
           signupDate:Date.now(),
           isVerified:false,
           admin:0,
+          deleted:false,
           lab:0,
           emailToken:'',
           password:password
@@ -232,7 +233,7 @@ exports.register =  async (req,res) => {
           res.redirect('/verify')
           }
         catch (e){
-          req.flash('error_msg', `Dogodila se greška prilikom registracija ${e}`)
+          req.flash('error_msg', `Dogodila se greška prilikom registracije ${e}`)
           res.redirect('/register')
         }
       }

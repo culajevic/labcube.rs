@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+  <g id="icon_doji" transform="translate(-20.8 -20.8)">
+    <path id="Path_1099" data-name="Path 1099" d="M31.8,20.8a11,11,0,1,0,11,11A11.013,11.013,0,0,0,31.8,20.8Zm0,20.87a9.87,9.87,0,1,1,9.87-9.87A9.879,9.879,0,0,1,31.8,41.67Z" fill="#1d89e6"/>
+    <path id="Path_1100" data-name="Path 1100" d="M44.514,40.4a4.114,4.114,0,1,0,4.114,4.114A4.115,4.115,0,0,0,44.514,40.4Zm0,6.942a2.828,2.828,0,1,1,2.828-2.828A2.825,2.825,0,0,1,44.514,47.342Z" transform="translate(-12.714 -12.714)" fill="#1d89e6"/>
+    <circle id="Ellipse_23" data-name="Ellipse 23" cx="1.8" cy="1.8" r="1.8" transform="translate(30 30)" fill="#1d89e6"/>
+  </g>
+</svg>

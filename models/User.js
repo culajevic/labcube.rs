@@ -46,6 +46,7 @@ const userSchema = new mongoose.Schema({
   regularMenstruation:String,
   regularGinecologyChecks:String,
   pregnancy:String,
+  deleted:Boolean,
   breastfeeding:String,
   resetLink:String,
   resetLinkExpires:Date

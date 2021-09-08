@@ -6,13 +6,17 @@
 
  			<div class="col-md-12 col-lg-12 table-responsive">
 
-      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <ul class="nav nav-tabs justify-content-center mb-5" id="myTab" role="tablist">
+        <!-- <li class="nav-item">
+          <a class="nav-link   link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Lab cube rezultati ({{numOfMyAnalysis}})</a>
+        </li> -->
+
         <li class="nav-item">
-          <a class="nav-link  active link-unstyled dashboardTabs" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="true">Lab cube rezultati ({{numOfMyAnalysis}})</a>
+          <a class="nav-link  active link-unstyled dashboardTabs" id="otherResults-tab" data-toggle="tab" href="#otherResults" role="tab" aria-controls="contact" aria-selected="false">Rezultati ({{numOfMyOtherResults}})</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link  link-unstyled dashboardTabs" id="otherResults-tab" data-toggle="tab" href="#otherResults" role="tab" aria-controls="contact" aria-selected="true">Ostali rezultati ({{numOfMyOtherResults}})</a>
+          <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
         </li>
 
         <li class="nav-item">
@@ -20,14 +24,38 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
+          <a class="nav-link link-unstyled dashboardTabs" id="resetPass-tab" data-toggle="tab" href="#resetPass" role="tab" aria-controls="profile" aria-selected="false">Moj nalog</a>
         </li>
       </ul>
 
 <div class="tab-content" id="myTabContent">
 
+  <div class="tab-pane show" id="resetPass" role="tabpanel">
 
-  <div class="tab-pane show" id="otherResults" role="tabpanel">
+    <div class="profileCard" >
+      <form class="d-flex flex-column align-items-center" action="/updatePassword/{{user.id}}" method="POST">
+        <div class="col-12 mb-5">
+        <div class="form-group col-12">
+          <p class="" style="font-size:20px;"> Promena lozinke</p>
+          <input type="password" class="form-control mt-4" name="password1" placeholder="nova lozinka">
+            </div>
+            <div class="form-group col-12">
+              <input type="password" class="form-control" name="password2" placeholder="ponovite novu lozinku">
+            </div>
+            <div class="form-group col-12">
+              <button class="btn btn-block btnLabDetails mt-2">Promeni lozinku</button>
+              <button class="btn btn-block btn-danger mt-4 text-uppercase">Obriši nalog<sup>*</sup></button>
+              <small>Ukoliko obrišete nalog ne postoji mogućnost da Vam se vrate podaci. Svi podaci o Vama i svi Vaši rezultati će zauvek biti uklonjeni.</small>
+            </div>
+          </form>
+      </div>
+    </div><!-- profile card end -->
+  </div><!-- tab pane end -->
+
+
+
+
+  <div class="tab-pane active show" id="otherResults" role="tabpanel">
     <div class="profileCard" >
       <table class="tableLabResults" id="myLabResults">
         <tbody>
@@ -57,189 +85,300 @@
 
   <div class="tab-pane show" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="profileCard" >
-      <form action="/myProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center">
-        <div class="basicInfo col-8 my-4">
-          <div class="form-group col-12">
-            <p class="">Osnovne informacije</p>
-            <label for="">Ime</label>
-            <input type="text" class="form-control" name="ime" placeholder="Ime" value="{{user.username}}">
-          </div>
-          <div class="form-group col-12">
-            <input type="text" class="form-control" placeholder="Email" value="{{user.email}}" disabled>
-          </div>
-          <div class="form-group col-12">
-            <label for="godinaRodjenja">Godina rođenja</label>
-            <input type="number" class="form-control" id="godinaRodjenja" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
-          </div>
-          <div class="form-group col-12">
-            <p class="mb-1">Pol</p>
-            <div class="custom-control custom-radio custom-control-inline">
-              <input type="radio" id="polM" name="pol" Value="M" class="custom-control-input" {{#if (checkBox user.gender 'M')}} checked {{/if}}>
-              <label class="custom-control-label" for="polM">M</label>
+      <form action="/myProfile/{{user.id}}" method="POST" class="mt-4">
+        <div class="">
+          <div class="row">
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/nameProfileData.svg" class="profileDataIcons" alt="">
             </div>
-            <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="polZ" name="pol" Value="Ž" class="custom-control-input" {{#if (checkBox user.gender 'Ž')}} checked {{/if}}>
-            <label class="custom-control-label" for="polZ">Ž</label>
+            <div class=" float-left d-inline pl-2">
+              <span>Ime</span>
+              <input type="text" class="d-block mt-2 profilePersonalData" name="ime" placeholder="Ime" value="{{user.username}}">
+            </div>
           </div>
-          <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="polBinary" name="pol" value="N/A" class="custom-control-input" {{#if (checkBox user.gender 'N/A')}} checked {{/if}}>
-          <label class="custom-control-label" for="polBinary">Nije važno</label>
-        </div>
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Email</span>
+                <input type="text" class="d-block mt-2 profilePersonalData" placeholder="Email" value="{{user.email}}" disabled>
+            </div>
           </div>
-        <!-- <div class="form-group col-12">
-          <label for="">Mobilni telefon</label>
-          <input type="text" class="form-control" name="mobilniTelefon" value="{{user.mobile}}" placeholder="Mobilni telefon u fomatu 06XXXXXXX">
-        </div> -->
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/birthYearProfileData.svg"  class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Godina rođenja</span>
+                  <input type="number" class="d-block mt-2 profilePersonalData" id="godinaRodjenja" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
+            </div>
+          </div>
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/genderProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Pol</span>
+              <select class="d-block profilePersonalData mt-2" name="pol">
+                <option class="" value="M" {{#if (checkBox user.gender 'M')}} selected {{/if}}>Muški</option>
+                <option class="" value="Ž" {{#if (checkBox user.gender 'Ž')}} selected {{/if}}>Ženski</option>
+                <option class="" value="Null" {{#if (checkBox user.gender 'Null')}} selected {{/if}}>Nije važno</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/addressProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Adresa</span>
+                  <input type="text" id="adresa" class="d-block mt-2 profilePersonalData" name="adresa" placeholder="Adresa" value="{{user.address}}">
+            </div>
+          </div>
 
-        <div class="form-group col-12">
-          <!-- <label for="">Adresa</label> -->
-          <p><small>Ukoliko želite da zakažete patronažu neophodno je upisati adresu, grad i mobilni telefon</small></p>
-          <label for="adresa">Adresa</label>
-          <input type="text" id="adresa" class="form-control" name="adresa" value="{{user.address}}">
-        </div>
-        <div class="form-group col-12">
-          <label for="municipality">Opština</label>
-          <select class="form-control" name="city" id="municipality">
-            {{#each cities}}
-            <option value="{{this}}" {{#if (checkBox this ../user.city)}} selected {{/if}}>{{this}}</option>
-            {{/each}}
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/municipalityProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Opština</span>
+                <select class="d-block profilePersonalData mt-2" name="city" id="municipality">
+                  {{#each cities}}
+                  <option value="{{this}}" {{#if (checkBox this ../user.city)}} selected {{/if}}>{{this}}</option>
+                  {{/each}}
+                </select>
+            </div>
+          </div>
 
-          </select>
+          <div class="col-4 my-4">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/cellphoneProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class=" float-left d-inline pl-2">
+              <span>Mobilni telefon</span>
+                <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{user.mobile}}" placeholder="u fomatu 06XXXXXXX">
+            </div>
+          </div>
         </div>
         <div class="form-group col-12">
-          <label for="">Mobilni telefon</label>
-          <input type="text" id="mobilniTelefon" class="form-control" name="mobilniTelefon" value="{{user.mobile}}" placeholder="Mobilni telefon u fomatu 06XXXXXXX">
+          <button class="btn btn-block btnLabDetails mt-2">Sačuvaj</button>
         </div>
-        <div class="form-group col-12">
-          <button class="btn btn-block btn-info">Sačuvaj</button>
-        </div>
-      </div>
+      </div><!-- basicinfo end -->
     </form><!-- basic information form end -->
 
         <!-- update password -->
 
-          <form class="d-flex flex-column align-items-center" action="" method="post">
-            <div class="updatePassowrd col-8 mb-5">
-            <div class="form-group col-12">
-              <p class="">Promena lozinke</p>
-              <input type="text" class="form-control mt-4" placeholder="nova lozinka">
-                </div>
-                <div class="form-group col-12">
-                  <input type="text" class="form-control" placeholder="ponovite novu lozinku">
-                </div>
-                <div class="form-group col-12">
-                  <button type="button" class="btn btn-block btn-info">Promeni</button>
-                </div>
-              </form>
-          </div>
+
     </div><!-- profile card end -->
   </div><!-- tab pane end -->
 
   <div class="tab-pane fade" id="healthProfile" role="tabpanel" aria-labelledby="profile-tab">
     <form action="/healthProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center" id="healthProfileForm">
-      <div class="basicHealthInfo col-8 mb-4">
-        <div class="form-group col-12">
-          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo vašu privatnost, vaši podaci su bezbedni. Pročitajte našu politiku privatnosti. </p>
-          <label for="visina">Visina (cm)</label>
-          <input type="number" class="form-control" id="visina" name="visina" placeholder="Visina(cm)" value="{{user.height}}">
+      <div class="row">
+      <!-- <div class="col-12 mb-4"> -->
+        <div class="col-12 generalInformation">
+          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. </p><p class="mb-5">Mi cenimo vašu privatnost, vaši podaci su bezbedni. <a href="" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
+        </div>
 
-        </div>
-        <div class="form-group col-12">
-          <label for="tezina">Težina (kg)</label>
-          <input type="number" class="form-control" id="tezina" name="tezina" placeholder="Težina(kg)" value="{{user.weight}}">
-        </div>
-        <div class="form-group col-12">
-          <label for="bmi">BMI (Body Mass Index)</label>
-          <input type="number" class="form-control" id="bmi" step="0.01" name="bmi" readonly="readonly" value={{user.bmi}} placeholder="BMI">
-        </div>
-        <div class="form-group col-12">
-          <p>Da li pušite?</p>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="pusacDa" name="pusac" value="Da" class="custom-control-input" {{#if (checkBox user.smoking 'Da')}} checked {{/if}}>
-            <label class="custom-control-label" for="pusacDa">Da</label>
+          <div class="col-4 mt-5">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/heightHelthData.svg" class="profileDataIcons" alt="">
+            </div>
+            <div class="d-inline pl-2">
+              <span>Visina (cm)</span>
+              <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="visina" name="visina" placeholder="Visina(cm)" value="{{user.height}}">
+            </div>
           </div>
 
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="pusacNe" name="pusac" value="Ne" class="custom-control-input" {{#if (checkBox user.smoking 'Ne')}} checked {{/if}}>
-            <label class="custom-control-label" for="pusacNe">Ne</label>
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/weightHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>Težina (kg)</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="tezina" name="tezina" placeholder="Težina(kg)" value="{{user.weight}}">
           </div>
         </div>
-        <div class="form-group col-12">
-          <p>Da li često konzumirate alkohol?</p>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="alkoholDa" name="alkohol" value="Da" class="custom-control-input" {{#if (checkBox user.alcohol 'Da')}} checked {{/if}}>
-            <label class="custom-control-label" for="alkoholDa">Da</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/bmiHelthData.svg" class="profileDataIcons" alt="">
           </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="alkoholNe" name="alkohol" value="Ne" class="custom-control-input" {{#if (checkBox user.alcohol 'Ne')}} checked {{/if}}>
-            <label class="custom-control-label" for="alkoholNe">Ne</label>
-          </div>
-        </div>
-        <div class="form-group col-12">
-          <p>Da li ste imali ili imate povišen krvni pritisak?</p>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="pritisakDa" name="pritisak" value="Da" class="custom-control-input"
-            {{#if (checkBox user.bloodPresure 'Da')}} checked {{/if}}>
-            <label class="custom-control-label" for="pritisakDa">Da</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="pritisakNe" name="pritisak" value="Ne" class="custom-control-input" {{#if (checkBox user.bloodPresure 'Ne')}} checked {{/if}}>
-            <label class="custom-control-label" for="pritisakNe">Ne</label>
+          <div class="d-inline pl-2">
+            <span>BMI (Body Mass Index)</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="bmi" step="0.01" name="bmi" readonly="readonly" value={{user.bmi}} placeholder="BMI">
           </div>
         </div>
-        <div class="form-group col-12">
-          <p>Kakva je vaša ishrana?</p>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="ishranaZdrava" name="ishrana" value="Zdrava" class="custom-control-input" {{#if (checkBox user.nutrition 'Zdrava')}} checked {{/if}}>
-            <label class="custom-control-label" for="ishranaZdrava">Zdrava</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/smokingHelthData.svg" class="profileDataIcons" alt="">
           </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="ishranaUmerena" name="ishrana" value="Umerena" class="custom-control-input" {{#if (checkBox user.nutrition 'Umerena')}} checked {{/if}}>
-            <label class="custom-control-label" for="ishranaUmerena">Umereno zdrava</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="ishranaNezdrava" name="ishrana" value="Nezdrava" class="custom-control-input" {{#if (checkBox user.nutrition 'Nezdrava')}} checked {{/if}}>
-            <label class="custom-control-label" for="ishranaNezdrava">Nezdrava</label>
-          </div>
-        </div>
-        <div class="form-group col-12">
-          <p>Da li osećate da ste pod stresom?</p>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="stresDa" name="stres" value="Da" class="custom-control-input" {{#if (checkBox user.stress 'Da')}} checked {{/if}}>
-            <label class="custom-control-label" for="stresDa">Da</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="stresNe" name="stres" value="Ne" class="custom-control-input" {{#if (checkBox user.stress 'Ne')}} checked {{/if}}>
-            <label class="custom-control-label" for="stresNe">Ne</label>
+          <div class=" float-left d-inline pl-2">
+            <span>Pušite?</span>
+            <select class="d-block profilePersonalData mt-2" name="pusac">
+              <option class="" value="Odaberite" {{#if (checkBox user.smoking 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.smoking 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.smoking 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
           </div>
         </div>
-      <div class="form-group col-12">
-        <label for="">Koliko sati nedeljno vežbate?</label>
-        <input type="number" class="form-control" name="vezbe" placeholder="Koliko sati nedeljno vežbate?" value="{{user.hoursExcercise}}">
-      </div>
-      <div class="form-group col-12">
-        <p>Da li ste ikada imali povišen šećer?</p>
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="secerDa" name="secer" value="Da" class="custom-control-input" {{#if (checkBox user.sweets 'Da')}} checked {{/if}}>
-          <label class="custom-control-label" for="secerDa">Da</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/alchocolHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Alkohol?</span>
+            <select class="d-block profilePersonalData mt-2" name="alkohol">
+              <option class="" value="Odaberite" {{#if (checkBox user.alcohol 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.alcohol 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.alcohol 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
         </div>
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="secerNe" name="secer" value="Ne" class="custom-control-input" {{#if (checkBox user.sweets 'Ne')}} checked {{/if}}>
-          <label class="custom-control-label" for="secerNe">Ne</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/bloodPressureHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Povišen pritisak?</span>
+            <select class="d-block profilePersonalData mt-2" name="pritisak">
+              <option class="" value="Odaberite" {{#if (checkBox user.bloodPresure 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.bloodPresure 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.bloodPresure 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="form-group col-12">
-        <p>Da li trenutno koristite neke dodatke ishrani (vitamini, minerali..)?</p>
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="dodaciIshraniDa" name="dodaciIshrani" value="Da" class="custom-control-input" {{#if (checkBox user.foodSuplements 'Da')}} checked {{/if}}>
-          <label class="custom-control-label" for="dodaciIshraniDa">Da</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/foodHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Kakva Vam je ishrana?</span>
+            <select class="d-block profilePersonalData mt-2" name="ishrana">
+              <option class="" value="Odaberite" {{#if (checkBox user.nutrition 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Zdrava" {{#if (checkBox user.nutrition 'Zdrava')}} selected {{/if}}>Zdrava</option>
+              <option class="" value="Umerena" {{#if (checkBox user.nutrition 'Umerena')}} selected {{/if}}>Umerena</option>
+              <option class="" value="Nezdrava" {{#if (checkBox user.nutrition 'Nezdrava')}} selected {{/if}}>Nezdrava</option>
+            </select>
+          </div>
         </div>
-        <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="dodaciIshraniNe" name="dodaciIshrani" value="Ne" class="custom-control-input" {{#if (checkBox user.foodSuplements 'Ne')}} checked {{/if}}>
-          <label class="custom-control-label" for="dodaciIshraniNe">Ne</label>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/stressHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Da li ste pod stresom?</span>
+            <select class="d-block profilePersonalData mt-2" name="stres">
+              <option class="" value="Odaberite" {{#if (checkBox user.stress 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.stress 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.stress 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div class="form-group col-12">
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/exserciseHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>Koliko sati nedeljno vežbate?</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" name="vezbe" placeholder="Koliko sati nedeljno vežbate?" value="{{user.hoursExcercise}}">
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/sugarHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Povišen šećer?</span>
+            <select class="d-block profilePersonalData mt-2" name="secer">
+              <option class="" value="Odaberite" {{#if (checkBox user.sweets 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.sweets 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.sweets 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/foodSuplementHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Dodaci ishrani?</span>
+            <select class="d-block profilePersonalData mt-2" name="dodaciIshrani">
+              <option class="" value="Odaberite" {{#if (checkBox user.foodSuplements 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.foodSuplements 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.foodSuplements 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/therapyHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Trenutno na terapiji?</span>
+            <select class="d-block profilePersonalData mt-2" name="terapija" id="therapy">
+              <option class="" value="Odaberite" {{#if (checkBox user.therapy 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.therapy 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.therapy 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 mt-5 d-none" id="therapyComment">
+            <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" placeholder="Napišite koju terapiju uzimate.">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/currentStatusHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Dijagnostifikovano oboljenje?</span>
+            <select class="d-block profilePersonalData mt-3" name="trenutnoBolesni">
+              <option class="" value="Odaberite" {{#if (checkBox user.currentStatus 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Alchajmerova bolest" {{#if (checkBox user.currentStatus 'Dijabetes')}} selected {{/if}}>Alchajmerova bolest</option>
+              <option class="" value="Bolesti štitne žlezde" {{#if (checkBox user.currentStatus 'Bolesti štitne žlezde')}} selected {{/if}}>Bolesti štitne žlezde</option>
+              <option class="" value="Ciroza jetre i hepatitis" {{#if (checkBox user.currentStatus 'Ciroza jetre i hepatitis')}} selected {{/if}}>Ciroza jetre i hepatitis</option>
+              <option class="" value="Dijabetes" {{#if (checkBox user.currentStatus 'Dijabetes')}} selected {{/if}}>Dijabetes</option>
+              <option class="" value="Hronične respiratorne bolesti" {{#if (checkBox user.currentStatus 'Hronične respiratorne bolesti')}} selected {{/if}}>Hronične respiratorne bolesti</option>
+              <option class="" value="Kardiovaskularne bolesti" {{#if (checkBox user.currentStatus 'Kardiovaskularne bolesti')}} selected {{/if}}>Kardiovaskularne bolesti</option>
+              <option class="" value="Maligne bolesti" {{#if (checkBox user.currentStatus 'Maligne bolesti')}} selected {{/if}}>Maligne bolesti</option>
+              <option class="" value="Tuberkuloza" {{#if (checkBox user.currentStatus 'Tuberkuloza')}} selected {{/if}}>Tuberkuloza</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/famillyHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Oboljenja u porodici?</span>
+            <select class="d-block profilePersonalData mt-2" id="anamneza" name="anamneza">
+              <option class="" value="Odaberite" {{#if (checkBox user.anamnesis 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox user.anamnesis 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox user.anamnesis 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 d-none" id="anamnezaKomentar">
+          <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" placeholder="Dа li Vаm nеki člаn pоrоdicе bоluје оd nеkоg oboljenja (srčanog, ima povišen krvni pritisak, preminuo je od srčanog ili moždanog udara, ima bolest krvi, astmu, probleme sa bubrezima, šećernu bolest, maligno oboljenje)?">{{#if user.therapyComment}}{{user.anamnesisComment}}{{/if}}</textarea>
+        </div>
+
+
+      <!-- <div class="form-group col-12">
         <p>Da li trenutno uzimate neku terapiju?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="terapijaDa" name="terapija" value="Da" class="custom-control-input" {{#if (checkBox user.therapy 'Da')}} checked {{/if}}>
@@ -250,8 +389,10 @@
           <label class="custom-control-label" for="terapijaNe">Ne</label>
         </div>
         <textarea name="terapijaKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
-      </div>
-      <div class="form-group col-12">
+      </div> -->
+
+
+      <!-- <div class="col-4">
         <p>Da li ste trenutno bolesni ili imate neki medicinksi problem?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="trenutnoBolesniDa" name="trenutnoBolesni" value="Da" class="custom-control-input" {{#if (checkBox user.currentStatus 'Da')}} checked {{/if}}>
@@ -262,9 +403,12 @@
           <label class="custom-control-label" for="trenutnoBolesniNe">Ne</label>
         </div>
         <textarea name="trenutnaBolestKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.currentStatusComment}}{{/if}}</textarea>
-      </div>
-      <div class="form-group col-12">
-        <p>  Dа li Vаm nеki člаn pоrоdicе bоluје оd nеkоg oboljenja (srčanog, ima povišen krvni pritisak, preminuo je od srčanog ili moždanog udara, ima bolest krvi, astmu, probleme sa bubrezima, šećernu bolest, maligno oboljenje)?</p>
+      </div> -->
+
+
+
+      <!-- <div class="form-group col-12">
+        <p class="generalInformation"></p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="anamnezaDa" name="anamneza" value="Da" class="custom-control-input" {{#if (checkBox user.anamnesis 'Da')}} checked {{/if}}>
           <label class="custom-control-label" for="anamnezaDa">Da</label>
@@ -274,10 +418,26 @@
           <label class="custom-control-label" for="anamnezaNe">Ne</label>
         </div>
         <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="3" cols="80">{{#if user.therapyComment}}{{user.anamnesisComment}}{{/if}}</textarea>
-      </div>
+      </div> -->
 
       {{#if (checkBox user.gender 'Ž')}}
-      <div class="form-group col-12">
+
+      <div class="col-4 mt-5">
+        <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+          <img src="/images/menstruationHelthData.svg" class="profileDataIcons" alt="">
+        </div>
+        <div class=" float-left d-inline pl-2">
+          <span>Menstruacija?</span>
+          <select class="d-block profilePersonalData mt-2" name="menstruacija">
+            <option class="" value="Odaberite" {{#if (checkBox user.menstruation 'Odaberite')}} selected {{/if}}>Odaberite</option>
+            <option class="" value="Da" {{#if (checkBox user.menstruation 'Da')}} selected {{/if}}>Da</option>
+            <option class="" value="Ne" {{#if (checkBox user.menstruation 'Ne')}} selected {{/if}}>Ne</option>
+          </select>
+        </div>
+      </div>
+
+
+      <!-- <div class="form-group col-12">
         <p>Dа li imate menstruacije?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="menstruacijaDa" name="menstruacija" value="Da" class="custom-control-input" {{#if (checkBox user.menstruation 'Da')}} checked {{/if}}>
@@ -287,8 +447,23 @@
           <input type="radio" id="menstruacijaNe" name="menstruacija" value="Ne" class="custom-control-input" {{#if (checkBox user.menstruation 'Ne')}} checked {{/if}}>
           <label class="custom-control-label" for="menstruacijaNe">Ne</label>
         </div>
+      </div> -->
+
+      <div class="col-4 mt-5">
+        <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+          <img src="/images/neetCycleHelthData.svg" class="profileDataIcons" alt="">
+        </div>
+        <div class=" float-left d-inline pl-2">
+          <span>Uredan ciklus?</span>
+          <select class="d-block profilePersonalData mt-2" name="ciklusUredan">
+            <option class="" value="Odaberite" {{#if (checkBox user.regularMenstruation 'Odaberite')}} selected {{/if}}>Odaberite</option>
+            <option class="" value="Da" {{#if (checkBox user.regularMenstruation 'Da')}} selected {{/if}}>Da</option>
+            <option class="" value="Ne" {{#if (checkBox user.regularMenstruation 'Ne')}} selected {{/if}}>Ne</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group col-12">
+
+      <!-- <div class="form-group col-12">
         <p>Dа li su ciklusi uredni?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="ciklusUredanDa" name="ciklusUredan" value="Da" class="custom-control-input" {{#if (checkBox user.regularMenstruation 'Da')}} checked {{/if}}>
@@ -298,8 +473,24 @@
           <input type="radio" id="ciklusUredanNe" name="ciklusUredan" value="Ne" class="custom-control-input" {{#if (checkBox user.regularMenstruation 'Ne')}} checked {{/if}}>
           <label class="custom-control-label" for="ciklusUredanNe">Ne</label>
         </div>
+      </div> -->
+
+
+      <div class="col-4 mt-5">
+        <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+          <img src="/images/gynecologistHelthData.svg" class="profileDataIcons" alt="">
+        </div>
+        <div class=" float-left d-inline pl-2">
+          <span>Redovni ginekološki pregledi?</span>
+          <select class="d-block profilePersonalData mt-2" name="redovanPregledGinekologa">
+            <option class="" value="Odaberite" {{#if (checkBox user.regularGinecologyChecks 'Odaberite')}} selected {{/if}}>Odaberite</option>
+            <option class="" value="Da" {{#if (checkBox user.regularGinecologyChecks 'Da')}} selected {{/if}}>Da</option>
+            <option class="" value="Ne" {{#if (checkBox user.regularGinecologyChecks 'Ne')}} selected {{/if}}>Ne</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group col-12">
+
+      <!-- <div class="form-group col-12">
         <p>Dа li redovno idete na ginekološke preglede?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="redovanPregledGinekologaDa" name="redovanPregledGinekologa" value="Da" class="custom-control-input" {{#if (checkBox user.regularGinecologyChecks 'Da')}} checked {{/if}}>
@@ -309,8 +500,23 @@
           <input type="radio" id="redovanPregledGinekologaNe" name="redovanPregledGinekologa" value="Ne" class="custom-control-input" {{#if (checkBox user.regularGinecologyChecks 'Ne')}} checked {{/if}}>
           <label class="custom-control-label" for="redovanPregledGinekologaNe">Ne</label>
         </div>
+      </div> -->
+
+      <div class="col-4 mt-5">
+        <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+          <img src="/images/pregnentHelthData.svg" class="profileDataIcons" alt="">
+        </div>
+        <div class=" float-left d-inline pl-2">
+          <span>Trenutno trudni?</span>
+          <select class="d-block profilePersonalData mt-2" name="trudnoca">
+            <option class="" value="Odaberite" {{#if (checkBox user.pregnancy 'Odaberite')}} selected {{/if}}>Odaberite</option>
+            <option class="" value="Da" {{#if (checkBox user.pregnancy 'Da')}} selected {{/if}}>Da</option>
+            <option class="" value="Ne" {{#if (checkBox user.pregnancy 'Ne')}} selected {{/if}}>Ne</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group col-12">
+
+      <!-- <div class="form-group col-12">
         <p>Dа li ste trenutno trudni?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="trudnocaDa" name="trudnoca" value="Da" class="custom-control-input" {{#if (checkBox user.pregnancy 'Da')}} checked {{/if}}>
@@ -320,8 +526,23 @@
           <input type="radio" id="trudnocaNe" name="trudnoca" value="Ne" class="custom-control-input" {{#if (checkBox user.pregnancy 'Ne')}} checked {{/if}}>
           <label class="custom-control-label" for="trudnocaNe">Ne</label>
         </div>
+      </div> -->
+
+      <div class="col-4 mt-5">
+        <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+          <img src="/images/brestFeedingHelthData.svg" class="profileDataIcons" alt="">
+        </div>
+        <div class=" float-left d-inline pl-2">
+          <span>Trenutno dojite?</span>
+          <select class="d-block profilePersonalData mt-2" name="dojenje">
+            <option class="" value="Odaberite" {{#if (checkBox user.breastfeeding 'Odaberite')}} selected {{/if}}>Odaberite</option>
+            <option class="" value="Da" {{#if (checkBox user.breastfeeding 'Da')}} selected {{/if}}>Da</option>
+            <option class="" value="Ne" {{#if (checkBox user.breastfeeding 'Ne')}} selected {{/if}}>Ne</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group col-12">
+
+      <!-- <div class="form-group col-12">
         <p>Dа li trenutno dojite?</p>
         <div class="custom-control custom-radio custom-control-inline">
           <input type="radio" id="dojenjeDa" name="dojenje" value="Da" class="custom-control-input" {{#if (checkBox user.breastfeeding 'Da')}} checked {{/if}}>
@@ -332,18 +553,19 @@
           <label class="custom-control-label" for="dojenjeNe">Ne</label>
         </div>
       </div>
-      {{/if}}
+      {{/if}} -->
 
-      <div class="form-group col-12">
+      <div class="form-group col-12 mt-4">
         <button  class="btn btn-block btnLabDetails mt-2" id="healthProfileBtn">Sačuvaj</button>
       </div>
 
-    </div>
+      <!-- </div> -->
+    </div><!-- row end -->
   </form>
 </div>
 
 
-  <div class="tab-pane active table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+  <div class="tab-pane table-responsive" id="contact" role="tabpanel" aria-labelledby="contact-tab">
     {{#if numOfMyAnalysis}}
 
     <table class="tableLabResults" id="myLabResults">
@@ -366,9 +588,9 @@
           <td><span class="brojPotrebnihAnaliza text-center" title="broj potrebnih analiza">{{countItems this.analyses}}</span></td>
           <td></td>
           {{/if}}
-          <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td>
-          <td><a href="/mojirezultati/{{this.id}}" class="btn btn-res-success ">detalji</button></a>
-            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">obriši</a></td>
+          <!-- <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td> -->
+          <td><a href="/mojirezultati/{{this.id}}" class="btnDetails text-uppercase">detalji</button></a>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deteDocument text-uppercase">X</a></td>
         </tr>
         {{/each}}
       </tbody>

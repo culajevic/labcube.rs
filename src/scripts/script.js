@@ -129,11 +129,11 @@ $(window).scroll(function(){
   var height = $(window).scrollTop();
     if(height > 100) {
       $(".odabraneAnalize").addClass('fixed-right')
-      // $(".odabraneAnalize").addClass('pt-4')
+      $(".odabraneAnalize").addClass('pt-5')
     }
     else {
       $(".odabraneAnalize").removeClass('fixed-right')
-      // $(".odabraneAnalize").removeClass('pt-4')
+      $(".odabraneAnalize").removeClass('pt-5')
     }
 })
 
@@ -1055,6 +1055,35 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
   const visina = document.getElementById('visina')
   const tezina = document.getElementById('tezina')
   const bmi = document.getElementById('bmi')
+  const therapy = document.getElementById('therapy')
+  const therapyComment = document.getElementById('therapyComment')
+  const anamnesis = document.getElementById('anamneza')
+  const anamnesisComment = document.getElementById('anamnezaKomentar')
+
+  therapy.addEventListener('change', e => {
+    if(e.target.value == 'Da') {
+      therapyComment.classList.remove('d-none')
+      therapyComment.classList.add('goVisible')
+
+    } else {
+      therapyComment.classList.add('d-none')
+      therapyComment.classList.remove('goVisible')
+    }
+  })
+
+  anamnesis.addEventListener('change', e => {
+    if(e.target.value == 'Da') {
+      anamnesisComment.classList.remove('d-none')
+      anamnesisComment.classList.add('goVisible')
+
+    } else {
+      anamnesisComment.classList.add('d-none')
+      anamnesisComment.classList.remove('goVisible')
+    }
+  })
+
+
+
 
 
   visina.addEventListener('input', () => {

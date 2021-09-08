@@ -27,6 +27,7 @@ app.use(cookieSession({
   keys:[process.env.SESSIONKEY]
 }))
 
+
 //initialize passport
 app.use(passport.initialize())
 app.use(passport.session())
@@ -70,5 +71,6 @@ app.use(express.static(path.join(__dirname, 'src')))
 
 //managing all routes
 app.use('/', routes)
+
 
 module.exports = app

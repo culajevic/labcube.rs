@@ -16,6 +16,8 @@ const generalController = require('../controllers/general')
 const profileController = require('../controllers/profileController')
 const passport = require('passport')
 
+
+
 // display groups on front page
 router.get('/', groupController.getGroups)
 // router.get('/', labController.getAllLabs)
@@ -37,8 +39,6 @@ router.get('/results/analysis/:slug', resultController.displayAnalysisDetails)
 
 
 router.delete('/profile/:id/:location?', authenticationController.deleteOtherResult)
-
-
 
 //registration
 router.get('/prijava', authenticationController.signin)
@@ -97,6 +97,7 @@ router.post('/updateSchedule/:scheduleId', scheduleController.updateSchedule)
 //healthProfile
 router.post('/healthProfile/:id', profileController.updateHealthProfile)
 router.post('/myProfile/:id', profileController.updateProfile)
+router.post('/updatePassword/:id', profileController.updatePass)
 router.get('/interpretation/page/:page', scheduleController.resultsInterpretation)
 router.get('/otherResultsInterpretation/page/:page', scheduleController.otherResultsInterpretation)
 router.get('/interpretation/:id', scheduleController.resultsInterpretationValues)
@@ -172,5 +173,11 @@ router.get('/lab/:lab', labController.getLab)
 router.get('/cenovnik/:grad/:ids', priceController.getPrices)
 router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
+
+
+router.use(function(req,res, next) {
+  res.status(404)
+  res.render('404page', {title:'Tražena stranica ne postoji'})
+})
 
 module.exports = router

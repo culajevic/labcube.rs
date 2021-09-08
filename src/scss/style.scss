@@ -340,6 +340,60 @@ ul ol ul {
   box-shadow: none;
 }
 
+#home input {border:0;outline:0;}
+#home select {border:0;outline:0;}
+#home input:focus {outline:none!important;}
+#home input[type="text"]:disabled {
+  background: transparent;
+}
+// #home input:disabled {background-color: :red!important;}
+
+
+#healthProfile input {border:0;outline:0;}
+#healthProfile select {border:0;outline:0;}
+#healthProfile input:focus {outline:none!important;}
+
+#healthProfile textarea {border:1px solid $border; border-radius:8px; outline:0;}
+
+#healthProfile textarea::placeholder {
+  color: $fontColorResultsTable;
+  font-size: 1.2rem;
+  padding: px-to-rem(3px);
+};
+
+#healthProfile textarea {
+  color: $fontColorResultsTable;
+  font-size: 1.2rem;
+  padding: px-to-rem(22px);
+};
+
+// .hideComment {
+//   opacity:0;
+//   transition:opacity 2s;
+// }
+//
+// #healthProfile #therapyComment .goVisible {
+//   opacity:1;
+// }
+
+
+.profileDataIcons {
+  width: px-to-rem(40px);
+  height: px-to-rem(40px);
+}
+
+.generalInformation {
+  font-size: px-to-rem(20px);
+  color:rgba(59, 59, 59, 0.8);
+}
+
+.profilePersonalData {
+  // font-weight: bold;
+  font-size: px-to-rem(18px);
+  width: 230px;
+  font-weight: 500;
+}
+
 //testingAnimation
 .groupHidden {
   display:none;
@@ -1606,18 +1660,40 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
   background-color: $orange;
   padding: 8px;
   color:white;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .Završeno {
   background-color: $button-green;
   padding: 8px;
   color:white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 5px;
 }
 
 .Uzorkovanje {
   background-color: $danger;
   padding: 8px;
   color:white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.btnDetails {
+  background-color: $button-green;
+  padding: 8px;
+  color:white;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  &:hover {
+    background-color: darken($button-green, 15%);
+    color:$white-color;
+  }
 }
 
 .najpopularnije {

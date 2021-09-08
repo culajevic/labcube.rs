@@ -298,7 +298,7 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
 exports.lockTheInterpretation =  async (req,res) => {
   // console.log(req.body[0].ownerId)
   // console.log(req.body[0].interpretationId)
-  console.log(req.body[0])
+
   let lockTheInterpretation = await Schedule.findOneAndUpdate(
     {_id:req.body[0].interpretationId},
     {owner:req.body[0].ownerId},
@@ -313,7 +313,7 @@ exports.lockTheInterpretation =  async (req,res) => {
 exports.lockTheOtherInterpretation =  async (req,res) => {
   // console.log(req.body[0].ownerId)
   // console.log(req.body[0].interpretationId)
-  console.log(req.body[0])
+
   let lockTheInterpretation = await Result.findOneAndUpdate(
     {_id:req.body[0].interpretationId},
     {owner:req.body[0].ownerId},

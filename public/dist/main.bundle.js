@@ -21754,9 +21754,11 @@ $(window).scroll(function () {
   var height = $(window).scrollTop();
 
   if (height > 100) {
-    $(".odabraneAnalize").addClass('fixed-right'); // $(".odabraneAnalize").addClass('pt-4')
+    $(".odabraneAnalize").addClass('fixed-right');
+    $(".odabraneAnalize").addClass('pt-5');
   } else {
-    $(".odabraneAnalize").removeClass('fixed-right'); // $(".odabraneAnalize").removeClass('pt-4')
+    $(".odabraneAnalize").removeClass('fixed-right');
+    $(".odabraneAnalize").removeClass('pt-5');
   }
 }); // scrol to top button
 
@@ -22660,6 +22662,28 @@ window.onload = function () {
     var visina = document.getElementById('visina');
     var tezina = document.getElementById('tezina');
     var bmi = document.getElementById('bmi');
+    var therapy = document.getElementById('therapy');
+    var therapyComment = document.getElementById('therapyComment');
+    var anamnesis = document.getElementById('anamneza');
+    var anamnesisComment = document.getElementById('anamnezaKomentar');
+    therapy.addEventListener('change', function (e) {
+      if (e.target.value == 'Da') {
+        therapyComment.classList.remove('d-none');
+        therapyComment.classList.add('goVisible');
+      } else {
+        therapyComment.classList.add('d-none');
+        therapyComment.classList.remove('goVisible');
+      }
+    });
+    anamnesis.addEventListener('change', function (e) {
+      if (e.target.value == 'Da') {
+        anamnesisComment.classList.remove('d-none');
+        anamnesisComment.classList.add('goVisible');
+      } else {
+        anamnesisComment.classList.add('d-none');
+        anamnesisComment.classList.remove('goVisible');
+      }
+    });
     visina.addEventListener('input', function () {
       bmi.value = (tezina.value / (visina.value / 100 * (visina.value / 100))).toFixed(2);
     });
