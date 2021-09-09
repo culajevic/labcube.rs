@@ -72,14 +72,23 @@ exports.createPrice = [authCheck, async (req,res) => {
 }] // addprice end
 
 exports.editPrice = [authCheck, async (req,res) => {
+  // const editPrice = await Price.aggregate([
+  //   {$lookup:{from:'labs', localField:'lab', foreignField:'_id', as:'lab'}},
+  //   {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analysis'}},
+  //   {$project:{
+  //     analiza:'$analysis'
+  //   }},
+  //   {$sort:{labName:1}}
+  // ])
+  // console.log(editPrice)
   const editPrice = await Price.findOne({_id:req.params.id})
   .populate('lab', 'labName')
   .populate('cenovnik.analiza', 'analysisName')
+  .sort({analysisName:-1})
   res.render('addPrice', {
     title:'Pregled cenovnika',
     editPrice
   })
-
 }]
 
 exports.updatePrice = [authCheck, async (req,res) => {
@@ -150,8 +159,9 @@ exports.deletePriceList = [authCheck, async (req,res) => {
 }]
 
 
-//display group names on nadjilab inner page
 exports.getLabPrices = async (req,res) => {
+
+  //display group names on nadjilab inner page
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('nadjiLab', {groupNames})
 }
