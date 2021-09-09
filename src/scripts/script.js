@@ -1047,6 +1047,22 @@ if (municipalityValue != null) {
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
 
+  //deleteUser
+
+  const deleteAccount = document.getElementById('deleteAccount')
+  const deleteAccountForm = document.getElementById('deleteAccountForm')
+  let confirmation
+
+  deleteAccount.addEventListener('click', (e) => {
+    e.preventDefault()
+    confirmation = confirm('Da li ste sigurni da želite da obrišete nalog?')
+      if (confirmation == false) {
+      return
+     } else {
+       deleteAccountForm.submit();
+     }
+  })
+
   const tabs = document.getElementById('myTab')
   tabs.addEventListener('click', (e) => {
     console.log(e.target.getAttribute("href"))
@@ -2250,21 +2266,22 @@ if (location.match('addLab')) {
   }
 //delete reference
   if(location.match('allReferences')) {
-    helper.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'doslo je do greske prilikom uklanjanja reference')
+    helper.deleteDocument('.deleteDocument', 'referenca ce biti obrisana', '/allReferences/', '/allReferences', 'došlo je do greške prilikom uklanjanja reference')
   }
 //delete faq
   if(location.match('allFaqs')) {
-    helper.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'doslo je do greske prilikom uklanjanja pitanja')
+    helper.deleteDocument('.deleteDocument', 'Pitanje ce biti obrisano', '/allFaqs/', '/allFaqs', 'došlo je do greške prilikom uklanjanja pitanja')
   }
 //delete priceList
   if(location.match('allPrices')) {
-    helper.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'doslo je do greske prilikom brisanja cenovnika')
+    helper.deleteDocument('.deleteDocument', 'Cenovnik ce biti obrisan', '/allPrices/', '/allPrices', 'došlo je do greške prilikom brisanja cenovnika')
   }
 
   //delete priceList
     if(location.match('profile')) {
-      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat ce biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'doslo je do greske prilikom brisanja rezultata')
+      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'došlo je do greške prilikom brisanja rezultata')
     }
+
 
 
 }// window onload end

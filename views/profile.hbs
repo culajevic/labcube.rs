@@ -31,24 +31,31 @@
 <div class="tab-content" id="myTabContent">
 
   <div class="tab-pane show" id="resetPass" role="tabpanel">
-
     <div class="profileCard" >
       <form class="d-flex flex-column align-items-center" action="/updatePassword/{{user.id}}" method="POST">
-        <div class="col-12 mb-5">
-        <div class="form-group col-12">
-          <p class="" style="font-size:20px;"> Promena lozinke</p>
-          <input type="password" class="form-control mt-4" name="password1" placeholder="nova lozinka">
-            </div>
-            <div class="form-group col-12">
-              <input type="password" class="form-control" name="password2" placeholder="ponovite novu lozinku">
-            </div>
-            <div class="form-group col-12">
-              <button class="btn btn-block btnLabDetails mt-2">Promeni lozinku</button>
-              <button class="btn btn-block btn-danger mt-4 text-uppercase">Obriši nalog<sup>*</sup></button>
-              <small>Ukoliko obrišete nalog ne postoji mogućnost da Vam se vrate podaci. Svi podaci o Vama i svi Vaši rezultati će zauvek biti uklonjeni.</small>
-            </div>
-          </form>
-      </div>
+        <div class="container">
+          <div class="row">
+            <div class="form-group col-6 generalInformation">
+              <!-- <p>Ovde možete promeniti Vaš Promena lozinke</p> -->
+              <input type="password" class="form-control" name="password1" placeholder="nova lozinka">
+                </div>
+                <div class="form-group col-6">
+                  <input type="password" class="form-control" name="password2" placeholder="ponovite novu lozinku">
+                </div>
+                <div class="form-group col-12">
+                  <button class="btn btn-block btnLabDetails">Promeni lozinku</button>
+                </div>
+          </div>
+        </div>
+      </form>
+      <form class="mb-4" action="/deleteUser/{{user.id}}" method="post" id="deleteAccountForm">
+        <div class="col-2 mt-4">
+          <button class="btn btn-block btn-danger  text-uppercase" id="deleteAccount">Obrišite nalog</button>
+        </div>
+        <div class="col-10">
+          <small>Ukoliko obrišete nalog ne postoji mogućnost da Vam se vrate podaci. Svi podaci o Vama i svi Vaši rezultati će zauvek biti uklonjeni.</small>
+        </div>
+      </form>
     </div><!-- profile card end -->
   </div><!-- tab pane end -->
 

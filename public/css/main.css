@@ -8855,6 +8855,30 @@ ul ol ul {
   font-size: 1.2rem;
   padding: 1.375rem; }
 
+input:-webkit-autofill {
+  padding-left: 0px;
+  -webkit-text-fill-color: transparent;
+  /* Surcharge la font color d'autofill */
+  -webkit-background-clip: text;
+  /* Supprime le background autofill, utile pour le border radius */ }
+
+.blueOverlay input::placeholder, .blueOverlayLab input::placeholder {
+  color: #FFF;
+  font-size: 1rem;
+  padding: 0.1875rem; }
+
+.btn-outline-primary {
+  border: 2px solid #FFF; }
+  .btn-outline-primary:hover {
+    background-color: #1D88E5;
+    border: 2px solid #1D88E5; }
+
+#userLogin input:focus {
+  background-color: transparent;
+  outline: none !important;
+  border: none;
+  border-bottom: 2px solid #e1e1e1; }
+
 .profileDataIcons {
   width: 2.5rem;
   height: 2.5rem; }
@@ -9277,7 +9301,7 @@ p.selectedAnalysisTitle {
   position: relative; }
 
 .backgroundImageRegister {
-  background-image: url(../images/corbavia2.jpg);
+  background-image: url(../images/logarska1.jpg);
   background-position: 0 0;
   background-repeat: no-repeat;
   height: 100vh;

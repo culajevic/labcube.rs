@@ -117,7 +117,7 @@ exports.profile = [authCheck, async (req,res) => {
     }
     res.render('labDashboard', {findLab, findScheduledAnalysis, page, countTotal, pages, hospitality, speed, covid, venipuncture,overall})
   } //if regular user
-    else if(req.user.admin == 0) {
+    else if(req.user.admin == 0 && req.user.deleted == false) {
     const myAppointments = await Schedule.find({user:req.user.id})
     .populate('lab')
     .sort({createdDate:-1})
@@ -203,13 +203,13 @@ exports.register =  async (req,res) => {
             return secretNumber
           }
           newUser.emailToken = await random()
-          const output = `Your verification code is ${newUser.emailToken}`
+          const output = `Vaš kod za verifikaciju je ${newUser.emailToken}`
 
 
           let mailOptions = {
             from:'labcubee@gmail.com',
             to:newUser.email,
-            subject:'Verify you labcube account',
+            subject:'Verifikacija lab cube naloga',
             text:'',
             html:output
           }

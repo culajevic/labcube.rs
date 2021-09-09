@@ -22,33 +22,35 @@
       </div><!-- login leftside end -->
 
       <div class="col-sm-12 col-md-8 pl-0 pr-0">
-
         <div class="backgroundImage">
-          <div class="blueOverlay">
-            <h2 class="ml-5">Prijava</h2>
-            <small class="ml-5">prijavite se i saznajte sve o laboratorijskim analizama i laboratorijama. Ako nemate nalog, <a href="/registracija" class="register">ovde se možete registrovati</a>, jednostavno je.</small>
-                <form action="/prijava" method="POST" class="registerForm login ml-5 col-5" >
+          <div class="blueOverlay" id="userLogin">
+
+
+                <form action="/prijava" method="POST" class="registerForm d-flex flex-column justify-content-center login ml-5 mt-5 col-5">
+                  <h2 class="mb-4">Prijava</h2>
                   <div class="form-group">
                     <input id="email" type="email" name="email" class="form-control">
                     <label for="email" class="text-white">email</label>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group py-3">
                     <input id="password" type="password" name="password" class="form-control">
                     <label for="password" class="text-white">lozinka</label>
+                    <small class="text-white float-right">Ako ste zaboravili lozinku <a href="/forgot" class="text-warning text-decoration-none">kliknite ovde</a></small>
                   </div>
                   <!-- <div class="row"> -->
-                    <button class="btn btnLogin btn-block">prijava</button>
+                    <button class="btn btn-outline-primary btn-block my-4 text-uppercase text-white">prijavite se</button>
                   <!-- </div> -->
-                  <a href="/forgot" class="text-white">Zaboravili ste lozinku?</a>
 
-            <p><a href="/google"  class="btn btnLogin btn-block">google</a></p>
-
-                </form>
+                <p><a href="/google" class="d-inline"><img src="/images/googleBtn.png" class="text-left mt-4 d-block" style="height:40px;"></a></p>
+              </form>
               <!-- </form> -->
           </div><!-- blueoverlay -->
         </div><!-- backgroundImage -->
-
       </div><!-- col-8 -->
+      <div class="" style="position:absolute; top:20px; right:30px;">
+        <span class="text-white mt-5">Nemate nalog?<button class="ml-3 btn btn-outline-primary text-uppercase text-white"><a href="/registracija" class="text-decoration-none text-white">napravi nalog</a></span>
+      </div>
+
     </div><!-- row -->
   </div><!-- container-fluid -->
 </section>

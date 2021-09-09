@@ -102,3 +102,20 @@ exports.getMyAppointments =  (req,res,next) => {
   // const myAppointments = await Schedule.find({user:req.user.id})
   // next()
 }
+
+exports.deleteUser = async (req,res) => {
+  try {
+  const deleteUser = await User.findOneAndUpdate({_id:req.params.id},{deleted:true},
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+    req.flash('success_msg', 'Uspešno ste obrisali Vaš nalog. Žao nam je. Uvek možete kreirati novi nalog.')
+    res.redirect('/')
+    }
+    catch(e) {
+      console.log(e)
+    }
+
+}

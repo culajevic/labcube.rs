@@ -354,32 +354,32 @@ addMarker(markers[i].lat,
 
 
 // geo location *************************************************************/
-// let myLocationOptions = {
-//   enableHighAccuracy: true,
-//   // timeout: 5000,
-//   maximumAge: 0
-// };
-//
-// if(navigator.geolocation){
-//   // navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
-//   navigator.geolocation.getCurrentPosition(mylocation, error, myLocationOptions)
-// } else {
-//   console.log("Your browser doesn't support geo location!")
-// }
-//
-// function mylocation(position) {
-//   let myLocation = new google.maps.Marker({
-//     position:{lat:position.coords.latitude, lng:position.coords.longitude},
-//     map:map,
-//     icon:'images/red.svg',
-//     title:'moja trenutna lokacija'
-//   });
-//   map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
-// }
-//
-// function error(error) {
-//   console.warn(`ERROR(${error.code}): ${error.message}`);
-// }
+let myLocationOptions = {
+  enableHighAccuracy: true,
+  // timeout: 5000,
+  maximumAge: 0
+};
+
+if(navigator.geolocation){
+  // navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
+  navigator.geolocation.getCurrentPosition(mylocation, error, myLocationOptions)
+} else {
+  console.log("Your browser doesn't support geo location!")
+}
+
+function mylocation(position) {
+  let myLocation = new google.maps.Marker({
+    position:{lat:position.coords.latitude, lng:position.coords.longitude},
+    map:map,
+    icon:'images/red.svg',
+    title:'moja trenutna lokacija'
+  });
+  map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
+}
+
+function error(error) {
+  console.warn(`ERROR(${error.code}): ${error.message}`);
+}
 /////////////////////////// geolocation end /////////////////////////////
 
 // console.log(markers)

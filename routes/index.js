@@ -65,6 +65,7 @@ router.get('/reset/:token', authenticationController.resetPass)
 router.post('/resetPass/:token', authenticationController.updatePassword)
 router.get('/mojirezultati/:id', scheduleController.myResults)
 router.post('/submitRating', scheduleController.userFeedback)
+router.post('/deleteUser/:id', profileController.deleteUser)
 
 // groups
 router.get('/allGroupsList', groupController.listAllGroups)
@@ -175,9 +176,9 @@ router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
 
-router.use(function(req,res, next) {
-  res.status(404)
-  res.render('404page', {title:'Tražena stranica ne postoji'})
-})
+// router.use(function(req,res, next) {
+//   res.status(404)
+//   res.render('404page', {title:'Tražena stranica ne postoji'})
+// })
 
 module.exports = router
