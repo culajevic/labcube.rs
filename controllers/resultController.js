@@ -388,7 +388,8 @@ requestCheckout()
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
            to:data.customer.email,
-           subject:'Tumačenje laboratorijskih analiza',
+           // to:'culajevic@gmail.com',
+           subject:'Uspešno izvršena uplata za tumačenje laboratorijskih analiza',
            text:'',
            html:`
            <img src="cid:headerEmailBig">
@@ -542,7 +543,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames, title:analysisDetails.analysisName, metaDescription:analysisDetails.shortDesc, metaKeywords:analysisDetails.alt})
+  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames, title:analysisDetails.analysisName, metaDescription:analysisDetails.preview, metaKeywords:analysisDetails.alt})
 }
 
 exports.labRestultsAnalysis = async (req,res) => {
