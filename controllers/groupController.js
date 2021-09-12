@@ -178,7 +178,7 @@ sortByPriority = {priority:-1}
     }
 
       res.render('index',{
-        title:'Razumljivi opisi biohemijskih analiza i lokacije labortorija',
+        title:'Razumljivi opisi biohemijskih analiza i lokacije laboratorija',
         faqtitle:'Najčešće postavljana pitanja',
         metaDescription:'Detaljni opisi biohemijskih analiza sa cenama i lokacijama privatnih laboratorija u Srbiji.',
         metaKeywords:'Biohemijske analize, biohemijske laboratorije, tumačenje rezultata, krvna slika',

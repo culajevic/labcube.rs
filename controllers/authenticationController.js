@@ -117,7 +117,7 @@ exports.profile = [authCheck, async (req,res) => {
     }
     res.render('labDashboard', {findLab, findScheduledAnalysis, page, countTotal, pages, hospitality, speed, covid, venipuncture,overall})
   } //if regular user
-    else if(req.user.admin == 0 && req.user.deleted == false) {
+    else if(req.user.admin == 0 && (req.user.deleted == false || req.user.deleted == undefined)) {
     const myAppointments = await Schedule.find({user:req.user.id})
     .populate('lab')
     .sort({createdDate:-1})
@@ -136,7 +136,6 @@ exports.profile = [authCheck, async (req,res) => {
       numOfMyOtherResults,
       groupNames
     })
-
     // res.send(`<a href=/logout>log out</a> ${req.user.username}`)
   }
 
@@ -250,14 +249,16 @@ exports.findUserEmail =  async (req,res) => {
    userIdArr.push(findUserEmail[i]._id)
    newObjectArr = userIdArr.map(i => mongoose.Types.ObjectId(i))
   }
-
+  console.log(req.user)
   const findMyLabUsers  = await Schedule
       .find({lab:req.user.labId, user: { $in: newObjectArr}})
+      .find({user: { $in: newObjectArr}})
       .populate('user')
       .sort({createdDate:-1})
       res.json(findMyLabUsers)
-} else {
-
+      // console.log(findMyLabUsers)
+}
+  else {
   let myLabScheduledAnalysis = await Schedule.find({lab:req.user.labId}).populate('user').sort({createdDate:-1})
   res.json(myLabScheduledAnalysis)
   // res.json({myLabScheduledAnalysis, page})
@@ -277,11 +278,12 @@ exports.findUserEmailByLabCube =  async (req,res) => {
   }
 
   const findMyLabUsers  = await Schedule
-      .find({user: { $in: newObjectArr}})
+      .find({user: { $in: newObjectArr}},{$or:[{status:'Završeno'},{status:'Uzorkovanje'}]})
       .populate('user')
       .populate('owner', 'username')
       .sort({createdDate:-1})
       res.json(findMyLabUsers)
+      // console.log(findMyLabUsers)
   // const findMyLabUsers  = await Schedule.aggregate([
   //     {$match:{user: { $in: newObjectArr}}},
   //     {$lookup:{from:'users', localField:'user', foreignField:'_id', as:'user'}},
@@ -293,12 +295,19 @@ exports.findUserEmailByLabCube =  async (req,res) => {
   //   ])
   //     res.json(findMyLabUsers)
 } else {
-
-  let myLabScheduledAnalysis = await Schedule.find({})
-  .populate('user')
-  .populate('owner', 'username')
-  .sort({createdDate:-1})
-  res.json(myLabScheduledAnalysis)
+  const resultsForInterpretation = await Schedule.find({$or:[{status:'Završeno'},{status:'Uzorkovanje'}]})
+    .skip(skip)
+    .limit(limit)
+    .populate('lab')
+    .populate('user')
+    .populate('analyses.analysisId')
+    .populate('owner')
+    .sort({createdDate:-1})
+  // let myLabScheduledAnalysis = await Schedule.find({})
+  // .populate('user')
+  // .populate('owner', 'username')
+  // .sort({createdDate:-1})
+  res.json(resultsForInterpretation)
   // res.json({myLabScheduledAnalysis, page})
   // res.render('index')
   }
@@ -317,6 +326,7 @@ exports.verifyToken = async (req, res) => {
     let verifyAccount = await User.findOneAndUpdate(
       {emailToken:req.body.emailToken},
       {isVerified:true,
+      deleted:false,
       emailToken:''},
       {new:true,
       useFindAndModify:false}).exec()

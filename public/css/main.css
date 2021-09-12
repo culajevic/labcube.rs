@@ -7312,8 +7312,8 @@ a:focus {
     border-bottom: 1px solid white; }
 
 #smallHeaderTumacenje {
-  background-image: url(../images/interpretation.jpg);
-  background-position: 0 -400px; }
+  background-image: url(../images/labdashboard.jpg);
+  background-position: 0 -260px; }
 
 .logoFull {
   align-self: center;
@@ -8872,6 +8872,13 @@ input:-webkit-autofill {
   .btn-outline-primary:hover {
     background-color: #1D88E5;
     border: 2px solid #1D88E5; }
+
+.btn-outline-info {
+  border: 1px solid #1D88E5;
+  color: #1D88E5; }
+  .btn-outline-info:hover {
+    background-color: #1D88E5;
+    border: 1px solid #1D88E5; }
 
 #userLogin input:focus {
   background-color: transparent;

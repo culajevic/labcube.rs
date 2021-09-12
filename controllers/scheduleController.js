@@ -175,7 +175,7 @@ exports.resultsInterpretation = [authCheck, async (req,res) => {
 exports.otherResultsInterpretation = [authCheck, async (req,res) => {
   const countTotal = await Result.countDocuments({})
   const page = req.params.page || 1
-  const limit = 40
+  const limit = 10
   const pages = Math.ceil(countTotal / limit)
   const skip = (page * limit) - limit
 
@@ -266,14 +266,18 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     outsideOfTheRange = true
   }
 
+  console.log(req.body)
+
 
   analysisArr.push({
   "analysis":req.body.analysisName[i],
   "analysisId":req.body.analysisId[i],
   "value":req.body.value[i],
   'measure':req.body.measure[i],
-  'lessThen':req.body.lessThen[i],
-  'greaterThen':req.body.greaterThen[i],
+  'lessThen':req.body.lessThen[i] ? req.body.lessThen[i] : 0,
+  'greaterThen':req.body.greaterThen[i] ? req.body.greaterThen[i] : 0,
+  'valueFrom':req.body.valueFrom[i],
+  'valueTo':req.body.valueTo[i],
   'commentResult':req.body.commentResult[i],
   'outsideOfTheRange':outsideOfTheRange})
 
@@ -323,4 +327,12 @@ exports.lockTheOtherInterpretation =  async (req,res) => {
       useFindAndModify:false
     }).exec()
     res.send('ok je')
+}
+
+
+exports.myResultLabCube = async (req,res) => {
+  const myResults = await Result.findOne({_id:req.params.id})
+  .populate('analyses.analysisId', 'analysesName, shortDesc')
+  .populate('owner', 'username')
+  res.render('myResultsLabCube', {myResults})
 }

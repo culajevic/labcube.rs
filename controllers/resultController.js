@@ -236,11 +236,12 @@ requestCheckout()
     // let bgLocalTime = new Date().toLocaleString('sr-RS')
     console.log(newDate)
     let deadline = new Date()
+    deadline.setDate(deadline.getDate() + 1)
     let serviceClosingTime = new Date()
     let ofHours
     let tomorrow = new Date()
     serviceClosingTime.setHours(17,0,0)
-
+    console.log(deadline)
 
   let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
@@ -248,39 +249,40 @@ requestCheckout()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //paket sat vremena
-      if (deadline.getHours() > 9 && deadline.getHours() < 16 && data.amount == 999) {
-        deadline.setHours(deadline.getHours() + 1)
-      } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 999) {
-        // tomorrow.setDate(tomorrow.getDate() + 1)
-        // tomorrow.setHours(9,0,0)
-        deadline.setHours(9,0,0)
-        deadline = tomorrow.setHours(deadline.getHours() + 1)
-      } else if (deadline.getHours() >= 16 && deadline.getHours() < 17) {
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        tomorrow.setHours(9,0,0)
-        deadline = tomorrow.setHours(tomorrow.getHours() + 1)
-        deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
-      } else if (data.amount == 999) {
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        tomorrow.setHours(9,0,0)
-        deadline = tomorrow.setHours(tomorrow.getHours() + 1)
-        // paket 4 sata
-      }  else if (deadline.getHours() > 9 && deadline.getHours() < 13 && data.amount == 699) {
-          deadline.setHours(deadline.getHours() + 4)
-        } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 699) {
-          deadline.setHours(9,0,0)
-          deadline = tomorrow.setHours(deadline.getHours() + 4)
-        } else if (deadline.getHours() >= 13 && deadline.getHours() < 17) {
-          tomorrow.setDate(tomorrow.getDate() + 1)
-          tomorrow.setHours(9,0,0)
-          deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-          deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
-        } else if (data.amount == 699) {
-          tomorrow.setDate(tomorrow.getDate() + 1)
-          tomorrow.setHours(9,0,0)
-          deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-        }
+    //paket sat vremena / postavljanej dedline na osnovu odabranog paketa i vremena kada je submitovan zahtev
+
+      // if (deadline.getHours() > 9 && deadline.getHours() < 16 && data.amount == 999) {
+      //   deadline.setHours(deadline.getHours() + 1)
+      // } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 999) {
+      //   // tomorrow.setDate(tomorrow.getDate() + 1)
+      //   // tomorrow.setHours(9,0,0)
+      //   deadline.setHours(9,0,0)
+      //   deadline = tomorrow.setHours(deadline.getHours() + 1)
+      // } else if (deadline.getHours() >= 16 && deadline.getHours() < 17) {
+      //   tomorrow.setDate(tomorrow.getDate() + 1)
+      //   tomorrow.setHours(9,0,0)
+      //   deadline = tomorrow.setHours(tomorrow.getHours() + 1)
+      //   deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
+      // } else if (data.amount == 999) {
+      //   tomorrow.setDate(tomorrow.getDate() + 1)
+      //   tomorrow.setHours(9,0,0)
+      //   deadline = tomorrow.setHours(tomorrow.getHours() + 1)
+      //   // paket 4 sata
+      // }  else if (deadline.getHours() > 9 && deadline.getHours() < 13 && data.amount == 699) {
+      //     deadline.setHours(deadline.getHours() + 4)
+      //   } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 699) {
+      //     deadline.setHours(9,0,0)
+      //     deadline = tomorrow.setHours(deadline.getHours() + 4)
+      //   } else if (deadline.getHours() >= 13 && deadline.getHours() < 17) {
+      //     tomorrow.setDate(tomorrow.getDate() + 1)
+      //     tomorrow.setHours(9,0,0)
+      //     deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+      //     deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
+      //   } else if (data.amount == 699) {
+      //     tomorrow.setDate(tomorrow.getDate() + 1)
+      //     tomorrow.setHours(9,0,0)
+      //     deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+      //   }
 
 
       // else if ((deadline.getHours() > 8 && deadline.getHours() < 13) && data.amount == 699) {

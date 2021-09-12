@@ -180,8 +180,9 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || 
 const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
+let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -1046,9 +1047,9 @@ if (municipalityValue != null) {
     }
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
-
+  //ako je profilna stranica
+  console.log('tusmo')
   //deleteUser
-
   const deleteAccount = document.getElementById('deleteAccount')
   const deleteAccountForm = document.getElementById('deleteAccountForm')
   let confirmation
@@ -1098,10 +1099,6 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
     }
   })
 
-
-
-
-
   visina.addEventListener('input', () => {
     bmi.value = ((tezina.value)/((visina.value/100)*(visina.value/100))).toFixed(2)
   })
@@ -1114,8 +1111,8 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
     // if(searchUserEmail) {
       // console.log(searchUserEmail)
     // }
-} else if(findUserByEmail){
-    // const labDashResults = document.getElementById('labDashboard')
+} else if(findUserByEmail) {
+    const labDashResults = document.getElementById('labDashboard')
     const labDashTable = document.getElementById('labDashResults')
 
       findUserByEmail.addEventListener('input', () => {
@@ -1172,16 +1169,17 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
                     </div>
                   </div>
                 </tbody>
-
               `
             }
           })
         })
       })
-
+  }
+  else {
+    //ovde urraditi pretragu korisnika koji su uplodovali rezultat prema mejl adresi
   }
 
-  //interpratation
+//interpratation by labcube
 let interpretationPage = document.getElementById('interpretationId')
 
   if(urlArr[1] == 'interpretation' && interpretationPage) {
@@ -1236,12 +1234,12 @@ let interpretationPage = document.getElementById('interpretationId')
     })//lock the record end
   } else if(urlArr[1] == 'interpretation') {
 
-    //search for results by patient email
+    //search for results by patient email by labcube team
     const labDashTable = document.getElementById('analysisResultsCube')
 
-      findUserByEmail.addEventListener('input', () => {
+      findUserByEmailLabCube.addEventListener('input', () => {
 
-        let searchStr = findUserByEmail.value
+        let searchStr = findUserByEmailLabCube.value
 
         const pagination = document.getElementById('pagination')
         pagination.classList.add('d-none')
@@ -1283,7 +1281,7 @@ let interpretationPage = document.getElementById('interpretationId')
 //tumacenje ostalih rezultata
 
   if(urlArr[1] == 'otherResultsInterpretation' && !interpretationPage) {
-
+console.log('ds')
     let mins = document.querySelectorAll('.mins')
     let secs = document.querySelectorAll('.secs')
     let hour = document.querySelectorAll('.hours')
@@ -1310,18 +1308,20 @@ let interpretationPage = document.getElementById('interpretationId')
         }
 
         var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        console.log(days)
         var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        console.log(hours)
         var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
-        document.getElementById(day[i].id).innerHTML = days + "d "
+        // document.getElementById(day[i].id).innerHTML = days + "d "
         document.getElementById(hour[i].id).innerHTML = hours + "h "
         document.getElementById(mins[i].id).innerHTML = minutes + "m "
         document.getElementById(secs[i].id).innerHTML = seconds + "s "
 
         if (timeleft < 0) {
             clearInterval(myfunc);
-            document.getElementById(day[i].id).innerHTML = ""
+            // document.getElementById(day[i].id).innerHTML = ""
             document.getElementById(hour[i].id).innerHTML = ""
             document.getElementById(mins[i].id).innerHTML = ""
             document.getElementById(secs[i].id).innerHTML = ""
@@ -1332,7 +1332,7 @@ let interpretationPage = document.getElementById('interpretationId')
 
     // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 } else if (urlArr[1] == 'otherResultsInterpretation') {
-
+  //ovo je unutrasnja stranica na kojoj labcube tumaci rezultate
   //lockTheRecord
   let ownerId
   let interpretation = interpretationPage.value
@@ -1498,11 +1498,6 @@ let interpretationPage = document.getElementById('interpretationId')
 
 })
 
-
-
-
-
-
     // let searchforAnalysis = document.querySelectorAll('.searchForAnalysis')
     // let searchForAnalysis = document.getElementById('resultsUpload')
     let results = document.querySelector('#resultsUpload > tbody')
@@ -1562,8 +1557,7 @@ let interpretationPage = document.getElementById('interpretationId')
           e.target.parentNode.parentNode.remove()
           counter -= 1
           counterValue.innerHTML = counter
-
-      }
+        }
       })
 
     // })

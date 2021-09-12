@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     default:Date.now
   },
   password:String,
+  image:String,
   privacy:Boolean,
   conditions:Boolean,
   birthYear:Number,

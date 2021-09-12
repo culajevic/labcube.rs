@@ -52,7 +52,10 @@ router.get('/profile', authenticationController.profile)
 
 router.get('/profile/page/:page', authenticationController.profile)
 
+//searching users by email from laboratory dashboard
 router.get('/users/:userEmail?', authenticationController.findUserEmail)
+
+//searching for user by lab cube stuff for interpretation
 router.get('/usersLabCube/:userEmail?', authenticationController.findUserEmailByLabCube)
 router.get('/registracija', authenticationController.registerForm)
 router.post('/register', authenticationController.register)
@@ -81,6 +84,9 @@ router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAna
 // router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
 // router.post('/payment', resultController.upload, resultController.payment )
 router.post('/payment', resultController.upload, resultController.payment, resultController.paymentDone )
+
+//pregled uplodovanih protumacenih rezultata od strane korisnika
+router.get('/myResult/:id', scheduleController.myResultLabCube)
 
 //prices
 router.get('/allPrices', priceController.allPrices)

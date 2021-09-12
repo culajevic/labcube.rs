@@ -21800,8 +21800,9 @@ if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) 
 var checkCMSAdd = /add.*/;
 var checkCMSAll = /all.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
+var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube');
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
@@ -22655,7 +22656,9 @@ window.onload = function () {
   }
 
   if (urlArr[1] == 'profile' && !findUserByEmail) {
-    //deleteUser
+    //ako je profilna stranica
+    console.log('tusmo'); //deleteUser
+
     var deleteAccount = document.getElementById('deleteAccount');
     var deleteAccountForm = document.getElementById('deleteAccountForm');
     var confirmation;
@@ -22708,7 +22711,7 @@ window.onload = function () {
     // console.log(searchUserEmail)
     // }
   } else if (findUserByEmail) {
-    // const labDashResults = document.getElementById('labDashboard')
+    var labDashResults = document.getElementById('labDashboard');
     var labDashTable = document.getElementById('labDashResults');
     findUserByEmail.addEventListener('input', function () {
       var searchStr = findUserByEmail.value;
@@ -22728,12 +22731,13 @@ window.onload = function () {
               formatDate = moment(result[_i].scheduledFor).format('D.M.Y');
             }
 
-            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i].user.username, "</td>\n                    <td>").concat(result[_i].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i].status, "\">").concat(result[_i].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i].user.username, "</p>\n                          ").concat(result[_i].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n\n              ");
+            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i].user.username, "</td>\n                    <td>").concat(result[_i].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i].status, "\">").concat(result[_i].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i].user.username, "</p>\n                          ").concat(result[_i].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
           }
         });
       });
     });
-  } //interpratation
+  } else {} //ovde urraditi pretragu korisnika koji su uplodovali rezultat prema mejl adresi
+  //interpratation by labcube
 
 
   var interpretationPage = document.getElementById('interpretationId');
@@ -22790,11 +22794,11 @@ window.onload = function () {
       }
     }); //lock the record end
   } else if (urlArr[1] == 'interpretation') {
-    //search for results by patient email
+    //search for results by patient email by labcube team
     var _labDashTable = document.getElementById('analysisResultsCube');
 
-    findUserByEmail.addEventListener('input', function () {
-      var searchStr = findUserByEmail.value;
+    findUserByEmailLabCube.addEventListener('input', function () {
+      var searchStr = findUserByEmailLabCube.value;
       var pagination = document.getElementById('pagination');
       pagination.classList.add('d-none');
       fetch('/usersLabCube/' + searchStr).then(function (data) {
@@ -22823,6 +22827,7 @@ window.onload = function () {
     var myfunc;
 
     (function () {
+      console.log('ds');
       var mins = document.querySelectorAll('.mins');
       var secs = document.querySelectorAll('.secs');
       var hour = document.querySelectorAll('.hours');
@@ -22849,17 +22854,19 @@ window.onload = function () {
           }
 
           var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+          console.log(days);
           var hours = Math.floor(timeleft % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+          console.log(hours);
           var minutes = Math.floor(timeleft % (1000 * 60 * 60) / (1000 * 60));
-          var seconds = Math.floor(timeleft % (1000 * 60) / 1000);
-          document.getElementById(day[_i3].id).innerHTML = days + "d ";
+          var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
+
           document.getElementById(hour[_i3].id).innerHTML = hours + "h ";
           document.getElementById(mins[_i3].id).innerHTML = minutes + "m ";
           document.getElementById(secs[_i3].id).innerHTML = seconds + "s ";
 
           if (timeleft < 0) {
-            clearInterval(myfunc);
-            document.getElementById(day[_i3].id).innerHTML = "";
+            clearInterval(myfunc); // document.getElementById(day[i].id).innerHTML = ""
+
             document.getElementById(hour[_i3].id).innerHTML = "";
             document.getElementById(mins[_i3].id).innerHTML = "";
             document.getElementById(secs[_i3].id).innerHTML = "";
@@ -22873,6 +22880,7 @@ window.onload = function () {
 
     })();
   } else if (urlArr[1] == 'otherResultsInterpretation') {
+    //ovo je unutrasnja stranica na kojoj labcube tumaci rezultate
     //lockTheRecord
     var _ownerId;
 
