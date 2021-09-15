@@ -84,7 +84,7 @@ exports.scheduleVisit = async (req,res) => {
     })
     try {
       await newSchedule.save()
-      res.redirect('/hvala')
+      res.redirect('/hvala',{user:req.user})
       }
     catch (e){
       req.flash('error_msg', `Dogodila se greška ${e}`)
@@ -104,7 +104,7 @@ exports.updateSchedule = async (req,res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspesno apdejtovani podaci o statusu')
+    req.flash('success_msg', 'Uspšsno izmenjeni podaci o statusu')
     res.redirect('/profile/')
   // res.send(req.body['status'+req.params.scheduleId])
 }

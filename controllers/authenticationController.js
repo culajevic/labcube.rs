@@ -58,7 +58,7 @@ exports.redirect = [passport.authenticate('google'),
 
 const authCheck = (req,res, next) => {
   if(!req.user) {
-    res.redirect('/prijava')
+    res.redirect('/prijava', {title:'Labcube - Prijavite se'})
   } else {
     next()
   }
@@ -134,7 +134,8 @@ exports.profile = [authCheck, async (req,res) => {
       numOfMyAnalysis:numOfMyAnalysis,
       myOtherResults:myOtherResults,
       numOfMyOtherResults,
-      groupNames
+      groupNames,
+      title:'Labcube - Moj kontrolni panel'
     })
     // res.send(`<a href=/logout>log out</a> ${req.user.username}`)
   }
@@ -228,8 +229,8 @@ exports.register =  async (req,res) => {
             console.log('message sent', info.messageId)
           }
           })
-          req.flash('success_msg','Poslali smo vam mejl sa linkom za aktivaciju naloga')
-          res.redirect('/verify')
+          req.flash('success_msg','Poslali smo Vam mejl sa linkom za aktivaciju naloga')
+          res.redirect('/verify', {title:'Verifikujte svoj nalog'})
           }
         catch (e){
           req.flash('error_msg', `Dogodila se greška prilikom registracije ${e}`)
@@ -332,7 +333,7 @@ exports.verifyToken = async (req, res) => {
       useFindAndModify:false}).exec()
       if(verifyAccount) {
       req.flash('success_msg', 'Dobrodošli, uspešno ste verifikovali nalog, sada se možete ulogovati.')
-      res.redirect('/prijava')
+      res.redirect('/prijava', {title:'Labcube - Prijavite se'})
     } else {
       req.flash('error_msg', 'Verifikacioni kod nije dobar, pokušajte ponovo')
       res.redirect('/verify')
@@ -358,7 +359,7 @@ exports.resetPassLink = async (req,res) => {
 
   if (!findUser) {
     req.flash('error_msg', 'Korisnik sa ovom mejl adresom nije registrovan')
-    res.redirect('/registracija')
+    res.redirect('/registracija', {title:'Labcube - Kreirajte nalog'})
   } else {
     try {
 
@@ -388,7 +389,7 @@ exports.resetPassLink = async (req,res) => {
             console.log('message sent', info.messageId)
           }
           })
-      req.flash('success_msg', 'prosledjen vam je mejl sa reset linkom')
+      req.flash('success_msg', 'Prosleđen Vam je mejl sa linkom za reset lozinke')
       res.redirect('/')
     } catch(e) {
       req.flash('error_msg', `doslo je do greske ${e}`)
@@ -399,7 +400,7 @@ exports.resetPassLink = async (req,res) => {
 exports.resetPass = async (req,res) => {
    const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
    if(!findUser) {
-     req.flash('error_msg', 'Neispravan link za promenu lozinke ili je link istekao')
+     req.flash('error_msg', 'Neispravanlink za promenu lozinke ili je link istekao')
      res.redirect('../prijava')
    } else {
      res.render('reset', {token:req.params.token})
@@ -423,7 +424,7 @@ exports.updatePassword = async (req,res,next) => {
          })
        })
        req.flash('success_msg', 'Uspesno ste postavili novu lozinku, možete se ulogovati')
-       res.redirect('/prijava')
+       res.redirect('/prijava', {title:'Labcube  - Prijavite se'})
        //direktno ulogovati korisnika
      } else {
        req.flash('error_msg', 'Proverite li se unete lozinke podudaraju i da li lozinka ima više od 6 karaktera')
@@ -435,11 +436,11 @@ exports.updatePassword = async (req,res,next) => {
 exports.deleteOtherResult =  [authCheck, async (req,res) => {
   if (req.params.location == 'otherResults') {
   const deleteResult = await Result.findOneAndDelete({_id:req.params.id})
-  req.flash('success_msg', 'Rezultat je uspesno obrisan.')
+  req.flash('success_msg', 'Rezultat je uspešno obrisan.')
   res.json()}
   else {
     const deleteLabCubeResult = await Schedule.findOneAndDelete({_id:req.params.id})
-      req.flash('success_msg', 'Rezultat je uspesno obrisan.')
+      req.flash('success_msg', 'Rezultat je uspešno obrisan.')
       res.json()
   }
 }]

@@ -3,11 +3,11 @@ footer {
   // overflow-y: hidden;
   background-repeat: repeat-x;
   background-position:center;
-  height: px-to-rem(500px);
+  height: px-to-rem(580px);
   position:relative;
     & > .overlay {
     background-color: $primary-color;
-    height: px-to-rem(500px);
+    height: px-to-rem(580px);
     position: absolute;
     // left:0;
     bottom: 0;
@@ -31,6 +31,11 @@ footer {
   margin-bottom: px-to-rem(41px);
 }
 
+.social {
+  display: inline;
+  padding-top: 50px;
+}
+
 .social a:last-child .fab:last-child {
   padding-right: 0;
 }
@@ -41,11 +46,11 @@ footer {
 }
 
 .analizeFooter {
-  position: absolute;
+  // position: absolute;
   font-size: px-to-rem(13px);
   column-count: 7;
   -webkit-column-count: 7;
-  max-height: 500px;
+  max-height: 550px;
   -moz-column-count: 7;
   color: $white-color;
   display:inline-block;
@@ -72,7 +77,7 @@ footer {
 }
 
 .disclaimer {
-  position: absolute;
+  // position: absolute;
   top:70px;
   font-size: px-to-rem(12px);
   color: $white-color;

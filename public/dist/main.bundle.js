@@ -21680,6 +21680,14 @@ $(document).ready(function () {
   targets.forEach(lazyLoad);
   targetsText.forEach(lazyLoad); //lazy load end
 
+  var alert = document.querySelector('.alert-dismissible') ? document.querySelector('.alert-dismissible') : '';
+
+  if (alert) {
+    setTimeout(function () {
+      alert.remove();
+    }, 3000);
+  }
+
   var datePicker1 = flatpickr('#datepicker1', {
     dateFormat: 'Y-m-d',
     altInput: true,
@@ -21789,9 +21797,10 @@ var group = /group/;
 var nadjiLab = /nadjiLab/;
 var laboratorija = /laboratorija.*/;
 var tumacenje = /tumacenje.*/;
-var payment = /paymentPage/; //definisanje stranica na kojima se prikazuje shoping karta
+var payment = /paymentPage/;
+var paymentDetails = /uslovi.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -21975,6 +21984,8 @@ window.onload = function () {
 
 
     checkout.addEventListener('click', function () {
+      console.log('ds');
+
       if (itemsArray.length > 0) {
         _priceList2.classList.add('unhidePriceList');
 
@@ -23792,7 +23803,7 @@ window.onload = function () {
 
 
   if (location.match('profile')) {
-    helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'došlo je do greške prilikom brisanja rezultata');
+    helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile', '/profile', 'došlo je do greške prilikom brisanja rezultata');
   }
 }; // window onload end
 

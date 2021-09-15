@@ -50,6 +50,13 @@ targets.forEach(lazyLoad)
 targetsText.forEach(lazyLoad)
 //lazy load end
 
+let alert = (document.querySelector('.alert-dismissible'))? document.querySelector('.alert-dismissible') : ''
+  if (alert) {
+      setTimeout(() => {
+      alert.remove()
+    },3000)
+  }
+
 
 let datePicker1 = flatpickr('#datepicker1',{
   dateFormat: 'Y-m-d',
@@ -169,9 +176,10 @@ const nadjiLab = /nadjiLab/
 const laboratorija = /laboratorija.*/
 const tumacenje = /tumacenje.*/
 const payment = /paymentPage/
+const paymentDetails = /uslovi.*/
 
 //definisanje stranica na kojima se prikazuje shoping karta
-if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) )) {
+if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) )) {
   helper.displayBasket(itemsArray)
 }
 
@@ -368,6 +376,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   //
     checkout.addEventListener('click', ()=> {
+      console.log('ds')
       if (itemsArray.length > 0 ) {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
@@ -2273,7 +2282,7 @@ if (location.match('addLab')) {
 
   //delete priceList
     if(location.match('profile')) {
-      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'došlo je do greške prilikom brisanja rezultata')
+      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile', '/profile', 'došlo je do greške prilikom brisanja rezultata')
     }
 
 

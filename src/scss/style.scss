@@ -1521,6 +1521,11 @@ table.workingHoursLabDetails {
   }
 }
 
+#modalParagraph {
+  @extend #paketi;
+  margin-top: 0;
+}
+
 #details p {
   font-size: px-to-rem(18px);
   line-height: px-to-rem(28px) !important;
@@ -1795,6 +1800,24 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 
 .alert {
   margin-bottom: 0;
+}
+
+.alert-success {
+  // background-color: #68B159;
+  // background-color: #FFCC29;
+  background-color: #9EDE73;
+  color:$white-color;
+  // font-weight: 700;
+  font-size: px-to-rem(22px);
+  position:absolute;
+  width:100%;
+  z-index: 222;
+  border-bottom: none;
+}
+
+.alert-danger {
+  @extend .alert-success;
+  background-color: $danger;
 }
 
 .tumacenjeBtn {

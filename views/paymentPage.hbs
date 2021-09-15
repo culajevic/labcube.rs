@@ -1,7 +1,10 @@
-{{> _innerNavFrontendThanks}}
+{{> _innerNavFrontendPayment}}
 
 <style>
-  body {background-color:#f6f6f5;}
+  body {background-color:#fff;}
+  .wpwl-form {background:#fff;
+  box-shadow: 11px 18px 47px -19px rgba(0,0,0,0.82);
+  border-radius:20px;}
 </style>
 
 <script>
@@ -31,14 +34,15 @@ $('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner 
 
 $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
 $(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
-$('.wpwl-button-pay').html('Potvrdi'); //promena polja pay u potvrdi
+$('.wpwl-button-pay').html('Plati'); //promena polja pay u potvrdi
 $('.wpwl-button-pay').css({'background-color':'#55D159'});
+
 var visa = $(".wpwl-brand:first").clone().removeAttr("class").attr("class", "wpwl-brand-card wpwl-brand-custom wpwl-brand-VISA");
 var master = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MASTER");
 var maestro = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MAESTRO");
 $(".wpwl-brand:first").after( $(visa)).after( $(master)) .after( $(maestro)); //Ubacivanje kartica
 
-var cancelPaymentHtml ='<button type="button" class="wpwl-button wpwl-button-cancel" onclick="history.go(0)">Otkaži</button>';
+// var cancelPaymentHtml ='<button type="button" class="wpwl-button wpwl-button-cancel" onclick="history.go(0)">Otkaži</button>';
 $('form.wpwl-form-card').find('.wpwl-button-pay').before(cancelPaymentHtml);
 },
 onChangeBrand: function(e){
@@ -52,26 +56,32 @@ $(".wpwl-brand-" + e).css("opacity", "5");
 
 <div class="container" id="paymentCheckout">
  		<div class="row">
-      <div class="col-7">
+      <div class="col-12">
+        <h1 class="mb-4">{{user.username}}, još samo jedan korak</h1>
+      </div>
+      <!-- <div class="checkoutCartFinal col-12"> -->
+      <!-- <span>{{user.username}}, još samo jedan korak</span> -->
+      <div class="col-xs-12 col-sm-12 col-lg-5 mr-lg-5 mt-4" style="box-shadow: 11px 18px 47px -19px rgba(0,0,0,0.82); border-radius:20px;">
+        <!-- <p class="p-4 text-center" style="font-Size:22px;">{{user.username}}, još samo jedan korak</p> -->
+        <p class="p-4 text-center" style="font-Size:22px;">Proverite detalje Vaše porudžbine </p>
+        <hr>
+        <div class="mt-3 text-center">
+          <i class="fas fa-credit-card mr-5" style="color:#1D88E5; font-size:39px; font-weight:200"></i><h4 class="mt-4 text-center d-inline">{{package}} RSD</h4>
+          <hr/>
+        </div>
+        <div class="mt-3 text-center"><a href="../results/{{resultFile}}" class="text-reset" target="_blank"><i class="far fa-file-pdf text-center mt-2 mr-4" style="color:#1D88E5; font-size:39px; font-weight:200"></i><h4 class="d-inline text-reset">Pogledajte odabrani fajl</h4></a></div>
+        <hr />
+        <div class="mt-1 text-center"><img src="/images/24h.svg" alt="" style="width:42px;" class="mb-3 mt-3 mr-4"><h4 class="d-inline">Tumačenje u roku od 24h</h4></div>
 
-          <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix float-left" data-brands="VISA MASTER AMEX">
 
-          </form>
-            <p class="text-left text-muted">Informacione tehnologije Nouvelle doo, 11000 Beograd, PIB 106310784, MB 20575719</p>
       </div>
 
-      <div class="col-5 mt-4">
-        <!-- <h3>Odabrali ste</h3> -->
-
-        <h3><a href="../results/{{resultFile}}" target="_blank" class="">Pogledajte fajl koji ste odabrali.</a></h3>
-
-        <h3 class="mt-4">Ukupno: {{package}} RSD</h3>
-        <h3 class="mb-5">Vreme tumačenja: 24 sata</h3>
-
-      </div>
+        <div class="col-xs-12 col-sm-12 col-lg-6 mt-4">
+            <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix" data-brands="VISA MASTER AMEX"></form>
+        </div>
 
 
-
+      <!-- </div> -->
     </div>
 </div>
 

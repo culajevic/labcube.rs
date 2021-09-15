@@ -38,7 +38,7 @@ exports.updateHealthProfile = async (req, res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspesno apdejtovani podaci o zdravstvenom profilu')
+    req.flash('success_msg', 'Uspešno ste izmenili podatkeo zdravstvenom profilu')
     res.redirect('/profile')
   }
   catch(e) {
@@ -54,7 +54,7 @@ exports.updatePass = async (req,res) => {
     req.flash('error_msg', 'Nešto nije ok')
     res.redirect('../profile')
   } else {
-      if(req.body.password1 === req.body.password2 && req.body.password1.length>6) {
+      if((req.body.password1 === req.body.password2) && req.body.password1.length>6) {
         bcrypt.genSalt(10, (err,salt) => {
          bcrypt.hash(req.body.password1, salt, (err,hash) => {
            if(err) throw err
@@ -66,8 +66,9 @@ exports.updatePass = async (req,res) => {
        res.redirect('/profile')
        //direktno ulogovati korisnika
      } else {
+       console.log('nije ok')
        req.flash('error_msg', 'Proverite li se unete lozinke podudaraju i da li lozinka ima više od 6 karaktera')
-       res.redirect(`/reset/${req.params.token}`)
+       res.redirect('/profile')
      }
   }
 }
@@ -89,7 +90,7 @@ exports.updateProfile = async (req,res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspesno apdejtovani podaci o zdravstvenom profilu')
+    req.flash('success_msg', 'Uspešno ste izmenili podatke o zdravstvenom profilu')
     res.redirect('/profile')
     }
     catch(e) {

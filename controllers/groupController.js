@@ -206,6 +206,7 @@ exports.displayGroup = async (req,res) => {
   const groupDetails = await Group.findOne({slug:group},{iconPath:1, description:1, name:1})
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const ObjectId = mongoose.Types.ObjectId
+  try {
   const analysis = await Price.aggregate([
     {$unwind : "$cenovnik"},
     {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
@@ -229,9 +230,14 @@ exports.displayGroup = async (req,res) => {
     analyisisdata:analysis,
     metaDescription:groupDetails.description,
     metaKeywords:groupDetails.name,
+    title:groupDetails.name,
     groupNames,
     user:req.user
   })
+}
+catch {
+  res.render('404page')
+  }
 }
 
 // display form for adding a new group

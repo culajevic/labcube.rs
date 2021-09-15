@@ -38,14 +38,15 @@
                     <label for="passwordValue" class="text-white">lozinka</label>
                   </div>
                   <!-- <p class="text-white">Pročitala/Pročitao sam i slažem sa politikom privatnosti i uslovima korišćenja.</p> -->
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="privacy" id="privacy">
-                    <label for="privacy" class="text-white"><a href="/politika-privatnosti" class="nolink text-white" target="_blank">Politika privatnosti</a></label>
+                  <div class="form-group">
+                    <small class="text-white">Kreiranjem naloga prihvatate Uslove korišćenja i politiku privatnosti.</small>
+                     <input class="form-check-input" type="hidden" value=1 name="privacy" id="privacy">
+                    <!-- <label for="privacy" class="text-white"><a href="/politika-privatnosti" class="nolink text-white" target="_blank">Politika privatnosti</a></label>  -->
                   </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="conditions" id="conditions">
-                    <label for="conditions" class="text-white"><a href="/uslovi-koriscenja" class="nolink text-white" target="_blank">Uslovi korišćenja</a></label>
-                  </div>
+                  <!-- <div class="form-check"> -->
+                    <input class="form-check-input" type="hidden" name="conditions" value=1 id="conditions">
+                    <!-- <label for="conditions" class="text-white"><a href="/uslovi-koriscenja" class="nolink text-white" target="_blank">Uslovi korišćenja</a></label> -->
+                  <!-- </div> -->
                   <!-- <div class="row"> -->
                     <button class="mt-4 btn btn-outline-primary text-white text-uppercase btn-block mb-5">napravi nalog</button>
                   <!-- </div> -->

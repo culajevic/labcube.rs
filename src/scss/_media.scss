@@ -21,12 +21,15 @@
   }
 
   footer {
-    height: px-to-rem(370px);
+    height: px-to-rem(530px);
       & > .overlay {
-      height: px-to-rem(370px);
+      height: px-to-rem(530px);
       }
   }
 
+  .social {
+    padding-top: 26px;
+  }
   .disclaimer {
     position: relative;
     top:0;
@@ -63,9 +66,9 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
-    height: px-to-rem(370px);
+    height: px-to-rem(520px);
       & > .overlay {
-      height: px-to-rem(370px);
+      height: px-to-rem(520px);
       }
   }
   .linksFooter {
@@ -87,9 +90,9 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width:991px) {
   footer {
-    height: px-to-rem(340px);
+    height: px-to-rem(550px);
       & > .overlay {
-      height: px-to-rem(340px);
+      height: px-to-rem(550px);
       }
   }
   .disclaimer {
@@ -102,13 +105,23 @@
       margin-right: px-to-rem(16px);
     }
 
+  .small {
+    // line-height: 2px;
+  }
+
 
  }// query end
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
+@media (min-width: 992px) and (max-width:1200px) {
   .disclaimer {
     top:100px;
+  }
+  footer {
+    height: px-to-rem(610px);
+      & > .overlay {
+      height: px-to-rem(610px);
+      }
   }
 
 

@@ -92,13 +92,15 @@ exports.payment = async (req,res) => {
   let resultUpload
   let errors = []
 
-  if(!req.body.email) {
-    errors.push({text:'Obavezno je uneti email adresu'})
+
+
+  if(req.body.package != 490) {
+    errors.push({text:'Nije ok ovo pokušavati'})
   }
 
-  if(!req.body.package) {
-    errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
-  }
+  // if(!req.body.package) {
+  //   errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
+  // }
 
   if(!req.file) {
     errors.push({text:'Nedostaju rezultati koje želite da Vam protumačimo'})
@@ -136,6 +138,9 @@ exports.payment = async (req,res) => {
 //
   const request = async() => {
   	const path='/v1/checkouts';
+
+
+
   	const data = querystring.stringify({
   		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
   		'amount':req.body.package,
@@ -179,9 +184,9 @@ exports.payment = async (req,res) => {
   }
 request()
     .then(data => {
-      console.log(data)
+      console.log('prvi data' + data)
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames})
+        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames, title:'Labcube - Potvrdite plaćanje usluge'})
       }
     })
     .catch(error => {
@@ -229,12 +234,14 @@ exports.paymentDone = async (req,res) => {
 requestCheckout()
 .then(data => {
   console.log(data)
+  console.log(data.paymentBrand)
+  console.log(data.card.last4Digits)
   if(data.result.code == '000.100.110') {
     let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     // let bgLocalTime = new Date().toLocaleString('sr-RS')
-    console.log(newDate)
+    // console.log(newDate)
     let deadline = new Date()
     deadline.setDate(deadline.getDate() + 1)
     let serviceClosingTime = new Date()
@@ -245,6 +252,8 @@ requestCheckout()
 
   let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
+
+
 
 
 
@@ -396,10 +405,11 @@ requestCheckout()
            <div style="width:80%; margin:0 auto; text-align:center">
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5; margin-top:30px; margin-bottom:20px;"><h1>${userFirstName[0]}, uspešno ste izvršili uplatu.</h1><h1>Hvala</h1></div>
            <div style="text-align:center; font-family:sans-serif; font-size:20px; opacity:0.6; padding:20px;">
-           <p>Tumačenje u roku od 24h</p>
+           <p>odabrana usluga: Tumačenje u roku od 24h</p>
            <p>broj fakture: ${currentId}</p>
-           <p>plaćeno: ${data.amount} RSD</p>
-           <p>${newDate}</p>
+          <p>metod plaćanja: ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
+           <p>ukupno naplaćeno: ${data.amount} RSD</p>
+           <p>vreme plaćanja: ${newDate}</p>
            </div>
            <div style="border-bottom:1px solid #E0E4EC;"><p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
            <div style="text-align:center;">
@@ -442,7 +452,7 @@ requestCheckout()
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log(e);
        }
-       res.render('paymentSuccess', {data:data, groupNames, shortId})
+       res.render('paymentSuccess', {data:data, groupNames, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
      }
    })
 .catch(console.error);
@@ -548,5 +558,5 @@ exports.displayAnalysisDetails = async (req,res) => {
 
 exports.labRestultsAnalysis = async (req,res) => {
   let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube - Tumačenje laboratorijskih analiza'})
+  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube - Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike'})
 }

@@ -32,6 +32,7 @@ router.get('/group/:slug', groupController.displayGroup)
 router.get('/o-nama/', generalController.aboutus)
 router.get('/politika-privatnosti/', generalController.privacy)
 router.get('/uslovi-koriscenja/', generalController.terms)
+router.get('/uslovi-placanja/', generalController.paymentDetails)
 
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)
@@ -181,10 +182,15 @@ router.get('/cenovnik/:grad/:ids', priceController.getPrices)
 router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
-
-// router.use(function(req,res, next) {
+// router.get('/group/*', (req,res) => {
 //   res.status(404)
 //   res.render('404page', {title:'Tražena stranica ne postoji'})
 // })
+
+
+router.use('*', (req,res) => {
+  res.status(404)
+  res.render('404page', {title:'Tražena stranica ne postoji'})
+})
 
 module.exports = router

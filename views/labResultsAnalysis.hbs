@@ -3,7 +3,7 @@
   <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
   </div>
 {{/each}}
-{{> _innerNavFrontend}}
+{{> _innerNavFrontendThanks}}
 <!-- <form action="/payment" method="POST">
     <button class="btn btn-success text-uppercase">payment gateway</button>
 </form> -->
@@ -82,7 +82,7 @@
                         <div class="card-body"><span class="" style="">1</span>
                           <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                          <span class="text-center paketiCena">490 din</span>
+                          <span class="text-center paketiCena">490 din.</span>
                           <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="card-body" data-toggle="modal" data-target="#exampleModalCenter">3
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
-                          <span class="text-center paketiCena">1min čitanja</span>
+                          <span class="text-center paketiCena">&lt; 2 min. čitanja</span>
                           <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
                           <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio">slažem se</label>
                         </div>
@@ -119,10 +119,10 @@
 
                     <!-- modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Uslovi plaćanja</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle" >Uslovi plaćanja</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -130,8 +130,13 @@
                           <div class="modal-body">
                             <p>Plaćanje usluga je moguće izvršiti na jedan od sledećih načina: platnim karticama - VISA, Maestro ili MasterCard koje podržavaju plaćanje preko Interneta. Plaćanje karticama je realizovano u saradnji sa AllSecure doo i UniCredit bankom i obavlja se na bezbedan i sertifikovan način preko AllSecure Paymet Gateway-a, jednostavnim unosom podataka sa platne kartice.</p>
                             <p>Nakon što se unesu podaci o kartici i potvrdi plaćanje, banka autorizuje transakciju i time je porudžbina odobrena i ulazi u dalji proces obrade. Iznos će biti rezervisan na vašoj kartici (računu) i neće Vam biti raspoloživ za drugu namenu.</p>
-                            <p>Ukoliko iz bilo kog razloga niste zadovoljni pruženom uslugom možete zatražiti povrat novca putem forme na stranici kontakt. Novac će Vam biti vraćen na karticu sa koje je izvršeno plaćanje.</p>
+                            <p>Prilikom unošenja podataka o platnoj kartici, poverljive informacije se prenose putem javne mreže u zaštićenoj (kriptovanoj) formi upotrebom SSL protokola, primenom najsavremenijih metoda tokenizacije osetljivih podataka, i u skladu sa PCI-DSS standardima. Niti jednog trenutka podaci o platnoj kartici nisu dostupni trgovcu.</p>
+                            <p>AllSecure Payment Gateway koristi najviše globalne standarde zaštite i privatnosti podataka. Svi trgovci koji koriste AllSecure Payment Gateway su automatski uključeni u 3D-Secure zaštitu, čime se kupcima garantuje bezbednost kupovine. Brojevi platnih kartica kupaca se ne čuvaju na sistemu trgovca a sami upis se štiti SSL enkripcijom podataka.</p>
+                            <p>AllSecure Payment Gateway se konstantno usaglašava sa svim zahtevima kartičarskih organizacija u cilju povećanja nivoa bezbednosti trgovaca i kupaca. Od 2005 godine do danas, bez prekida, sistem je sertifikovan kao PCI-DSS Level 1 što predstavlja najviši standard u industriji. PCI Data Security Standard (PCI-DSS) je norma koja definiše neophodne mere bezbednosti pri obradi, čuvanju i prenošenju osetljivih kartičarskih podataka. PCI Standardima se štite osetljivi podaci o korisniku kartice tokom celog procesa plaćanja: od momenta unosa podataka na prodajnom mestu trgovca, tokom komunikacija između trgovca i relevantnih banaka i kartičarskih organizacija, kao i kasnije čuvanje tih podataka.</p>
+                            <p>U slučaju povraćaja sredstava kupcu koji je prethodno platio nekom od platnih kartica, delimično ili u celosti, a bez obzira na razlog vraćanja, taj povraćaj se vrši isključivo preko iste VISA, Maestro ili MasterCard kartice koja je korišćena za plaćanje. Ovo znači da će naša banka na naš zahtev obaviti povraćaj sredstava na račun korisnika kartice.</p>
                             <p>Proverite kod banke koja je karticu izdala da li Vaša kartica podržava plaćanje preko Interneta.</p>
+                            <p>Sva plaćanja će biti obavljenima u dinarima (RSD). Ukoliko se plaća platnim karticama inostranih Banaka izdavalaca, dinarski iznos transakcije će biti konvertovan u settlement valutu Banke (EUR) prema kursu Narodne Banke Srbije. Pri zaduživanju Vaše platne kartice, već konvertovan iznos će se konvertovati u Vašu lokalnu valutu, prema kursu koji primenjuju operatori platnih kartica.</p>
+                            <p>Please note that all payments will be effected in the Serbian currency – dinar (RSD). If the payment is done using foreign issuers payment cards, total amount of transaction will be converted into bank settlement currency, according to the current exchange rate of the Serbian National Bank. Once when transaction is settled the already converted amount will be converted into your local currency according to the exchange rate of credit card associations. As a result of this conversion there is a possibility of a slight difference from the original price stated in our web site.</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>

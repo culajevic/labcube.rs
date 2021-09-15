@@ -56,7 +56,7 @@ passport.use(
      User.findOne({email:email, isVerified:true})
       .then(user => {
         if(!user) {
-          return done(null, false, {message:'email not registered'})
+          return done(null, false, {message:'Ova mejl adresa nije registrovana'})
         }
         //match the pass
          bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -64,10 +64,10 @@ passport.use(
            if(isMatch) {
              return done(null, user)
            } else {
-             return done(null, false, {message:'password incorrect'})
+             return done(null, false, {message:'Lozinka nije ispravna'})
            }
          })
        })
-         .catch(err => console.log('dada'))
+         .catch(err => console.log('err'))
       })
     )
