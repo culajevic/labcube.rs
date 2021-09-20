@@ -22,7 +22,7 @@ const resultSchema = new mongoose.Schema({
     valueTo:Number,
     lessThen:Number,
     greaterThen:Number,
-    status:String,
+    // status:String,
     commentResult:String,
     _id:false
   }],

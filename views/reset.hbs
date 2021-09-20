@@ -24,8 +24,9 @@
       <div class="col-sm-12 col-md-8 pl-0 pr-0">
         <div class="backgroundImage">
           <div class="blueOverlay">
-            <h2 class="ml-5">Zaboravljena lozinka</h2>
-                <form action="/resetPass/{{token}}" method="POST" class="registerForm login ml-5 col-5" >
+
+                <form action="/resetPass/{{token}}" method="POST" class="registerForm login d-flex flex-column justify-content-center ml-5 col-5" >
+                  <h2 class="mb-3">Postavite novu lozinku</h2>
                   <div class="form-group">
                     <input id="password" type="password" name="password" class="form-control">
                     <label for="password" class="text-white">nova lozinka</label>
@@ -34,7 +35,7 @@
                     <input id="confirm" type="password" name="confirm" class="form-control">
                     <label for="confirm" class="text-white">ponovite novu lozinku</label>
                   </div>
-                  <button class="btn btnLogin btn-block">postavi novu lozinku</button>
+                  <button class="btn btnLogin btn-block text-uppercase">postavite novu lozinku</button>
                 </form>
               <!-- </form> -->
           </div><!-- blueoverlay -->

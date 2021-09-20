@@ -71,9 +71,10 @@
   transition:all 1000ms;
 }
 
-#paketi .finalThougths {
+#paketi .finalThougths,
+#myresults .finalThougths {
   margin-top: px-to-rem(40px);
-  padding: 80px;
+  padding: 40px;
   background-color: #F5FAFF;
   border-radius: 20px;
   & p {
@@ -887,7 +888,7 @@ p.selectedAnalysisTitle {
 
 // about us
 
-#aboutUs, #termsAndConditions, #privacyPolicy {
+#aboutUs, #termsAndConditions, #privacyPolicy, #contactUs {
   margin-top: 60px;
   margin-bottom: 40px;
   p {
@@ -1329,6 +1330,13 @@ small {
   margin: 20px 20px 20px 20px;
 }
 
+.aboutUsImage {
+  border:2px solid $primary-color;
+  width: 160px;
+  height: 160px;
+  margin: 10px 20px 20px 20px;
+}
+
 .hcpBio {
   padding: 20px 20px;
   p {
@@ -1339,10 +1347,41 @@ small {
   }
 }
 
+#backToTopBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 100px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: darken($primary-color,2%); /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  // padding: 10px; /* Some padding */
+  border-radius: 40px; /* Rounded corners */
+  // font-size: 24px; /* Increase font size */
+  width:60px;
+  height: 60px;
+  .fa-arrow-circle-up {
+    font-size: 30px;
+    padding:0;
+  }
+}
+
+#backToTopBtn:hover {
+  background-color: lighten($primary-color, 10%); /* Add a dark-grey background on hover */
+}
+
 .analysisResults {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+input[name="emailToken"] {
+  font-size: px-to-rem(48px);
+  letter-spacing: 4px;
 }
 
 input[type="range"] {

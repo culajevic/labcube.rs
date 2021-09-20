@@ -19,18 +19,31 @@ moment.locale('sr')
 dotenv.config({path:'variables.env'})
 
 //send email with verification code
+// let transporter = nodemailer.createTransport({
+//   host:'smtp.gmail.com',
+//   service:'gmail',
+//   port:464,
+//   auth: {
+//       type: "OAUTH2",
+//       user: "labcubee@gmail.com",
+//       clientId: process.env.CLIENTID,
+//       clientSecret: process.env.CLIENTSECRET,
+//       refreshToken: process.env.REFRESHTOKEN,
+//       accessToken:process.env.ACCESSTOKEN
+//   }
+// })
+
 let transporter = nodemailer.createTransport({
-  host:'smtp.gmail.com',
-  service:'gmail',
-  port:464,
+  host:'mail.labcube.rs',
+  port:465,
+  secure:true,
   auth: {
-      type: "OAUTH2",
-      user: "labcubee@gmail.com",
-      clientId: process.env.CLIENTID,
-      clientSecret: process.env.CLIENTSECRET,
-      refreshToken: process.env.REFRESHTOKEN,
-      accessToken:process.env.ACCESSTOKEN
-  }
+      user:"labcube-no-reply@labcube.rs",
+      pass:process.env.EMAILNEWACCOUNT
+  },
+  tls: {
+        rejectUnauthorized: false
+    }
 })
 
 exports.signin = (req,res) => {
@@ -165,9 +178,9 @@ exports.admindasboard =  [authCheck, (req,res) => {
 exports.register =  async (req,res) => {
   let errors = []
   let {email,password, privacy, conditions} = req.body
-  if(!privacy || !conditions) {
-    errors.push({text:'Neophodno je da potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti'})
-  }
+  // if(!privacy || !conditions) {
+  //   errors.push({text:'Neophodno je da potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti'})
+  // }
   if(!validator.validate(email)) {
     errors.push({text:'Email adresa nije ispravna'})
   }
@@ -203,15 +216,26 @@ exports.register =  async (req,res) => {
             return secretNumber
           }
           newUser.emailToken = await random()
-          const output = `Vaš kod za verifikaciju je ${newUser.emailToken}`
+
+          const output = `<div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
+          <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
+          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Vaš kod za verifikaciju labcube naloga</h2></div>
+          <div style="letter-spacing:2px; margin-bottom:60px; padding:30px;">
+          <h1 style="opacity:0.7">${newUser.emailToken}</h1>
+          </div>
+          </div>`
 
 
           let mailOptions = {
-            from:'labcubee@gmail.com',
+            from:'labcube-no-reply@labcube.rs',
             to:newUser.email,
-            subject:'Verifikacija lab cube naloga',
+            subject:`Vaš kod za verifikaciju lab cube naloga: ${newUser.emailToken}`,
             text:'',
-            html:output
+            html:output,
+            attachments:[{
+              filename: 'headerBigEmail.png',
+              path: 'src/images/headerBigEmail.png',
+              cid: 'headerEmailBig'}]
           }
 
            bcrypt.genSalt(10, (err,salt) => {
@@ -229,12 +253,13 @@ exports.register =  async (req,res) => {
             console.log('message sent', info.messageId)
           }
           })
-          req.flash('success_msg','Poslali smo Vam mejl sa linkom za aktivaciju naloga')
-          res.redirect('/verify', {title:'Verifikujte svoj nalog'})
+
+          req.flash('success_msg','Poslali smo Vam mejl sa kodom za aktivaciju naloga')
+          res.render('verify',{title:'Labcube - Verifikacija naloga', email:email})
           }
         catch (e){
           req.flash('error_msg', `Dogodila se greška prilikom registracije ${e}`)
-          res.redirect('/register')
+          res.render('register')
         }
       }
   }
@@ -320,10 +345,11 @@ exports.verify = (req,res) => {
 }
 
 exports.verifyToken = async (req, res) => {
-  if(req.body.emailToken.length<5 || req.body.emailToken.length>5) {
+  if(req.body.emailToken.length<4 || req.body.emailToken.length>5) {
     req.flash('error_msg', 'Kod za verifikaciju nije ispravan, pokušajte ponovo')
     res.redirect('/verify')
   } else {
+    console.log(req.body.emailVerification)
     let verifyAccount = await User.findOneAndUpdate(
       {emailToken:req.body.emailToken},
       {isVerified:true,
@@ -332,8 +358,8 @@ exports.verifyToken = async (req, res) => {
       {new:true,
       useFindAndModify:false}).exec()
       if(verifyAccount) {
-      req.flash('success_msg', 'Dobrodošli, uspešno ste verifikovali nalog, sada se možete ulogovati.')
-      res.redirect('/prijava', {title:'Labcube - Prijavite se'})
+      req.flash('success_msg', 'Uspešno ste verifikovali nalog, sada se možete ulogovati.')
+      res.render('signin', {email:req.body.emailVerification})
     } else {
       req.flash('error_msg', 'Verifikacioni kod nije dobar, pokušajte ponovo')
       res.redirect('/verify')
@@ -342,7 +368,7 @@ exports.verifyToken = async (req, res) => {
 }
 
 exports.forgot = (req,res) => {
-  res.render('forgot')
+  res.render('forgot',{title:'Labcube - Postavljanje nove lozinke'})
 }
 
 exports.resetPassLink = async (req,res) => {
@@ -359,7 +385,7 @@ exports.resetPassLink = async (req,res) => {
 
   if (!findUser) {
     req.flash('error_msg', 'Korisnik sa ovom mejl adresom nije registrovan')
-    res.redirect('/registracija', {title:'Labcube - Kreirajte nalog'})
+    res.render('/registracija', {title:'Labcube - Kreirajte nalog'})
   } else {
     try {
 
@@ -376,11 +402,21 @@ exports.resetPassLink = async (req,res) => {
         }).exec()
 
         let mailOptions = {
-          from:'labcubee@gmail.com',
+          from:'labcube-no-reply@labcube.rs',
           to:req.body.email,
-          subject:'Reset lab cube lozinke',
+          subject:'Postavljanje nove labcube lozinke',
           text:'',
-          html:`<a href="http://${req.headers.host}/reset/${token}"a>kliknite ovde</a>`
+          html:`<div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
+          <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
+          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Da biste postavili novu labcube lozinku</h2></div>
+          <div style="margin-bottom:60px; padding:30px;">
+          <h2 style="opacity:0.7"><a href="http://${req.headers.host}/reset/${token}" style="text-decoration:none; background-color:#FF6F6F; padding:20px; color:#fff; border-radius:5px;">kliknite ovde</a></h2>
+          </div>
+          </div>`,
+          attachments:[{
+            filename: 'headerBigEmail.png',
+            path: 'src/images/headerBigEmail.png',
+            cid: 'headerEmailBig'}]
         }
         transporter.sendMail(mailOptions, (error, info) => {
             if(error) {
@@ -400,10 +436,10 @@ exports.resetPassLink = async (req,res) => {
 exports.resetPass = async (req,res) => {
    const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
    if(!findUser) {
-     req.flash('error_msg', 'Neispravanlink za promenu lozinke ili je link istekao')
-     res.redirect('../prijava')
+     req.flash('error_msg', 'Neispravan link za promenu lozinke ili je link istekao')
+     res.render('../prijava', {title:'Labcube - Prijava'})
    } else {
-     res.render('reset', {token:req.params.token})
+     res.render('reset', {token:req.params.token, title:'Labcube - Postavljanje nove lozinke'})
    }
 }
 
@@ -423,12 +459,13 @@ exports.updatePassword = async (req,res,next) => {
            findUser.resetLinkExpires = undefined
          })
        })
+       console.log('ds')
        req.flash('success_msg', 'Uspesno ste postavili novu lozinku, možete se ulogovati')
-       res.redirect('/prijava', {title:'Labcube  - Prijavite se'})
+       res.redirect('/prijava')
        //direktno ulogovati korisnika
      } else {
        req.flash('error_msg', 'Proverite li se unete lozinke podudaraju i da li lozinka ima više od 6 karaktera')
-       res.redirect(`/reset/${req.params.token}`)
+       res.render(`/reset/${req.params.token}`)
      }
   }
 }

@@ -37,7 +37,7 @@ dotenv.config({path:'variables.env'})
 let transporter = nodemailer.createTransport({
   host:'mail.labcube.rs',
   port:465,
-  secure:true,
+  // secure:true,
   auth: {
       user:"potrebno-tumacenje@labcube.rs",
       pass:process.env.EMAILPASS
@@ -396,34 +396,38 @@ requestCheckout()
 
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
-           to:data.customer.email,
+           to:'culajevic@gmail.com',
            // to:'culajevic@gmail.com',
-           subject:'Uspešno izvršena uplata za tumačenje laboratorijskih analiza',
+           subject:'Uspešno izvršena uplata za tumačenje laboratorijskih rezultata',
            text:'',
            html:`
-           <img src="cid:headerEmailBig">
-           <div style="width:80%; margin:0 auto; text-align:center">
-           <div style="text-align:center; font-family:sans-serif; color:#1D88E5; margin-top:30px; margin-bottom:20px;"><h1>${userFirstName[0]}, uspešno ste izvršili uplatu.</h1><h1>Hvala</h1></div>
-           <div style="text-align:center; font-family:sans-serif; font-size:20px; opacity:0.6; padding:20px;">
-           <p>odabrana usluga: Tumačenje u roku od 24h</p>
-           <p>broj fakture: ${currentId}</p>
-          <p>metod plaćanja: ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
-           <p>ukupno naplaćeno: ${data.amount} RSD</p>
-           <p>vreme plaćanja: ${newDate}</p>
-           </div>
-           <div style="border-bottom:1px solid #E0E4EC;"><p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>
-           <div style="text-align:center;">
-           <img style="margin-top:30px; padding-top:30px; padding-bottom:20px;" src="cid:logoFooter">
-           </div>
-           <small style="color:#E0E4EC; text-decoration:none;">informacione tehnologije nouvelle doo </small>
+
+           <div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
+           <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
+           <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Uspešno izvršena uplata. Hvala!</h3></div>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${newDate}</p>
+
+             <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
+              <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Potvrđujemo da smo uspešno primili Vašu uplatu i Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to još niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata i nikada se ne povezuju sa Vašim ličnim podacima. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. </p>
+             </div>
+             <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
+             <img style="width:100%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+             </div>
+             <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+             <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+              <p style="color:#9C9C9C; font-size:9px; padding-top:20px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
            </div>`,
            attachments:[{
-             filename: 'headerEmailBig.svg',
-             path: 'src/images/headerEmailBig.svg',
+             filename: 'headerBigEmail.png',
+             path: 'src/images/headerBigEmail.png',
              cid: 'headerEmailBig'},
              {
-               filename: 'logoFooter.svg',
-               path: 'src/images/logoFooter.svg',
+               filename: 'logoFooter.png',
+               path: 'src/images/logoFooter.png',
                cid: 'logoFooter'
              }]
          }

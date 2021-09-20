@@ -104,7 +104,7 @@ exports.updateSchedule = async (req,res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspšsno izmenjeni podaci o statusu')
+    req.flash('success_msg', 'Uspešno izmenjeni podaci o statusu')
     res.redirect('/profile/')
   // res.send(req.body['status'+req.params.scheduleId])
 }
@@ -254,6 +254,9 @@ let updateInterpretation
 exports.analysisOtherInterpretation = async (req,res) => {
 // console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
 
+//posalji mejl kada su rezultati protumaceni !!!!!
+
+
 // let test = []
 let outsideOfTheRange
 let updateInterpretation
@@ -286,7 +289,8 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     {_id:req.params.id},
     {$set:{
       analyses:analysisArr,
-      commentCube:req.body.commentCube
+      commentCube:req.body.commentCube,
+      status:req.body.publish
       }
     },
     {
@@ -331,8 +335,9 @@ exports.lockTheOtherInterpretation =  async (req,res) => {
 
 
 exports.myResultLabCube = async (req,res) => {
-  const myResults = await Result.findOne({_id:req.params.id})
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  const myResults = await Result.findOne({$and:[{_id:req.params.id},{status:'Završeno'}]})
   .populate('analyses.analysisId', 'analysesName, shortDesc')
-  .populate('owner', 'username')
-  res.render('myResultsLabCube', {myResults})
+  .populate('owner', 'username aboutUser image')
+  res.render('myResultsLabCube', {myResults, groupNames})
 }

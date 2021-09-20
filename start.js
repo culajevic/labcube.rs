@@ -18,6 +18,9 @@ require('./models/Result')
 require('./models/User')
 require('./models/Schedule')
 require('./models/Feedback')
+require('./models/Message')
+require('./models/Subscribe')
+
 // const path = require('path')
 
 

@@ -83,20 +83,31 @@
                           <th class="small text-info">Komentar</th>
                         </tr>
                     <!-- <ul class="list-group" style="" id="analysisFound"></ul> -->
-                <!-- <tr>
+                <!-- <tr> -->
 
-                  <td><input type="text" class="form-control searchForAnalysis" value="" name="analysisName"></td>
+
+
+
+
+                {{#each findOtherResult}}
+                  {{#each this.analyses}}
+                  {{#if (notZero this.value)}}
+                  <tr>
+                  <td><input type="text" class="form-control searchForAnalysis" value="{{this.analysis}}" name="analysisName"></td>
                   <ul class="list-group" style="" id="analysisFound"></ul>
-                  <input type="hidden" class="form-control analysisId" value="" name="analysisId">
-                  <td><input type="text" class="form-control" value="" name="value"></td>
-                  <td><input type="text" class="form-control" value="" name="measure"></td>
-                  <td><input type="text" class="form-control" value="" name="lessThen"></td>
-                  <td><input type="text" class="form-control" value="" name="greaterThen"></td>
-                  <td><input type="text" class="form-control" value="" name="valueFrom"></td>
-                  <td><input type="text" class="form-control" value="" name="valueTo"></td>
-                  <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange0" value="true" ></div></td>
-                  <td><textarea rows=3 cols=35 name="commentResult"></textarea></td>
-                </tr> -->
+                  <input type="hidden" class="form-control analysisId" value="{{this.analysisId}}" name="analysisId">
+                  <td><input type="text" class="form-control" value="{{this.value}}" name="value"></td>
+                  <td><input type="text" class="form-control" value="{{this.measure}}" name="measure"></td>
+                  <td><input type="text" class="form-control" value="{{this.lessThen}}" name="lessThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.greaterThen}}" name="greaterThen"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
+                  <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
+                  <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{@index}}" value="true" {{#if this.outsideOfTheRange}} checked {{/if}}></div></td>
+                  <td><textarea rows=3 cols=35 name="commentResult">{{#if (notBlank this.commentResult)}}{{commentResult}}{{/if}}</textarea></td>
+                </tr>
+                {{/if}}
+                {{/each}}
+            {{/each}}
 
                 <!-- <tr>
 
@@ -118,11 +129,17 @@
 
           </table>
 
+
+
               <p>Glavni komentar</p>
-              <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment"></textarea>
+              {{#each findOtherResult}}
+              <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{#if (notBlank this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
+              <button class="btn btn-outline-info mb-4 btn-block mt-3">sačuvaj</button>
+              <input type="checkbox" name="publish" value="Završeno" id="published" {{#if this.status}} checked {{/if}}>
+              <label for="published">Objavi tumačenje i pošalji mejl korisniku</label>
+              {{/each}}
 
 
-              <button class="btn btn-outline-primary mb-4 btn-block mt-3">sačuvaj</button>
             </form>
         </div>
       </div>

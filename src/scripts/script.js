@@ -10,6 +10,32 @@ let NewElement = require('./class')
 let PriceList = require('./price')
 let helper = require('./functions')
 
+// back to to top
+//Get the button:
+let mybutton = (document.getElementById("backToTopBtn"))? document.getElementById("backToTopBtn") : ''
+
+// When the user scrolls down 20px from the top of the document, show the button
+// window.onscroll = function() {scrollFunction()};
+
+if (mybutton != '') {
+window.addEventListener('scroll', () => {
+  if (document.body.scrollTop > 450 || document.documentElement.scrollTop > 450) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+})
+
+
+  mybutton.addEventListener('click', () => {
+    // document.body.scrollTop = 0; // For Safari
+    // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    window.scroll({ top: 0, behavior: 'smooth' });
+  })
+}
+
+
+
 
 //tooltip initialization
 $(document).ready(function(){
@@ -187,10 +213,12 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || 
 //get reference to checkout element which displays number of selected analysis in navigation
 const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
+let register = /regist.*/
+let login = /prijav.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !register && !login) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -198,6 +226,25 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 window.onload = () => {
 
 /* INDEX PAGE ***************/
+
+if (location === '/verify') {
+  const password = document.getElementById('password')
+  password.focus()
+}
+
+if (location === '/prijava') {
+  const email = document.getElementById('email')
+  email.focus()
+}
+
+if (location === '/registracija') {
+  const email = document.getElementById('emailValue')
+  email.focus()
+}
+
+
+
+
 
 
 if(location === '/') {

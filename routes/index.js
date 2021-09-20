@@ -182,6 +182,9 @@ router.get('/cenovnik/:grad/:ids', priceController.getPrices)
 router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
+router.get('/contact', generalController.sayHello)
+router.post('/contact', generalController.takeUserComment)
+
 // router.get('/group/*', (req,res) => {
 //   res.status(404)
 //   res.render('404page', {title:'Tražena stranica ne postoji'})

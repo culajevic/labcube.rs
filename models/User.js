@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   password:String,
   image:String,
+  aboutUser:String,
   privacy:Boolean,
   conditions:Boolean,
   birthYear:Number,

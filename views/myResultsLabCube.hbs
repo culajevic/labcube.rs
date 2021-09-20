@@ -17,15 +17,16 @@
         <section id="my-results" >
           <div class="container">
 
-            <p class="pb-4"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
+            <p class="py-5"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
 
-              <h1 class="mt-4">{{formatLabScheduleDate myResults.submitedDate}}</h1>
-              {{myResults}}
+              <h1 class="mt-4">Rezultat poslat na tumačenje {{formatLabScheduleDate myResults.submitedDate}}</h1>
               <div class="col-12 doctorDetails">
-                <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">
+                <img src="/images/editors/{{myResults.owner.image}}"  class="rounded-circle hcpImage" alt="">
                 <div class="hcpBio">
-                    <p class="h5">{{myResults.owner.username}}</p>
-                    <p>icing elit. Accusamujdskjdks kjs kjds kdjs s illum, sequi asperiorconsec. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit id quas, molestiae aut nemo modi quasi cupiditate dicta delectus esse, ratione expedita!</p>
+                  <p class="pb-3">Rezultate tumači: {{myResults.owner.username}}</p>
+                    <p class="">{{myResults.owner.aboutUser}}</p>
+
+
                 </div>
               </div>
 
@@ -106,12 +107,22 @@
               </div><!-- resultDetails -->
 
               {{/each}}
-              <div class="col-12">
-                <div class="col-12 myResultsComment my-4">
-                  <h1 class="headTitle">Lab cube zaključak</h1>
-                  <span class="">{{{myResults.commentCube}}}</span>
+
+              <div class="row">
+                <div class="col-12 mt-4">
+                  <h3 class="mt-4">Zaključak</h3>
+                  <div class="finalThougths mb-5">
+                    <p>{{{myResults.commentCube}}}</p>
                 </div>
               </div>
+            </div>
+
+              <!-- <div class="col-12">
+                <div class="col-12 myResultsComment my-4">
+                  <h1 class="headTitle">Lab cube zaključak</h1>
+                  <span class=""></span>
+                </div>
+              </div> -->
 
 
             </div> <!-- row end -->
