@@ -91,9 +91,9 @@ console.log(ipAddress)
   }
   else {
     let submitQuestion = new Message({
-      name:req.body.name,
-      email:req.body.email,
-      message:req.body.message,
+      name:req.body.name.trim(),
+      email:req.body.email.trim(),
+      message:req.body.message.trim(),
       ip:ipAddress
     })
     try{

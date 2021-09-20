@@ -396,7 +396,7 @@ requestCheckout()
 
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
-           to:'culajevic@gmail.com',
+           to:'data.customer.email',
            // to:'culajevic@gmail.com',
            subject:'Uspešno izvršena uplata za tumačenje laboratorijskih rezultata',
            text:'',
