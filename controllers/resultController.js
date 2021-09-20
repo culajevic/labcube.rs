@@ -452,6 +452,43 @@ requestCheckout()
 
          }
        catch (e) {
+         let mailOptionsCustomerError = {
+           from:'labcube-tumacenje-no-reply@labcube.rs',
+           to:data.customer.email,
+           // to:'culajevic@gmail.com',
+           subject:'Neuspešna transakcija',
+           text:'',
+           html:`
+
+           <div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
+           <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
+           <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Došlo je do greške prilikom uplate. Transakcija nije izvršena</h3></div>
+             <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
+             <img style="width:100%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+             </div>
+             <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+             <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+            <p style="color:#9C9C9C; font-size:9px; padding-top:20px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
+           </div>`,
+           attachments:[{
+             filename: 'headerBigEmail.png',
+             path: 'src/images/headerBigEmail.png',
+             cid: 'headerEmailBig'},
+             {
+               filename: 'logoFooter.png',
+               path: 'src/images/logoFooter.png',
+               cid: 'logoFooter'
+             }]
+         }
+
+         transporter.sendMail(mailOptionsCustomerError, (error, info) => {
+             if(error) {
+               return console.log(error)
+           } else {
+             console.log(info.messageId)
+           }
+         })
+
          // req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log(e);

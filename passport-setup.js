@@ -21,7 +21,8 @@ passport.deserializeUser((id, done) => {
 passport.use(
   //options for google
   new GoogleStrategy({
-    callbackURL:'/google/redirect',
+    // callbackURL:'/google/redirect',
+    callbackURL:'https://labcube.rs/google/redirect',
     clientID: process.env.CLIENTID,
     clientSecret: process.env.CLIENTSECRET
   }, (accessToken, refreshToken, profile, done) => { //passport callback function
