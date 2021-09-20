@@ -79,7 +79,7 @@ console.log(ipAddress)
     to:'jevtic@labcube.rs, perovic@labcube.rs, culajevic@labcube.rs',
     subject:'Pitanje sa labcube.rs',
     text:'',
-    html:`<p>${req.body.name}</p><p>${req.body.message}</p>`
+    html:`<p>Zdravo, moje ime je: ${req.body.name}</p><p>Moje pitanje je: ${req.body.message}</p>`
   }
 
   if (req.body.name == '' || req.body.email == '' || req.body.message == '') {
