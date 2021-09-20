@@ -4,6 +4,7 @@ const Price = mongoose.model('Price')
 const Group = mongoose.model('Group')
 const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
+const ip = require('ip')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -67,13 +68,15 @@ exports.takeUserComment = async (req,res) => {
 
 
 
-  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+  // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+let ipAddress = ip.address()
+console.log(ipAddress)
 
   let errors = []
 
   let mailOptions = {
     from:req.body.email,
-    to:'culajevic@gmail.com, culajevic@labcube.rs',
+    to:'jevtic@labcube.rs, perovic@labcube.rs, culajevic@labcube.rs',
     subject:'Pitanje sa labcube.rs',
     text:'',
     html:`<p>${req.body.name}</p><p>${req.body.message}</p>`
@@ -91,7 +94,7 @@ exports.takeUserComment = async (req,res) => {
       name:req.body.name,
       email:req.body.email,
       message:req.body.message,
-      ip:ip
+      ip:ipAddress
     })
     try{
       await submitQuestion.save()
