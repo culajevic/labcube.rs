@@ -8,7 +8,19 @@
 </style>
 
 <script>
-var wpwlOptions = {style:"plain",
+var wpwlOptions = {
+style:"plain",
+billingAddress: {
+  country: "RS"
+  },
+mandatoryBillingFields:{
+            country: true,
+            state: false,
+            city: true,
+            postcode: true,
+            street1: true,
+            street2: false
+        },
 locale:"rs",
 brandDetection:true,
 autofocus: 'card.number',
@@ -19,9 +31,9 @@ showLabels:false,
 maskCvv: false,
 showPlaceholders:true,
 autofocus: 'card.number',
+labels:{billingAddress:"Adresa za naplatu"},
 placeholders: {
-  cardHolder: "Ime i prezime", cvv: "CVV kod", cardNumber:"Broj kartice", expiryDate:"Datum isteka kartice", cvvHint: "Tri broja sa poleđine kartice"
-},
+  cardHolder: "Ime i prezime", cvv: "CVV kod", cardNumber:"Broj kartice", expiryDate:"Datum isteka kartice", cvvHint: "Tri broja sa poleđine kartice", },
 errorMessages: {cardNumberError:"Neispravan broj kartice",cardHolderError: "Ime korisnika kartice nije u odgovarajućem formatu", cvvError: "Neispravan cvv",expiryMonthError:"Unesite drugi datum isteka", expiryYearError:"Unesite drugi datum isteka" },
 
 
@@ -36,6 +48,7 @@ $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pome
 $(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
 $('.wpwl-button-pay').html('Plati'); //promena polja pay u potvrdi
 $('.wpwl-button-pay').css({'background-color':'#55D159'});
+
 
 var visa = $(".wpwl-brand:first").clone().removeAttr("class").attr("class", "wpwl-brand-card wpwl-brand-custom wpwl-brand-VISA");
 var master = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-brand-MASTER");

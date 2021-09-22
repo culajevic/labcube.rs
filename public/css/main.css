@@ -8377,6 +8377,36 @@ footer {
   .analizeFooter > li a {
     color: red; }
 
+.cookiealert {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0 !important;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 0;
+  transform: translateY(100%);
+  transition: all 500ms ease-out;
+  color: #ecf0f1;
+  background: #212327;
+  background-color: rgba(33, 35, 39, 0.7); }
+
+.cookiealert.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0%);
+  transition-delay: 1000ms; }
+
+.cookiealert a {
+  text-decoration: none;
+  color: white; }
+
+.cookiealert .acceptcookies {
+  margin-left: 10px;
+  vertical-align: baseline; }
+
 .linksFooter {
   font-size: 0.8125rem;
   color: #FFF;
@@ -9639,7 +9669,7 @@ small a:hover {
   /* Place the button at the bottom of the page */
   right: 100px;
   /* Place the button 30px from the right */
-  z-index: 99;
+  z-index: 9999;
   /* Make sure it does not overlap */
   border: none;
   /* Remove borders */
@@ -10085,7 +10115,7 @@ table.workingHoursLabDetails {
   .cityMarker {
     display: none; }
   .logoFooter {
-    width: 7.8125rem; }
+    width: 7.5rem; }
   .linksFooter {
     margin: 6px 0; }
     .linksFooter li {
@@ -10111,7 +10141,9 @@ table.workingHoursLabDetails {
       margin-right: 1rem; }
   .disclaimer {
     position: relative;
-    top: 0; } }
+    top: 0; }
+  .logoFooter {
+    width: 7.8125rem; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
   footer {
@@ -10123,15 +10155,19 @@ table.workingHoursLabDetails {
     top: 0; }
   .linksFooter li {
     float: left;
-    margin-right: 1rem; } }
+    margin-right: 1rem; }
+  .logoFooter {
+    width: 7.5625rem; } }
 
 @media (min-width: 992px) and (max-width: 1200px) {
   .disclaimer {
     top: 100px; }
   footer {
-    height: 38.125rem; }
+    height: 39.375rem; }
     footer > .overlay {
-      height: 38.125rem; } }
+      height: 39.375rem; }
+  .logoFooter {
+    width: 7.8125rem; } }
 
 @media (min-width: 1200px) {
   .disclaimer {

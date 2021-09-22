@@ -1,13 +1,20 @@
+<div class="alert text-center cookiealert" role="alert">
+    <b>Prvo nešto slatko.</b> &#x1F36A; Koristimo kolačiće da biste dobili najbolje iskustvo na ovim stranicama.<a href="https://cookiesandyou.com/" target="_blank" class="noLink text-warning"> Saznajte više<a/>
+    <button type="button" class="btn btn-sm acceptcookies btn-primary">
+        Slažem se
+    </button>
+</div>
+
 <button id="backToTopBtn" title="Povratak na vrh" class="text-center"><i class="fas fa-arrow-circle-up"></i></button>
 <footer>
       <div class="overlay">
         <div class="container">
           <div class="row">
-            <div class="col-6">
+            <div class="col-3 col-lg-3 col-sm-3  col-md-4 ">
               <img src="/images/logoFullSlice.svg" alt="labcube logo" class="logoFooter">
             </div>
 
-            <div class="col-6 mt-4 text-right social">
+            <div class="col-8 col-lg-9 col-sm-8 col-md-8 text-right social">
               <a href="https://twitter.com/labcube_rs" class="d-inline ml-auto" target="_blank"><i class="fab fa-twitter"></i></a>
               <a href="https://www.instagram.com/labcube.rs/" class="d-inline" target="_blank"><i class="fab fa-instagram"></i></a>
               <a href="https://www.facebook.com/lab.cube.16/" class="d-inline" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -15,12 +22,12 @@
             </div><!-- social col-md-4 end -->
 
             <div class="d-none d-sm-none col-sm-10 d-lg-block">
-              <ul class="list-unstyled  linksFooter analizeFooter" >
+              <ul class="list-unstyled linksFooter analizeFooter d-block" >
                 {{#each groupNames}}
                   <li><a href="/group/{{this.slug}}" class="text-white">{{this.name}}</a></li>
                 {{/each}}
-              </ul><!-- analize footer list end -->
-            </div> <!-- col-md-6 end -->
+              </ul>
+            </div>
 
             <div class="col-sm-12 col-lg-2">
               <ul class="list-unstyled linksFooter">
@@ -36,19 +43,18 @@
               <p class="disclaimer">Sadržaj stranice labcube.rs kao što su tekst, grafika, slike i drugi dokumenti su isključivo informativne prirode. Sadržaj ovog sajta nije namenjen zameni stručnog lekarskog mišljenja, terapije ili lečenja. Uvek tražite savet svog lekara ili drugog kvalifikovanog zdravstvenog radnika. Nikada nemojte zanemariti savet vašeg lekara zbog nečega što ste pročitali na ovom sajtu. Ukoliko Vam je potrebna hitna medicinska pomoć pozovite <strong>194</strong>.</p>
             </div><!-- col-sm-12 end -->
 
-            <div class="col-12 text-center" style="">
+            <div class="col-12 text-center">
                 <p>
+                  <a href="" class="noLink" target="_blank"><img src="/images/master.png" style="width:80px;" class="pr-4"> </a>
+                  <a href="" class="noLink" target="_blank"><img src="/images/visa.png" style="width:110px;" class="pr-4"> </a>
+                  <a href="" class="noLink" target="_blank"><img src="/images/maestro.png" style="width:80px;" class="pr-4"> </a>
                   <a href="https://www.allsecure.rs/" class="nolink" target="_blank"><img src="/images/allsecure.svg" alt="" style="width:120px;" class="pr-4"></a>
                   <a href="https://www.unicreditbank.rs/" class="noLink" target="_blank"><img src="/images/unicredit-white.png" style="width:180px;" class="pr-4" > </a>
-                  <a href="" class="noLink" target="_blank"><img src="/images/amex.png" style="width:100px;" class="pr-4"> </a>
-                  <a href="" class="noLink" target="_blank"><img src="/images/mastercardTransparent.png" style="width:150px;" class="pr-4"> </a>
-                  <a href="" class="noLink" target="_blank"><img src="/images/visaTransparent.png" style="width:100px;" class="pr-4"> </a>
-                  <a href="" class="noLink" target="_blank"><img src="/images/verifiedbyVisa.png" style="width:100px;" class="pr-4"> </a>
-
                   <a href="" class="noLink" target="_blank"><img src="/images/mastercard-idcheck.svg" style="height:60px;" class="pr-4"> </a>
+                  <a href="" class="noLink" target="_blank"><img src="/images/visa_secure.png" style="width:80px;" class="pr-4"> </a>
                 </p>
 
-                  <small class="text-white text-center" style="font-Size:11px;">Sva autorska prava zadržavaju Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd, PIB 106310784 / MB 20575719 u čijem vlasništvu je stranica labcube.rs &copy; 2021.</small>
+                  <small class="text-white text-center" style="font-Size:10px;">Sva autorska prava zadržavaju Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd, PIB 106310784, MB 20575719,  Tel: +381642612813, email:zdravo[at]labcube.rs u čijem vlasništvu je stranica labcube.rs. &copy 2021</small>
 
             </div>
           </div><!-- row end -->

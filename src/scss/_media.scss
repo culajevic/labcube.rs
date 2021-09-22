@@ -42,7 +42,7 @@
   }
 
   .logoFooter {
-    width: px-to-rem(125px);
+    width: px-to-rem(120px);
   }
   .linksFooter {
     margin:6px 0;
@@ -83,6 +83,9 @@
     position: relative;
     top:0;
   }
+  .logoFooter {
+    width: px-to-rem(125px);
+  }
 
 
 }// query end
@@ -108,6 +111,9 @@
   .small {
     // line-height: 2px;
   }
+  .logoFooter {
+    width: px-to-rem(121px);
+  }
 
 
  }// query end
@@ -118,12 +124,14 @@
     top:100px;
   }
   footer {
-    height: px-to-rem(610px);
+    height: px-to-rem(630px);
       & > .overlay {
-      height: px-to-rem(610px);
+      height: px-to-rem(630px);
       }
   }
-
+  .logoFooter {
+    width: px-to-rem(125px);
+  }
 
 }// query end
 
@@ -132,6 +140,7 @@
   .disclaimer {
     top:80px;
   }
+
 
 }// query end
 

@@ -20556,6 +20556,68 @@ function () {
 
 /***/ }),
 
+/***/ "./src/scripts/cookie.js":
+/*!*******************************!*\
+  !*** ./src/scripts/cookie.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.cookieAlert = function () {
+  //display cookie
+  var cookieAlert = document.querySelector(".cookiealert");
+  var acceptCookies = document.querySelector(".acceptcookies");
+
+  if (!cookieAlert) {
+    return;
+  }
+
+  cookieAlert.offsetHeight; // Force browser to trigger reflow (https://stackoverflow.com/a/39451131)
+  // Show the alert if we cant find the "acceptCookies" cookie
+
+  if (!getCookie("labcubeKolac")) {
+    cookieAlert.classList.add("show");
+  } // When clicking on the agree button, create a 1 year
+  // cookie to remember user's choice and close the banner
+
+
+  acceptCookies.addEventListener("click", function () {
+    setCookie("labcubeKolac", true, 365);
+    cookieAlert.classList.remove("show"); // dispatch the accept event
+
+    window.dispatchEvent(new Event("cookieAlertAccept"));
+  }); // Cookie functions from w3schools
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+
+    return "";
+  }
+};
+
+/***/ }),
+
 /***/ "./src/scripts/functions.js":
 /*!**********************************!*\
   !*** ./src/scripts/functions.js ***!
@@ -21640,6 +21702,8 @@ var NewElement = __webpack_require__(/*! ./class */ "./src/scripts/class.js");
 
 var PriceList = __webpack_require__(/*! ./price */ "./src/scripts/price.js");
 
+var CookieAlert = __webpack_require__(/*! ./cookie */ "./src/scripts/cookie.js");
+
 var helper = __webpack_require__(/*! ./functions */ "./src/scripts/functions.js"); // back to to top
 //Get the button:
 
@@ -21831,18 +21895,25 @@ if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) 
 
 var checkCMSAdd = /add.*/;
 var checkCMSAll = /all.*/;
-var register = /regist.*/;
-var login = /prijav.*/;
+var registerPage = /registracija.*/;
+var loginPage = /prijav.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
 var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube');
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !register && !login) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage)) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
 
+(function () {
+  "use strict";
+})();
+
 window.onload = function () {
+  //display cookie message
+  var cookieMessage = new CookieAlert.cookieAlert();
   /* INDEX PAGE ***************/
+
   if (location === '/verify') {
     var password = document.getElementById('password');
     password.focus();

@@ -8,6 +8,7 @@ moment.locale('sr')
 // let summernote = require('./summernote-ext-addclass')
 let NewElement = require('./class')
 let PriceList = require('./price')
+let CookieAlert = require('./cookie')
 let helper = require('./functions')
 
 // back to to top
@@ -213,17 +214,28 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || 
 //get reference to checkout element which displays number of selected analysis in navigation
 const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
-let register = /regist.*/
-let login = /prijav.*/
+let registerPage = /registracija.*/
+let loginPage = /prijav.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !register && !login) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage)) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
 
+(function () {
+      "use strict";
+
+
+})();
+
+
+
 window.onload = () => {
+
+//display cookie message
+let cookieMessage = new CookieAlert.cookieAlert()
 
 /* INDEX PAGE ***************/
 
@@ -241,10 +253,6 @@ if (location === '/registracija') {
   const email = document.getElementById('emailValue')
   email.focus()
 }
-
-
-
-
 
 
 if(location === '/') {

@@ -178,9 +178,9 @@ exports.admindasboard =  [authCheck, (req,res) => {
 exports.register =  async (req,res) => {
   let errors = []
   let {email,password, privacy, conditions} = req.body
-  // if(!privacy || !conditions) {
-  //   errors.push({text:'Neophodno je da potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti'})
-  // }
+  if(!privacy || !conditions) {
+    errors.push({text:'Potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti.'})
+  }
   if(!validator.validate(email)) {
     errors.push({text:'Email adresa nije ispravna'})
   }
@@ -188,7 +188,7 @@ exports.register =  async (req,res) => {
     errors.push({text:'Lozinka mora imati više od 6 karaktera'})
   }
   if (errors.length>0) {
-    res.render('register',{errors})
+    res.render('register',{errors, title:'Labcube - Kreirajte labcube nalog'})
   } else {
     let findUser = await User.findOne({email:email})
       if(findUser) {
