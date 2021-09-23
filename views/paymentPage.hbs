@@ -10,9 +10,7 @@
 <script>
 var wpwlOptions = {
 style:"plain",
-billingAddress: {
-  country: "RS"
-  },
+billingAddress: {country:"RS"},
 mandatoryBillingFields:{
             country: true,
             state: false,
@@ -56,7 +54,7 @@ var maestro = $(visa).clone().removeClass("wpwl-brand-VISA").addClass("wpwl-bran
 $(".wpwl-brand:first").after( $(visa)).after( $(master)) .after( $(maestro)); //Ubacivanje kartica
 
 // var cancelPaymentHtml ='<button type="button" class="wpwl-button wpwl-button-cancel" onclick="history.go(0)">Otkaži</button>';
-$('form.wpwl-form-card').find('.wpwl-button-pay').before(cancelPaymentHtml);
+// $('form.wpwl-form-card').find('.wpwl-button-pay').before(cancelPaymentHtml);
 },
 onChangeBrand: function(e){
 $(".wpwl-brand-custom").css("opacity", "0.2");

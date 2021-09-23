@@ -216,20 +216,14 @@ const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
 let registerPage = /registracija.*/
 let loginPage = /prijav.*/
+let paymentPage = /payment.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) ) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
-
-(function () {
-      "use strict";
-
-
-})();
-
 
 
 window.onload = () => {

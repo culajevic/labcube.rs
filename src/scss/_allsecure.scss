@@ -7,8 +7,11 @@ body {background-color:#white;}
 /*Prilagođavanje polja*/
 .wpwl-form-card { margin-top:20px; background-color:#E0E4EC; padding: 15px; font-family: 'Roboto', sans-serif; font-size:1rem;}
 .wpwl-group-cardHolder {width: 100%;}
-.wpwl-group-expiry {width: 48%; float: left; margin-right: 4%}
-.wpwl-group-cvv {width: 48%; float: right; }
+//kada je ovo odkomentarisano nije moguce upisati cvv i datum isteka kartice
+// .wpwl-group-expiry {width: 48%; float: left; margin-right: 4%}
+// .wpwl-group-cvv {width: 48%; float: right; }
+.wpwl-group-expiry {width: 48%; display:inline-block; margin-right: 4%}
+.wpwl-group-cvv {width: 48%; display:inline-block; }
 .wpwl-group-submit {clear:both; margin-bottom: 0px;}
 .wpwl-label {width:100%; color:grey; }
 

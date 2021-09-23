@@ -21897,17 +21897,14 @@ var checkCMSAdd = /add.*/;
 var checkCMSAll = /all.*/;
 var registerPage = /registracija.*/;
 var loginPage = /prijav.*/;
+var paymentPage = /payment.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
 var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube');
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage)) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
-
-(function () {
-  "use strict";
-})();
 
 window.onload = function () {
   //display cookie message

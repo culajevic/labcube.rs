@@ -8446,12 +8446,12 @@ body {
 
 .wpwl-group-expiry {
   width: 48%;
-  float: left;
+  display: inline-block;
   margin-right: 4%; }
 
 .wpwl-group-cvv {
   width: 48%;
-  float: right; }
+  display: inline-block; }
 
 .wpwl-group-submit {
   clear: both;
@@ -10149,7 +10149,7 @@ table.workingHoursLabDetails {
     top: 0; }
   .logoFooter {
     width: 7.8125rem; }
-  #sideBanner, #groupIcon {
+  #sideBanner {
     display: none; } }
 
 @media (min-width: 768px) and (max-width: 991px) {

@@ -470,7 +470,7 @@ requestCheckout()
          <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
          <div style="text-align:center; font-family:sans-serif; color:#FF6F6F; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Došlo je do greške prilikom uplate.<br /> Transakcija nije izvršena!</h3></div>
            <div style="text-align:center; margin-top:10px;  border-top:1px solid #E0E4EC; padding-left:30px; padding-right:30px;">
-           <img style="width:40%; display-block; width:120px; padding-top:30px;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+           <img style="width:30%; display-block; width:120px; padding-top:20px;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
            <p style="color:#9C9C9C; font-size:9px; padding-top:0px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none; padding-bottom:0;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
            <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
            <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
