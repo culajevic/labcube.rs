@@ -60,6 +60,10 @@
     font-size: 24px;
   }
 
+  #sideBanner, #groupIcon {
+    display: none;
+  }
+
 
 }// media max-width:575 end
 
@@ -85,6 +89,10 @@
   }
   .logoFooter {
     width: px-to-rem(125px);
+  }
+
+  #sideBanner, #groupIcon {
+    display: none;
   }
 
 
@@ -113,6 +121,10 @@
   }
   .logoFooter {
     width: px-to-rem(121px);
+  }
+
+  #sideBanner {
+    display: none;
   }
 
 

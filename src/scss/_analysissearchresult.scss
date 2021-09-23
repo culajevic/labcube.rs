@@ -22,6 +22,10 @@
   @extend #results;
 }
 
+#paymentError {
+  min-height: calc(100vh - 820px);
+}
+
 .results tr:first-child>td{
   border-top:0px;
 }

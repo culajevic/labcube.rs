@@ -7938,6 +7938,9 @@ div.status.closedSoon::before {
 #details, #paymentCheckout {
   min-height: calc(100vh - 900px); }
 
+#paymentError {
+  min-height: calc(100vh - 820px); }
+
 .results tr:first-child > td {
   border-top: 0px; }
 
@@ -10127,7 +10130,9 @@ table.workingHoursLabDetails {
   .fa-instagram {
     padding-right: 1rem;
     margin-bottom: 2.25rem;
-    font-size: 24px; } }
+    font-size: 24px; }
+  #sideBanner, #groupIcon {
+    display: none; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
@@ -10143,7 +10148,9 @@ table.workingHoursLabDetails {
     position: relative;
     top: 0; }
   .logoFooter {
-    width: 7.8125rem; } }
+    width: 7.8125rem; }
+  #sideBanner, #groupIcon {
+    display: none; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
   footer {
@@ -10157,7 +10164,9 @@ table.workingHoursLabDetails {
     float: left;
     margin-right: 1rem; }
   .logoFooter {
-    width: 7.5625rem; } }
+    width: 7.5625rem; }
+  #sideBanner {
+    display: none; } }
 
 @media (min-width: 992px) and (max-width: 1200px) {
   .disclaimer {

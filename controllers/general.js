@@ -70,7 +70,7 @@ exports.takeUserComment = async (req,res) => {
 
   // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
 let ipAddress = ip.address()
-console.log(ipAddress)
+console.log(req.body)
 
   let errors = []
 
@@ -84,6 +84,8 @@ console.log(ipAddress)
 
   if (req.body.name == '' || req.body.email == '' || req.body.message == '') {
     errors.push({text:'Sva polja su obavezna'})
+    req.flash('error_msg', `Sva polja su obavezna`)
+    res.redirect('/contact')
   }
 
   else if(req.body.odjebjelansiran != '') {

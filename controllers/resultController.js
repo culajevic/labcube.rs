@@ -400,9 +400,9 @@ requestCheckout()
            text:'',
            html:`
 
-           <div style="width:100%;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
-           <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px;  ">
-           <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px;"><h3>Uspešno izvršena uplata. Hvala!</h3></div>
+           <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
+           <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+           <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Uspešno izvršena uplata. Hvala!</h3></div>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
@@ -413,7 +413,7 @@ requestCheckout()
               <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Potvrđujemo da smo uspešno primili Vašu uplatu i Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to još niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata i nikada se ne povezuju sa Vašim ličnim podacima. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. </p>
              </div>
              <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
-             <img style="width:60%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+             <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
              </div>
              <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
              <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
@@ -466,15 +466,16 @@ requestCheckout()
          text:'',
          html:`
 
-         <div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
-         <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
-         <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Došlo je do greške prilikom uplate. Transakcija nije izvršena</h3></div>
-           <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
-           <img style="width:100%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
-           </div>
+         <div style="width:700px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:10px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
+         <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+         <div style="text-align:center; font-family:sans-serif; color:#FF6F6F; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Došlo je do greške prilikom uplate.<br /> Transakcija nije izvršena!</h3></div>
+           <div style="text-align:center; margin-top:10px;  border-top:1px solid #E0E4EC; padding-left:30px; padding-right:30px;">
+           <img style="width:40%; display-block; width:120px; padding-top:30px;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+           <p style="color:#9C9C9C; font-size:9px; padding-top:0px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none; padding-bottom:0;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
            <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
            <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
-          <p style="color:#9C9C9C; font-size:9px; padding-top:20px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
+           </div>
+
          </div>`,
          attachments:[{
            filename: 'headerBigEmail.png',
@@ -495,7 +496,7 @@ requestCheckout()
          }
        })
        req.flash('error_msg', 'transakcija nije uspešno izvršena')
-       res.redirect('/profile')
+       res.render('paymentError', {data:data, amount:data.amount, groupNames, user:req.user, title:'Greška prilikom plaćanja'})
      }
    })
 .catch(console.error);
