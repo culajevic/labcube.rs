@@ -416,7 +416,7 @@ requestCheckout()
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Uspešno izvršena uplata. Hvala!</h3></div>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${data.resultDetails.ConnectorTxID3}</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod</p>
 
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
@@ -462,14 +462,12 @@ requestCheckout()
          // res.redirect('/')
 
          }
-       catch  {
+       catch  (e){
          // req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log('nije uspesno upisano u bazu' + e)
        }
        console.log(data)
-
-
        res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
      }
      else {
