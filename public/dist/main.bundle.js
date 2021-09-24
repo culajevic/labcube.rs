@@ -22947,7 +22947,6 @@ window.onload = function () {
     var myfunc;
 
     (function () {
-      console.log('ds');
       var mins = document.querySelectorAll('.mins');
       var secs = document.querySelectorAll('.secs');
       var hour = document.querySelectorAll('.hours');

@@ -6,6 +6,7 @@ const Price = mongoose.model('Price')
 const ObjectId = mongoose.Types.ObjectId
 const Result = mongoose.model('Result')
 const Group = mongoose.model('Group')
+const Payment = mongoose.model('Payment')
 const multer = require('multer')
 const mime = require('mime-types')
 const nodemailer = require('nodemailer')
@@ -66,7 +67,7 @@ const upload = multer({
         cb(null, true);
       }
       else {
-        cb(new multer.MulterError('something went wrong, probably Vucic knows what happened'));
+        cb(new multer.MulterError('dogodila se greška prilikom uploada'));
       }
     }
   }).single('result')
@@ -75,7 +76,7 @@ const upload = multer({
     upload(req, res, (err) => {
       if(err) {
         req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
-        // res.redirect('/tumacenje-laboratorijskih-analiza')
+        res.redirect('/tumacenje-laboratorijskih-analiza')
       } else {
         next()
       }
@@ -233,7 +234,9 @@ exports.paymentDone = async (req,res) => {
 
 requestCheckout()
 .then(data => {
+
   if(data.result.code == '000.100.110') {
+
     let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -371,9 +374,17 @@ requestCheckout()
       }
     )
     let currentId = uploadResult._id
-
     let shortId = String(currentId)
     shortId.substring(14,2)
+
+    const paymentLog = new Payment({
+      ip:data.customer.ip,
+      email:data.customer.email,
+      amount:data.amount,
+      paymentCode:data.result.code,
+      paymentDesc:data.result.description,
+      idSuccess:currentId
+    }).save()
 
        try {
          uploadResult.save()
@@ -455,9 +466,45 @@ requestCheckout()
          console.log('nije uspesno upisano u bazu' + e)
        }
        console.log(data)
+
+
        res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
      }
      else {
+       console.log(data)
+       console.log(typeof(data.result.code))
+
+       let secureError = /^(800\.400\.2|100\.380\.4|100\.390)/
+       let externalBankError = /^(800\.[17]00|800\.800\.[123])/
+       let riskSystemError = /^(100\.400\.[0-3]|100\.38|100\.370\.100|100\.370\.11)/
+       let blackListError = /^(100\.100\.701|800\.[32])/
+
+       let errorPayment
+
+       switch(true) {
+         case externalBankError.test(data.result.code):
+          errorPayment = 'Banka je odbila transakciju, proverite da li imate dovoljno sredstava na kartici kao i da li Vaša kartica podržava plaćanje preko interneta.'
+          break
+         case secureError.test(data.result.code):
+          errorPayment = 'Transakcija je odbijena zbog tehničke greške u 3D Secure sistemu'
+          break;
+         case riskSystemError.test(data.result.code):
+          errorPayment = 'Banka nije u mogućnosti da autentifikuje korisnika, proverite da li ste ispravno uneli jednokratnu lozinku.'
+          break;
+         case blackListError.test(data.result.code):
+          errorPayment = 'Banka je odbila transakciju jer se kartica nalazi na crnoj listi.'
+          break;
+        default:
+          errorPayment = data.result.description
+       }
+
+        const paymentLog = new Payment({
+          ip:data.customer.ip,
+          email:data.customer.email,
+          amount:0,
+          paymentCode:data.result.code,
+          paymentDesc:data.result.description
+        }).save()
        let mailOptionsCustomerError = {
          from:'labcube-tumacenje-no-reply@labcube.rs',
          to:data.customer.email,
@@ -468,7 +515,7 @@ requestCheckout()
 
          <div style="width:700px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:10px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
          <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
-         <div style="text-align:center; font-family:sans-serif; color:#FF6F6F; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Došlo je do greške prilikom uplate.<br /> Transakcija nije izvršena!</h3></div>
+         <div style="text-align:center; font-family:sans-serif; color:#FF6F6F; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Transakcija nije izvršena!<br /> ${errorPayment}</h3></div>
            <div style="text-align:center; margin-top:10px;  border-top:1px solid #E0E4EC; padding-left:30px; padding-right:30px;">
            <img style="width:30%; display-block; width:120px; padding-top:20px;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
            <p style="color:#9C9C9C; font-size:9px; padding-top:0px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none; padding-bottom:0;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
@@ -495,8 +542,9 @@ requestCheckout()
            console.log(info.messageId)
          }
        })
+
        req.flash('error_msg', 'transakcija nije uspešno izvršena')
-       res.render('paymentError', {data:data, amount:data.amount, groupNames, user:req.user, title:'Greška prilikom plaćanja'})
+       res.render('paymentError', {data:data, amount:data.amount, errorPayment, groupNames, user:req.user, title:'Greška prilikom plaćanja'})
      }
    })
 .catch(console.error);

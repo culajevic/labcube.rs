@@ -71,7 +71,8 @@ exports.redirect = [passport.authenticate('google'),
 
 const authCheck = (req,res, next) => {
   if(!req.user) {
-    res.redirect('/prijava', {title:'Labcube - Prijavite se'})
+    // res.redirect('/prijava', {title:'Labcube - Prijavite se'})
+    res.render('signin', {title:'Labcube - Prijavite se'})
   } else {
     next()
   }

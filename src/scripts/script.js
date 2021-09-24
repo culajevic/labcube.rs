@@ -1339,7 +1339,7 @@ let interpretationPage = document.getElementById('interpretationId')
 //tumacenje ostalih rezultata
 
   if(urlArr[1] == 'otherResultsInterpretation' && !interpretationPage) {
-console.log('ds')
+
     let mins = document.querySelectorAll('.mins')
     let secs = document.querySelectorAll('.secs')
     let hour = document.querySelectorAll('.hours')

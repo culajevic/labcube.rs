@@ -68,6 +68,16 @@ hbs.registerHelper('checkBox', (prop1, prop2) => {
   }
 })
 
+//check gender
+
+hbs.registerHelper('checkGender', (gender) => {
+  if(gender == 'Ž') {
+    return true
+  } else {
+    return false
+  }
+})
+
 // increment indexes
 hbs.registerHelper('increment', (index) => {
   index++

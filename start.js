@@ -20,6 +20,7 @@ require('./models/Schedule')
 require('./models/Feedback')
 require('./models/Message')
 require('./models/Subscribe')
+require('./models/Payment')
 
 // const path = require('path')
 

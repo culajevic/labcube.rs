@@ -2,60 +2,357 @@
 
 <!-- ovo je stranica na kojoj labcube tumaci konkretan rezultat koji je korisnik uplodovao -->
 
-<div class="container" id="">
+<div class="container" id="healthProfile">
  		<div class="row">
 
 
-      <div class="col-12">
-        <a href="/otherResultsInterpretation/page/1">nazad</a>
-        {{#each findOtherResult}}
-        <div class="userDetails mt-4" >
-            <h1 class="headTitle">{{this.userId.username}}</h1>
-            <h4>Mobilni: {{this.userId.mobile}}</h4>
-            <h4>Godina rođenja: {{this.userId.birthYear}}</h3>
-            <h4>{{this.userId.height}}cm, {{this.userId.weight}}kg, BMI: {{this.userId.bmi}}</h4>
-            <h4>Pušač: {{this.userId.smoking}}</h4>
-            <h4>Alkohol: {{this.userId.alcohol}}</h4>
-            <h4>Povišen krvni pritisak: {{this.userId.bloodPresure}}</h4>
-            <h4>Ishrana: {{this.userId.nutrition}}</h4>
-            <h4>Trenutno pod stresom: {{this.userId.stress}}</h4>
-            <h4>Nedeljno vežba (sat): {{this.userId.hoursExcercise}}</h4>
-            <h4>Dodaci ishrani: {{this.userId.foodSuplements}}</h4>
-            <h4>Da li je ikada imao povišen šećer: {{this.userId.sweets}}</h4>
-            <h4>Trenutno na terapiji: {{this.userId.therapy}}</h4>
-            <h4>Komentar za terapiju: {{this.userId.therapyComment}}</h4>
-            <h4>Trenutno bolestan/bolesna: {{this.userId.currentStatus}}</h4>
-            <h4>Opis trenutnog stanja: {{this.userId.currentStatusComment}}</h4>
-            <h4>Oboljenja u porodici: {{this.userId.anamnesis}}</h4>
-            <h4>Anamneza komentar: {{this.userId.anamnesisComment}}</h4>
+      <!-- <div class="col-12 mt-4 "> -->
 
-            <h4>Trenutno doji: {{this.userId.breastfeeding}}</h4>
-            <h4>Ima menstruacije: {{this.userId.menstruation}}</h4>
-            <h4>Uredan ciklus: {{this.userId.regularMenstruation}}</h4>
-            <h4>Trenutno trudna: {{this.userId.pregnancy}}</h4>
-            <h4>Redovno odlazi kod ginekologa: {{this.userId.regularGinecologyChecks}}</h4>
-            <p><a href="/results/{{this.result}}" target="_blank">pogledaj rezultate</a></p>
+        <a href="/otherResultsInterpretation/page/1" class="mt-5">< nazad</a>
+        {{#each findOtherResult}}
+        <!-- <div class="userDetails mt-4" > -->
+
+
+
+
+        <div class="col-12 pt-4">
+          <h1 class="headTitle">{{this.userId.username}} </h1>
+            <p><a href="/results/{{this.result}}" target="_blank"><h1>pogledaj rezultate</h1></a></p>
         </div>
+
+        <div class="col-4 my-4">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/birthYearProfileData.svg"  class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Godina rođenja</span>
+                <input type="number" class="d-block mt-2 profilePersonalData" id="godinaRodjenja" name="godinaRodjenja" value={{this.userId.birthYear}} placeholder="Godina rođenja" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 my-4">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/cellphoneProfileData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Mobilni telefon</span>
+              <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{this.userId.mobile}}" placeholder="u fomatu 06XXXXXXX" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 my-4">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/genderProfileData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Pol</span>
+            <select class="d-block profilePersonalData mt-2" name="pol" disabled>
+              <option class="" value="Null" {{#if (checkBox this.userId.gender 'Null')}} selected {{/if}}>Nije važno</option>
+              <option class="" value="M" {{#if (checkBox this.userId.gender 'M')}} selected {{/if}}>Muški</option>
+              <option class="" value="Ž" {{#if (checkBox this.userId.gender 'Ž')}} selected {{/if}}>Ženski</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/heightHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>Visina (cm)</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="visina" name="visina" placeholder="Visina(cm)" value="{{this.userId.height}}" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/weightHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>Težina (kg)</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="tezina" name="tezina" placeholder="Težina(kg)" value="{{this.userId.weight}}" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/bmiHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>BMI (Body Mass Index)</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" id="bmi" step="0.01" name="bmi" readonly="readonly" value={{this.userId.bmi}} placeholder="BMI" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/smokingHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Pušač?</span>
+            <select class="d-block profilePersonalData mt-2" name="pusac" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.smoking 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.smoking 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.smoking 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/alchocolHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Alkohol?</span>
+            <select class="d-block profilePersonalData mt-2" name="alkohol" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.alcohol 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.alcohol 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox uthis.userId.alcohol 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/bloodPressureHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Povišen krvni pritisak?</span>
+            <select class="d-block profilePersonalData mt-2" name="pritisak" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.bloodPresure 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.bloodPresure 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.bloodPresure 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/foodHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Kakva je ishrana pacijenta?</span>
+            <select class="d-block profilePersonalData mt-2" name="ishrana" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.nutrition 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Zdrava" {{#if (checkBox this.userId.nutrition 'Zdrava')}} selected {{/if}}>Zdrava</option>
+              <option class="" value="Umerena" {{#if (checkBox this.userId.nutrition 'Umerena')}} selected {{/if}}>Umerena</option>
+              <option class="" value="Nezdrava" {{#if (checkBox this.userId.nutrition 'Nezdrava')}} selected {{/if}}>Nezdrava</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/stressHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Da li je pod stresom?</span>
+            <select class="d-block profilePersonalData mt-2" name="stres" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.stress 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.stress 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.stress 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/exserciseHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class="d-inline pl-2">
+            <span>Nedeljno sati vežba?</span>
+            <input type="number" class="d-block mt-2 profilePersonalData pl-2" name="vezbe" placeholder="Koliko sati nedeljno vežbate?" value="{{this.userId.hoursExcercise}}" readonly>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/sugarHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Povišen šećer?</span>
+            <select class="d-block profilePersonalData mt-2" name="secer" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.sweets 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.sweets 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.sweets 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/foodSuplementHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Dodaci ishrani?</span>
+            <select class="d-block profilePersonalData mt-2" name="dodaciIshrani" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.foodSuplements 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.foodSuplements 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.foodSuplements 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/therapyHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Trenutno na terapiji?</span>
+            <select class="d-block profilePersonalData mt-2" name="terapija" id="therapy" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.therapy 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.therapy 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.therapy 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        {{#if (empty this.userId.therapyComment)}}
+        <div class="col-12 mt-5" id="therapyComment">
+            <label for="therapyComment">Trenutna terapija komentar</label>
+            <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" placeholder="Napišite koju terapiju uzimate." disabled>{{this.userId.therapyComment}}</textarea>
+        </div>
+        {{/if}}
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/currentStatusHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Dijagnostifikovano oboljenje?</span>
+            <select class="d-block profilePersonalData mt-3" name="trenutnoBolesni" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.currentStatus 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Alchajmerova bolest" {{#if (checkBox this.userId.currentStatus 'Dijabetes')}} selected {{/if}}>Alchajmerova bolest</option>
+              <option class="" value="Bolesti štitne žlezde" {{#if (checkBox this.userId.currentStatus 'Bolesti štitne žlezde')}} selected {{/if}}>Bolesti štitne žlezde</option>
+              <option class="" value="Ciroza jetre i hepatitis" {{#if (checkBox this.userId.currentStatus 'Ciroza jetre i hepatitis')}} selected {{/if}}>Ciroza jetre i hepatitis</option>
+              <option class="" value="Dijabetes" {{#if (checkBox this.userId.currentStatus 'Dijabetes')}} selected {{/if}}>Dijabetes</option>
+              <option class="" value="Hronične respiratorne bolesti" {{#if (checkBox this.userId.currentStatus 'Hronične respiratorne bolesti')}} selected {{/if}}>Hronične respiratorne bolesti</option>
+              <option class="" value="Kardiovaskularne bolesti" {{#if (checkBox this.userId.currentStatus 'Kardiovaskularne bolesti')}} selected {{/if}}>Kardiovaskularne bolesti</option>
+              <option class="" value="Maligne bolesti" {{#if (checkBox this.userId.currentStatus 'Maligne bolesti')}} selected {{/if}}>Maligne bolesti</option>
+              <option class="" value="Tuberkuloza" {{#if (checkBox this.userId.currentStatus 'Tuberkuloza')}} selected {{/if}}>Tuberkuloza</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/famillyHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Oboljenja u porodici?</span>
+            <select class="d-block profilePersonalData mt-2" id="anamneza" name="anamneza" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.anamnesis 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.anamnesis 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.anamnesis 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        {{#if (empty this.userId.currentStatusComment)}}
+        <div class="col-12 d-none" id="anamnezaKomentar">
+          <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>this.userId.currentStatusComment</textarea>
+        </div>
+        {{/if}}
+
+        {{#if (checkGender this.userId.gender)}}
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/menstruationHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Menstruacija?</span>
+            <select class="d-block profilePersonalData mt-2" name="menstruacija" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.menstruation 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.menstruation 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.menstruation 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/neetCycleHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Uredan ciklus?</span>
+            <select class="d-block profilePersonalData mt-2" name="ciklusUredan" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.regularMenstruation 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.regularMenstruation 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.regularMenstruation 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/gynecologistHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Redovni ginekološki pregledi?</span>
+            <select class="d-block profilePersonalData mt-2" name="redovanPregledGinekologa" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.regularGinecologyChecks 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.regularGinecologyChecks 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.regularGinecologyChecks 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/pregnentHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Trenutno trudni?</span>
+            <select class="d-block profilePersonalData mt-2" name="trudnoca" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.pregnancy 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.pregnancy 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.pregnancy 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-4 mt-5">
+          <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+            <img src="/images/brestFeedingHelthData.svg" class="profileDataIcons" alt="">
+          </div>
+          <div class=" float-left d-inline pl-2">
+            <span>Trenutno dojite?</span>
+            <select class="d-block profilePersonalData mt-2" name="dojenje" disabled>
+              <option class="" value="Odaberite" {{#if (checkBox this.userId.breastfeeding 'Odaberite')}} selected {{/if}}>Odaberite</option>
+              <option class="" value="Da" {{#if (checkBox this.userId.breastfeeding 'Da')}} selected {{/if}}>Da</option>
+              <option class="" value="Ne" {{#if (checkBox this.userId.breastfeeding 'Ne')}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
+        </div>
+        {{/if}}
+
+        <!-- </div> -->
           {{/each}}
 
-      </div>
+      <!-- </div>\\\ -->
 
       <div class="col-12">
         <div class="table-responsive mt-4" id="labDashboard">
           <form class="" action="" method="post" id="lockTheRecord">
             {{#each findOtherResult}}
-              <div class="form-check">
 
-                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
+
+                <label class="chckBoxCustom">
+                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}} class="customCheck">
+                <span class="checkmark"></span>
                 {{#if this.owner}}
-                <label for="zakljucaj" id="lockStatus">Zaključano</label>
-
+                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h3>Zaključano</h3></label>
                 {{else}}
-                <label for="zakljucaj" id="lockStatus">Zaključaj</label>
-
-
+                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h3>Zaključaj</h3></label>
+                 <span class="checkmark"></span>
                 {{/if}}
-              </div>
+                </label>
+
+
               <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
 
 
@@ -103,7 +400,7 @@
                   <td><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
                   <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
                   <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{@index}}" value="true" {{#if this.outsideOfTheRange}} checked {{/if}}></div></td>
-                  <td><textarea rows=3 cols=35 name="commentResult">{{#if (notBlank this.commentResult)}}{{commentResult}}{{/if}}</textarea></td>
+                  <td><textarea rows=3 cols=35 name="commentResult">{{#if (empty this.commentResult)}}{{this.commentResult}}{{/if}}</textarea></td>
                 </tr>
                 {{/if}}
                 {{/each}}
@@ -133,10 +430,19 @@
 
               <p>Glavni komentar</p>
               {{#each findOtherResult}}
-              <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{#if (notBlank this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
+              <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
               <button class="btn btn-outline-info mb-4 btn-block mt-3">sačuvaj</button>
-              <input type="checkbox" name="publish" value="Završeno" id="published" {{#if this.status}} checked {{/if}}>
-              <label for="published">Objavi tumačenje i pošalji mejl korisniku</label>
+
+
+              <div class="my-5">
+                <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3>
+                  <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}>
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+
+
               {{/each}}
 
 
