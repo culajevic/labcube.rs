@@ -15,9 +15,29 @@
 
 
 
-        <div class="col-12 pt-4">
-          <h1 class="headTitle">{{this.userId.username}} </h1>
-            <p><a href="/results/{{this.result}}" target="_blank"><h1>pogledaj rezultate</h1></a></p>
+        <div class="col-12 py-4" style="border-bottom:1px solid #e1e1e1;">
+          <h1 class="headTitle float-left mt-3">{{this.userId.username}} </h1>
+
+            <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div>
+
+
+            <div class="float-right pr-4">
+              <form class="" action="" method="post" id="lockTheRecord">
+                    <label class="chckBoxCustom">
+                    <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}} class="customCheck">
+                    <span class="checkmark"></span>
+                    {{#if this.owner}}
+                    <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h4>Zaključano</h4></label>
+                    {{else}}
+                    <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h4>Zaključaj</h4></label>
+                     <span class="checkmark"></span>
+                    {{/if}}
+                    </label>
+                  <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
+              </form>
+            </div>
+
+
         </div>
 
         <div class="col-4 my-4">
@@ -337,26 +357,8 @@
 
       <div class="col-12">
         <div class="table-responsive mt-4" id="labDashboard">
-          <form class="" action="" method="post" id="lockTheRecord">
-            {{#each findOtherResult}}
+          {{#each findOtherResult}}
 
-
-                <label class="chckBoxCustom">
-                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}} class="customCheck">
-                <span class="checkmark"></span>
-                {{#if this.owner}}
-                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h3>Zaključano</h3></label>
-                {{else}}
-                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h3>Zaključaj</h3></label>
-                 <span class="checkmark"></span>
-                {{/if}}
-                </label>
-
-
-              <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
-
-
-          </form>
 
           <h2 id='newLine'>dodaj novi red</h2>
           <span id="counter"></span>
