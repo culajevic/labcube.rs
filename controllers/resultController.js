@@ -471,22 +471,19 @@ requestCheckout()
        res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
      }
      else {
-       console.log(data)
-       console.log(typeof(data.result.code))
 
        let secureError = /^(800\.400\.2|100\.380\.4|100\.390)/
        let externalBankError = /^(800\.[17]00|800\.800\.[123])/
        let riskSystemError = /^(100\.400\.[0-3]|100\.38|100\.370\.100|100\.370\.11)/
        let blackListError = /^(100\.100\.701|800\.[32])/
-
        let errorPayment
 
        switch(true) {
          case externalBankError.test(data.result.code):
           errorPayment = 'Banka je odbila transakciju, proverite da li imate dovoljno sredstava na kartici kao i da li Vaša kartica podržava plaćanje preko interneta.'
-          break
+          break;
          case secureError.test(data.result.code):
-          errorPayment = 'Transakcija je odbijena zbog tehničke greške u 3D Secure sistemu'
+          errorPayment = 'Transakcija je odbijena zbog tehničke greške u 3D Secure sistemu.'
           break;
          case riskSystemError.test(data.result.code):
           errorPayment = 'Banka nije u mogućnosti da autentifikuje korisnika, proverite da li ste ispravno uneli jednokratnu lozinku.'
