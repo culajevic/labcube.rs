@@ -236,6 +236,12 @@ hbs.registerHelper('empty', value => {
   }
 })
 
+hbs.registerHelper('checkComment', value => {
+  if(value == '') {
+    return true
+  }
+})
+
 hbs.registerHelper('checkStatus', (value1) => {
   if (value1 == 'Završeno') return true
 })

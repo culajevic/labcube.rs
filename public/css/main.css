@@ -7938,8 +7938,11 @@ div.status.closedSoon::before {
 #details, #paymentCheckout {
   min-height: calc(100vh - 900px); }
 
+#profileDetails {
+  min-height: calc(100vh - 868px); }
+
 #paymentError {
-  min-height: calc(100vh - 820px); }
+  min-height: calc(100vh - 810px); }
 
 .results tr:first-child > td {
   border-top: 0px; }
@@ -8640,6 +8643,17 @@ div#d3 {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg); }
 
+.onSalesNow {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: #FF6F6F;
+  padding: 10px;
+  color: white;
+  border-bottom-left-radius: 20px;
+  font-size: 30px;
+  text-decoration: line-through; }
+
 .zoom {
   position: absolute;
   top: 16%;
@@ -8693,13 +8707,15 @@ div#d3 {
   transition: all 1000ms; }
 
 #paketi .finalThougths, #modalParagraph .finalThougths,
-#myresults .finalThougths {
+#myresults .finalThougths,
+#otherResults .finalThougths {
   margin-top: 2.5rem;
   padding: 40px;
   background-color: #F5FAFF;
   border-radius: 20px; }
   #paketi .finalThougths p, #modalParagraph .finalThougths p,
-  #myresults .finalThougths p {
+  #myresults .finalThougths p,
+  #otherResults .finalThougths p {
     opacity: 0.6;
     font-size: 1.25rem;
     line-height: 2rem; }

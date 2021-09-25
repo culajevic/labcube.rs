@@ -76,6 +76,9 @@ exports.createGroup = [authCheck, async (req,res) => {
 // display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
 
+
+// let getPricesdata = await Price.aggregate({$unwind:'$cenovnik'})
+
 sortByPriority = {priority:-1}
   try {
     const faqFP = await Faq.find({frontPage:true}).sort(sortByPriority)

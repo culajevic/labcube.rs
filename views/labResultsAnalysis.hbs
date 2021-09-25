@@ -3,7 +3,7 @@
   <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
   </div>
 {{/each}}
-{{> _innerNavFrontendThanks}}
+{{> _innerNavFrontend}}
 <!-- <form action="/payment" method="POST">
     <button class="btn btn-success text-uppercase">payment gateway</button>
 </form> -->
@@ -80,10 +80,10 @@
 
                       <div class="card paymentSteps">
                         <div class="card-body"><span class="" style="">1</span>
+                          <span class="onSalesNow">690 din.</span>
                           <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-
-                          <span class="text-center paketiCena"><sup><del>750 din.</del></sup> 490 din.</span>
+                          <span class="text-center paketiCena">490 din.</span>
                           <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                         </div>
@@ -108,10 +108,11 @@
 
                     <!-- <div class="col-3"> -->
                       <div class="card paymentSteps ml-3">
-                        <div class="card-body" data-toggle="modal" data-target="#exampleModalCenter">3
+                        <div class="card-body" data-toggle="modal" data-target="">3
+                          <a href="/uslovi-placanja" target="_blank" class="text-center">
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
-                          <span class="text-center paketiCena">&lt; 2 min. čitanja</span>
+                          <span class="text-center paketiCena">&lt; 2 min. čitanja</span></a>
                           <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
                           <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio">slažem se</label>
                         </div>

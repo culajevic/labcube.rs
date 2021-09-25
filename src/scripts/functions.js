@@ -45,7 +45,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
     return item.name === prices[i].name
   })
-
+  
   let tr = document.createElement('tr')
   //td analysis name and preview icon
   let tdName = document.createElement('td')

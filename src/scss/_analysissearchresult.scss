@@ -22,8 +22,12 @@
   @extend #results;
 }
 
+#profileDetails{
+  min-height: calc(100vh - 868px);
+}
+
 #paymentError {
-  min-height: calc(100vh - 820px);
+    min-height: calc(100vh - 810px);
 }
 
 .results tr:first-child>td{

@@ -9,6 +9,7 @@ moment.locale('sr')
 let NewElement = require('./class')
 let PriceList = require('./price')
 let CookieAlert = require('./cookie')
+let FindBestPrice = require('./findBestPrice')
 let helper = require('./functions')
 
 // back to to top
@@ -202,11 +203,13 @@ const group = /group/
 const nadjiLab = /nadjiLab/
 const laboratorija = /laboratorija.*/
 const tumacenje = /tumacenje.*/
+const profilePage = /profile.*/
 const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
 
 //definisanje stranica na kojima se prikazuje shoping karta
-if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) )) {
+if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
+ || location.match(paymentDetails) || location.match(profilePage))) {
   helper.displayBasket(itemsArray)
 }
 
@@ -1106,7 +1109,19 @@ if (municipalityValue != null) {
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
   //ako je profilna stranica
-  console.log('tusmo')
+
+  //FindBestPrice
+    const findBestPrice = new FindBestPrice.bestPrice()
+  //Delete analysis from shoping list
+    helper.removeAnalysis(itemsArray, checkout)
+  //Searching for lab or analysis
+    //get seachstring
+    let mainSearch = document.getElementById('searchResultPage')
+    //ger reference to filter
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+  //search for analysis or lab
+  helper.searchLabAnalysis(mainSearch,analysisRadio)
+
   //deleteUser
   const deleteAccount = document.getElementById('deleteAccount')
   const deleteAccountForm = document.getElementById('deleteAccountForm')
@@ -1132,10 +1147,14 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
   const bmi = document.getElementById('bmi')
   const therapy = document.getElementById('therapy')
   const therapyComment = document.getElementById('therapyComment')
+  let therapyComentArea = document.getElementById('therapyCommentArea')
   const anamnesis = document.getElementById('anamneza')
   const anamnesisComment = document.getElementById('anamnezaKomentar')
+  const anamnesisCommentValue = document.getElementById('anamnesisCommentValue')
+
 
   therapy.addEventListener('change', e => {
+    console.log(e.target.value)
     if(e.target.value == 'Da') {
       therapyComment.classList.remove('d-none')
       therapyComment.classList.add('goVisible')
@@ -1143,6 +1162,7 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
     } else {
       therapyComment.classList.add('d-none')
       therapyComment.classList.remove('goVisible')
+      therapyCommentArea.value = ''
     }
   })
 
@@ -1154,6 +1174,7 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
     } else {
       anamnesisComment.classList.add('d-none')
       anamnesisComment.classList.remove('goVisible')
+      anamnesisCommentValue.value = ''
     }
   })
 

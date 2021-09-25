@@ -20618,6 +20618,66 @@ exports.cookieAlert = function () {
 
 /***/ }),
 
+/***/ "./src/scripts/findBestPrice.js":
+/*!**************************************!*\
+  !*** ./src/scripts/findBestPrice.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.bestPrice = function () {
+  var priceList = document.getElementById('priceList');
+  var closePriceList = document.getElementById('closePriceList');
+  var checkout = document.querySelector('.checkout');
+  var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+  checkout.addEventListener('click', function () {
+    if (itemsArray.length > 0) {
+      priceList.classList.add('unhidePriceList');
+      priceList.classList.remove('hidePriceList');
+      priceList.classList.remove('d-none');
+    }
+  });
+  closePriceList.addEventListener('click', function () {
+    priceList.classList.add('hidePriceList');
+    priceList.classList.remove('unhidePriceList');
+    priceList.removeAttribute('style');
+  });
+  var municipality = document.getElementById('municipality');
+  var municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+
+  if (municipalityValue != null) {
+    municipality.value = municipalityValue;
+  } //display best price
+
+
+  var resultDiv = document.getElementById('resultTable');
+  var loaderWrapper = document.querySelector('.loader-wrapper');
+  var showPriceBtn = document.querySelector('.showPrice');
+  var mapArea = document.getElementById('mapPrices');
+  showPriceBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (document.getElementById('municipality') != null) {
+      var _municipality = document.getElementById('municipality');
+
+      municipalityValue = _municipality.options[_municipality.selectedIndex].value;
+      localStorage.setItem('municipality', JSON.stringify(municipalityValue));
+    } else {
+      municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+    }
+
+    if (itemsArray.length > 0) {
+      // municipality.value = municipalityValue
+      window.location = '/nadjiLab';
+    } //ako nesto ne radi zakomentarisati red ispod
+
+
+    helper.bestPrice(mapArea, resultDiv);
+  });
+};
+
+/***/ }),
+
 /***/ "./src/scripts/functions.js":
 /*!**********************************!*\
   !*** ./src/scripts/functions.js ***!
@@ -21704,6 +21764,8 @@ var PriceList = __webpack_require__(/*! ./price */ "./src/scripts/price.js");
 
 var CookieAlert = __webpack_require__(/*! ./cookie */ "./src/scripts/cookie.js");
 
+var FindBestPrice = __webpack_require__(/*! ./findBestPrice */ "./src/scripts/findBestPrice.js");
+
 var helper = __webpack_require__(/*! ./functions */ "./src/scripts/functions.js"); // back to to top
 //Get the button:
 
@@ -21884,10 +21946,11 @@ var group = /group/;
 var nadjiLab = /nadjiLab/;
 var laboratorija = /laboratorija.*/;
 var tumacenje = /tumacenje.*/;
+var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -22777,7 +22840,19 @@ window.onload = function () {
 
   if (urlArr[1] == 'profile' && !findUserByEmail) {
     //ako je profilna stranica
-    console.log('tusmo'); //deleteUser
+    //FindBestPrice
+    var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
+
+    helper.removeAnalysis(itemsArray, checkout); //Searching for lab or analysis
+    //get seachstring
+
+    var _mainSearch = document.getElementById('searchResultPage'); //ger reference to filter
+
+
+    var _analysisRadio3 = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
+
+
+    helper.searchLabAnalysis(_mainSearch, _analysisRadio3); //deleteUser
 
     var deleteAccount = document.getElementById('deleteAccount');
     var deleteAccountForm = document.getElementById('deleteAccountForm');
@@ -22801,15 +22876,20 @@ window.onload = function () {
     var bmi = document.getElementById('bmi');
     var therapy = document.getElementById('therapy');
     var therapyComment = document.getElementById('therapyComment');
+    var therapyComentArea = document.getElementById('therapyCommentArea');
     var anamnesis = document.getElementById('anamneza');
     var anamnesisComment = document.getElementById('anamnezaKomentar');
+    var anamnesisCommentValue = document.getElementById('anamnesisCommentValue');
     therapy.addEventListener('change', function (e) {
+      console.log(e.target.value);
+
       if (e.target.value == 'Da') {
         therapyComment.classList.remove('d-none');
         therapyComment.classList.add('goVisible');
       } else {
         therapyComment.classList.add('d-none');
         therapyComment.classList.remove('goVisible');
+        therapyCommentArea.value = '';
       }
     });
     anamnesis.addEventListener('change', function (e) {
@@ -22819,6 +22899,7 @@ window.onload = function () {
       } else {
         anamnesisComment.classList.add('d-none');
         anamnesisComment.classList.remove('goVisible');
+        anamnesisCommentValue.value = '';
       }
     });
     visina.addEventListener('input', function () {
@@ -23293,10 +23374,10 @@ window.onload = function () {
 
     var _innerPageSearch = document.getElementById('searchResultPage');
 
-    var _analysisRadio3 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    var _analysisRadio4 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
 
 
-    helper.searchLabAnalysis(_innerPageSearch, _analysisRadio3); //add analysis from analysis details page
+    helper.searchLabAnalysis(_innerPageSearch, _analysisRadio4); //add analysis from analysis details page
 
     var analysisBtn = document.querySelector('.addAnalysis');
     /* take the analysisname from button and check if this analysis
