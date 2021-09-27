@@ -432,8 +432,8 @@ ul ol ul {
   box-shadow: none;
 }
 
-#home input {border:0;outline:0;}
-#home select {border:0;outline:0;}
+#home input {border:0;outline:0; background-color: transparent;}
+#home select {border:0;outline:0; background-color: transparent;}
 #home input:focus {outline:none!important;}
 #home input[type="text"]:disabled {
   background: transparent;
@@ -441,8 +441,8 @@ ul ol ul {
 // #home input:disabled {background-color: :red!important;}
 
 
-#healthProfile input {border:0;outline:0;}
-#healthProfile select {border:0;outline:0;}
+#healthProfile input {border:0;outline:0; background-color: transparent;}
+#healthProfile select {border:0;outline:0; background-color: transparent;}
 #healthProfile input:focus {outline:none!important;}
 
 #healthProfile textarea {border:1px solid $border; border-radius:8px; outline:0;}
@@ -1442,7 +1442,7 @@ small {
   display: none; /* Hidden by default */
   position: fixed; /* Fixed/sticky position */
   bottom: 20px; /* Place the button at the bottom of the page */
-  right: 100px; /* Place the button 30px from the right */
+  right: 20px; /* Place the button 30px from the right */
   z-index: 9999; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */

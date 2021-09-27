@@ -8927,11 +8927,13 @@ ul ol ul {
 
 #home input {
   border: 0;
-  outline: 0; }
+  outline: 0;
+  background-color: transparent; }
 
 #home select {
   border: 0;
-  outline: 0; }
+  outline: 0;
+  background-color: transparent; }
 
 #home input:focus {
   outline: none !important; }
@@ -8941,11 +8943,13 @@ ul ol ul {
 
 #healthProfile input {
   border: 0;
-  outline: 0; }
+  outline: 0;
+  background-color: transparent; }
 
 #healthProfile select {
   border: 0;
-  outline: 0; }
+  outline: 0;
+  background-color: transparent; }
 
 #healthProfile input:focus {
   outline: none !important; }
@@ -9743,7 +9747,7 @@ small a:hover {
   /* Fixed/sticky position */
   bottom: 20px;
   /* Place the button at the bottom of the page */
-  right: 100px;
+  right: 20px;
   /* Place the button 30px from the right */
   z-index: 9999;
   /* Make sure it does not overlap */
