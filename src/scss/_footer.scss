@@ -5,6 +5,7 @@ footer {
   background-position:center;
   height: px-to-rem(580px);
   position:relative;
+  margin-top: px-to-rem(60px);
     & > .overlay {
     background-color: $primary-color;
     height: px-to-rem(580px);

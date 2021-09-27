@@ -8336,7 +8336,8 @@ footer {
   background-repeat: repeat-x;
   background-position: center;
   height: 36.25rem;
-  position: relative; }
+  position: relative;
+  margin-top: 3.75rem; }
   footer > .overlay {
     background-color: #1D88E5;
     height: 36.25rem;
@@ -8647,8 +8648,8 @@ div#d3 {
   position: absolute;
   right: 0px;
   top: 0px;
-  background-color: #FF6F6F;
-  padding: 10px;
+  background-color: #1D88E5;
+  padding: 2px 5px;
   color: white;
   border-bottom-left-radius: 20px;
   font-size: 30px;
