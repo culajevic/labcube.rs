@@ -441,23 +441,71 @@ ul ol ul {
 // #home input:disabled {background-color: :red!important;}
 
 
+
 #healthProfile input {border:0;outline:0; background-color: transparent;}
 #healthProfile select {border:0;outline:0; background-color: transparent;}
 #healthProfile input:focus {outline:none!important;}
-
 #healthProfile textarea {border:1px solid $border; border-radius:8px; outline:0;}
+#healthProfile textarea {
+  color: $fontColorResultsTable;
+  font-size: 1.2rem;
+  padding: px-to-rem(22px);
+  background-color: transparent;
+};
+// #labDashboard input {border:1;outline:1; background-color: white;}
 
-#healthProfile textarea::placeholder {
+#healthProfileDetails input {border:0;outline:0; background-color: transparent;}
+#healthProfileDetails select {border:0;outline:0; background-color: transparent;}
+#healthProfileDetails input:focus {outline:none!important;}
+
+#healthProfileDetails textarea {border:1px solid $border; border-radius:8px; outline:0;}
+
+#healthProfileDetails textarea::placeholder {
   color: $fontColorResultsTable;
   font-size: 1.2rem;
   padding: px-to-rem(3px);
 };
 
-#healthProfile textarea {
+#healthProfileDetails textarea {
   color: $fontColorResultsTable;
   font-size: 1.2rem;
   padding: px-to-rem(22px);
 };
+
+#healthProfile #labDashboard input {border:1 px solid $fontColorResultsTable; outline:0; background-color:$accordionHover;}
+
+#finalCommentByLabCube textarea {
+  color: $fontColorResultsTable;
+  font-size: 1.2rem;
+  padding: px-to-rem(22px);
+  background-color: transparent;
+}
+
+#healthProfile  #labDashboard #oldCheckBox  input[type='checkbox'] {
+      opacity: 1;
+      cursor: pointer;
+      height: 20px;
+      width: 20px;
+      text-align: center;
+  }
+
+#labDashboard tr th {
+  background-color: $tableHover;
+  padding:20px;
+  color:$tableHeaderInterpretation;
+  font-size: 17px;
+}
+
+.removeRow {
+  color:$white-color;
+  width:15px;
+  height: 15px;
+  border-radius: 60px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  background-color: $danger;
+}
 
 input:-webkit-autofill {
   padding-left: 0px;

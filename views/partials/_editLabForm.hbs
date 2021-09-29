@@ -163,19 +163,25 @@
           <div class="form-group col">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" value="1" name="disability" id="disability" {{#if (keepData lab.disability disability)}} checked {{/if}}>
-              <label class="custom-control-label text-muted" for="disability">Disability friendly</label>
+              <label class="custom-control-label text-muted" for="disability">Disability</label>
             </div>
           </div>
           <div class="form-group col">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" value="1" name="patronage" id="patronage" {{#if (keepData lab.patronage patronage)}} checked {{/if}}>
-              <label class="custom-control-label text-muted" for="patronage">Patronage service</label>
+              <label class="custom-control-label text-muted" for="patronage">Patronage</label>
             </div>
           </div>
           <div class="form-group col">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" value="1" name="private" id="private" {{#if (keepData lab.private private)}} checked {{/if}}>
               <label class="custom-control-label text-muted" for="private">Private health insurance</label>
+            </div>
+          </div>
+          <div class="form-group col">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" value="1" name="antigen" id="antigen" {{#if (keepData lab.antigen antigen)}} checked {{/if}}>
+              <label class="custom-control-label text-muted" for="antigen">Antigen test</label>
             </div>
           </div>
 

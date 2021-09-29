@@ -178,7 +178,8 @@ exports.admindasboard =  [authCheck, (req,res) => {
 
 exports.register =  async (req,res) => {
   let errors = []
-  let {email,password, privacy, conditions} = req.body
+  let {email,password, privacy, conditions, news} = req.body
+  news = (req.body.news) ? true : false
   if(!privacy || !conditions) {
     errors.push({text:'Potvrdite da ste pročitali i razumeli uslove korišćenja i politiku privatnosti.'})
   }
@@ -205,6 +206,7 @@ exports.register =  async (req,res) => {
           signupDate:Date.now(),
           isVerified:false,
           admin:0,
+          news:news,
           deleted:false,
           lab:0,
           emailToken:'',
@@ -218,12 +220,12 @@ exports.register =  async (req,res) => {
           }
           newUser.emailToken = await random()
 
-          const output = `<div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
-          <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
-          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Vaš kod za verifikaciju labcube naloga</h2></div>
-          <div style="letter-spacing:2px; margin-bottom:60px; padding:30px;">
-          <h1 style="opacity:0.7">${newUser.emailToken}</h1>
-          </div>
+          const output = ` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
+           <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+           <div style="letter-spacing:2px; margin-bottom:40px; margin-top:40px; padding:30px;">
+             <h1 style="opacity:0.7">${newUser.emailToken}</h1>
+           </div>
+          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>je Vaš kod za verifikaciju labcube naloga</h2></div>
           </div>`
 
 
@@ -407,8 +409,8 @@ exports.resetPassLink = async (req,res) => {
           to:req.body.email,
           subject:'Postavljanje nove labcube lozinke',
           text:'',
-          html:`<div style="width:650px; margin:0 auto; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);"">
-          <img src="cid:headerEmailBig" alt="labcube header image" title="labcube" style="width:100%; margin-top:-20px; padding-top:0;">
+          html:` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
+           <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
           <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Da biste postavili novu labcube lozinku</h2></div>
           <div style="margin-bottom:60px; padding:30px;">
           <h2 style="opacity:0.7"><a href="http://${req.headers.host}/reset/${token}" style="text-decoration:none; background-color:#FF6F6F; padding:20px; color:#fff; border-radius:5px;">kliknite ovde</a></h2>

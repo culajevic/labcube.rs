@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
   aboutUser:String,
   privacy:Boolean,
   conditions:Boolean,
+  news:Boolean,
   birthYear:Number,
   gender:String,
   mobile:String,

@@ -96,6 +96,7 @@ exports.createLab = [authCheck, async (req,res) => {
       disability:req.body.disability,
       patronage:req.body.patronage,
       private:req.body.private,
+      antigen:req.body.antigen,
       description:req.body.description,
       comment:req.body.description
 
@@ -150,6 +151,9 @@ exports.updateLab = [authCheck, async (req,res) => {
   }
   if (req.body.private == undefined) {
     req.body.private = false
+  }
+  if (req.body.antigen == undefined) {
+    req.body.antigen = false
   }
 
   if(typeof(req.file) !== 'undefined') {

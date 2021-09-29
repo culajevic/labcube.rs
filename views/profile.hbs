@@ -16,7 +16,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfile" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
+          <a class="nav-link link-unstyled dashboardTabs" id="profile-tab" data-toggle="tab" href="#healthProfileDetails" role="tab" aria-controls="profile" aria-selected="false">Zdravstveni profil</a>
         </li>
 
         <li class="nav-item">
@@ -145,8 +145,8 @@
                       <span class="onSalesNow">690 din.</span>
                       <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                       <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                      <span class="text-center paketiCena">490 din.</span>
-                      <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
+                      <span class="text-center paketiCena">1 din.</span>
+                      <input type="radio" name="package" value=1 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
                       <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                     </div>
                   </div>
@@ -751,7 +751,7 @@
     </div><!-- profile card end -->
   </div><!-- tab pane end -->
 
-  <div class="tab-pane fade" id="healthProfile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="tab-pane fade" id="healthProfileDetails" role="tabpanel" aria-labelledby="profile-tab">
     <form action="/healthProfile/{{user.id}}" method="POST" class="mt-4 d-flex flex-column align-items-center" id="healthProfileForm">
       <div class="row">
       <!-- <div class="col-12 mb-4"> -->

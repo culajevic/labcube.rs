@@ -95,8 +95,8 @@ exports.payment = async (req,res) => {
 
 
 
-  if(req.body.package != 490) {
-    errors.push({text:'Nije ok ovo pokušavati'})
+  if(req.body.package != 1) {
+    errors.push({text:'Nije ok'})
   }
 
   // if(!req.body.package) {
@@ -143,7 +143,8 @@ exports.payment = async (req,res) => {
 
 
   	const data = querystring.stringify({
-  		'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
+  		// 'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
+  		'entityId':process.env.ENTITYIDSANDBOX,
   		'amount':req.body.package,
       'customer.email':req.body.email,
   		'currency':'RSD',
@@ -154,13 +155,14 @@ exports.payment = async (req,res) => {
   	});
   	const options = {
   		port: 443,
-  		host: 'test.oppwa.com',
+  		host: process.env.PAYMENTHOST,
   		path: path,
   		method: 'POST',
   		headers: {
   			'Content-Type': 'application/x-www-form-urlencoded',
   			'Content-Length': data.length,
-  			'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  			'Authorization':process.env.ACCESSTOKENPAYMENTSANDBOX
   		}
   	};
   	return new Promise((resolve, reject) => {
@@ -202,14 +204,16 @@ exports.paymentDone = async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const requestCheckout = async () => {
   	var path=`${req.query.resourcePath}`
-  	path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
+  	// path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
+  	path += '?entityId='+process.env.ENTITYIDSANDBOX;
   	const options = {
   		port: 443,
-  		host: 'test.oppwa.com',
+  		host: process.env.PAYMENTHOST,
   		path: path,
   		method: 'GET',
   		headers: {
-  			'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  			'Authorization':process.env.ACCESSTOKENPAYMENTSANDBOX
   		}
   	};
   	return new Promise((resolve, reject) => {
@@ -248,7 +252,6 @@ requestCheckout()
     let ofHours
     let tomorrow = new Date()
     serviceClosingTime.setHours(17,0,0)
-    console.log(deadline)
 
   let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))

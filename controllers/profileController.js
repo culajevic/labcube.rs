@@ -38,7 +38,7 @@ exports.updateHealthProfile = async (req, res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspešno ste izmenili podatkeo zdravstvenom profilu')
+    req.flash('success_msg', 'Uspešno ste izmenili podatke o zdravstvenom profilu')
     res.redirect('/profile')
   }
   catch(e) {
@@ -112,7 +112,7 @@ exports.deleteUser = async (req,res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspešno ste obrisali Vaš nalog. Žao nam je. Uvek možete kreirati novi nalog.')
+    req.flash('success_msg', 'Uspešno ste deaktivirali Vaš nalog, nakon 30 dana biće obrisan u potpunosti.')
     res.redirect('/')
     }
     catch(e) {

@@ -16,7 +16,8 @@
 
 
         <div class="col-12 py-4" style="border-bottom:1px solid #e1e1e1;">
-          <h1 class="headTitle float-left mt-3">{{this.userId.username}} </h1>
+          <h1 class="headTitle float-left mt-3" id="customerEmail">{{this.userId.username}} </h1>
+
 
             <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div>
 
@@ -270,9 +271,9 @@
           </div>
         </div>
 
-        {{#if (empty this.userId.currentStatusComment)}}
-        <div class="col-12 d-none" id="anamnezaKomentar">
-          <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>this.userId.currentStatusComment</textarea>
+        {{#if (empty this.userId.anamnesisComment)}}
+        <div class="col-12" id="anamnezaKomentar">
+          <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>{{this.userId.anamnesisComment}}</textarea>
         </div>
         {{/if}}
 
@@ -349,37 +350,45 @@
           </div>
         </div>
         {{/if}}
-
         <!-- </div> -->
           {{/each}}
-
       <!-- </div>\\\ -->
+</div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+
 
       <div class="col-12">
         <div class="table-responsive mt-4" id="labDashboard">
           {{#each findOtherResult}}
 
 
-          <h2 id='newLine'>dodaj novi red</h2>
-          <span id="counter"></span>
+          <h2 id='newLine' class="text-center my-4"><btn class="btn btn-block btn-outline-info text-uppercase">dodaj novi red<span id="counter" class="pl-2 float-right"></span></h2>
+
 
                 <!-- izmeniti  -->
 
-                <form  action="/analysisOtherInterpretation/{{this.id}}" method="post" >
+                <form  action="/analysisOtherInterpretation/{{this.id}}" method="post" autocomplete="off">
+
                   {{/each}}
+                  <input type="hidden" name="email" id="customerEmailCopy" value="">
                   <table class="table" id="resultsUpload">
 
                         <tr>
-                          <th class="small text-info">Ime analize</th>
+                          <th class="small">Ime analize</th>
                           <!-- <th class="small text-info">Id analize</th> -->
-                          <th class="small text-info">Vrednost</th>
-                          <th class="small text-info">Jedinica</th>
-                          <th class="small text-info"><</th>
-                          <th class="small text-info">></th>
-                          <th class="small text-info">Od</th>
-                          <th class="small text-info">Do</th>
-                          <th class="small text-info">Van granica?</th>
-                          <th class="small text-info">Komentar</th>
+                          <th class="small">Vrednost</th>
+                          <th class="small">Jedinica</th>
+                          <th class="small"><</th>
+                          <th class="small">></th>
+                          <th class="small">Od</th>
+                          <th class="small">Do</th>
+                          <th class="small">Van granica?</th>
+                          <th class="small">Komentar</th>
+                          <th class="small">X</th>
                         </tr>
                     <!-- <ul class="list-group" style="" id="analysisFound"></ul> -->
                 <!-- <tr> -->
@@ -403,6 +412,7 @@
                   <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
                   <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{@index}}" value="true" {{#if this.outsideOfTheRange}} checked {{/if}}></div></td>
                   <td><textarea rows=3 cols=35 name="commentResult">{{#if (empty this.commentResult)}}{{this.commentResult}}{{/if}}</textarea></td>
+                  <td><span class="removeRow">X</span></td>
                 </tr>
                 {{/if}}
                 {{/each}}
@@ -423,23 +433,19 @@
                   <td><textarea rows=3 cols=35 name="commentResult"></textarea></td>
 
                 </tr>  -->
-
-
-
           </table>
 
-
-
-              <p>Glavni komentar</p>
+              <p>Finalni komentar</p>
               {{#each findOtherResult}}
-              <textarea name="commentCube"  style="width:100%"  rows="8" id="cubeComment">{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
+              <textarea name="commentCube" id="finalCommentByLabCube" style="width:100%"  rows="8" id="cubeComment">{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
               <button class="btn btn-outline-info mb-4 btn-block mt-3">sačuvaj</button>
 
 
               <div class="my-5">
-                <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3>
+                <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
                   <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}>
-                  <span class="checkmark"></span>
+                  <label for="">Objavi tumačenje i pošalji mejl korisniku</label>
+                  <!-- <span class="checkmark"></span> -->
                 </label>
               </div>
 

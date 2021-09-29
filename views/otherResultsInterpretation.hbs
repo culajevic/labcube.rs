@@ -2,9 +2,9 @@
 <!-- ovo je stranica koju koristi labcube da pogleda ko je sve uradio upload rezultata i da pocne tumacenje -->
 
 
-<div class="container">
+<div class="container-fluid w-75">
   <div class="row">
-    <div class="">
+    <!-- <div class=""> -->
       <div class="table-responsive mt-4" id="labDashboard">
         <table class="table tableLabResults" id="analysisResultsCube">
           <tbody>
@@ -20,11 +20,17 @@
               <td><a class="" href="/otherResultsInterpretation/{{this._id}}">{{#unless (checkStatus this.status)}}<button class="btn btn-block btn-danger text-uppercase">protumači</button>{{else}}<button class="btn btn-block Završeno">Završeno</button>{{/unless}}</a></td>
               <td id="deadline{{this.id}}" class="deadline d-none">{{this.deadline}}</td>
               <!-- <td id="days{{this.id}}" class="days"></td> -->
-              {{#if (checkStatus this.status)}}<td style="font-size:33px;">&#127881;</td><td style="font-size:33px;">&#127881;</td><td style="font-size:33px;">&#127881;</td>{{else}}
+
+            
               <td id="hours{{this.id}}" class="hours"></td>
               <td id="mins{{this.id}}" class="mins"></td>
               <td id="secs{{this.id}}" class="secs"></td>
-              {{/if}}
+
+              {{#if (undefined this.completedDate)}}
+                <td>{{formatRsDate this.completedDate}}</td>
+                {{else}}
+                <td></td>
+                {{/if}}
               <td>{{this.owner.username}}</td>
             </tr>
             {{/each}}
@@ -32,6 +38,6 @@
         </table>
         {{> _paginationCube}}
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </div>

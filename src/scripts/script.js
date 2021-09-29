@@ -1152,6 +1152,17 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
   const anamnesisComment = document.getElementById('anamnezaKomentar')
   const anamnesisCommentValue = document.getElementById('anamnesisCommentValue')
 
+if(therapyComentArea.value == '') {
+  therapyComment.classList.add('d-none')
+} else {
+  therapyComment.classList.remove('d-none')
+}
+
+if(anamnesisCommentValue.value == '') {
+  anamnesisComment.classList.add('d-none')
+} else {
+  anamnesisComment.classList.remove('d-none')
+}
 
   therapy.addEventListener('change', e => {
     console.log(e.target.value)
@@ -1464,6 +1475,13 @@ let interpretationPage = document.getElementById('interpretationId')
   // add new lines
   const addNewLine = document.getElementById('newLine')
   const counterValue = document.getElementById('counter')
+  let published = document.getElementById('published')
+  let customerEmail = document.getElementById('customerEmail')
+  let customerEmailCopy = document.getElementById('customerEmailCopy')
+  published.addEventListener('click', e => {
+    customerEmailCopy.value=customerEmail.innerText
+  })
+
   let counter = 0
   // const otherResultsTable = document.getElementById('resultsUpload')
   const otherResultsTable = document.querySelector('#resultsUpload > tbody')
@@ -1519,15 +1537,16 @@ let interpretationPage = document.getElementById('interpretationId')
         analysisValueToInput.name = "valueTo"
 
     let analysisOutOfRange = document.createElement('input')
-        analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
+        // analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
+        analysisOutOfRange.classList.add('text-center')
         analysisOutOfRange.setAttribute('type', 'checkbox')
         analysisOutOfRange.name = "outsideOfTheRange"+(counter-1)
         analysisOutOfRange.value="true"
 
     let analysisCommentInput = document.createElement('textarea')
         analysisCommentInput.classList.add('form-control')
-        analysisCommentInput.setAttribute('rows', 3)
-        analysisCommentInput.setAttribute('cols', 35)
+        analysisCommentInput.setAttribute('rows', 2)
+        analysisCommentInput.setAttribute('cols', 45)
         analysisCommentInput.name = "commentResult"
 
     let removeRow = document.createElement('span')

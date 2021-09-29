@@ -45,7 +45,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
     return item.name === prices[i].name
   })
-  
+
   let tr = document.createElement('tr')
   //td analysis name and preview icon
   let tdName = document.createElement('td')
@@ -455,6 +455,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                   <div>
                      <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
                      <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
+                     <img src="" class="labAntigenIcon antigenIcon${i}" title="radi antigenski test">
                      <span class="labInfoWindowTitle">${result[i].labName}</span>
                  </div>
                    <div class="labInfoWindow">
@@ -533,6 +534,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         let todayIs = document.querySelector('.'+currentDay+i)
         let privateInsurance = document.querySelector('.privateInssuranceIcon'+i)
         let accredited = document.querySelector('.accreditedIcon'+i)
+        let antigen = document.querySelector('.antigenIcon'+i)
         let labDetailsBtn = document.querySelectorAll('.buttonId')
          labDetailsBtn.forEach(item => {
            item.addEventListener('click', e => {
@@ -555,6 +557,12 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           accredited.setAttribute('src', '/images/verified.svg')
         } else {
           accredited.remove()
+        }
+
+        if(result[i].antigen) {
+          antigen.setAttribute('src', '/images/covidIcon.svg-1615411728326.svg')
+        } else {
+          antigen.remove()
         }
 
         if(result[i].open24h) {

@@ -21085,7 +21085,7 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
         resultDiv.innerHTML = ''; // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
         //  ${result[i].placeId.municipality} dodati ako treba uz ispis mesta
 
-        labTemplate.innerHTML += "\n          <div class=\"lab-card\">\n            <div class=\"testingFlex\">\n\n                  <div>\n                     <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n                     <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n                     <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n                 </div>\n                   <div class=\"labInfoWindow\">\n                       <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                       <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " </p>\n                       <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n                   </div>\n                   <div class=\"labInfoFooter\">\n                       <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                       <div class=\"radnoVreme\">Radno vreme</div>\n                       <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                       <div class=\"labInfoRadnoVremeDetalji\">\n                         <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                         <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                         <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                         <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                         <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                         <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                         <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                       </div>\n                    </div>\n                    <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n\n              </div>\n           </div>");
+        labTemplate.innerHTML += "\n          <div class=\"lab-card\">\n            <div class=\"testingFlex\">\n\n                  <div>\n                     <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon".concat(i, "\" title=\"laboratorija sara\u0111uje sa privatnim osiguranjem\">\n                     <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n                     <img src=\"\" class=\"labAntigenIcon antigenIcon").concat(i, "\" title=\"radi antigenski test\">\n                     <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n                 </div>\n                   <div class=\"labInfoWindow\">\n                       <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                       <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " </p>\n                       <p class=\"labInfoWindowTelefoni\"> ").concat(result[i].phone.join(', '), "</p>\n                   </div>\n                   <div class=\"labInfoFooter\">\n                       <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                       <div class=\"radnoVreme\">Radno vreme</div>\n                       <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                       <div class=\"labInfoRadnoVremeDetalji\">\n                         <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                         <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                         <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                         <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                         <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                         <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                         <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                       </div>\n                    </div>\n                    <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n\n              </div>\n           </div>");
         resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
 
         document.querySelector('.labContainer').appendChild(labTemplate);
@@ -21136,6 +21136,7 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
         var todayIs = document.querySelector('.' + currentDay + i);
         var privateInsurance = document.querySelector('.privateInssuranceIcon' + i);
         var accredited = document.querySelector('.accreditedIcon' + i);
+        var antigen = document.querySelector('.antigenIcon' + i);
         var labDetailsBtn = document.querySelectorAll('.buttonId');
         labDetailsBtn.forEach(function (item) {
           item.addEventListener('click', function (e) {
@@ -21157,6 +21158,12 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
           accredited.setAttribute('src', '/images/verified.svg');
         } else {
           accredited.remove();
+        }
+
+        if (result[i].antigen) {
+          antigen.setAttribute('src', '/images/covidIcon.svg-1615411728326.svg');
+        } else {
+          antigen.remove();
         }
 
         if (result[i].open24h) {
@@ -22880,6 +22887,19 @@ window.onload = function () {
     var anamnesis = document.getElementById('anamneza');
     var anamnesisComment = document.getElementById('anamnezaKomentar');
     var anamnesisCommentValue = document.getElementById('anamnesisCommentValue');
+
+    if (therapyComentArea.value == '') {
+      therapyComment.classList.add('d-none');
+    } else {
+      therapyComment.classList.remove('d-none');
+    }
+
+    if (anamnesisCommentValue.value == '') {
+      anamnesisComment.classList.add('d-none');
+    } else {
+      anamnesisComment.classList.remove('d-none');
+    }
+
     therapy.addEventListener('change', function (e) {
       console.log(e.target.value);
 
@@ -23145,6 +23165,12 @@ window.onload = function () {
 
     var addNewLine = document.getElementById('newLine');
     var counterValue = document.getElementById('counter');
+    var published = document.getElementById('published');
+    var customerEmail = document.getElementById('customerEmail');
+    var customerEmailCopy = document.getElementById('customerEmailCopy');
+    published.addEventListener('click', function (e) {
+      customerEmailCopy.value = customerEmail.innerText;
+    });
     var counter = 0; // const otherResultsTable = document.getElementById('resultsUpload')
 
     var otherResultsTable = document.querySelector('#resultsUpload > tbody');
@@ -23192,15 +23218,16 @@ window.onload = function () {
       analysisValueToInput.classList.add('form-control');
       analysisValueToInput.setAttribute('type', 'text');
       analysisValueToInput.name = "valueTo";
-      var analysisOutOfRange = document.createElement('input');
-      analysisOutOfRange.classList.add('form-check-input', 'form-check-inline');
+      var analysisOutOfRange = document.createElement('input'); // analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
+
+      analysisOutOfRange.classList.add('text-center');
       analysisOutOfRange.setAttribute('type', 'checkbox');
       analysisOutOfRange.name = "outsideOfTheRange" + (counter - 1);
       analysisOutOfRange.value = "true";
       var analysisCommentInput = document.createElement('textarea');
       analysisCommentInput.classList.add('form-control');
-      analysisCommentInput.setAttribute('rows', 3);
-      analysisCommentInput.setAttribute('cols', 35);
+      analysisCommentInput.setAttribute('rows', 2);
+      analysisCommentInput.setAttribute('cols', 45);
       analysisCommentInput.name = "commentResult";
       var removeRow = document.createElement('span');
       var removeRowText = document.createTextNode('X');

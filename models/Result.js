@@ -7,6 +7,9 @@ const resultSchema = new mongoose.Schema({
     type:Date,
     default:Date.now
   },
+  completedDate:{
+    type:Date
+  },
   analyses:[{
     analysis:String,
     value:Number,

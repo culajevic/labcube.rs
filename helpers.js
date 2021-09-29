@@ -236,6 +236,12 @@ hbs.registerHelper('empty', value => {
   }
 })
 
+hbs.registerHelper('undefined', value => {
+  if (value != undefined) {
+    return true
+  }
+})
+
 hbs.registerHelper('checkComment', value => {
   if(value == '') {
     return true

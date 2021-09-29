@@ -9,7 +9,9 @@ let Group = mongoose.model('Group')
 let Feedback = mongoose.model('Feedback')
 let Result = mongoose.model('Result')
 const nodemailer = require('nodemailer')
+const moment = require('moment')
 
+dotenv.config({path:'variables.env'})
 
 const authCheck = (req,res, next) => {
   if(!req.user) {
@@ -18,6 +20,19 @@ const authCheck = (req,res, next) => {
     next()
   }
 }
+
+let transporter = nodemailer.createTransport({
+  host:'mail.labcube.rs',
+  port:465,
+  secure:true,
+  auth: {
+      user:"labcube-no-reply@labcube.rs",
+      pass:process.env.EMAILNEWACCOUNT
+  },
+  tls: {
+        rejectUnauthorized: false
+    }
+})
 
 exports.scheduleVisit = async (req,res) => {
 
@@ -253,23 +268,20 @@ let updateInterpretation
 
 exports.analysisOtherInterpretation = async (req,res) => {
 // console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
-
-//posalji mejl kada su rezultati protumaceni !!!!!
-
-
+let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 // let test = []
 let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
 
+
+// OBAVEZNO PROVERITI
 for (let i = 0; i < req.body.analysisName.length; i++) {
   if(req.body['outsideOfTheRange'+i]  ==  undefined )  {
     outsideOfTheRange = false
   } else {
     outsideOfTheRange = true
   }
-
-  console.log(req.body)
 
 
   analysisArr.push({
@@ -299,7 +311,64 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
       useFindAndModify:false
     }).exec()
 }
-  res.send(updateOtherInterpretation)
+  req.flash('success_msg','Uspešno ste protumačili rezultate.')
+  res.redirect('/otherResultsInterpretation/page/1')
+
+  if(req.body.publish == 'Završeno') {
+    let completedTime = await Result.findOneAndUpdate(
+      {_id:req.params.id},
+      {$set:{
+        completedDate:Date.now()
+        }
+      },
+      {
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+      }).exec()
+    let mailOptionsSendInfo = {
+      from:'labcube-tumacenje-no-reply@labcube.rs',
+      to:req.body.email,
+      // to:'culajevic@gmail.com',
+      subject:'Protumačeni rezultati',
+      text:'',
+      html:`
+
+      <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
+      <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+      <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Vaši rezultati su protumačeni.</h3></div>
+        <p><a href="https://labcube.rs/profile" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">kliknite ovde da pogledate rezultate</a></p>
+        <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
+         <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Hvala što koristite naše usluge.</p>
+        </div>
+        <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
+        <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+        </div>
+        <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+        <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+         <p style="color:#9C9C9C; font-size:9px; padding-top:20px; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
+      </div>`,
+      attachments:[{
+        filename: 'headerBigEmail.png',
+        path: 'src/images/headerBigEmail.png',
+        cid: 'headerEmailBig'},
+        {
+          filename: 'logoFooter.png',
+          path: 'src/images/logoFooter.png',
+          cid: 'logoFooter'
+        }]
+    }
+    transporter.sendMail(mailOptionsSendInfo, (error, info) => {
+        if(error) {
+          return console.log(error)
+      } else {
+        console.log(info.messageId)
+      }
+    })
+
+  }
+
+
 }
 
 

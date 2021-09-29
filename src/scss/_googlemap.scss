@@ -197,6 +197,12 @@
   @extend .labInfoWindowOsiguranje;
 }
 
+.labAntigenIcon {
+  @extend .labInfoWindowOsiguranje;
+  height: 24px;
+  width:24px;
+}
+
 .labLogoInfoWindow {
   height: px-to-rem(53px);
   width: px-to-rem(48px);

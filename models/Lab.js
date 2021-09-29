@@ -84,6 +84,10 @@ const labSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
+  antigen:{
+    type:Boolean,
+    default:false
+  },
   patronage:{
     type:Boolean,
     default:false

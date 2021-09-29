@@ -63,8 +63,8 @@
         {{/if}}
 
       </div>
-      <div class="feedback col-md-7 col-lg-5 col-xl-4 mt-4 pl-0 pl-xs-4">
-        <!-- <div class="feedback" > -->
+      <!-- <div class="feedback col-md-7 col-lg-5 col-xl-4 mt-4 pl-0 pl-xs-4"> -->
+        <!-- <div class="feedback" >
           <p class="mb-0"><progress max=5 value="{{hospitality}}"> </progress> {{hospitality}} ljubaznost</p>
           <p class="mb-0"><progress max=5 value="{{venipuncture}}"> </progress> {{venipuncture}} venepunkcija</p>
           <p class="mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} izdavanje rezultata</p>
@@ -79,7 +79,7 @@
           <p class="mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} - <span class="text-left"> Covid odgovorni</span></p>
           <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} - <span class="text-left"> Opšti utisak</span> -->
         <!-- </div> -->
-      </div>
+      <!-- </div> -->
     </div>
   </section>
 
@@ -140,7 +140,7 @@
                   {{/each}}
                 </tbody>
        				</table><!-- table -->
-              <div class="mt-1">
+              <div class="mt-5">
 
                 <p class="aboutUs"><span class="numAnalysis">Redovna cena </span> <span class="totalPrice" ></span></p>
                 <p class="aboutUsDiscount" style="min-width: 300px;" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
@@ -154,7 +154,7 @@
             <!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> -->
             <!-- <a class="btn btn-success text-uppercase " id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji</a> -->
             {{#if userId}}
-            <div class="form-group col-12 mt-4">
+          <!--  <div class="form-group col-12 mt-4">
 
               <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
@@ -180,7 +180,7 @@
 
 
             <button class="btn btn-success text-uppercase col-12" id="schedule">prosledite odabrane analize laboratoriji</button>
-
+          -->
 
 
             {{/if}}
@@ -193,6 +193,7 @@
 
 
       <!-- table-responsive -->
+      <!-- prikaz benefita
         <div class="col-12">
           <h4 class='benefitsTitle'>Odaberite analize i laboratoriju putem aplikacije i lab cube vam besplatno omogućuje</h4>
           <div class="d-flex flex-wrap">
@@ -213,7 +214,8 @@
                 <p class="text-center benefit" style="" style="">Podelite rezultate sa odabranim lekarom</p>
             </div>
           </div><!-- d-flex -->
-        </div><!-- col-12 -->
+        <!-- </div> -->
+        <!-- col-12 -->
 
         <!-- o nasoj laboratoriji -->
         <!-- <div class="col-12 mb-4" >
