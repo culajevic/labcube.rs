@@ -17,6 +17,23 @@
 @import 'allsecure.scss';
 
 
+
+
+.clappingHands {
+  font-size:40px;
+}
+
+.btn-danger {
+  text-transform: uppercase;
+  color:$white-color;
+  background-color: $danger;
+  border-color: $danger;
+  padding:8px 20px;
+  // &:hover{
+  //   background-color: darken($danger, 20%);
+  // }
+}
+
 #healthProfile {
   .chckBoxCustom {
     display: block;
@@ -30,6 +47,9 @@
     -ms-user-select: none;
     user-select: none;
   }
+
+
+
 
   input[type='checkbox'] {
     position: absolute;

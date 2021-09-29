@@ -1376,6 +1376,10 @@ let interpretationPage = document.getElementById('interpretationId')
     let secs = document.querySelectorAll('.secs')
     let hour = document.querySelectorAll('.hours')
     let day = document.querySelectorAll('.days')
+    let completed = document.querySelectorAll('.Završeno')
+    completed.forEach(item => {
+      console.log(item.nextSibling)
+    })
     let deadline = document.querySelectorAll('.deadline')
     let deadlinesArr = []
 

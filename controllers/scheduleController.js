@@ -337,7 +337,7 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
       <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
       <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
       <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Vaši rezultati su protumačeni.</h3></div>
-        <p><a href="https://labcube.rs/profile" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">kliknite ovde da pogledate rezultate</a></p>
+        <p><a href="https://labcube.rs/myResult/${req.params.id}" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">kliknite ovde da pogledate rezultate</a></p>
         <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
          <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Hvala što koristite naše usluge.</p>
         </div>

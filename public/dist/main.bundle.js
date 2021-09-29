@@ -23052,6 +23052,10 @@ window.onload = function () {
       var secs = document.querySelectorAll('.secs');
       var hour = document.querySelectorAll('.hours');
       var day = document.querySelectorAll('.days');
+      var completed = document.querySelectorAll('.Završeno');
+      completed.forEach(function (item) {
+        console.log(item.nextSibling);
+      });
       var deadline = document.querySelectorAll('.deadline');
       var deadlinesArr = [];
 

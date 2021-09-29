@@ -8592,6 +8592,16 @@ div#d3 {
   height: 25px;
   clear: right; }
 
+.clappingHands {
+  font-size: 40px; }
+
+.btn-danger {
+  text-transform: uppercase;
+  color: #FFF;
+  background-color: #FF6F6F;
+  border-color: #FF6F6F;
+  padding: 8px 20px; }
+
 #healthProfile {
   /* On mouse-over, add a grey background color */
   /* When the checkbox is checked, add a blue background */
