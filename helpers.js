@@ -24,6 +24,13 @@ hbs.registerHelper('checkInterpreatationStatus', status => {
 })
 
 
+hbs.registerHelper('checkServices', (v1,v2,v3,v4,v5) => {
+  if (v1 || v2 || v3 || v4 || v5) {
+    return true
+  }
+})
+
+
 
 hbs.registerHelper('displayTime', (value) => {
   return moment(value).format('D.M.Y / H:mm')
