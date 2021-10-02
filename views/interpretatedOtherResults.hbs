@@ -1,4 +1,4 @@
-{{> _innerNavFrontend}}
+{{> _innerNavBackend}}
 
 <!-- ovo je stranica na kojoj labcube tumaci konkretan rezultat koji je korisnik uplodovao -->
 
@@ -444,7 +444,7 @@
               <div class="my-5">
                 <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
                   <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}>
-                  <label for="">Objavi tumačenje i pošalji mejl korisniku</label>
+                  <label for="published" class="ml-2 pt-0">Objavi tumačenje i pošalji mejl korisniku</label>
                   <!-- <span class="checkmark"></span> -->
                 </label>
               </div>
@@ -468,7 +468,3 @@
 
  		</div><!-- table row end  -->
  </div> <!-- results container end -->
-
-
-
- {{> _footer}}

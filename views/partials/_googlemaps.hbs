@@ -16,6 +16,14 @@
           <span class="d-flex align-self-start labMapInfo justify-content-end">laboratorijskih analiza</span><!-- razmisliti o imenu-->
           <span class="d-flex align-self-start num justify-content-md-start justify-content-lg-end">{{analysisNum}}</span>
         </div>
+
+        <div class="form-group">
+          <form class="" action="" method="post">
+            <input type="checkbox" name="ag" value="1" id="ag" onclick="checkAg()">Ag
+            <button class="btn btn-outline-info mb-4 btn-block mt-3">sačuvaj</button>
+          </form>
+        </div>
+
       </div><!--  row end-->
     </div><!-- container end -->
   </div> <!-- lab info end -->
@@ -30,7 +38,7 @@ let labStatus = JSON.parse(decodedJsonStatus)
 let now = new Date()
 let day = now.getDay()
 let currentDayNum = now.getDay()
-
+let ag = document.getElementById('ag')
 
 let markers = []
 let markersCluster = []
@@ -313,7 +321,6 @@ for(i=0; i<labData.length; i++) {
   // let status = (labStatus[i].id).indexOf(labData[i]._id)
 
   let status = labStatus[i].status
-
   markers.push(
     {
       status:status,
@@ -382,9 +389,6 @@ function error(error) {
 }
 /////////////////////////// geolocation end /////////////////////////////
 
-// console.log(markers)
-
-
 
 
 function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city) {
@@ -403,6 +407,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
      // infoWindow.setContent(content)
      //
     let content = `<div class="" style="min-height:142px; max-width:380px;">
+
               <p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
               <p class="mb-0 pb-0">${address}</p>
               <p> ${city}</p>

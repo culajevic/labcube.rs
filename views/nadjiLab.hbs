@@ -458,11 +458,11 @@ setTimeout(() => {
 
       <div class="lab-card">
         <div>
-        <!-- ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
-
-        ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified accreditedIcon${i}" title="ulaz prilagođen invalidima">' : ''}
-        ${(result.getPrices[i].lab[0].patronage)? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : ''} -->
+          ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
+          ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified disability${i}" title="ulaz prilagođen invalidima">' : ''}
+          ${(result.getPrices[i].lab[0].patronage)? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : ''}
           ${(result.getPrices[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
+          ${(result.getPrices[i].lab[0].antigen)? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon antigenIcon${i}" title="radi antigenski test">' : ''}
         <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${result.getPrices[i].total} rsd</span>
        </div>
          <div class="labInfoWindow">
@@ -588,7 +588,7 @@ setTimeout(() => {
       // let noResults = document.getElementById('noResults')
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
-      noResults.innerHTML = `<h2 class="text-center">nadjilab Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve odabrane analize. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
+      noResults.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve analize koje ste odabrali. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
       for (let i = 0; i< result.missingValues.length; i++) {
           noResults.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
       }

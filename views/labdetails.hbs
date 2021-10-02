@@ -42,13 +42,15 @@
         </div>
       </div><!-- col-6 -->
 
-
       <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-4 pr-0">
         <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
-        {{#if labDetails.accredited}}
-        <div class="labFeatures ">
+        {{#if (checkServices labDetails.accredited labDetails.antigen labDetails.private labDetails.patronage labDetails.disability)}}
+        <div class="labFeatures">
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
+          {{/if}}
+          {{#if labDetails.antigen}}
+          <p><img src="/images/covidIcon.svg-1615411728326.svg" class="labInfoWindowVerified labAntigenIcon" title="antigenski test">Radimo antigenski test</p>
           {{/if}}
           {{#if labDetails.private}}
           <p><img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Privatno osiguranje</p>
@@ -60,7 +62,8 @@
           <p><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</p>
           {{/if}}
         </div>
-        {{/if}}
+      {{/if}}
+
 
       </div>
       <!-- <div class="feedback col-md-7 col-lg-5 col-xl-4 mt-4 pl-0 pl-xs-4"> -->
