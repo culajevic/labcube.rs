@@ -9041,13 +9041,6 @@ ul ol ul {
   cursor: pointer;
   background-color: #FF6F6F; }
 
-input:-webkit-autofill {
-  padding-left: 0px;
-  -webkit-text-fill-color: transparent;
-  /* Surcharge la font color d'autofill */
-  -webkit-background-clip: text;
-  /* Supprime le background autofill, utile pour le border radius */ }
-
 .blueOverlay input::placeholder, .blueOverlayLab input::placeholder {
   color: #FFF;
   font-size: 1rem;
@@ -10256,9 +10249,14 @@ table.workingHoursLabDetails {
   #accordion > h5 {
     font-size: 1rem; }
   footer {
-    height: 33.125rem; }
+    height: 26.25rem; }
     footer > .overlay {
-      height: 33.125rem; }
+      height: 26.25rem; }
+  .linksFooter {
+    padding-top: 20px;
+    text-align: center; }
+  .disclaimer {
+    text-align: center; }
   .social {
     padding-top: 26px; }
   .disclaimer {
@@ -10285,11 +10283,12 @@ table.workingHoursLabDetails {
 
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
-    height: 32.5rem; }
+    height: 26.875rem; }
     footer > .overlay {
-      height: 32.5rem; }
+      height: 26.875rem; }
   .linksFooter {
-    margin: 6px 0; }
+    padding-top: 20px;
+    text-align: center; }
     .linksFooter li {
       float: left;
       margin-right: 1rem; }
@@ -10303,17 +10302,19 @@ table.workingHoursLabDetails {
 
 @media (min-width: 768px) and (max-width: 991px) {
   footer {
-    height: 34.375rem; }
+    height: 29.375rem; }
     footer > .overlay {
-      height: 34.375rem; }
+      height: 29.375rem; }
   .disclaimer {
     position: relative;
     top: 0; }
+  .social {
+    float: right; }
   .linksFooter li {
     float: left;
     margin-right: 1rem; }
   .logoFooter {
-    width: 7.5625rem; }
+    width: 11.3125rem; }
   #sideBanner {
     display: none; } }
 
@@ -10321,15 +10322,21 @@ table.workingHoursLabDetails {
   .disclaimer {
     top: 100px; }
   footer {
-    height: 39.375rem; }
+    height: 36.875rem; }
     footer > .overlay {
-      height: 39.375rem; }
+      height: 36.875rem; }
   .logoFooter {
-    width: 7.8125rem; } }
+    width: 11.3125rem; } }
 
 @media (min-width: 1200px) {
   .disclaimer {
-    top: 80px; } }
+    top: 80px; }
+  .logoFooter {
+    width: 11.3125rem; }
+  footer {
+    height: 34.375rem; }
+    footer > .overlay {
+      height: 34.375rem; } }
 
 
 /*# sourceMappingURL=main.css.map*/
