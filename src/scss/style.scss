@@ -528,9 +528,9 @@ ul ol ul {
 }
 
 input:-webkit-autofill {
-  padding-left: 0px;
-  -webkit-text-fill-color: transparent; /* Surcharge la font color d'autofill */
-  -webkit-background-clip: text; /* Supprime le background autofill, utile pour le border radius */
+  // padding-left: 0px;
+  // -webkit-text-fill-color: ;
+  // -webkit-background-clip: text;
 }
 
 .blueOverlay input::placeholder {

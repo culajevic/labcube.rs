@@ -21,11 +21,21 @@
   }
 
   footer {
-    height: px-to-rem(530px);
+    height: px-to-rem(420px);
       & > .overlay {
-      height: px-to-rem(530px);
+      height: px-to-rem(420px);
       }
   }
+
+
+.linksFooter {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.disclaimer {
+  text-align: center;
+}
 
   .social {
     padding-top: 26px;
@@ -70,13 +80,14 @@
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
-    height: px-to-rem(520px);
+    height: px-to-rem(430px);
       & > .overlay {
-      height: px-to-rem(520px);
+      height: px-to-rem(430px);
       }
   }
   .linksFooter {
-    margin:6px 0;
+    padding-top: 20px;
+    text-align: center;
     & li {
       float:left;
       margin-right: px-to-rem(16px);
@@ -101,14 +112,18 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width:991px) {
   footer {
-    height: px-to-rem(550px);
+    height: px-to-rem(470px);
       & > .overlay {
-      height: px-to-rem(550px);
+      height: px-to-rem(470px);
       }
   }
   .disclaimer {
     position: relative;
     top:0;
+  }
+
+  .social {
+    float:right;
   }
 
   .linksFooter  li {
@@ -120,7 +135,7 @@
     // line-height: 2px;
   }
   .logoFooter {
-    width: px-to-rem(121px);
+    width: px-to-rem(181px);
   }
 
   #sideBanner {
@@ -136,13 +151,13 @@
     top:100px;
   }
   footer {
-    height: px-to-rem(630px);
+    height: px-to-rem(590px);
       & > .overlay {
-      height: px-to-rem(630px);
+      height: px-to-rem(590px);
       }
   }
   .logoFooter {
-    width: px-to-rem(125px);
+    width: px-to-rem(181px);
   }
 
 }// query end
@@ -152,26 +167,18 @@
   .disclaimer {
     top:80px;
   }
+.logoFooter {
+  width:px-to-rem(181px);
+}
 
+footer {
+  height: px-to-rem(550px);
+    & > .overlay {
+    height: px-to-rem(550px);
+    }
+}
 
-}// query end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}// query
 
 
 // Large devices (desktops, 992px and up) MD
@@ -187,7 +194,7 @@
   //   margin:0 auto;
   //   & li {
   //     float:left;
-      // margin-right: px-to-rem(16px);
+  //     margin-right: px-to-rem(16px);
   //   }
   // }
 }
