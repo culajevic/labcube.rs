@@ -77,6 +77,21 @@
 
 }// media max-width:575 end
 
+@media (min-width: 370px) and (max-width: 574px) {
+
+
+  footer {
+    // background-color: $primary-color;
+    height: px-to-rem(530px);
+      & > .overlay {
+      height: px-to-rem(530px);
+      }
+  }
+  #backToTopBtn {
+    right:30px;
+  }
+}
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   footer {

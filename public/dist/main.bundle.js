@@ -21228,6 +21228,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'));
   }
 
+  console.log('iz funkcije');
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -22178,7 +22179,7 @@ window.onload = function () {
 
 
     checkout.addEventListener('click', function () {
-      console.log('ds');
+      console.log('prikaz iz script');
 
       if (itemsArray.length > 0) {
         _priceList2.classList.add('unhidePriceList');

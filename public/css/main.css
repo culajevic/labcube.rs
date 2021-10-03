@@ -10281,6 +10281,14 @@ table.workingHoursLabDetails {
   #sideBanner, #groupIcon {
     display: none; } }
 
+@media (min-width: 370px) and (max-width: 574px) {
+  footer {
+    height: 33.125rem; }
+    footer > .overlay {
+      height: 33.125rem; }
+  #backToTopBtn {
+    right: 30px; } }
+
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
     height: 26.875rem; }
