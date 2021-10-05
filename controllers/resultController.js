@@ -207,19 +207,14 @@ exports.paymentDone = async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const requestCheckout = async () => {
   	var path=`${req.query.resourcePath}`
-  	// path += '?entityId=8ac7a4c77a0d2dd7017a0f4d02c30b47';
-  	// path += '?entityId='+process.env.ENTITYIDSANDBOX;
   	path += '?entityId='+process.env.ENTITYIDPRODUCTION;
   	const options = {
   		port: 443,
   		host: process.env.PAYMENTHOSTPRODUCTION,
-  	// host: process.env.PAYMENTHOST,
   		path: path,
   		method: 'GET',
   		headers: {
-  			// 'Authorization':'Bearer OGFjOWE0Yzg3YzAyMjNhODAxN2MyY2UxMTdiMzZmYTR8WUFzUTIzOWhFMw=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
-  			// 'Authorization':process.env.ACCESSTOKENPAYMENTSANDBOX
   		}
   	};
   	return new Promise((resolve, reject) => {
