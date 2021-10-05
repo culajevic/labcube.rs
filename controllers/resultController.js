@@ -143,8 +143,6 @@ exports.payment = async (req,res) => {
 
 
   	const data = querystring.stringify({
-  		// 'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
-  		// 'entityId':process.env.ENTITYIDSANDBOX,
   		'entityId':process.env.ENTITYIDPRODUCTION,
   		'amount':req.body.package,
       'customer.email':req.body.email,
@@ -156,16 +154,13 @@ exports.payment = async (req,res) => {
   	});
   	const options = {
   		port: 443,
-  		// host: process.env.PAYMENTHOST,
   		host: process.env.PAYMENTHOSTPRODUCTION,
   		path: path,
   		method: 'POST',
   		headers: {
   			'Content-Type': 'application/x-www-form-urlencoded',
   			'Content-Length': data.length,
-  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
-  			// 'Authorization':'Bearer OGFjOWE0Yzg3YzAyMjNhODAxN2MyY2UxMTdiMzZmYTR8WUFzUTIzOWhFMw=='
   		}
   	};
   	return new Promise((resolve, reject) => {
