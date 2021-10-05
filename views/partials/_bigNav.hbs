@@ -127,18 +127,18 @@
 
           {{#if user.id}}
             <li class="nav-item">
-              <!-- <a href="/#" class="nav-link">{{user.username}}</a> -->
+              <a href="/profile" class="nav-link">{{user.username}}</a>
             </li>
             <li class="nav-item">
-              <!-- <a href="/#" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a> -->
+              <a href="/logout" class="nav-link"><span class="icon iconSvgLogout" title="izlaz"></span></a>
             </li>
           {{else}}
-            <!-- <li class="nav-item">
-              <a href="/#" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
+            <li class="nav-item">
+              <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
             </li>
             <li class="nav-item">
-              <a href="/#" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
-            </li> -->
+              <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
+            </li>
           {{/if}}
 
           <li class="nav-item">
