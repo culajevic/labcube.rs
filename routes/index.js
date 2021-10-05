@@ -20,6 +20,7 @@ const passport = require('passport')
 
 // display groups on front page
 router.get('/', groupController.getGroups)
+router.post('/', groupController.getGroups)
 // router.get('/', labController.getAllLabs)
 
 //payment testing
@@ -33,6 +34,7 @@ router.get('/o-nama/', generalController.aboutus)
 router.get('/politika-privatnosti/', generalController.privacy)
 router.get('/uslovi-koriscenja/', generalController.terms)
 router.get('/uslovi-placanja/', generalController.paymentDetails)
+router.get('/kolacici', generalController.cookies)
 
 // searchfor lab or analysis
 router.get('/results/', resultController.displayResults)

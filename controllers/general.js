@@ -36,6 +36,15 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   })
 }
 
+exports.cookies = async (req,res) => {
+const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  res.render('cookies',{
+    title:'Kolačići',
+    groupNames,
+    user:req.user
+  })
+}
+
 exports.paymentDetails = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('paymentDetails',{
