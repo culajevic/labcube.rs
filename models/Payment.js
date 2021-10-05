@@ -8,6 +8,10 @@ const paymentSchema = new mongoose.Schema({
     default:Date.now
   },
   amount:Number,
+  cardHolder:String,
+  address:String,
+  postalCode:String,
+  city:String,
   ip:String,
   email:String,
   idSuccess:{

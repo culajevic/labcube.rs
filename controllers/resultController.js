@@ -143,6 +143,8 @@ exports.payment = async (req,res) => {
 
 
   	const data = querystring.stringify({
+  		// 'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
+  		// 'entityId':process.env.ENTITYIDSANDBOX,
   		'entityId':process.env.ENTITYIDPRODUCTION,
   		'amount':req.body.package,
       'customer.email':req.body.email,
@@ -154,12 +156,14 @@ exports.payment = async (req,res) => {
   	});
   	const options = {
   		port: 443,
+  		// host: process.env.PAYMENTHOST,
   		host: process.env.PAYMENTHOSTPRODUCTION,
   		path: path,
   		method: 'POST',
   		headers: {
   			'Content-Type': 'application/x-www-form-urlencoded',
   			'Content-Length': data.length,
+  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
   		}
   	};
@@ -202,10 +206,12 @@ exports.paymentDone = async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const requestCheckout = async () => {
   	var path=`${req.query.resourcePath}`
+  	// path += '?entityId='+process.env.ENTITYIDSANDBOX;
   	path += '?entityId='+process.env.ENTITYIDPRODUCTION;
   	const options = {
   		port: 443,
-  		host: process.env.PAYMENTHOSTPRODUCTION,
+  		// host: process.env.PAYMENTHOSTPRODUCTION,
+  		host: process.env.PAYMENTHOST,
   		path: path,
   		method: 'GET',
   		headers: {
@@ -380,6 +386,10 @@ requestCheckout()
       ip:data.customer.ip,
       email:data.customer.email,
       amount:data.amount,
+      cardHolder:data.card.holder,
+      address:data.billing.street1,
+      postalCode:data.billing.postcode,
+      city:data.billing.city,
       paymentCode:data.result.code,
       paymentDesc:data.result.description,
       idSuccess:currentId
@@ -413,9 +423,10 @@ requestCheckout()
            <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
            <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Uspešno izvršena uplata. Hvala!</h3></div>
+            <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >${data.card.holder}, ${data.billing.street1} / ${data.billing.city}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod ${data.resultDetails.ConnectorTxID3}</p>
 
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
@@ -498,6 +509,10 @@ requestCheckout()
           ip:data.customer.ip,
           email:data.customer.email,
           amount:0,
+          cardHolder:data.card.holder,
+          address:data.billing.street1,
+          postalCode:data.billing.postcode,
+          city:data.billing.city,
           paymentCode:data.result.code,
           paymentDesc:data.result.description
         }).save()
