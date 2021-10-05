@@ -76,7 +76,6 @@ exports.createGroup = [authCheck, async (req,res) => {
 // display groups on index page RENAME THIS ROUTE!!!!!!!
 exports.getGroups = async (req,res) => {
 
-
 // let getPricesdata = await Price.aggregate({$unwind:'$cenovnik'})
 
 sortByPriority = {priority:-1}
@@ -103,7 +102,9 @@ sortByPriority = {priority:-1}
     const analysisNum = await Analysis.countDocuments({})
     //trenutno otvorene laboratorije
 
-    const labInfo = await Lab.find({}).populate('placeId')
+    let  labInfo = await Lab.find({}).populate('placeId')
+
+
     let now = new Date()
     let day = now.getDay()
     let date = now.getDate()

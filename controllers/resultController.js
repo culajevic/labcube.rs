@@ -165,6 +165,7 @@ exports.payment = async (req,res) => {
   			'Content-Length': data.length,
   			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
+  			// 'Authorization':'Bearer OGFjOWE0Yzg3YzAyMjNhODAxN2MyY2UxMTdiMzZmYTR8WUFzUTIzOWhFMw=='
   		}
   	};
   	return new Promise((resolve, reject) => {
@@ -212,11 +213,13 @@ exports.paymentDone = async (req,res) => {
   	const options = {
   		port: 443,
   		host: process.env.PAYMENTHOSTPRODUCTION,
+  	// host: process.env.PAYMENTHOST,
   		path: path,
   		method: 'GET',
   		headers: {
-  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
+  			// 'Authorization':'Bearer OGFjOWE0Yzg3YzAyMjNhODAxN2MyY2UxMTdiMzZmYTR8WUFzUTIzOWhFMw=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
+  			// 'Authorization':process.env.ACCESSTOKENPAYMENTSANDBOX
   		}
   	};
   	return new Promise((resolve, reject) => {
