@@ -210,8 +210,7 @@ exports.paymentDone = async (req,res) => {
   	path += '?entityId='+process.env.ENTITYIDPRODUCTION;
   	const options = {
   		port: 443,
-  		// host: process.env.PAYMENTHOSTPRODUCTION,
-  		host: process.env.PAYMENTHOST,
+  		host: process.env.PAYMENTHOSTPRODUCTION,
   		path: path,
   		method: 'GET',
   		headers: {
@@ -410,7 +409,8 @@ requestCheckout()
            }]
          }
 
-         let userFirstName = req.user.username.split(' ')
+         //${data.resultDetails.ConnectorTxID3}
+         // let userFirstName = req.user.username.split(' ')
 
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
@@ -426,7 +426,7 @@ requestCheckout()
             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >${data.card.holder}, ${data.billing.street1} / ${data.billing.city}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod ${data.resultDetails.ConnectorTxID3}</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod </p>
 
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
