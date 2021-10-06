@@ -53,6 +53,11 @@
   }
 }
 
+#smallHeaderThanks {
+  @extend #header;
+  height: 70px;
+}
+
 #smallHeaderLab {
   // @extend #header;
   height: 450px;

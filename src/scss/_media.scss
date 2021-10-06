@@ -20,6 +20,10 @@
     font-size: 1rem;
   }
 
+  .groupTitle {
+    font-size: px-to-rem(38px);
+  }
+
   footer {
     height: px-to-rem(420px);
       & > .overlay {
@@ -73,12 +77,34 @@
   #sideBanner, #groupIcon {
     display: none;
   }
-
-
 }// media max-width:575 end
+
+
+@media (min-width: 170px) and (max-width:374px) {
+  footer {
+    background-color: $primary-color;
+    height: px-to-rem(550px);
+      & > .overlay {
+      height: px-to-rem(550px);
+      }
+  }
+  .groupTitle {
+    font-size: px-to-rem(38px);
+  }
+  #backToTopBtn {
+    right:30px;
+  }
+}
+
 
 @media (min-width: 370px) and (max-width: 574px) {
 
+  .groupTitle {
+    font-size: px-to-rem(38px);
+  }
+  #groupIcon {
+    display:none;
+  }
 
   footer {
     // background-color: $primary-color;
@@ -92,6 +118,7 @@
   }
 }
 
+
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
@@ -99,6 +126,12 @@
       & > .overlay {
       height: px-to-rem(430px);
       }
+  }
+  #groupIcon {
+    display:none;
+  }
+  .groupTitle {
+    font-size: px-to-rem(38px);
   }
   .linksFooter {
     padding-top: 20px;
@@ -157,8 +190,10 @@
     display: none;
   }
 
-
  }// query end
+
+
+
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width:1200px) {
