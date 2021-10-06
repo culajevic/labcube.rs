@@ -143,8 +143,6 @@ exports.payment = async (req,res) => {
 
 
   	const data = querystring.stringify({
-  		// 'entityId':'8ac7a4c77a0d2dd7017a0f4d02c30b47',
-  		// 'entityId':process.env.ENTITYIDSANDBOX,
   		'entityId':process.env.ENTITYIDPRODUCTION,
   		'amount':req.body.package,
       'customer.email':req.body.email,
@@ -156,14 +154,12 @@ exports.payment = async (req,res) => {
   	});
   	const options = {
   		port: 443,
-  		// host: process.env.PAYMENTHOST,
   		host: process.env.PAYMENTHOSTPRODUCTION,
   		path: path,
   		method: 'POST',
   		headers: {
   			'Content-Type': 'application/x-www-form-urlencoded',
   			'Content-Length': data.length,
-  			// 'Authorization':'Bearer OGFjN2E0Yzc3YTBkMmRkNzAxN2EwZjRiYWYwYTBiNDN8Qjl4U2o2NkRNeA=='
   			'Authorization':process.env.ACCESSTOKENPAYMENTPRODUCTION
   		}
   	};
@@ -197,15 +193,15 @@ request()
     .catch(error => {
       console.log(error)
     })
-  //placanje test end
 }
 
 
 
 exports.paymentDone = async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  console.log(req.query.resourcePath)
   const requestCheckout = async () => {
-  	var path=`${req.query.resourcePath}`
+  	var path =`${req.query.resourcePath}`
   	// path += '?entityId='+process.env.ENTITYIDSANDBOX;
   	path += '?entityId='+process.env.ENTITYIDPRODUCTION;
   	const options = {
@@ -239,9 +235,9 @@ exports.paymentDone = async (req,res) => {
 
 requestCheckout()
 .then(data => {
-
-  if(data.result.code == '000.100.110') {
-
+  console.log('ovdemo' + data)
+  if(data.result.code == '000.000.000') {
+    //000.100.110
     let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -394,6 +390,9 @@ requestCheckout()
       idSuccess:currentId
     }).save()
 
+    let authCode = data.resultDetails.ConnectorTxID3
+    let authCodeParameter = authCode.substring(0,6)
+
        try {
          uploadResult.save()
          let mailOptions = {
@@ -409,7 +408,7 @@ requestCheckout()
            }]
          }
 
-         //${data.resultDetails.ConnectorTxID3}
+
          // let userFirstName = req.user.username.split(' ')
 
          let mailOptionsCustomer = {
@@ -426,7 +425,7 @@ requestCheckout()
             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >${data.card.holder}, ${data.billing.street1} / ${data.billing.city}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; ${currentId}</p>
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod </p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 autorizacioni kod ${authCodeParameter}</p>
 
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
@@ -477,8 +476,7 @@ requestCheckout()
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log('nije uspesno upisano u bazu' + e)
        }
-       console.log(data)
-       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
+       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, authCodeParameter, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
      }
      else {
 
