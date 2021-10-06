@@ -7257,16 +7257,16 @@ a:focus {
   100% {
     height: 0%; } }
 
-#header, #smallHeader {
+#header, #smallHeader, #smallHeaderThanks {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   height: 501px;
   background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%); }
-  #header .navbar-nav a, #smallHeader .navbar-nav a {
+  #header .navbar-nav a, #smallHeader .navbar-nav a, #smallHeaderThanks .navbar-nav a {
     padding-right: 1rem; }
-  #header .navbar-nav .checkout, #smallHeader .navbar-nav .checkout {
+  #header .navbar-nav .checkout, #smallHeader .navbar-nav .checkout, #smallHeaderThanks .navbar-nav .checkout {
     margin-top: 4px;
     display: flex;
     background-color: transparent;
@@ -7278,25 +7278,28 @@ a:focus {
     width: 30px;
     height: 30px;
     padding: 0 !important; }
-    #header .navbar-nav .checkout:hover, #smallHeader .navbar-nav .checkout:hover {
+    #header .navbar-nav .checkout:hover, #smallHeader .navbar-nav .checkout:hover, #smallHeaderThanks .navbar-nav .checkout:hover {
       cursor: pointer; }
-  #header .container, #smallHeader .container {
+  #header .container, #smallHeader .container, #smallHeaderThanks .container {
     margin-bottom: auto; }
-  #header .dropdown-menu, #smallHeader .dropdown-menu {
+  #header .dropdown-menu, #smallHeader .dropdown-menu, #smallHeaderThanks .dropdown-menu {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0; }
-  #header .dropdown-item, #smallHeader .dropdown-item {
+  #header .dropdown-item, #smallHeader .dropdown-item, #smallHeaderThanks .dropdown-item {
     color: #FFF; }
-    #header .dropdown-item:hover, #smallHeader .dropdown-item:hover {
+    #header .dropdown-item:hover, #smallHeader .dropdown-item:hover, #smallHeaderThanks .dropdown-item:hover {
       background-color: #1D88E5; }
 
 #smallHeader {
   height: 210px; }
   #smallHeader .container {
     margin-bottom: 0; }
+
+#smallHeaderThanks {
+  height: 70px; }
 
 #smallHeaderLab, #smallHeaderTumacenje {
   height: 450px;
@@ -8594,6 +8597,9 @@ div#d3 {
 
 .clappingHands {
   font-size: 40px; }
+
+.ourNames {
+  color: #1D88E5; }
 
 .btn-danger {
   text-transform: uppercase;
@@ -10248,6 +10254,8 @@ table.workingHoursLabDetails {
     font-size: 1.4rem; }
   #accordion > h5 {
     font-size: 1rem; }
+  .groupTitle {
+    font-size: 2.375rem; }
   footer {
     height: 26.25rem; }
     footer > .overlay {
@@ -10281,7 +10289,22 @@ table.workingHoursLabDetails {
   #sideBanner, #groupIcon {
     display: none; } }
 
+@media (min-width: 170px) and (max-width: 374px) {
+  footer {
+    background-color: #1D88E5;
+    height: 34.375rem; }
+    footer > .overlay {
+      height: 34.375rem; }
+  .groupTitle {
+    font-size: 2.375rem; }
+  #backToTopBtn {
+    right: 30px; } }
+
 @media (min-width: 370px) and (max-width: 574px) {
+  .groupTitle {
+    font-size: 2.375rem; }
+  #groupIcon {
+    display: none; }
   footer {
     height: 33.125rem; }
     footer > .overlay {
@@ -10294,6 +10317,10 @@ table.workingHoursLabDetails {
     height: 26.875rem; }
     footer > .overlay {
       height: 26.875rem; }
+  #groupIcon {
+    display: none; }
+  .groupTitle {
+    font-size: 2.375rem; }
   .linksFooter {
     padding-top: 20px;
     text-align: center; }
