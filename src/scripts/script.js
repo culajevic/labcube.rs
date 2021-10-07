@@ -1444,7 +1444,7 @@ let interpretationPage = document.getElementById('interpretationId')
 
   lockTheRecord.addEventListener('click', e => {
 
-    if(lockTheRecord.checked == true) {
+    // if(lockTheRecord.checked == true) {
       ownerId = lockTheRecord.value
       lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
       lockingInterpretation = JSON.stringify(lockTheRecordArr)
@@ -1462,7 +1462,7 @@ let interpretationPage = document.getElementById('interpretationId')
       }).then(response => {
         console.log(response)
       })
-    }
+    // }
     // else {
     //   ownerId = null
     //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})

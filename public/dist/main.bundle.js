@@ -23135,28 +23135,28 @@ window.onload = function () {
     }
 
     _lockTheRecord.addEventListener('click', function (e) {
-      if (_lockTheRecord.checked == true) {
-        _ownerId = _lockTheRecord.value;
+      // if(lockTheRecord.checked == true) {
+      _ownerId = _lockTheRecord.value;
 
-        _lockTheRecordArr.push({
-          'ownerId': _ownerId,
-          'interpretationId': _interpretation
-        });
+      _lockTheRecordArr.push({
+        'ownerId': _ownerId,
+        'interpretationId': _interpretation
+      });
 
-        lockingInterpretation = JSON.stringify(_lockTheRecordArr);
-        _lockStatus.innerHTML = 'Zaključano';
-        _lockTheRecord.disabled = true;
-        fetch('/lockTheOtherInterpretation/', {
-          method: "post",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: lockingInterpretation
-        }).then(function (response) {
-          console.log(response);
-        });
-      } // else {
+      lockingInterpretation = JSON.stringify(_lockTheRecordArr);
+      _lockStatus.innerHTML = 'Zaključano';
+      _lockTheRecord.disabled = true;
+      fetch('/lockTheOtherInterpretation/', {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: lockingInterpretation
+      }).then(function (response) {
+        console.log(response);
+      }); // }
+      // else {
       //   ownerId = null
       //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
       //   lockingInterpretation = JSON.stringify(lockTheRecordArr)
@@ -23172,7 +23172,6 @@ window.onload = function () {
       //     console.log(response)
       //   })
       // }
-
     }); //lock the record end
     // add new lines
 
