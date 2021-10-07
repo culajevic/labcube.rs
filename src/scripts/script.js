@@ -1463,22 +1463,22 @@ let interpretationPage = document.getElementById('interpretationId')
         console.log(response)
       })
     }
-    else {
-      ownerId = null
-      lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
-      lockingInterpretation = JSON.stringify(lockTheRecordArr)
-      lockStatus.innerHTML = 'Zaključaj'
-      fetch('/lockTheOtherInterpretation/',{
-        method:"post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body:lockingInterpretation
-      }).then(response => {
-        console.log(response)
-      })
-    }
+    // else {
+    //   ownerId = null
+    //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+    //   lockingInterpretation = JSON.stringify(lockTheRecordArr)
+    //   lockStatus.innerHTML = 'Zaključaj'
+    //   fetch('/lockTheOtherInterpretation/',{
+    //     method:"post",
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body:lockingInterpretation
+    //   }).then(response => {
+    //     console.log(response)
+    //   })
+    // }
   })//lock the record end
 
   // add new lines

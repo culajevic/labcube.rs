@@ -116,6 +116,7 @@ router.post('/analysisInterpretation/:id', scheduleController.analysisInterpreta
 router.post('/analysisOtherInterpretation/:id', scheduleController.analysisOtherInterpretation)
 router.post('/lockTheInterpretation', scheduleController.lockTheInterpretation)
 router.post('/lockTheOtherInterpretation', scheduleController.lockTheOtherInterpretation)
+// router.post('/checkTheLock', scheduleController.checkTheLockedRecord)
 // router.get('/profile', profileController.getMyAppointments)
 
 // labs

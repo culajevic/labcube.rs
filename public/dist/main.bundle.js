@@ -23156,27 +23156,23 @@ window.onload = function () {
         }).then(function (response) {
           console.log(response);
         });
-      } else {
-        _ownerId = null;
+      } // else {
+      //   ownerId = null
+      //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
+      //   lockingInterpretation = JSON.stringify(lockTheRecordArr)
+      //   lockStatus.innerHTML = 'Zaključaj'
+      //   fetch('/lockTheOtherInterpretation/',{
+      //     method:"post",
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body:lockingInterpretation
+      //   }).then(response => {
+      //     console.log(response)
+      //   })
+      // }
 
-        _lockTheRecordArr.push({
-          'ownerId': _ownerId,
-          'interpretationId': _interpretation
-        });
-
-        lockingInterpretation = JSON.stringify(_lockTheRecordArr);
-        _lockStatus.innerHTML = 'Zaključaj';
-        fetch('/lockTheOtherInterpretation/', {
-          method: "post",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: lockingInterpretation
-        }).then(function (response) {
-          console.log(response);
-        });
-      }
     }); //lock the record end
     // add new lines
 
