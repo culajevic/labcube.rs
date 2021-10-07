@@ -388,7 +388,7 @@ exports.lockTheInterpretation =  async (req,res) => {
 exports.lockTheOtherInterpretation =  async (req,res) => {
   // console.log(req.body[0].ownerId)
   // console.log(req.body[0].interpretationId)
-  let check = await Schedule.find({$and:[ {_id:req.body[0].interpretationId},{owner:{$exists:true}}]}).countDocuments()
+  let check = await Result.find({$and:[ {_id:req.body[0].interpretationId},{owner:{$exists:true}}]}).countDocuments()
   console.log(check)
   if(check == 0) {
   let lockTheInterpretation = await Result.findOneAndUpdate(
