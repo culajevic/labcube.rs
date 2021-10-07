@@ -220,16 +220,20 @@ const checkCMSAll = /all.*/
 let registerPage = /registracija.*/
 let loginPage = /prijav.*/
 let paymentPage = /payment.*/
+let otherResultsInterpretationFix = /otherResultsInterpretation.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) ) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) ) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
 
 
 window.onload = () => {
+
+
+//////////////////
 
 //display cookie message
 let cookieMessage = new CookieAlert.cookieAlert()
@@ -362,7 +366,7 @@ let closePriceList = document.getElementById('closePriceList')
       window.location = '/nadjiLab'
     }
     //ako nesto ne radi zakomentarisati red ispod
-    helper.bestPrice(mapArea, resultDiv)
+    // helper.bestPrice(mapArea, resultDiv)
   })
 
   helper.displayBasket(itemsArray)
@@ -428,7 +432,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   //
     checkout.addEventListener('click', ()=> {
-      console.log('ds')
+      console.log('prikaz iz script')
       if (itemsArray.length > 0 ) {
       priceList.classList.add('unhidePriceList')
       priceList.classList.remove('hidePriceList')
@@ -1085,26 +1089,26 @@ if (municipalityValue != null) {
         schedule.push({"date":''})
         scheduleString = JSON.stringify(schedule)
 
+        //otkomentarisati kada pocne zakazivanje preko labcuba
+      // let scheduleBtn = document.getElementById('schedule')
 
-      let scheduleBtn = document.getElementById('schedule')
-
-      scheduleBtn.addEventListener('click', ()=>{
-
-        schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-        scheduleString = JSON.stringify(schedule)
-        fetch('/schedule/',{
-          method:"post",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body:scheduleString
-        }).then(response => {
-          console.log(response)
-          window.location.href="/hvala"
-          localStorage.removeItem('items')
-        })
-      })
+      // scheduleBtn.addEventListener('click', ()=>{
+      //
+      //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+      //   scheduleString = JSON.stringify(schedule)
+      //   fetch('/schedule/',{
+      //     method:"post",
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body:scheduleString
+      //   }).then(response => {
+      //     console.log(response)
+      //     window.location.href="/hvala"
+      //     localStorage.removeItem('items')
+      //   })
+      // })
     }
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
@@ -1378,7 +1382,7 @@ let interpretationPage = document.getElementById('interpretationId')
     let day = document.querySelectorAll('.days')
     let completed = document.querySelectorAll('.Završeno')
     completed.forEach(item => {
-      console.log(item.nextSibling)
+      // console.log(item.nextSibling)
     })
     let deadline = document.querySelectorAll('.deadline')
     let deadlinesArr = []
@@ -1402,9 +1406,9 @@ let interpretationPage = document.getElementById('interpretationId')
         }
 
         var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-        console.log(days)
+
         var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        console.log(hours)
+
         var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
@@ -1439,6 +1443,7 @@ let interpretationPage = document.getElementById('interpretationId')
   }
 
   lockTheRecord.addEventListener('click', e => {
+
     if(lockTheRecord.checked == true) {
       ownerId = lockTheRecord.value
       lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
@@ -1544,14 +1549,19 @@ let interpretationPage = document.getElementById('interpretationId')
         // analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
         analysisOutOfRange.classList.add('text-center')
         analysisOutOfRange.setAttribute('type', 'checkbox')
+        analysisOutOfRange.setAttribute('id', (counter-1))
         analysisOutOfRange.name = "outsideOfTheRange"+(counter-1)
         analysisOutOfRange.value="true"
 
+
+
+
     let analysisCommentInput = document.createElement('textarea')
         analysisCommentInput.classList.add('form-control')
-        analysisCommentInput.setAttribute('rows', 2)
+        analysisCommentInput.setAttribute('rows', 3)
         analysisCommentInput.setAttribute('cols', 45)
         analysisCommentInput.name = "commentResult"
+        analysisCommentInput.value = "Rezultat je u referentnom opsegu."
 
     let removeRow = document.createElement('span')
     let removeRowText = document.createTextNode('X')

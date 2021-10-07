@@ -180,9 +180,9 @@ font-size:30px; text-decoration:line-through;
 //testing lazy loading
 
 .imgLazy, .textLazy{
-  transform:translateX(50%);
+  transform:translateX(10%);
   opacity: 0;
-  transition:all 1000ms;
+  transition:all 2000ms;
 }
 
 #paketi .finalThougths,
@@ -531,10 +531,10 @@ ul ol ul {
   background-color: $danger;
 }
 
-input:-webkit-autofill {
-  // padding-left: 0px;
-  // -webkit-text-fill-color: ;
-  // -webkit-background-clip: text;
+.blueOverlay input:-webkit-autofill {
+  padding-left: 0px;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }
 
 .blueOverlay input::placeholder {
@@ -1373,6 +1373,12 @@ small {
     opacity: .7;
     cursor: pointer;
   }
+}
+
+#finalCommentByLabCube {
+  border-radius: 10px;
+  padding:10px;
+  border:1px solid $border;
 }
 
 .labResults {

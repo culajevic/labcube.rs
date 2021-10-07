@@ -367,8 +367,6 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     })
 
   }
-
-
 }
 
 
@@ -390,7 +388,9 @@ exports.lockTheInterpretation =  async (req,res) => {
 exports.lockTheOtherInterpretation =  async (req,res) => {
   // console.log(req.body[0].ownerId)
   // console.log(req.body[0].interpretationId)
-
+  let check = await Schedule.find({$and:[ {_id:req.body[0].interpretationId},{owner:{$exists:true}}]}).countDocuments()
+  console.log(check)
+  if(check == 0) {
   let lockTheInterpretation = await Result.findOneAndUpdate(
     {_id:req.body[0].interpretationId},
     {owner:req.body[0].ownerId},
@@ -400,6 +400,12 @@ exports.lockTheOtherInterpretation =  async (req,res) => {
       useFindAndModify:false
     }).exec()
     res.send('ok je')
+    console.log('zakljucano')
+  }
+  else {
+    console.log('vec je zakljucano')
+    // res.send('vec je zakljucano')
+  }
 }
 
 

@@ -453,9 +453,11 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
             <div class="testingFlex">
 
                   <div>
-                     <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">
                      <img src="" class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">
-                     <img src="" class="labAntigenIcon antigenIcon${i}" title="radi antigenski test">
+                      <img src="" class="labAntigenIcon antigenIcon${i}" title="radimo antigenski test">
+                     <img src="" class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="sarađujemo sa privatnim osiguranjem">
+                     <img src="" class="labInfoPatronage patronageIcon${i} mb-1" title="radimo patronažu">
+                     <img src="" class="labInfoDisability disabilityIcon${i} mb-1 mx-1" title="ulaz u laboratoriju je prilagođen invalidima">
                      <span class="labInfoWindowTitle">${result[i].labName}</span>
                  </div>
                    <div class="labInfoWindow">
@@ -535,6 +537,9 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         let privateInsurance = document.querySelector('.privateInssuranceIcon'+i)
         let accredited = document.querySelector('.accreditedIcon'+i)
         let antigen = document.querySelector('.antigenIcon'+i)
+        let disabilityIcon = document.querySelector('.disabilityIcon'+i)
+        let patronageIcon = document.querySelector('.patronageIcon'+i)
+
         let labDetailsBtn = document.querySelectorAll('.buttonId')
          labDetailsBtn.forEach(item => {
            item.addEventListener('click', e => {
@@ -563,6 +568,18 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           antigen.setAttribute('src', '/images/covidIcon.svg-1615411728326.svg')
         } else {
           antigen.remove()
+        }
+
+        if(result[i].patronage) {
+          patronageIcon.setAttribute('src', '/images/patronaza2.svg')
+        } else {
+          patronageIcon.remove()
+        }
+
+        if(result[i].disability) {
+          disabilityIcon.setAttribute('src', '/images/disability.svg')
+        } else {
+          disabilityIcon.remove()
         }
 
         if(result[i].open24h) {
@@ -618,6 +635,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
     municipalityValue = JSON.parse(localStorage.getItem('municipality'))
   }
 
+console.log('iz funkcije')
 
 
   window.scrollTo({
@@ -1021,7 +1039,11 @@ exports.bestPrice = (mapArea, resultDiv) => {
 
         <div class="lab-card">
           <div>
+          ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
+          ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified accreditedIcon${i}" title="ulaz prilagođen invalidima">' : ''}
+          ${(result.getPrices[i].lab[0].patronage)? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : ''}
           ${(result.getPrices[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
+          ${(result.getPrices[i].lab[0].antigen)? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon accreditedIcon${i}" title="radi antigenski test">' : ''}
           <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${result.getPrices[i].total} rsd</span>
          </div>
            <div class="labInfoWindow">
@@ -1143,7 +1165,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
       else {
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
-      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve odabrane analize. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
+      resultDiv.innerHTML = `<h2 class="text-center">funTrenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve analize koje ste odabrali. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
 
       for (let i = 0; i< result.missingValues.length; i++) {
           resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
