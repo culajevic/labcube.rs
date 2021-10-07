@@ -21983,10 +21983,11 @@ var checkCMSAll = /all.*/;
 var registerPage = /registracija.*/;
 var loginPage = /prijav.*/;
 var paymentPage = /payment.*/;
+var otherResultsInterpretationFix = /otherResultsInterpretation.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
 var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube');
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix)) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
@@ -22125,9 +22126,8 @@ window.onload = function () {
         // municipality.value = municipalityValue
         window.location = '/nadjiLab';
       } //ako nesto ne radi zakomentarisati red ispod
+      // helper.bestPrice(mapArea, resultDiv)
 
-
-      helper.bestPrice(mapArea, resultDiv);
     });
     helper.displayBasket(itemsArray);
     helper.removeAnalysis(itemsArray, checkout); //display hidden shoping basket
@@ -23070,8 +23070,7 @@ window.onload = function () {
       var hour = document.querySelectorAll('.hours');
       var day = document.querySelectorAll('.days');
       var completed = document.querySelectorAll('.Završeno');
-      completed.forEach(function (item) {
-        console.log(item.nextSibling);
+      completed.forEach(function (item) {// console.log(item.nextSibling)
       });
       var deadline = document.querySelectorAll('.deadline');
       var deadlinesArr = [];
@@ -23095,9 +23094,7 @@ window.onload = function () {
           }
 
           var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
-          console.log(days);
           var hours = Math.floor(timeleft % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
-          console.log(hours);
           var minutes = Math.floor(timeleft % (1000 * 60 * 60) / (1000 * 60));
           var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
 
@@ -23243,13 +23240,15 @@ window.onload = function () {
 
       analysisOutOfRange.classList.add('text-center');
       analysisOutOfRange.setAttribute('type', 'checkbox');
+      analysisOutOfRange.setAttribute('id', counter - 1);
       analysisOutOfRange.name = "outsideOfTheRange" + (counter - 1);
       analysisOutOfRange.value = "true";
       var analysisCommentInput = document.createElement('textarea');
       analysisCommentInput.classList.add('form-control');
-      analysisCommentInput.setAttribute('rows', 2);
+      analysisCommentInput.setAttribute('rows', 3);
       analysisCommentInput.setAttribute('cols', 45);
       analysisCommentInput.name = "commentResult";
+      analysisCommentInput.value = "Rezultat je u referentnom opsegu.";
       var removeRow = document.createElement('span');
       var removeRowText = document.createTextNode('X');
       removeRow.appendChild(removeRowText);
