@@ -424,7 +424,7 @@ requestCheckout()
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0; padding-top:40px;" >br. računa: ${currentId}</p>
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:-10px; padding-top:0;" >${data.card.holder}</p>
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:-10px; padding-top:0;" >${data.billing.street1}</p>
-              <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:-10px; padding-top:0;" >${data.billing.city}}</p>
+              <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:-10px; padding-top:0;" >${data.billing.city}</p>
             </div>
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno izvršena uplata. Hvala!</h2></div>
 
@@ -435,14 +435,14 @@ requestCheckout()
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${newDate}</p>
 
              <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
-              <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank" style="text-decoration:none;">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Svo podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu  <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politiku privatnosti</a></p>
+              <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank" style="text-decoration:none;">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Svo podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu  <a href="https://labcube.rs/politika-privatnosti" style="display:inline;  opacity:0.6;  text-decoration:none;">politiku privatnosti</a></p>
              </div>
              <div style="text-align:center; margin-top:40px;  padding-left:30px; padding-right:30px;">
              <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
              </div>
              <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
              <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
-              <p style="color:#9C9C9C; font-size:9px; padding-bottom:0; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">informacione tehnologije nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd</p>
+              <p style="color:#9C9C9C; font-size:9px; padding-bottom:0; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd / PIB 106310784</p>
            </div>`,
            attachments:[{
              filename: 'headerBigEmail.png',
