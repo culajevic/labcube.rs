@@ -9047,6 +9047,9 @@ ul ol ul {
   cursor: pointer;
   background-color: #FF6F6F; }
 
+.blueOverlay input:-webkit-autofill, .blueOverlayLab input:-webkit-autofill {
+  -webkit-text-fill-color: transparent; }
+
 .blueOverlay input::placeholder, .blueOverlayLab input::placeholder {
   color: #FFF;
   font-size: 1rem;
