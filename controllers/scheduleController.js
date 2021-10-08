@@ -403,8 +403,9 @@ exports.lockTheOtherInterpretation =  async (req,res) => {
     console.log('zakljucano')
   }
   else {
-    console.log('vec je zakljucano')
-    // res.send('vec je zakljucano')
+
+    // console.log('vec je zakljucano')
+    res.json('vec je zakljucano')
   }
 }
 

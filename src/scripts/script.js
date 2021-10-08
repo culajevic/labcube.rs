@@ -1459,7 +1459,8 @@ let interpretationPage = document.getElementById('interpretationId')
           'Content-Type': 'application/json'
         },
         body:lockingInterpretation
-      }).then(response => {
+      }).then(response => response.text())
+      .then((response) => {
         console.log(response)
       })
     // }

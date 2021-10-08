@@ -23154,6 +23154,8 @@ window.onload = function () {
         },
         body: lockingInterpretation
       }).then(function (response) {
+        return response.text();
+      }).then(function (response) {
         console.log(response);
       }); // }
       // else {
