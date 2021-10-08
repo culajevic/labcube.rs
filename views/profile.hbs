@@ -646,7 +646,7 @@
             </div>
             <span>Želim korisne informacije na mejl</span>
             <select class="d-block profilePersonalData mt-2" name="news">
-              <!-- <option class="" value="Null" {{#if (checkBox user.gender 'Null')}} selected {{/if}}>Nije važno</option> -->
+              <option class="" value="Null" {{#if (checkBox user.news 'Null')}} selected {{/if}}>Odaberite</option>
               <option class="" value=1 {{#if (checkMarketing user.news true)}} selected {{/if}}>Da</option>
               <option class="" value=0 {{#if (checkMarketing user.news false)}} selected {{/if}}>Ne</option>
             </select>
