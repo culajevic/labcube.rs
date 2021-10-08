@@ -532,9 +532,9 @@ ul ol ul {
 }
 
 .blueOverlay input:-webkit-autofill {
-  padding-left: 0px;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
+  // padding-left: 0px;
+  // -webkit-text-fill-color: transparent;
+  // -webkit-background-clip: text;
 }
 
 .blueOverlay input::placeholder {
