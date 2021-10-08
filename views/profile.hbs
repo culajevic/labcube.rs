@@ -640,6 +640,17 @@
                 <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{user.mobile}}" placeholder="u fomatu 06XXXXXXX">
             </div>
           </div>
+          <div class="float-left d-inline pl-2">
+            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+              <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
+            </div>
+            <span>Želim korisne informacije na mejl</span>
+            <select class="d-block profilePersonalData mt-2" name="news">
+              <!-- <option class="" value="Null" {{#if (checkBox user.gender 'Null')}} selected {{/if}}>Nije važno</option> -->
+              <option class="" value=1 {{#if (checkMarketing user.news true)}} selected {{/if}}>Da</option>
+              <option class="" value=0 {{#if (checkMarketing user.news false)}} selected {{/if}}>Ne</option>
+            </select>
+          </div>
         </div>
         <div class="form-group col-12">
           <button class="btn btn-block btnLabDetails mt-2">Sačuvaj</button>

@@ -85,6 +85,14 @@ hbs.registerHelper('checkGender', (gender) => {
   }
 })
 
+hbs.registerHelper('checkMarketing', (marketing, value1) => {
+  if (marketing == value1) {
+    return true
+  } else {
+    return false
+  }
+})
+
 // increment indexes
 hbs.registerHelper('increment', (index) => {
   index++

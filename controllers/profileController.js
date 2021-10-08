@@ -74,6 +74,14 @@ exports.updatePass = async (req,res) => {
 }
 
 exports.updateProfile = async (req,res) => {
+  let news
+  
+  if (req.body.news == undefined || req.body.news == false) {
+    news = false
+  } else {
+    news = true
+  }
+  console.log(news)
   try {
   const profileUpdate = await User.findOneAndUpdate(
 
@@ -84,7 +92,8 @@ exports.updateProfile = async (req,res) => {
       mobile:req.body.mobilniTelefon,
       birthYear:req.body.godinaRodjenja,
       address:req.body.adresa,
-      city:req.body.city
+      city:req.body.city,
+      news:news
     },{
       new:true,
       runValidators:true,
