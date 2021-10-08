@@ -1381,6 +1381,29 @@ small {
   border:1px solid $border;
 }
 
+.googleBtnIcon {
+  // background: url('../images/googleBtn.svg') no-repeat;
+  background-position: left;
+// font-size: 16px;
+  margin-left: 0;
+  padding-left: 0;
+  color:white;
+  width:200px;
+  background-color: #4285F4;
+  padding:15px;
+  border:1px solid #4285F4;
+//   height: 50px;
+//   width: 80px;
+&:hover {
+  background-color: darken(#4285F4, 3%);
+  color:white;
+  }
+}
+
+.fa-google {
+  font-size: 20px;
+}
+
 .labResults {
   border-collapse:separate;
   border-spacing: 0 2rem;
