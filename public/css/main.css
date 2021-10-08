@@ -9477,9 +9477,21 @@ p.selectedAnalysisTitle {
 .smallLogo {
   width: 200px; }
 
-.smallLogoXs {
+.smallLogoXs, .smallLogoLogin {
   width: 100px;
   margin-left: 40px; }
+
+.smallLogoLogin {
+  z-index: 2222;
+  width: 80px;
+  position: absolute;
+  top: 40px;
+  display: none; }
+
+.loginAndRegisterBtn {
+  position: absolute;
+  top: 60px;
+  right: 30px; }
 
 .backgroundImage {
   background-image: url(../images/corbavia1.jpg);
@@ -10313,7 +10325,9 @@ table.workingHoursLabDetails {
     margin-bottom: 2.25rem;
     font-size: 24px; }
   #sideBanner, #groupIcon {
-    display: none; } }
+    display: none; }
+  .smallLogoLogin {
+    display: block; } }
 
 @media (min-width: 170px) and (max-width: 374px) {
   footer {
@@ -10324,7 +10338,9 @@ table.workingHoursLabDetails {
   .groupTitle {
     font-size: 2.375rem; }
   #backToTopBtn {
-    right: 30px; } }
+    right: 30px; }
+  .smallLogoLogin {
+    display: block; } }
 
 @media (min-width: 370px) and (max-width: 574px) {
   .groupTitle {
@@ -10336,13 +10352,17 @@ table.workingHoursLabDetails {
     footer > .overlay {
       height: 33.125rem; }
   #backToTopBtn {
-    right: 30px; } }
+    right: 30px; }
+  .smallLogoLogin {
+    display: block; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
     height: 26.875rem; }
     footer > .overlay {
       height: 26.875rem; }
+  .smallLogoLogin {
+    display: block; }
   #groupIcon {
     display: none; }
   .groupTitle {
