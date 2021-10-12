@@ -1,0 +1,42 @@
+{{> _innerNavBackend}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 px-5">
+      {{#if allApprovedComments}}
+        <table class="table table-hover mt-5 table-striped">
+          <thead>
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Lab</th>
+              <th scope="col">Datum</th>
+              <th scope="col">Komentar</th>
+              <th scope="col">Ocena</th>
+              <th scope="col">IP</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each allApprovedComments}}
+            <tr>
+              <!-- <td>{{this.id}}</td> -->
+              <td>{{this.labName}}</td>
+              <td>{{formatRsDate this.commentSection.date}}</td>
+              <td>{{this.commentSection.feedback}}</td>
+              <td>{{this.commentSection.star}}</td>
+              <td>{{this.commentSection.ip}}</td>
+              <td>{{#each user}}{{this.username}}{{/each}}</td>
+
+              <!-- <td><a href='approve/{{this._id}}/{{this.commentSection._id}}' class="btn btn-primary text-uppercase">Odobri</a></td>  -->
+              <td><a href='deleteApprovedComment/{{this._id}}/{{this.commentSection._id}}' class="btn btn-danger deleteDocument">Obriši</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+          <div class="text-center mt-5">
+            <h2 class="my-5">Trenutno nema odobrenih komentara </h2>
+          </div>
+        {{/if}}
+    </div>
+  </div>
+</div>

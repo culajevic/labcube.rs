@@ -820,8 +820,9 @@ if (municipalityValue != null) {
       })
    });
 
+   //remove comment below if you want to have clean url for lab
+  // history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
 
-  history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
   //take input values from search box and filter reference
   let innerPageSearch = document.getElementById('searchResultPage')
   let analysisRadio = document.querySelectorAll('input[name=searchFilter]')

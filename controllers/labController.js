@@ -5,6 +5,7 @@ const ObjectId = mongoose.Types.ObjectId
 const Price = mongoose.model('Price')
 const Feedback = mongoose.model('Feedback')
 const Group = mongoose.model('Group')
+const ip = require('ip')
 const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
@@ -186,11 +187,57 @@ exports.deleteLab = [authCheck, async (req,res) => {
 
 
 exports.getLabInfo = async (req,res) => {
-
+  let checkToday = new Date()
   const labDetails = await Lab.findOne({slug:{"$regex":req.params.slug, "$options": "i" }})
   .populate('placeId', 'place municipality')
   let user = req.user
+  let alreadySent
+  //getLabScore
+  // let labStar = await Lab.findOne({_id:labDetails.id})
+  //
+  if (user) {
+    //ako je user ulogovan i ima objvaljen komentar ali je istekao datum za objavu novog komentara prikazi mu formu za komentar
+    alreadySent = await Lab.aggregate([
+      {$match:{_id:ObjectId(labDetails.id)}},
+      {$unwind:'$commentSection'},
+      {$match:{'commentSection.userId':ObjectId(user.id)}},
+      // {$match:{$and:[{'commentSection.approved':true},{'commentSection.newCommentPossible':{$gt:checkToday}}]}},
+      {$match:{'commentSection.newCommentPossible':{$gt:checkToday}}},
+      {$project:{commentSection:1}}
+    ])
+  } else {
+    alreadySent = await Lab.aggregate([
+      {$match:{_id:ObjectId(labDetails.id)}},
+      {$unwind:'$commentSection'},
+      // {$match:{$and:[{'commentSection.approved':true},{'commentSection.newCommentPossible':{$gt:checkToday}}]}},
+      {$match:{'commentSection.approved':false}},
+      {$project:{commentSection:1}}
+    ])
+  }
 
+  //check if user already submited a feedback
+  let alreadySentFlag = (alreadySent.length) ? true : false
+
+  let feedbackSent = await Lab.aggregate([
+    {$match:{_id:ObjectId(labDetails.id)}},
+    {$unwind:'$commentSection'},
+    {$lookup:{from:'users', localField:'commentSection.userId', foreignField:'_id', as:'user'}},
+    {$match:{'commentSection.approved':true}},
+    {$sort:{'commentSection.date':-1}},
+    {$project:{commentSection:1, user:1}}
+  ])
+
+  let numComments = feedbackSent.length
+
+  let numOfFeedbacks = parseInt(feedbackSent.length)
+  let sum = 0
+  for (let i = 0; i<numOfFeedbacks; i++) {
+    sum+= parseInt(feedbackSent[i].commentSection.star)
+  }
+  let star = (sum / numOfFeedbacks).toFixed(2)
+  ////////////////////////////////////////////////////////////////
+
+  //get groupnames for footer
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 
   //display feedback for the lab
@@ -329,7 +376,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user, groupNames})
+  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, numComments, alreadySentFlag, feedbackSent, star, numOfFeedbacks, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user, groupNames})
 
 }
 
@@ -368,4 +415,114 @@ exports.getLab = async (req, res) => {
   const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }})
   .populate('placeId', 'place municipality')
   res.json(labName)
+}
+
+
+exports.sendFeedback = async (req,res) => {
+  let labSlug = await Lab.findOne({_id:req.params.id})
+  let ipAddress = ip.address()
+  let today = new Date()
+  //Proveriti da li je neko menjao ocenu ako jeste, izbaciti ga
+  if (req.body.star < 1 || req.body.star > 5) {
+    req.flash('error_msg', `Došlo je do greske prilikom slanja komentara, pokušajte ponovo`)
+    res.redirect('/laboratorija/'+labSlug.slug)
+    return false
+  }
+
+  //proveriti da li je korisnik sa ove ip adrese vec dao komentar za ovaj lab
+  let feedbackSent = await Lab.aggregate([
+    {$match:{_id:ObjectId(req.params.id)}},
+    {$unwind:'$commentSection'},
+    {$match:{'commentSection.ip':ipAddress}},
+    {$match:{'commentSection.userId':ObjectId(req.user.id)}},
+    {$match:{'commentSection.approved':true}},
+    {$project:{commentSection:1}}
+  ])
+
+  for (let i = 0; i<feedbackSent.length; i++) {
+    if (feedbackSent[i].commentSection.newCommentPossible > today) {
+      req.flash('error_msg', `Već ste ocenili labortoriju.`)
+      res.redirect('/laboratorija/'+labSlug.slug)
+      return false
+    }
+  }
+
+  try {
+    let labStar = await Lab.findOne({_id:req.params.id})
+    let numOfFeedbacks = parseInt(labStar.commentSection.length)
+    let sum = 0
+    for (let i = 0; i<numOfFeedbacks; i++) {
+      sum+= parseInt(labStar.commentSection[i].star)
+    }
+    let star = (sum / numOfFeedbacks).toFixed(2)
+
+
+    let labFeedback = await Lab.findOneAndUpdate(
+      {_id:req.params.id},
+      {$push:{'commentSection':{'feedback':req.body.labFeedback,'star':req.body.star, ip:ipAddress, userId:req.user.id}}},
+      {
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+      }).exec()
+      req.flash('success_msg','Uspešno ste poslali komentar. Hvala')
+      res.redirect('/laboratorija/'+labSlug.slug)
+  }
+  catch(e) {
+    req.flash('error_msg', `Došlo je do greske ${e} prilikom slanja komentara`)
+  }
+}
+
+
+exports.allComments = async (req,res) => {
+  let allComments = await Lab.aggregate([
+    {$unwind:'$commentSection'},
+    {$match:{'commentSection.approved':false}},
+    {$lookup:{from:'users', localField:'commentSection.userId', foreignField:'_id', as:'user'}},
+    {$project:{commentSection:1, labName:1, user:1}}
+  ])
+  res.render('allComments', {allComments, title:'Uređivanje komentara'})
+}
+
+exports.approveComment = async (req,res) => {
+
+  // let commentApproval = await Lab.aggregate([
+  //   {$unwind:'$commentSection'},
+  //   {$match:{'commentSection._id':ObjectId(req.params.id)}},
+  //   {$project:{commentSection:1, _id:0}}
+  // ])
+  // console.log(commentApproval[0].commentSection._id)     {commentSection:{$elemMatch:{_id:ObjectId(req.params.commentId)}}},
+  let updateApproval = await Lab.updateOne(
+    {'commentSection._id':ObjectId(req.params.commentId)},
+    {$set: {'commentSection.$.approved': true}})
+    req.flash('success_msg','Komentar je odobren')
+    res.redirect('/allComments')
+}
+
+exports.deleteComment = async (req,res) => {
+    let deleteComment = await Lab.updateOne(
+      {'commentSection._id':ObjectId(req.params.commentId)},
+      {$pull:{commentSection:{_id:ObjectId(req.params.commentId)}}}
+    )
+      req.flash('success_msg','Uspešno obrisan komentar')
+      res.redirect('/allComments')
+}
+
+exports.deleteApprovedComment = async (req,res) => {
+    let deleteComment = await Lab.updateOne(
+      {'commentSection._id':ObjectId(req.params.commentId)},
+      {$pull:{commentSection:{_id:ObjectId(req.params.commentId)}}}
+    )
+      req.flash('success_msg','Uspešno obrisan komentar')
+      res.redirect('/allApprovedComments')
+}
+
+exports.allApprovedComments = async (req, res) => {
+  let allApprovedComments = await Lab.aggregate([
+    {$unwind:'$commentSection'},
+    {$match:{'commentSection.approved':true}},
+    {$lookup:{from:'users', localField:'commentSection.userId', foreignField:'_id', as:'user'}},
+    {$project:{commentSection:1, labName:1, 'user.username':1}}
+  ])
+  res.render('approvedComments', {allApprovedComments, title:'Labcube - Odobreni komentari'})
 }

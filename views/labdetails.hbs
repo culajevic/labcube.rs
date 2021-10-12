@@ -9,7 +9,6 @@
 </div>
 
 
-
 <section id="labDetailsInner" class="labDetailsInnerPage">
   <div class="container">
     <!-- <div class="container-fluid pr-0 pl-0">
@@ -27,8 +26,7 @@
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
         <h1 class="mb-5 d-inline" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}</h1>
       </div>
-
-      <div class="col-sm-12 col-md-12 col-lg-3 col-xl-5 mt-4 d-inline">
+      <div class="col-sm-12 col-md-12 col-lg-5 col-xl-6 mt-4 d-inline">
         <div class="labInfoWindowDetails">
 
            <!-- <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo"> -->
@@ -42,7 +40,7 @@
         </div>
       </div><!-- col-6 -->
 
-      <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-4 pr-0">
+      <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-4 pr-0 d-flex flex-column justify-content-center">
         <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
         {{#if (checkServices labDetails.accredited labDetails.antigen labDetails.private labDetails.patronage labDetails.disability)}}
         <div class="labFeatures">
@@ -64,16 +62,24 @@
         </div>
       {{/if}}
 
-
       </div>
-      <!-- <div class="feedback col-md-7 col-lg-5 col-xl-4 mt-4 pl-0 pl-xs-4"> -->
-        <!-- <div class="feedback" >
-          <p class="mb-0"><progress max=5 value="{{hospitality}}"> </progress> {{hospitality}} ljubaznost</p>
+      <div class="col-md-5 col-lg-3 col-xl-3 pl-0 mt-4">
+
+        <div class="feedback text-center d-flex flex-column justify-content-center" id="overallScore" >
+          <span class="text-muted">Ocena laboratorije</span>
+          {{#if (checkStar star)}}
+          <h3 class="align-items-center">{{star}}</h3>
+          <small class="text-muted" style="margin-top:-10px;">od 5</small>
+          <!-- <p class="mb-0"><progress max=5 value="{{hospitality}}"> </progress> {{hospitality}} ljubaznost</p>
           <p class="mb-0"><progress max=5 value="{{venipuncture}}"> </progress> {{venipuncture}} venepunkcija</p>
           <p class="mb-0"><progress value="{{speed}}" max="5"> </progress> {{speed}} izdavanje rezultata</p>
           <p class="mb-0"><progress value="{{covid}}" max="5"> </progress> {{covid}} covid odgovorni</p>
-          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} opšti utisak</p>
-        <!-- </div> -->
+          <p class="mb-0"><progress value="{{overall}}" max="5"> </progress> {{overall}} opšti utisak</p> -->
+          {{else}}
+          <h3 class="mt-3"><i class="far fa-question-circle" title="Još uvek nema ocena za ovu laboratoriju."></i></h3>
+       </div>
+       {{/if}}
+
 
         <!-- <div class=" " > -->
           <!-- <p class="mb-0"><progress value="4" max=5> </progress> {{hospitality}} - <span class="text-left"> Ljubaznost</span></p>
@@ -120,9 +126,10 @@
       <section id="labPrices">
         <div class="container" id="resultsLabDetails">
           <div class="row mb-2">
+            {{#if numofanalysis}}
             <div class="col-12 table-responsive">
-              {{#if numofanalysis}}
               <p class="selectedAnalysisTitle">odabrane analize</p>
+              <small class="float-right mt-2 mb-4 text-muted"><sup>*</sup>Molimo Vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small>
               <table class="table results table-hover">
        					<tbody id="resultTable">
                   {{#each selectedAnalysis}}
@@ -147,9 +154,53 @@
 
                 <p class="aboutUs"><span class="numAnalysis">Redovna cena </span> <span class="totalPrice" ></span></p>
                 <p class="aboutUsDiscount" style="min-width: 300px;" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
-                <!-- <small class=""><sup>*</sup>Molimo vas da konačne cene odabranih analiza proverite pre odlaska u laboratoriju.</small> -->
+
               </div>
             </div><!-- col 12 end -->
+            {{/if}}
+
+            {{#if userId}}
+              {{#unless alreadySentFlag}}
+            <div class="col-12">
+              <form class="mt-5" action="/sendFeedback/{{labDetails._id}}" method="post">
+                <label for="labFeedback" class="text-muted">Napišite komentar i ocenite laboratoriju</label>
+                  <textarea name="labFeedback" class="col-12 mt-3" rows="5" cols="80" id="labFeedback" placeholder=""></textarea>
+                  <div class="wrapper">
+                    <input type="radio" id="st1" value="5" name="star" title="Loše loše"/>
+                    <label for="st1"></label>
+                    <input type="radio" id="st2" value="4" name="star"/>
+                    <label for="st2"></label>
+                    <input type="radio" id="st3" value="3" name="star"/>
+                    <label for="st3"></label>
+                    <input type="radio" id="st4" value="2" name="star"/>
+                    <label for="st4"></label>
+                    <input type="radio" id="st5" value="1" name="star"/>
+                    <label for="st5"></label>
+                  </div>
+                  <button name="button" class="btn btn-block btn-primary text-uppercase">Pošaljite komentar i ocenite laboratoriju</button>
+              </form>
+            </div>
+              {{/unless}}
+
+              {{else}}
+              <div class="col-12 text-center">
+                <small class="text-muted mt-4">Ukoliko želite da ocenite laboratoriju <a href="/prijava" target="_blank" class="nolinkLabDetails">prijavite se</a> ili <a href="/registracija" target="_blank" class="nolinkLabDetails">kreirajte nalog</a></small>
+              </div>
+            {{/if}}
+
+            {{#if (greaterThenZero numOfFeedbacks)}}
+            <div class="col-12 mt-4">
+              <h4 class="mt-5">Komentari ({{numComments}})</h4>
+              <ul class="labComments mt-5">
+                {{#each feedbackSent}}
+                  {{#each user}}
+                    <div class="feedbackUser mt-4">{{createInitials this.username}}</div>
+                  {{/each}}
+                <li>
+                <span class="d-block feedbackDate mb-1 ">{{formatLabScheduleDate this.commentSection.date}} {{{generateStar this.commentSection.star}}}  </span><span class="feedbackComment">{{this.commentSection.feedback}}</span></li>
+                {{/each}}
+            </ul>
+            </div>
             {{/if}}
 
           </div><!-- row end -->

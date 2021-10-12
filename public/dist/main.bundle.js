@@ -22577,8 +22577,9 @@ window.onload = function () {
           dateLab.value = '';
         }
       });
-    });
-    history.replaceState(null, null, "/laboratorija/".concat(labLocationUrl[2])); //take input values from search box and filter reference
+    }); //remove comment below if you want to have clean url for lab
+    // history.replaceState(null,null,`/laboratorija/${labLocationUrl[2]}`)
+    //take input values from search box and filter reference
 
     var innerPageSearch = document.getElementById('searchResultPage');
 

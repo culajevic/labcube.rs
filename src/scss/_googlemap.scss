@@ -189,12 +189,15 @@
 
 .labInfoWindowOsiguranje{
   padding-right: px-to-rem(6px);
-  margin-bottom: px-to-rem(6px);
+  margin-bottom: px-to-rem(2px);
   display: inline-block;
 }
 
 .labInfoWindowVerified {
-  @extend .labInfoWindowOsiguranje;
+  // @extend .labInfoWindowOsiguranje;
+  margin-left:-2px;
+  padding-right: 6px;
+  margin-bottom: 2px;
 }
 
 .labAntigenIcon {

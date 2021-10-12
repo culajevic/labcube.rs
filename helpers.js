@@ -23,11 +23,40 @@ hbs.registerHelper('checkInterpreatationStatus', status => {
   }
 })
 
+hbs.registerHelper('createInitials', name => {
+  return name.substr(0,2)
+})
 
 hbs.registerHelper('checkServices', (v1,v2,v3,v4,v5) => {
   if (v1 || v2 || v3 || v4 || v5) {
     return true
   }
+})
+
+hbs.registerHelper('greaterThenZero', num => {
+  if (num > 0) {
+    return true
+  }
+})
+
+hbs.registerHelper('checkFeedback', (user, star) => {
+  if (user && !star) {
+    return true
+  }
+})
+
+hbs.registerHelper('generateStar', (num) => {
+  let stars = ''
+  let missing = 5 - num
+  for (let i=0; i<num; i++ ) {
+    stars +='<i class="fas fa-star"></i> '
+
+  }
+  for (let b = 0; b<missing; b++) {
+    stars +='<i class="far fa-star"></i> '
+  }
+  return stars
+
 })
 
 
@@ -90,6 +119,12 @@ hbs.registerHelper('checkMarketing', (marketing, value1) => {
     return true
   } else {
     return false
+  }
+})
+
+hbs.registerHelper('checkStar', (star) => {
+  if(!isNaN(star)) {
+    return true
   }
 })
 

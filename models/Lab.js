@@ -96,6 +96,32 @@ const labSchema = new mongoose.Schema({
     type:Boolean,
     default:false
   },
+  commentSection:[{
+    feedback:String,
+    star:Number,
+    approved:{
+      type:Boolean,
+      default:false
+    },
+    date:{
+      type:Date,
+      default:Date.now
+    },
+    ip:String,
+    heroComment:{
+      type:Number,
+      default:0
+    },
+    userId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'User'
+    },
+    newCommentPossible:{
+      type:Date,
+      default:new Date(+new Date() + 7*24*60*60*1000)
+    },
+    reply:String
+  }],
   description:String,
   comment:String,
   discount:Number,

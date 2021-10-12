@@ -226,3 +226,11 @@ span.remove:hover{
   text-decoration: none;
   color:$fontColorResultsTable;
 }
+
+#resultsLabDetails .nolinkLabDetails {
+  text-decoration:none;
+  color:$primary-color;
+  &:hover {
+    color:darken($primary-color, 20%);
+  }
+}

@@ -129,6 +129,7 @@ router.delete('/allLabs/:id/:location?', labController.deleteLab)
 router.get('/laboratorija/:slug/:ids?', labController.getLabInfo)
 // router.get('/laboratorija/:analysisName', labController.getLabInfo)
 router.get('/search/analysis/:analysisName/:labSlug', labController.getAdditionalAnalysis)
+router.post('/sendFeedback/:id', labController.sendFeedback)
 // router.post('/laboratorija/:slug/:ids*', labController.getLabInfoAnalysis)
 
 
@@ -172,6 +173,14 @@ router.post('/addFaq', faqController.createFaq)
 router.get('/addFaq/:id', faqController.editFaq)
 router.post('/addFaq/:id', faqController.updateFaq)
 router.delete('/allFaqs/:id/:location?', faqController.deleteFaq)
+
+//commentSection
+router.get('/allComments', labController.allComments)
+router.get('/approve/:labId/:commentId', labController.approveComment)
+router.get('/allApprovedComments', labController.allApprovedComments)
+router.get('/delete/:labId/:commentId', labController.deleteComment)
+router.get('/deleteApprovedComment/:labId/:commentId', labController.deleteApprovedComment)
+
 
 router.get('/places/:place', placeController.getPlaces)
 router.get('/groups/:groupName', groupController.getGroupNames)

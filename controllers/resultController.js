@@ -40,7 +40,7 @@ let transporter = nodemailer.createTransport({
   port:465,
   // secure:true,
   auth: {
-      user:"potrebno-tumacenje@labcube.rs",
+      user:"labcube-tumacenje-no-reply@labcube.rs",
       pass:process.env.EMAILPASS
   },
   tls: {
@@ -412,8 +412,7 @@ requestCheckout()
 
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
-           to:data.customer.email,
-           // to:'culajevic@gmail.com',
+           to:[data.customer.email, 'izvodi@labcube.rs'],
            subject:'Uspešno izvršena uplata za tumačenje laboratorijskih rezultata',
            text:'',
            html:`
