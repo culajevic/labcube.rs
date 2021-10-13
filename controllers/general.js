@@ -81,9 +81,7 @@ exports.takeUserComment = async (req,res) => {
   // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
 // let ipAddress = ip.address()
 
-
-let networkInterfaces = os.networkInterfaces();
-ipAddress = ip.address()
+ipAddress = require('my-local-ip')()
 
   let errors = []
 
