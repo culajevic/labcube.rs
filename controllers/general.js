@@ -5,7 +5,6 @@ const Group = mongoose.model('Group')
 const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
 const ip = require('ip')
-const requestIp = require('request-ip');
 const moment = require('moment')
 moment.locale('sr')
 
@@ -62,8 +61,6 @@ exports.sayHello = async (req,res) => {
 
 exports.takeUserComment = async (req,res) => {
 
-  var ipAddress = requestIp.getClientIp(req);
-     console.log(ipAddress);
 
   let transporter = nodemailer.createTransport({
     host:'mail.labcube.rs',
