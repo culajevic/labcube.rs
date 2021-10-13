@@ -4,6 +4,7 @@ const Price = mongoose.model('Price')
 const Group = mongoose.model('Group')
 const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
+const geoip = require('geoip-lite')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -77,8 +78,8 @@ console.log(req.connection.remoteAddress)
 
 
 let ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress
-
-// let ipAddress = ip.address()
+var geo = geoip.lookup(ipAddress)
+console.log(geo)
 
   let errors = []
 
