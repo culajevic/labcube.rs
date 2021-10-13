@@ -61,6 +61,7 @@ exports.sayHello = async (req,res) => {
 
 exports.takeUserComment = async (req,res) => {
 
+console.log(req.connection.remoteAddress)
 
   let transporter = nodemailer.createTransport({
     host:'mail.labcube.rs',
@@ -79,6 +80,7 @@ exports.takeUserComment = async (req,res) => {
 
   // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
 // let ipAddress = ip.address()
+let ipAddress = req.connection.remoteAddress
 
   let errors = []
 
