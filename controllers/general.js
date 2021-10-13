@@ -76,8 +76,10 @@ exports.takeUserComment = async (req,res) => {
 
 
 
-  // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
-let ipAddress = req.ip
+// let ipAddress = req.ip
+
+const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+ console.log(ipAddress); // ip address of the user
 
   let errors = []
 
