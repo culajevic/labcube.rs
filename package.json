@@ -64,6 +64,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "popper.js": "^1.16.1",
+    "public-ip": "^4.0.4",
     "querystring": "^0.2.1",
     "randomstring": "^1.1.5",
     "sass-loader": "^7.3.1",

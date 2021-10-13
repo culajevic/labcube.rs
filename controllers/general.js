@@ -4,7 +4,7 @@ const Price = mongoose.model('Price')
 const Group = mongoose.model('Group')
 const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
-const ip = require('ip')
+// const ip = require('ip')
 const moment = require('moment')
 moment.locale('sr')
 
@@ -78,7 +78,12 @@ exports.takeUserComment = async (req,res) => {
 
 
   // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
-let ipAddress = ip.address()
+// let ipAddress = ip.address()
+var os = require('os');
+
+var networkInterfaces = os.networkInterfaces();
+
+let ipAddress = networkInterfaces.lo0[0].address
 
   let errors = []
 
@@ -124,7 +129,5 @@ let ipAddress = ip.address()
     }
 
   }
-
-
 
 }
