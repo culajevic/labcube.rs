@@ -6,6 +6,7 @@ const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
 // const ip = require('ip')
 const moment = require('moment')
+const os = require('os');
 moment.locale('sr')
 
 
@@ -79,10 +80,9 @@ exports.takeUserComment = async (req,res) => {
 
   // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
 // let ipAddress = ip.address()
-var os = require('os');
 
-var networkInterfaces = os.networkInterfaces();
 
+let networkInterfaces = os.networkInterfaces();
 let ipAddress = networkInterfaces.lo0[0].address
 
   let errors = []
