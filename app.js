@@ -27,6 +27,8 @@ app.use(cookieSession({
   keys:[process.env.SESSIONKEY]
 }))
 
+app.set('trust proxy', true);
+
 
 //initialize passport
 app.use(passport.initialize())
