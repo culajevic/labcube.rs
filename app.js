@@ -28,6 +28,9 @@ app.use(cookieSession({
 }))
 
 
+app.set('trust proxy', true)
+
+
 //initialize passport
 app.use(passport.initialize())
 app.use(passport.session())

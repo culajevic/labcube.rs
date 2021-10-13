@@ -4,7 +4,8 @@ const Price = mongoose.model('Price')
 const Group = mongoose.model('Group')
 const Message = mongoose.model('Message')
 const nodemailer = require('nodemailer')
-const ip = require('ip')
+// const ip = require('ip')
+let requestIp = require('request-ip');
 const moment = require('moment')
 moment.locale('sr')
 
@@ -78,8 +79,8 @@ exports.takeUserComment = async (req,res) => {
 
 // let ipAddress = req.ip
 
-const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
- console.log(ipAddress); // ip address of the user
+
+ let ipAddress = requestIp.getClientIp(req);
 
   let errors = []
 
