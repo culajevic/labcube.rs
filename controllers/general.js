@@ -83,7 +83,7 @@ exports.takeUserComment = async (req,res) => {
 
 
 let networkInterfaces = os.networkInterfaces();
-let ipAddress = networkInterfaces.lo0[0].address
+let ipAddress = networkInterfaces.lo0.address
 
   let errors = []
 
