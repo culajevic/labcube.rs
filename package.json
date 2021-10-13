@@ -39,6 +39,7 @@
     "express-validator": "^6.3.1",
     "file-loader": "^4.3.0",
     "flatpickr": "^4.6.6",
+    "geoip-lite": "^1.4.2",
     "handlebars": "^4.5.0",
     "handlebars-loader": "^1.7.1",
     "heroku": "^7.46.2",
