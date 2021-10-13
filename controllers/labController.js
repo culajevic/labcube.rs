@@ -5,7 +5,6 @@ const ObjectId = mongoose.Types.ObjectId
 const Price = mongoose.model('Price')
 const Feedback = mongoose.model('Feedback')
 const Group = mongoose.model('Group')
-const ip = require('ip')
 const url = require('url');
 const moment = require('moment')
 moment.locale('sr')
@@ -420,7 +419,7 @@ exports.getLab = async (req, res) => {
 
 exports.sendFeedback = async (req,res) => {
   let labSlug = await Lab.findOne({_id:req.params.id})
-  let ipAddress = ip.address()
+  let ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress
   let today = new Date()
   //Proveriti da li je neko menjao ocenu ako jeste, izbaciti ga
   if (req.body.star < 1 || req.body.star > 5) {
