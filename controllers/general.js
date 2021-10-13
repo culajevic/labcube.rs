@@ -78,9 +78,9 @@ console.log(req.connection.remoteAddress)
 
 
 
-  // let ip = req.header('x-forwarded-for') || req.connection.remoteAddress
+  let ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress
+  console.log(ip)
 // let ipAddress = ip.address()
-let ipAddress = req.connection.remoteAddress
 
   let errors = []
 
