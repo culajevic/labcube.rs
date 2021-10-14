@@ -20,16 +20,43 @@
     font-size: 1rem;
   }
 
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  .navbar-nav {
+    // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
+    background-color: rgba(29, 136, 229, 1);
+    z-index: 20;
+    position:relative;
+    width: 100%;
+    padding: 20px;
+    padding-top:10px;
+    padding-left: 0;
+  }
+
+  .smallPosition {
+    position: absolute;
+    top:120px;
+    z-index: -220;
+    pointer-events: none;
+  }
+
   .groupTitle {
     font-size: px-to-rem(38px);
   }
 
-  footer {
-    height: px-to-rem(420px);
-      & > .overlay {
-      height: px-to-rem(420px);
-      }
-  }
+  // footer {
+  //   height: px-to-rem(420px);
+  //     & > .overlay {
+  //     height: px-to-rem(420px);
+  //     }
+  // }
 
 
 .linksFooter {
@@ -80,17 +107,19 @@
   .smallLogoLogin {
     display: block;
   }
+
 }// media max-width:575 end
 
 
 @media (min-width: 170px) and (max-width:374px) {
   footer {
-    background-color: $primary-color;
-    height: px-to-rem(550px);
-      & > .overlay {
-      height: px-to-rem(550px);
-      }
+    // background-color: $primary-color;
+    // height: px-to-rem(550px);
+    //   & > .overlay {
+    //   height: px-to-rem(550px);
+    //   }
   }
+
   .groupTitle {
     font-size: px-to-rem(38px);
   }
@@ -100,6 +129,67 @@
   .smallLogoLogin {
     display: block;
   }
+
+  .smallScr {
+    margin-top:70px;
+  }
+
+  .smallScrRegister {
+    margin-top: 100px;
+  }
+
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  .navbar-nav {
+    // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
+    background-color: rgba(29, 136, 229, .3);
+    z-index: 20;
+    position:relative;
+    width: 100%;
+    padding: 20px;
+    padding-top:10px;
+    padding-left: 10px;
+  }
+
+  .smallPosition {
+    position: absolute;
+    top:120px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .groupTitle {
+    font-size: px-to-rem(38px);
+  }
+
+  .smallLogoLogin {
+    top:10px;
+  }
+
+  .loginAndRegisterBtn {
+    top:24px;
+    right:4px;
+  }
+
+  .registerForm {
+    margin-top: 60px;
+  }
+
+  .smallScr {
+    margin-top:70px;
+  }
+  .smallScrRegister {
+    margin-top: 100px;
+  }
+
+
 }
 
 
@@ -108,16 +198,24 @@
   .groupTitle {
     font-size: px-to-rem(38px);
   }
+
   #groupIcon {
     display:none;
   }
 
+  .smallScr {
+    margin-top:70px;
+  }
+  .smallScrRegister {
+    margin-top: 240px;
+  }
+
   footer {
     // background-color: $primary-color;
-    height: px-to-rem(530px);
-      & > .overlay {
-      height: px-to-rem(530px);
-      }
+    // height: px-to-rem(300px);
+    //   & > .overlay {
+    //   height: px-to-rem(500px);
+    //   }
   }
   #backToTopBtn {
     right:30px;
@@ -125,16 +223,106 @@
   .smallLogoLogin {
     display: block;
   }
+  .labScorePadding {
+    padding-left: 15px;
+  }
+
+  .labFeatures {
+      border-right: none;
+      border-radius: 20px;
+  }
+
+  .labFeaturesPadding {
+    padding-right: 15px;
+  }
+
+  .feedback {
+    border-radius: 20px;
+  }
+
+  .searchFieldContainer {
+    position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+      width: 100%;
+      margin-top: 100px;
+  }
+
+  .navbar-nav {
+    // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
+    background-color: rgba(29, 136, 229, .3);
+    z-index: 20;
+    position:relative;
+    width: 100%;
+    padding: 20px;
+    padding-top:10px;
+    padding-left: 0;
+  }
+
+  .smallPosition {
+    position: absolute;
+    top:120px;
+    z-index: 0;
+  }
+
+  .groupTitle {
+    font-size: px-to-rem(38px);
+  }
 }
 
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
   footer {
-    height: px-to-rem(430px);
-      & > .overlay {
-      height: px-to-rem(430px);
-      }
+    // height: px-to-rem(130px);
+    //   & > .overlay {
+    //   height: px-to-rem(130px);
+    //   }
+
+  }
+
+  %searchHelperClass {
+    font-size: px-to-rem(10px);
+  }
+  .mapTitle {
+    font-size: 1.5rem;
+  }
+  .analizeSearchFilter {
+    right:px-to-rem(100px);
+  }
+  .search {
+    font-size: px-to-rem(12px);
+  }
+
+  .searchFieldContainer {
+    position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+      width: 100%;
+        margin-top: 100px;
+  }
+
+  .navbar-nav {
+    // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
+    background-color: rgba(29, 136, 229, 1);
+    z-index: 20;
+    position:relative;
+    width: 100%;
+    padding: 20px;
+    padding-top:10px;
+    padding-left: 0;
+  }
+
+  .smallPosition {
+    position: absolute;
+    top:120px;
+    z-index: 0;
+  }
+
+  .groupTitle {
+    font-size: px-to-rem(38px);
   }
   .registerForm {
     // margin-top: 240px;
@@ -169,17 +357,34 @@
     display: none;
   }
 
+  .labScorePadding {
+    padding-left: 15px;
+  }
+
+  .labFeatures {
+      border-right: none;
+      border-radius: 20px;
+  }
+
+  .labFeaturesPadding {
+    padding-right: 15px;
+  }
+
+  .feedback {
+    border-radius: 20px;
+  }
+
 
 }// query end
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width:991px) {
-  footer {
-    height: px-to-rem(470px);
-      & > .overlay {
-      height: px-to-rem(470px);
-      }
-  }
+  // footer {
+  //   height: px-to-rem(470px);
+  //     & > .overlay {
+  //     height: px-to-rem(470px);
+  //     }
+  // }
   .disclaimer {
     position: relative;
     top:0;
@@ -215,12 +420,12 @@
   .disclaimer {
     top:100px;
   }
-  footer {
-    height: px-to-rem(590px);
-      & > .overlay {
-      height: px-to-rem(590px);
-      }
-  }
+  // footer {
+  //   height: px-to-rem(590px);
+  //     & > .overlay {
+  //     height: px-to-rem(590px);
+  //     }
+  // }
   .logoFooter {
     width: px-to-rem(181px);
   }
@@ -236,12 +441,12 @@
   width:px-to-rem(181px);
 }
 
-footer {
-  height: px-to-rem(550px);
-    & > .overlay {
-    height: px-to-rem(550px);
-    }
-}
+// footer {
+//   height: px-to-rem(550px);
+//     & > .overlay {
+//     height: px-to-rem(550px);
+//     }
+// }
 
 }// query
 

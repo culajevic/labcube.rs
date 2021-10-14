@@ -20,8 +20,8 @@
       <tbody id="resultTableAnalysis">
       </tbody>
     </table><!-- table -->
-    <div class="row mt-2 mb-4">
-      <div class="col-12">
+    <div class="row ">
+      <div class="col-12 mt-2 mb-4">
         <!-- <span id="backtoMap">povratak na mapu</span> -->
         <!-- <small class="float-right"><i class="fas fa-print"></i></small> -->
         <h1 class="mb-5 d-inline" id="labName" data-id="{{labDetails._id}}">{{labDetails.labName}}</h1>
@@ -40,7 +40,7 @@
         </div>
       </div><!-- col-6 -->
 
-      <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3 mt-4 pr-0 d-flex flex-column justify-content-center">
+      <div class="col-12 col-md-6 col-sm-12 col-lg-4 col-xl-3 mt-4 labFeaturesPadding d-flex flex-column justify-content-center">
         <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
         {{#if (checkServices labDetails.accredited labDetails.antigen labDetails.private labDetails.patronage labDetails.disability)}}
         <div class="labFeatures">
@@ -63,7 +63,7 @@
       {{/if}}
 
       </div>
-      <div class="col-md-5 col-lg-3 col-xl-3 pl-0 mt-4">
+      <div class="col-12 col-md-6 col-lg-3 col-xl-3 labScorePadding mt-4">
 
         <div class="feedback text-center d-flex flex-column justify-content-center" id="overallScore" >
           <span class="text-muted">Ocena laboratorije</span>

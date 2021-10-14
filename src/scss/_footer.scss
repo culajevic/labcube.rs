@@ -3,13 +3,13 @@ footer {
   // overflow-y: hidden;
   background-repeat: repeat-x;
   background-position:center;
-  height: px-to-rem(580px);
-  position:relative;
+  // height: px-to-rem(570px);
+  // position:relative;
   // margin-top: px-to-rem(60px);
     & > .overlay {
     background-color: $primary-color;
-    height: px-to-rem(580px);
-    position: absolute;
+    // height: px-to-rem(580px);
+    // position: absolute;
     // left:0;
     bottom: 0;
     opacity: 0.97;

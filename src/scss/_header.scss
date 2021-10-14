@@ -2,7 +2,7 @@
   display:flex;
   flex-direction:column;
   justify-content: center;
-  // position: relative;
+  position: relative;
   width: 100%;
   height: 501px;
 	background: radial-gradient(circle, $secondary-color 0%, $primary-color 100%);
@@ -44,6 +44,7 @@
       }
     }
 }
+
 
 #smallHeader {
   @extend #header;

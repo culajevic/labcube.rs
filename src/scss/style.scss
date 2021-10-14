@@ -18,6 +18,11 @@
 @import 'star-rating.scss';
 
 
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 
 
 .clappingHands {
@@ -223,9 +228,9 @@ font-size:30px; text-decoration:line-through;
 //testing lazy loading
 
 .imgLazy, .textLazy{
-  transform:translateX(10%);
+  // transform:translateX(10%);
   opacity: 0;
-  transition:all 2000ms;
+  transition:all 3000ms;
 }
 
 #paketi .finalThougths,
@@ -301,13 +306,13 @@ height: 23px;
 }
 
 .layer2 {
-  top:130px;
-  left: 100px;
+  top:90px;
+  left: 70px;
 }
 
 .layer3 {
   top:10px;
-  left: 390px;
+  right: 200px;
 }
 
 .layer4 {
@@ -326,18 +331,19 @@ height: 23px;
 }
 
 .layer7 {
-  top:40px;
-  right: 120px;
+  top:10px;
+  left: 300px;
 }
 
 .layer8 {
   top:240px;
   left: 30px;
+  padding:30px;
 }
 
 .layer9 {
-  top:90px;
-  left: 220px;
+  top:50px;
+  right: 220px;
 }
 
 .layer10 {
@@ -345,8 +351,8 @@ height: 23px;
   right: 540px;
 }
 .layer11 {
-  top:340px;
-  left: 390px;
+  top:140px;
+  left: 190px;
 }
 .layer12 {
   top:190px;
@@ -374,8 +380,8 @@ height: 23px;
   right: 19px;
 }
 .layer18 {
-  top:390px;
-  right: 29px;
+  top:140px;
+  right: 69px;
 }
 
 .layer19 {
@@ -846,6 +852,23 @@ position: absolute;
   display: block;
   margin-bottom: px-to-rem(2px);
   color:$infoWindowContactColor;
+}
+
+.labFeaturesPadding {
+  padding-right: 0;
+}
+
+.labScorePadding {
+  padding-left: 0;
+}
+
+.btn-outline-danger {
+    color: $danger;
+    border-color: $danger;
+    &:hover {
+      background-color: lighten($danger, 4%);
+      border-color: lighten($danger, 4%);
+    }
 }
 
 .labFeatures {

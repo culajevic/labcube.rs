@@ -7261,6 +7261,7 @@ a:focus {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
   width: 100%;
   height: 501px;
   background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%); }
@@ -7371,7 +7372,7 @@ a:focus {
 
 .searchFieldContainer {
   position: relative;
-  margin-top: 15rem; }
+  margin-top: 1.875rem; }
 
 .searchFieldContainerInner {
   position: absolute;
@@ -8353,13 +8354,9 @@ ol li {
 footer {
   background-image: url(../images/footer.svg);
   background-repeat: repeat-x;
-  background-position: center;
-  height: 36.25rem;
-  position: relative; }
+  background-position: center; }
   footer > .overlay {
     background-color: #1D88E5;
-    height: 36.25rem;
-    position: absolute;
     bottom: 0;
     opacity: 0.97;
     width: 100%; }
@@ -8652,6 +8649,10 @@ div#d3 {
   color: #FFC107;
   cursor: pointer; }
 
+body {
+  width: 100vw;
+  overflow-x: hidden; }
+
 .clappingHands {
   font-size: 40px; }
 
@@ -8810,9 +8811,8 @@ div#d3 {
   color: #55D159; }
 
 .imgLazy, .textLazy {
-  transform: translateX(10%);
   opacity: 0;
-  transition: all 2000ms; }
+  transition: all 3000ms; }
 
 #paketi .finalThougths, #modalParagraph .finalThougths,
 #myresults .finalThougths,
@@ -8874,12 +8874,12 @@ div#d3 {
   height: 23px; }
 
 .layer2 {
-  top: 130px;
-  left: 100px; }
+  top: 90px;
+  left: 70px; }
 
 .layer3 {
   top: 10px;
-  left: 390px; }
+  right: 200px; }
 
 .layer4 {
   top: 200px;
@@ -8894,24 +8894,25 @@ div#d3 {
   right: 290px; }
 
 .layer7 {
-  top: 40px;
-  right: 120px; }
+  top: 10px;
+  left: 300px; }
 
 .layer8 {
   top: 240px;
-  left: 30px; }
+  left: 30px;
+  padding: 30px; }
 
 .layer9 {
-  top: 90px;
-  left: 220px; }
+  top: 50px;
+  right: 220px; }
 
 .layer10 {
   top: 70px;
   right: 540px; }
 
 .layer11 {
-  top: 340px;
-  left: 390px; }
+  top: 140px;
+  left: 190px; }
 
 .layer12 {
   top: 190px;
@@ -8938,8 +8939,8 @@ div#d3 {
   right: 19px; }
 
 .layer18 {
-  top: 390px;
-  right: 29px; }
+  top: 140px;
+  right: 69px; }
 
 .layer19 {
   top: 20px;
@@ -9333,6 +9334,19 @@ ul ol ul {
   display: block;
   margin-bottom: 0.125rem;
   color: #1F1F1F; }
+
+.labFeaturesPadding {
+  padding-right: 0; }
+
+.labScorePadding {
+  padding-left: 0; }
+
+.btn-outline-danger {
+  color: #FF6F6F;
+  border-color: #FF6F6F; }
+  .btn-outline-danger:hover {
+    background-color: #ff8383;
+    border-color: #ff8383; }
 
 .labFeatures {
   background-color: #FAFAFA;
@@ -10391,12 +10405,28 @@ table.workingHoursLabDetails {
     font-size: 1.4rem; }
   #accordion > h5 {
     font-size: 1rem; }
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px; }
+  .navbar-nav {
+    background-color: #1d88e5;
+    z-index: 20;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-left: 0; }
+  .smallPosition {
+    position: absolute;
+    top: 120px;
+    z-index: -220;
+    pointer-events: none; }
   .groupTitle {
     font-size: 2.375rem; }
-  footer {
-    height: 26.25rem; }
-    footer > .overlay {
-      height: 26.25rem; }
   .linksFooter {
     padding-top: 20px;
     text-align: center; }
@@ -10429,37 +10459,124 @@ table.workingHoursLabDetails {
     display: block; } }
 
 @media (min-width: 170px) and (max-width: 374px) {
-  footer {
-    background-color: #1D88E5;
-    height: 34.375rem; }
-    footer > .overlay {
-      height: 34.375rem; }
   .groupTitle {
     font-size: 2.375rem; }
   #backToTopBtn {
     right: 30px; }
   .smallLogoLogin {
-    display: block; } }
+    display: block; }
+  .smallScr {
+    margin-top: 70px; }
+  .smallScrRegister {
+    margin-top: 100px; }
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px; }
+  .navbar-nav {
+    background-color: rgba(29, 136, 229, 0.3);
+    z-index: 20;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-left: 10px; }
+  .smallPosition {
+    position: absolute;
+    top: 120px;
+    z-index: 0;
+    pointer-events: none; }
+  .groupTitle {
+    font-size: 2.375rem; }
+  .smallLogoLogin {
+    top: 10px; }
+  .loginAndRegisterBtn {
+    top: 24px;
+    right: 4px; }
+  .registerForm {
+    margin-top: 60px; }
+  .smallScr {
+    margin-top: 70px; }
+  .smallScrRegister {
+    margin-top: 100px; } }
 
 @media (min-width: 370px) and (max-width: 574px) {
   .groupTitle {
     font-size: 2.375rem; }
   #groupIcon {
     display: none; }
-  footer {
-    height: 33.125rem; }
-    footer > .overlay {
-      height: 33.125rem; }
+  .smallScr {
+    margin-top: 70px; }
+  .smallScrRegister {
+    margin-top: 240px; }
   #backToTopBtn {
     right: 30px; }
   .smallLogoLogin {
-    display: block; } }
+    display: block; }
+  .labScorePadding {
+    padding-left: 15px; }
+  .labFeatures {
+    border-right: none;
+    border-radius: 20px; }
+  .labFeaturesPadding {
+    padding-right: 15px; }
+  .feedback {
+    border-radius: 20px; }
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px; }
+  .navbar-nav {
+    background-color: rgba(29, 136, 229, 0.3);
+    z-index: 20;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-left: 0; }
+  .smallPosition {
+    position: absolute;
+    top: 120px;
+    z-index: 0; }
+  .groupTitle {
+    font-size: 2.375rem; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
-  footer {
-    height: 26.875rem; }
-    footer > .overlay {
-      height: 26.875rem; }
+  .analizeSearchFilter, .laboratorijeSearchFilter {
+    font-size: 0.625rem; }
+  .mapTitle {
+    font-size: 1.5rem; }
+  .analizeSearchFilter {
+    right: 6.25rem; }
+  .search {
+    font-size: 0.75rem; }
+  .searchFieldContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    margin-top: 100px; }
+  .navbar-nav {
+    background-color: #1d88e5;
+    z-index: 20;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    padding-top: 10px;
+    padding-left: 0; }
+  .smallPosition {
+    position: absolute;
+    top: 120px;
+    z-index: 0; }
+  .groupTitle {
+    font-size: 2.375rem; }
   .smallLogoLogin {
     display: block; }
   #groupIcon {
@@ -10478,13 +10595,18 @@ table.workingHoursLabDetails {
   .logoFooter {
     width: 7.8125rem; }
   #sideBanner {
-    display: none; } }
+    display: none; }
+  .labScorePadding {
+    padding-left: 15px; }
+  .labFeatures {
+    border-right: none;
+    border-radius: 20px; }
+  .labFeaturesPadding {
+    padding-right: 15px; }
+  .feedback {
+    border-radius: 20px; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  footer {
-    height: 29.375rem; }
-    footer > .overlay {
-      height: 29.375rem; }
   .disclaimer {
     position: relative;
     top: 0; }
@@ -10501,10 +10623,6 @@ table.workingHoursLabDetails {
 @media (min-width: 992px) and (max-width: 1200px) {
   .disclaimer {
     top: 100px; }
-  footer {
-    height: 36.875rem; }
-    footer > .overlay {
-      height: 36.875rem; }
   .logoFooter {
     width: 11.3125rem; } }
 
@@ -10512,11 +10630,7 @@ table.workingHoursLabDetails {
   .disclaimer {
     top: 80px; }
   .logoFooter {
-    width: 11.3125rem; }
-  footer {
-    height: 34.375rem; }
-    footer > .overlay {
-      height: 34.375rem; } }
+    width: 11.3125rem; } }
 
 
 /*# sourceMappingURL=main.css.map*/
