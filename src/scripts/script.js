@@ -139,7 +139,7 @@ $(window).scroll(function(){
   let height = $(window).scrollTop();
     if(height > 460) {
       $("#header > nav").addClass('fixed-top-background fixed-top');
-      $(priceList).css({top:"22px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
+      $(priceList).css({top:"17px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
     }
     else {
       $("#header > nav").removeClass('fixed-top-background fixed-top');
@@ -189,7 +189,7 @@ let filter = 'analiza'
 let checkout = document.querySelector('.checkout')
 let urlArr = location.split('/')
 
-
+console.log(urlArr)
 /* check if local storage already exists,
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
@@ -203,13 +203,18 @@ const group = /group/
 const nadjiLab = /nadjiLab/
 const laboratorija = /laboratorija.*/
 const tumacenje = /tumacenje.*/
+const politika = /politika.*/
+const contact = /kontakt.*/
+const cookies = /kolacici.*/
+const about = /o-nama/
 const profilePage = /profile.*/
 const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
 
+
 //definisanje stranica na kojima se prikazuje shoping karta
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
- || location.match(paymentDetails) || location.match(profilePage))) {
+ || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact))) {
   helper.displayBasket(itemsArray)
 }
 
@@ -219,12 +224,14 @@ const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
 let registerPage = /registracija.*/
 let loginPage = /prijav.*/
+let privacy = /politika.*/
 let paymentPage = /payment.*/
 let otherResultsInterpretationFix = /otherResultsInterpretation.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) ) {
+//ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix)) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -1111,6 +1118,21 @@ if (municipalityValue != null) {
       //   })
       // })
     }
+
+if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
+  //FindBestPrice
+  console.log('dada')
+    const findBestPrice = new FindBestPrice.bestPrice()
+  //Delete analysis from shoping list
+    helper.removeAnalysis(itemsArray, checkout)
+  //Searching for lab or analysis
+    //get seachstring
+    let mainSearch = document.getElementById('searchResultPage')
+    //ger reference to filter
+    let analysisRadio = document.querySelectorAll('input[name=searchFilter]')
+  //search for analysis or lab
+  helper.searchLabAnalysis(mainSearch,analysisRadio)
+}
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
   //ako je profilna stranica

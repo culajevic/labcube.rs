@@ -21911,7 +21911,7 @@ $(window).scroll(function () {
   if (height > 460) {
     $("#header > nav").addClass('fixed-top-background fixed-top');
     $(priceList).css({
-      top: "22px",
+      top: "17px",
       transition: 'top .5s ease',
       positiom: 'relative',
       zindex: '4440'
@@ -21958,6 +21958,7 @@ var location = window.location.pathname; // GLOBAL VARIABLES
 var filter = 'analiza';
 var checkout = document.querySelector('.checkout');
 var urlArr = location.split('/');
+console.log(urlArr);
 /* check if local storage already exists,
 if not create an empty array */
 
@@ -21973,11 +21974,15 @@ var group = /group/;
 var nadjiLab = /nadjiLab/;
 var laboratorija = /laboratorija.*/;
 var tumacenje = /tumacenje.*/;
+var politika = /politika.*/;
+var contact = /kontakt.*/;
+var cookies = /kolacici.*/;
+var about = /o-nama/;
 var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -21987,10 +21992,11 @@ var checkCMSAdd = /add.*/;
 var checkCMSAll = /all.*/;
 var registerPage = /registracija.*/;
 var loginPage = /prijav.*/;
+var privacy = /politika.*/;
 var paymentPage = /payment.*/;
 var otherResultsInterpretationFix = /otherResultsInterpretation.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
-var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube');
+var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube'); //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
 
 if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix)) {
   checkout.classList.remove('d-none');
@@ -22868,9 +22874,9 @@ window.onload = function () {
     // })
   }
 
-  if (urlArr[1] == 'profile' && !findUserByEmail) {
-    //ako je profilna stranica
+  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
     //FindBestPrice
+    console.log('dada');
     var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 
     helper.removeAnalysis(itemsArray, checkout); //Searching for lab or analysis
@@ -22882,7 +22888,25 @@ window.onload = function () {
     var _analysisRadio3 = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
 
 
-    helper.searchLabAnalysis(_mainSearch, _analysisRadio3); //deleteUser
+    helper.searchLabAnalysis(_mainSearch, _analysisRadio3);
+  }
+
+  if (urlArr[1] == 'profile' && !findUserByEmail) {
+    //ako je profilna stranica
+    //FindBestPrice
+    var _findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
+
+
+    helper.removeAnalysis(itemsArray, checkout); //Searching for lab or analysis
+    //get seachstring
+
+    var _mainSearch2 = document.getElementById('searchResultPage'); //ger reference to filter
+
+
+    var _analysisRadio4 = document.querySelectorAll('input[name=searchFilter]'); //search for analysis or lab
+
+
+    helper.searchLabAnalysis(_mainSearch2, _analysisRadio4); //deleteUser
 
     var deleteAccount = document.getElementById('deleteAccount');
     var deleteAccountForm = document.getElementById('deleteAccountForm');
@@ -23424,10 +23448,10 @@ window.onload = function () {
 
     var _innerPageSearch = document.getElementById('searchResultPage');
 
-    var _analysisRadio4 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
+    var _analysisRadio5 = document.querySelectorAll('input[name=searchFilter]'); // search for analysis or lab
 
 
-    helper.searchLabAnalysis(_innerPageSearch, _analysisRadio4); //add analysis from analysis details page
+    helper.searchLabAnalysis(_innerPageSearch, _analysisRadio5); //add analysis from analysis details page
 
     var analysisBtn = document.querySelector('.addAnalysis');
     /* take the analysisname from button and check if this analysis

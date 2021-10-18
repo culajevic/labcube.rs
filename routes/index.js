@@ -195,7 +195,7 @@ router.get('/cenovnik/:grad/:ids', priceController.getPrices)
 router.get('/nadjiLab', priceController.getLabPrices)
 // router.get('/najboljacena/:grad/:ids',priceController.getPrices )
 
-router.get('/contact', generalController.sayHello)
+router.get('/kontakt', generalController.sayHello)
 router.post('/contact', generalController.takeUserComment)
 
 // router.get('/group/*', (req,res) => {

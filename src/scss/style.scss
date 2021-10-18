@@ -314,14 +314,14 @@ height: 23px;
 }
 
 .layer2 {
-  top:90px;
+  top:-9000px;
   left: 70px;
   // animation:  infinite;
 }
 
 .layer3 {
-  top:10px;
-  right: 200px;
+  top:50px;
+  right: 190px;
 }
 
 .layer4 {
@@ -340,19 +340,18 @@ height: 23px;
 }
 
 .layer7 {
-  top:10px;
-  left: 300px;
+  top:-50px;
+  left: 45px;
 }
 
 .layer8 {
   top:240px;
   left: 30px;
-  padding:30px;
 }
 
 .layer9 {
-  top:-50px;
-  right: 130px;
+  top:-30px;
+  right: 240px;
 }
 
 .layer10 {
@@ -370,7 +369,7 @@ height: 23px;
 }
 .layer13 {
   top:17px;
-  left: 160px;
+  left: 214px;
 }
 .layer14 {
   top:80px;
@@ -390,13 +389,16 @@ height: 23px;
 }
 .layer18 {
   top:140px;
-  right: 69px;
+  left: 69px;
 }
 
 .layer19 {
   top:-90px;
   right:730px;
 }
+
+
+
 
 #onboarding {
   background-color: $line-color;
@@ -508,6 +510,19 @@ ul ol ul {
 #priceList {
   overflow-y:scroll;
 }
+
+.anim1 {
+   animation: animStar 63s linear infinite;
+}
+
+@keyframes animStar {
+    from {
+      transform: translateY(10px);
+    }
+    to {
+      transform: translateY(-900px);
+    }
+  }
 
 .checkout:focus {
   outline: none;
@@ -955,6 +970,7 @@ p.selectedAnalysisTitle {
   margin: 0;
   height: calc(100vh - 210px);
 }
+
 
 .aboutUs {
   display: block;
