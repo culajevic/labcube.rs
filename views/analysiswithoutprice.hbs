@@ -1,0 +1,37 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    <div class="col-12 px-5">
+      {{#if displayMissingPrices}}
+        <table class="table table-hover mt-5">
+          <thead>
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">ID</th>
+              <th scope="col">Analiza</th>
+              <th scope="col">Datum</th>
+              <th scope="col">Slug</th>
+              <th scope="col">Grupa</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each displayMissingPrices}}
+            <tr>
+              <td>{{this.id}}</td>
+              <td>{{this.analysisName}}</td>
+              <td>{{formatRsDate this.date}}</td>
+              <td>{{this.slug}}</td>
+              <td>{{this.groupId.name}}</td>
+
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+          <div class="text-center mt-5">
+            <h2 class="my-5">&#127881; &#127881; Sve analize imaju cenu &#127881; &#127881;</h2>
+          </div>
+        {{/if}}
+    </div>
+  </div>
+</div>

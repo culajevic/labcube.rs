@@ -39,6 +39,7 @@
 <script>
 setTimeout(() => {
   console.log('nadjilab')
+  document.title = "Lab cube - Najbolja ponuda"
   let resultDiv = document.getElementById('resultTable')
   let mapArea = document.getElementById('mapPrices')
   let loaderWrapper = document.querySelector('.loader-wrapper')
@@ -453,11 +454,11 @@ setTimeout(() => {
           slug:result.getPrices[i].lab[0].slug
         }
       )
-
+      //dodaj boxshadowBckg za promenu prikaza lab kartica
       resultDiv.innerHTML = ''
       labTemplate.innerHTML += `
 
-      <div class="lab-card">
+      <div class="lab-card roundedBox ">
         <div>
           ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
           ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified disability${i}" title="ulaz prilagođen invalidima">' : ''}

@@ -7295,7 +7295,7 @@ a:focus {
       background-color: #1D88E5; }
 
 #smallHeader {
-  height: 210px; }
+  height: 240px; }
   #smallHeader .container {
     margin-bottom: 0; }
 
@@ -7320,6 +7320,10 @@ a:focus {
   background-position: 0 -260px; }
 
 .logoFull {
+  align-self: center;
+  position: absolute; }
+
+.logoFullGroup {
   align-self: center;
   position: absolute; }
 
@@ -7376,7 +7380,7 @@ a:focus {
 
 .searchFieldContainerInner {
   position: absolute;
-  top: 185px;
+  top: 212px;
   align-self: center; }
 
 .fix {
@@ -7986,8 +7990,7 @@ div.status.closedSoon::before {
     font-size: 0.625rem;
     color: #9C9C9C;
     padding-left: 0.5rem;
-    bottom: 2.3125rem;
-    position: absolute; }
+    bottom: 2.3125rem; }
 
 .table th, .tableLabResults th,
 .table td,
@@ -8153,8 +8156,7 @@ span.remove:hover {
     font-size: 0.625rem;
     color: #9C9C9C;
     padding-left: 0.5rem;
-    bottom: 0.25rem;
-    position: absolute; }
+    bottom: 0.25rem; }
 
 .analysisDescription > li {
   list-style-type: none;
@@ -8445,6 +8447,10 @@ footer {
   color: #FFF;
   margin-top: 0.75rem;
   margin-bottom: 1rem; }
+
+.founderInfo {
+  font-Size: 10px;
+  line-height: 1rem; }
 
 body {
   background-color: #white; }
@@ -8842,11 +8848,20 @@ body {
 .negativeMargin {
   margin-top: -15px; }
 
+.roundedBox {
+  border-radius: 12px; }
+
+.boxshadowBckg {
+  box-shadow: 11px 18px 47px -19px rgba(0, 0, 0, 0.82);
+  border-radius: 20px;
+  padding: 25px; }
+
 .priceTag {
   position: absolute;
   top: -1px;
   right: -1px;
   border-bottom-left-radius: 8px;
+  border-top-right-radius: 12px;
   background-color: #1D88E5;
   color: #FFF;
   padding: 4px 10px;
@@ -8886,8 +8901,8 @@ body {
   left: 230px; }
 
 .layer5 {
-  top: 340px;
-  right: 190px; }
+  top: -40px;
+  right: 377px; }
 
 .layer6 {
   top: 70px;
@@ -8903,15 +8918,15 @@ body {
   padding: 30px; }
 
 .layer9 {
-  top: 50px;
-  right: 220px; }
+  top: -50px;
+  right: 130px; }
 
 .layer10 {
-  top: 70px;
+  top: -70px;
   right: 540px; }
 
 .layer11 {
-  top: 140px;
+  top: -140px;
   left: 190px; }
 
 .layer12 {
@@ -8919,32 +8934,32 @@ body {
   right: 90px; }
 
 .layer13 {
-  top: 370px;
-  left: 90px; }
+  top: 17px;
+  left: 160px; }
 
 .layer14 {
   top: 80px;
   right: 40px; }
 
 .layer15 {
-  top: 150px;
-  right: 210px; }
+  top: 250px;
+  right: 310px; }
 
 .layer16 {
-  top: 0px;
-  left: 150px; }
+  top: -50px;
+  left: 230px; }
 
 .layer17 {
-  top: 300px;
-  right: 19px; }
+  top: 220px;
+  right: 619px; }
 
 .layer18 {
   top: 140px;
   right: 69px; }
 
 .layer19 {
-  top: 20px;
-  right: 430px; }
+  top: -90px;
+  right: 730px; }
 
 #onboarding {
   background-color: #E0E4EC;
@@ -9954,6 +9969,9 @@ small a:hover {
   height: 160px;
   margin: 10px 20px 20px 20px; }
 
+.breakWords {
+  word-break: break-all; }
+
 .hcpBio {
   padding: 20px 20px; }
   .hcpBio p {
@@ -9961,6 +9979,9 @@ small a:hover {
     color: black;
     opacity: .6;
     margin-bottom: 0; }
+
+.fixed-top {
+  z-index: 222; }
 
 #backToTopBtn {
   display: none;
@@ -10376,7 +10397,8 @@ table.workingHoursLabDetails {
   height: 50px; }
 
 .tumacenjeDiv {
-  border: 1px solid #e1e1e1; }
+  border: 1px solid #e1e1e1;
+  border-radius: 12px; }
 
 .paid, .notPaid {
   display: block;
@@ -10405,6 +10427,14 @@ table.workingHoursLabDetails {
     font-size: 1.4rem; }
   #accordion > h5 {
     font-size: 1rem; }
+  .logoFull {
+    width: 70%; }
+  #sidebarMenu {
+    display: none; }
+  .editorName {
+    float: right; }
+  .aboutUs, .aboutUsDiscount {
+    width: 240px; }
   .searchFieldContainer {
     position: absolute;
     top: 50%;
@@ -10459,6 +10489,58 @@ table.workingHoursLabDetails {
     display: block; } }
 
 @media (min-width: 170px) and (max-width: 374px) {
+  .logoFull {
+    width: 70%; }
+  .altNameResult, .groupNameResult, .hospitalResult {
+    display: none; }
+  .priceRange {
+    font-size: 10px; }
+  .addAnalysis, .deleteAnalysis .removeAnalysis {
+    width: 70px; }
+  .aboutUs, .aboutUsDiscount {
+    min-width: 200px; }
+  #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
+    font-size: 0.8125rem;
+    padding: 10px 0; }
+  #results .btn, #details .btn, #paymentCheckout .btn {
+    padding: 10px 0; }
+  #resultsLabDetails .removeAnalysis, #labDetailsInner .removeAnalysis {
+    font-size: 0.8125rem;
+    padding: 10px 20px; }
+  .analysisDescription > li {
+    list-style-type: none;
+    margin-bottom: 1.5625rem; }
+    .analysisDescription > li > h5 {
+      color: #3B3B3B;
+      font-size: 1.375rem; }
+    .analysisDescription > li:nth-child(1) {
+      background: url(../images/opis.svg);
+      background-position: 8px 0;
+      background-repeat: no-repeat;
+      padding-top: 0;
+      padding-left: 80px;
+      color: #3B3B3B;
+      line-height: 24px;
+      background: none;
+      padding-left: 10px; }
+    .analysisDescription > li:nth-child(2) {
+      background: none;
+      padding-left: 10px; }
+    .analysisDescription > li:nth-child(3) {
+      background: none;
+      padding-left: 10px; }
+    .analysisDescription > li:nth-child(4) {
+      background: none;
+      padding-left: 10px; }
+    .analysisDescription > li:nth-child(5) {
+      background: none;
+      padding-left: 10px; }
+  .editorName {
+    float: right; }
+  .editorImg {
+    width: 100%; }
+  #sidebarMenu {
+    display: none; }
   .groupTitle {
     font-size: 2.375rem; }
   #backToTopBtn {
@@ -10501,11 +10583,54 @@ table.workingHoursLabDetails {
   .smallScr {
     margin-top: 70px; }
   .smallScrRegister {
-    margin-top: 100px; } }
+    margin-top: 100px; }
+  .aboutUs, .aboutUsDiscount {
+    width: 240px; } }
 
 @media (min-width: 370px) and (max-width: 574px) {
+  .aboutUs, .aboutUsDiscount {
+    max-width: 140px; }
+  .logoFull {
+    width: 70%; }
+  .analysisDescription > li {
+    list-style-type: none;
+    margin-bottom: 1.5625rem; }
+    .analysisDescription > li > h5 {
+      color: #3B3B3B;
+      font-size: 1.375rem; }
+    .analysisDescription > li:nth-child(1) {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+    .analysisDescription > li:nth-child(2) {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+    .analysisDescription > li:nth-child(3) {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+    .analysisDescription > li:nth-child(4) {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+    .analysisDescription > li:nth-child(5) {
+      background: none;
+      padding-left: 0;
+      padding-right: 0; }
+  .editorImg {
+    width: 60%;
+    display: block;
+    margin: 0 auto;
+    float: clear; }
+  .altNameResult, .groupNameResult, .hospitalResult {
+    display: none; }
   .groupTitle {
     font-size: 2.375rem; }
+  #sidebarMenu {
+    display: none; }
+  .editorName {
+    float: right; }
   #groupIcon {
     display: none; }
   .smallScr {
@@ -10538,8 +10663,13 @@ table.workingHoursLabDetails {
     position: relative;
     width: 100%;
     padding: 20px;
-    padding-top: 10px;
     padding-left: 0; }
+  #smallHeader {
+    height: 300px; }
+  .searchFieldContainerInner {
+    position: absolute;
+    top: 272px;
+    align-self: center; }
   .smallPosition {
     position: absolute;
     top: 120px;
@@ -10548,6 +10678,8 @@ table.workingHoursLabDetails {
     font-size: 2.375rem; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
+  #sidebarMenu {
+    display: none; }
   .analizeSearchFilter, .laboratorijeSearchFilter {
     font-size: 0.625rem; }
   .mapTitle {
@@ -10564,13 +10696,19 @@ table.workingHoursLabDetails {
     width: 100%;
     margin-top: 100px; }
   .navbar-nav {
-    background-color: #1d88e5;
+    background-color: rgba(29, 136, 229, 0.3);
     z-index: 20;
     position: relative;
     width: 100%;
-    padding: 20px;
-    padding-top: 10px;
-    padding-left: 0; }
+    padding-bottom: 10px;
+    padding-top: 0;
+    padding-left: 10px; }
+  #smallHeader {
+    height: 300px; }
+  .searchFieldContainerInner {
+    position: absolute;
+    top: 272px;
+    align-self: center; }
   .smallPosition {
     position: absolute;
     top: 120px;
@@ -10610,6 +10748,8 @@ table.workingHoursLabDetails {
   .disclaimer {
     position: relative;
     top: 0; }
+  #sidebarMenu {
+    display: none; }
   .social {
     float: right; }
   .linksFooter li {

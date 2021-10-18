@@ -177,7 +177,6 @@ exports.getPrices = async (req,res) => {
   let analysisIdsAll = []
   analysisIdsAll.push(...req.params.ids.split(','))
 
-
   //broj odabrnih analiza
   // console.log(newids.length)
   // numofanalysis = newids.length

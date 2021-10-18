@@ -59,7 +59,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   } else {
     analysisLink.setAttribute('href', '/results/analysis/'+prices[i].slug)
     // analysisLink.setAttribute('target','_blank')
-    analysisLink.className = 'nolink'
+    analysisLink.className = 'nolink text-primary'
     analysisLink.appendChild(analysisName)
   }
 
@@ -85,6 +85,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   //display alternative name for analysis
   let alt = document.createElement('td')
+    alt.className = "altNameResult"
   let altName
 
   for(y=0; y<prices[i].abbr.length; y++) {
@@ -96,6 +97,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
 
   //display analysis groupName
   let tdGroupName = document.createElement('td')
+    tdGroupName.className = "groupNameResult"
     let groupName = document.createTextNode(prices[i].groupName)
     tdGroupName.appendChild(groupName)
     tr.appendChild(tdGroupName)
@@ -104,6 +106,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   //ako nije dostupna stavi hospital-alt-off.svg
 
   let hospital = document.createElement('td')
+    hospital.className = "hospitalResult"
   let hospitalIcon = document.createElement('img')
   // console.log(prices[i].availableHC)
     if(prices[i].availableHC[0] == true) {
@@ -121,7 +124,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
   //display min and max price
   let minmaxPrice = document.createElement('td')
   let priceSpan = document.createElement('span')
-    priceSpan.className = 'font-weight-bold'
+    priceSpan.className = 'font-weight-bold priceRange'
 
       // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
       let priceRange = document.createTextNode(`${prices[i].minPrice} - ${prices[i].maxPrice}`)
@@ -410,7 +413,6 @@ exports.searchLabAnalysis = (searchString, filter) => {
   /* by default filter is set to analiza, after 500ms
     user is redirected to results page */
   searchString.addEventListener('input', (e) => {
-    console.log('trazim funkcija')
     if(searchString.value.length>=2) {
       setTimeout(function() {
       let searchString = e.target.value
@@ -449,7 +451,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
 
              //  ${result[i].placeId.municipality} dodati ako treba uz ispis mesta
           labTemplate.innerHTML += `
-          <div class="lab-card">
+          <div class="lab-card roundedBox boxshadowBckg">
             <div class="testingFlex">
 
                   <div>
@@ -978,7 +980,7 @@ console.log('iz funkcije')
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-
+      document.title = "Lab cube - Najbolja ponuda"
       if(result.getPrices.length > 0) {
           noResults.innerHTML = ''
           // resultDiv.innerHTML = ''
@@ -1037,7 +1039,7 @@ console.log('iz funkcije')
         resultDiv.innerHTML = ''
         labTemplate.innerHTML += `
 
-        <div class="lab-card">
+        <div class="lab-card roundedBox">
           <div>
           ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
           ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified accreditedIcon${i}" title="ulaz prilagođen invalidima">' : ''}

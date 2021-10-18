@@ -2,13 +2,13 @@
 <div class="container">
   <div class="row">
     {{#if numOfFaqs}}
-      <table class="table table-hover">
+      <table class="table table-hover mt-5">
         <thead>
           <tr>
             <!-- <th scope="col">id</th> -->
             <th scope="col">Pitanje</th>
             <th scope="col">Odgovor</th>
-            <th scope="col">Front page</th>
+            <th scope="col">Naslovna</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
             <td>{{this.question}}</td>
             <td>{{this.answer}}</td>
             <td>{{this.frontPage}}</td>
-            <td><a href='addFaq/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='addFaq/{{this._id}}' class="btn btn-primary text-uppercase">Edit</a></td>
             <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
           </tr>
           {{/each}}

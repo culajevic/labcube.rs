@@ -14,6 +14,7 @@ const authenticationController = require('../controllers/authenticationControlle
 const scheduleController = require('../controllers/scheduleController')
 const generalController = require('../controllers/general')
 const profileController = require('../controllers/profileController')
+const adminController = require('../controllers/adminController')
 const passport = require('passport')
 
 
@@ -201,6 +202,11 @@ router.post('/contact', generalController.takeUserComment)
 //   res.status(404)
 //   res.render('404page', {title:'Tražena stranica ne postoji'})
 // })
+
+//admin area
+router.get('/withoutPrice', adminController.priceMissing)
+router.get('/analysiswithoutprice', adminController.analysispriceMissing)
+
 
 
 router.use('*', (req,res) => {

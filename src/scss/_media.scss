@@ -20,6 +20,22 @@
     font-size: 1rem;
   }
 
+  .logoFull {
+    width: 70%;
+  }
+
+  #sidebarMenu {
+    display: none;
+  }
+
+  .editorName {
+    float:right;
+  }
+
+  .aboutUs {
+    width: 240px;
+  }
+
   .searchFieldContainer {
     position: absolute;
     top: 50%;
@@ -119,6 +135,86 @@
     //   height: px-to-rem(550px);
     //   }
   }
+  .logoFull {
+    width: 70%;
+  }
+  .altNameResult, .groupNameResult, .hospitalResult {
+    display:none
+  }
+
+  .priceRange {
+    font-size: 10px;
+  }
+
+  .addAnalysis, .deleteAnalysis .removeAnalysis {
+    width: 70px;
+  }
+
+  .aboutUs {
+    min-width: 200px;
+  }
+
+  #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
+    font-size: 0.8125rem;
+    padding: 10px 0;
+}
+
+  #results .btn {
+    padding: 10px 0;
+  }
+
+  #resultsLabDetails .removeAnalysis, #labDetailsInner .removeAnalysis {
+    font-size: 0.8125rem;
+    padding: 10px 20px;
+}
+
+
+
+  .analysisDescription > li {
+    list-style-type: none;
+    margin-bottom: px-to-rem(25px);
+    &>h5 {
+      color:$fontColorResultsTable;
+      font-size: px-to-rem(22px);
+    }
+    &:nth-child(1) {
+      @include liItemImage('../images/opis.svg', 80px, 8px 0, )
+      background: none;
+      padding-left: 10px;
+    }
+    &:nth-child(2) {
+      // @include liItemImage('../images/uzorak.svg', 84px);
+    background: none;
+    padding-left: 10px;
+    }
+    &:nth-child(3) {
+      // @include liItemImage('../images/kadaSeIspituje.svg', 80px)
+      background: none;
+      padding-left: 10px;
+    }
+    &:nth-child(4) {
+      // @include liItemImage('../images/priprema.svg', 80px)
+      background: none;
+      padding-left: 10px;
+    }
+    &:nth-child(5) {
+      // @include liItemImage('../images/detaljanOpis.svg', 80px)
+      background: none;
+      padding-left: 10px;
+    }
+  }
+
+  .editorName {
+    float:right;
+  }
+
+  .editorImg {
+    width: 100%;
+  }
+
+  #sidebarMenu {
+    display: none;
+  }
 
   .groupTitle {
     font-size: px-to-rem(38px);
@@ -190,13 +286,84 @@
   }
 
 
+  .aboutUs {
+    width: 240px;
+  }
+
+
 }
 
 
 @media (min-width: 370px) and (max-width: 574px) {
 
+  .aboutUs {
+    max-width: 140px;
+  }
+  .logoFull {
+    width: 70%;
+  }
+  .analysisDescription > li {
+    list-style-type: none;
+    margin-bottom: px-to-rem(25px);
+    &>h5 {
+      color:$fontColorResultsTable;
+      font-size: px-to-rem(22px);
+    }
+    &:nth-child(1) {
+      // @include liItemImage('../images/opis.svg', 80px, 8px 0, )
+      background: none;
+      padding-left: 0;
+      padding-right:0;
+    }
+    &:nth-child(2) {
+      // @include liItemImage('../images/uzorak.svg', 84px);
+    background: none;
+    padding-left: 0;
+    padding-right:0;
+    }
+    &:nth-child(3) {
+      // @include liItemImage('../images/kadaSeIspituje.svg', 80px)
+      background: none;
+    padding-left: 0;
+    padding-right: 0;
+    }
+    &:nth-child(4) {
+      // @include liItemImage('../images/priprema.svg', 80px)
+      background: none;
+      padding-left: 0;
+      padding-right:0;
+    }
+    &:nth-child(5) {
+      // @include liItemImage('../images/detaljanOpis.svg', 80px)
+      background: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .editorImg {
+    width: 60%;
+    display: block;
+    margin:0 auto;
+    float:clear;
+    // border:1px solid $primary-color;
+    // border-radius: 300px;
+  }
+
+  .altNameResult, .groupNameResult, .hospitalResult {
+    display:none
+  }
+
   .groupTitle {
     font-size: px-to-rem(38px);
+  }
+
+  #sidebarMenu {
+    display: none;
+  }
+
+  .editorName {
+    float:right;
   }
 
   #groupIcon {
@@ -256,8 +423,18 @@
     position:relative;
     width: 100%;
     padding: 20px;
-    padding-top:10px;
+    // padding-top:10px;
     padding-left: 0;
+  }
+
+  #smallHeader {
+    height: 300px;
+  }
+
+  .searchFieldContainerInner {
+    position: absolute;
+    top:272px;
+    align-self: center;
   }
 
   .smallPosition {
@@ -279,7 +456,10 @@
     //   & > .overlay {
     //   height: px-to-rem(130px);
     //   }
+  }
 
+  #sidebarMenu {
+    display: none;
   }
 
   %searchHelperClass {
@@ -306,13 +486,23 @@
 
   .navbar-nav {
     // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
-    background-color: rgba(29, 136, 229, 1);
+    background-color: rgba(29, 136, 229, .3);
     z-index: 20;
     position:relative;
     width: 100%;
-    padding: 20px;
-    padding-top:10px;
-    padding-left: 0;
+    padding-bottom: 10px;
+    padding-top:0;
+    padding-left:10px;
+  }
+
+  #smallHeader {
+    height: 300px;
+  }
+
+  .searchFieldContainerInner {
+    position: absolute;
+    top:272px;
+    align-self: center;
   }
 
   .smallPosition {
@@ -388,6 +578,10 @@
   .disclaimer {
     position: relative;
     top:0;
+  }
+
+  #sidebarMenu {
+    display: none;
   }
 
   .social {

@@ -72,7 +72,14 @@ exports.allAnalysis = [authCheck, async (req,res) => {
 
 
 exports.createAnalysis = [authCheck, async (req,res) => {
-  req.body.banner = req.file.filename
+
+  if(req.file != undefined) {
+    req.body.banner = req.file.filename
+  } else {
+    console.log('test')
+    req.body.banner = 'test'
+  }
+
   let errors = []
   if(!req.body.analysisName) {
     errors.push({text:'Unesi ime analize'})

@@ -139,7 +139,7 @@ $(window).scroll(function(){
   let height = $(window).scrollTop();
     if(height > 460) {
       $("#header > nav").addClass('fixed-top-background fixed-top');
-      $(priceList).css({top:"64px",transition:'top .5s ease'})
+      $(priceList).css({top:"22px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
     }
     else {
       $("#header > nav").removeClass('fixed-top-background fixed-top');

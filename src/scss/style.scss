@@ -265,12 +265,21 @@ font-size:30px; text-decoration:line-through;
   margin-top:-15px;
 }
 
+.roundedBox {
+  border-radius: 12px;
+}
+
+.boxshadowBckg {
+  box-shadow: 11px 18px 47px -19px rgba(0,0,0,0.82);
+  border-radius:20px; padding:25px;
+}
 
 .priceTag {
   position: absolute;
   top:-1px;
   right: -1px;
   border-bottom-left-radius:8px;
+  border-top-right-radius:12px;
   background-color: $primary-color;
   color:$white-color;
   padding:4px 10px;
@@ -299,7 +308,6 @@ font-size:30px; text-decoration:line-through;
 }
 
 //ikonice na naslovnoj
-
 .layer {
 width: 23px;
 height: 23px;
@@ -308,6 +316,7 @@ height: 23px;
 .layer2 {
   top:90px;
   left: 70px;
+  // animation:  infinite;
 }
 
 .layer3 {
@@ -321,8 +330,8 @@ height: 23px;
 }
 
 .layer5 {
-  top:340px;
-  right: 190px;
+  top:-40px;
+  right: 377px;
 }
 
 .layer6 {
@@ -342,16 +351,16 @@ height: 23px;
 }
 
 .layer9 {
-  top:50px;
-  right: 220px;
+  top:-50px;
+  right: 130px;
 }
 
 .layer10 {
-  top:70px;
+  top:-70px;
   right: 540px;
 }
 .layer11 {
-  top:140px;
+  top:-140px;
   left: 190px;
 }
 .layer12 {
@@ -360,24 +369,24 @@ height: 23px;
 
 }
 .layer13 {
-  top:370px;
-  left: 90px;
+  top:17px;
+  left: 160px;
 }
 .layer14 {
   top:80px;
   right: 40px;
 }
 .layer15 {
-  top:150px;
-  right: 210px;
+  top:250px;
+  right: 310px;
 }
 .layer16 {
-  top:0px;
-  left: 150px;
+  top:-50px;
+  left: 230px;
 }
 .layer17 {
-  top:300px;
-  right: 19px;
+  top:220px;
+  right: 619px;
 }
 .layer18 {
   top:140px;
@@ -385,8 +394,8 @@ height: 23px;
 }
 
 .layer19 {
-  top:20px;
-  right: 430px;
+  top:-90px;
+  right:730px;
 }
 
 #onboarding {
@@ -1629,6 +1638,10 @@ small {
   margin: 10px 20px 20px 20px;
 }
 
+.breakWords {
+  word-break:break-all;
+}
+
 .hcpBio {
   padding: 20px 20px;
   p {
@@ -1637,6 +1650,10 @@ small {
     opacity: .6;
     margin-bottom: 0;
   }
+}
+
+.fixed-top {
+  z-index: 222;
 }
 
 #backToTopBtn {
@@ -2164,6 +2181,7 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 
 .tumacenjeDiv {
   border:1px solid $border;
+  border-radius: 12px;
 }
 
 .paid {

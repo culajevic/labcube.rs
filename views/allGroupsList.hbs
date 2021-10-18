@@ -2,12 +2,12 @@
 <!-- <h1>{{countGroups}}</h1> -->
 <div class="container">
   <div class="row">
-    <table class="table table-hover">
+    <table class="table table-hover mt-5">
   <thead>
     <tr>
       <th scope="col">Naziv</th>
       <th>Opis</th>
-      <th scope="col">Front page</th>
+      <th scope="col">Naslovna</th>
       <th scope="col">Prioritet</th>
     </tr>
   </thead>
@@ -18,7 +18,7 @@
       <td>{{groupSummary this.description}}</td>
       <td>{{this.frontPage}}</td>
       <td>{{this.priority}}</td>
-      <td><a href='addGroup/{{this.name}}' class="btn btn-info">Edit</a></td>
+      <td><a href='addGroup/{{this.name}}' class="btn btn-primary text-uppercase">Edit</a></td>
       <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
     </tr>
     {{/each}}

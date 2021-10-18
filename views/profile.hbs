@@ -1,7 +1,7 @@
 {{> _innerNavFrontend}}
 
 <div class="container mb-4" id="profileDetails">
-    <h1 class="sectionTitle mt-6">Zdravo, {{user.username}}</h1>
+    <h1 class="sectionTitle mt-6 breakWords">Zdravo, {{user.username}}</h1>
  		<div class="row">
 
  			<div class="col-md-12 col-lg-12 table-responsive">
@@ -26,20 +26,25 @@
         <li class="nav-item">
           <a class="nav-link link-unstyled dashboardTabs" id="resetPass-tab" data-toggle="tab" href="#resetPass" role="tab" aria-controls="profile" aria-selected="false">Moj nalog</a>
         </li>
+
+        <li class="nav-item">
+          <a href="/logout" class="nav-link link-unstyled dashboardTabs" id="loagout-tab"> <i class="fa fa-sign-out-alt" title="odjava" alt="odjava"></i></a>
+        </li>
       </ul>
 
 <div class="tab-content" id="myTabContent">
+
 
   <div class="tab-pane show" id="resetPass" role="tabpanel">
     <div class="profileCard" >
       <form class="d-flex flex-column align-items-center" action="/updatePassword/{{user.id}}" method="POST">
         <div class="container">
           <div class="row">
-            <div class="form-group col-6 generalInformation">
+            <div class="form-group col-12 col-sm-6 generalInformation">
               <!-- <p>Ovde možete promeniti Vaš Promena lozinke</p> -->
               <input type="password" class="form-control" name="password1" placeholder="nova lozinka">
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group col-12 col-sm-6">
                   <input type="password" class="form-control" name="password2" placeholder="ponovite novu lozinku">
                 </div>
                 <div class="form-group col-12">
@@ -49,28 +54,26 @@
         </div>
       </form>
       <form class="mb-4" action="/deleteUser/{{user.id}}" method="post" id="deleteAccountForm">
-        <div class="col-3 mt-4">
+        <div class="col-12 col-sm-4 mt-4">
           <button class="btn btn-block btn-danger  text-uppercase" id="deleteAccount">Obrišite nalog</button>
         </div>
-        <div class="col-10">
-          <small>Kada obrišete nalog, možete ga povratiti u roku od 30 dana. Nakon tog perioda ne postoji mogućnost da Vam se vrate podaci. Svi podaci o Vama i svi Vaši rezultati će zauvek biti uklonjeni.</small>
+        <div class="col-12">
+          <p class="mt-3">Kada obrišete nalog, možete ga povratiti u roku od 30 dana. Nakon tog perioda ne postoji mogućnost da Vam se vrate podaci. Svi podaci o Vama i svi Vaši rezultati će zauvek biti uklonjeni.</p>
         </div>
       </form>
     </div><!-- profile card end -->
   </div><!-- tab pane end -->
 
 
-
-
   <div class="tab-pane active show" id="otherResults" role="tabpanel">
     <div class="profileCard" >
-      <table class="tableLabResults" id="myLabResults">
+      <table class="tableLabResults table-responsive-sm" id="myLabResults">
         <tbody>
           {{#if (notZero numOfMyOtherResults)}}
 
           {{#each myOtherResults}}
           <tr class="dashboardResults">
-            <td><i class="far fa-clock"></i></td>
+            <!-- <td class="d-none d-sm-block"><i class="far fa-clock"></i></td> -->
             <td>{{displayTime this.submitedDate}}</td>
 
             <!-- <td>{{displayTime this.deadline}}</td> -->
@@ -564,9 +567,9 @@
   <div class="tab-pane show" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="profileCard" >
       <form action="/myProfile/{{user.id}}" method="POST" class="mt-4">
-        <div class="">
+        <!-- <div class=""> -->
           <div class="row">
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/nameProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -575,7 +578,7 @@
               <input type="text" class="d-block mt-2 profilePersonalData" name="ime" placeholder="Ime" value="{{user.username}}">
             </div>
           </div>
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -584,7 +587,7 @@
                 <input type="text" class="d-block mt-2 profilePersonalData" placeholder="Email" value="{{user.email}}" disabled>
             </div>
           </div>
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/birthYearProfileData.svg"  class="profileDataIcons" alt="">
             </div>
@@ -593,7 +596,7 @@
                   <input type="number" class="d-block mt-2 profilePersonalData" id="godinaRodjenja" name="godinaRodjenja" value={{user.birthYear}} placeholder="Godina rođenja">
             </div>
           </div>
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/genderProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -603,11 +606,10 @@
                 <option class="" value="Null" {{#if (checkBox user.gender 'Null')}} selected {{/if}}>Nije važno</option>
                 <option class="" value="M" {{#if (checkBox user.gender 'M')}} selected {{/if}}>Muški</option>
                 <option class="" value="Ž" {{#if (checkBox user.gender 'Ž')}} selected {{/if}}>Ženski</option>
-
               </select>
             </div>
           </div>
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/addressProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -617,7 +619,7 @@
             </div>
           </div>
 
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/municipalityProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -631,7 +633,7 @@
             </div>
           </div>
 
-          <div class="col-4 my-4">
+          <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/cellphoneProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -640,27 +642,24 @@
                 <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{user.mobile}}" placeholder="u fomatu 06XXXXXXX">
             </div>
           </div>
-          <div class="float-left d-inline pl-2">
-            <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
-              <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
+            <div class="col-12 col-sm-6 col-md-4 my-4">
+                <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
+                  <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
+                </div>
+                <div class=" float-left d-inline pl-2">
+                <span>Želim korisne informacije na mejl</span>
+                <select class="d-block profilePersonalData mt-2" name="news">
+                  <option class="" value="Null" {{#if (checkBox user.news 'Null')}} selected {{/if}}>Odaberite</option>
+                  <option class="" value=1 {{#if (checkMarketing user.news true)}} selected {{/if}}>Da</option>
+                  <option class="" value=0 {{#if (checkMarketing user.news false)}} selected {{/if}}>Ne</option>
+                </select>
+              </div>
             </div>
-            <span>Želim korisne informacije na mejl</span>
-            <select class="d-block profilePersonalData mt-2" name="news">
-              <option class="" value="Null" {{#if (checkBox user.news 'Null')}} selected {{/if}}>Odaberite</option>
-              <option class="" value=1 {{#if (checkMarketing user.news true)}} selected {{/if}}>Da</option>
-              <option class="" value=0 {{#if (checkMarketing user.news false)}} selected {{/if}}>Ne</option>
-            </select>
+          <div class="form-group col-12">
+            <button class="btn btn-block btnLabDetails mt-2">Sačuvaj</button>
           </div>
-        </div>
-        <div class="form-group col-12">
-          <button class="btn btn-block btnLabDetails mt-2">Sačuvaj</button>
-        </div>
-      </div><!-- basicinfo end -->
-    </form><!-- basic information form end -->
-
-        <!-- update password -->
-
-
+        </div><!-- basicinfo end -->
+      </form><!-- basic information form end -->
     </div><!-- profile card end -->
   </div><!-- tab pane end -->
 
@@ -669,10 +668,10 @@
       <div class="row">
       <!-- <div class="col-12 mb-4"> -->
         <div class="col-12 generalInformation">
-          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. </p><p class="mb-5">Mi cenimo vašu privatnost, vaši podaci su bezbedni. <a href="" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
+          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo Vašu privatnost, Vaši podaci su bezbedni. <a href="" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
         </div>
 
-          <div class="col-4 mt-5">
+          <div class="col-12 col-sm-6 col-md-4 mt-5">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/heightHelthData.svg" class="profileDataIcons" alt="">
             </div>
@@ -682,7 +681,7 @@
             </div>
           </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/weightHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -692,7 +691,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/bmiHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -702,7 +701,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/smokingHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -716,7 +715,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/alchocolHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -730,7 +729,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/bloodPressureHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -744,7 +743,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/foodHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -759,7 +758,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/stressHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -773,7 +772,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/exserciseHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -783,7 +782,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/sugarHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -797,7 +796,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/foodSuplementHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -811,7 +810,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/therapyHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -830,7 +829,7 @@
         </div>
 
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/currentStatusHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -850,7 +849,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-6 col-md-4 mt-5">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/famillyHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -913,7 +912,7 @@
 
 
       {{#if (checkBox user.gender 'Ž')}}
-      <div class="col-4 mt-5">
+      <div class="col-12 col-sm-6 col-md-4 mt-5">
         <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
           <img src="/images/menstruationHelthData.svg" class="profileDataIcons" alt="">
         </div>
@@ -940,7 +939,7 @@
         </div>
       </div> -->
 
-      <div class="col-4 mt-5">
+      <div class="col-12 col-sm-6 col-md-4 mt-5">
         <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
           <img src="/images/neetCycleHelthData.svg" class="profileDataIcons" alt="">
         </div>
@@ -967,7 +966,7 @@
       </div> -->
 
 
-      <div class="col-4 mt-5">
+      <div class="col-12 col-sm-6 col-md-4 mt-5">
         <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
           <img src="/images/gynecologistHelthData.svg" class="profileDataIcons" alt="">
         </div>
@@ -993,7 +992,7 @@
         </div>
       </div> -->
 
-      <div class="col-4 mt-5">
+      <div class="col-12 col-sm-6 col-md-4 mt-5">
         <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
           <img src="/images/pregnentHelthData.svg" class="profileDataIcons" alt="">
         </div>
@@ -1019,7 +1018,7 @@
         </div>
       </div> -->
 
-      <div class="col-4 mt-5">
+      <div class="col-12 col-sm-6 col-md-4 mt-5">
         <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
           <img src="/images/brestFeedingHelthData.svg" class="profileDataIcons" alt="">
         </div>
@@ -1062,7 +1061,6 @@
     <table class="tableLabResults" id="myLabResults">
       <tbody>
 
-
         {{#each myAppointments}}
 
         <tr class="dashboardResults">
@@ -1090,15 +1088,17 @@
     <div class="col-12 mt-4">
       <h2>trenutno nema rezultata u ovoj kategoriji</h2>
     </div>
-
     {{/if}}
   </div>
+
 </div>
 
 
- 			</div><!-- table-responsive -->
- 		</div><!-- table row end  -->
- </div> <!-- results container end -->
+ 			  </div><!-- table-responsive -->
+ 		 </div><!-- table row end  -->
+    </div>
+  </div>
+</div> <!-- results container end -->
 
 
 

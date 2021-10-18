@@ -150,13 +150,13 @@
                   {{/each}}
                 </tbody>
        				</table><!-- table -->
-              <div class="mt-5">
-
-                <p class="aboutUs"><span class="numAnalysis">Redovna cena </span> <span class="totalPrice" ></span></p>
-                <p class="aboutUsDiscount" style="min-width: 300px;" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Za Lab cube korisnike </span> <span class="labCubePrice" id="labCubePrice"></span></p>
-
-              </div>
             </div><!-- col 12 end -->
+            <div class="col-12">
+              <div class="mt-5">
+                <p class="aboutUs"><span class="numAnalysis">Redovna cena </span><span class="totalPrice" ></span></p>
+                <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="numAnalysis">Labcube korisnici </span> <span class="labCubePrice" id="labCubePrice"></span></p>
+              </div>
+            </div>
             {{/if}}
 
             {{#if userId}}

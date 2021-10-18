@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     {{#if numOfEditors}}
-      <table class="table table-hover">
+      <table class="table table-hover mt-5">
         <thead>
           <tr>
             <!-- <th scope="col">id</th> -->
@@ -20,7 +20,7 @@
             <td>{{this.firstName}} {{this.lastName}}</td>
             <td>{{this.accountName}}</td>
             <td>{{this.email}}</td>
-            <td><a href='addEditor/{{this._id}}' class="btn btn-info">Edit</a></td>
+            <td><a href='addEditor/{{this._id}}' class="btn btn-primary text-uppercase">Edit</a></td>
             <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
           </tr>
           {{/each}}

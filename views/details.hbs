@@ -29,7 +29,7 @@
         {{#if (empty analysisDetails.preview)}}
         {{! display abbr}}
 
-        <ul class="analysisDescription float-left mt-4">
+        <ul class="col-12 analysisDescription float-left mt-4 breakWords">
           <li>
             <h5 id="oAnalizi">O analizi</h5>
             <p>{{{analysisDetails.shortDesc}}}</p>
@@ -49,7 +49,10 @@
             <h5 id="detaljanOpis">Detaljan opis</h5>
             <p>{{{analysisDetails.description}}}</p>
           </li>
+
+
           <div class="d-flex flex-column flex-lg-row">
+            {{#if (notBlank analysisDetails.low)}}
              <div class="flexFix justify-content-between snizeneVrednosti">
                 <h5 id="rezultati">Snižene vrednosti</h5>
                 <p>{{{analysisDetails.low}}}</p>
@@ -61,7 +64,9 @@
                   </div>
                {{/if}} -->
              </div>
+             {{/if}}
 
+             {{#if (notBlank analysisDetails.high)}}
              <div class="flexFix justify-content-between poviseneVrednosti">
                 <h5>Povišene vrednosti</h5>
                   <p>{{{analysisDetails.high}}}</p>
@@ -74,13 +79,14 @@
                   </div>
                 {{/if}} -->
               </div><!-- flexfix -->
+              {{/if}}
            </div><!-- flex end snizene i povisene vrednosti -->
            <div class="napomena">
              <h5 id="napomena">Napomena</h5>
              <p>{{{analysisDetails.notes}}}</p>
            </div>
 
-           <ol>
+           <ol class="col-12 breakWords">
              <h5 class="literatura" id="literatura">Literatura</h5>
              {{#each analysisDetails.references}}
               <li>{{#if (notBlank referenceLink)}}<a href="http://{{referenceLink}}" target="_blank">{{referenceTitle}}</a>{{else}}{{referenceTitle}}{{/if}}</li>
@@ -104,8 +110,9 @@
       {{> _sidebar}}
 
 
-        <div class="col-sm-11 col-md-11 col-10 p-2 mt-4"><img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg img-fluid float-left p-2" />
-            <p class="editorName font-weight-bold mt-4">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
+        <div class="col-sm-11 col-md-11 col-12 p-2 mt-4 testCenter" >
+          <img src="/images/editors/{{analysisDetails.writtenBy.picture}}" alt="" class="editorImg img-fluid float-sm-left p-2" style="display:block; margin:0 auto;"/>
+            <p class="editorName font-weight-bold mt-4 mb-4">{{analysisDetails.writtenBy.firstName}} {{analysisDetails.writtenBy.lastName}}, {{analysisDetails.writtenBy.editorTitle}}</p>
           <p class="negativeMargin editorName">{{analysisDetails.writtenBy.aboutMe}}</p>
         </div>
 

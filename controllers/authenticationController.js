@@ -6,6 +6,8 @@ const validator = require("email-validator")
 const bcrypt = require('bcrypt')
 const User = mongoose.model('User')
 const Schedule = mongoose.model('Schedule')
+const Price = mongoose.model('Price')
+const Analysis = mongoose.model('Analysis')
 const Lab = mongoose.model('Lab')
 const Place = mongoose.model('Place')
 const Feedback = mongoose.model('Feedback')
@@ -163,16 +165,60 @@ exports.registerForm = (req,res) => {
   res.render('register',{title:'Labcube - Kreirajte nalog'})
 }
 
-exports.admindasboard =  [authCheck, (req,res) => {
+exports.admindasboard =  [authCheck, async (req,res) => {
   let errors = []
   if(req.user.admin == 1) {
-    res.render('admindashboard', {title:'Admin panel'})
+
+    //prikaz analiza koje nemaju cenu
+    let allAnalysisArr = []
+    let missingPriceArr = []
+
+    let allAnalysis = await Analysis.find({})
+      for (let i = 0; i<allAnalysis.length; i++){
+        allAnalysisArr.push(allAnalysis[i]._id.toString())
+      }
+
+      let missingLabPrice = await Price.aggregate([
+         {$unwind:'$cenovnik'},
+         {$group:{_id:'$cenovnik.analiza'}}
+       ])
+
+       for (let i = 0; i<missingLabPrice.length; i++) {
+         missingPriceArr.push(missingLabPrice[i]._id.toString())
+       }
+
+      let resultMissingLabPrices = allAnalysisArr.filter(item => !missingPriceArr.includes(item))
+      let numOfMissingPriceAnalysis = resultMissingLabPrices.length
+      /////////////////////////////////////////////////////////////////////////////////////
+
+      //prikaz broja laboratorija koje nemaju cenu
+      let allLabs = []
+      let allLabsWithPrice = []
+      let getallLabs = await Lab.find({})
+       for (let i = 0; i<getallLabs.length; i++) {
+         allLabs.push(getallLabs[i]._id.toString())
+       }
+
+      let missingPrice = await Price.aggregate([
+         {$unwind:'$cenovnik'},
+         {$group:{_id:'$lab'}},
+         {$project:{lab:1}}
+       ])
+
+       for (let i = 0; i<missingPrice.length; i++) {
+         allLabsWithPrice.push(missingPrice[i]._id.toString())
+       }
+       let result = allLabs.filter(item => !allLabsWithPrice.includes(item))
+       let displayMissingPricesLab = await Lab.find({_id:{$in:result}},{labName:1, address:1, place:1}).populate('placeId','place').sort({labName:1})
+       let numOfMissingPricesForLabs = displayMissingPricesLab.length
+      ////////////////////////////////////////////////
+
+    res.render('admindashboard', {title:'Admin panel', numOfMissingPriceAnalysis, numOfMissingPricesForLabs})
   } else if(req.user.lab == 1) {
     res.send('ne moze')
   } else {
     errors.push({text:'Nice try'})
     res.render('signin',{errors})
-
   }
 }]
 

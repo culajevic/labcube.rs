@@ -1,0 +1,42 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    <div class="col-12 px-5">
+      {{#if displayMissingPricesLab}}
+        <table class="table table-hover mt-5">
+          <thead>
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Lab</th>
+              <th scope="col">Adresa</th>
+              <th scope="col">Mesto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each displayMissingPricesLab}}
+            <tr>
+              <!-- <td>{{this.id}}</td> -->
+              <td>{{this.labName}}</td>
+              <td>{{this.address}}</td>
+              <td>{{this.placeId.place}}</td>
+              <!-- <td>{{this.id}}</td> -->
+              <!-- <td></td> -->
+
+
+
+
+
+              <td><a href='addPrice/{{this._id}}' class="btn btn-primary text-uppercase">Dodaj cenovnik</a></td>
+
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{else}}
+          <div class="text-center mt-5">
+            <h2 class="my-5">&#127881; &#127881;  Nijedan komentar ne čeka na odobrenje  &#127881; &#127881; </h2>
+          </div>
+        {{/if}}
+    </div>
+  </div>
+</div>

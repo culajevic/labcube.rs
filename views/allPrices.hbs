@@ -4,7 +4,7 @@
   <div class="row">
     {{#if number}}
 
-    <table class="table table-hover">
+    <table class="table table-hover mt-5">
       <thead>
         <tr>
           <!-- <th scope="col">id</th> -->
@@ -21,7 +21,7 @@
           <td>{{this.lab.address}}</td>
           <td>{{this.lab.placeId.place}}</td>
           <!-- <td>{{this.priority}}</td> -->
-          <td><a href='addPrice/{{this.id}}' class="btn btn-info">Edit</a></td>
+          <td><a href='addPrice/{{this.id}}' class="btn btn-primary text-uppercase">Edit</a></td>
           <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument">Delete</a></td
         </tr>
         {{/each}}
