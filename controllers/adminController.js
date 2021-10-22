@@ -58,7 +58,7 @@ exports.priceMissing = async (req,res) => {
 
   let result = allLabs.filter(item => !allLabsWithPrice.includes(item))
 
-  let displayMissingPricesLab = await Lab.find({_id:{$in:result}},{labName:1, address:1, place:1}).populate('placeId','place').sort({labName:1})
+  let displayMissingPricesLab = await Lab.find({_id:{$in:result}},{labName:1, address:1, place:1, date:1}).populate('placeId','place').sort({date:-1})
   let numofItems = displayMissingPricesLab.length
   res.render('withoutpricelist', {displayMissingPricesLab, title:'Laboratorije koje nemaju cenovnik', number:numofItems})
 }

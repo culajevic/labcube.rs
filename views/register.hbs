@@ -17,7 +17,7 @@ function renderButton() {
 
 </script>
 <section id="registerForm">
-  <div class="container-fluid">
+  <div class="container-fluid overflow-hidden">
     <div class="row">
       <!--  visible only on md and bigger -->
       <div class="d-none d-md-flex col-md-4 mb-0" id="loginLeftSide">
@@ -39,10 +39,11 @@ function renderButton() {
         <div class="backgroundImageRegister">
           <div class="blueOverlay">
 
-                <form action="/register" method="POST" class="registerForm d-flex flex-column justify-content-center login ml-5 mt-5 pr-4  col-sm-9 col-md-8 col-10 col-lg-7 pt-4" >
-                  <h2 class="text-center smallScrRegister">Kreirajte nalog</h2>
-                  <div class="text-center">
-                          <a href="/google" class="d-inline-block mt-2 mb-5 googleBtnIcon"><i class="fab fa-google pr-2 "></i> <span>SignIn with Google</span></a>
+                <form action="/register" method="POST" class="registerForm d-flex flex-column justify-content-center  ml-5 mt-5 pr-4  col-sm-9 col-md-8 col-10 col-lg-7 pt-4" >
+
+                  <div class="text-center col-12 ">
+                    <h2 class="text-center smallScrRegister mr-4">Kreirajte nalog</h2>
+                          <a href="/google" class="d-inline-block mt-2 mb-sm-5 mr-4 googleBtnIcon"><i class="fab fa-google pr-2 "></i> <span>SignIn with Google</span></a>
                   </div>
                   <!-- <span class="pb-4 text-white">Ukoliko  <a href="/prijava" class="text-warning">ovde</a> se možete prijaviti.</span> -->
                   <div class="form-group mt-4 pr-4">
@@ -66,11 +67,11 @@ function renderButton() {
                   </div>
                   <div class="form-check pr-4 mt">
                     <input class="form-check-input" type="checkbox" name="news" value=1 id="news">
-                    <label for="news" class="text-white">Želim da mi povremeno dostavljate korisne informacije, novosti i posebne ponude koje su zasnovane na mom interesovanju.</label>
+                    <label for="news" class="text-white">Želim da mi povremeno dostavljate korisne informacije</label>
                   </div>
-                  <div class="mt-5 pr-4">
+                  <div class="mt-sm-5 mt-2 pr-4">
                     <!-- <small class="text-white pb-2">Kreiranjem naloga prihvatate <a href="" target="_blank">Uslove korišćenja</a> i <a href="" target="_blank">politiku privatnosti.</a></small> -->
-                    <button class="mb-4 btn btn-outline-primary text-white text-uppercase btn-block">napravite nalog</button>
+                    <button class="mb-4 btn btn-outline-primary text-white text-uppercase btn-block mt-2">kreirajte nalog</button>
                   </div>
                   <!-- <small class="text-white">Zaboravili ste lozinku?</small> -->
                   <!-- <p><a href="/google"  class="">
@@ -82,7 +83,7 @@ function renderButton() {
         </div><!-- backgroundImage -->
       </div><!-- col-8 -->
       <div class="loginAndRegisterBtn">
-        <a href="/prijava" class="text-decoration-none text-white ml-3 btn btn-outline-primary text-uppercase text-white">prijavite se</a>
+        <a href="/prijava" class="text-decoration-none text-white ml-3 mr-2 btn btn-outline-primary text-uppercase text-white">prijavite se</a>
       </div>
     </div><!-- row -->
   </div><!-- container-fluid -->

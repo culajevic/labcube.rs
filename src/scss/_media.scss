@@ -20,6 +20,10 @@
     font-size: 1rem;
   }
 
+  .blueOverlay h2 {
+    font-size: 1.8rem;
+  }
+
   .logoFull {
     width: 70%;
   }
@@ -122,6 +126,10 @@
   }
   .smallLogoLogin {
     display: block;
+  }
+
+  .smallScrRegister {
+    margin-top: 10px;
   }
 
 }// media max-width:575 end
@@ -227,11 +235,11 @@
   }
 
   .smallScr {
-    margin-top:70px;
+    margin-top:10px;
   }
 
   .smallScrRegister {
-    margin-top: 100px;
+    margin-top: 10px;
   }
 
   .searchFieldContainer {
@@ -279,10 +287,10 @@
   }
 
   .smallScr {
-    margin-top:70px;
+    margin-top:10px;
   }
   .smallScrRegister {
-    margin-top: 100px;
+    margin-top: 10px;
   }
 
 
@@ -371,10 +379,14 @@
   }
 
   .smallScr {
-    margin-top:70px;
+    margin-top:10px;
   }
   .smallScrRegister {
-    margin-top: 240px;
+    padding-top: 60px;
+  }
+
+  .backgroundImageRegister {
+    background-size: auto;
   }
 
   footer {

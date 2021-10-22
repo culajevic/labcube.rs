@@ -1278,7 +1278,7 @@ p.selectedAnalysisTitle {
   top:0;
   left:0;
   background-color: rgba(29,136,229,.6);
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
