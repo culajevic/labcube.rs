@@ -139,7 +139,7 @@ $(window).scroll(function(){
   let height = $(window).scrollTop();
     if(height > 460) {
       $("#header > nav").addClass('fixed-top-background fixed-top');
-      $(priceList).css({top:"17px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
+      // $(priceList).css({top:"17px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
     }
     else {
       $("#header > nav").removeClass('fixed-top-background fixed-top');
@@ -152,7 +152,7 @@ $(window).scroll(function(){
   let height = $(window).scrollTop();
     if(height > 200) {
       $("#smallHeader > nav").addClass('fixed-top-background fixed-top');
-      // priceList.css("top","20px")
+      // priceList.css("top","200px")
     }
     else {
       $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
@@ -164,11 +164,11 @@ $(window).scroll(function(){
   var height = $(window).scrollTop();
     if(height > 100) {
       $(".odabraneAnalize").addClass('fixed-right')
-      $(".odabraneAnalize").addClass('pt-5')
+      // $(".odabraneAnalize").addClass('pt-5')
     }
     else {
       $(".odabraneAnalize").removeClass('fixed-right')
-      $(".odabraneAnalize").removeClass('pt-5')
+      // $(".odabraneAnalize").removeClass('pt-5')
     }
 })
 
