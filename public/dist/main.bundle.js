@@ -20727,7 +20727,9 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
 };
 
 exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray) {
-  //check if analysis is already in localstorage
+  var noResults = document.getElementById('noResults');
+  noResults.innerHTML = ''; //check if analysis is already in localstorage
+
   var analysisPositionArr = itemsArray.findIndex(function (item) {
     return item.name === prices[i].name;
   });
@@ -21612,7 +21614,8 @@ exports.bestPrice = function (mapArea, resultDiv) {
       } else {
         mapArea.classList.add('d-none');
         noResults.innerHTML = '';
-        resultDiv.innerHTML = "<h2 class=\"text-center\">funTrenutno se ni u jednoj laboratoriji na ovoj op\u0161tini ne mogu uraditi sve analize koje ste odabrali. Poku\u0161ajte da promenite op\u0161tinu ili da uklonite neke od analiza</h2>";
+        resultDiv.innerHTML = "<h2 class=\"text-center\">Trenutno se ni u jednoj laboratoriji na ovoj op\u0161tini ne mogu uraditi sve analize koje ste odabrali. Poku\u0161ajte da promenite op\u0161tinu ili da uklonite neke od analiza</h2>";
+        console.log('fun');
 
         for (var _i2 = 0; _i2 < result.missingValues.length; _i2++) {
           resultDiv.innerHTML += "<p class=\"mt-4\">".concat(result.missingValues[_i2].analysisName, "</p>");

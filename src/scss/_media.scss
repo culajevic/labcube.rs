@@ -2,6 +2,7 @@
   %searchHelperClass {
     font-size: px-to-rem(10px);
   }
+
   .mapTitle {
     font-size: 1.5rem;
   }
@@ -143,6 +144,13 @@
     //   height: px-to-rem(550px);
     //   }
   }
+
+  .doctorDetails {
+    display: block;
+    background-color: $labDetailsTitleBckg;
+    margin-bottom: 600px;
+  }
+
   .logoFull {
     width: 70%;
   }
@@ -310,6 +318,13 @@
   .logoFull {
     width: 70%;
   }
+
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left:none;
+  }
+
   .analysisDescription > li {
     list-style-type: none;
     margin-bottom: px-to-rem(25px);
@@ -350,7 +365,7 @@
   }
 
   .editorImg {
-    width: 60%;
+    // width: 60%;
     display: block;
     margin:0 auto;
     float:clear;
@@ -470,6 +485,12 @@
     //   }
   }
 
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left:none;
+  }
+
   #sidebarMenu {
     display: none;
   }
@@ -576,6 +597,15 @@
     border-radius: 20px;
   }
 
+  .editorImg {
+    // width: 60%;
+    display: block;
+    margin:0 auto;
+    float:clear;
+    // border:1px solid $primary-color;
+    // border-radius: 300px;
+  }
+
 
 }// query end
 
@@ -587,6 +617,25 @@
   //     height: px-to-rem(470px);
   //     }
   // }
+
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left:none;
+  }
+
+  .editorImg {
+    // width: 60%;
+    display: block;
+    margin:0 auto;
+    float:clear;
+
+    // border:1px solid $primary-color;
+    // border-radius: 300px;
+  }
+
+
+
   .disclaimer {
     position: relative;
     top:0;

@@ -7301,22 +7301,18 @@ a:focus {
 #smallHeaderThanks {
   height: 70px; }
 
-#smallHeaderLab, #smallHeaderTumacenje {
+#smallHeaderLab {
   height: 450px;
   width: 100%;
   background-image: url(../images/labdashboard.jpg);
   background-position: 0 -350px;
   background-size: cover;
   background-repeat: no-repeat; }
-  #smallHeaderLab .container, #smallHeaderTumacenje .container {
+  #smallHeaderLab .container {
     margin-bottom: 0;
     padding: 0; }
-  #smallHeaderLab .table thead th, #smallHeaderTumacenje .table thead th, #smallHeaderLab .tableLabResults thead th, #smallHeaderTumacenje .tableLabResults thead th {
+  #smallHeaderLab .table thead th, #smallHeaderLab .tableLabResults thead th {
     border-bottom: 1px solid white; }
-
-#smallHeaderTumacenje {
-  background-image: url(../images/labdashboard.jpg);
-  background-position: 0 -260px; }
 
 .logoFull {
   align-self: center;
@@ -9702,6 +9698,10 @@ p.selectedAnalysisTitle {
   background-color: rgba(29, 136, 229, 0.9);
   margin: 0; }
 
+.blueOverlayLabCube {
+  height: 100px;
+  background-color: rgba(29, 136, 229, 0.9); }
+
 .searchForUser {
   position: absolute;
   margin-top: 44px; }
@@ -10215,6 +10215,14 @@ table.workingHoursLabDetails {
 #labDashResults {
   margin-top: 3.125rem; }
 
+.agTestCheckbox {
+  background-color: #ff6f6f;
+  padding: 14px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  font-size: 1.125rem;
+  color: #FFF; }
+
 .dashboardResults {
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fcfcfc+0,fafafa+100 */
   background: #fcfcfc;
@@ -10237,7 +10245,7 @@ table.workingHoursLabDetails {
   .tableLabResults td {
     border-top: 0;
     border-radius: 8px;
-    height: 106px;
+    height: 60px;
     color: rgba(59, 59, 59, 0.8);
     font-size: 1.25rem; }
 
@@ -10506,6 +10514,10 @@ table.workingHoursLabDetails {
     margin-top: 10px; } }
 
 @media (min-width: 170px) and (max-width: 374px) {
+  .doctorDetails {
+    display: block;
+    background-color: #F5F8FB;
+    margin-bottom: 600px; }
   .logoFull {
     width: 70%; }
   .altNameResult, .groupNameResult, .hospitalResult {
@@ -10609,6 +10621,10 @@ table.workingHoursLabDetails {
     max-width: 140px; }
   .logoFull {
     width: 70%; }
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left: none; }
   .analysisDescription > li {
     list-style-type: none;
     margin-bottom: 1.5625rem; }
@@ -10636,7 +10652,6 @@ table.workingHoursLabDetails {
       padding-left: 0;
       padding-right: 0; }
   .editorImg {
-    width: 60%;
     display: block;
     margin: 0 auto;
     float: clear; }
@@ -10697,6 +10712,10 @@ table.workingHoursLabDetails {
     font-size: 2.375rem; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left: none; }
   #sidebarMenu {
     display: none; }
   .analizeSearchFilter, .laboratorijeSearchFilter {
@@ -10761,9 +10780,21 @@ table.workingHoursLabDetails {
   .labFeaturesPadding {
     padding-right: 15px; }
   .feedback {
-    border-radius: 20px; } }
+    border-radius: 20px; }
+  .editorImg {
+    display: block;
+    margin: 0 auto;
+    float: clear; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  .doctorDetails {
+    display: block;
+    background-color: transparent;
+    border-left: none; }
+  .editorImg {
+    display: block;
+    margin: 0 auto;
+    float: clear; }
   .disclaimer {
     position: relative;
     top: 0; }

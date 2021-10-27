@@ -39,7 +39,8 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
 }
 
 exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
-
+  let noResults = document.getElementById('noResults')
+  noResults.innerHTML = ''
   //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
 
@@ -413,6 +414,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
   /* by default filter is set to analiza, after 500ms
     user is redirected to results page */
   searchString.addEventListener('input', (e) => {
+
     if(searchString.value.length>=2) {
       setTimeout(function() {
       let searchString = e.target.value
@@ -1167,8 +1169,8 @@ console.log('iz funkcije')
       else {
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
-      resultDiv.innerHTML = `<h2 class="text-center">funTrenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve analize koje ste odabrali. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
-
+      resultDiv.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve analize koje ste odabrali. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`
+      console.log('fun')
       for (let i = 0; i< result.missingValues.length; i++) {
           resultDiv.innerHTML +=`<p class="mt-4">${result.missingValues[i].analysisName}</p>`
       }

@@ -1,0 +1,16 @@
+{
+  "name":"Lab cube",
+  "short_name":"Labcube",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#1D88E5",
+  "theme_color":"#5B8EE8",
+  "orientation":"portrait-primary",
+  "icons":[
+    {
+      "src":"/images/manifesto.png",
+      "type":"image/png",
+      "sizes":"72x72"
+    }
+  ]
+}
