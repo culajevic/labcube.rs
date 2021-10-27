@@ -39,7 +39,9 @@ passport.use(
           signupDate:Date.now(),
           password:'',
           isVerified:true,
-          emailToken:''
+          emailToken:'',
+          privacy:true,
+          conditions:true
         }).save().then((newUser) => {
           console.log('new user created' + newUser)
           done(null, newUser)
