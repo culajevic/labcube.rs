@@ -1,6 +1,6 @@
 {
-  "name":"Lab cube",
-  "short_name":"Labcube",
+  "name":"LabCube",
+  "short_name":"LabCube",
   "start_url":"/",
   "display":"standalone",
   "background_color":"#1D88E5",
