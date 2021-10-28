@@ -395,7 +395,7 @@ setTimeout(() => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-  // console.log(result.getPrices)
+  console.log('dsdssd')
 
       if(result.getPrices.length > 0) {
         noResults.innerHTML = ''
@@ -489,7 +489,6 @@ setTimeout(() => {
           <a class="btn btn-block btnLabDetails buttonId mt-2" href="laboratorija/${result.getPrices[i].lab[0].slug}/${passIds}">saznaj više</a>
        </div>`
 
-       console.log('nadjilab')
            // noResults.remove()
             resultDiv.innerHTML = `
             <section id="labDetails">
@@ -587,7 +586,6 @@ setTimeout(() => {
 
 }
     else {
-      // let noResults = document.getElementById('noResults')
       mapArea.classList.add('d-none')
       noResults.innerHTML = ''
       noResults.innerHTML = `<h2 class="text-center">Trenutno se ni u jednoj laboratoriji na ovoj opštini ne mogu uraditi sve analize koje ste odabrali. Pokušajte da promenite opštinu ili da uklonite neke od analiza</h2>`

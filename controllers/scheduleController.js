@@ -273,8 +273,10 @@ let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
+let oneAnalysis
 
 
+if (Array.isArray(req.body.analysisName)) {
 // OBAVEZNO PROVERITI
 for (let i = 0; i < req.body.analysisName.length; i++) {
   if(req.body['outsideOfTheRange'+i]  ==  undefined )  {
@@ -282,7 +284,6 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
   } else {
     outsideOfTheRange = true
   }
-
 
   analysisArr.push({
   "analysis":req.body.analysisName[i],
@@ -296,8 +297,39 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
   'commentResult':req.body.commentResult[i],
   'outsideOfTheRange':outsideOfTheRange})
 
-
   updateOtherInterpretation = await Result.findOneAndUpdate(
+    {_id:req.params.id},
+    {$set:{
+      analyses:analysisArr,
+      commentCube:req.body.commentCube,
+      status:req.body.publish
+      }
+    },
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+}
+} else {
+  console.log('ide ovaj deo')
+  if(req.body['outsideOfTheRange'+0]  ==  undefined )  {
+    outsideOfTheRange = false
+  } else {
+    outsideOfTheRange = true
+  }
+  analysisArr.push({
+  "analysis":req.body.analysisName,
+  "analysisId":req.body.analysisId,
+  "value":req.body.value,
+  'measure':req.body.measure,
+  'lessThen':req.body.lessThen ? req.body.lessThen : 0,
+  'greaterThen':req.body.greaterThen ? req.body.greaterThen : 0,
+  'valueFrom':req.body.valueFrom,
+  'valueTo':req.body.valueTo,
+  'commentResult':req.body.commentResult,
+  'outsideOfTheRange':outsideOfTheRange})
+    updateOtherInterpretation = await Result.findOneAndUpdate(
     {_id:req.params.id},
     {$set:{
       analyses:analysisArr,

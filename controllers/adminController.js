@@ -14,9 +14,10 @@ exports.priceMissing = async (req,res) => {
   let allLabs = []
   let allLabsWithPrice = []
 
-      //koliko ima cenovnika za koju analizu
-      // let missingPrice = await Price.aggregate([
+      //koliko ima cenovnika za koju analizu trenutno proverava koliko labova radi krvnu sliku
+      // let countPrices = await Price.aggregate([
       //   {$unwind:'$cenovnik'},
+      //   {$match:{'cenovnik.analiza':ObjectId('604f3c54e18c77e5fcc4f456')}},
       //   {$group:{_id:'$cenovnik.analiza', count:{$sum:1}}},
       //   {$project:{lab:1, count:1}},
       //   {$sort:{count:1}}
@@ -61,6 +62,7 @@ exports.priceMissing = async (req,res) => {
   let displayMissingPricesLab = await Lab.find({_id:{$in:result}},{labName:1, address:1, place:1, date:1}).populate('placeId','place').sort({date:-1})
   let numofItems = displayMissingPricesLab.length
   res.render('withoutpricelist', {displayMissingPricesLab, title:'Laboratorije koje nemaju cenovnik', number:numofItems})
+  // res.send(countPrices)
 }
 
 exports.analysispriceMissing = async (req,res) => {

@@ -17,12 +17,13 @@
           <span class="d-flex align-self-start num justify-content-md-start justify-content-lg-end">{{analysisNum}}</span>
         </div>
 
-        <!-- <div class="form-group">
-          <form class="" action="" method="post">
-            <input type="checkbox" name="ag" value="1" id="ag" onclick="checkAg()">Ag
-            <button class="btn btn-outline-info mb-4 btn-block mt-3">sačuvaj</button>
-          </form>
-        </div> -->
+        <div class="form-group text-center mx-auto mt-3 agTestCheckbox" id="agBoxArea">
+            <input type="checkbox" name="ag" value="1" id="ag">
+             <span>Prikaži samo laboratorije koje rade antigenski test</span>
+             <!-- <label for="ag" id="agText">Prikaži samo laboratorije koje rade antigenski test</label> -->
+        </div>
+
+
 
       </div><!--  row end-->
     </div><!-- container end -->
@@ -39,10 +40,13 @@ let now = new Date()
 let day = now.getDay()
 let currentDayNum = now.getDay()
 let ag = document.getElementById('ag')
+let agText = document.getElementById('agText')
+let labAg
 
 let markers = []
 let markersCluster = []
 let passIds = []
+let markersArr = []
 itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
   itemsArray.forEach(item => {
   passIds.push(item.id)
@@ -51,7 +55,7 @@ itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('it
 let options = {
   zoom:16,
   disableDefaultUI: true,
-  zoomControl: false,
+  zoomControl: true,
   mapTypeControl: false,
   scaleControl: false,
   streetViewControl: true,
@@ -315,37 +319,90 @@ let options = {
 
 // let infoWindow = null //obrisati ako treba ukinuti otvaranje i gasenje na klik
 let infoWindow = new google.maps.InfoWindow
-
-
-for(i=0; i<labData.length; i++) {
-  // let status = (labStatus[i].id).indexOf(labData[i]._id)
-
-  let status = labStatus[i].status
-  markers.push(
-    {
-      status:status,
-      name:labData[i].labName,
-      address:labData[i].address,
-      city:labData[i].placeId.place,
-      phone:labData[i].phone,
-      municipality:labData[i].placeId.municipality,
-      lat:labData[i].location.coordinates[1],
-      lng:labData[i].location.coordinates[0],
-      slug:labData[i].slug,
-      workingTime:labData[i].workingHours
-    }
-  )
-}
-
-
 // new map
 let map = new google.maps.Map(document.getElementById('map'), options)
     map.setCenter({lat:44.81617, lng:20.469919})
 
+ag.addEventListener('change', function() {
 
+  if (this.checked) {
+    markers = []
+    // agText.innerHTML = 'Laboratorije koje rade antigenski test'
+    for(i=0; i<labData.length; i++) {
+      // let status = (labStatus[i].id).indexOf(labData[i]._id)
+      if (labData[i].antigen == true) {
+
+        let status = labStatus[i].status
+        markers.push(
+          {
+            status:status,
+            name:labData[i].labName,
+            address:labData[i].address,
+            city:labData[i].placeId.place,
+            phone:labData[i].phone,
+            municipality:labData[i].placeId.municipality,
+            lat:labData[i].location.coordinates[1],
+            lng:labData[i].location.coordinates[0],
+            slug:labData[i].slug,
+            workingTime:labData[i].workingHours
+          })
+      }
+    } //for end
+  } else  {
+  markers = []
+  for(i=0; i<labData.length; i++) {
+    let status = labStatus[i].status
+      markers.push(
+        {
+          status:status,
+          name:labData[i].labName,
+          address:labData[i].address,
+          city:labData[i].placeId.place,
+          phone:labData[i].phone,
+          municipality:labData[i].placeId.municipality,
+          lat:labData[i].location.coordinates[1],
+          lng:labData[i].location.coordinates[0],
+          slug:labData[i].slug,
+          workingTime:labData[i].workingHours
+        }
+      )
+  }
+}
+  clearOverlays()
+  for(i=0; i<markers.length; i++) {
+  addMarker(markers[i].lat,
+            markers[i].lng,
+            markers[i].name,
+            markers[i].address,
+            markers[i].phone,
+            markers[i].status,
+            markers[i].slug,
+            markers[i].workingTime,
+            markers[i].city)
+  }
+
+console.log(markers.length)
+})
+
+for(i=0; i<labData.length; i++) {
+  let status = labStatus[i].status
+    markers.push(
+      {
+        status:status,
+        name:labData[i].labName,
+        address:labData[i].address,
+        city:labData[i].placeId.place,
+        phone:labData[i].phone,
+        municipality:labData[i].placeId.municipality,
+        lat:labData[i].location.coordinates[1],
+        lng:labData[i].location.coordinates[0],
+        slug:labData[i].slug,
+        workingTime:labData[i].workingHours
+      }
+    )
+}
 
 for(i=0; i<markers.length; i++) {
-
 addMarker(markers[i].lat,
           markers[i].lng,
           markers[i].name,
@@ -355,8 +412,8 @@ addMarker(markers[i].lat,
           markers[i].slug,
           markers[i].workingTime,
           markers[i].city)
-
 }
+
 
 
 
@@ -371,7 +428,7 @@ if(navigator.geolocation){
   // navigator.geolocation.watchPosition(mylocation, error, myLocationOptions)
   navigator.geolocation.getCurrentPosition(mylocation, error, myLocationOptions)
 } else {
-  console.log("Your browser doesn't support geo location!")
+  console.log("Vaš browser ne podržava geo lokaciju")
 }
 
 function mylocation(position) {
@@ -398,11 +455,12 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     icon:{
       url:(status !== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
       scaledSize: new google.maps.Size(30,41)
-    },
-    map:map
+    }
     })
+    markersArr.push(marker)
+    marker.setMap(map)
 
-    markersCluster.push(marker)
+    // markersCluster.push(marker)
     //vratiti let infoWindow
      // infoWindow.setContent(content)
      //
@@ -430,8 +488,6 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
             </div>
             `
 
-
-
     google.maps.event.addListener(marker, 'click', function(){
       infoWindow.close()
       infoWindow.setContent(content)
@@ -446,6 +502,7 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
     //  infoWindow.close();
     // })
 
+    //close infowindow when clicked anywhere on the map
     google.maps.event.addListener(map, 'click', function() {
       infoWindow.close();
     });
@@ -460,8 +517,13 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
 //       });
 // }, 100);
 
-
 }
 
+function clearOverlays() {
+for (let i = 0; i < markersArr.length; i++ ) {
+      markersArr[i].setMap(null);
+    }
+    markersArr = [];
+  }
 
 </script>
