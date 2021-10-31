@@ -3,6 +3,7 @@ const Price = mongoose.model('Price')
 const Place = mongoose.model('Place')
 const Lab = mongoose.model('Lab')
 const Group = mongoose.model('Group')
+const Users = mongoose.model('User')
 const Analysis = mongoose.model('Analysis')
 const moment = require('moment')
 const ObjectId = mongoose.Types.ObjectId
@@ -89,4 +90,10 @@ exports.analysispriceMissing = async (req,res) => {
     let number = displayMissingPrices.length
     res.render('analysiswithoutprice',{displayMissingPrices, title:'Analize koje nemaju cenu', number})
 
+}
+
+exports.getAllUsers = async (req,res) => {
+  let allUsers = await Users.find({}).sort({signupDate:-1})
+  let number = allUsers.length
+  res.render('allUsers', {allUsers, title:'Korisnici', number})
 }

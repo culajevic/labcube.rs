@@ -157,6 +157,7 @@ exports.profile = [authCheck, async (req,res) => {
   }
 
   else {
+    // console.log('dsds')
     res.redirect('/admindashboard')
   }
 }]
@@ -172,6 +173,19 @@ exports.admindasboard =  [authCheck, async (req,res) => {
     //prikaz analiza koje nemaju cenu
     let allAnalysisArr = []
     let missingPriceArr = []
+
+
+    // ispis broja korisnika
+    let numOfUsers = await User.find({}).countDocuments()
+
+    //ispis broja komentara koji čekaju odobrenje
+    let allComments = await Lab.aggregate([
+      {$unwind:'$commentSection'},
+      {$match:{'commentSection.approved':false}},
+      {$lookup:{from:'users', localField:'commentSection.userId', foreignField:'_id', as:'user'}},
+      {$project:{commentSection:1, labName:1, user:1}}
+    ])
+    let numOfPendingComments = allComments.length
 
     let allAnalysis = await Analysis.find({})
       for (let i = 0; i<allAnalysis.length; i++){
@@ -213,7 +227,7 @@ exports.admindasboard =  [authCheck, async (req,res) => {
        let numOfMissingPricesForLabs = displayMissingPricesLab.length
       ////////////////////////////////////////////////
 
-    res.render('admindashboard', {title:'Admin panel', numOfMissingPriceAnalysis, numOfMissingPricesForLabs})
+    res.render('admindashboard', {title:'Admin panel', user:req.user, numOfMissingPriceAnalysis, numOfMissingPricesForLabs, numOfUsers, numOfPendingComments})
   } else if(req.user.lab == 1) {
     res.send('ne moze')
   } else {

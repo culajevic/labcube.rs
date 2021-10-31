@@ -85,9 +85,10 @@
 
         <div class="card mt-4">
           <div class="card-body">
-            <h5 class="card-title"><img src="images/icon_korisnici.svg" class="pr-3 iconsTumacenje" alt="">Korisnici -  ne radi</h5>
-            <a href="/" class="btn btn-outline-info text-uppercase mt-3">dodaj</a>
-            <a href="/" class="btn btn-outline-info text-uppercase mt-2">pogledaj</a>
+            <h5 class="card-title"><img src="images/icon_korisnici.svg" class="pr-3 iconsTumacenje" alt="">Korisnici</h5>
+
+            <a href="/getAllUsers" class="btn btn-outline-info text-uppercase mt-3">pogledaj ({{numOfUsers}})</a>
+            <a href="#" class="btn btn-outline-info text-uppercase mt-2">obrisani</a>
           </div>
         </div>
 
@@ -95,7 +96,7 @@
           <div class="card-body">
             <h5 class="card-title"><img src="images/icon_analize.svg" class="pr-3 iconsTumacenje" alt="">Komentari</h5>
             <a href="/allApprovedComments" class="btn btn-outline-info text-uppercase mt-3">Odobreni</a>
-            <a href="/allComments" class="btn btn-outline-info text-uppercase mt-2">Čeka odobrenje</a>
+            <a href="/allComments" class="btn btn-outline-info text-uppercase mt-2 {{#if numOfPendingComments}}btn-outline-danger {{else}}btn-outline-info{{/if}} text-uppercase mt-2">Čeka odobrenje {{#if numOfPendingComments}}<span>({{numOfPendingComments}})</span>{{/if}}</a>
           </div>
         </div>
 

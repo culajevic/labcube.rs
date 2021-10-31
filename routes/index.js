@@ -206,6 +206,7 @@ router.post('/contact', generalController.takeUserComment)
 //admin area
 router.get('/withoutPrice', adminController.priceMissing)
 router.get('/analysiswithoutprice', adminController.analysispriceMissing)
+router.get('/getAllUsers', adminController.getAllUsers)
 
 
 
