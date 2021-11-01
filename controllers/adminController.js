@@ -97,3 +97,29 @@ exports.getAllUsers = async (req,res) => {
   let number = allUsers.length
   res.render('allUsers', {allUsers, title:'Korisnici', number})
 }
+
+exports.priceAnalysis = async (req,res) => {
+  // koliko ima cenovnika za koju analizu trenutno proverava koliko labova radi krvnu sliku
+  let countPrices = await Price.aggregate([
+    {$unwind:'$cenovnik'},
+    // {$match:{'cenovnik.analiza':ObjectId('604f3c54e18c77e5fcc4f456')}},
+    {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+    // {$group:{_id:'$cenovnik.analiza', count:{$sum:1}}},
+    {$group:{_id:'$analiza.analysisName', count:{$sum:1}}},
+    {$project:{count:1,'analiza.analysisName':1}},
+    {$sort:{count:1}}
+  ])
+  res.render('priceAnalysis', {title:'Analiza cena', countPrices})
+}
+
+exports.minMaxPrice = async (req,res) => {
+  let minMaxPrice = await Price.aggregate([
+    {$unwind:'$cenovnik'},
+    {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+    {$group: {_id:'$analiza.analysisName', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+    {$sort:{_id:1}}
+
+  ])
+  res.render('minMaxPrice', {title:'Mix i Max cena analize', minMaxPrice})
+  // res.send(minMaxPrice)
+}

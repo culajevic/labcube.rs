@@ -207,6 +207,9 @@ router.post('/contact', generalController.takeUserComment)
 router.get('/withoutPrice', adminController.priceMissing)
 router.get('/analysiswithoutprice', adminController.analysispriceMissing)
 router.get('/getAllUsers', adminController.getAllUsers)
+router.get('/priceAnalysis', adminController.priceAnalysis)
+router.get('/minMaxPrice', adminController.minMaxPrice)
+
 
 
 

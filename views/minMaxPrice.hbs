@@ -1,0 +1,32 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    <div class="col-12 px-5">
+        <table class="table table-hover mt-5">
+          <thead>
+
+
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Analiza</th>
+              <th scope="col">Min cena</th>
+              <th scope="col">Max cena</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            {{#each minMaxPrice}}
+            <tr>
+
+              <td>{{this._id}}</td>
+              <td class="{{priceGap this.minPrice this.maxPrice}}">{{this.minPrice}}</td>
+              <td>{{this.maxPrice}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+</div>

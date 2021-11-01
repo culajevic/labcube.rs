@@ -335,3 +335,9 @@ hbs.registerHelper('checkPayment', (package, paid) => {
     return 'notPaid'
   }
 })
+
+hbs.registerHelper('priceGap', (minPrice, maxPrice) => {
+  if (maxPrice > (4*minPrice)) {
+    return 'text-danger'
+  }
+})

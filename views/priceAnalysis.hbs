@@ -1,0 +1,30 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    <div class="col-12 px-5">
+        <table class="table table-hover mt-5">
+          <thead>
+
+
+            <tr>
+              <!-- <th scope="col">id</th> -->
+              <th scope="col">Broj laboratorija koje imaju cenu za analizu</th>
+              <th scope="col">Analiza</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            {{#each countPrices}}
+            <tr>
+              <td>{{this.count}}</td>
+              <td>{{this._id}}</td>
+
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+
+    </div>
+  </div>
+</div>
