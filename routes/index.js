@@ -209,7 +209,7 @@ router.get('/analysiswithoutprice', adminController.analysispriceMissing)
 router.get('/getAllUsers', adminController.getAllUsers)
 router.get('/priceAnalysis', adminController.priceAnalysis)
 router.get('/minMaxPrice', adminController.minMaxPrice)
-
+router.get('/sve-laboratorije', labController.getListOfLabs)
 
 
 

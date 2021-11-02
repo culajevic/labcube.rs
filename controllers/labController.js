@@ -525,3 +525,8 @@ exports.allApprovedComments = async (req, res) => {
   ])
   res.render('approvedComments', {allApprovedComments, title:'Labcube - Odobreni komentari'})
 }
+
+exports.getListOfLabs = async (req,res) => {
+  let getAllLabsInfo = await Lab.find({}).populate('placeId', 'place municipality').sort({labName:1})
+  res.render('laboratorije', {title:'Sve laboratorije', getAllLabsInfo})
+}

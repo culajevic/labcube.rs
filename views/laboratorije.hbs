@@ -1,0 +1,38 @@
+{{> _innerNavBackend}}
+
+<section id="groupDetails">
+  <div class="container" id="resultsGroupDetails">
+    <div class="row mb-4 mt-4">
+
+      <!-- <div class="col-9"> -->
+      <div class="col-12">
+
+        <table class="table results table-hover table-responsive-sm">
+
+ 					<tbody id="resultTable">
+            {{#each getAllLabsInfo}}
+            <tr>
+
+              <td><a href="/laboratorija/{{this.slug}}">{{this.labName}}</a></td>
+              <td>{{this.address}}</td>
+              <td>{{this.placeId.place}}</td>
+              <td>{{displayPhoneList this.phone}}</td>
+
+
+
+
+            </tr>
+            {{/each}}
+          </tbody>
+ 				</table><!-- table -->
+      </div><!-- col 8 end -->
+
+
+
+        <!-- {{itemsArray}} -->
+    </div><!-- row end -->
+  </div><!-- container end -->
+</section>
+
+
+{{> _footer}}
