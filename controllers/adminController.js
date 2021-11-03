@@ -113,13 +113,62 @@ exports.priceAnalysis = async (req,res) => {
 }
 
 exports.minMaxPrice = async (req,res) => {
+  // let minPrice = []
+  // let maxPrice = []
+
   let minMaxPrice = await Price.aggregate([
+    {$lookup:{from:'labs', localField:'lab', foreignField:'_id', as:'lab'}},
     {$unwind:'$cenovnik'},
+    // {$match:{'cenovnik.analiza':ObjectId('604f3c54e18c77e5fcc4f456')}},
     {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
-    {$group: {_id:'$analiza.analysisName', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
+    {$group: {
+      _id:{"analiza":"$analiza.analysisName", "id":"$analiza._id"},
+      minPrice:{$min:'$cenovnik.cena'},
+      maxPrice:{$max:'$cenovnik.cena'}}},
     {$sort:{_id:1}}
 
   ])
+  // for (let i = 0; i< minMaxPrice.length; i++) {
+  //   minPrice.push({'analiza':minMaxPrice[i]._id.analiza, 'lab':minMaxPrice[i]._id.lab, 'minPrice':minMaxPrice[i].minPrice})
+  //   maxPrice.push({'analiza':minMaxPrice[i]._id.analiza, 'lab':minMaxPrice[i]._id.lab, 'maxPrice':minMaxPrice[i].maxPrice})
+  // }
+
+  //finding lab with min and max price
+  // let min = minPrice.reduce((prev, curr) => (prev.minPrice < curr.minPrice) ? prev : curr);
+  // let max = maxPrice.reduce((prev, curr) => (prev.maxPrice > curr.maxPrice) ? prev : curr);
+  //
+  // console.log(min)
+  // console.log(max)
   res.render('minMaxPrice', {title:'Mix i Max cena analize', minMaxPrice})
   // res.send(minMaxPrice)
+
+}
+
+exports.findMinAndMaxPriceLab =  async (req,res) => {
+  let minPrice = []
+  let maxPrice = []
+
+  let minMaxPrice = await Price.aggregate([
+    {$lookup:{from:'labs', localField:'lab', foreignField:'_id', as:'lab'}},
+    {$unwind:'$cenovnik'},
+    {$match:{'cenovnik.analiza':ObjectId(req.params.id)}},
+    {$lookup:{from:'analyses', localField:'cenovnik.analiza', foreignField:'_id', as:'analiza'}},
+    {$group: {
+      _id:{"analiza":"$analiza.analysisName", "lab":"$lab.labName"},
+      minPrice:{$min:'$cenovnik.cena'},
+      maxPrice:{$max:'$cenovnik.cena'}}},
+    {$sort:{_id:1}}
+
+  ])
+  for (let i = 0; i< minMaxPrice.length; i++) {
+    minPrice.push({'analiza':minMaxPrice[i]._id.analiza, 'lab':minMaxPrice[i]._id.lab, 'minPrice':minMaxPrice[i].minPrice})
+    maxPrice.push({'analiza':minMaxPrice[i]._id.analiza, 'lab':minMaxPrice[i]._id.lab, 'maxPrice':minMaxPrice[i].maxPrice})
+  }
+
+  //finding lab with min and max price
+  let min = minPrice.reduce((prev, curr) => (prev.minPrice < curr.minPrice) ? prev : curr);
+  let max = maxPrice.reduce((prev, curr) => (prev.maxPrice > curr.maxPrice) ? prev : curr);
+
+  // res.render('minMaxPrice', {title:'Mix i Max cena analize', minMaxPrice})
+  res.render('labwithMinMaxPrice', {title:'Min i Max cena po analizi po laboratoriji', min, max})
 }

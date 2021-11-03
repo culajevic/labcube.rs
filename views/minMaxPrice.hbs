@@ -19,9 +19,10 @@
             {{#each minMaxPrice}}
             <tr>
 
-              <td>{{this._id}}</td>
+              <td>{{this._id.analiza}}</td>
               <td class="{{priceGap this.minPrice this.maxPrice}}">{{this.minPrice}}</td>
               <td>{{this.maxPrice}}</td>
+              <td><a href='findMinAndMaxPrice/{{this._id.id}}' class="btn btn-primary text-uppercase">Pogledaj</a></td>
             </tr>
             {{/each}}
           </tbody>

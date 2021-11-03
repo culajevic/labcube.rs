@@ -1,0 +1,19 @@
+{{> _innerNavBackend}}
+<div class="container">
+  <div class="row">
+    <div class="col-6 mt-5 text-center">
+        <h1>Minimalna cena</h1>
+        {{#each min}}
+          <h2>{{this}}</h2>
+          {{/each}}
+    </div>
+
+    <div class="col-6 mt-5 text-center">
+        <h1>Maksimalna cena</h1>
+        {{#each max}}
+          <h2>{{this}}</h2>
+          {{/each}}
+    </div>
+
+  </div>
+</div>
