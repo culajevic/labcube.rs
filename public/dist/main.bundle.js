@@ -22267,8 +22267,7 @@ window.onload = function () {
     var radioFilter = document.querySelectorAll('input[name=searchFilter]');
     radioFilter.forEach(function (item) {
       if (item.value == myFilter) {
-        item.checked = true;
-        console.log('checked ' + myFilter);
+        item.checked = true; // console.log('checked ' + myFilter)
       }
     }); // if user is searching from home page take result div
     // let resultDiv = document.getElementById('resultTable')
@@ -22279,8 +22278,8 @@ window.onload = function () {
 
     _analysisRadio.forEach(function (item) {
       item.addEventListener('click', function (e) {
-        myFilter = e.target.value;
-        console.log('kada se promeni ' + myFilter);
+        myFilter = e.target.value; // console.log('kada se promeni ' + myFilter)
+
         innerSearch.value = '';
         innerSearch.focus();
       });
@@ -22332,6 +22331,13 @@ window.onload = function () {
             var prices = result.prices;
             _resultDiv.innerHTML = '';
 
+            if (result.analysisName.length == 0) {
+              console.log('dsds');
+              _resultDiv.innerHTML += '';
+              _resultDiv.innerHTML = "<p class=\"text-center\">Nema rezultata</p>";
+              _loaderWrapper.style.opacity = 0;
+            }
+
             for (i = 0; i < analysis.length; i++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
@@ -22352,9 +22358,9 @@ window.onload = function () {
         //searching for labs from result page
         helper.searchLab(searchstring, _loaderWrapper, _resultDiv);
       } else {
-        console.log('unesite vise od 2 karaktera da zapocnete pretragu');
+        // console.log('unesite vise od 2 karaktera da zapocnete pretragu')
         _resultDiv.innerHTML += '';
-        _resultDiv.innerHTML = 'Unesite nesto';
+        _resultDiv.innerHTML = "<p class=\"text-center\">Unesite vi\u0161e od 2 karaktera da zapo\u010Dnete pretragu</p>";
         _loaderWrapper.style.opacity = 0;
       }
     });
@@ -22395,7 +22401,6 @@ window.onload = function () {
 
     _showPriceBtn2.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log('d');
 
       if (document.getElementById('municipality') != null) {
         var _municipality4 = document.getElementById('municipality');
@@ -22622,7 +22627,6 @@ window.onload = function () {
     var prices = document.querySelectorAll('.price');
     var totalPriceSpan = document.querySelector('.totalPrice'); //calculate labcube price
 
-    var totalLabCubePrice = document.getElementById('labCubePrice');
     var discount = document.getElementById('discount') ? document.getElementById('discount') : '';
     var discountValue = discount ? discount.getAttribute('data-discount') : '';
     var labCubePrice = 0;
@@ -22636,7 +22640,6 @@ window.onload = function () {
     }); // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
 
     labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-    totalLabCubePrice.innerText = "".concat(labCubePrice, " RSD");
     var labIdName = document.getElementById('labName');
     labId = labIdName.getAttribute('data-id'); //search and add analysis from lab details page
 
@@ -22755,6 +22758,8 @@ window.onload = function () {
     if (_itemsArray.length == 0) {
       resultSection.classList.add('d-none');
     } else {
+      var totalLabCubePrice = document.getElementById('labCubePrice');
+      totalLabCubePrice.innerText = "".concat(labCubePrice, " RSD");
       totalPriceSpan.innerText = "".concat(totalPrice, " RSD"); //remove analysis from basket from lab page
 
       var removeAnalysisLabPage = document.getElementById('resultTable');
@@ -22871,7 +22876,6 @@ window.onload = function () {
 
   if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
     //FindBestPrice
-    console.log('dada');
     var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 
     helper.removeAnalysis(itemsArray, checkout); //Searching for lab or analysis
@@ -22943,8 +22947,7 @@ window.onload = function () {
     }
 
     therapy.addEventListener('change', function (e) {
-      console.log(e.target.value);
-
+      // console.log(e.target.value)
       if (e.target.value == 'Da') {
         therapyComment.classList.remove('d-none');
         therapyComment.classList.add('goVisible');
@@ -22983,8 +22986,7 @@ window.onload = function () {
       fetch('/users/' + searchStr).then(function (data) {
         labDashTable.innerHTML = '';
         data.json().then(function (result) {
-          console.log(result);
-
+          // console.log(result)
           for (var _i = 0; _i < result.length; _i++) {
             var formatDate = void 0;
 
@@ -23033,8 +23035,7 @@ window.onload = function () {
             'Content-Type': 'application/json'
           },
           body: lockingInterpretation
-        }).then(function (response) {
-          console.log(response);
+        }).then(function (response) {// console.log(response)
         });
       } else {
         ownerId = null;
@@ -23051,8 +23052,7 @@ window.onload = function () {
             'Content-Type': 'application/json'
           },
           body: lockingInterpretation
-        }).then(function (response) {
-          console.log(response);
+        }).then(function (response) {// console.log(response)
         });
       }
     }); //lock the record end
@@ -23067,8 +23067,7 @@ window.onload = function () {
       fetch('/usersLabCube/' + searchStr).then(function (data) {
         _labDashTable.innerHTML = '';
         data.json().then(function (result) {
-          console.log(result);
-
+          // console.log(result)
           for (var _i2 = 0; _i2 < result.length; _i2++) {
             var formatDate = void 0;
 
@@ -23180,8 +23179,7 @@ window.onload = function () {
         body: lockingInterpretation
       }).then(function (response) {
         return response.text();
-      }).then(function (response) {
-        console.log(response);
+      }).then(function (response) {// console.log(response)
       }); // }
       // else {
       //   ownerId = null
@@ -23563,7 +23561,7 @@ window.onload = function () {
           }); // data json end
         });
       } else {
-        console.log('enter at least 3 letters');
+        // console.log('enter at least 3 letters')
         _resultDiv4.innerHTML = '';
         city.value = '';
         _municipality11.value = '';

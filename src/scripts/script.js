@@ -518,7 +518,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     radioFilter.forEach((item) => {
       if(item.value == myFilter) {
         item.checked=true
-        console.log('checked ' + myFilter)
+        // console.log('checked ' + myFilter)
       }
     })
 
@@ -531,7 +531,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
         analysisRadio.forEach((item) => {
           item.addEventListener('click', (e) => {
             myFilter = e.target.value
-            console.log('kada se promeni ' + myFilter)
+            // console.log('kada se promeni ' + myFilter)
             innerSearch.value=''
             innerSearch.focus()
           })
@@ -565,6 +565,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
+
       // console.log('searching'+ filter)
     let mapFrame = document.getElementById('mapPrices')
     mapFrame.classList.add('d-none')
@@ -572,13 +573,24 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
         loaderWrapper.style.opacity = 1
         if(myFilter == 'analiza' && searchstring.length>=2) {
           fetch('/analysis/prices/'+searchstring).then((data) => {
+
             data.json().then((result) => {
               let analysis = result.analysisName
               // let pricesMin = result.minPriceArr
               // let pricesMax = result.maxPriceArr
+
               let prices = result.prices
               resultDiv.innerHTML = ''
+
+              if (result.analysisName.length == 0) {
+                console.log('dsds')
+                resultDiv.innerHTML += ''
+                resultDiv.innerHTML = `<p class="text-center">Nema rezultata</p>`
+                loaderWrapper.style.opacity = 0
+              }
+              
                 for(i=0; i<analysis.length; i++) {
+
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
                   if(typeof(prices)!=="undefined") {
@@ -597,9 +609,9 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
             //searching for labs from result page
             helper.searchLab(searchstring, loaderWrapper, resultDiv)
           } else {
-            console.log('unesite vise od 2 karaktera da zapocnete pretragu')
+            // console.log('unesite vise od 2 karaktera da zapocnete pretragu')
             resultDiv.innerHTML += ''
-            resultDiv.innerHTML = 'Unesite nesto'
+            resultDiv.innerHTML = `<p class="text-center">Unesite više od 2 karaktera da započnete pretragu</p>`
             loaderWrapper.style.opacity = 0
           }
       })
@@ -643,7 +655,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 
     showPriceBtn.addEventListener('click', e => {
       e.preventDefault()
-      console.log('d')
+
       if(document.getElementById('municipality')!= null) {
         let municipality = document.getElementById('municipality')
         municipalityValue = municipality.options[municipality.selectedIndex].value
@@ -860,7 +872,7 @@ if (municipalityValue != null) {
   let totalPriceSpan = document.querySelector('.totalPrice')
 
 //calculate labcube price
-  let totalLabCubePrice = document.getElementById('labCubePrice')
+
   let discount = (document.getElementById('discount')) ? document.getElementById('discount') : ''
   let discountValue = (discount) ? discount.getAttribute('data-discount') : ''
   let labCubePrice = 0
@@ -877,7 +889,8 @@ if (municipalityValue != null) {
         // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
         labCubePrice=Math.ceil(totalPrice*((100-discountValue)/100))
 
-        totalLabCubePrice.innerText = `${labCubePrice} RSD`
+
+
         const labIdName = document.getElementById('labName')
         labId = labIdName.getAttribute('data-id')
 
@@ -1003,6 +1016,8 @@ if (municipalityValue != null) {
     if(itemsArray.length == 0) {
       resultSection.classList.add('d-none')
     } else {
+      let totalLabCubePrice = document.getElementById('labCubePrice')
+      totalLabCubePrice.innerText = `${labCubePrice} RSD`
       totalPriceSpan.innerText = `${totalPrice} RSD`
 
       //remove analysis from basket from lab page
@@ -1121,7 +1136,7 @@ if (municipalityValue != null) {
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
   //FindBestPrice
-  console.log('dada')
+
     const findBestPrice = new FindBestPrice.bestPrice()
   //Delete analysis from shoping list
     helper.removeAnalysis(itemsArray, checkout)
@@ -1192,7 +1207,7 @@ if(anamnesisCommentValue.value == '') {
 }
 
   therapy.addEventListener('change', e => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     if(e.target.value == 'Da') {
       therapyComment.classList.remove('d-none')
       therapyComment.classList.add('goVisible')
@@ -1240,7 +1255,7 @@ if(anamnesisCommentValue.value == '') {
         fetch('/users/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
           data.json().then((result) => {
-            console.log(result)
+            // console.log(result)
             for(let i=0; i<result.length; i++){
 
               let formatDate
@@ -1329,7 +1344,7 @@ let interpretationPage = document.getElementById('interpretationId')
           },
           body:lockingInterpretation
         }).then(response => {
-          console.log(response)
+          // console.log(response)
         })
       }
       else {
@@ -1345,7 +1360,7 @@ let interpretationPage = document.getElementById('interpretationId')
           },
           body:lockingInterpretation
         }).then(response => {
-          console.log(response)
+          // console.log(response)
         })
       }
     })//lock the record end
@@ -1363,7 +1378,7 @@ let interpretationPage = document.getElementById('interpretationId')
         fetch('/usersLabCube/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
           data.json().then((result) => {
-            console.log(result)
+            // console.log(result)
             for(let i=0; i<result.length; i++){
 
               let formatDate
@@ -1484,7 +1499,7 @@ let interpretationPage = document.getElementById('interpretationId')
         body:lockingInterpretation
       }).then(response => response.text())
       .then((response) => {
-        console.log(response)
+        // console.log(response)
       })
     // }
     // else {
@@ -1886,7 +1901,7 @@ if (location.match('addLab')) {
           })// data json end
       })
     } else {
-      console.log('enter at least 3 letters')
+      // console.log('enter at least 3 letters')
       resultDiv.innerHTML=''
       city.value=''
       municipality.value=''

@@ -61,9 +61,11 @@ exports.login = (req,res,next) => {
   })(req,res,next)
 }
 
-exports.logout = (req, res) => {
-  res.send('logout')
-}
+
+//
+// exports.logout = (req, res) => {
+//   res.send('logout')
+// }
 
 //start with google
 exports.google =  passport.authenticate('google',{scope:['openid', 'email', 'profile']})

@@ -8125,10 +8125,10 @@ span.remove:hover {
   text-decoration: none;
   color: #3B3B3B; }
 
-#resultsLabDetails .nolinkLabDetails {
+#resultsLabDetailsComments .nolinkLabDetails {
   text-decoration: none;
   color: #1D88E5; }
-  #resultsLabDetails .nolinkLabDetails:hover {
+  #resultsLabDetailsComments .nolinkLabDetails:hover {
     color: #10528c; }
 
 .headTitle {
@@ -10433,8 +10433,7 @@ table.workingHoursLabDetails {
   border-radius: 10px; }
 
 .__editorImage {
-  width: 11.25rem;
-  height: 7.5rem; }
+  width: 15rem; }
 
 .addAnalysis {
   width: 96px; }
