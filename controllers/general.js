@@ -11,7 +11,7 @@ moment.locale('sr')
 exports.aboutus = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('aboutus',{
-    title:'O nama',
+    title:'LabCube | O nama',
     groupNames,
     user:req.user
   })
@@ -20,7 +20,7 @@ exports.aboutus = async (req,res) => {
 exports.privacy = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('privacy',{
-    title:'Politika privatnosti',
+    title:'LabCube | Politika privatnosti',
     groupNames,
     user:req.user
   })
@@ -29,7 +29,7 @@ exports.privacy = async (req,res) => {
 exports.terms = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('terms',{
-    title:'Uslovi korišćenja',
+    title:'LabCube | Uslovi korišćenja',
     groupNames,
     user:req.user
   })
@@ -38,7 +38,7 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 exports.cookies = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('cookies',{
-    title:'Kolačići',
+    title:'LabCube | Kolačići',
     groupNames,
     user:req.user
   })
@@ -47,7 +47,7 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 exports.paymentDetails = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('paymentDetails',{
-    title:'Uslovi plaćanja',
+    title:'LabCube | Uslovi plaćanja',
     groupNames,
     user:req.user
   })
@@ -55,7 +55,7 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 
 exports.sayHello = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('contact', {title:'Labcube Kontakt', groupNames})
+  res.render('contact', {title:'Labcube | Kontakt', groupNames})
 }
 
 exports.takeUserComment = async (req,res) => {

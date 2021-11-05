@@ -234,7 +234,7 @@ exports.displayGroup = async (req,res) => {
     analyisisdata:analysis,
     metaDescription:groupDetails.description,
     metaKeywords:groupDetails.name,
-    title:groupDetails.name,
+    title:`Grupa | ${groupDetails.name}`,
     groupNames,
     user:req.user
   })

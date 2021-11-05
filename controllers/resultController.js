@@ -187,7 +187,7 @@ request()
     .then(data => {
       console.log(data)
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames, title:'Labcube - Potvrdite plaćanje usluge'})
+        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames, title:'Labcube | Potvrdite plaćanje usluge'})
       }
     })
     .catch(error => {
@@ -478,7 +478,7 @@ requestCheckout()
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log('nije uspesno upisano u bazu' + e)
        }
-       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, authCodeParameter, shortId, user:req.user, title:'Uspešno ste izvršili uplatu'})
+       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, authCodeParameter, shortId, user:req.user, title:'LabCube | Uspešno ste izvršili uplatu'})
      }
      else {
 
@@ -555,7 +555,7 @@ requestCheckout()
        })
 
        req.flash('error_msg', 'transakcija nije uspešno izvršena')
-       res.render('paymentError', {data:data, amount:data.amount, errorPayment, groupNames, user:req.user, title:'Greška prilikom plaćanja'})
+       res.render('paymentError', {data:data, amount:data.amount, errorPayment, groupNames, user:req.user, title:'LabCube | Greška prilikom plaćanja'})
      }
    })
 .catch(console.error);
@@ -635,7 +635,7 @@ exports.displayResults = async (req,res) => {
     sidebarNav:false,
     groupNames,
     user:req.user,
-    title:'Labcube - Pretraga'
+    title:'Labcube | Pretraga'
   })
 }
 
@@ -656,10 +656,10 @@ exports.displayAnalysisDetails = async (req,res) => {
   {$project:{minPrice:1,
             maxPrice:1}}
 ])
-  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames, title:analysisDetails.analysisName, metaDescription:analysisDetails.preview, metaKeywords:analysisDetails.alt})
+  res.render('details',{analysisDetails, prices, sidebarNav:true, user:req.user, groupNames, title:`Analiza | ${analysisDetails.analysisName}`, metaDescription:analysisDetails.preview, metaKeywords:analysisDetails.alt})
 }
 
 exports.labRestultsAnalysis = async (req,res) => {
   let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube - Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike'})
+  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube | Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike'})
 }
