@@ -583,12 +583,11 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
               resultDiv.innerHTML = ''
 
               if (result.analysisName.length == 0) {
-                console.log('dsds')
                 resultDiv.innerHTML += ''
                 resultDiv.innerHTML = `<p class="text-center">Nema rezultata</p>`
                 loaderWrapper.style.opacity = 0
               }
-              
+
                 for(i=0; i<analysis.length; i++) {
 
                   //creating table with results

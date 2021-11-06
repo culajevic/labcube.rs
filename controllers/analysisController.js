@@ -220,7 +220,7 @@ exports.getAnalyisisNameResult = async (req, res) => {
   // const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
   // .populate('groupId', 'name iconPath')
   const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}]})
-    .populate('groupId', 'name iconPath')
+    .populate('groupId', 'name iconPath').sort({analysisName:1})
 
   let selectedAnalysis =[]
   let analysisObject = []
@@ -252,7 +252,8 @@ const prices = await Price.aggregate([
             groupName:'$group.name',
             iconPath:'$group.iconPath',
             slug:'$analiza.slug'}},
-  {$unwind:"$name"}
+  {$unwind:"$name"},
+  {$sort:{name:1}}
 
 ])
   res.json({analysisName, prices})

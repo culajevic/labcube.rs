@@ -22332,7 +22332,6 @@ window.onload = function () {
             _resultDiv.innerHTML = '';
 
             if (result.analysisName.length == 0) {
-              console.log('dsds');
               _resultDiv.innerHTML += '';
               _resultDiv.innerHTML = "<p class=\"text-center\">Nema rezultata</p>";
               _loaderWrapper.style.opacity = 0;

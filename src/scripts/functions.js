@@ -420,7 +420,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
       let searchString = e.target.value
       window.location.href = '/results/?name='+searchString+'&filter='+filterValue
     },400)
-    }
+  } 
   })
 }
 
