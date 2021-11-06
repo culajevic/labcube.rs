@@ -375,7 +375,7 @@ let closingSoon
       console.log('lab nije odredio radno vreme')
     }
 
-  res.render('labdetails', {sidebarNav:false, title:labDetails.labName, labDetails,status, total, numComments, alreadySentFlag, feedbackSent, star, numOfFeedbacks, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user, groupNames})
+  res.render('labdetails', {sidebarNav:false, title:`Laboratorija | ${labDetails.labName}`, labDetails,status, total, numComments, alreadySentFlag, feedbackSent, star, numOfFeedbacks, currentDayNum, selectedAnalysis, numofanalysis, userId, userName, hospitality, venipuncture, speed, covid, overall, user, groupNames})
 
 }
 
@@ -528,5 +528,5 @@ exports.allApprovedComments = async (req, res) => {
 
 exports.getListOfLabs = async (req,res) => {
   let getAllLabsInfo = await Lab.find({}).populate('placeId', 'place municipality').sort({labName:1})
-  res.render('laboratorije', {title:'Sve laboratorije', getAllLabsInfo})
+  res.render('laboratorije', {title:'LabCube | Sve laboratorije', getAllLabsInfo})
 }

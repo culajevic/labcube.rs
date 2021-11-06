@@ -217,7 +217,7 @@ router.get('/findMinAndMaxPrice/:id', adminController.findMinAndMaxPriceLab)
 
 router.use('*', (req,res) => {
   res.status(404)
-  res.render('404page', {title:'Tražena stranica ne postoji'})
+  res.render('404page', {title:'LabCube | Tražena stranica ne postoji'})
 })
 
 module.exports = router

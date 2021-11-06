@@ -49,7 +49,7 @@ let transporter = nodemailer.createTransport({
 })
 
 exports.signin = (req,res) => {
-  res.render('signin',{title:'Labcube - Prijava'})
+  res.render('signin',{title:'LabCube | Prijava'})
 }
 
 exports.login = (req,res,next) => {
@@ -76,7 +76,7 @@ exports.redirect = [passport.authenticate('google'),
 const authCheck = (req,res, next) => {
   if(!req.user) {
     // res.redirect('/prijava', {title:'Labcube - Prijavite se'})
-    res.render('signin', {title:'Labcube - Prijavite se'})
+    res.render('signin', {title:'LabCube | Prijavite se'})
   } else {
     next()
   }
@@ -153,7 +153,7 @@ exports.profile = [authCheck, async (req,res) => {
       myOtherResults:myOtherResults,
       numOfMyOtherResults,
       groupNames,
-      title:'Labcube - Moj kontrolni panel'
+      title:'LabCube | Moj kontrolni panel'
     })
     // res.send(`<a href=/logout>log out</a> ${req.user.username}`)
   }
@@ -165,7 +165,7 @@ exports.profile = [authCheck, async (req,res) => {
 }]
 
 exports.registerForm = (req,res) => {
-  res.render('register',{title:'Labcube - Kreirajte nalog'})
+  res.render('register',{title:'LabCube | Kreirajte nalog'})
 }
 
 exports.admindasboard =  [authCheck, async (req,res) => {
@@ -252,12 +252,12 @@ exports.register =  async (req,res) => {
     errors.push({text:'Lozinka mora imati više od 6 karaktera'})
   }
   if (errors.length>0) {
-    res.render('register',{errors, title:'Labcube - Kreirajte labcube nalog'})
+    res.render('register',{errors, title:'LabCube | Kreirajte labcube nalog'})
   } else {
     let findUser = await User.findOne({email:email})
       if(findUser) {
         errors.push({text:'Već postoji nalog koji koristi ovaj email'})
-        res.render('register',{errors, title:'Labcube - Kreirajte labcube nalog'})
+        res.render('register',{errors, title:'LabCube | Kreirajte labcube nalog'})
       } else {
 
         const newUser = new User({
@@ -320,7 +320,7 @@ exports.register =  async (req,res) => {
           })
 
           req.flash('success_msg','Poslali smo Vam mejl sa kodom za aktivaciju naloga')
-          res.render('verify',{title:'Labcube - Verifikacija naloga', email:email})
+          res.render('verify',{title:'LabCube | Verifikacija naloga', email:email})
           }
         catch (e){
           req.flash('error_msg', `Dogodila se greška prilikom registracije ${e}`)
@@ -433,7 +433,7 @@ exports.verifyToken = async (req, res) => {
 }
 
 exports.forgot = (req,res) => {
-  res.render('forgot',{title:'Labcube - Postavljanje nove lozinke'})
+  res.render('forgot',{title:'LabCube | Postavljanje nove lozinke'})
 }
 
 exports.resetPassLink = async (req,res) => {
@@ -450,7 +450,7 @@ exports.resetPassLink = async (req,res) => {
 
   if (!findUser) {
     req.flash('error_msg', 'Korisnik sa ovom mejl adresom nije registrovan')
-    res.render('/registracija', {title:'Labcube - Kreirajte nalog'})
+    res.render('/registracija', {title:'LabCube | Kreirajte nalog'})
   } else {
     try {
 
@@ -502,9 +502,9 @@ exports.resetPass = async (req,res) => {
    const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
    if(!findUser) {
      req.flash('error_msg', 'Neispravan link za promenu lozinke ili je link istekao')
-     res.render('../prijava', {title:'Labcube - Prijava'})
+     res.render('../prijava', {title:'LabCube | Prijava'})
    } else {
-     res.render('reset', {token:req.params.token, title:'Labcube - Postavljanje nove lozinke'})
+     res.render('reset', {token:req.params.token, title:'LabCube | Postavljanje nove lozinke'})
    }
 }
 
