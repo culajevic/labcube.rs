@@ -982,7 +982,7 @@ console.log('iz funkcije')
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-      document.title = "Lab cube - Najbolja ponuda"
+      document.title = "LabCube | Najbolja ponuda"
       if(result.getPrices.length > 0) {
           noResults.innerHTML = ''
           // resultDiv.innerHTML = ''

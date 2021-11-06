@@ -21490,7 +21490,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
 
   fetch('/cenovnik/' + municipalityValue + '/' + passIds).then(function (data) {
     data.json().then(function (result) {
-      document.title = "Lab cube - Najbolja ponuda";
+      document.title = "LabCube | Najbolja ponuda";
 
       if (result.getPrices.length > 0) {
         // console.log(markers)
