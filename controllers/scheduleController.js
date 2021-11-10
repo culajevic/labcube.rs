@@ -135,7 +135,7 @@ exports.myResults = async (req,res) => {
   .populate('user', 'username')
   .populate('analyses.analysisId')
   .populate('owner')
-  res.render('myresults', {myResults})
+  res.render('myresults', {myResults, title:'LabCube | Moji rezultati'})
 }
 
 exports.userFeedback = async (req,res) => {
@@ -442,10 +442,18 @@ exports.lockTheOtherInterpretation =  async (req,res) => {
 }
 
 
-exports.myResultLabCube = async (req,res) => {
+exports.myResultLabCube = [authCheck, async (req,res) => {
+  let feedbackSent
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const myResults = await Result.findOne({$and:[{_id:req.params.id},{status:'Završeno'}]})
   .populate('analyses.analysisId', 'analysesName, shortDesc')
   .populate('owner', 'username aboutUser image')
-  res.render('myResultsLabCube', {myResults, groupNames})
-}
+
+  if (myResults.star != undefined || myResults.userFeedback != undefined) {
+    feedbackSent = 1
+  } else {
+    feedbackSent = 0
+  }
+
+  res.render('myResultsLabCube', {myResults, groupNames, feedbackSent, user:req.user, title:'LabCube | Moji rezultati'})
+}]

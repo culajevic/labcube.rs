@@ -155,6 +155,9 @@ exports.updateLab = [authCheck, async (req,res) => {
   if (req.body.antigen == undefined) {
     req.body.antigen = false
   }
+  if (req.body.active == undefined) {
+    req.body.active = false
+  }
 
   if(typeof(req.file) !== 'undefined') {
     req.body.logo = req.file.filename
@@ -171,16 +174,16 @@ exports.updateLab = [authCheck, async (req,res) => {
       runValidators:true,
       useFindAndModify:false
     }).exec()
-    req.flash('success_msg', 'Uspesno apdejtovani podaci o laboratoriju')
+    req.flash('success_msg', 'Uspešno su izmenjeni podaci o laboratoriji.')
     res.redirect('/allLabs')
   } catch(e) {
-    req.flash('error_msg', `doslo je do greske ${e} prilikom azuriranja podataka o laboratoriji`)
+    req.flash('error_msg', `Došlo je do greške ${e} prilikom ažuriranja podataka o laboratoriji.`)
   }
 }]
 
 exports.deleteLab = [authCheck, async (req,res) => {
   const deleteLab = await Lab.findOneAndDelete({_id:req.params.id})
-  req.flash('success_msg', 'Laboratorija je uspesno obrisana.')
+  req.flash('success_msg', 'Laboratorija je uspesšno obrisana.')
   res.send('success')
 }]
 
@@ -464,7 +467,7 @@ exports.sendFeedback = async (req,res) => {
         runValidators:true,
         useFindAndModify:false
       }).exec()
-      req.flash('success_msg','Uspešno ste poslali komentar. Hvala')
+      req.flash('success_msg','Uspešno ste poslali komentar na odobrenje. Hvala')
       res.redirect('/laboratorija/'+labSlug.slug)
   }
   catch(e) {

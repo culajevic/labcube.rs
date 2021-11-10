@@ -7,6 +7,15 @@
           <p class="text-right mb-2"><small>poslednja izmena: {{formatRsDate analysis.date}}</small></p>
         {{/if}}
 
+      <div class="form-row">
+        <div class="form-group col">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" value="1" name="active" id="active" {{#if (keepData analysis.active active)}} checked {{/if}}>
+            <label class="custom-control-label text-muted" for="active">Active</label>
+          </div>
+        </div>
+      </div>
+
         <!-- analysis name -->
         <div class="form-row">
           <div class="form-group col-sm-6">
@@ -23,6 +32,8 @@
             <input type="text" class="form-control"  id="groupName" name="groupName" placeholder="group name" readonly value="{{keepData analysis.groupId.name groupName}}">
           </div>
         </div>
+
+
 
         <!-- abbr / alt / -->
         <div class="form-row" id="abbrAltContainer">
@@ -179,6 +190,8 @@
             <label for="banner" class="custom-file-label">Banner</label>
           </div>
         </div>
+
+
 
 
 

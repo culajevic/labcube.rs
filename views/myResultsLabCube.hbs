@@ -11,29 +11,19 @@
 
 <div class="container" id="myresults">
  		<div class="row">
-      <!-- {{name}} -->
  			<div class="col-md-12 col-lg-12">
-
         <section id="my-results" >
-          <div class="container">
-
             <p class="py-5"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
-
               <h1 class="mt-4">Rezultat poslat na tumačenje {{formatLabScheduleDate myResults.submitedDate}}</h1>
               <div class="col-12 doctorDetails">
                 <img src="/images/editors/{{myResults.owner.image}}"  class="rounded-circle hcpImage" alt="">
                 <div class="hcpBio">
                   <p class="pb-3">Rezultate tumači: {{myResults.owner.username}}</p>
                     <p class="">{{myResults.owner.aboutUser}}</p>
-
-
                 </div>
               </div>
 
-            <div class="row">
-
               {{#each myResults.analyses}}
-
               <div class="resultDetails">
                   <div class="col-12 col-md-7 pr-4">
                     <h4 class="analysisName">{{this.analysis}} <span class="{{outsideOfTheRange this.outsideOfTheRange}}">{{this.value}} {{{this.measure}}}</span></h4>
@@ -90,8 +80,6 @@
                           <div class="rangeLabels">&gt {{this.valueTo}}</div>
                         </div>
                         <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
-
-
                   {{/if}}
                   </div><!-- analysis result -->
                   <div class="col-12">
@@ -101,8 +89,6 @@
                       <span>{{{this.commentResult}}} </span>
                     </p>
                       {{/if}}
-
-
                   </div>
               </div><!-- resultDetails -->
 
@@ -116,96 +102,46 @@
                 </div>
               </div>
             </div>
-
-              <!-- <div class="col-12">
-                <div class="col-12 myResultsComment my-4">
-                  <h1 class="headTitle">Lab cube zaključak</h1>
-                  <span class=""></span>
-                </div>
-              </div> -->
-
-
-            </div> <!-- row end -->
-          </div>
-          <!-- container end -->
         </section><!-- settings id end -->
 
-        {{#if (checkStatusFeedback myResults.status myResults.feedback)}}
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-
-              <form class="" action="/submitRating" method="post">
-                <p>Molili bismo vas da odvojite jedan minut i ocenite uslug i iskustvo sa laboratorijom, komentari su potpuno anonimni. Hvala</p>
-                <div class="form-row">
-
-                  <div class="card mr-2" style="width:24%;" >
-                    <div class="card-body">
-                      <h5 class="card-title">Ljubaznost</h5>
-                      <span class="card-text">Ocenite ljubaznost zaposlenih u laboratoriji</span>
-                      <div class="form-group">
-                          <span class="">1</span>
-                        <input type="range" id="ljubaznost" class="rating" name="hospitality" style=""  min=1 max=5 step=1 value=5>
-                        <span class="">5</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card mr-2" style="width:24%;">
-                    <div class="card-body">
-                      <h5 class="card-title">Venepunkcija</h5>
-                      <p class="card-text">Koliko je vađenje krvi bilo bezbolno?</p>
-                      <div class="form-group">
-                          <span class="">1</span>
-                        <input type="range" class="rating" id="venepunkcija" name="venipuncture" min=1 max=5 step=1 value=5>
-                        <span class="">5</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card mr-2" style="width:24%;">
-                    <div class="card-body">
-                      <h5 class="card-title">Izdavanje rezultata</h5>
-                      <p class="card-text">Da li su vam rezultati dostavljeni u obećanom roku?</p>
-                        <div class="form-group">
-                          <span class="">1</span>
-                          <input type="range" id="speed" class="rating" name="speed" style=""  min=1 max=5 step=1 value=5>
-                          <span class="">5</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="card mr-2" style="width:24%;">
-                      <div class="card-body">
-                        <h5 class="card-title">Covid odgovorni</h5>
-                        <p class="card-text">Da li laboratorija poštuje epidemiološke mere?</p>
-                          <div class="form-group">
-                            <span class="">1</span>
-                            <input type="range" id="covid" class="rating" name="covid" style=""  min=1 max=5 step=1 value=5>
-                            <span class="">5</span>
-                          </div>
-                      </div>
-                    </div>
-
-                    <input type="hidden" name="scheduleId" value="{{myResults.id}}">
-                    <input type="hidden" name="lab" value="{{myResults.lab.id}}">
+      </div> <!-- col 12 end -->
 
 
-                </div><!-- form row end -->
 
-                <div class="form-group mt-3">
-                  <p>Da li želite još nešto da dodate?</p>
-                  <textarea for="komentarKorisnika" name="comment" rows="4" cols="80"></textarea>
-                </div>
-
-                <button class="btn btn-outline-primary mb-4 btn-block" name="button">vaše mišljenje je važno</button>
-              </form>
-            </div>
-          </div>
+      {{#unless feedbackSent}}
+      <section id="resultsLabDetailsComments">
+        <div class="col-12">
+          <form class="mt-5" action="/sendFeedbackForLabCube/{{myResults._id}}" method="post">
+            <label for="labFeedback" class="text-muted generalInformation">Molimo Vas da ocenite uslugu tumačenja rezultata. Hvala.</label>
+              <textarea name="interpretationFeedback" class="col-12 mt-3" data-hj-allow rows="5" cols="80" id="labFeedback" placeholder=""></textarea>
+              <div class="wrapper">
+                <input type="radio" id="st1" value="5" name="star"/>
+                <label for="st1"></label>
+                <input type="radio" id="st2" value="4" name="star"/>
+                <label for="st2"></label>
+                <input type="radio" id="st3" value="3" name="star"/>
+                <label for="st3"></label>
+                <input type="radio" id="st4" value="2" name="star"/>
+                <label for="st4"></label>
+                <input type="radio" id="st5" value="1" name="star"/>
+                <label for="st5"></label>
+              </div>
+              <button name="button" class="btn btn-block btn-primary text-uppercase mb-5">Ocenite uslugu</button>
+          </form>
         </div>
-        {{/if}}
+      </section>
+      {{/unless}}
+
+      {{#if feedbackSent}}
+      <div class="col-12 text-center mb-5">
+        <p class="mb-0">Hvala na komentaru.</p>
+        <small class="mt-0">Komentar poslat: {{formatRsDate myResults.feedbackDate}}</small>
       </div>
- 		</div><!-- table row end  -->
+      {{/if}}
+
+
+
+ 		</div><!--row end  -->
  </div> <!-- results container end -->
 
 

@@ -434,7 +434,7 @@ requestCheckout()
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${newDate}</p>
 
              <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
-              <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Stigli su Vaši rezultati. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank" style="text-decoration:none;">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Svi podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu  <a href="https://labcube.rs/politika-privatnosti" style="display:inline;  opacity:0.6;  text-decoration:none;">politiku privatnosti</a></p>
+              <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank" style="text-decoration:none;">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Svi podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu  <a href="https://labcube.rs/politika-privatnosti" style="display:inline;  opacity:0.6;  text-decoration:none;">politiku privatnosti</a></p>
              </div>
              <div style="text-align:center; margin-top:40px;  padding-left:30px; padding-right:30px;">
              <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
@@ -662,4 +662,18 @@ exports.displayAnalysisDetails = async (req,res) => {
 exports.labRestultsAnalysis = async (req,res) => {
   let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube | Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike'})
+}
+
+exports.sendFeedbackLabCube = async (req,res) => {
+  let newDate = Date()
+  let interpretationFeedback = await Result.findOneAndUpdate(
+    {_id:req.params.id},
+    {'userFeedback':req.body.interpretationFeedback,'star':req.body.star, feedbackDate:newDate},
+    {
+      new:true,
+      runValidators:true,
+      useFindAndModify:false
+    }).exec()
+    req.flash('success_msg','Uspešno ste poslali komentar. Hvala')
+    res.redirect('/myResult/'+req.params.id)
 }

@@ -49,7 +49,10 @@ const resultSchema = new mongoose.Schema({
   owner:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'User'
-  }
+  },
+  userFeedback:String,
+  star:Number,
+  feedbackDate:Date
 })
 
 module.exports = mongoose.model('Result', resultSchema)

@@ -72,7 +72,8 @@ const analysisSchema = new mongoose.Schema({
   date:{
     type:Date,
     default:Date.now
-  }
+  },
+  active:Boolean
 })
 
 analysisSchema.pre('save', function(next) {

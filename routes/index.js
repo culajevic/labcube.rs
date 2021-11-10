@@ -134,6 +134,8 @@ router.post('/sendFeedback/:id', labController.sendFeedback)
 // router.post('/laboratorija/:slug/:ids*', labController.getLabInfoAnalysis)
 
 
+//sendfeedback about results interpretation
+router.post('/sendFeedbackForLabCube/:id', resultController.sendFeedbackLabCube)
 
 // analysis
 router.get('/allAnalysis', analysisController.allAnalysis)
@@ -187,6 +189,8 @@ router.get('/places/:place', placeController.getPlaces)
 router.get('/groups/:groupName', groupController.getGroupNames)
 router.get('/analysis/:analysisName', analysisController.getAnalyisisName)
 router.get('/analysis/prices/:analysisName', analysisController.getAnalyisisNameResult)
+//get analysis name for interpretaion result page
+router.get('/getAnalysisName/:analysisName', analysisController.getAnalysisNameForInterpretation)
 router.get('/diseases/:diseaseName', diseaseController.getDiseases)
 router.get('/reference/:referenceTitle', referenceController.getReferences)
 router.get('/editors/:lastName', editorController.getEditors)

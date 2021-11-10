@@ -21989,11 +21989,12 @@ var registerPage = /registracija.*/;
 var loginPage = /prijav.*/;
 var privacy = /politika.*/;
 var paymentPage = /payment.*/;
+var admindashboard = /admindashboard/;
 var otherResultsInterpretationFix = /otherResultsInterpretation.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail');
 var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube'); //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
 
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) && !location.match(admindashboard)) {
   checkout.classList.remove('d-none');
   checkout.textContent = itemsArray.length;
 }
@@ -22002,7 +22003,6 @@ window.onload = function () {
   //////////////////
   //display cookie message
   var cookieMessage = new CookieAlert.cookieAlert();
-  /* INDEX PAGE ***************/
 
   if (location === '/verify') {
     var password = document.getElementById('password');
@@ -22019,6 +22019,8 @@ window.onload = function () {
 
     _email.focus();
   }
+  /* INDEX PAGE ***************/
+
 
   if (location === '/') {
     //testing analysis box feature
@@ -23207,6 +23209,13 @@ window.onload = function () {
     var customerEmailCopy = document.getElementById('customerEmailCopy');
     published.addEventListener('click', function (e) {
       customerEmailCopy.value = customerEmail.innerText;
+
+      if (_lockStatus.innerHTML == 'Zaključano') {
+        console.log('ok je');
+      } else {
+        alert('Morate prvo zaključati tumačenje');
+        published.checked = false;
+      }
     });
     var counter = 0; // const otherResultsTable = document.getElementById('resultsUpload')
 
@@ -23316,9 +23325,9 @@ window.onload = function () {
             var searchStr = e.target.value;
 
             if (e.target.value.length > 2) {
-              fetch('/analysis/prices/' + searchStr).then(function (data) {
+              fetch('/getAnalysisName/' + searchStr).then(function (data) {
                 data.json().then(function (result) {
-                  var analysis = result.analysisName;
+                  var analysis = result;
                   parentUl.innerHTML = '';
 
                   for (i = 0; i < analysis.length; i++) {
@@ -23466,6 +23475,19 @@ window.onload = function () {
   }
   /*********************** BACKEND ************************/
 
+
+  if (location.match('admindashboard')) {
+    var unlock = document.getElementById('hiddenContent');
+    var unlockArr = []; // document.addEventListener('keydown', (e) => {
+    //   unlockArr.push(e.keyCode)
+    //   //
+    //   if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
+    //     unlock.classList.remove('d-none')
+    //   } else {
+    //     console.log(unlockArr)
+    //   }
+    //   })
+  }
 
   if (location.match('addLab')) {
     // populating working days Tuesday-Friday based on values from Monday

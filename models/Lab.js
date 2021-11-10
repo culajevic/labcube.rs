@@ -123,6 +123,7 @@ const labSchema = new mongoose.Schema({
     reply:String
   }],
   description:String,
+  active:Boolean,
   comment:String,
   discount:Number,
   date:{

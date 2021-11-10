@@ -84,7 +84,7 @@ sortByPriority = {priority:-1}
     // const groups = await Group.find({frontPage:true}).sort(sortByPriority)
     const numOfGroups = await Group.countDocuments({})
     const groups = await Analysis.aggregate([
-      {$match:{}},
+      {$match:{active:true}},
       {$group:{_id:{groupId:'$groupId'},total:{$sum:1}}},
       {$lookup:{from:'groups', localField:"_id.groupId", foreignField:"_id", as:"grupa"}},
       //izbaciti match ispod ukoliok prikazujemo sve grupe na naslovnoj stranici
@@ -98,11 +98,11 @@ sortByPriority = {priority:-1}
     // console.log(groups)
 
     const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-    const labNum = await Lab.countDocuments({})
-    const analysisNum = await Analysis.countDocuments({})
+    const labNum = await Lab.countDocuments({active:true})
+    const analysisNum = await Analysis.countDocuments({active:true})
     //trenutno otvorene laboratorije
 
-    let  labInfo = await Lab.find({}).populate('placeId')
+    let  labInfo = await Lab.find({active:true}).populate('placeId')
 
 
     let now = new Date()
@@ -215,6 +215,7 @@ exports.displayGroup = async (req,res) => {
     {$unwind : "$cenovnik"},
     {$group: {_id:'$cenovnik.analiza', minPrice:{$min:'$cenovnik.cena'}, maxPrice:{$max:'$cenovnik.cena'}}},
     {$lookup: {from:'analyses', localField:'_id', foreignField:'_id', as:'analiza'}},
+    {$match: {'analiza.active':true}},
     {$match : {'analiza.groupId':ObjectId(groupDetails._id)}},
     {$project:{name:'$analiza.analysisName',
               abbr:'$analiza.abbr',
@@ -240,7 +241,7 @@ exports.displayGroup = async (req,res) => {
   })
 }
 catch {
-  res.render('404page')
+  res.render('404page', {'title':'Ova stranica ne postoji'})
   }
 }
 

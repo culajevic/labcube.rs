@@ -76,8 +76,11 @@ exports.createAnalysis = [authCheck, async (req,res) => {
   if(req.file != undefined) {
     req.body.banner = req.file.filename
   } else {
-    console.log('test')
     req.body.banner = 'test'
+  }
+
+  if (req.body.active == undefined) {
+    req.body.active = false
   }
 
   let errors = []
@@ -148,7 +151,8 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       references:req.body.references,
       referencesList:referencesList,
       writtenBy:req.body.writtenBy,
-      editorList:editorList
+      editorList:editorList,
+      active:req.body.active
     })
   } else {
 
@@ -179,7 +183,6 @@ exports.editAnalysis =  [authCheck, async (req,res) => {
 }]
 
 exports.updateAnalysis = [authCheck, async (req,res) => {
-  console.log(req.file)
   if(req.file) {
     req.body.banner = req.file.filename
   }
@@ -193,6 +196,9 @@ exports.updateAnalysis = [authCheck, async (req,res) => {
   }
   if(req.body.diseasesID == undefined) {
     req.body.diseasesId = null
+  }
+  if (req.body.active == undefined) {
+    req.body.active = false
   }
   try {
     const analysis = await Analysis.findOneAndUpdate(
@@ -217,21 +223,16 @@ exports.getAnalyisisName = async (req,res) => {
 }
 
 exports.getAnalyisisNameResult = async (req, res) => {
-  // const analysisName = await Analysis.find({analysisName:{"$regex":req.params.analysisName, "$options": "i" }})
-  // .populate('groupId', 'name iconPath')
-  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}]})
+  // it is added filter 'active' so we can hide anaylysis which are not relevant for the users
+  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}],active:true})
     .populate('groupId', 'name iconPath').sort({analysisName:1})
-
   let selectedAnalysis =[]
   let analysisObject = []
   let minPriceArr = []
   let maxPriceArr = []
-
-
   for (i=0; i<analysisName.length; i++) {
     selectedAnalysis.push(analysisName[i]._id)
   }
-
 analysisObject = selectedAnalysis.map(item => mongoose.Types.ObjectId(item))
 
 
@@ -264,3 +265,10 @@ exports.deleteAnalysis = [authCheck, async (req,res) => {
   req.flash('success_msg', 'Analiza je uspešno obrisana.')
   res.send()
 }]
+
+exports.getAnalysisNameForInterpretation = async (req, res) => {
+  // it is added filter 'active' so we can hide anaylysis which are not relevant for the users
+  const analysisName = await Analysis.find({$or:[{analysisName:{$regex: req.params.analysisName, $options: 'i'}}, {alt:{$regex: req.params.analysisName, $options: 'i'}}, {abbr:{$regex: req.params.analysisName, $options: 'i'}}]})
+    .populate('groupId', 'name iconPath').sort({analysisName:1})
+    res.json(analysisName)
+  }

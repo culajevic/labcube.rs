@@ -226,12 +226,13 @@ let registerPage = /registracija.*/
 let loginPage = /prijav.*/
 let privacy = /politika.*/
 let paymentPage = /payment.*/
+let admindashboard = /admindashboard/
 let otherResultsInterpretationFix = /otherResultsInterpretation.*/
 let findUserByEmail = document.getElementById('searchForUserEmail')
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
 //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
-if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix)) {
+if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) && !location.match(admindashboard)) {
   checkout.classList.remove('d-none')
   checkout.textContent = itemsArray.length
 }
@@ -245,7 +246,6 @@ window.onload = () => {
 //display cookie message
 let cookieMessage = new CookieAlert.cookieAlert()
 
-/* INDEX PAGE ***************/
 
 if (location === '/verify') {
   const password = document.getElementById('password')
@@ -262,6 +262,8 @@ if (location === '/registracija') {
   email.focus()
 }
 
+
+/* INDEX PAGE ***************/
 
 if(location === '/') {
 
@@ -1527,6 +1529,12 @@ let interpretationPage = document.getElementById('interpretationId')
   let customerEmailCopy = document.getElementById('customerEmailCopy')
   published.addEventListener('click', e => {
     customerEmailCopy.value=customerEmail.innerText
+    if (lockStatus.innerHTML == 'Zaključano') {
+      console.log('ok je')
+    } else {
+      alert('Morate prvo zaključati tumačenje')
+      published.checked = false
+    }
   })
 
   let counter = 0
@@ -1666,10 +1674,10 @@ let interpretationPage = document.getElementById('interpretationId')
             let parentUl = e.target.nextSibling
             let searchStr = e.target.value
             if (e.target.value.length > 2 ) {
-            fetch('/analysis/prices/'+searchStr).then((data) => {
+            fetch('/getAnalysisName/'+searchStr).then((data) => {
               data.json().then((result) => {
 
-                let analysis = result.analysisName
+                let analysis = result
                 parentUl.innerHTML = ''
                 for(i=0; i<analysis.length; i++) {
                   let liItem = document.createElement('li')
@@ -1810,6 +1818,23 @@ if(urlArr[1] == 'results' && urlArr[2] == 'analysis' && urlArr[3] !== ''  ) {
 }
 
 /*********************** BACKEND ************************/
+
+if (location.match('admindashboard')) {
+
+let unlock = document.getElementById('hiddenContent')
+let unlockArr = []
+
+  // document.addEventListener('keydown', (e) => {
+  //   unlockArr.push(e.keyCode)
+  //   //
+  //   if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
+  //     unlock.classList.remove('d-none')
+  //   } else {
+  //     console.log(unlockArr)
+  //   }
+  //   })
+
+}
 if (location.match('addLab')) {
 
 // populating working days Tuesday-Friday based on values from Monday
