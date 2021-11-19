@@ -42,31 +42,31 @@
 // }
 
 
-// .thought {
-// 	// layout
-// 	position: relative;
-// 	max-width: 30em;
-//
-// 	// looks
-// 	background-color: #fff;
-// 	padding: 1rem;
-// 	font-size: 1.25em;
-// 	border-radius: 1rem;
-//   box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
-// }
-//
-// .thought::before {
-// 	// layout
-// 	content: '';
-// 	position: absolute;
-// 	width: 0;
-// 	height: 0;
-// 	bottom: 100%;
-// 	left: 1.5em; // offset should move with padding of parent
-// 	border: .75rem solid transparent;
-// 	border-top: none;
-//
-// 	// looks
-// 	border-bottom-color: #fff;
-// 	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
-// }
+.thought {
+	// layout
+	position: relative;
+	max-width: 30em;
+
+	// looks
+	background-color: #fff;
+	padding: 1rem;
+	font-size: 1.25em;
+	border-radius: 1rem;
+  box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+}
+
+.thought::before {
+	// layout
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	bottom: 100%;
+	left: 1.5em; // offset should move with padding of parent
+	border: .75rem solid transparent;
+	border-top: none;
+
+	// looks
+	border-bottom-color: #fff;
+	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+}
