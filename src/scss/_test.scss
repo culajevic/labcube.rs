@@ -1,0 +1,72 @@
+// .thought {
+//   display:flex;
+//   background-color:$secondary-color;
+//   padding:20px;
+//   border-radius:30px;
+//   min-width:40px;
+//   // max-width:220px;
+//   min-height:40px;
+//   margin:20px;
+//   color:white;
+//   position:relative;
+//   align-items:center;
+//   justify-content:center;
+//   text-align:center;
+// }
+// .thought:before,
+// .thought:after {
+//   content:"";
+//   background-color:$secondary-color;
+//   border-radius:50%;
+//   display:block;
+//   position:absolute;
+//   z-index:-1;
+// }
+// .thought:before {
+//   width:44px;
+//   height:44px;
+//   top:-12px;
+//   left:28px;
+//   box-shadow:-50px 30px 0 -12px $secondary-color;
+// }
+// .thought:after {
+//   bottom:-10px;
+//   right:26px;
+//   width:30px;
+//   height:30px;
+//   box-shadow:40px -34px 0 0 $secondary-color,
+//              -28px -6px 0 -2px $secondary-color,
+//              -24px 17px 0 -6px $secondary-color,
+//              -5px 25px 0 -10px $secondary-color;
+//
+// }
+
+
+// .thought {
+// 	// layout
+// 	position: relative;
+// 	max-width: 30em;
+//
+// 	// looks
+// 	background-color: #fff;
+// 	padding: 1rem;
+// 	font-size: 1.25em;
+// 	border-radius: 1rem;
+//   box-shadow:	0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+// }
+//
+// .thought::before {
+// 	// layout
+// 	content: '';
+// 	position: absolute;
+// 	width: 0;
+// 	height: 0;
+// 	bottom: 100%;
+// 	left: 1.5em; // offset should move with padding of parent
+// 	border: .75rem solid transparent;
+// 	border-top: none;
+//
+// 	// looks
+// 	border-bottom-color: #fff;
+// 	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+// }

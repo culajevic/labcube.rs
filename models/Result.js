@@ -52,7 +52,11 @@ const resultSchema = new mongoose.Schema({
   },
   userFeedback:String,
   star:Number,
-  feedbackDate:Date
+  feedbackDate:Date,
+  readyForInterpreatation:{
+    type:Boolean,
+    default:false
+  }
 })
 
 module.exports = mongoose.model('Result', resultSchema)

@@ -4,42 +4,56 @@
 
 <div class="container" id="healthProfile">
  		<div class="row">
-
+      <div class="col-12 mt-5">
+          <a href="/otherResultsInterpretation/page/1" class="my-5"><i class="fas fa-home"></i></a>
+      </div>
 
       <!-- <div class="col-12 mt-4 "> -->
 
-        <a href="/otherResultsInterpretation/page/1" class="mt-5">< nazad</a>
+
         {{#each findOtherResult}}
         <!-- <div class="userDetails mt-4" > -->
 
 
 
 
-        <div class="col-12 py-4" style="border-bottom:1px solid #e1e1e1;">
-          <h1 class="headTitle float-left mt-3" id="customerEmail">{{this.userId.username}} </h1>
+        <div class="col-9 py-4">
 
-
-            <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div>
-
-
-            <div class="float-right pr-4">
-              <form class="" action="" method="post" id="lockTheRecord">
-                    <label class="chckBoxCustom">
-                    <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}} class="customCheck">
-                    <span class="checkmark"></span>
-                    {{#if this.owner}}
-                    <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h4>Zaključano</h4></label>
-                    {{else}}
-                    <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus"><h4>Zaključaj</h4></label>
-                     <span class="checkmark"></span>
-                    {{/if}}
-                    </label>
-                  <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
-              </form>
-            </div>
-
-
+          <form action="/uploadResultFile/{{this.id}}" method="POST" class="mt-4" enctype="multipart/form-data">
+          <!-- <div class="form-group col-4">
+            <small class="form-text text-muted">Upload rezultata</small>
+            <input type="file" name="fileResult" class="form-control pl-0"  value="" placeholder="rezultati">
+          </div> -->
+          <div class="custom-file mt-1">
+              <input type="file" id="uploadResults" name="fileResult" class="custom-file-input" placeholder="odaberite fajl"/>
+              <label for="uploadResults" class="custom-file-label">Upload rezultata</label>
+          </div>
+          <button class="btn btn-block btn-outline-info mt-2 mb-5">Upload</button>
+        </form>
         </div>
+
+        <div class="col-3 py-5">
+            <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div>
+          <form class="float-right pr-4" action="" method="post" id="lockTheRecord">
+                <label class="chckBoxCustom">
+                <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
+                <span class="checkmark"></span>
+                {{#if this.owner}}
+                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus">Zaključano</label>
+                {{else}}
+                <label for="zakljucaj" class="chckBoxCustom pl-2" id="lockStatus">Zaključaj</label>
+                 <!-- <span class="checkmark"></span> -->
+                {{/if}}
+                </label>
+              <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
+          </form>
+        </div>
+
+
+          <!-- <h1 class="headTitle float-left mt-3" id="customerEmail" data-email="{{this.userId.username}}">{{this.userId.username}}</h1> -->
+
+
+
 
         <div class="col-4 my-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
@@ -57,7 +71,8 @@
           </div>
           <div class=" float-left d-inline pl-2">
             <span>Mobilni telefon</span>
-              <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{this.userId.mobile}}" placeholder="u fomatu 06XXXXXXX" readonly>
+            <!-- {{this.userId.mobile}} -->
+              <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="" placeholder="" readonly>
           </div>
         </div>
 
@@ -356,7 +371,7 @@
 </div>
 </div>
 
-<div class="container">
+<div class="container-fluid w-75">
   <div class="row">
 
 
@@ -371,9 +386,9 @@
                 <!-- izmeniti  -->
 
                 <form  action="/analysisOtherInterpretation/{{this.id}}" method="post" autocomplete="off">
-
+                    <input type="hidden" name="email" value="{{this.userId.username}}" id="customerEmail">
                   {{/each}}
-                  <input type="hidden" name="email" id="customerEmailCopy" value="">
+                  <!-- <input type="hidden" name="email" id="customerEmailCopy" value=""> -->
                   <table class="table" id="resultsUpload">
 
                         <tr>
@@ -400,17 +415,17 @@
                   {{#each this.analyses}}
                   {{#if (notZero this.value)}}
                   <tr>
-                  <td><input type="text" class="form-control searchForAnalysis" value="{{this.analysis}}" name="analysisName"></td>
+                  <td class="col-3"><input type="text" class="form-control searchForAnalysis" value="{{this.analysis}}" name="analysisName"></td>
                   <ul class="list-group" style="" id="analysisFound"></ul>
                   <input type="hidden" class="form-control analysisId" value="{{this.analysisId}}" name="analysisId">
-                  <td><input type="text" class="form-control" value="{{this.value}}" name="value"></td>
-                  <td><input type="text" class="form-control" value="{{this.measure}}" name="measure"></td>
-                  <td><input type="text" class="form-control" value="{{this.lessThen}}" name="lessThen"></td>
-                  <td><input type="text" class="form-control" value="{{this.greaterThen}}" name="greaterThen"></td>
-                  <td><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
-                  <td><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
-                  <td><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="outsideOfTheRange{{@index}}" value="true" {{#if this.outsideOfTheRange}} checked {{/if}}></div></td>
-                  <td><textarea rows=3 cols=35 name="commentResult">{{#if (empty this.commentResult)}}{{this.commentResult}}{{/if}}</textarea></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.value}}" name="value"></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.measure}}" name="measure"></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.lessThen}}" name="lessThen"></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.greaterThen}}" name="greaterThen"></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.valueFrom}}" name="valueFrom"></td>
+                  <td class="col-1"><input type="text" class="form-control" value="{{this.valueTo}}" name="valueTo"></td>
+                  <td><div class="form-check form-check-inline"><input class="form-check-input outsideOfTheRange" type="checkbox" name="outsideOfTheRange{{@index}}" value="true" {{#if this.outsideOfTheRange}} checked {{/if}}></div></td>
+                  <td class="col-4"><textarea class="form-control" rows=3 cols=45 name="commentResult">{{#if (empty this.commentResult)}}{{this.commentResult}}{{/if}}</textarea></td>
                   <td><span class="removeRow">X</span></td>
                 </tr>
                 {{/if}}
@@ -434,13 +449,19 @@
                 </tr>  -->
           </table>
 
-              <p>Finalni komentar</p>
+              <p>Finalni komentar <i class="ml-2 fas fa-info-circle text-primary"></i></p>
               {{#each findOtherResult}}
               <textarea name="commentCube" id="finalCommentByLabCube" style="width:100%"  rows="8" id="cubeComment">{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
-              <button class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
+              <button id="doneBtn" class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
 
-
-              <div class="my-5">
+              <div class="mt-5">
+                <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
+                  <input type="checkbox" name="readyForInterpreatation" class="text-center customCheck" value="true" id="readyForInterpreatation" {{#if this.readyForInterpreatation}} checked {{/if}}>
+                  <label for="readyForInterpreatation" class="ml-2 pt-0">Rezultati su spremni za tumačenje</label>
+                  <!-- <span class="checkmark"></span> -->
+                </label>
+              </div>
+              <div class="mb-5">
                 <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
                   <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}>
                   <label for="published" class="ml-2 pt-0">Objavi tumačenje i pošalji mejl korisniku</label>

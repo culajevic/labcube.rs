@@ -217,6 +217,9 @@ router.get('/sve-laboratorije', labController.getListOfLabs)
 router.get('/findMinAndMaxPrice/:id', adminController.findMinAndMaxPriceLab)
 
 
+//upload result
+router.post('/uploadResultFile/:id', scheduleController.uploadFile)
+
 
 
 router.use('*', (req,res) => {

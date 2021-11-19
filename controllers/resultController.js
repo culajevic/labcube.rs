@@ -72,7 +72,7 @@ const upload = multer({
     }
   }).single('result')
 
-  exports.upload =  (req,res, next) => {
+exports.upload =  (req,res, next) => {
     upload(req, res, (err) => {
       if(err) {
         req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')

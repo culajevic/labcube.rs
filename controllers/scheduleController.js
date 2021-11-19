@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const multer = require('multer')
+const mime = require('mime-types')
 const dotenv = require('dotenv')
 const passport = require('passport')
 const validator = require("email-validator")
@@ -10,6 +12,8 @@ let Feedback = mongoose.model('Feedback')
 let Result = mongoose.model('Result')
 const nodemailer = require('nodemailer')
 const moment = require('moment')
+const csvtojson = require('csvtojson')
+let fs = require('fs');
 
 dotenv.config({path:'variables.env'})
 
@@ -20,6 +24,26 @@ const authCheck = (req,res, next) => {
     next()
   }
 }
+
+let storage = multer.diskStorage({
+  destination:function (req, file, cb) {
+    cb(null, 'src/resultsForUpload')
+  },
+  filename: function (req,file,cb)  {
+    const fileExtension = mime.extension(file.mimetype)
+    cb(null, `${file.originalname}-${Date.now()}.${fileExtension}`)
+  }
+})
+const upload = multer({storage:storage,limits:{fileSize:1024*1024*5,fieldSize: 1024 * 512,fieldNameSize: 200},
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === 'text/csv') {
+      cb(null, true);
+    }
+    else {
+      cb(new multer.MulterError('dogodila se greška prilikom uploada'))
+    }
+  }
+}).single('fileResult')
 
 let transporter = nodemailer.createTransport({
   host:'mail.labcube.rs',
@@ -126,7 +150,7 @@ exports.updateSchedule = async (req,res) => {
 
 exports.thankyou = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('hvala',{user:req.user, groupNames})
+  res.render('hvala',{user:req.user, groupNames, title:'LabCube | Hvala'})
 }
 
 exports.myResults = async (req,res) => {
@@ -203,9 +227,67 @@ exports.otherResultsInterpretation = [authCheck, async (req,res) => {
     res.render('otherResultsInterpretation', {otherResultsForInterpretation, title:'Tumačenje ostalih rezultata', page, countTotal, pages, paginationURL:'otherResultsInterpretation'})
 }]
 
-exports.otherResultsInterpretationValues = [authCheck, async (req,res) => {
-  const findOtherResult = await Result.find({_id:req.params.id})
 
+
+exports.uploadFile = [authCheck, (req,res) => {
+
+  upload(req, res, (err) => {
+    if(err) {
+      req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
+      // res.redirect('/tumacenje-laboratorijskih-analiza')
+    } else {
+      const fileName = req.file.path
+      let arrayToInsert = []
+      csvtojson().fromFile(fileName).then(source => {
+          // Fetching the all data from each row
+          for (let i = 0; i < source.length; i++) {
+              let oneRow = {
+                analysis:source[i].analysis,
+                analysisId:source[i].analysisId,
+                value:source[i].value,
+                measure:source[i].measure,
+                lessThen:source[i].lessThen,
+                greaterThen:source[i].greaterThen,
+                valueFrom:source[i].valueFrom,
+                valueTo:source[i].valueTo,
+                outsideOfTheRange:source[i].outsideOfTheRange,
+                commentResult:source[i].commentResult
+              }
+              arrayToInsert.push(oneRow)
+           }
+           try {
+           let  updateOtherInterpretation =  Result.findOneAndUpdate(
+            {_id:req.params.id},
+            {$set:{
+              analyses:arrayToInsert
+              }
+            },
+            {
+              new:true,
+              runValidators:true,
+              useFindAndModify:false
+            }).exec()
+            req.flash('success_msg','Uspešan upload')
+            res.redirect(`/otherResultsInterpretation/${req.params.id}`)
+            }
+            catch {
+              req.flash('error_msg', `Dogodila se greška ${e}`)
+              res.redirect('/otherResultsInterpretation/${req.params.id}')
+            }
+            try{
+             let sourceUrls = fileName;
+             fs.unlinkSync(sourceUrls);
+            } catch(err){
+              console.log(err)
+            }
+         })
+    }
+  })
+}]
+
+exports.otherResultsInterpretationValues = [authCheck, async (req,res) => {
+
+  const findOtherResult = await Result.find({_id:req.params.id})
     .populate('userId')
     res.render('interpretatedOtherResults.hbs', {findOtherResult:findOtherResult, user:req.user})
     // res.json(findOtherResult)
@@ -268,13 +350,14 @@ let updateInterpretation
 
 exports.analysisOtherInterpretation = async (req,res) => {
 // console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
+console.log(req.body.email)
 let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
 // let test = []
 let outsideOfTheRange
 let updateInterpretation
 let analysisArr = []
 let oneAnalysis
-
+let publish = (req.body.publish) ? 'Završeno' : 'pending'
 
 if (Array.isArray(req.body.analysisName)) {
 // OBAVEZNO PROVERITI
@@ -302,7 +385,8 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     {$set:{
       analyses:analysisArr,
       commentCube:req.body.commentCube,
-      status:req.body.publish
+      status:publish,
+      readyForInterpreatation:req.body.readyForInterpreatation
       }
     },
     {
@@ -312,7 +396,6 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     }).exec()
 }
 } else {
-  console.log('ide ovaj deo')
   if(req.body['outsideOfTheRange'+0]  ==  undefined )  {
     outsideOfTheRange = false
   } else {
@@ -334,7 +417,8 @@ for (let i = 0; i < req.body.analysisName.length; i++) {
     {$set:{
       analyses:analysisArr,
       commentCube:req.body.commentCube,
-      status:req.body.publish
+      status:publish,
+      readyForInterpreatation:req.body.readyForInterpreatation
       }
     },
     {

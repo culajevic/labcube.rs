@@ -23207,13 +23207,16 @@ window.onload = function () {
     var published = document.getElementById('published');
     var customerEmail = document.getElementById('customerEmail');
     var customerEmailCopy = document.getElementById('customerEmailCopy');
+    var doneBtn = document.getElementById('doneBtn');
+    var alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange');
+    var num = alreadyLoadedOutsideOfTheRange.length;
     published.addEventListener('click', function (e) {
-      customerEmailCopy.value = customerEmail.innerText;
+      doneBtn.innerText = 'Protumači';
 
       if (_lockStatus.innerHTML == 'Zaključano') {
-        console.log('ok je');
+        customerEmailCopy.value = customerEmail.value;
       } else {
-        alert('Morate prvo zaključati tumačenje');
+        alert('Morate prvo zaključati tumačenje' + _lockStatus.innerHTML);
         published.checked = false;
       }
     });
@@ -23268,9 +23271,17 @@ window.onload = function () {
 
       analysisOutOfRange.classList.add('text-center');
       analysisOutOfRange.setAttribute('type', 'checkbox');
-      analysisOutOfRange.setAttribute('id', counter - 1);
-      analysisOutOfRange.name = "outsideOfTheRange" + (counter - 1);
-      analysisOutOfRange.value = "true";
+
+      if (num < 1) {
+        analysisOutOfRange.setAttribute('id', counter - 1);
+        analysisOutOfRange.name = "outsideOfTheRange" + (counter - 1);
+        analysisOutOfRange.value = "true";
+      } else {
+        analysisOutOfRange.setAttribute('id', num);
+        analysisOutOfRange.name = "outsideOfTheRange" + num;
+        analysisOutOfRange.value = "true";
+      }
+
       var analysisCommentInput = document.createElement('textarea');
       analysisCommentInput.classList.add('form-control');
       analysisCommentInput.setAttribute('rows', 3);

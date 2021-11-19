@@ -16,6 +16,7 @@
 @import 'footer.scss';
 @import 'allsecure.scss';
 @import 'star-rating.scss';
+@import 'test.scss';
 
 
 body {
@@ -118,6 +119,7 @@ body {
     height: 25px;
     width: 25px;
     background-color: #eee;
+    border-radius: 4px;
   }
 
   .customCheck input:checked ~ .checkmark {
@@ -132,7 +134,8 @@ body {
 
   /* On mouse-over, add a grey background color */
   .chckBoxCustom:hover input ~ .checkmark {
-    background-color: #ccc;
+    // background-color: #ccc;
+    background-color: $secondary-color;
   }
 
 
@@ -155,7 +158,7 @@ body {
   }
 
   .chckBoxCustom .checkmark:after {
-    left: 12px;
+    left: 9px;
      top: 2px;
      width: 9px;
      height: 20px;
@@ -1819,7 +1822,7 @@ table.workingHoursLabDetails {
 
 .myResultsComment {
   display: inline-block;
-  border-left: 10px solid $primary-color;
+  border-left: 4px solid $primary-color;
   padding-left: 20px;
   font-size: px-to-rem(20px);
   > span {

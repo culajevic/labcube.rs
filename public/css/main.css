@@ -8740,7 +8740,8 @@ body {
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #eee; }
+    background-color: #eee;
+    border-radius: 4px; }
   #healthProfile .customCheck input:checked ~ .checkmark {
     background-color: #2196F3; }
   #healthProfile .checkmark:after {
@@ -8748,7 +8749,7 @@ body {
     position: absolute;
     display: none; }
   #healthProfile .chckBoxCustom:hover input ~ .checkmark {
-    background-color: #ccc; }
+    background-color: #5B8EE8; }
   #healthProfile .chckBoxCustom input:checked ~ .checkmark {
     background-color: #1D88E5; }
   #healthProfile .checkmark:after {
@@ -8758,7 +8759,7 @@ body {
   #healthProfile .chckBoxCustom input:checked ~ .checkmark:after {
     display: block; }
   #healthProfile .chckBoxCustom .checkmark:after {
-    left: 12px;
+    left: 9px;
     top: 2px;
     width: 9px;
     height: 20px;
@@ -10128,7 +10129,7 @@ table.workingHoursLabDetails {
 
 .myResultsComment {
   display: inline-block;
-  border-left: 10px solid #1D88E5;
+  border-left: 4px solid #1D88E5;
   padding-left: 20px;
   font-size: 1.25rem; }
   .myResultsComment > span {

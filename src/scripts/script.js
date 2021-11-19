@@ -1527,12 +1527,18 @@ let interpretationPage = document.getElementById('interpretationId')
   let published = document.getElementById('published')
   let customerEmail = document.getElementById('customerEmail')
   let customerEmailCopy = document.getElementById('customerEmailCopy')
+  let doneBtn = document.getElementById('doneBtn')
+  let alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange')
+  let num = alreadyLoadedOutsideOfTheRange.length
+
+
   published.addEventListener('click', e => {
-    customerEmailCopy.value=customerEmail.innerText
+
+    doneBtn.innerText = 'Protumači'
     if (lockStatus.innerHTML == 'Zaključano') {
-      console.log('ok je')
+      customerEmailCopy.value=customerEmail.value
     } else {
-      alert('Morate prvo zaključati tumačenje')
+      alert('Morate prvo zaključati tumačenje' + lockStatus.innerHTML)
       published.checked = false
     }
   })
@@ -1595,9 +1601,15 @@ let interpretationPage = document.getElementById('interpretationId')
         // analysisOutOfRange.classList.add('form-check-input', 'form-check-inline')
         analysisOutOfRange.classList.add('text-center')
         analysisOutOfRange.setAttribute('type', 'checkbox')
+        if (num < 1) {
         analysisOutOfRange.setAttribute('id', (counter-1))
         analysisOutOfRange.name = "outsideOfTheRange"+(counter-1)
         analysisOutOfRange.value="true"
+      } else {
+        analysisOutOfRange.setAttribute('id', (num))
+        analysisOutOfRange.name = "outsideOfTheRange"+num
+        analysisOutOfRange.value="true"
+      }
 
 
 
