@@ -1,4 +1,4 @@
-{{> _innerNavBackend}}
+{{> _innerNavTumacenje}}
 
 <!-- ovo je stranica na kojoj labcube tumaci konkretan rezultat koji je korisnik uplodovao -->
 
@@ -445,10 +445,10 @@
 
                 </tr>  -->
           </table>
-
-              <p>Finalni komentar <i class="ml-2 fas fa-info-circle text-primary"></i></p>
+<!-- id="cubeComment" -->
+              <p>Finalni komentar <span id="finalCommentTitle"></span></p>
               {{#each findOtherResult}}
-              <textarea name="commentCube" id="finalCommentByLabCube" style="width:100%"  rows="8" id="cubeComment">{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
+              <textarea name="commentCube" id="finalCommentByLabCube" style="width:100%"  rows="8" >{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
               <button id="doneBtn" class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
 
               <div class="mt-5">
@@ -485,3 +485,5 @@
 
  		</div><!-- table row end  -->
  </div> <!-- results container end -->
+
+ {{> _footer}}

@@ -8098,8 +8098,7 @@ span.remove:hover {
     right: 0.625rem;
     top: 7.1875rem;
     font-size: 10px !important;
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important; }
+    padding: 0 12px !important; }
 
 .bannerTumacenjeAnaliza {
   width: 100%;
@@ -10504,8 +10503,8 @@ table.workingHoursLabDetails {
   background-color: #FF6F6F; }
 
 @media print {
-  body {
-    background-color: red; } }
+  #navigationMyResults, footer, #smallHeader, .titleDetails, .addAnalysis, .printIcon {
+    display: none; } }
 
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {

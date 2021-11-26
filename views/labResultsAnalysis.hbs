@@ -32,6 +32,7 @@
                   <li>Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload</li>
                   <li>Potvrdite da ste saglasni sa uslovima plaćanja.</li>
                   <li>Nastavite na plaćanje.</li>
+
                 </ol>
               </div>
 
@@ -78,13 +79,17 @@
 
                     <!-- <div class="col-3"> -->
 
+                    <div class="col-12 mb-5">
+                      <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
+                    </div>
+
                       <div class="card paymentSteps">
                         <div class="card-body"><span class="" style="">1</span>
-                          <span class="onSalesNow">690 din.</span>
+                          <span class="onSalesNow">1190 din.</span>
                           <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                          <span class="text-center paketiCena">1 din.</span>
-                          <input type="radio" name="package" value=1 id="t24" {{#if (checkBox package 1)}} checked {{/if}} checked/>
+                          <span class="text-center paketiCena">890 din.</span>
+                          <input type="radio" name="package" value=890 id="t24" {{#if (checkBox package 1)}} checked {{/if}} checked/>
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                         </div>
                       </div>
@@ -181,12 +186,12 @@
                     <button class="btn btn-success text-uppercase mt-5" style="">Nastavite na plaćanje</button>
                 </div>
 
-                  <div class="col-12">
+                  <!-- <div class="col-12">
                     <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</h3>
-                  </div>
+                  </div> -->
 
 
-                <div class="col-12 upload_file my-4">
+                <div class="col-12 upload_file">
                     <div class="form-row">
                       <!-- <div class="col-12">
                         <div class="custom-file">
@@ -212,7 +217,7 @@
 
                 {{else}}
                 <div class="col-12">
-                  <p>Ukoliko Vam je potrebno tumačenje rezultata <a href="/registracija">kreirajte</a> labcube nalog, ili se <a href="/prijava">prijavite</a> ovde ukoliko već imate nalog.</p>
+                  <p>Ukoliko Vam je potrebno tumačenje rezultata <a href="/registracija">kreirajte</a> LabCube nalog, ili se <a href="/prijava">prijavite</a> ovde ukoliko već imate nalog.</p>
                 </div>
 
                 {{/if}}
@@ -220,7 +225,7 @@
 
               </div><!-- row end -->
 
-                  <h2 class="my-4 pb-4 text-center" id="demoAccount">Mi to radimo ovako</h2>
+                  <h2 class="pb-4 text-center" id="demoAccount">Mi to radimo ovako</h2>
 
                   <div class="col-12 doctorDetails mt-4">
                     <img src="/images/editors/Sanja Nova-2.png-1628202152954.png"  class="rounded-circle hcpImage" alt=""><p>
@@ -593,6 +598,9 @@
                       <p>Pod pretpostavkom da je uzorak dat na analizu u periodu 1-5 dana ciklusa, vrednosti hormonskih analiza govore sledeće: Vrednosti polnih hormona su u referentnom opsegu gde se ne vidi poremećaj u njihovom odnosu. Vrednosti hormona štitne žlezde su zadovoljavajući, takođe u referentnom opsegu, ali sa primetnim primicanjem vrednosti FT4 hormona donjoj referentnoj granici. Preporuka je ponoviti testiranje ovih hormona, kako bi se ispratio trend kretanja vrednosti i eventualni skriveni pad FT4. Titar antitela na tireoglobulin je snižen, dok je titar antitela na tireoidnu peroksidazu blago uvećan, što može ukazivati na poremećaj u procesu stvaranja hormona štitne žlezde. Vrednosti AMH su značajno uvećane, što može ukazivati na sindrom policističnih jajnika, povezano sa uzrastom pacijenta. Vrednosti AMH parametra poželjno je tumačiti uz kliničku sliku, nalaz na ultrazvuku i laboratorijske testove DHEA, free testosteron, FSH i LH od strane endokrinologa.
                       </p>
                   </div>
+                </div>
+                <div class="col-12 mt-5 text-center">
+                  <p class="cardDisclaimer">Ukoliko imate bilo kakvo pitanje u vezi tumačenja rezultata slobodno nam se javite putem <a href="/kontakt" target="_blank">kontakt forme.</a></p>
                 </div>
               </div>
             </div><!-- container end -->

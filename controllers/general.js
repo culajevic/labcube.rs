@@ -55,7 +55,7 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
 
 exports.sayHello = async (req,res) => {
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('contact', {title:'Labcube | Kontakt', groupNames})
+  res.render('contact', {title:'LabCube | Kontakt', groupNames})
 }
 
 exports.takeUserComment = async (req,res) => {
@@ -85,13 +85,13 @@ let ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress
     to:'jevtic@labcube.rs, perovic@labcube.rs, culajevic@labcube.rs',
     subject:'Pitanje sa labcube.rs',
     text:'',
-    html:`<p>Zdravo, moje ime je: ${req.body.name}</p><p>Moje pitanje je: ${req.body.message}</p>`
+    html:`<p>${req.body.name}</p><p>${req.body.message}</p>`
   }
 
   if (req.body.name == '' || req.body.email == '' || req.body.message == '') {
     errors.push({text:'Sva polja su obavezna'})
     req.flash('error_msg', `Sva polja su obavezna`)
-    res.redirect('/contact')
+    res.redirect('/kontakt')
   }
 
   else if(req.body.odjebjelansiran != '') {
@@ -118,7 +118,7 @@ let ipAddress = req.header('x-forwarded-for') || req.connection.remoteAddress
       })
     } catch(e) {
       req.flash('error_msg', `Dogodila se greška ${e} prilikom upisa novog pitanja`)
-      res.redirect('/contact')
+      res.redirect('/kontakt')
     }
 
   }

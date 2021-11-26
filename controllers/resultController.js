@@ -94,8 +94,8 @@ exports.payment = async (req,res) => {
   let errors = []
 
 
-
-  if(req.body.package != 1) {
+//ako se menja cena mora se promeniti i ovo
+  if(req.body.package != 890) {
     errors.push({text:'Nije ok'})
   }
 
@@ -115,6 +115,8 @@ exports.payment = async (req,res) => {
   if(errors.length > 0) {
     res.render('labResultsAnalysis', {
       errors,
+      title:'LabCube | Tumačenje laboratorijskih analiza',
+      groupNames,
       package:req.body.package,
       email:req.body.email,
       user:req.user,
@@ -412,7 +414,7 @@ requestCheckout()
 
          let mailOptionsCustomer = {
            from:'labcube-tumacenje-no-reply@labcube.rs',
-           to:[data.customer.email, 'izvodi@labcube.rs'],
+           to:[data.customer.email, 'racuni@labcube.rs'],
            subject:'Uspešno izvršena uplata za tumačenje laboratorijskih rezultata',
            text:'',
            html:`

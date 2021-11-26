@@ -195,8 +195,9 @@ span.remove:hover{
     right:px-to-rem(10px);
     top:px-to-rem(115px);
     font-size: 10px !important;
-    padding-left:px-to-rem(12px) !important;
-    padding-right:px-to-rem(12px) !important;
+    // padding-left:px-to-rem(12px) !important;
+    // padding-right:px-to-rem(12px) !important;
+    padding: 0 12px !important;
   }
 }
 

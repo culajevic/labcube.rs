@@ -10,7 +10,7 @@
           {{#each prices}}
           <span class="titleDetails mx-4">{{minPrice}} - {{maxPrice}}</span>
           {{/each}}
-          <img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2" />
+          <a href="javascript:window.print()"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a>
           <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">dodaj</button>
         </p>
 
@@ -119,7 +119,7 @@
 
       {{else}}
     <p style="clear:both;">
-      Trenutno ne postoji opis za ovu analizu. Ukoliko želite da pišete za lab cube, <a href="/kontakt" target="_blank">javite se.<a/>
+      Trenutno ne postoji opis za ovu analizu. Ukoliko želite da pišete za LabCube, <a href="/kontakt" target="_blank">javite se.<a/>
     </p>
 
       {{/if}}

@@ -438,6 +438,11 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
   let priceList = document.getElementById('priceList')
   let closePriceList = document.getElementById('closePriceList')
+  let anchorTag = document.getElementById('allLabsAnchor')
+
+  anchorTag.addEventListener('click', e => {
+    window.location = '/#google-map'
+  })
 
   //
     checkout.addEventListener('click', ()=> {
@@ -1530,14 +1535,33 @@ let interpretationPage = document.getElementById('interpretationId')
   let doneBtn = document.getElementById('doneBtn')
   let alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange')
   let num = alreadyLoadedOutsideOfTheRange.length
+  let finalCommentByLabCube = document.getElementById('finalCommentByLabCube')
+  let finalCommentTitle = document.getElementById('finalCommentTitle')
 
+  finalCommentByLabCube.addEventListener('input', e => {
+    if (e.target.value.length<280) {
+      finalCommentByLabCube.classList.add('text-danger')
+      finalCommentTitle.innerHTML = e.target.value.length + '/ 280'
+    } else {
+      finalCommentByLabCube.classList.remove('text-danger')
+      finalCommentTitle.innerHTML = e.target.value.length
+      finalCommentTitle.innerHTML += ' &#128077'
+    }
+
+  })
+
+  if (published.checked) {
+    doneBtn.innerText = 'Izmeni i ponovo pošalji mejl korisniku'
+  }
 
   published.addEventListener('click', e => {
-
-    doneBtn.innerText = 'Protumači'
-    if (lockStatus.innerHTML == 'Zaključano') {
-      customerEmailCopy.value=customerEmail.value
+    console.log(published.checked)
+    if (published.checked == false) {
+      doneBtn.innerText = 'Sačuvaj'
     } else {
+      doneBtn.innerText = 'Završi i pošalji mejl korisniku'
+    }
+    if (lockStatus.innerHTML != 'Zaključano') {
       alert('Morate prvo zaključati tumačenje' + lockStatus.innerHTML)
       published.checked = false
     }
@@ -1836,15 +1860,15 @@ if (location.match('admindashboard')) {
 let unlock = document.getElementById('hiddenContent')
 let unlockArr = []
 
-  // document.addEventListener('keydown', (e) => {
-  //   unlockArr.push(e.keyCode)
-  //   //
-  //   if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
-  //     unlock.classList.remove('d-none')
-  //   } else {
-  //     console.log(unlockArr)
-  //   }
-  //   })
+  document.addEventListener('keydown', (e) => {
+    unlockArr.push(e.keyCode)
+    //
+    if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
+      unlock.classList.remove('d-none')
+    } else {
+      console.log(unlockArr)
+    }
+    })
 
 }
 if (location.match('addLab')) {

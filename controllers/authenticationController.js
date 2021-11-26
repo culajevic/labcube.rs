@@ -284,23 +284,24 @@ exports.register =  async (req,res) => {
 
           const output = ` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
            <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
-           <div style="letter-spacing:2px; margin-bottom:40px; margin-top:40px; padding:30px;">
+           <div style="letter-spacing:2px;  padding:30px;">
              <h1 style="opacity:0.7">${newUser.emailToken}</h1>
+             <p>je Vaš kod za verifikaciju LabCube naloga</p>
            </div>
-          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>je Vaš kod za verifikaciju labcube naloga</h2></div>
+          <p style=""><a href="https://labcube.rs/verify" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">Verifikacija naloga</a></p>
           </div>`
 
 
           let mailOptions = {
             from:'labcube-no-reply@labcube.rs',
             to:newUser.email,
-            subject:`Vaš kod za verifikaciju lab cube naloga: ${newUser.emailToken}`,
-            text:'',
+            // to:'culajevic@gmail.com',
+            subject:`Vaš kod za verifikaciju LabCube naloga: ${newUser.emailToken}`,
             html:output,
-            attachments:[{
+            attachments:{
               filename: 'headerBigEmail.png',
               path: 'src/images/headerBigEmail.png',
-              cid: 'headerEmailBig'}]
+              cid: 'headerEmailBig'}
           }
 
            bcrypt.genSalt(10, (err,salt) => {
@@ -406,7 +407,7 @@ exports.findUserEmailByLabCube =  async (req,res) => {
 
 
 exports.verify = (req,res) => {
-  res.render('verify')
+  res.render('verify', {title:'LabCube | Verifikacija naloga'})
 }
 
 exports.verifyToken = async (req, res) => {
@@ -424,7 +425,8 @@ exports.verifyToken = async (req, res) => {
       useFindAndModify:false}).exec()
       if(verifyAccount) {
       req.flash('success_msg', 'Uspešno ste verifikovali nalog, sada se možete ulogovati.')
-      res.render('signin', {email:req.body.emailVerification})
+      // res.render('signin', {email:req.body.emailVerification})
+      res.redirect('/prijava')
     } else {
       req.flash('error_msg', 'Verifikacioni kod nije dobar, pokušajte ponovo')
       res.redirect('/verify')
@@ -469,11 +471,11 @@ exports.resetPassLink = async (req,res) => {
         let mailOptions = {
           from:'labcube-no-reply@labcube.rs',
           to:req.body.email,
-          subject:'Postavljanje nove labcube lozinke',
+          subject:'Postavljanje nove LabCube lozinke',
           text:'',
           html:` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
            <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
-          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Da biste postavili novu labcube lozinku</h2></div>
+          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Da biste postavili novu LabCube lozinku</h2></div>
           <div style="margin-bottom:60px; padding:30px;">
           <h2 style="opacity:0.7"><a href="http://${req.headers.host}/reset/${token}" style="text-decoration:none; background-color:#FF6F6F; padding:20px; color:#fff; border-radius:5px;">kliknite ovde</a></h2>
           </div>
@@ -525,7 +527,7 @@ exports.updatePassword = async (req,res,next) => {
          })
        })
        console.log('ds')
-       req.flash('success_msg', 'Uspesno ste postavili novu lozinku, možete se ulogovati')
+       req.flash('success_msg', 'Uspešno ste postavili novu lozinku, možete se ulogovati')
        res.redirect('/prijava')
        //direktno ulogovati korisnika
      } else {

@@ -2285,8 +2285,8 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 }
 
 @media print {
-  body {
-    background-color: red;
+  #navigationMyResults, footer, #smallHeader, .titleDetails, .addAnalysis, .printIcon {
+    display:none;
   }
 }
 

@@ -22183,8 +22183,12 @@ window.onload = function () {
   if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/') {
     var _priceList2 = document.getElementById('priceList');
 
-    var _closePriceList2 = document.getElementById('closePriceList'); //
+    var _closePriceList2 = document.getElementById('closePriceList');
 
+    var anchorTag = document.getElementById('allLabsAnchor');
+    anchorTag.addEventListener('click', function (e) {
+      window.location = '/#google-map';
+    }); //
 
     checkout.addEventListener('click', function () {
       console.log('prikaz iz script');
@@ -23210,12 +23214,33 @@ window.onload = function () {
     var doneBtn = document.getElementById('doneBtn');
     var alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange');
     var num = alreadyLoadedOutsideOfTheRange.length;
-    published.addEventListener('click', function (e) {
-      doneBtn.innerText = 'Protumači';
-
-      if (_lockStatus.innerHTML == 'Zaključano') {
-        customerEmailCopy.value = customerEmail.value;
+    var finalCommentByLabCube = document.getElementById('finalCommentByLabCube');
+    var finalCommentTitle = document.getElementById('finalCommentTitle');
+    finalCommentByLabCube.addEventListener('input', function (e) {
+      if (e.target.value.length < 280) {
+        finalCommentByLabCube.classList.add('text-danger');
+        finalCommentTitle.innerHTML = e.target.value.length + '/ 280';
       } else {
+        finalCommentByLabCube.classList.remove('text-danger');
+        finalCommentTitle.innerHTML = e.target.value.length;
+        finalCommentTitle.innerHTML += ' &#128077';
+      }
+    });
+
+    if (published.checked) {
+      doneBtn.innerText = 'Izmeni i ponovo pošalji mejl korisniku';
+    }
+
+    published.addEventListener('click', function (e) {
+      console.log(published.checked);
+
+      if (published.checked == false) {
+        doneBtn.innerText = 'Sačuvaj';
+      } else {
+        doneBtn.innerText = 'Završi i pošalji mejl korisniku';
+      }
+
+      if (_lockStatus.innerHTML != 'Zaključano') {
         alert('Morate prvo zaključati tumačenje' + _lockStatus.innerHTML);
         published.checked = false;
       }
@@ -23489,15 +23514,16 @@ window.onload = function () {
 
   if (location.match('admindashboard')) {
     var unlock = document.getElementById('hiddenContent');
-    var unlockArr = []; // document.addEventListener('keydown', (e) => {
-    //   unlockArr.push(e.keyCode)
-    //   //
-    //   if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
-    //     unlock.classList.remove('d-none')
-    //   } else {
-    //     console.log(unlockArr)
-    //   }
-    //   })
+    var unlockArr = [];
+    document.addEventListener('keydown', function (e) {
+      unlockArr.push(e.keyCode); //
+
+      if (unlockArr.includes(79) && unlockArr.includes(80) && unlockArr.includes(69) && unlockArr.includes(78)) {
+        unlock.classList.remove('d-none');
+      } else {
+        console.log(unlockArr);
+      }
+    });
   }
 
   if (location.match('addLab')) {
