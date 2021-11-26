@@ -91,8 +91,8 @@
 
           {{else}}
 
-          <h1 class="p-4 text-center">Hvala Vam što ste kreirali nalog. Uskoro će Vam biti dostupna usluga tumačenja rezultata.</h1>
-          <!-- <p class="pt-4 text-danger generalInformation">Trenutno nemate protumačenih rezultata. Dok čekate rezultate predlažemo Vam da popunite zdravstveni profil. To će nam pomoći da što bolje sagledamo Vaše trenutno zdravstveno stanje i da Vam što preciznije protumačimo rezultate.</p><p class="generalInformation">Svi Vaši podaci su strogo poverljivi i bezbedni su. Pročitajte našu Politiku privatnosti.</p>
+          <!-- <h1 class="p-4 text-center">Hvala Vam što ste kreirali nalog. Uskoro će Vam biti dostupna usluga tumačenja rezultata.</h1> -->
+          <!-- <p class="pt-4 text-danger generalInformation">Trenutno nemate protumačenih rezultata. Dok čekate rezultate predlažemo Vam da popunite zdravstveni profil. To će nam pomoći da što bolje sagledamo Vaše trenutno zdravstveno stanje i da Vam što preciznije protumačimo rezultate.</p><p class="generalInformation">Svi Vaši podaci su strogo poverljivi i bezbedni su. Pročitajte našu Politiku privatnosti.</p> -->
           <div class="col-12 pl-0 generalInformation">
             <p>Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 jednostavna koraka. </p>
             <ol class="textList pb-4 ">
@@ -103,20 +103,20 @@
             </ol>
           </div>
 
-
+          <div class="col-12 mb-5">
+            <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
+          </div>
 
             <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
               <form action='/payment' method="POST" enctype="multipart/form-data">
 
-
-
                   <div class="card paymentSteps">
                     <div class="card-body"><span class="" style="">1</span>
-                      <span class="onSalesNow">690 din.</span>
+                      <span class="onSalesNow">1190 din.</span>
                       <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                       <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                      <span class="text-center paketiCena">1 din.</span>
-                      <input type="radio" name="package" value=1 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
+                      <span class="text-center paketiCena">890 din.</span>
+                      <input type="radio" name="package" value=890 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
                       <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                     </div>
                   </div>
@@ -148,22 +148,17 @@
                     </div>
                   </div>
 
-            </div> -->
+            </div>
             <!-- odabir paketa end -->
 
-            <!-- <div class="col-12 text-center">
+            <div class="col-12 text-center">
               <small class=""><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
-            </div> -->
+            </div>
 
 
-            <!-- <div class="col-12 text-center">
+            <div class="col-12 text-center">
                 <button class="btn btn-success text-uppercase mt-5" style="">Nastavite na plaćanje</button>
-            </div> -->
-
-              <div class="col-12">
-                <h3 class="cardDisclaimer text-center mt-4">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</h3>
-              </div>
-
+            </div>
 
             <div class="col-12 upload_file my-4">
                 <div class="form-row">
@@ -669,7 +664,7 @@
       <div class="row">
       <!-- <div class="col-12 mb-4"> -->
         <div class="col-12 generalInformation">
-          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo Vašu privatnost, Vaši podaci su bezbedni. <a href="" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
+          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate Vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo Vašu privatnost, Vaši podaci su bezbedni. <a href="/politika-privatnosti" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
         </div>
 
           <div class="col-12 col-sm-6 col-md-4 mt-5">
