@@ -86,7 +86,7 @@ exports.analysispriceMissing = async (req,res) => {
 
     let result = allAnalysisArr.filter(item => !missingPriceArr.includes(item))
 
-    let displayMissingPrices = await Analysis.find({_id:{$in:result}}, {analysisName:1, slug:1}).populate('groupId', 'name')
+    let displayMissingPrices = await Analysis.find({_id:{$in:result}}, {analysisName:1, slug:1, date:1}).populate('groupId', 'name').sort({date:-1})
     let number = displayMissingPrices.length
     res.render('analysiswithoutprice',{displayMissingPrices, title:'Analize koje nemaju cenu', number})
 

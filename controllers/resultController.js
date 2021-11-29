@@ -430,7 +430,7 @@ requestCheckout()
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno izvršena uplata. Hvala!</h2></div>
 
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196 Autorizacioni kod banke: ${authCodeParameter}</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; Autorizacioni kod banke: ${authCodeParameter}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${newDate}</p>

@@ -283,12 +283,18 @@ exports.register =  async (req,res) => {
           newUser.emailToken = await random()
 
           const output = ` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
-           <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+          <div style="background-image:url(https://labcube.rs/images/headerBigEmail.png); width:100%; display:block; height:140px; background-size:100%; background-repeat: no-repeat;"></div>
            <div style="letter-spacing:2px;  padding:30px;">
-             <h1 style="opacity:0.7">${newUser.emailToken}</h1>
-             <p>je Vaš kod za verifikaciju LabCube naloga</p>
+             <h1 style="font-family:sans-serif; opacity:0.9; color:#1D88E5;">${newUser.emailToken}</h1>
+             <p style="font-family:sans-serif; color:#1D88E5; ">je Vaš kod za verifikaciju LabCube naloga</p>
            </div>
-          <p style=""><a href="https://labcube.rs/verify" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">Verifikacija naloga</a></p>
+          <p style=""><a href="https://labcube.rs/verify" style="text-decoration:none; background-color:#1D88E5; padding:20px; margin-bottom:30px; color:#fff; border-radius:5px;">Kliknite ovde za verifikaciju naloga</a></p>
+          <div style="text-align:center; margin-top:60px;  padding-left:30px; padding-right:30px;">
+          <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+          </div>
+          <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+          <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+           <p style="color:#9C9C9C; font-size:9px; padding-bottom:0; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd / PIB 106310784</p>
           </div>`
 
 
@@ -299,9 +305,10 @@ exports.register =  async (req,res) => {
             subject:`Vaš kod za verifikaciju LabCube naloga: ${newUser.emailToken}`,
             html:output,
             attachments:{
-              filename: 'headerBigEmail.png',
-              path: 'src/images/headerBigEmail.png',
-              cid: 'headerEmailBig'}
+              filename: 'logoFooter.png',
+              path: 'src/images/logoFooter.png',
+              cid: 'logoFooter'
+            }
           }
 
            bcrypt.genSalt(10, (err,salt) => {
@@ -474,16 +481,24 @@ exports.resetPassLink = async (req,res) => {
           subject:'Postavljanje nove LabCube lozinke',
           text:'',
           html:` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
-           <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
-          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h2>Da biste postavili novu LabCube lozinku</h2></div>
+          <div style="background-image:url(https://labcube.rs/images/headerBigEmail.png); width:100%; display:block; height:140px; background-size:100%; background-repeat: no-repeat;"></div>
+          <div style="text-align:center; font-family:sans-serif; color:#1D88E5; padding-left:30px; padding-right:30px; padding-bottom:10px;"><h3>Da biste postavili novu LabCube lozinku</h3></div>
           <div style="margin-bottom:60px; padding:30px;">
-          <h2 style="opacity:0.7"><a href="http://${req.headers.host}/reset/${token}" style="text-decoration:none; background-color:#FF6F6F; padding:20px; color:#fff; border-radius:5px;">kliknite ovde</a></h2>
+          <h2 style="opacity:0.9"><a href="http://${req.headers.host}/reset/${token}" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">kliknite ovde</a></h2>
           </div>
+          <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
+          <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+          </div>
+          <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+          <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+           <p style="color:#9C9C9C; font-size:9px; padding-bottom:0; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd / PIB 106310784</p>
           </div>`,
-          attachments:[{
-            filename: 'headerBigEmail.png',
-            path: 'src/images/headerBigEmail.png',
-            cid: 'headerEmailBig'}]
+          attachments:[
+            {
+              filename: 'logoFooter.png',
+              path: 'src/images/logoFooter.png',
+              cid: 'logoFooter'
+            }]
         }
         transporter.sendMail(mailOptions, (error, info) => {
             if(error) {
