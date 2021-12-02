@@ -75,7 +75,7 @@ exports.updatePass = async (req,res) => {
 
 exports.updateProfile = async (req,res) => {
   let news
-  
+
   if (req.body.news == undefined || req.body.news == false) {
     news = false
   } else {
@@ -122,7 +122,7 @@ exports.deleteUser = async (req,res) => {
       useFindAndModify:false
     }).exec()
     req.flash('success_msg', 'Uspešno ste deaktivirali Vaš nalog, nakon 30 dana biće obrisan u potpunosti.')
-    res.redirect('/')
+    res.redirect('/logout')
     }
     catch(e) {
       console.log(e)
