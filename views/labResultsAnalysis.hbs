@@ -13,9 +13,9 @@
             <div class="container">
               <div class="row">
                 <div class="col-12">
-                  <h1 class="sectionTitle">Tumačenje rezultata laboratorijskih analiza</h1>
+                  <!-- <h1 class="sectionTitle">Tumačenje rezultata laboratorijskih analiza</h1> -->
 
-                  <p class="generalInformation">Možemo Vam pomoći da bolje razumete rezultate biohemijskih analiza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+                  <!-- <p class="generalInformation ">Možemo Vam pomoći da bolje razumete rezultate biohemijskih analiza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p> -->
 
                 </div>
 
@@ -23,7 +23,7 @@
                   <!-- <p class="mt-4">Odaberite vreme za koje želite da vam se protumače rezultati</p> -->
                 <!-- samo ulogovani korisnici mogu da urade upload rezultata -->
               {{#if user.id}}
-              <div class="col-12">
+              <div class="col-12 mt-5">
                 <p class="generalInformation">Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 jednostavna koraka. </p>
                 <ol class="textList">
                   <li><p class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate (trenutno je 24h jedina opcija)</p></li>
@@ -214,25 +214,40 @@
 
 
                 {{else}}
-                <div class="col-12">
-                  <p>Ukoliko Vam je potrebno tumačenje rezultata <a href="/registracija">kreirajte</a> LabCube nalog, ili se prijavite <a href="/prijava"> ovde </a>ukoliko već imate nalog.</p>
+
+
+                  <div class="d-none d-md-block mt-5 col-md-6 col-lg-5">
+                      <img data-lazy="/images/microscope.svg" class="functionalityIcons microscopeFunc imgLazy">
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-7 py-5 d-flex flex-column justify-content-center textLazy">
+                      <h2 class="functionalitiesTitle">Tumačenje rezultata laboratorijskih analiza za samo 890din.</h2>
+                      <p class="generalInformation">Možemo Vam pomoći da bolje razumete rezultate biohemijskih analiza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+
+                      <div class="">
+                        <a href="/registracija" target="_blank" class="btn btn-success text-uppercase mt-4 float-right">protumači moje rezultate</a>
+                      </div>
+
+                  <!-- <p>Ukoliko Vam je potrebno tumačenje rezultata <a href="/registracija">kreirajte</a> LabCube nalog, ili se prijavite <a href="/prijava"> ovde </a>ukoliko već imate nalog.</p> -->
+                </div>
+                <div class="col-12 my-5">
+                  <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
                 </div>
 
                 {{/if}}
-
-
               </div><!-- row end -->
+              <section class="boxshadowBckg">
 
-                  <h2 class="py-4 text-center" id="demoAccount">Mi to radimo ovako</h2>
 
-                  <div class="col-12 doctorDetails mt-4">
+                  <h2 class="text-center" id="demoAccount">Mi to radimo ovako</h2>
+      <div class="row">
+                  <div class="col-12 doctorDetails mt-4 text-center">
                     <img src="/images/editors/Sanja Nova-2.png-1628202152954.png"  class="rounded-circle hcpImage" alt=""><p>
                     <div class="hcpBio">
-                        <p class="editorName font-weight-bold">Sanja Milutinović, diplomirani farmaceut - medicinski biohemičar</p>
-                      <p class=" editorName">Rođena 1989. godine u Paraćinu. Diplomirala je na Farmaceutskom fakultetu u Beogradu na smeru magistar farmacije-medicinski biohemičar 2013 godine. Dobitnik je nagrade prof. dr Ivan Berkeš kao najbolji student magistar farmacije–medicinski biohemičar u školskoj 2012/2013 godini. Nakon položenog državnog ispita započinje radni odnos u odeljenju za laboratorijsku dijagnostiku Doma zdravlja Kuršumlija 2015.godine. Trenutno je načelnik laboratorijske dijagnostike Doma zdravlja Kuršumlija. </p>
+                        <p class="editorName font-weight-bold text-left">Sanja Milutinović, diplomirani farmaceut - medicinski biohemičar</p>
+                      <p class="editorName text-left">Rođena 1989. godine. Diplomirala je na Farmaceutskom fakultetu u Beogradu na smeru magistar farmacije-medicinski biohemičar 2013 godine. Dobitnik je nagrade prof. dr Ivan Berkeš kao najbolji student magistar farmacije–medicinski biohemičar u školskoj 2012/2013 godini. Nakon položenog državnog ispita započinje radni odnos u odeljenju za laboratorijsku dijagnostiku Doma zdravlja Kuršumlija 2015.godine. Trenutno je načelnik laboratorijske dijagnostike Doma zdravlja Kuršumlija. </p>
                     </div>
                   </div>
-
+                </div>
 
                   <div class="row">
                       <div class="resultDetails mb-4">
@@ -589,6 +604,7 @@
                   </div><!-- resultDetails -->
                 </div>
 
+
                 <div class="row">
                   <div class="col-12 mt-4">
                     <h3>Zaključak</h3>
@@ -596,11 +612,14 @@
                       <p>Pod pretpostavkom da je uzorak dat na analizu u periodu 1-5 dana ciklusa, vrednosti hormonskih analiza govore sledeće: Vrednosti polnih hormona su u referentnom opsegu gde se ne vidi poremećaj u njihovom odnosu. Vrednosti hormona štitne žlezde su zadovoljavajući, takođe u referentnom opsegu, ali sa primetnim primicanjem vrednosti FT4 hormona donjoj referentnoj granici. Preporuka je ponoviti testiranje ovih hormona, kako bi se ispratio trend kretanja vrednosti i eventualni skriveni pad FT4. Titar antitela na tireoglobulin je snižen, dok je titar antitela na tireoidnu peroksidazu blago uvećan, što može ukazivati na poremećaj u procesu stvaranja hormona štitne žlezde. Vrednosti AMH su značajno uvećane, što može ukazivati na sindrom policističnih jajnika, povezano sa uzrastom pacijenta. Vrednosti AMH parametra poželjno je tumačiti uz kliničku sliku, nalaz na ultrazvuku i laboratorijske testove DHEA, free testosteron, FSH i LH od strane endokrinologa.
                       </p>
                   </div>
+
                 </div>
+                  </section>
                 <div class="col-12 mt-5 text-center">
                   <p class="cardDisclaimer">Ukoliko imate bilo kakvo pitanje u vezi tumačenja rezultata javite nam se putem <a href="/kontakt" target="_blank">kontakt forme.</a></p>
                 </div>
               </div>
+
             </div><!-- container end -->
           </section>
  				</table><!-- table -->
