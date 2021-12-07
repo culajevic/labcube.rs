@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.google.com/schemas/sitemap/0.90">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://labcube.rs/</loc><changefreq>Monthly</changefreq><priority>1</priority></url>
   <url><loc>https://labcube.rs/tumacenje-laboratorijskih-analiza</loc><changefreq>Monthly</changefreq><priority>1</priority></url>
   <url><loc>https://labcube.rs/prijava</loc><changefreq>Yearly</changefreq><priority>1</priority></url>
@@ -1085,5 +1085,4 @@
   <url><loc>https://labcube.rs/laboratorija/Beo-lab-5-Smederevska-Palanka</loc><changefreq>Yearly</changefreq><priority>0.9</priority></url>
   <url><loc>https://labcube.rs/laboratorija/Beo-lab-8-Velika-Plana</loc><changefreq>Yearly</changefreq><priority>0.9</priority></url>
   <url><loc>https://labcube.rs/laboratorija/Beo-lab-23-Vrnjačka-Banja-Ambulanta</loc><changefreq>Yearly</changefreq><priority>0.9</priority></url>
-
 </urlset>
