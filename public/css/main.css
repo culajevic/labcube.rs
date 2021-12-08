@@ -8865,10 +8865,34 @@ body {
     font-size: 1.25rem;
     line-height: 2rem; }
 
+div.mobile-wrapper {
+  position: relative;
+  padding-top: 25px;
+  padding-bottom: 63.5%;
+  height: 0; }
+
+div.mobile-wrapper iframe {
+  box-sizing: border-box;
+  background: url("/images/imac2.svg") center center no-repeat;
+  padding: 6% 16% 23.1%;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 100%;
+  height: 100%; }
+
+#bannerDetails {
+  display: none;
+  max-width: 414px;
+  margin: 0 auto; }
+
 .fadeLazy {
   transform: translateX(0);
   opacity: 1;
   transition: all 1000ms; }
+
+.ytIcon {
+  width: 340px; }
 
 .editorName {
   color: #6A757D; }
@@ -10509,6 +10533,8 @@ table.workingHoursLabDetails {
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {
     font-size: 0.625rem; }
+  #bannerDetails {
+    display: block; }
   .mapTitle {
     font-size: 1.5rem; }
   .analizeSearchFilter {
@@ -10585,6 +10611,8 @@ table.workingHoursLabDetails {
     margin-top: 10px; } }
 
 @media (min-width: 170px) and (max-width: 374px) {
+  #bannerDetails {
+    display: block; }
   .doctorDetails {
     display: block;
     background-color: #F5F8FB;
@@ -10692,6 +10720,8 @@ table.workingHoursLabDetails {
     max-width: 140px; }
   .logoFull {
     width: 70%; }
+  #bannerDetails {
+    display: block; }
   .doctorDetails {
     display: block;
     background-color: transparent;
@@ -10783,6 +10813,8 @@ table.workingHoursLabDetails {
     font-size: 2.375rem; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
+  #bannerDetails {
+    display: block; }
   .doctorDetails {
     display: block;
     background-color: transparent;
@@ -10858,6 +10890,8 @@ table.workingHoursLabDetails {
     float: clear; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  #bannerDetails {
+    display: block; }
   .doctorDetails {
     display: block;
     background-color: transparent;
