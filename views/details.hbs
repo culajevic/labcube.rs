@@ -96,9 +96,13 @@
 
            <ol class="col-12 breakWords">
              <h5 class="literatura" id="literatura">Literatura</h5>
-             {{#each analysisDetails.references}}
-              <li>{{#if (notBlank referenceLink)}}<a href="http://{{referenceLink}}" target="_blank">{{referenceTitle}}</a>{{else}}{{referenceTitle}}{{/if}}</li>
-             {{/each}}
+             <a class="expandDetails" data-toggle="collapse" href="#collapsedDetailsLow"><i class="fas fa-angle-down"></i></a>
+             <div class="collapse" id="collapsedDetailsLow">
+               {{#each analysisDetails.references}}
+                <li>{{#if (notBlank referenceLink)}}<a href="http://{{referenceLink}}" target="_blank">{{referenceTitle}}</a>{{else}}{{referenceTitle}}{{/if}}</li>
+               {{/each}}
+             </div>
+
            </ol>
         </ul><!-- analysisDescription end -->
 
