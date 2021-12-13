@@ -272,9 +272,13 @@ div.mobile-wrapper iframe {
 }
 
 #bannerDetails {
-  display:none;  
+  display:none;
   max-width: 414px;
   margin:0 auto;
+}
+
+.innerInterpretationBtn {
+  padding:.5rem;
 }
 
 //
@@ -1763,6 +1767,11 @@ input[type="range"] {
   // margin-bottom: 16px; only on xs and sm
 }
 
+input[type=range]::-moz-range-thumb {
+  background-color: transparent;
+  border:none;
+}
+
 progress {
     // background-color:#0088EC;
       background-color: rgba(0, 136, 236, .2);
@@ -1797,7 +1806,6 @@ progress[value]::-webkit-progress-bar {
   width: 94%;
   margin-right: 16px;
   background-color: #FF9898;
-
 }
 
 .rangeLabels {
@@ -1825,10 +1833,28 @@ progress[value]::-webkit-progress-bar {
     box-shadow: 0px 0px 0px 4px #1AE9B6;
 }
 
+.showGreen::-moz-range-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 9px solid darken(#1AE9B6, 5%);
+  // border: 2px solid transparent;
+  border-radius: 50%;
+  background: #fff !important;
+  // background-color: #1AE9B6;
+  box-shadow: 0px 0px 0px 4px #1AE9B6;
+}
+
 .showRed::-webkit-slider-thumb {
   @extend .showGreen;
   box-shadow: 0px 0px 0px 4px #FF9898;
 }
+
+.showRed::-moz-range-thumb {
+  @extend .showGreen;
+  box-shadow: 0px 0px 0px 4px #FF9898;
+}
+
+
 
 .valueOk {
   color:$button-green;

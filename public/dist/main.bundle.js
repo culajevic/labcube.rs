@@ -21036,8 +21036,7 @@ exports.searchLabAnalysis = function (searchString, filter) {
   // searchString.focus()
   filter.forEach(function (item) {
     if (item.checked) {
-      filterValue = item.value;
-      console.log('checked ' + filterValue);
+      filterValue = item.value; // console.log('checked ' + filterValue)
     }
   }); // set focus on searchanalysis field when right arrow is pressed
 
@@ -21952,14 +21951,13 @@ var location = window.location.pathname; // GLOBAL VARIABLES
 
 var filter = 'analiza';
 var checkout = document.querySelector('.checkout');
-var urlArr = location.split('/');
-console.log(urlArr);
+var urlArr = location.split('/'); // console.log(urlArr)
+
 /* check if local storage already exists,
 if not create an empty array */
 
 var itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
-var municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : [];
-console.log(municipalityStorage); //MUST CHECK THIS!!!!!!!
+var municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []; //MUST CHECK THIS!!!!!!!
 
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */

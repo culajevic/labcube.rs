@@ -8886,6 +8886,9 @@ div.mobile-wrapper iframe {
   max-width: 414px;
   margin: 0 auto; }
 
+.innerInterpretationBtn {
+  padding: .5rem; }
+
 .fadeLazy {
   transform: translateX(0);
   opacity: 1;
@@ -10102,6 +10105,10 @@ input[type="range"] {
   margin-right: 8px;
   border-radius: 8px; }
 
+input[type=range]::-moz-range-thumb {
+  background-color: transparent;
+  border: none; }
+
 progress {
   background-color: rgba(0, 136, 236, 0.2);
   vertical-align: baseline;
@@ -10149,7 +10156,18 @@ progress[value]::-webkit-progress-bar {
   background: #fff;
   box-shadow: 0px 0px 0px 4px #1AE9B6; }
 
+.showGreen::-moz-range-thumb, .showRed::-moz-range-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 9px solid #14d5a6;
+  border-radius: 50%;
+  background: #fff !important;
+  box-shadow: 0px 0px 0px 4px #1AE9B6; }
+
 .showRed::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px 4px #FF9898; }
+
+.showRed::-moz-range-thumb {
   box-shadow: 0px 0px 0px 4px #FF9898; }
 
 .valueOk {
