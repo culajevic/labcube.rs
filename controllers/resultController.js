@@ -665,7 +665,7 @@ exports.displayAnalysisDetails = async (req,res) => {
 
 exports.labRestultsAnalysis = async (req,res) => {
   let groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'Labcube | Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike'})
+  res.render('labResultsAnalysis', {user:req.user, groupNames, title:'LabCube | Tumačenje laboratorijskih analiza', metaDescription:'Ukoliko ste dobili rezultate laboratorije a ne razumete značenje nekih parametara mi Vam možemo pomoći. Napravite nalog, uradite upload rezultata i u roku od 24h sve će biti jasnije.', metaKeywords:'Tumačenje rezultata laboratorijskih analiza, šta znače povišene vrednosti laboratorijskih analiza, tumačenje rezultata krvne slike, Povišen CRP, Povišeni leukociti, Pregled krvne slike, Kako tumačiti rezultate krvne slike, Povišeni monociti, tumačenje krvne slike '})
 }
 
 exports.sendFeedbackLabCube = async (req,res) => {
