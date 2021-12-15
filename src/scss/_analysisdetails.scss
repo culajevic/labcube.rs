@@ -93,6 +93,24 @@
   }
 }
 
+.tumacenjeUl {
+    list-style-type: none;
+    // padding-left: px-to-rem(16px);
+    font-size: 1.125rem;
+    margin-bottom: px-to-rem(18px);
+    li {
+      line-height: 2.4rem !important;
+        font-size: 1.125rem;
+    }
+    li:before {
+      padding-right: 1rem;
+      font-family: FontAwesome;
+      content: "\f192";
+      color:$primary-color;
+    }
+
+}
+
 .lead {
   margin:px-to-rem(40px) 0;
   color:$fontColorResultsTable;

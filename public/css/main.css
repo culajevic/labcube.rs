@@ -8232,6 +8232,19 @@ span.remove:hover {
     line-height: 1.75rem !important;
     font-size: 1.125rem; }
 
+.tumacenjeUl {
+  list-style-type: none;
+  font-size: 1.125rem;
+  margin-bottom: 1.125rem; }
+  .tumacenjeUl li {
+    line-height: 2.4rem !important;
+    font-size: 1.125rem; }
+  .tumacenjeUl li:before {
+    padding-right: 1rem;
+    font-family: FontAwesome;
+    content: "\f192";
+    color: #1D88E5; }
+
 .lead {
   margin: 2.5rem 0;
   color: #3B3B3B;
@@ -10170,6 +10183,22 @@ progress[value]::-webkit-progress-bar {
 .showRed::-moz-range-thumb {
   box-shadow: 0px 0px 0px 4px #FF9898; }
 
+.callToActionNewAcc {
+  float: left; }
+
+.priceFrom {
+  width: 140px;
+  height: 140px;
+  border-radius: 100px;
+  background-color: rgba(255, 150, 0, 0.9);
+  line-height: 140px;
+  margin: 0 auto;
+  color: white;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 270px;
+  top: -10px; }
+
 .valueOk {
   color: #55D159; }
 
@@ -10631,6 +10660,12 @@ table.workingHoursLabDetails {
 @media (min-width: 170px) and (max-width: 374px) {
   #bannerDetails {
     display: block; }
+  .callToActionNewAcc {
+    clear: both;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    width: 100%; }
   .doctorDetails {
     display: block;
     background-color: #F5F8FB;
@@ -10733,13 +10768,19 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     width: 240px; } }
 
-@media (min-width: 370px) and (max-width: 574px) {
+@media (min-width: 374px) and (max-width: 574px) {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
   .logoFull {
     width: 70%; }
   #bannerDetails {
     display: block; }
+  .callToActionNewAcc {
+    clear: both;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    width: 100%; }
   .doctorDetails {
     display: block;
     background-color: transparent;

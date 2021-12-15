@@ -7,6 +7,8 @@
     display:block;
   }
 
+
+
   .mapTitle {
     font-size: 1.5rem;
   }
@@ -153,6 +155,13 @@
     display:block;
   }
 
+  .callToActionNewAcc {
+    clear:both;
+    margin:0 auto;
+    text-align: center;
+    display:block;
+    width: 100%;
+  }
 
   .doctorDetails {
     display: block;
@@ -319,7 +328,7 @@
 }
 
 
-@media (min-width: 370px) and (max-width: 574px) {
+@media (min-width: 374px) and (max-width: 574px) {
 
   .aboutUs {
     max-width: 140px;
@@ -331,6 +340,13 @@
     display:block;
   }
 
+  .callToActionNewAcc {
+    clear:both;
+    margin:0 auto;
+    text-align: center;
+    display:block;
+    width: 100%;
+  }
 
   .doctorDetails {
     display: block;
