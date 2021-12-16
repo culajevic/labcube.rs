@@ -1873,6 +1873,17 @@ progress[value]::-webkit-progress-bar {
   top:-10px;
 }
 
+.priceFromMobile {
+  display:none;
+  @extend .priceFrom;
+  position:relative;
+  margin:0;
+  margin-bottom:1rem;
+  float:left;
+  left:0;
+  top:0;
+}
+
 .valueOk {
   color:$button-green;
 }

@@ -10186,7 +10186,7 @@ progress[value]::-webkit-progress-bar {
 .callToActionNewAcc {
   float: left; }
 
-.priceFrom {
+.priceFrom, .priceFromMobile {
   width: 140px;
   height: 140px;
   border-radius: 100px;
@@ -10198,6 +10198,15 @@ progress[value]::-webkit-progress-bar {
   position: absolute;
   left: 270px;
   top: -10px; }
+
+.priceFromMobile {
+  display: none;
+  position: relative;
+  margin: 0;
+  margin-bottom: 1rem;
+  float: left;
+  left: 0;
+  top: 0; }
 
 .valueOk {
   color: #55D159; }
@@ -10660,6 +10669,10 @@ table.workingHoursLabDetails {
 @media (min-width: 170px) and (max-width: 374px) {
   #bannerDetails {
     display: block; }
+  .priceFromMobile {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1.3rem; }
   .callToActionNewAcc {
     clear: both;
     margin: 0 auto;
@@ -10775,6 +10788,10 @@ table.workingHoursLabDetails {
     width: 70%; }
   #bannerDetails {
     display: block; }
+  .priceFromMobile {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1.3rem; }
   .callToActionNewAcc {
     clear: both;
     margin: 0 auto;
@@ -10874,6 +10891,10 @@ table.workingHoursLabDetails {
 @media (min-width: 576px) and (max-width: 767px) {
   #bannerDetails {
     display: block; }
+  .priceFromMobile {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1.3rem; }
   .doctorDetails {
     display: block;
     background-color: transparent;
