@@ -247,8 +247,15 @@
               {{#each user}}
                 <div class="feedbackUser mt-4">{{createInitials this.username}}</div>
               {{/each}}
+
             <li>
-            <span class="d-block feedbackDate mb-1 ">{{formatLabScheduleDate this.commentSection.date}} {{{generateStar this.commentSection.star}}}  </span><span class="feedbackComment">{{this.commentSection.feedback}}</span></li>
+              {{#if (empty this.commentSection.feedback)}}
+            <span class="d-block feedbackDate mb-1 ">{{formatLabScheduleDate this.commentSection.date}} {{{generateStar this.commentSection.star}}}  </span><span class="feedbackComment">{{this.commentSection.feedback}}</span>
+            {{else}}
+                <span class="d-block feedbackDate mb-1 ">{{formatLabScheduleDate this.commentSection.date}} {{{generateStar this.commentSection.star}}}  </span><span class="feedbackComment">{{this.commentSection.star}}</span>
+            {{/if}}
+          </li>
+
             {{/each}}
         </ul>
         </div>

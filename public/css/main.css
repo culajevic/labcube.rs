@@ -10666,9 +10666,23 @@ table.workingHoursLabDetails {
   .smallScrRegister {
     margin-top: 10px; } }
 
-@media (min-width: 170px) and (max-width: 374px) {
+@media (min-width: 170px) and (max-width: 375px) {
   #bannerDetails {
     display: block; }
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 73.5%;
+    height: 0; }
+  div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url("/images/imac2.svg") center center no-repeat;
+    padding: 4% 4.1% 24.1%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    height: 100%; }
   .priceFromMobile {
     display: block;
     margin: 0 auto;
@@ -10781,13 +10795,27 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     width: 240px; } }
 
-@media (min-width: 374px) and (max-width: 574px) {
+@media (min-width: 375px) and (max-width: 574px) {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
   .logoFull {
     width: 70%; }
   #bannerDetails {
     display: block; }
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 73.5%;
+    height: 0; }
+  div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url("/images/imac2.svg") center center no-repeat;
+    padding: 9% 13.8% 28.1%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 100%;
+    height: 100%; }
   .priceFromMobile {
     display: block;
     margin: 0 auto;
@@ -10889,6 +10917,20 @@ table.workingHoursLabDetails {
     font-size: 2.375rem; } }
 
 @media (min-width: 576px) and (max-width: 767px) {
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 73.5%;
+    height: 0; }
+  div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url("/images/imac2.svg") center center no-repeat;
+    padding: 11% 20.3% 29.1%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 113%;
+    height: 104%; }
   #bannerDetails {
     display: block; }
   .priceFromMobile {
@@ -10972,6 +11014,20 @@ table.workingHoursLabDetails {
 @media (min-width: 768px) and (max-width: 991px) {
   #bannerDetails {
     display: block; }
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 73.5%;
+    height: 0; }
+  div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url("/images/imac2.svg") center center no-repeat;
+    padding: 18% 30% 31.1%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 113%;
+    height: 104%; }
   .doctorDetails {
     display: block;
     background-color: transparent;
@@ -10998,6 +11054,20 @@ table.workingHoursLabDetails {
 @media (min-width: 992px) and (max-width: 1200px) {
   .disclaimer {
     top: 100px; }
+  div.mobile-wrapper {
+    position: relative;
+    padding-top: 25px;
+    padding-bottom: 73.5%;
+    height: 0; }
+  div.mobile-wrapper iframe {
+    box-sizing: border-box;
+    background: url("/images/imac2.svg") center center no-repeat;
+    padding: 8% 15% 28.1%;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 113%;
+    height: 104%; }
   .logoFooter {
     width: 11.3125rem; } }
 

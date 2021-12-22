@@ -9,6 +9,7 @@
 
 
 
+
   .mapTitle {
     font-size: 1.5rem;
   }
@@ -142,7 +143,7 @@
 }// media max-width:575 end
 
 
-@media (min-width: 170px) and (max-width:374px) {
+@media (min-width: 170px) and (max-width:375px) {
   footer {
     // background-color: $primary-color;
     // height: px-to-rem(550px);
@@ -154,6 +155,27 @@
   #bannerDetails {
     display:block;
   }
+
+  div.mobile-wrapper {
+      position: relative;
+      padding-top: 25px;
+      padding-bottom: 73.5%;
+      height: 0;
+  }
+
+  div.mobile-wrapper iframe {
+      box-sizing: border-box;
+      background: url("/images/imac2.svg") center center no-repeat;
+      // background-size: contain;
+      padding:4% 4.1% 24.1%;
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width:100%;
+      height: 100%;
+  }
+
+
 
   .priceFromMobile {
     display: block;
@@ -334,7 +356,7 @@
 }
 
 
-@media (min-width: 374px) and (max-width: 574px) {
+@media (min-width: 375px) and (max-width: 574px) {
 
   .aboutUs {
     max-width: 140px;
@@ -345,6 +367,27 @@
   #bannerDetails {
     display:block;
   }
+
+
+    div.mobile-wrapper {
+        position: relative;
+        padding-top: 25px;
+        padding-bottom: 73.5%;
+        height: 0;
+    }
+
+    div.mobile-wrapper iframe {
+        box-sizing: border-box;
+        background: url("/images/imac2.svg") center center no-repeat;
+        // background-size: contain;
+        padding:9% 13.8% 28.1%;
+        // padding:4% 4.1% 24.1%;
+        position: absolute;
+        top: 0;
+        left: 0px;
+        width:100%;
+        height: 100%;
+    }
 
   .priceFromMobile {
     display: block;
@@ -525,6 +568,26 @@
     //   height: px-to-rem(130px);
     //   }
   }
+
+  div.mobile-wrapper {
+      position: relative;
+      padding-top: 25px;
+      padding-bottom: 73.5%;
+      height: 0;
+  }
+
+  div.mobile-wrapper iframe {
+      box-sizing: border-box;
+      background: url("/images/imac2.svg") center center no-repeat;
+      // background-size: contain;
+      padding:11% 20.3% 29.1%;
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width: 113%;
+      height: 104%;
+  }
+
   #bannerDetails {
     display:block;
   }
@@ -673,6 +736,25 @@
   }
 
 
+  div.mobile-wrapper {
+      position: relative;
+      padding-top: 25px;
+      padding-bottom: 73.5%;
+      height: 0;
+  }
+
+  div.mobile-wrapper iframe {
+      box-sizing: border-box;
+      background: url("/images/imac2.svg") center center no-repeat;
+      // background-size: contain;
+      padding:18% 30% 31.1%;
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width: 113%;
+      height: 104%;
+  }
+
   .doctorDetails {
     display: block;
     background-color: transparent;
@@ -730,6 +812,26 @@
   .disclaimer {
     top:100px;
   }
+
+  div.mobile-wrapper {
+      position: relative;
+      padding-top: 25px;
+      padding-bottom: 73.5%;
+      height: 0;
+  }
+
+  div.mobile-wrapper iframe {
+      box-sizing: border-box;
+      background: url("/images/imac2.svg") center center no-repeat;
+      // background-size: contain;
+      padding:8% 15% 28.1%;
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width: 113%;
+      height: 104%;
+  }
+
   // footer {
   //   height: px-to-rem(590px);
   //     & > .overlay {

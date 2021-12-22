@@ -189,12 +189,12 @@ let filter = 'analiza'
 let checkout = document.querySelector('.checkout')
 let urlArr = location.split('/')
 
-console.log(urlArr)
+// console.log(urlArr)
 /* check if local storage already exists,
 if not create an empty array */
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 let municipalityStorage = localStorage.getItem('municipality') ? JSON.parse(localStorage.getItem('municipality')) : []
-console.log(municipalityStorage)
+
 //MUST CHECK THIS!!!!!!!
 /*if local storage has already some items display selected items
 in sidebar basket on any page which is not index */

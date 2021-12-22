@@ -392,7 +392,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
     filter.forEach((item) => {
       if(item.checked) {
         filterValue = item.value
-        console.log('checked ' + filterValue)
+        // console.log('checked ' + filterValue)
       }
     })
 
@@ -420,7 +420,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
       let searchString = e.target.value
       window.location.href = '/results/?name='+searchString+'&filter='+filterValue
     },400)
-  } 
+  }
   })
 }
 
