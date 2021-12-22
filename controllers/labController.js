@@ -122,7 +122,7 @@ exports.allLabs = [authCheck, async (req,res) => {
   const labsNumber = await Lab.find().countDocuments()
   const allLab = await Lab.find({}).populate('placeId').sort({labName:1})
   res.render('allLabs', {
-    title:'Sve laboratorije',
+    title:'LabCube | Sve laboratorije u Srbiji',
     allLab,
     number:labsNumber
   })
@@ -530,6 +530,7 @@ exports.allApprovedComments = async (req, res) => {
 }
 
 exports.getListOfLabs = async (req,res) => {
-  let getAllLabsInfo = await Lab.find({}).populate('placeId', 'place municipality').sort({labName:1})
-  res.render('laboratorije', {title:'LabCube | Sve laboratorije', getAllLabsInfo})
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  let getAllLabsInfo = await Lab.find({active:1}).populate('placeId', 'place municipality').sort({labName:1})
+  res.render('laboratorije', {title:'LabCube | Sve laboratorije', getAllLabsInfo, groupNames})
 }

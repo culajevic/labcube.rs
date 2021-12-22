@@ -27,11 +27,11 @@ exports.priceMissing = async (req,res) => {
       //cena koja nedostaje
      //  let missingPrice = await Price.aggregate([
      //    {$unwind:'$cenovnik'},
-     //    {$match:{'cenovnik.analiza':ObjectId('605bac8574bade708ae87dcf')}},
+     //    {$match:{'cenovnik.analiza':ObjectId('60a590eece662102d09595bf')}},
      //    {$group:{_id:'$_id'}},
      //    {$project:{lab:1}}
      //  ])
-     // res.send(missingPrice)
+     // res.send({missingPrice})
 
     //prikaz svih cena
      // let missingPrice = await Price.aggregate([
@@ -39,6 +39,7 @@ exports.priceMissing = async (req,res) => {
      //    {$group:{_id:'$cenovnik.analiza'}},
      //    {$project:{lab:1}}
      //  ])
+     //  res.send(missingPrice)
 // let allLabsNewArr = ['605d21de60ff5a1535d21958', '605d21de60ff5a1535d21959']
 // let allLabsWithPriceNewArr = ['605d21de60ff5a1535d21a67','605d21de60ff5a1535d21959']
 
