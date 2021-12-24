@@ -208,7 +208,7 @@ font-size:30px; text-decoration:line-through;
 }
 
 .cardDisclaimer {
-  padding: 30px;
+  padding: 10px;
   border-radius: 20px;
   border:1px solid $primary-color;
   color:$fontColorResultsTable;
@@ -479,6 +479,12 @@ height: 23px;
   border-bottom:1px solid $line-color;
   padding:px-to-rem(40px);
 }
+
+.functionalityIconsInterpretation {
+  border-bottom: none;
+  margin-bottom: 2rem;
+}
+
 
 .rotateNumberOfAnalysis {
   transform: rotate(1800deg);
@@ -1680,6 +1686,15 @@ small {
 }
 
 .doctorDetails {
+  // border-left:10px solid $primary-color;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  // background-color: $labDetailsTitleBckg;
+  margin-bottom: 60px;
+}
+
+.doctorDetailsInner {
   border-left:10px solid $primary-color;
   display: flex;
   justify-content: flex-start;
@@ -1687,6 +1702,7 @@ small {
   background-color: $labDetailsTitleBckg;
   margin-bottom: 60px;
 }
+
 .hcpImage {
   border:2px solid $primary-color;
   width: 190px;
