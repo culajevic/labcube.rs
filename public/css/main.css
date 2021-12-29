@@ -8875,8 +8875,8 @@ body {
   #myresults .finalThougths p,
   #otherResults .finalThougths p {
     opacity: 0.6;
-    font-size: 1.25rem;
-    line-height: 2rem; }
+    font-size: 1.1rem;
+    line-height: 1.5625rem; }
 
 div.mobile-wrapper {
   position: relative;
@@ -8911,7 +8911,8 @@ div.mobile-wrapper iframe {
   width: 340px; }
 
 .editorName {
-  color: #6A757D; }
+  color: #6A757D;
+  text-align: left; }
 
 .editorImg {
   width: 250px; }
@@ -10043,7 +10044,7 @@ small a:hover {
   margin-bottom: 60px; }
 
 .doctorDetailsInner {
-  border-left: 10px solid #1D88E5;
+  border-left: 8px solid #1D88E5;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -10072,7 +10073,7 @@ a[href^="tel"] {
   /* Remove underline. */ }
 
 .hcpBio {
-  padding: 20px 20px; }
+  padding: 10px 10px; }
   .hcpBio p {
     font-size: 1.25rem;
     color: black;
@@ -10603,6 +10604,13 @@ table.workingHoursLabDetails {
     display: block; }
   .fileTypes {
     bottom: 0px; }
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent; }
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center; }
   .mapTitle {
     font-size: 1.5rem; }
   .analizeSearchFilter {
@@ -10707,8 +10715,14 @@ table.workingHoursLabDetails {
     width: 100%; }
   .doctorDetails {
     display: block;
-    background-color: #F5F8FB;
-    margin-bottom: 600px; }
+    background-color: transparent; }
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent; }
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center; }
   .logoFull {
     width: 70%; }
   .altNameResult, .groupNameResult, .hospitalResult {
@@ -10816,6 +10830,15 @@ table.workingHoursLabDetails {
     display: block; }
   .fileTypes {
     bottom: 0px; }
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center; }
+  .editorName {
+    text-align: center; }
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent; }
   div.mobile-wrapper {
     position: relative;
     padding-top: 25px;
@@ -10938,6 +10961,15 @@ table.workingHoursLabDetails {
     height: 0; }
   .fileTypes {
     bottom: 0px; }
+  .editorName {
+    text-align: center; }
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent; }
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center; }
   div.mobile-wrapper iframe {
     box-sizing: border-box;
     background: url("/images/imac2.svg") center center no-repeat;
@@ -11030,6 +11062,13 @@ table.workingHoursLabDetails {
 @media (min-width: 768px) and (max-width: 991px) {
   #bannerDetails {
     display: block; }
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent; }
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center; }
   div.mobile-wrapper {
     position: relative;
     padding-top: 25px;

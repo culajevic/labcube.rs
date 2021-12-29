@@ -12,6 +12,17 @@
     bottom:0px;
   }
 
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent;
+  }
+
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
 
   .mapTitle {
     font-size: 1.5rem;
@@ -196,8 +207,19 @@
 
   .doctorDetails {
     display: block;
-    background-color: $labDetailsTitleBckg;
-    margin-bottom: 600px;
+    background-color: transparent;
+    // margin-bottom: 600px;
+  }
+
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent;
+  }
+
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center;
   }
 
   .logoFull {
@@ -374,6 +396,21 @@
   .fileTypes {
     bottom:0px;
   }
+
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+.editorName {
+  text-align: center;
+}
+
+.doctorDetailsInner {
+  display: block;
+  border-left: none;
+  background-color: transparent;
+}
 
     div.mobile-wrapper {
         position: relative;
@@ -586,6 +623,21 @@
     bottom:0px;
   }
 
+  .editorName {
+    text-align: center;
+  }
+
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent;
+  }
+
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
   div.mobile-wrapper iframe {
       box-sizing: border-box;
       background: url("/images/imac2.svg") center center no-repeat;
@@ -745,7 +797,18 @@
     display:block;
   }
 
+  .doctorDetailsInner {
+    display: block;
+    border-left: none;
+    background-color: transparent;
+  }
 
+
+  .interpretationDate {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
   div.mobile-wrapper {
       position: relative;
       padding-top: 25px;

@@ -14,17 +14,19 @@
  			<div class="col-md-12 col-lg-12">
         <section id="my-results" >
             <p class="py-5" id="navigationMyResults"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
-              <h1 class="mt-4">Rezultat poslat na tumačenje {{formatLabScheduleDate myResults.submitedDate}}</h1>
-              <div class="col-12 doctorDetailsInner">
+              <h1 class="mt-4 interpretationDate">Rezultat poslat na tumačenje {{formatLabScheduleDate myResults.submitedDate}}</h1>
+
+              <div class="col-12 doctorDetailsInner smx-4  mt-4 text-center">
                 <img src="/images/editors/{{myResults.owner.image}}"  class="rounded-circle hcpImage" alt="">
                 <div class="hcpBio">
-                  <p class="pb-3">Rezultate tumači: {{myResults.owner.username}}</p>
-                    <p class="">{{myResults.owner.aboutUser}}</p>
+                  <p class="editorName font-weight-bold mb-3">Rezultate tumači:{{myResults.owner.username}}</p>
+                  <p class="editorName text-left">{{myResults.owner.aboutUser}}</p>
                 </div>
               </div>
+            </div>
 
               {{#each myResults.analyses}}
-              <div class="resultDetails">
+              <div class="resultDetails mt-5">
                   <div class="col-12 col-md-7 pr-4">
                     <h4 class="analysisName">{{this.analysis}} <span class="{{outsideOfTheRange this.outsideOfTheRange}}">{{this.value}} {{{this.measure}}}</span></h4>
                     <!-- <p>{{this.comment}}</p> -->
@@ -94,14 +96,12 @@
 
               {{/each}}
 
-              <div class="row">
                 <div class="col-12 mt-4">
                   <h3 class="mt-4">Zaključak</h3>
                   <div class="finalThougths mb-5">
-                    <p>{{{myResults.commentCube}}} <p class="float-right text-primary">{{myResults.owner.username}}</p></p>
+                    <p class="">{{{myResults.commentCube}}} <p class="float-right text-primary">{{myResults.owner.username}}</p></p>
                 </div>
               </div>
-            </div>
         </section><!-- settings id end -->
 
       </div> <!-- col 12 end -->
