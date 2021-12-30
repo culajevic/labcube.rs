@@ -20481,14 +20481,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 /*
 add description for this class
 */
-module.exports =
-/*#__PURE__*/
-function () {
+module.exports = /*#__PURE__*/function () {
   function NewElement(grandParent, parentElement) {
     var parentClass = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['form-group'];
     var titleElement = arguments.length > 3 ? arguments[3] : undefined;
@@ -21660,9 +21658,9 @@ exports.createPrice = function () {
       }); // fetch end
     } // if end
     else {
-        console.log('please enter at lease 2 chars');
-        queryResultUl.innerHTML = '';
-      }
+      console.log('please enter at lease 2 chars');
+      queryResultUl.innerHTML = '';
+    }
   });
   var labSelected = document.getElementById('labFound');
   labSelected.addEventListener('click', function (e) {
@@ -21969,13 +21967,14 @@ var laboratorija = /laboratorija.*/;
 var tumacenje = /tumacenje.*/;
 var politika = /politika.*/;
 var contact = /kontakt.*/;
+var allLabs = /.*u-srbiji/;
 var cookies = /kolacici.*/;
 var about = /o-nama/;
 var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -22001,6 +22000,7 @@ window.onload = function () {
   //////////////////
   //display cookie message
   var cookieMessage = new CookieAlert.cookieAlert();
+  console.log(location);
 
   if (location === '/verify') {
     var password = document.getElementById('password');
@@ -22178,7 +22178,7 @@ window.onload = function () {
   // if (urlArr[1] === 'results' && urlArr[2] == '') {
 
 
-  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/') {
+  if (document.getElementById('results') != null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/' && location != '/sve-laboratorije-u-srbiji/') {
     var _priceList2 = document.getElementById('priceList');
 
     var _closePriceList2 = document.getElementById('closePriceList');
@@ -22312,9 +22312,9 @@ window.onload = function () {
       }); //fetch end
     } // if my filter==analiza
     else if (myFilter == 'laboratorija') {
-        console.log('pretraga lab sa index strance');
-        helper.searchLab(searchStr, _loaderWrapper, _resultDiv);
-      } // else end
+      console.log('pretraga lab sa index strance');
+      helper.searchLab(searchStr, _loaderWrapper, _resultDiv);
+    } // else end
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
 
@@ -22877,7 +22877,7 @@ window.onload = function () {
     // })
   }
 
-  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
+  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji') {
     //FindBestPrice
     var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 
@@ -23004,8 +23004,8 @@ window.onload = function () {
         });
       });
     });
-  } else {} //ovde urraditi pretragu korisnika koji su uplodovali rezultat prema mejl adresi
-  //interpratation by labcube
+  } else {//ovde urraditi pretragu korisnika koji su uplodovali rezultat prema mejl adresi
+  } //interpratation by labcube
 
 
   var interpretationPage = document.getElementById('interpretationId');
@@ -23125,6 +23125,7 @@ window.onload = function () {
           var minutes = Math.floor(timeleft % (1000 * 60 * 60) / (1000 * 60));
           var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
 
+          // document.getElementById(day[i].id).innerHTML = days + "d "
           document.getElementById(hour[_i3].id).innerHTML = hours + "h ";
           document.getElementById(mins[_i3].id).innerHTML = minutes + "m ";
           document.getElementById(secs[_i3].id).innerHTML = seconds + "s ";
@@ -23132,6 +23133,7 @@ window.onload = function () {
           if (timeleft < 0) {
             clearInterval(myfunc); // document.getElementById(day[i].id).innerHTML = ""
 
+            // document.getElementById(day[i].id).innerHTML = ""
             document.getElementById(hour[_i3].id).innerHTML = "";
             document.getElementById(mins[_i3].id).innerHTML = "";
             document.getElementById(secs[_i3].id).innerHTML = "";
@@ -23392,8 +23394,8 @@ window.onload = function () {
               }); //fetch end
             } //if length>2
             else {
-                parentUl.innerHTML = '';
-              }
+              parentUl.innerHTML = '';
+            }
           });
         });
       } else if (e.target.classList.contains('removeRow')) {
@@ -23835,8 +23837,8 @@ window.onload = function () {
         }); // fetch end
       } // if end
       else {
-          getDiseasesDiv.innerHTML = '';
-        }
+        getDiseasesDiv.innerHTML = '';
+      }
     }); // connectedDisease addEventListener
     // adding diseases to the page
 

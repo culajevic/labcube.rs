@@ -205,6 +205,7 @@ const laboratorija = /laboratorija.*/
 const tumacenje = /tumacenje.*/
 const politika = /politika.*/
 const contact = /kontakt.*/
+const allLabs = /.*u-srbiji/
 const cookies = /kolacici.*/
 const about = /o-nama/
 const profilePage = /profile.*/
@@ -214,7 +215,8 @@ const paymentDetails = /uslovi.*/
 
 //definisanje stranica na kojima se prikazuje shoping karta
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
- || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact))) {
+ || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
+ || location.match(allLabs))) {
   helper.displayBasket(itemsArray)
 }
 
@@ -246,6 +248,7 @@ window.onload = () => {
 //display cookie message
 let cookieMessage = new CookieAlert.cookieAlert()
 
+console.log(location)
 
 if (location === '/verify') {
   const password = document.getElementById('password')
@@ -434,7 +437,7 @@ if (buttonDisplayOtherAnalyises.innerText == 'SVE GRUPE ANALIZA') {
 
 //ako je greska za dodavanje analize ovde dodati stranicu na kojoj se to ne treba pojavljivati
 // if (urlArr[1] === 'results' && urlArr[2] == '') {
-if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/' ) {
+if (document.getElementById('results')!=null && location != '/o-nama/' && location != '/politika-privatnosti/' && location != '/uslovi-koriscenja/' && location != '/sve-laboratorije-u-srbiji/') {
 
   let priceList = document.getElementById('priceList')
   let closePriceList = document.getElementById('closePriceList')
@@ -1140,7 +1143,8 @@ if (municipalityValue != null) {
       // })
     }
 
-if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt') {
+if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
+    || urlArr[1] == 'sve-laboratorije-u-srbiji') {
   //FindBestPrice
 
     const findBestPrice = new FindBestPrice.bestPrice()
