@@ -2,7 +2,12 @@
 <section id="details">
   <div class="container">
     <div class="row" >
+      <div class="col-12">
+        <p class="float-left mb-0 pb-0"><a href="/" class="small">Početna</a> <span class="text-primary small"> / </span> <a href="/group/{{analysisDetails.groupId.slug}}" class="small">{{analysisDetails.groupId.name}}</a></p>
+
+      </div>
       <div class="col-md-12 col-lg-9 mt-5">
+
         <!-- header -->
 
         <p class="float-right">
@@ -111,12 +116,9 @@
             <h5 id="povezaneAnalize">Povezane analize</h5>
             {{#each analysisDetails.connectedTo}}
                 <li><a href={{slug}} class="text-white nolink">{{analysisName}} ({{abbr.[0]}})</a></li>
-
             {{/each}}
           </ul>
-
       </div> <!-- col-lg-8 -->
-
 
 
       {{> _sidebar}}

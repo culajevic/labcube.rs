@@ -648,7 +648,7 @@ exports.displayAnalysisDetails = async (req,res) => {
   .populate('connectedTo', 'analysisName abbr slug')
   .populate('references')
   .populate('writtenBy')
-  .populate('groupId', 'iconPath')
+  .populate('groupId', 'iconPath slug name')
 
   const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   // let title = analysisDetails.analysisName
