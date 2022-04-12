@@ -36,9 +36,9 @@
            <!-- <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p> -->
 
            <!-- <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p> -->
-           <p class="labDetailsTelefoni">{{#each labDetails.phone}}<a href="tel:{{this}}">{{this}}</a>{{/each}}</p>
+           <p class="labDetailsTelefoni">{{#each labDetails.phone}}<a href="tel:{{this}}">{{this}} </a>{{/each}}</p>
            {{#if (notBlank labDetails.web)}}
-           <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
+           <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}} </a></p>
            {{/if}}
            <!-- <p><</p> -->
         </div>
