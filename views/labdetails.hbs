@@ -34,10 +34,9 @@
            <!-- <img src="/images/lablogo/{{labDetails.logo}}" class="labDetailsLogo"> -->
            <p class="labDetailsAdresa">{{labDetails.address}}, {{labDetails.placeId.place}}</p>
            <!-- <p class="labDetailsGrad">{{labDetails.placeId.place}} / {{labDetails.placeId.municipality}}</p> -->
-           {{#each labDetails.phone}}
-            <a href="tel:{{this}}">{{this}}</a>
-           {{/each}}
-           <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p>
+
+           <!-- <p class="labDetailsTelefoni">{{displayPhoneList labDetails.phone}}</p> -->
+           <p class="labDetailsTelefoni">{{#each labDetails.phone}}<a href="tel:{{this}}">{{this}}</a>{{/each}}</p>
            {{#if (notBlank labDetails.web)}}
            <p class="web clearfix"><a href="http://www.{{labDetails.web}}" target="_blank">{{labDetails.web}}</a></p>
            {{/if}}
