@@ -142,6 +142,12 @@ hbs.registerHelper('displayPhoneList', (phones) => {
 return phonesNewList
 })
 
+hbs.registerHelper('clickOnPhone', (phones) => {
+  let phoneClick = []
+  phones.map(phoneNumber => phoneClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`))
+  return phoneClick.join(', ')
+})
+
 hbs.registerHelper('displayAnalysis', (analysis) => {
   return analysis.join("<br />")
 })
