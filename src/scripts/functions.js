@@ -1126,13 +1126,20 @@ console.log('iz funkcije')
           map:map
           })
 
+          const phonesForClick = []
+
+            phone.map(phoneNumber => {
+              phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
+              return phonesForClick
+            })
+
 
 
           let content = `<div class="" style="min-height:142px; max-width:380px;">
                         <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
                         <span class="">${address}</span>
                         <p class="">${city}</p>
-                        <span class="labInfoWindowTelefoni">${phone.join(', ')}</span>
+                        <p class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</p>
 
                         <div class="labInfoWindowFooter">
                           <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">
