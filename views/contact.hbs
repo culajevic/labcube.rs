@@ -16,7 +16,7 @@
     <div class="container contact-form mt-4">
         <h1 class="headTitleConditions">Kontakt</h1>
         <!-- <small>Sva polja su obavezna</small> -->
-              <form method="POST" action="/contact" class="mt-4">
+              <form method="POST" action="/contact" class="mt-4" id="contactDetails">
 
                  <div class="row">
                       <div class="col-md-6 pt-4 pr-5" style="border-right:1px solid #e1e1e1;">
@@ -36,7 +36,7 @@
                               <textarea class="form-control" id="questionComment" name="message" data-hj-allow placeholder="Upišite ovde Vaše pitanje, komentar, predlog, pohvalu, kritiku" style="width: 100%; height: 150px;"></textarea>
                           </div>
                           <div class="form-group ">
-                              <input type="submit" name="btnSubmit " class="btn btn-outline-info" value="Pošalji poruku" />
+                              <input type="submit" name="btnSubmit " class="btn btn-outline-info" id="submitComment" value="Pošalji poruku" />
                           </div>
                       </div>
                       <div class="col-md-6 px-5 generalInformation d-flex flex-column align-self-center">
@@ -58,7 +58,16 @@
  }, false)
 
  let questionField = document.getElementById('questionComment')
-
  questionField.addEventListener('paste', e => e.preventDefault());
+
+let formSubmission = document.getElementById('contactDetails')
+
+formSubmission.onkeypress = e => {
+  let key = e.charCode || e.keyCode || 0;
+  if (key == 13) {
+    e.preventDefault();
+  }
+}
+
 
  </script>
