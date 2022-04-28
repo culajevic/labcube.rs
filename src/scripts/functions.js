@@ -446,9 +446,18 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
         let labTemplate = document.createElement('div')
           labTemplate.className = 'col-12 d-flex flex-row flex-wrap'
 
+        const phonesForClick = []
+
         for(i=0; i<result.length; i++) {
           let flag = true
           resultDiv.innerHTML = ''
+
+
+            result[i].phone.map(phoneNumber => {
+              phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
+              return phonesForClick
+            })
+
              // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
 
              //  ${result[i].placeId.municipality} dodati ako treba uz ispis mesta
@@ -467,7 +476,8 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                    <div class="labInfoWindow">
                        <p class="labInfoWindowAdresa">${result[i].address}</p>
                        <p class="labInfoWindowGrad">${result[i].placeId.place} </p>
-                       <p class="labInfoWindowTelefoni"> ${result[i].phone.join(', ')}</p>
+                       <p class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</p>
+
                    </div>
                    <div class="labInfoFooter">
                        <img src="/images/radnoVreme_black.svg" class="labInfoWindowWorkingHoursIcon">
