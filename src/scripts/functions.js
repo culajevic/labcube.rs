@@ -453,10 +453,10 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           resultDiv.innerHTML = ''
 
 
-            result[i].phone.map(phoneNumber => {
-              phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
-              return phonesForClick
-            })
+            // result[i].phone.map(phoneNumber => {
+            //   phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
+            //   return phonesForClick
+            // })
 
              // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
 
@@ -476,7 +476,7 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
                    <div class="labInfoWindow">
                        <p class="labInfoWindowAdresa">${result[i].address}</p>
                        <p class="labInfoWindowGrad">${result[i].placeId.place} </p>
-                       <p class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</p>
+                       <p class="labInfoWindowTelefoni">${result[i].phone.join(', ')}</p>
 
                    </div>
                    <div class="labInfoFooter">
