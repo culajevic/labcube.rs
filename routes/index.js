@@ -15,6 +15,7 @@ const scheduleController = require('../controllers/scheduleController')
 const generalController = require('../controllers/general')
 const profileController = require('../controllers/profileController')
 const adminController = require('../controllers/adminController')
+const patronageController = require('../controllers/patronageController')
 const passport = require('passport')
 
 
@@ -23,6 +24,9 @@ const passport = require('passport')
 router.get('/', groupController.getGroups)
 router.post('/', groupController.getGroups)
 // router.get('/', labController.getAllLabs)
+
+//zakazivanje patronaze
+router.get('/zakazivanje-patronaze', patronageController.schedule)
 
 //payment testing
 router.get('/checkout/', resultController.paymentDone)
