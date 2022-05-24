@@ -22461,6 +22461,38 @@ window.onload = function () {
   }
 
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
+    var codeCheck = document.getElementById('codeCheck');
+    var kod = document.getElementById('kod');
+    var initialPrice = document.getElementById('initialPrice');
+    var t24 = document.getElementById('t24');
+    var initialPriceTop = document.getElementById('initialPriceTop');
+    codeCheck.addEventListener('click', function (e) {
+      fetch('/discount/' + kod.value).then(function (data) {
+        data.json().then(function (result) {
+          if (result) {
+            var _codeBack = document.getElementById('codeBack');
+
+            _codeBack.style.backgroundColor = '#55D159';
+            codeCheck.textContent = "✔";
+            codeCheck.disabled = true;
+            codeCheck.style.color = 'white'; // calculate discount
+
+            var discount = result.Discount;
+            var newPrice = Math.floor(t24.value - t24.value * (result.Discount / 100));
+            initialPrice.innerHTML = newPrice + ' din.';
+            initialPriceTop.textContent = t24.value + ' din.';
+            t24.value = newPrice;
+            initialPriceTop.classList.remove('d-none');
+          } else {
+            codeBack.style.backgroundColor = 'red';
+            codeCheck.textContent = '❌';
+            codeCheck.style.color = 'white';
+            codeCheck.style.border = 'none';
+          }
+        });
+      });
+    });
+
     var _mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
 
 
@@ -22887,7 +22919,7 @@ window.onload = function () {
     // })
   }
 
-  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji') {
+  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze') {
     //FindBestPrice
     var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 
