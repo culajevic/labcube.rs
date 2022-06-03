@@ -21,6 +21,8 @@ require('./models/Feedback')
 require('./models/Message')
 require('./models/Subscribe')
 require('./models/Payment')
+require('./models/Discount')
+
 
 // const path = require('path')
 

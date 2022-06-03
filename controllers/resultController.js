@@ -7,6 +7,7 @@ const ObjectId = mongoose.Types.ObjectId
 const Result = mongoose.model('Result')
 const Group = mongoose.model('Group')
 const Payment = mongoose.model('Payment')
+const Discount = mongoose.model('Discount')
 const multer = require('multer')
 const mime = require('mime-types')
 const nodemailer = require('nodemailer')
@@ -76,7 +77,6 @@ const upload = multer({
 
 exports.upload =  (req,res, next) => {
     upload(req, res, (err) => {
-
       if(err) {
         req.flash('error_msg', 'Dozvoljeni formati fajlova su pdf, jepg, jpg, png i veličina fajla mora biti manja od 3MB')
         res.redirect('/tumacenje-laboratorijskih-analiza')
@@ -86,19 +86,167 @@ exports.upload =  (req,res, next) => {
     })
   }
 
+exports.freeUpload = async (req,res) => {
+    let newDate = new Date()
+    let errors = []
+    let deadline = newDate.setDate(newDate.getDate() + 1)
+    let invoiceDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
+
+    const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+    const checkDiscount = await Discount.findOne({$and:[{discountId:req.body.kodPopust},{valid:true},{dueDate:{$gt:newDate}}]})
+
+      if(checkDiscount.discount == 100) {
+
+        //update ako je vaučer iskorišćen
+        const updateVoucher =  Discount.findOneAndUpdate(
+          {discountId:req.body.kodPopust},
+          {$set:{'valid':false, date:newDate}},
+          {
+             new:true,
+             runValidators:true,
+             useFindAndModify:false
+           }).exec()
+        /////////////////////////////////
+
+        const uploadResult = new Result({
+          userId:req.body.userId,
+          email:req.body.email,
+          status:'pending',
+          result:req.file.filename,
+          package:req.body.package,
+          paid:0,
+          userComment:req.body.userComment,
+          submitedDate: Date.now(),
+          deadline:deadline
+          }
+        )
+        let currentId = uploadResult._id
+
+        try {
+          uploadResult.save()
+          let mailOptions = {
+            from:req.body.email,
+            to:'tumacenje@labcube.rs',
+            subject:'Novi rezultati za tumačenje',
+            text:'',
+            html:`
+            id: ${uploadResult._id}`,
+            attachments:[{
+              filename:req.file.filename,
+              path:req.file.path
+            }]
+          }
+
+          let mailOptionsCustomer = {
+            from:'labcube-tumacenje-no-reply@labcube.rs',
+            to:[req.body.email, 'racuni@labcube.rs'],
+            subject:'Vaši rezultati su uspešno primljeni',
+            text:'',
+            html:`
+
+            <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
+            <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
+
+            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno ste poslali rezultate na tumačenje</h2></div>
+
+              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
+
+              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; 0 RSD </p>
+              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${invoiceDate}</p>
+
+              <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
+               <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank" style="text-decoration:none;">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje. Svi podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu  <a href="https://labcube.rs/politika-privatnosti" style="display:inline;  opacity:0.6;  text-decoration:none;">politiku privatnosti</a></p>
+              </div>
+              <div style="text-align:center; margin-top:40px;  padding-left:30px; padding-right:30px;">
+              <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
+              </div>
+              <a href="https://labcube.rs/politika-privatnosti" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">politika privatnosti</a>
+              <a href="https://labcube.rs/uslovi-koriscenja" style="color:#9C9C9C; font-size:9px; display:inline;  opacity:0.6;  text-decoration:none;">uslovi korišćenja</a>
+               <p style="color:#9C9C9C; font-size:9px; padding-bottom:0; opacity:0.6; padding-left:30px; padding-right:30px; text-decoration:none;">Informacione tehnologije Nouvelle d.o.o. 16. Oktobar 19, 11000 Beograd / PIB 106310784</p>
+            </div>`,
+            attachments:[{
+              filename: 'headerBigEmail.png',
+              path: 'src/images/headerBigEmail.png',
+              cid: 'headerEmailBig'},
+              {
+                filename: 'logoFooter.png',
+                path: 'src/images/logoFooter.png',
+                cid: 'logoFooter'
+              }]
+          }
+
+          transporter.sendMail(mailOptions, (error, info) => {
+              if(error) {
+                return console.log(error)
+            } else {
+              console.log(info.messageId)
+            }
+          })
+
+          transporter.sendMail(mailOptionsCustomer, (error, info) => {
+              if(error) {
+                return console.log(error)
+            } else {
+              console.log(info.messageId)
+            }
+          })
+          // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
+          // res.redirect('/')
+
+          }
+        catch  (e){
+          req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
+          res.redirect('/tumacenje-laboratorijskih-analiza')
+          console.log('nije uspesno upisano u bazu' + e)
+        }
+        res.render('paymentSuccess', { newDate:invoiceDate, shortId:currentId, amount:0, groupNames, user:req.user, title:'LabCube | Uspešno ste poslali rezultate'})
+
+
+
+      }//checkdiscount == 100
+
+      else {
+        errors.push({text:'Kod nije ispravan ili je već iskorišćen'})
+      }
+
+
+      if(errors.length > 0) {
+        res.render('labResultsAnalysis', {
+          errors,
+          title:'LabCube | Tumačenje laboratorijskih analiza',
+          groupNames
+        })
+      }
+
+
+
+
+  }
+
 
 exports.payment = async (req,res) => {
-  // let datum = new Date()
-    const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  // placanje testing
+
+
+  let newDateCheck = new Date()
+  const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   let currentId
+
   let resultUpload
+  let userComment = ''
   let errors = []
+  let formatPrice = parseInt(req.body.package)
+  let discountId = req.body.kodPopust
 
+  const checkDiscountCode = await Discount.findOne({$and:[{discountId:req.body.kodPopust},{valid:true},{dueDate:{$gt:newDateCheck}}]})
 
-//ako se menja cena mora se promeniti i ovo
-  if(req.body.package != 890) {
-    errors.push({text:'Nije ok'})
+  //ako neko pokusa da menja cenu
+  if (formatPrice != 890 && checkDiscountCode == null) {
+      errors.push({text:'Neispravan kod, pokušajte ponovo.'})
+  }
+
+  //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
+  if(!(formatPrice == 890 || formatPrice == 801 || formatPrice == 623 || formatPrice == 8 || formatPrice == 0)) {
+    errors.push({text:'Nešto nije ok, pokušajte ponovo'})
   }
 
   // if(!req.body.package) {
@@ -120,6 +268,7 @@ exports.payment = async (req,res) => {
       title:'LabCube | Tumačenje laboratorijskih analiza',
       groupNames,
       package:req.body.package,
+      komentar:req.body.userComment,
       email:req.body.email,
       user:req.user,
       consent:req.body.consent
@@ -144,13 +293,19 @@ exports.payment = async (req,res) => {
   const request = async() => {
   	const path='/v1/checkouts';
 
-
+    if(req.body.userComment.length == 0 ) {
+      userComment = 'nema komentara'
+    } else {
+      userComment = req.body.userComment
+    }
 
   	const data = querystring.stringify({
   		'entityId':process.env.ENTITYIDPRODUCTION,
   		'amount':req.body.package,
       'customer.email':req.body.email,
   		'currency':'RSD',
+      'cart.items[0].description':userComment,
+      'customer.merchantReference':req.body.kodPopust,
       'customer.merchantCustomerId':req.body.userId,
       'customParameters[SHOPPER_file]':req.file.filename,
       'customParameters[SHOPPER_path]':req.file.path,
@@ -362,6 +517,18 @@ requestCheckout()
     //     runValidators:true,
     //     useFindAndModify:false
     //   }).exec()
+    console.log(data)
+
+    let newDateVoucher = Date()
+
+    const updateVoucher =  Discount.findOneAndUpdate(
+      {discountId:data.customer.merchantReference},
+      {$set:{'valid':false, date:newDateVoucher}},
+      {
+         new:true,
+         runValidators:true,
+         useFindAndModify:false
+       }).exec()
 
     const uploadResult = new Result({
       userId:data.customer.merchantCustomerId,
@@ -371,6 +538,7 @@ requestCheckout()
       package:data.amount,
       paid:data.amount,
       ip:data.customer.ip,
+      userComment:data.cart.items[0].description,
       submitedDate: Date.now(),
       deadline:deadline,
       paymentConsent:true

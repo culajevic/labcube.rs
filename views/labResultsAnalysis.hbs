@@ -24,7 +24,7 @@
                 <!-- samo ulogovani korisnici mogu da urade upload rezultata -->
               {{#if user.id}}
               <div class="col-12 mt-5">
-                <p class="generalInformation">Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 jednostavna koraka. </p>
+                <!-- <p class="generalInformation">Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 koraka. </p> -->
                 <ul class="tumacenjeUl">
                   <li class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate (trenutno je 24h jedina opcija)</li>
                   <li class="generalInformation">Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload.</li>
@@ -37,7 +37,7 @@
 
 
                 <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
-                  <form action='/payment' method="POST" enctype="multipart/form-data">
+                  <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
                     <!-- <div class="col-3">
                       <div class="card">
@@ -76,15 +76,22 @@
                     </div> -->
 
                     <!-- <div class="col-3"> -->
+                    <!-- <label for="kod">Dobili ste kod za popust?</label> -->
+                    <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
 
+                        <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Ukoliko ste u laboratoriji dobili kôd za popust unesite ga ovde"/>
+                        <div class="input-group-append">
+                        <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
+                      </div>
+                    </div>
 
 
                       <div class="card paymentSteps">
                         <div class="card-body"><span class="" style="">1</span>
-                          <span class="onSalesNow">1190 din.</span>
+                          <span class="onSalesNow d-none" id="initialPriceTop"></span>
                           <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                          <span class="text-center paketiCena">890 din.</span>
+                          <span class="text-center paketiCena" id="initialPrice">890 din.</span>
                           <input type="radio" name="package" value=890 id="t24" {{#if (checkBox package 1)}} checked {{/if}} checked/>
                           <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
                         </div>
@@ -92,7 +99,7 @@
                     <!-- </div> -->
 
                     <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps ml-3">
+                      <div class="card paymentSteps ml-3" id="resultForUpload">
                         <div class="card-body">2
                           <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Odaberite rezultate </p>
@@ -108,16 +115,18 @@
 
 
                     <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps ml-3">
+                      <div class="card paymentSteps ml-3" id="paymentConsent">
                         <div class="card-body" data-toggle="modal" data-target="">3
                           <a href="/uslovi-placanja" target="_blank" class="text-center">
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
                           <span class="text-center paketiCena">&lt; 2 min. čitanja</span></a>
                           <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
-                          <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio">slažem se</label>
+                          <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio" id="consentBtn">slažem se</label>
                         </div>
                       </div>
+
+
                     <!-- </div> -->
 
                     <!-- modal za brisanje-->
@@ -173,13 +182,22 @@
 
                 </div><!-- odabir paketa end -->
 
-                <div class="col-12 text-center">
-                  <small class=""><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
+                <div class="paymentSteps col-12 p-0 mb-2">
+                  <label for="exampleFormControlTextarea1 ">Komentar</label>
+                  <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate bitnim za tumačenje Vaših nalaza.">{{komentar}}</textarea>
                 </div>
 
 
                 <div class="col-12 text-center">
-                    <button class="btn btn-success text-uppercase mt-5" style="">Nastavite na plaćanje</button>
+                  <small class="smallText"><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
+                </div>
+
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">Nastavite na plaćanje</button>
+                </div>
+                <div class="col-12 text-center">
+                    <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>
                 </div>
 
                   <!-- <div class="col-12">
@@ -220,18 +238,18 @@
 
                   <div class="d-none d-md-block col-sm-12 mt-5 col-md-5 col-lg-5 position-relative">
                       <img data-lazy="/images/microscope.svg" class="functionalityIconsInterpretation microscopeFunc imgLazy">
-                      <!-- <div class="text-center priceFrom">
+                      <div class="text-center priceFrom">
                         od 890din.
-                      </div> -->
+                      </div>
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-12 col-lg-7 py-2 d-flex flex-column justify-content-center textLazy">
 
-                        <!-- <div class="text-center priceFromMobile float-left">
+                        <div class="text-center priceFromMobile float-left">
                           <span class="">od 890din.</span>
-                        </div> -->
+                        </div>
 
-                        <p class="generalInformation float-left ml-2">Možemo Vam pomoći da bolje razumete rezultate biohemijskih analiza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+                        <p class="generalInformation float-left ml-2">Možemo Vam pomoći da bolje razumete rezultate Vaših biohemijskih nalaza i možemo da odgovorimo na sva pitanja kao i da Vam damo savet za sledeći korak. Naš tim čine biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
 
                       <div class="ml-2">
                         <a href="/registracija"  class="btn btn-success text-uppercase my-3  callToActionNewAcc">kreirajte nalog</a>
@@ -244,7 +262,7 @@
               <section class="boxshadowBckg mt-5">
 
 
-                  <h2 class="text-center mb-5" id="demoAccount">Primer jednog tumačenja</h2>
+                  <h2 class="text-center mb-5" id="demoAccount">Kako izgleda tumačenje rezultata?</h2>
 
 
                   <div class="row">

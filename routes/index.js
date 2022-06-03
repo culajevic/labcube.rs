@@ -16,6 +16,7 @@ const generalController = require('../controllers/general')
 const profileController = require('../controllers/profileController')
 const adminController = require('../controllers/adminController')
 const patronageController = require('../controllers/patronageController')
+const discountController = require('../controllers/discountController')
 const passport = require('passport')
 
 
@@ -27,6 +28,10 @@ router.post('/', groupController.getGroups)
 
 //zakazivanje patronaze
 router.get('/zakazivanje-patronaze', patronageController.schedule)
+
+//primena popusta
+router.get('/discount/:id', discountController.checkDiscount)
+router.post('/freeUpload/', resultController.upload, resultController.freeUpload)
 
 //payment testing
 router.get('/checkout/', resultController.paymentDone)

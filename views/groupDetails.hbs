@@ -19,7 +19,7 @@
 
               {{#if (empty this.preview)}}
               <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
-                <a href="../results/analysis/{{this.slug}}" class="nolink text-primary" target="_blank">{{this.name}}</a>
+                <a href="../results/analysis/{{this.slug}}" rel="canonical" class="nolink text-primary" target="_blank">{{this.name}}</a>
               </td>
                 {{else}}
                 <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="mr-2">

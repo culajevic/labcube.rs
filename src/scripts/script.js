@@ -704,9 +704,75 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.removeAnalysis(itemsArray, checkout)
 }
 
-if (urlArr[1] == 'tumacenje-laboratorijskih-analiza') {
+if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
 
+  let codeCheck = document.getElementById('codeCheck')
+  let kod = document.getElementById('kod')
+  let initialPrice = document.getElementById('initialPrice')
+  let t24 = document.getElementById('t24')
+  let initialPriceTop = document.getElementById('initialPriceTop')
+  let proceedPayment = document.getElementById('proceedPayment')
+  let gratisBtn = document.getElementById('gratis')
+  let consentBtn = document.getElementById('consentBtn')
+  let paymentConsentBox = document.getElementById('paymentConsent')
+  let resultForUploadBox = document.getElementById('resultForUpload')
+  let paymentForm = document.getElementById('regularPayment')
 
+  codeCheck.addEventListener('click', e => {
+
+    fetch('/discount/'+kod.value).then((data) => {
+      data.json().then((result) => {
+        console.log(result)
+        if(result && result.discount != 100) {
+            let codeBack = document.getElementById('codeBack')
+            codeBack.style.backgroundColor='#55D159'
+            codeCheck.textContent="✔"
+            codeCheck.disabled=true
+            codeCheck.style.color='white'
+            // calculate discount
+            let discount = result.discount
+            let newPrice = Math.floor(t24.value-(t24.value*(result.discount/100)))
+            initialPrice.innerHTML = newPrice + ' din.'
+            initialPriceTop.textContent = t24.value + ' din.'
+            t24.value= newPrice
+            initialPriceTop.classList.remove('d-none')
+          }
+          else if (result && result.discount == 100) {
+            console.log(result.discount)
+            proceedPayment.classList.add('d-none')
+            gratisBtn.classList.remove('d-none')
+            codeBack.style.backgroundColor='#55D159'
+            codeCheck.textContent="✔"
+            codeCheck.disabled=true
+            codeCheck.style.color='white'
+            let discount = result.discount
+            let newPrice = Math.floor(t24.value-(t24.value*(result.discount/100)))
+            initialPrice.innerHTML = newPrice + ' din.'
+            initialPriceTop.textContent = t24.value + ' din.'
+            t24.value= newPrice
+            // paymentConsentBox.classList.add('d-none')
+            paymentConsentBox.style.pointerEvents = 'none'
+            paymentConsentBox.style.backgroundColor='#9C9C9C'
+            paymentConsentBox.style.opacity=0.1
+            // resultForUploadBox.classList.remove('paymentSteps')
+            paymentForm.action = '/freeUpload'
+          }
+          else {
+            console.log('iskorisceno')
+            codeBack.style.backgroundColor='red'
+            codeCheck.textContent='Probaj opet'
+            codeCheck.style.color='white'
+            codeCheck.style.border='none'
+            codeCheck.style.backgroundColor='green'
+
+          }
+      })
+    })
+  })
+
+  gratisBtn.addEventListener('click', e => {
+
+})
 
   let mainSearchinner = document.getElementById('searchResultPage')
   // ger reference to filter
@@ -1144,7 +1210,7 @@ if (municipalityValue != null) {
     }
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
-    || urlArr[1] == 'sve-laboratorije-u-srbiji') {
+    || urlArr[1] == 'sve-laboratorije-u-srbiji'   || urlArr[1] == 'zakazivanje-patronaze') {
   //FindBestPrice
 
     const findBestPrice = new FindBestPrice.bestPrice()

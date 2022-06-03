@@ -50,6 +50,12 @@
           <!-- <h1 class="headTitle float-left mt-3" id="customerEmail" data-email="{{this.userId.username}}">{{this.userId.username}}</h1> -->
 
 
+          {{#if (empty this.userComment)}}
+          <div class="col-12 mb-5 boxshadowBckg" id="anamnezaKomentar">
+            <label for="" class="mt-2 font-weight-bold">Komentar koji je ostavio pacijent</label>
+            <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>{{this.userComment}}</textarea>
+          </div>
+          {{/if}}
 
 
         <div class="col-4 my-4">
@@ -289,6 +295,9 @@
           <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>{{this.userId.anamnesisComment}}</textarea>
         </div>
         {{/if}}
+
+
+
 
         {{#if (checkGender this.userId.gender)}}
 

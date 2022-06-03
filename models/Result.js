@@ -51,6 +51,7 @@ const resultSchema = new mongoose.Schema({
     ref:'User'
   },
   userFeedback:String,
+  userComment:String,
   star:Number,
   feedbackDate:Date,
   readyForInterpreatation:{
