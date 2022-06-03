@@ -62,7 +62,7 @@ let storage = multer.diskStorage({
 
 const upload = multer({
     storage:storage,
-    limits:{fileSize:1024*1024*5,fieldSize: 1024 * 512,fieldNameSize: 200},
+    limits:{fileSize:1024*1024*6,fieldSize: 1024 * 512,fieldNameSize: 200},
     fileFilter: (req, file, cb) => {
       if (file.mimetype === 'application/pdf' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
         cb(null, true);
@@ -209,7 +209,7 @@ exports.freeUpload = async (req,res) => {
       }//checkdiscount == 100
 
       else {
-        req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 5MB')
+        req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 3MB')
         res.redirect('/tumacenje-laboratorijskih-analiza')
       }
 
