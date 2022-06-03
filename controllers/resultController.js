@@ -209,7 +209,7 @@ exports.freeUpload = async (req,res) => {
       }//checkdiscount == 100
 
       else {
-        req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 3MB')
+        req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 5MB')
         res.redirect('/tumacenje-laboratorijskih-analiza')
       }
 
