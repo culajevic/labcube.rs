@@ -95,7 +95,9 @@ exports.freeUpload = async (req,res) => {
     const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
     const checkDiscount = await Discount.findOne({$and:[{discountId:req.body.kodPopust},{valid:true},{dueDate:{$gt:newDate}}]})
 
-      if(checkDiscount.discount == 100) {
+
+
+      if(checkDiscount.discount == 100 && req.file) {
 
         //update ako je vaučer iskorišćen
         const updateVoucher =  Discount.findOneAndUpdate(
@@ -207,20 +209,15 @@ exports.freeUpload = async (req,res) => {
       }//checkdiscount == 100
 
       else {
-        errors.push({text:'Kod nije ispravan ili je već iskorišćen'})
+        // errors.push({text:'Kod nije ispravan ili je već iskorišćen'})
+        // res.render('labResultsAnalysis', {
+        //   errors,
+        //   title:'LabCube | Tumačenje laboratorijskih analiza',
+        //   groupNames
+        // })
+        res.redirect('/tumacenje-laboratorijskih-analiza')
+
       }
-
-
-      if(errors.length > 0) {
-        res.render('labResultsAnalysis', {
-          errors,
-          title:'LabCube | Tumačenje laboratorijskih analiza',
-          groupNames
-        })
-      }
-
-
-
 
   }
 
