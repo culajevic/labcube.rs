@@ -209,14 +209,8 @@ exports.freeUpload = async (req,res) => {
       }//checkdiscount == 100
 
       else {
-        // errors.push({text:'Kod nije ispravan ili je već iskorišćen'})
-        // res.render('labResultsAnalysis', {
-        //   errors,
-        //   title:'LabCube | Tumačenje laboratorijskih analiza',
-        //   groupNames
-        // })
+        req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 5MB')
         res.redirect('/tumacenje-laboratorijskih-analiza')
-
       }
 
   }
