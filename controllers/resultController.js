@@ -146,9 +146,10 @@ exports.freeUpload = async (req,res) => {
 
             <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
             <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
-
             <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno ste poslali rezultate na tumačenje</h2></div>
-
+            <div style="text-align:right; font-family:sans-serif;  padding-bottom:10px; padding-left:30px; padding-right:30px;">
+              <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >br. transakcije: ${currentId}</p>
+            </div>
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
 
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; 0 RSD </p>
