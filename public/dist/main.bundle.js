@@ -22462,68 +22462,70 @@ window.onload = function () {
 
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
     var codeCheck = document.getElementById('codeCheck');
-    var kod = document.getElementById('kod');
-    var initialPrice = document.getElementById('initialPrice');
-    var t24 = document.getElementById('t24');
-    var initialPriceTop = document.getElementById('initialPriceTop');
-    var proceedPayment = document.getElementById('proceedPayment');
-    var gratisBtn = document.getElementById('gratis');
-    var consentBtn = document.getElementById('consentBtn');
-    var paymentConsentBox = document.getElementById('paymentConsent');
-    var resultForUploadBox = document.getElementById('resultForUpload');
-    var paymentForm = document.getElementById('regularPayment');
-    codeCheck.addEventListener('click', function (e) {
-      fetch('/discount/' + kod.value).then(function (data) {
-        data.json().then(function (result) {
-          console.log(result);
 
-          if (result && result.discount != 100) {
-            var _codeBack = document.getElementById('codeBack');
+    if (codeCheck != null) {
+      var kod = document.getElementById('kod');
+      var initialPrice = document.getElementById('initialPrice');
+      var t24 = document.getElementById('t24');
+      var initialPriceTop = document.getElementById('initialPriceTop');
+      var proceedPayment = document.getElementById('proceedPayment');
+      var gratisBtn = document.getElementById('gratis');
+      var consentBtn = document.getElementById('consentBtn');
+      var paymentConsentBox = document.getElementById('paymentConsent');
+      var resultForUploadBox = document.getElementById('resultForUpload');
+      var paymentForm = document.getElementById('regularPayment');
+      codeCheck.addEventListener('click', function (e) {
+        fetch('/discount/' + kod.value).then(function (data) {
+          data.json().then(function (result) {
+            console.log(result);
 
-            _codeBack.style.backgroundColor = '#55D159';
-            codeCheck.textContent = "✔";
-            codeCheck.disabled = true;
-            codeCheck.style.color = 'white'; // calculate discount
+            if (result && result.discount != 100) {
+              var _codeBack = document.getElementById('codeBack');
 
-            var discount = result.discount;
-            var newPrice = Math.floor(t24.value - t24.value * (result.discount / 100));
-            initialPrice.innerHTML = newPrice + ' din.';
-            initialPriceTop.textContent = t24.value + ' din.';
-            t24.value = newPrice;
-            initialPriceTop.classList.remove('d-none');
-          } else if (result && result.discount == 100) {
-            console.log(result.discount);
-            proceedPayment.classList.add('d-none');
-            gratisBtn.classList.remove('d-none');
-            codeBack.style.backgroundColor = '#55D159';
-            codeCheck.textContent = "✔";
-            codeCheck.disabled = true;
-            codeCheck.style.color = 'white';
-            var _discount = result.discount;
+              _codeBack.style.backgroundColor = '#55D159';
+              codeCheck.textContent = "✔";
+              codeCheck.disabled = true;
+              codeCheck.style.color = 'white'; // calculate discount
 
-            var _newPrice = Math.floor(t24.value - t24.value * (result.discount / 100));
+              var discount = result.discount;
+              var newPrice = Math.floor(t24.value - t24.value * (result.discount / 100));
+              initialPrice.innerHTML = newPrice + ' din.';
+              initialPriceTop.textContent = t24.value + ' din.';
+              t24.value = newPrice;
+              initialPriceTop.classList.remove('d-none');
+            } else if (result && result.discount == 100) {
+              console.log(result.discount);
+              proceedPayment.classList.add('d-none');
+              gratisBtn.classList.remove('d-none');
+              codeBack.style.backgroundColor = '#55D159';
+              codeCheck.textContent = "✔";
+              codeCheck.disabled = true;
+              codeCheck.style.color = 'white';
+              var _discount = result.discount;
 
-            initialPrice.innerHTML = _newPrice + ' din.';
-            initialPriceTop.textContent = t24.value + ' din.';
-            t24.value = _newPrice; // paymentConsentBox.classList.add('d-none')
+              var _newPrice = Math.floor(t24.value - t24.value * (result.discount / 100));
 
-            paymentConsentBox.style.pointerEvents = 'none';
-            paymentConsentBox.style.backgroundColor = '#9C9C9C';
-            paymentConsentBox.style.opacity = 0.1; // resultForUploadBox.classList.remove('paymentSteps')
+              initialPrice.innerHTML = _newPrice + ' din.';
+              initialPriceTop.textContent = t24.value + ' din.';
+              t24.value = _newPrice; // paymentConsentBox.classList.add('d-none')
 
-            paymentForm.action = '/freeUpload';
-          } else {
-            console.log('iskorisceno');
-            codeBack.style.backgroundColor = 'red';
-            codeCheck.textContent = 'Probaj opet';
-            codeCheck.style.color = 'white';
-            codeCheck.style.border = 'none';
-            codeCheck.style.backgroundColor = 'green';
-          }
+              paymentConsentBox.style.pointerEvents = 'none';
+              paymentConsentBox.style.backgroundColor = '#9C9C9C';
+              paymentConsentBox.style.opacity = 0.1; // resultForUploadBox.classList.remove('paymentSteps')
+
+              paymentForm.action = '/freeUpload';
+            } else {
+              console.log('iskorisceno');
+              codeBack.style.backgroundColor = 'red';
+              codeCheck.textContent = 'Probaj opet';
+              codeCheck.style.color = 'white';
+              codeCheck.style.border = 'none';
+              codeCheck.style.backgroundColor = 'green';
+            }
+          });
         });
       });
-    });
-    gratisBtn.addEventListener('click', function (e) {});
+    }
 
     var _mainSearchinner = document.getElementById('searchResultPage'); // ger reference to filter
 

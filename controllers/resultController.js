@@ -151,6 +151,7 @@ exports.freeUpload = async (req,res) => {
             <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno ste poslali rezultate na tumačenje</h2></div>
             <div style="text-align:right; font-family:sans-serif;  padding-bottom:10px; padding-left:30px; padding-right:30px;">
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >br. transakcije: ${currentId}</p>
+              <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >korisničko ime: ${req.body.email}</p>
             </div>
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
 

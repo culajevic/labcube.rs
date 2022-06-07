@@ -707,16 +707,20 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
 
   let codeCheck = document.getElementById('codeCheck')
-  let kod = document.getElementById('kod')
-  let initialPrice = document.getElementById('initialPrice')
-  let t24 = document.getElementById('t24')
-  let initialPriceTop = document.getElementById('initialPriceTop')
-  let proceedPayment = document.getElementById('proceedPayment')
-  let gratisBtn = document.getElementById('gratis')
-  let consentBtn = document.getElementById('consentBtn')
-  let paymentConsentBox = document.getElementById('paymentConsent')
-  let resultForUploadBox = document.getElementById('resultForUpload')
-  let paymentForm = document.getElementById('regularPayment')
+
+
+
+  if(codeCheck != null) {
+    let kod = document.getElementById('kod')
+    let initialPrice = document.getElementById('initialPrice')
+    let t24 = document.getElementById('t24')
+    let initialPriceTop = document.getElementById('initialPriceTop')
+    let proceedPayment = document.getElementById('proceedPayment')
+    let gratisBtn = document.getElementById('gratis')
+    let consentBtn = document.getElementById('consentBtn')
+    let paymentConsentBox = document.getElementById('paymentConsent')
+    let resultForUploadBox = document.getElementById('resultForUpload')
+    let paymentForm = document.getElementById('regularPayment')
 
   codeCheck.addEventListener('click', e => {
 
@@ -769,10 +773,8 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
       })
     })
   })
+}
 
-  gratisBtn.addEventListener('click', e => {
-
-})
 
   let mainSearchinner = document.getElementById('searchResultPage')
   // ger reference to filter
