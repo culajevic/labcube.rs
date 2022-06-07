@@ -1933,6 +1933,7 @@ table.workingHoursLabDetails {
   border-left: 4px solid $primary-color;
   padding-left: 20px;
   font-size: px-to-rem(20px);
+  min-width: 400px;
   > span {
     opacity: .6;
   }

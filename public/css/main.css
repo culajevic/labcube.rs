@@ -7131,7 +7131,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #000; }
   .table, .tableLabResults {
     border-collapse: collapse !important; }
-    
+
     .table td,
     .tableLabResults td, .table th, .tableLabResults th {
       background-color: #fff !important; }
@@ -10248,7 +10248,8 @@ table.workingHoursLabDetails {
   display: inline-block;
   border-left: 4px solid #1D88E5;
   padding-left: 20px;
-  font-size: 1.25rem; }
+  font-size: 1.25rem;
+  min-width: 400px; }
   .myResultsComment > span {
     opacity: .6; }
 
@@ -10269,7 +10270,9 @@ table.workingHoursLabDetails {
 
 .analysisName {
   font-size: 1.25rem;
-  color: #3B3B3B; }
+  color: #3B3B3B;
+  min-width: 360px;
+}
   .analysisName + p {
     font-size: 1.125rem;
     opacity: .6; }
