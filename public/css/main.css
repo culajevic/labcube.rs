@@ -7131,7 +7131,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #000; }
   .table, .tableLabResults {
     border-collapse: collapse !important; }
-
+    
     .table td,
     .tableLabResults td, .table th, .tableLabResults th {
       background-color: #fff !important; }
@@ -8874,7 +8874,7 @@ body {
 #myresults .finalThougths,
 #otherResults .finalThougths {
   margin-top: 2.5rem;
-  padding: 40px;
+  padding: 24px;
   background-color: #F5FAFF;
   border-radius: 20px; }
   #paketi .finalThougths p, #modalParagraph .finalThougths p,
@@ -10270,9 +10270,7 @@ table.workingHoursLabDetails {
 
 .analysisName {
   font-size: 1.25rem;
-  color: #3B3B3B;
-  min-width: 360px;
-}
+  color: #3B3B3B; }
   .analysisName + p {
     font-size: 1.125rem;
     opacity: .6; }
