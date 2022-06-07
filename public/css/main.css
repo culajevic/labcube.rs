@@ -10270,6 +10270,7 @@ table.workingHoursLabDetails {
 
 .analysisName {
   font-size: 1.25rem;
+  min-width: 360px;
   color: #3B3B3B; }
   .analysisName + p {
     font-size: 1.125rem;

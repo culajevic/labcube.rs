@@ -1959,6 +1959,7 @@ table.workingHoursLabDetails {
 
 .analysisName {
   font-size: px-to-rem(20px);
+  min-width: 360px;
   color:$fontColorResultsTable;
   & + p {
     font-size: px-to-rem(18px);
