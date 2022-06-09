@@ -211,6 +211,8 @@ const about = /o-nama/
 const profilePage = /profile.*/
 const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
+const labCubeResultsInterpratationForm = /otherResultsInterpretation.*/
+
 
 
 //definisanje stranica na kojima se prikazuje shoping karta
@@ -704,7 +706,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.removeAnalysis(itemsArray, checkout)
 }
 
-if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
+if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile') {
 
   let codeCheck = document.getElementById('codeCheck')
 
@@ -1548,6 +1550,7 @@ let interpretationPage = document.getElementById('interpretationId')
 } else if (urlArr[1] == 'otherResultsInterpretation') {
   //ovo je unutrasnja stranica na kojoj labcube tumaci rezultate
   //lockTheRecord
+
   let ownerId
   let interpretation = interpretationPage.value
   let lockTheRecord = document.getElementById('zakljucaj')
@@ -1827,6 +1830,24 @@ let interpretationPage = document.getElementById('interpretationId')
       })
 
     // })
+    $('#finalCommentByLabCube').summernote({
+
+          styleTags: [
+
+          {title: 'unorderList', tag: 'ul', className: 'textListInterpretation', value: 'ul'},
+          {title: 'orderList', tag: 'ol', className: 'myOrderListInterpreatation', value: 'ol'},
+          // {title: 'orderedList', tag: 'ol', className: 'orderedListInterpretation', value: 'ol', style:'color:green'},
+
+        ],
+          height: 480,
+          toolbar: [
+              ['view', ['codeview']],
+              ['img', ['picture']],
+              ['style', ['style', 'addclass', 'clear']],
+              ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+              ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+          ]
+        });
 }
 
 if(urlArr[1] == 'o-nama') {
@@ -2056,6 +2077,7 @@ if (location.match('addLab')) {
 
 
   if (location.match('addAnalysis')) {
+
     $('#summernote').summernote({
 
           styleTags: [

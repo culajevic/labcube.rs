@@ -8227,13 +8227,24 @@ span.remove:hover {
   line-height: 24px;
   line-height: 2.5rem; }
 
-.textList {
+.textList, .textListInterpretation, .myOrderListInterpreatation {
   padding-left: 2.25rem;
   font-size: 1.125rem;
   margin-bottom: 1.125rem; }
-  .textList li {
+  .textList li, .textListInterpretation li, .myOrderListInterpreatation li {
     line-height: 1.75rem !important;
     font-size: 1.125rem; }
+
+.textListInterpretation, .myOrderListInterpreatation {
+  opacity: .6;
+  font-size: 1.1; }
+  .textListInterpretation li, .myOrderListInterpreatation li {
+    line-height: 1.75rem !important;
+    font-size: 1.125rem; }
+
+.myOrderListInterpreatation {
+  padding-left: 20px;
+  color: red; }
 
 .tumacenjeUl {
   list-style-type: none;
@@ -8336,24 +8347,24 @@ ol li {
   float: right;
   font-size: 1.375rem; }
 
-#sideMenu > .textList {
+#sideMenu > .textList, #sideMenu > .textListInterpretation, #sideMenu > .myOrderListInterpreatation {
   list-style-type: none;
   padding-left: 0; }
-  #sideMenu > .textList .list-group-item {
+  #sideMenu > .textList .list-group-item, #sideMenu > .textListInterpretation .list-group-item, #sideMenu > .myOrderListInterpreatation .list-group-item {
     border: 0;
     padding: 0.1875rem 1rem;
     font-size: 1rem;
     color: #3B3B3B;
     opacity: .8; }
-    #sideMenu > .textList .list-group-item.active {
+    #sideMenu > .textList .list-group-item.active, #sideMenu > .textListInterpretation .list-group-item.active, #sideMenu > .myOrderListInterpreatation .list-group-item.active {
       background-color: transparent;
       border-left: 4px solid #1D88E5;
       color: #1D88E5;
       padding-left: 0.75rem;
       border-radius: 0; }
-    #sideMenu > .textList .list-group-item:hover:not(.active) {
+    #sideMenu > .textList .list-group-item:hover:not(.active), #sideMenu > .textListInterpretation .list-group-item:hover:not(.active), #sideMenu > .myOrderListInterpreatation .list-group-item:hover:not(.active) {
       opacity: .5; }
-    #sideMenu > .textList .list-group-item:active {
+    #sideMenu > .textList .list-group-item:active, #sideMenu > .textListInterpretation .list-group-item:active, #sideMenu > .myOrderListInterpreatation .list-group-item:active {
       text-decoration: none; }
 
 .povezaneAnalize h5 {
@@ -8883,6 +8894,16 @@ body {
     opacity: 0.6;
     font-size: 1.1rem;
     line-height: 1.5625rem; }
+  #paketi .finalThougths ol, #modalParagraph .finalThougths ol,
+  #myresults .finalThougths ol,
+  #otherResults .finalThougths ol {
+    opacity: 0.6;
+    font-size: 1.1rem;
+    line-height: 1.5625rem; }
+
+.orderedListInterpretation {
+  color: red;
+  font-size: 29px; }
 
 div.mobile-wrapper {
   position: relative;

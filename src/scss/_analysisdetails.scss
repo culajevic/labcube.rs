@@ -93,6 +93,22 @@
   }
 }
 
+.textListInterpretation {
+  @extend .textList;
+  opacity:.6;
+  font-size: 1.1;
+  li {
+   line-height: 1.75rem !important;
+     font-size: 1.125rem;
+ }
+}
+
+.myOrderListInterpreatation {
+  @extend .textListInterpretation;
+  padding-left: 20px;
+  color:red;
+}
+
 .tumacenjeUl {
     list-style-type: none;
     // padding-left: px-to-rem(16px);

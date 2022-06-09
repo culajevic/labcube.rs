@@ -21982,7 +21982,8 @@ var cookies = /kolacici.*/;
 var about = /o-nama/;
 var profilePage = /profile.*/;
 var payment = /paymentPage/;
-var paymentDetails = /uslovi.*/; //definisanje stranica na kojima se prikazuje shoping karta
+var paymentDetails = /uslovi.*/;
+var labCubeResultsInterpratationForm = /otherResultsInterpretation.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs))) {
   helper.displayBasket(itemsArray);
@@ -22460,7 +22461,7 @@ window.onload = function () {
     helper.removeAnalysis(itemsArray, checkout);
   }
 
-  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
+  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile') {
     var codeCheck = document.getElementById('codeCheck');
 
     if (codeCheck != null) {
@@ -23480,6 +23481,23 @@ window.onload = function () {
         counterValue.innerHTML = counter;
       }
     }); // })
+
+    $('#finalCommentByLabCube').summernote({
+      styleTags: [{
+        title: 'unorderList',
+        tag: 'ul',
+        className: 'textListInterpretation',
+        value: 'ul'
+      }, {
+        title: 'orderList',
+        tag: 'ol',
+        className: 'myOrderListInterpreatation',
+        value: 'ol'
+      } // {title: 'orderedList', tag: 'ol', className: 'orderedListInterpretation', value: 'ol', style:'color:green'},
+      ],
+      height: 480,
+      toolbar: [['view', ['codeview']], ['img', ['picture']], ['style', ['style', 'addclass', 'clear']], ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']], ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']]]
+    });
   }
 
   if (urlArr[1] == 'o-nama') {

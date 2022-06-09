@@ -252,6 +252,16 @@ font-size:30px; text-decoration:line-through;
     font-size: 1.1rem;
     line-height: px-to-rem(25px);
   }
+  & ol {
+      opacity: 0.6;
+      font-size: 1.1rem;
+      line-height: px-to-rem(25px);
+  }
+}
+
+.orderedListInterpretation {
+  color:red;
+  font-size: 29px;
 }
 
 //mobilephone frame styling
