@@ -1608,6 +1608,7 @@ let interpretationPage = document.getElementById('interpretationId')
   let customerEmail = document.getElementById('customerEmail')
   let customerEmailCopy = document.getElementById('customerEmailCopy')
   let doneBtn = document.getElementById('doneBtn')
+  let notDoneBtn = document.getElementById('notDoneBtn')
   let alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange')
   let num = alreadyLoadedOutsideOfTheRange.length
   let finalCommentByLabCube = document.getElementById('finalCommentByLabCube')
@@ -1626,7 +1627,7 @@ let interpretationPage = document.getElementById('interpretationId')
   })
 
   if (published.checked) {
-    doneBtn.innerText = 'Izmeni i ponovo pošalji mejl korisniku'
+    doneBtn.innerText = 'Izmeni i ponovo pošalji mejl pacijentu'
   }
 
   published.addEventListener('click', e => {
@@ -1634,12 +1635,17 @@ let interpretationPage = document.getElementById('interpretationId')
     if (published.checked == false) {
       doneBtn.innerText = 'Sačuvaj'
     } else {
-      doneBtn.innerText = 'Završi i pošalji mejl korisniku'
+      doneBtn.innerText = 'Završi i pošalji mejl pacijentu'
     }
     if (lockStatus.innerHTML != 'Zaključano') {
       alert('Morate prvo zaključati tumačenje' + lockStatus.innerHTML)
       published.checked = false
     }
+  })
+
+  notDoneBtn.addEventListener('click', e => {
+    e.preventDefault()
+    window.location = '/otherResultsInterpretation/page/1'
   })
 
   let counter = 0

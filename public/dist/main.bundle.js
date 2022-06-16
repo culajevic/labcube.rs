@@ -23289,6 +23289,7 @@ window.onload = function () {
     var customerEmail = document.getElementById('customerEmail');
     var customerEmailCopy = document.getElementById('customerEmailCopy');
     var doneBtn = document.getElementById('doneBtn');
+    var notDoneBtn = document.getElementById('notDoneBtn');
     var alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange');
     var num = alreadyLoadedOutsideOfTheRange.length;
     var finalCommentByLabCube = document.getElementById('finalCommentByLabCube');
@@ -23305,7 +23306,7 @@ window.onload = function () {
     });
 
     if (published.checked) {
-      doneBtn.innerText = 'Izmeni i ponovo pošalji mejl korisniku';
+      doneBtn.innerText = 'Izmeni i ponovo pošalji mejl pacijentu';
     }
 
     published.addEventListener('click', function (e) {
@@ -23314,13 +23315,17 @@ window.onload = function () {
       if (published.checked == false) {
         doneBtn.innerText = 'Sačuvaj';
       } else {
-        doneBtn.innerText = 'Završi i pošalji mejl korisniku';
+        doneBtn.innerText = 'Završi i pošalji mejl pacijentu';
       }
 
       if (_lockStatus.innerHTML != 'Zaključano') {
         alert('Morate prvo zaključati tumačenje' + _lockStatus.innerHTML);
         published.checked = false;
       }
+    });
+    notDoneBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location = '/otherResultsInterpretation/page/1';
     });
     var counter = 0; // const otherResultsTable = document.getElementById('resultsUpload')
 
