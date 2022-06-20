@@ -285,11 +285,17 @@ exports.payment = async (req,res) => {
 //
   const request = async() => {
   	const path='/v1/checkouts';
-
+    
     if(req.body.userComment.length == 0 ) {
       userComment = 'nema komentara'
-    } else {
+      console.log(userComment)
+    } else if (req.body.userComment.length >= 254) {
+      userComment = req.body.userComment.substring(0,254)
+    } 
+      else 
+      {
       userComment = req.body.userComment
+      console.log('duzina' + req.body.userComment.length)
     }
 
   	const data = querystring.stringify({
@@ -304,6 +310,7 @@ exports.payment = async (req,res) => {
       'customParameters[SHOPPER_path]':req.file.path,
   		'paymentType':'DB'
   	});
+    console.log(data)
   	const options = {
   		port: 443,
   		host: process.env.PAYMENTHOSTPRODUCTION,
@@ -522,6 +529,8 @@ requestCheckout()
          runValidators:true,
          useFindAndModify:false
        }).exec()
+
+    
 
     const uploadResult = new Result({
       userId:data.customer.merchantCustomerId,
