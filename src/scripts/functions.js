@@ -276,12 +276,19 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
       checkout.removeAttribute('style')
 
       //enable if shopping cart should be visible after each dodaj click
-      // setTimeout(()=>{
-      //   let priceList = document.getElementById('priceList')
-      //   priceList.classList.add('unhidePriceList')
-      //   priceList.classList.remove('hidePriceList')
-      // },500)
+      setTimeout(()=>{
+        let priceList = document.getElementById('priceList')
+        priceList.classList.add('unhidePriceList')
+        priceList.classList.remove('hidePriceList')
+        setTimeout(()=>{
+          priceList.classList.remove('unhidePriceList')
+          priceList.classList.add('hidePriceList')
+        },2100)
+      },600)
 
+      
+
+      
 
 
 

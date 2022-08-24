@@ -20937,12 +20937,16 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   resultDiv.addEventListener('click', function (e) {
     if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length < 30) {
       checkout.removeAttribute('style'); //enable if shopping cart should be visible after each dodaj click
-      // setTimeout(()=>{
-      //   let priceList = document.getElementById('priceList')
-      //   priceList.classList.add('unhidePriceList')
-      //   priceList.classList.remove('hidePriceList')
-      // },500)
 
+      setTimeout(function () {
+        var priceList = document.getElementById('priceList');
+        priceList.classList.add('unhidePriceList');
+        priceList.classList.remove('hidePriceList');
+        setTimeout(function () {
+          priceList.classList.remove('unhidePriceList');
+          priceList.classList.add('hidePriceList');
+        }, 2100);
+      }, 600);
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),
         'id': e.target.getAttribute('data-analysisid'),

@@ -189,7 +189,7 @@ font-size:30px; text-decoration:line-through;
 .zoom {
   position: absolute;
   // right:25%;
-  top:16%;
+  top:10%;
   height: 100px;
   width: 100px;
   opacity: 0;
@@ -202,7 +202,7 @@ font-size:30px; text-decoration:line-through;
   25%{opacity:.6}
   50%{opacity:.9}
   75%{opacity:.1}
-  100%{opacity:0; top:0; height: 12px; width: 12px;}
+  100%{opacity:0; top:0; height: 120px; width: 12px;}
 }
 
 .paymentSteps {
@@ -540,7 +540,7 @@ ul ol ul {
 }
 
 .hidePriceList {
-  transition: right 2s ease-in-out;
+  transition: right 5s ease-in-out;
   right:-10000px;
   z-index: 1000;
   width:300px;
@@ -565,7 +565,7 @@ ul ol ul {
   // opacity:1;
   z-index:1000;
   right:0;
-  transition: right .3s ease-in-out;
+  transition: right 1s ease-in-out;
 }
 
 #priceList {
