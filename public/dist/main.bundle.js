@@ -20945,7 +20945,7 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
         //   priceList.classList.remove('unhidePriceList')
         //   priceList.classList.add('hidePriceList')
         // },2100)
-      }, 600);
+      }, 400);
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),
         'id': e.target.getAttribute('data-analysisid'),

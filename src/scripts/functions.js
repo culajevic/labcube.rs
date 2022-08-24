@@ -284,7 +284,7 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
         //   priceList.classList.remove('unhidePriceList')
         //   priceList.classList.add('hidePriceList')
         // },2100)
-      },600)
+      },400)
 
       
 

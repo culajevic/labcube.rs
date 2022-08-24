@@ -10269,8 +10269,7 @@ table.workingHoursLabDetails {
   display: inline-block;
   border-left: 4px solid #1D88E5;
   padding-left: 20px;
-  font-size: 1.25rem;
-  min-width: 400px; }
+  font-size: 1.25rem; }
   .myResultsComment > span {
     opacity: .6; }
 
