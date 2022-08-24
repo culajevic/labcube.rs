@@ -20941,11 +20941,10 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
       setTimeout(function () {
         var priceList = document.getElementById('priceList');
         priceList.classList.add('unhidePriceList');
-        priceList.classList.remove('hidePriceList');
-        setTimeout(function () {
-          priceList.classList.remove('unhidePriceList');
-          priceList.classList.add('hidePriceList');
-        }, 2100);
+        priceList.classList.remove('hidePriceList'); // setTimeout(()=>{
+        //   priceList.classList.remove('unhidePriceList')
+        //   priceList.classList.add('hidePriceList')
+        // },2100)
       }, 600);
       itemsArray.push({
         'name': e.target.getAttribute('data-analysisName'),

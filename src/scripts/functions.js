@@ -280,10 +280,10 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
         let priceList = document.getElementById('priceList')
         priceList.classList.add('unhidePriceList')
         priceList.classList.remove('hidePriceList')
-        setTimeout(()=>{
-          priceList.classList.remove('unhidePriceList')
-          priceList.classList.add('hidePriceList')
-        },2100)
+        // setTimeout(()=>{
+        //   priceList.classList.remove('unhidePriceList')
+        //   priceList.classList.add('hidePriceList')
+        // },2100)
       },600)
 
       
