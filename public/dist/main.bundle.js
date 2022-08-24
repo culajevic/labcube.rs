@@ -21986,9 +21986,10 @@ var about = /o-nama/;
 var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/;
+var patronage = /zakazivanje.*/;
 var labCubeResultsInterpratationForm = /otherResultsInterpretation.*/; //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray);
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
@@ -22013,8 +22014,7 @@ if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(che
 window.onload = function () {
   //////////////////
   //display cookie message
-  var cookieMessage = new CookieAlert.cookieAlert();
-  console.log(location);
+  var cookieMessage = new CookieAlert.cookieAlert(); // console.log(location)
 
   if (location === '/verify') {
     var password = document.getElementById('password');

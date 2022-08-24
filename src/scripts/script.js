@@ -211,6 +211,7 @@ const about = /o-nama/
 const profilePage = /profile.*/
 const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
+const patronage = /zakazivanje.*/
 const labCubeResultsInterpratationForm = /otherResultsInterpretation.*/
 
 
@@ -218,7 +219,7 @@ const labCubeResultsInterpratationForm = /otherResultsInterpretation.*/
 //definisanje stranica na kojima se prikazuje shoping karta
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
  || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
- || location.match(allLabs))) {
+ || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray)
 }
 
@@ -250,7 +251,7 @@ window.onload = () => {
 //display cookie message
 let cookieMessage = new CookieAlert.cookieAlert()
 
-console.log(location)
+// console.log(location)
 
 if (location === '/verify') {
   const password = document.getElementById('password')
@@ -1216,7 +1217,6 @@ if (municipalityValue != null) {
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
     || urlArr[1] == 'sve-laboratorije-u-srbiji'   || urlArr[1] == 'zakazivanje-patronaze') {
   //FindBestPrice
-
     const findBestPrice = new FindBestPrice.bestPrice()
   //Delete analysis from shoping list
     helper.removeAnalysis(itemsArray, checkout)
