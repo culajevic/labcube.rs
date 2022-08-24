@@ -7959,7 +7959,7 @@ div.status.closedSoon::before {
     margin-bottom: 0; }
   #results .btn, #details .btn, #paymentCheckout .btn, #resultsGroupDetails .btn, #resultsLabDetails .btn, #labDetailsInner .btn {
     font-size: 0.8125rem;
-    padding: 0.5625rem 1.5625rem; }
+    padding: 0.5625rem 0.625rem; }
 
 #resultsLabDetails, #labDetailsInner {
   margin-bottom: 3.75rem; }
@@ -10576,11 +10576,8 @@ table.workingHoursLabDetails {
 .__editorImage {
   width: 15rem; }
 
-.addAnalysis {
-  width: 96px; }
-
-.deleteAnalysis {
-  width: 96px; }
+.addAnalysis, .deleteAnalysis {
+  width: 7.8125rem; }
 
 .analysisBasketLiItem:hover {
   color: #6b6b6b; }

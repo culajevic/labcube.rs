@@ -20817,7 +20817,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
   if (analysisPositionArr === -1) {
     addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis';
-    addAnalysisBtnText = document.createTextNode('dodaj');
+    addAnalysisBtnText = document.createTextNode('dodaj u korpu');
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714");
     addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
@@ -20922,7 +20922,7 @@ exports.removeAnalysis = function (itemsArray, checkout) {
       enableButton.forEach(function (item) {
         if (item.getAttribute('data-analysisName') == removedValue[0].name) {
           item.disabled = false;
-          item.textContent = 'dodaj';
+          item.textContent = 'dodaj u korpu';
           item.classList.remove('deleteAnalysis');
           item.classList.add('addAnalysis');
         }
