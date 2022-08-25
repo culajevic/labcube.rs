@@ -21987,10 +21987,12 @@ var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/;
 var patronage = /zakazivanje.*/;
-var labCubeResultsInterpratationForm = /otherResultsInterpretation.*/; //definisanje stranica na kojima se prikazuje shoping karta
+var labCubeResultsInterpratationForm = /otherResultsInterpretation.*/;
+var findUserByEmail = document.getElementById('searchForUserEmail'); //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) && !findUserByEmail || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray);
+  console.log('ds');
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
 
@@ -22003,7 +22005,6 @@ var privacy = /politika.*/;
 var paymentPage = /payment.*/;
 var admindashboard = /admindashboard/;
 var otherResultsInterpretationFix = /otherResultsInterpretation.*/;
-var findUserByEmail = document.getElementById('searchForUserEmail');
 var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube'); //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
 
 if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) && !location.match(admindashboard)) {
@@ -22464,7 +22465,7 @@ window.onload = function () {
     helper.removeAnalysis(itemsArray, checkout);
   }
 
-  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile') {
+  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile' && !findUserByEmail) {
     var codeCheck = document.getElementById('codeCheck');
 
     if (codeCheck != null) {
@@ -22937,24 +22938,24 @@ window.onload = function () {
       "date": ''
     });
     scheduleString = JSON.stringify(schedule); //otkomentarisati kada pocne zakazivanje preko labcuba
-    // let scheduleBtn = document.getElementById('schedule')
-    // scheduleBtn.addEventListener('click', ()=>{
-    //
-    //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-    //   scheduleString = JSON.stringify(schedule)
-    //   fetch('/schedule/',{
-    //     method:"post",
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body:scheduleString
-    //   }).then(response => {
-    //     console.log(response)
-    //     window.location.href="/hvala"
-    //     localStorage.removeItem('items')
-    //   })
-    // })
+
+    var scheduleBtn = document.getElementById('schedule');
+    scheduleBtn.addEventListener('click', function () {
+      schedule[4].date = dateLab.value != "" ? dateLab.value : datePatronaza.value;
+      scheduleString = JSON.stringify(schedule);
+      fetch('/schedule/', {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: scheduleString
+      }).then(function (response) {
+        console.log(response);
+        window.location.href = "/hvala";
+        localStorage.removeItem('items');
+      });
+    });
   }
 
   if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze') {
@@ -22974,7 +22975,7 @@ window.onload = function () {
   }
 
   if (urlArr[1] == 'profile' && !findUserByEmail) {
-    //ako je profilna stranica
+    //ako je profilna stranica za pacijenta
     //FindBestPrice
     var _findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 
@@ -23060,6 +23061,7 @@ window.onload = function () {
     // console.log(searchUserEmail)
     // }
   } else if (findUserByEmail) {
+    console.log(findUserByEmail);
     var labDashResults = document.getElementById('labDashboard');
     var labDashTable = document.getElementById('labDashResults');
     findUserByEmail.addEventListener('input', function () {
@@ -23069,7 +23071,8 @@ window.onload = function () {
       fetch('/users/' + searchStr).then(function (data) {
         labDashTable.innerHTML = '';
         data.json().then(function (result) {
-          // console.log(result)
+          console.log(result);
+
           for (var _i = 0; _i < result.length; _i++) {
             var formatDate = void 0;
 

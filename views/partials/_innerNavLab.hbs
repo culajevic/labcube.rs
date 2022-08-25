@@ -3,6 +3,7 @@
     <div class="container">
       <a href="/" class="navbar-brand">
         <img src="/images/logoSmallSlice.svg" alt="labcube"></a>
+        <a href="/logout" class="nav-link link-unstyled dashboardTabs" id="loagout-tab"> <i class="fa fa-sign-out-alt text-white" title="odjava" alt="odjava"></i></a>
       </div><!-- collapse -->
     </div><!-- container end -->
   </nav><!-- nav end -->
@@ -10,35 +11,36 @@
     <div class="container ">
 
       <div class="labDashDetails" style="position:relative;">
-        <div class="feedback" style="position:absolute; right:0; top:12px;">
-          <p class="text-white float-right">ljubaznost  <progress   max=5 value={{hospitality}}> </progress> {{hospitality}}</p>
-
-          <p class="text-white text-right">venepunkcija  <progress max=5 value="{{venipuncture}}"></progress> {{venipuncture}}</p>
-          <p class="text-white text-right">izdavanje rezultata  <progress value="{{speed}}" max="5"> </progress> {{speed}}</p>
-          <p class="text-white text-right">covid odgovorni <progress value="{{covid}}" max="5"></progress> {{covid}}</p>
-          <p class="text-white text-right">opšti utisak <progress value="{{overall}}" max="5"></progress> {{overall}}</p>
+        <div class="feedbackLabDash" style="">
+          <p class="float-right">ljubaznost  <progress   max=5 value={{hospitality}}> </progress> {{hospitality}}</p>
+          <p class="text-right">venepunkcija  <progress max=5 value="{{venipuncture}}"></progress> {{venipuncture}}</p>
+          <p class="text-right">izdavanje rezultata  <progress value="{{speed}}" max="5"> </progress> {{speed}}</p>
+          <p class="text-right">covid odgovorni <progress value="{{covid}}" max="5"></progress> {{covid}}</p>
+          <p class="text-right">opšti utisak <progress value="{{overall}}" max="5"></progress> {{overall}}</p>
         </div>
-        <h1 class="text-light mt-4">{{findLab.labName}}</h1>
+        <div class="mt-5" id="labFeaturesAdminArea">
+          {{!-- {{#if findLab.disability}} --}}
+          <p><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima">Dostupno invalidima</p>
+          {{!-- {{/if}} --}}
+          {{!-- {{#if findLab.private}} --}}
+          <p><img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje">Privatno osiguranje</p>
+          {{!-- {{/if}} --}}
+          {{!-- {{#if findLab.accredited}} --}}
+          <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
+          {{!-- {{/if}} --}}
+          {{!-- {{#if findLab.patronage}} --}}
+          <p><img src="/images/ambulance_2.svg" class="labInfoWindowOsiguranje" title="radimo patronažu">Radimo patronažu</p>
+          {{!-- {{/if}} --}}
+        </div>
+
+        <h1 class="text-light mt-5">{{findLab.labName}}</h1>
         <span></span>
-        <p class="text-light">{{findLab.address}}</p>
-        <p class="text-light">{{findLab.web}}</p>
-        <p class="text-light">{{displayPhoneList findLab.phone}}</p>
+        <p class="text-light labDetailsAdresaLab pt-1">{{findLab.address}}</p>
+        <p class="text-light labDetailsTelefoniLab pt-1">{{displayPhoneList findLab.phone}}</p>
+        <p class="text-light webLab pt-1">{{findLab.web}}</p>
 
-        <div class="labFeatures my-3">
-          {{#if findLab.private}}
-          <span><img src="/images/osiguranje.svg" class="labInfoWindowOsiguranje" title="privatno osiguranje"> Sarađujemo sa privatnim osiguranjem</span>
-          {{/if}}
-          {{#if findLab.accredited}}
-          <span><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</span>
-          {{/if}}
-          {{#if findLab.patronage}}
-          <span><img src="/images/ambulance_2.svg" class="labInfoWindowOsiguranje" title="radimo patronažu"> Radimo patronažu</span>
-          {{/if}}
-          {{#if findLab.disability}}
-          <span><img src="/images/disability.svg" class="labInfoWindowOsiguranje" title="dostupno invalidima"> Dostupno invalidima</span>
-          {{/if}}
-        </div>
-        <table class="table table-sm workingHoursLabDetails">
+        
+        <table class="table mt-4 table-sm workingHoursLabDetails">
           <thead>
             <tr>
               <th class="text-center text-light">P</th>

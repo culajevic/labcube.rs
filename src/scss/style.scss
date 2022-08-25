@@ -346,15 +346,32 @@ div.mobile-wrapper iframe {
   padding-right:4px;
 }
 
+.labDetailsAdresaLab::before {
+  content:url('../images/addressIcon.svg');
+  padding-right:10px;
+}
+
+
 .labDetailsTelefoni::before {
   content:url('../images/phonesIcon.svg');
   margin-left: 1px;
   padding-right: 12px;
 }
 
+.labDetailsTelefoniLab::before{
+  content:url('../images/phonesIcon.svg');
+  margin-left: 1px;
+  padding-right: 15px;
+}
+
 .web::before {
   content:url('../images/websiteIcon.svg');
   padding-right: 5px;
+}
+
+.webLab::before {
+  content:url('../images/websiteIcon.svg');
+  padding-right: 12px;
 }
 
 .signUpFunc {
@@ -931,7 +948,7 @@ position: absolute;
 .labDetailsAdresa,
 .labDetailsGrad,
 .labDetailsTelefoni,
-.web ,  {
+.web  {
   font-size: px-to-rem(18px);
   line-height: px-to-rem(32px);
   display: block;
@@ -959,30 +976,77 @@ position: absolute;
 .labFeatures {
   background-color: $tableHover;
   border-top-left-radius: 20px;
+  
   border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
   line-height: px-to-rem(32px);
   padding:20px 10px;
-  padding-left: 30px;
+  // padding-left: 30px;
   border-right: 1px solid rgba(112, 112, 112, 0.1);
   border-bottom-right-radius: 0;
   height: 210px;
   // padding: 0px;
-  // padding-left: 15px;
+  padding-left: 30px;
     // margin-top: 30px;
     p {
     font-size: px-to-rem(16px);
-    margin-bottom: 4px;
+    // margin-bottom: 4px;
     // font-weight: 500;
     color:#6A757D;
     }
 }
+
+#labFeaturesAdminArea {
+  background-color: $tableHover;
+  border-top-left-radius: 20px;
+  position:absolute;
+  right:355px;
+  top:-88px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  line-height: px-to-rem(32px);
+  padding:10px 10px;
+  padding-left: 20px;
+  border-right: 1px solid rgba(112, 112, 112, 0.1);
+  border-bottom-right-radius: 0;  
+  height: 210px;
+  padding-left: 30px;
+    // margin-top: 30px;
+    p {
+    font-size: px-to-rem(16px);
+    // margin-bottom: 4px;
+    // font-weight: 500;
+    color:#6A757D;
+    }
+}
+
 .feedback {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: $tableHover;
+  // position:absolute;
+  // right:0;
+  // top:-40px;
   line-height: px-to-rem(32px);
-  padding:20px 10px;
-  padding-left: 0;
+  padding:10px 10px;
+  height: 210px;
+  p {
+    font-size: px-to-rem(16px);
+    // margin-bottom: 8px;
+    font-weight: 500;
+    color:#6A757D;
+    }
+}
+
+.feedbackLabDash {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: $tableHover;
+  position:absolute;
+  right:0;
+  top:-40px;
+  line-height: px-to-rem(32px);
+  padding:10px 10px;
   height: 210px;
   p {
     font-size: px-to-rem(16px);
@@ -1397,7 +1461,7 @@ p.selectedAnalysisTitle {
 
 .blueOverlayLab {
   @extend .blueOverlay;
-  height: 450px;
+  min-height: 500px;
   background-color: rgba(29,136,229,.90);
   margin: 0;
 }
@@ -1408,8 +1472,8 @@ p.selectedAnalysisTitle {
 }
 
 .searchForUser {
-  position: absolute;
-  margin-top: 44px;
+  // position: absolute;
+  // margin-top: 44px;
 }
 
 .input-field {

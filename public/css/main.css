@@ -7320,10 +7320,10 @@ a:focus {
   height: 70px; }
 
 #smallHeaderLab {
-  height: 450px;
+  height: 500px;
   width: 100%;
   background-image: url(../images/labdashboard.jpg);
-  background-position: 0 -350px;
+  background-position: 0 -500px;
   background-size: cover;
   background-repeat: no-repeat; }
   #smallHeaderLab .container {
@@ -8970,14 +8970,27 @@ div.mobile-wrapper iframe {
   content: url(../images/addressIcon.svg);
   padding-right: 4px; }
 
+.labDetailsAdresaLab::before {
+  content: url(../images/addressIcon.svg);
+  padding-right: 10px; }
+
 .labDetailsTelefoni::before {
   content: url(../images/phonesIcon.svg);
   margin-left: 1px;
   padding-right: 12px; }
 
+.labDetailsTelefoniLab::before {
+  content: url(../images/phonesIcon.svg);
+  margin-left: 1px;
+  padding-right: 15px; }
+
 .web::before {
   content: url(../images/websiteIcon.svg);
   padding-right: 5px; }
+
+.webLab::before {
+  content: url(../images/websiteIcon.svg);
+  padding-right: 12px; }
 
 .signUpFunc {
   width: 312px;
@@ -9478,15 +9491,34 @@ ul ol ul {
   background-color: #FAFAFA;
   border-top-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
   line-height: 2rem;
   padding: 20px 10px;
-  padding-left: 30px;
   border-right: 1px solid rgba(112, 112, 112, 0.1);
   border-bottom-right-radius: 0;
-  height: 210px; }
+  height: 210px;
+  padding-left: 30px; }
   .labFeatures p {
     font-size: 1rem;
-    margin-bottom: 4px;
+    color: #6A757D; }
+
+#labFeaturesAdminArea {
+  background-color: #FAFAFA;
+  border-top-left-radius: 20px;
+  position: absolute;
+  right: 355px;
+  top: -88px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  line-height: 2rem;
+  padding: 10px 10px;
+  padding-left: 20px;
+  border-right: 1px solid rgba(112, 112, 112, 0.1);
+  border-bottom-right-radius: 0;
+  height: 210px;
+  padding-left: 30px; }
+  #labFeaturesAdminArea p {
+    font-size: 1rem;
     color: #6A757D; }
 
 .feedback {
@@ -9494,10 +9526,24 @@ ul ol ul {
   border-bottom-right-radius: 20px;
   background-color: #FAFAFA;
   line-height: 2rem;
-  padding: 20px 10px;
-  padding-left: 0;
+  padding: 10px 10px;
   height: 210px; }
   .feedback p {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6A757D; }
+
+.feedbackLabDash {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #FAFAFA;
+  position: absolute;
+  right: 0;
+  top: -40px;
+  line-height: 2rem;
+  padding: 10px 10px;
+  height: 210px; }
+  .feedbackLabDash p {
     font-size: 1rem;
     font-weight: 500;
     color: #6A757D; }
@@ -9802,17 +9848,13 @@ p.selectedAnalysisTitle {
   height: 40px; }
 
 .blueOverlayLab {
-  height: 450px;
+  min-height: 500px;
   background-color: rgba(29, 136, 229, 0.9);
   margin: 0; }
 
 .blueOverlayLabCube {
   height: 100px;
   background-color: rgba(29, 136, 229, 0.9); }
-
-.searchForUser {
-  position: absolute;
-  margin-top: 44px; }
 
 .input-field {
   margin-bottom: 0;

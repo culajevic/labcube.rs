@@ -3,14 +3,14 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <div class="table-responsive mt-4" id="labDashboard">
+      <div class="table-responsive" id="labDashboard">
         <table class="table" id="labDashResults">
           <tbody>
 
             {{#each findScheduledAnalysis}}
 
             <tr class="dashboardResults">
-              <td>{{this.user.username}}ss</td>
+              <td>{{this.user.username}}</td>
               <!-- <td>{{this.user.birthYear}}</td> -->
               <td>{{this.user.mobile}}</td>
               <td>{{this.user.email}}</td>
@@ -73,4 +73,4 @@
 </div>
 
 
- {{> _footer}}
+ {{!-- {{> _footer}} --}}

@@ -213,14 +213,15 @@ const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
 const patronage = /zakazivanje.*/
 const labCubeResultsInterpratationForm = /otherResultsInterpretation.*/
-
+let findUserByEmail = document.getElementById('searchForUserEmail')
 
 
 //definisanje stranica na kojima se prikazuje shoping karta
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
- || location.match(paymentDetails) || location.match(profilePage) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
+ || location.match(paymentDetails) || (location.match(profilePage) && !findUserByEmail) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
  || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray)
+  console.log('ds')
 }
 
 //MUST CHECK THIS!!!!!!!
@@ -233,7 +234,7 @@ let privacy = /politika.*/
 let paymentPage = /payment.*/
 let admindashboard = /admindashboard/
 let otherResultsInterpretationFix = /otherResultsInterpretation.*/
-let findUserByEmail = document.getElementById('searchForUserEmail')
+
 let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube')
 
 //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
@@ -707,10 +708,9 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.removeAnalysis(itemsArray, checkout)
 }
 
-if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile') {
-
+if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || (urlArr[1] == 'profile' && !findUserByEmail)) {
+  
   let codeCheck = document.getElementById('codeCheck')
-
 
 
   if(codeCheck != null) {
@@ -1192,26 +1192,27 @@ if (municipalityValue != null) {
         schedule.push({"date":''})
         scheduleString = JSON.stringify(schedule)
 
-        //otkomentarisati kada pocne zakazivanje preko labcuba
-      // let scheduleBtn = document.getElementById('schedule')
+//otkomentarisati kada pocne zakazivanje preko labcuba
 
-      // scheduleBtn.addEventListener('click', ()=>{
-      //
-      //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-      //   scheduleString = JSON.stringify(schedule)
-      //   fetch('/schedule/',{
-      //     method:"post",
-      //     headers: {
-      //       'Accept': 'application/json',
-      //       'Content-Type': 'application/json'
-      //     },
-      //     body:scheduleString
-      //   }).then(response => {
-      //     console.log(response)
-      //     window.location.href="/hvala"
-      //     localStorage.removeItem('items')
-      //   })
-      // })
+      let scheduleBtn = document.getElementById('schedule')
+
+      scheduleBtn.addEventListener('click', ()=>{
+      
+        schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+        scheduleString = JSON.stringify(schedule)
+        fetch('/schedule/',{
+          method:"post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body:scheduleString
+        }).then(response => {
+          console.log(response)
+          window.location.href="/hvala"
+          localStorage.removeItem('items')
+        })
+      })
     }
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
@@ -1230,8 +1231,8 @@ if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || u
 }
 
 if(urlArr[1] == 'profile' && !findUserByEmail) {
-  //ako je profilna stranica
-
+  //ako je profilna stranica za pacijenta
+  
   //FindBestPrice
     const findBestPrice = new FindBestPrice.bestPrice()
   //Delete analysis from shoping list
@@ -1324,9 +1325,10 @@ if(anamnesisCommentValue.value == '') {
       // console.log(searchUserEmail)
     // }
 } else if(findUserByEmail) {
+  console.log(findUserByEmail)
     const labDashResults = document.getElementById('labDashboard')
     const labDashTable = document.getElementById('labDashResults')
-
+  
       findUserByEmail.addEventListener('input', () => {
 
         let searchStr = findUserByEmail.value
@@ -1335,7 +1337,7 @@ if(anamnesisCommentValue.value == '') {
         fetch('/users/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
           data.json().then((result) => {
-            // console.log(result)
+            console.log(result)
             for(let i=0; i<result.length; i++){
 
               let formatDate
