@@ -22,7 +22,7 @@ exports.allFaqs = [authCheck, async (req,res) => {
   const allFaqs = await Faq.find()
   // console.log(allFaqs)
   res.render('allFaqs', {
-    title:'Sve pitanja',
+    title:'Sva pitanja',
     allFaqs,
     numOfFaqs
   })
