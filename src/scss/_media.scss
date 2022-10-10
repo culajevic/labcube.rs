@@ -387,10 +387,17 @@
     max-width: 140px;
   }
   .logoFull {
-    width: 70%;
+    // width: 70%;
+    width: 100%;
+    margin-bottom:px-to-rem(80px);
+    // margin:0 auto;
   }
   #bannerDetails {
     display:block;
+  }
+  #headlineMessage {
+    // line-height: 50px;
+    font-size: 1rem;
   }
 
   .fileTypes {
@@ -780,6 +787,15 @@
     float:clear;
     // border:1px solid $primary-color;
     // border-radius: 300px;
+  }
+  .logoFull {
+    // width: 70%;
+    width: 100%;
+    margin-bottom:px-to-rem(80px);
+    // margin:0 auto;
+  }
+  .search {
+    margin-top: px-to-rem(20px);
   }
 
 

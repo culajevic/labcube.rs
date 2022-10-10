@@ -1,6 +1,7 @@
 require('../scss/style.scss')
 const flatpickr = require("flatpickr")
 const Serbian = require("flatpickr/dist/l10n/sr.js").default.sr;
+import Typed from 'typed.js'
 
 
 const moment = require('moment')
@@ -273,6 +274,16 @@ if (location === '/registracija') {
 /* INDEX PAGE ***************/
 
 if(location === '/') {
+
+  let typeText = document.getElementById('headlineMessage')
+
+  let typed = new Typed('#headlineMessage', {
+    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju ko uvek ima vremena da pogleda rezultate"],
+    typeSpeed: 30,
+    backSpeed:10,
+    loop:true,
+    showCursor: false
+  });
 
   //testing analysis box feature
   // let analysisBasket = document.getElementById('analysisBasket')
@@ -712,11 +723,26 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
   
   let codeCheck = document.getElementById('codeCheck')
 
+  //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
+  let newDateCheck = new Date()
+  let t4 = document.getElementById('t4')
+  
+  if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8) {
+    t4.disabled = true
+    t4.parentElement.disabled = true
+    t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
+    t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
+    t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
+    t4.nextElementSibling.style.cursor = 'default'
+    t4.nextElementSibling.innerHTML = 'dostupno jedino između 8 i 20h'
+    // t4.parentElement.innerHTML = '<h3 class=text-center>Tumačenje u roku od 4h je moguće odabrati samo između 8 i 17h. <br/>Hvala na razumevanju</h3>'
+    t4.nextElementSibling.classList.remove('btn-outline-success') 
+  }
+  // kraj provere trenutnog vremena
 
   if(codeCheck != null) {
     let kod = document.getElementById('kod')
     let initialPrice = document.getElementById('initialPrice')
-    let t24 = document.getElementById('t24')
     let initialPriceTop = document.getElementById('initialPriceTop')
     let proceedPayment = document.getElementById('proceedPayment')
     let gratisBtn = document.getElementById('gratis')
@@ -724,13 +750,15 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
     let paymentConsentBox = document.getElementById('paymentConsent')
     let resultForUploadBox = document.getElementById('resultForUpload')
     let paymentForm = document.getElementById('regularPayment')
-
+    
   codeCheck.addEventListener('click', e => {
 
     fetch('/discount/'+kod.value).then((data) => {
       data.json().then((result) => {
-        console.log(result)
+        
         if(result && result.discount != 100) {
+
+            
             let codeBack = document.getElementById('codeBack')
             codeBack.style.backgroundColor='#55D159'
             codeCheck.textContent="✔"
@@ -738,10 +766,12 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             codeCheck.style.color='white'
             // calculate discount
             let discount = result.discount
-            let newPrice = Math.floor(t24.value-(t24.value*(result.discount/100)))
+            let newPrice = Math.floor(t4.value-(t4.value*(result.discount/100)))
             initialPrice.innerHTML = newPrice + ' din.'
-            initialPriceTop.textContent = t24.value + ' din.'
-            t24.value= newPrice
+            initialPriceTop.textContent = t4.value + ' din.'
+            t4.value= newPrice
+            t4.checked = true
+            t4.nextElementSibling.innerHTML = 'odabrano'
             initialPriceTop.classList.remove('d-none')
           }
           else if (result && result.discount == 100) {
@@ -753,10 +783,18 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             codeCheck.disabled=true
             codeCheck.style.color='white'
             let discount = result.discount
-            let newPrice = Math.floor(t24.value-(t24.value*(result.discount/100)))
+            let newPrice = Math.floor(t4.value-(t4.value*(result.discount/100)))
             initialPrice.innerHTML = newPrice + ' din.'
-            initialPriceTop.textContent = t24.value + ' din.'
-            t24.value= newPrice
+            initialPriceTop.textContent = t4.value + ' din.'
+            t4.value= newPrice
+            t4.parentElement.disabled = true
+            t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
+            t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
+            t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
+            t4.nextElementSibling.style.cursor = 'default'
+            t4.nextElementSibling.classList.remove('btn-outline-success')
+            t4.checked = true
+            t4.nextElementSibling.innerHTML = 'Odabrano'
             // paymentConsentBox.classList.add('d-none')
             paymentConsentBox.style.pointerEvents = 'none'
             paymentConsentBox.style.backgroundColor='#9C9C9C'
@@ -765,7 +803,6 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             paymentForm.action = '/freeUpload'
           }
           else {
-            console.log('iskorisceno')
             codeBack.style.backgroundColor='red'
             codeCheck.textContent='Probaj opet'
             codeCheck.style.color='white'

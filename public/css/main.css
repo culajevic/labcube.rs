@@ -8984,6 +8984,9 @@ div.mobile-wrapper iframe {
   margin-left: 1px;
   padding-right: 15px; }
 
+#everythingAboutAnalysis {
+  margin-top: -60px; }
+
 .web::before {
   content: url(../images/websiteIcon.svg);
   padding-right: 5px; }
@@ -10516,6 +10519,9 @@ table.workingHoursLabDetails {
 .okvrednosti {
   background-color: #55D159; }
 
+#headlineMessage {
+  min-height: 32px; }
+
 .btn-outline-success {
   border-color: #55D159;
   color: #55D159; }
@@ -10593,6 +10599,7 @@ table.workingHoursLabDetails {
   font-size: 0.625rem;
   border-top-left-radius: 3px;
   border-bottom-right-radius: 5px;
+  border-top-left-radius: 12px;
   text-transform: uppercase;
   padding: 10px 14px;
   top: 0;
@@ -10892,9 +10899,12 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
   .logoFull {
-    width: 70%; }
+    width: 100%;
+    margin-bottom: 5rem; }
   #bannerDetails {
     display: block; }
+  #headlineMessage {
+    font-size: 1rem; }
   .fileTypes {
     bottom: 0px; }
   .interpretationDate {
@@ -11124,7 +11134,12 @@ table.workingHoursLabDetails {
   .editorImg {
     display: block;
     margin: 0 auto;
-    float: clear; } }
+    float: clear; }
+  .logoFull {
+    width: 100%;
+    margin-bottom: 5rem; }
+  .search {
+    margin-top: 1.25rem; } }
 
 @media (min-width: 768px) and (max-width: 991px) {
   #bannerDetails {
