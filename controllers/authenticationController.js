@@ -45,7 +45,8 @@ let transporter = nodemailer.createTransport({
   },
   tls: {
         rejectUnauthorized: false
-    }
+    },
+  from:'labcube-no-reply@labcube.rs'
 })
 
 exports.signin = (req,res) => {
