@@ -277,13 +277,13 @@ if(location === '/') {
 
   let typeText = document.getElementById('headlineMessage')
 
-  // let typed = new Typed('#headlineMessage', {
-  //   strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju kako najbrže do tumačenja rezultata"],
-  //   typeSpeed: 30,
-  //   backSpeed:10,
-  //   loop:true,
-  //   showCursor: false
-  // });
+  let typed = new Typed('#headlineMessage', {
+    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju kako najbrže do tumačenja rezultata"],
+    typeSpeed: 30,
+    backSpeed:10,
+    loop:true,
+    showCursor: false
+  });
 
   //testing analysis box feature
   // let analysisBasket = document.getElementById('analysisBasket')
