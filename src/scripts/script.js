@@ -222,7 +222,7 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || 
  || location.match(paymentDetails) || (location.match(profilePage) && !findUserByEmail) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
  || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray)
-  console.log('ds')
+  
 }
 
 //MUST CHECK THIS!!!!!!!
@@ -277,13 +277,13 @@ if(location === '/') {
 
   let typeText = document.getElementById('headlineMessage')
 
-  let typed = new Typed('#headlineMessage', {
-    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju ko uvek ima vremena da pogleda rezultate"],
-    typeSpeed: 30,
-    backSpeed:10,
-    loop:true,
-    showCursor: false
-  });
+  // let typed = new Typed('#headlineMessage', {
+  //   strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju kako najbrže do tumačenja rezultata"],
+  //   typeSpeed: 30,
+  //   backSpeed:10,
+  //   loop:true,
+  //   showCursor: false
+  // });
 
   //testing analysis box feature
   // let analysisBasket = document.getElementById('analysisBasket')
@@ -564,6 +564,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
 
 
     if(myFilter === 'analiza') {
+      let i
       console.log('pretraga analize sa glavne stranice')
       fetch('/analysis/prices/'+searchStr).then((data) => {
         // loaderWrapper.style.opacity = 1
@@ -575,7 +576,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
           let prices = result.prices
           for(i=0; i<analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray)
+            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray, i)
           }// for end
           //when result is found remove loading icon
           loaderWrapper.style.opacity = 0
@@ -613,7 +614,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
                 loaderWrapper.style.opacity = 0
               }
 
-                for(i=0; i<analysis.length; i++) {
+                for(let i=0; i<analysis.length; i++) {
 
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
@@ -1009,8 +1010,11 @@ if (municipalityValue != null) {
 
 
         const labIdName = document.getElementById('labName')
-        labId = labIdName.getAttribute('data-id')
-
+        
+        //todo 
+        //otkomentarisati kada se zakazuje preko labcuba
+        // labId = labIdName.getAttribute('data-id')
+        
 
     //search and add analysis from lab details page
 
@@ -1219,37 +1223,37 @@ if (municipalityValue != null) {
       }
 
         helper.removeAnalysis(itemsArray, checkout)
-
-
-
-        schedule.push({"total":totalPrice})
-        schedule.push({"analysis":itemsArray})
-        schedule.push({"labCubePrice":labCubePrice})
-        schedule.push({"labId":labId})
-        schedule.push({"date":''})
-        scheduleString = JSON.stringify(schedule)
-
+        //todo 
+        //otkomentarisati kada se zakazuje preko labcuba 
+            // schedule.push({"total":totalPrice})
+            // schedule.push({"analysis":itemsArray})
+            // schedule.push({"labCubePrice":labCubePrice})
+            // schedule.push({"labId":labId})
+            // schedule.push({"date":''})
+            // scheduleString = JSON.stringify(schedule)
+        ///////////
+      //todo 
 //otkomentarisati kada pocne zakazivanje preko labcuba
 
-      let scheduleBtn = document.getElementById('schedule')
+      // let scheduleBtn = document.getElementById('schedule')
 
-      scheduleBtn.addEventListener('click', ()=>{
+      // scheduleBtn.addEventListener('click', ()=>{
       
-        schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-        scheduleString = JSON.stringify(schedule)
-        fetch('/schedule/',{
-          method:"post",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body:scheduleString
-        }).then(response => {
-          console.log(response)
-          window.location.href="/hvala"
-          localStorage.removeItem('items')
-        })
-      })
+      //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+      //   scheduleString = JSON.stringify(schedule)
+      //   fetch('/schedule/',{
+      //     method:"post",
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json'
+      //     },
+      //     body:scheduleString
+      //   }).then(response => {
+      //     console.log(response)
+      //     window.location.href="/hvala"
+      //     localStorage.removeItem('items')
+      //   })
+      // })
     }
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'

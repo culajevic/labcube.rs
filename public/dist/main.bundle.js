@@ -21781,7 +21781,7 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
   });
 };
 
-exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray) {
+exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray, i) {
   var noResults = document.getElementById('noResults');
   noResults.innerHTML = ''; //check if analysis is already in localstorage
 
@@ -23055,7 +23055,6 @@ var findUserByEmail = document.getElementById('searchForUserEmail'); //definisan
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) && !findUserByEmail || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray);
-  console.log('ds');
 } //MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
 
@@ -23099,14 +23098,14 @@ window.onload = function () {
 
 
   if (location === '/') {
-    var typeText = document.getElementById('headlineMessage');
-    var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a('#headlineMessage', {
-      strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju ko uvek ima vremena da pogleda rezultate"],
-      typeSpeed: 30,
-      backSpeed: 10,
-      loop: true,
-      showCursor: false
-    }); //testing analysis box feature
+    var typeText = document.getElementById('headlineMessage'); // let typed = new Typed('#headlineMessage', {
+    //   strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju kako najbrže do tumačenja rezultata"],
+    //   typeSpeed: 30,
+    //   backSpeed:10,
+    //   loop:true,
+    //   showCursor: false
+    // });
+    //testing analysis box feature
     // let analysisBasket = document.getElementById('analysisBasket')
     // let krvnaSlika = document.getElementById('krvnaSlika')
     // krvnaSlika.addEventListener('click', e => {
@@ -23376,6 +23375,8 @@ window.onload = function () {
     });
 
     if (myFilter === 'analiza') {
+      var _i;
+
       console.log('pretraga analize sa glavne stranice');
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         // loaderWrapper.style.opacity = 1
@@ -23386,9 +23387,9 @@ window.onload = function () {
 
           var prices = result.prices;
 
-          for (i = 0; i < analysis.length; i++) {
+          for (_i = 0; _i < analysis.length; _i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray);
+            helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray, _i);
           } // for end
           //when result is found remove loading icon
 
@@ -23427,7 +23428,7 @@ window.onload = function () {
               _loaderWrapper.style.opacity = 0;
             }
 
-            for (i = 0; i < analysis.length; i++) {
+            for (var _i2 = 0; _i2 < analysis.length; _i2++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof prices !== "undefined") {
@@ -23817,8 +23818,10 @@ window.onload = function () {
     }); // labCubePrice=Math.ceil(totalPrice-(totalPrice*(1/discountValue)))
 
     labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
-    var labIdName = document.getElementById('labName');
-    labId = labIdName.getAttribute('data-id'); //search and add analysis from lab details page
+    var labIdName = document.getElementById('labName'); //todo 
+    //otkomentarisati kada se zakazuje preko labcuba
+    // labId = labIdName.getAttribute('data-id')
+    //search and add analysis from lab details page
 
     helper.searchLabAnalysis(searchString, _analysisRadio2); // searchString.addEventListener('input', (e) => {
     //   if(searchString.value.length>=3 && filterValue == 'analiza' ) {
@@ -24014,41 +24017,34 @@ window.onload = function () {
       });
     }
 
-    helper.removeAnalysis(_itemsArray, _checkout);
-    schedule.push({
-      "total": totalPrice
-    });
-    schedule.push({
-      "analysis": _itemsArray
-    });
-    schedule.push({
-      "labCubePrice": labCubePrice
-    });
-    schedule.push({
-      "labId": labId
-    });
-    schedule.push({
-      "date": ''
-    });
-    scheduleString = JSON.stringify(schedule); //otkomentarisati kada pocne zakazivanje preko labcuba
-
-    var scheduleBtn = document.getElementById('schedule');
-    scheduleBtn.addEventListener('click', function () {
-      schedule[4].date = dateLab.value != "" ? dateLab.value : datePatronaza.value;
-      scheduleString = JSON.stringify(schedule);
-      fetch('/schedule/', {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: scheduleString
-      }).then(function (response) {
-        console.log(response);
-        window.location.href = "/hvala";
-        localStorage.removeItem('items');
-      });
-    });
+    helper.removeAnalysis(_itemsArray, _checkout); //todo 
+    //otkomentarisati kada se zakazuje preko labcuba 
+    // schedule.push({"total":totalPrice})
+    // schedule.push({"analysis":itemsArray})
+    // schedule.push({"labCubePrice":labCubePrice})
+    // schedule.push({"labId":labId})
+    // schedule.push({"date":''})
+    // scheduleString = JSON.stringify(schedule)
+    ///////////
+    //todo 
+    //otkomentarisati kada pocne zakazivanje preko labcuba
+    // let scheduleBtn = document.getElementById('schedule')
+    // scheduleBtn.addEventListener('click', ()=>{
+    //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+    //   scheduleString = JSON.stringify(schedule)
+    //   fetch('/schedule/',{
+    //     method:"post",
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body:scheduleString
+    //   }).then(response => {
+    //     console.log(response)
+    //     window.location.href="/hvala"
+    //     localStorage.removeItem('items')
+    //   })
+    // })
   }
 
   if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze') {
@@ -24166,16 +24162,16 @@ window.onload = function () {
         data.json().then(function (result) {
           console.log(result);
 
-          for (var _i = 0; _i < result.length; _i++) {
+          for (var _i3 = 0; _i3 < result.length; _i3++) {
             var formatDate = void 0;
 
-            if (result[_i].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i3].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
             }
 
-            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i].user.username, "</td>\n                    <td>").concat(result[_i].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i].status, "\">").concat(result[_i].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i].user.username, "</p>\n                          ").concat(result[_i].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
+            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i3].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i3].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i3]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i3]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i3].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i3].user.username, "</p>\n                          ").concat(result[_i3].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
           }
         });
       });
@@ -24247,16 +24243,16 @@ window.onload = function () {
         _labDashTable.innerHTML = '';
         data.json().then(function (result) {
           // console.log(result)
-          for (var _i2 = 0; _i2 < result.length; _i2++) {
+          for (var _i4 = 0; _i4 < result.length; _i4++) {
             var formatDate = void 0;
 
-            if (result[_i2].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i4].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y');
             }
 
-            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i2].status, "\">").concat(result[_i2].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i2].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i2]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i2].owner ? result[_i2].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
+            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i4].user.username, "</td>\n                    <td>").concat(result[_i4].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i4].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i4].status, "\">").concat(result[_i4].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i4].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i4].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i4].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i4]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i4].owner ? result[_i4].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
           }
         });
       });
@@ -24278,22 +24274,22 @@ window.onload = function () {
       var deadline = document.querySelectorAll('.deadline');
       var deadlinesArr = [];
 
-      var _loop = function _loop(_i3) {
-        deadlinesArr.push(Date.parse(deadline[_i3].innerHTML));
+      var _loop = function _loop(_i5) {
+        deadlinesArr.push(Date.parse(deadline[_i5].innerHTML));
         myfunc = setInterval(function () {
           var now = new Date().getTime();
-          var timeleft = deadlinesArr[_i3] - now;
+          var timeleft = deadlinesArr[_i5] - now;
 
           if (timeleft < 3600000) {
-            document.getElementById(hour[_i3].id).style.color = "red";
-            document.getElementById(mins[_i3].id).style.color = "red";
-            document.getElementById(secs[_i3].id).style.color = "red";
+            document.getElementById(hour[_i5].id).style.color = "red";
+            document.getElementById(mins[_i5].id).style.color = "red";
+            document.getElementById(secs[_i5].id).style.color = "red";
           }
 
           if (timeleft < 7200000) {
-            document.getElementById(hour[_i3].id).style.color = "orange";
-            document.getElementById(mins[_i3].id).style.color = "orange";
-            document.getElementById(secs[_i3].id).style.color = "orange";
+            document.getElementById(hour[_i5].id).style.color = "orange";
+            document.getElementById(mins[_i5].id).style.color = "orange";
+            document.getElementById(secs[_i5].id).style.color = "orange";
           }
 
           var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
@@ -24302,23 +24298,23 @@ window.onload = function () {
           var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
 
           // document.getElementById(day[i].id).innerHTML = days + "d "
-          document.getElementById(hour[_i3].id).innerHTML = hours + "h ";
-          document.getElementById(mins[_i3].id).innerHTML = minutes + "m ";
-          document.getElementById(secs[_i3].id).innerHTML = seconds + "s ";
+          document.getElementById(hour[_i5].id).innerHTML = hours + "h ";
+          document.getElementById(mins[_i5].id).innerHTML = minutes + "m ";
+          document.getElementById(secs[_i5].id).innerHTML = seconds + "s ";
 
           if (timeleft < 0) {
             clearInterval(myfunc); // document.getElementById(day[i].id).innerHTML = ""
 
             // document.getElementById(day[i].id).innerHTML = ""
-            document.getElementById(hour[_i3].id).innerHTML = "";
-            document.getElementById(mins[_i3].id).innerHTML = "";
-            document.getElementById(secs[_i3].id).innerHTML = "";
+            document.getElementById(hour[_i5].id).innerHTML = "";
+            document.getElementById(mins[_i5].id).innerHTML = "";
+            document.getElementById(secs[_i5].id).innerHTML = "";
           }
         }, 1000);
       };
 
-      for (var _i3 = 0; _i3 < deadline.length; _i3++) {
-        _loop(_i3);
+      for (var _i5 = 0; _i5 < deadline.length; _i5++) {
+        _loop(_i5);
       } // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 
     })();

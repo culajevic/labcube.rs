@@ -38,9 +38,10 @@ exports.deleteDocument = (selector,message,url,redirect,error) => {
     })
 }
 
-exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray) => {
+exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   let noResults = document.getElementById('noResults')
   noResults.innerHTML = ''
+  
   //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
 
