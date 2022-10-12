@@ -96,7 +96,7 @@
           <div class="col-12 pl-0 generalInformation">
             <!-- <p>Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 jednostavna koraka. </p> -->
             <ol class="textList pb-4 ">
-              <li><p class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate (trenutno je 24h jedina opcija)</p></li>
+              <li><p class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate</p></li>
               <li><p class="generalInformation">Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload</p></li>
               <li><p class="generalInformation">Potvrdite da ste saglasni sa uslovima plaćanja.</p></li>
               <li><p class="generalInformation">Nastavite na plaćanje.</p></li>
@@ -112,27 +112,51 @@
 
                 <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
 
-                    <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Ukoliko ste u laboratoriji dobili kôd za popust unesite ga ovde"/>
+                    <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Unesite ovde kôd za popust. Kôd se primenjuje samo na tumačenje u roku od 12 sati."/>
                     <div class="input-group-append">
                     <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
                   </div>
                 </div>
 
-                  <div class="card paymentSteps">
-                    <div class="card-body"><span class="" style="">1</span>
-                      <span class="onSalesNow" id="initialPriceTop"></span>
-                      <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
-                      <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                      <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                      <input type="radio" name="package" value=890 id="t24" {{#if (checkBox package 24)}} checked {{/if}} checked/>
-                      <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
-                    </div>
-                  </div>
+                   <div class="card paymentSteps">
+                          <div class="card-body">
+                            <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
+                            <span class="text-center paketiCena">490 din.</span>
+                            <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} />
+                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          </div>
+                      </div>                    
+                    
+                      <div class="card paymentSteps ml-3">
+                        <div class="card-body">
+                           <div class="najpopularnije">najpopularnije</div>
+                          <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
+                          <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                          <span class="text-center paketiCena">590 din.</span>
+                          <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} />
+                          <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                        </div>   
+                      </div>
+
+                     
+
+                       <div class="card paymentSteps ml-3">
+                          <div class="card-body">
+                            {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
+                            <span class="onSalesNow d-none" id="initialPriceTop"></span>
+                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata<sup>*</sup></p>
+                            <span class="text-center paketiCena" id="initialPrice">890 din.</span>
+                            <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} />
+                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          </div>
+                      </div>
 
 
 
-                  <div class="card paymentSteps ml-3">
-                    <div class="card-body">2
+                  <div class="card paymentSteps mr-3">
+                    <div class="card-body">
                       <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                       <p class="text-center font-weight-bold mt-3">Odaberite rezultate </p>
                       <span class="text-center paketiCena">max 5MB</span>
@@ -145,8 +169,8 @@
                   </div>
 
 
-                  <div class="card paymentSteps ml-3" id="paymentConsent">
-                    <div class="card-body" data-toggle="modal" data-target="">3
+                  <div class="card paymentSteps" id="paymentConsent">
+                    <div class="card-body" data-toggle="modal" data-target="">
                       <a href="/uslovi-placanja" target="_blank" class="text-center">
                       <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                       <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
@@ -163,13 +187,13 @@
               <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate bitnim za tumačenje Vaših nalaza.">{{komentar}}</textarea>
             </div>
 
-            <div class="col-12 text-center">
+            {{!-- <div class="col-12 text-center">
               <small class=""><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
-            </div>
+            </div> --}}
 
 
             <div class="col-12 text-center">
-                <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">Nastavite na plaćanje</button>
+                <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">Nastavi dalje</button>
             </div>
             <div class="col-12 text-center">
                 <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>

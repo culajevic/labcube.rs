@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-3 py-5">
-            <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div>
+            {{!-- <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div> --}}
           <form class="float-right pr-4" action="" method="post" id="lockTheRecord">
                 <label class="chckBoxCustom">
                 <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
@@ -47,9 +47,19 @@
 
 
           <!-- <h1 class="headTitle float-left mt-3" id="customerEmail" data-email="{{this.userId.username}}">{{this.userId.username}}</h1> -->
-
-
-          {{#if (empty this.userComment)}}
+        
+        <div class="col-12">
+        <p>Prethodni rezultati pacijenta</p>
+        <div class="mb-3 clearBoth">
+          <ul class="povezaneAnalize float-left">
+        {{#each ../findPreviousResults}}
+          <li class="generalInformation"><a href="/results/{{this.result}}" class="nolink text-white" target="_blank">{{formatRsDate this.submitedDate}}</a></li>  
+        {{/each}}
+        </ul>
+        </div>
+        </div>
+      
+         {{#if (empty this.userComment)}}
           <div class="col-12 mb-5 boxshadowBckg" id="anamnezaKomentar">
             <label for="" class="mt-2 font-weight-bold">Komentar koji je ostavio pacijent</label>
             <textarea name="anamnezaKomentar" class="col-12 mt-3" rows="5" cols="80" disabled>{{this.userComment}}</textarea>

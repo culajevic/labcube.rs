@@ -38,8 +38,6 @@ window.addEventListener('scroll', () => {
 }
 
 
-
-
 //tooltip initialization
 $(document).ready(function(){
   $('body').tooltip({
@@ -720,6 +718,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.removeAnalysis(itemsArray, checkout)
 }
 
+//izbaciti 
 if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || (urlArr[1] == 'profile' && !findUserByEmail)) {
   
   let codeCheck = document.getElementById('codeCheck')
@@ -728,7 +727,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
   let newDateCheck = new Date()
   let t4 = document.getElementById('t4')
   
-  if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8) {
+  if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8 && t4) {
     t4.disabled = true
     t4.parentElement.disabled = true
     t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
@@ -2627,7 +2626,7 @@ if (location.match('addLab')) {
 
   //delete priceList
     if(location.match('profile')) {
-      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'došlo je do greške prilikom brisanja rezultata')
+      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile', 'došlo je do greške prilikom brisanja rezultata')
     }
 
 

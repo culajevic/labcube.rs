@@ -198,7 +198,7 @@ exports.getLabInfo = async (req,res) => {
   // let labStar = await Lab.findOne({_id:labDetails.id})
   //
   if (user) {
-    //ako je user ulogovan i ima objvaljen komentar ali je istekao datum za objavu novog komentara prikazi mu formu za komentar
+    //ako je user ulogovan i ima objavljen komentar ali je istekao datum za objavu novog komentara prikazi mu formu za komentar
     alreadySent = await Lab.aggregate([
       {$match:{_id:ObjectId(labDetails.id)}},
       {$unwind:'$commentSection'},

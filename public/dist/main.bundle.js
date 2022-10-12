@@ -23536,7 +23536,8 @@ window.onload = function () {
     helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
     helper.addAnalysis(itemsArray, _resultDiv2, checkout);
     helper.removeAnalysis(itemsArray, checkout);
-  }
+  } //izbaciti 
+
 
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile' && !findUserByEmail) {
     var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
@@ -23544,7 +23545,7 @@ window.onload = function () {
     var newDateCheck = new Date();
     var t4 = document.getElementById('t4');
 
-    if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8) {
+    if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8 && t4) {
       t4.disabled = true;
       t4.parentElement.disabled = true;
       t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)';
@@ -25312,7 +25313,7 @@ window.onload = function () {
 
 
   if (location.match('profile')) {
-    helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile/', 'došlo je do greške prilikom brisanja rezultata');
+    helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile', 'došlo je do greške prilikom brisanja rezultata');
   }
 }; // window onload end
 

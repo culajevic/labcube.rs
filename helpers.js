@@ -229,7 +229,7 @@ hbs.registerHelper('lessThenCheckNotOk', (valueA,valueB) => {
 hbs.registerHelper('greaterThenOk', (value1, value2) => {
   let v1 = parseFloat(value1)
   let v2 = parseFloat(value2)
-  if (v1 > v2) {
+  if (v1 >= v2) {
     return 'showGreen'
   }
 })
@@ -247,7 +247,7 @@ hbs.registerHelper('outsideOfTheRange', (value) => {
 hbs.registerHelper('greaterThen', (value1, value2) => {
   let v1 = parseFloat(value1)
   let v2 = parseFloat(value2)
-  if (v1 > v2) {
+  if (v1 >= v2) {
     return 'showRed'
   }
 })
@@ -340,6 +340,24 @@ hbs.registerHelper('checkPayment', (package, paid) => {
   } else {
     return 'notPaid'
   }
+})
+
+hbs.registerHelper('displayPackageTime', package => {
+  let packageTime
+  switch(package) {
+    case '490':
+      packageTime = 24
+      break;
+    case '590':
+      packageTime = 12
+      break;
+    case '890':
+      packageTime = 4
+      break;
+    default:
+      packageTime = 'nepoznato vreme'
+  }
+  return packageTime
 })
 
 hbs.registerHelper('priceGap', (minPrice, maxPrice) => {

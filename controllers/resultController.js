@@ -16,6 +16,7 @@ moment.locale('sr')
 ////////////////////////////////////////////////
 const https = require('https')              //
 const querystring = require('querystring') //
+const { runInNewContext } = require('vm')
 ////////////////////////////////////////////
 
 
@@ -46,7 +47,8 @@ let transporter = nodemailer.createTransport({
   },
   tls: {
         rejectUnauthorized: false
-    }
+    },
+  from:'labcube-tumacenje-no-reply@labcube.rs'
 })
 
 //upload results
@@ -96,7 +98,6 @@ exports.freeUpload = async (req,res) => {
     const checkDiscount = await Discount.findOne({$and:[{discountId:req.body.kodPopust},{valid:true},{dueDate:{$gt:newDate}}]})
 
 
-
       if(checkDiscount.discount == 100 && req.file) {
 
         //update ako je vaučer iskorišćen
@@ -109,6 +110,23 @@ exports.freeUpload = async (req,res) => {
              useFindAndModify:false
            }).exec()
         /////////////////////////////////
+
+        let packageTime
+
+          switch(req.body.package) {
+            case '490':
+              packageTime = 24
+              break
+            case '590':
+              packageTime = 12
+              break
+            case '890':
+              packageTime = 4
+              break
+            default:
+              packageTime = 4
+          }
+
 
         const uploadResult = new Result({
           userId:req.body.userId,
@@ -128,11 +146,12 @@ exports.freeUpload = async (req,res) => {
           uploadResult.save()
           let mailOptions = {
             from:req.body.email,
-            to:'tumacenje@labcube.rs',
+            to:['tumacenje@labcube.rs', 'culajevic@labcube.rs'],
             subject:'Novi rezultati za tumačenje',
             text:'',
             html:`
-            id: ${uploadResult._id}`,
+            id: ${uploadResult._id} \n
+            vreme:${req.body.package}`,
             attachments:[{
               filename:req.file.filename,
               path:req.file.path
@@ -153,7 +172,7 @@ exports.freeUpload = async (req,res) => {
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >br. transakcije: ${currentId}</p>
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >korisničko ime: ${req.body.email}</p>
             </div>
-              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
+              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987;Tumačenje u roku od ${packageTime}h</p>
 
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; 0 RSD </p>
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${invoiceDate}</p>
@@ -203,7 +222,7 @@ exports.freeUpload = async (req,res) => {
           res.redirect('/tumacenje-laboratorijskih-analiza')
           console.log('nije uspesno upisano u bazu' + e)
         }
-        res.render('paymentSuccess', { newDate:invoiceDate, shortId:currentId, amount:0, groupNames, user:req.user, title:'LabCube | Uspešno ste poslali rezultate'})
+        res.render('paymentSuccess', { newDate:invoiceDate, shortId:currentId, amount:0, packageTime, groupNames, user:req.user, title:'LabCube | Uspešno ste poslali rezultate'})
 
 
 
@@ -213,12 +232,10 @@ exports.freeUpload = async (req,res) => {
         req.flash('error_msg', 'Odaberite fajl za tumačenje, fajl mora biti manji od 5MB')
         res.redirect('/tumacenje-laboratorijskih-analiza')
       }
-
   }
 
 
 exports.payment = async (req,res) => {
-
 
   let newDateCheck = new Date()
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
@@ -229,22 +246,38 @@ exports.payment = async (req,res) => {
   let errors = []
   let formatPrice = parseInt(req.body.package)
   let discountId = req.body.kodPopust
+  let packageTime
+
+  switch(req.body.package) {
+    case '490':
+      packageTime = 24
+      break
+    case '590':
+      packageTime = 12
+      break
+    case '890':
+      packageTime = 4
+      break
+    default:
+      packageTime = 4
+  }
+
 
   const checkDiscountCode = await Discount.findOne({$and:[{discountId:req.body.kodPopust},{valid:true},{dueDate:{$gt:newDateCheck}}]})
 
   //ako neko pokusa da menja cenu
-  if (formatPrice != 890 && checkDiscountCode == null) {
+  if (formatPrice != 890 && formatPrice != 590 && formatPrice != 490 && checkDiscountCode == null && formatPrice != 1) {
       errors.push({text:'Neispravan kod, pokušajte ponovo.'})
   }
 
   //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
-  if(!(formatPrice == 890 || formatPrice == 801 || formatPrice == 623 || formatPrice == 8 || formatPrice == 0)) {
+  if(!(formatPrice == 890 || formatPrice == 801 || formatPrice == 623 || formatPrice == 8 || formatPrice == 0 || formatPrice == 590 || formatPrice == 490 || formatPrice == 1)) {
     errors.push({text:'Nešto nije ok, pokušajte ponovo'})
   }
 
-  // if(!req.body.package) {
-  //   errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
-  // }
+  if(!req.body.package) {
+    errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
+  }
 
   if(!req.file) {
     errors.push({text:'Nedostaju rezultati koje želite da Vam protumačimo'})
@@ -253,8 +286,7 @@ exports.payment = async (req,res) => {
   if(!req.body.consent) {
     errors.push({text:'Potvrdite da ste saglasni sa uslovima plaćanja'})
   }
-
-
+  
   if(errors.length > 0) {
     res.render('labResultsAnalysis', {
       errors,
@@ -268,35 +300,30 @@ exports.payment = async (req,res) => {
     })
     return false
   }
-  // else {
-    // if(req.file) {
-
-      // let deadline = new Date()
-        // deadline.setHours(deadline.getHours() + parseInt(req.body.package))
-    // } else {
-    //   req.flash('error_msg', 'doslo je do greske prilikom uploada')
-    // }
-
+  else {
+    if(req.file) {
+      let deadline = new Date()
+        deadline.setHours(deadline.getHours() + parseInt(packageTime))
+    } else {
+      req.flash('error_msg', 'doslo je do greske prilikom uploada')
+    }
+   //ako nesto ne radi otkomentarisati, nisam siguran cemu ovo  sluzi
     // resultUpload =  new Result(req.body)
     // currentId = resultUpload._id
-
-
-  // }
-//
+    // console.log(currentId)
+  }
   const request = async() => {
   	const path='/v1/checkouts';
     
     if(req.body.userComment.length == 0 ) {
       userComment = 'nema komentara'
-      console.log(userComment)
     } else if (req.body.userComment.length >= 254) {
       userComment = req.body.userComment.substring(0,254)
     } 
       else 
       {
       userComment = req.body.userComment
-      console.log('duzina' + req.body.userComment.length)
-    }
+      }
 
   	const data = querystring.stringify({
   		'entityId':process.env.ENTITYIDPRODUCTION,
@@ -310,7 +337,6 @@ exports.payment = async (req,res) => {
       'customParameters[SHOPPER_path]':req.file.path,
   		'paymentType':'DB'
   	});
-    console.log(data)
   	const options = {
   		port: 443,
   		host: process.env.PAYMENTHOSTPRODUCTION,
@@ -344,21 +370,20 @@ exports.payment = async (req,res) => {
   }
 request()
     .then(data => {
-      console.log(data)
+      console.log('payment data', data)
       if(data.result.code == '000.200.100') {
-        res.render('paymentPage', {data:data.id, recordId:currentId, userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames, title:'Labcube | Potvrdite plaćanje usluge'})
+        // recordId:currentId izbaceno iz res.render
+        res.render('paymentPage', {data:data.id,  userId:req.body.userId, email:req.body.email, resultFile:req.file.filename, package:req.body.package, user:req.user, groupNames, title:'Labcube | Potvrdite plaćanje usluge'})
       }
     })
     .catch(error => {
-      console.log(error)
+      console.log('greska prilikom prelaska sa payment page', error)
     })
 }
 
-
-
 exports.paymentDone = async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
-  console.log(req.query.resourcePath)
+ 
   const requestCheckout = async () => {
   	var path =`${req.query.resourcePath}`
   	// path += '?entityId='+process.env.ENTITYIDSANDBOX;
@@ -395,9 +420,9 @@ exports.paymentDone = async (req,res) => {
 requestCheckout()
 .then(data => {
   if(data.result.code == '000.000.000') {
-    //000.100.110
+    
     let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm")
-
+    console.log('uspesno placeno', data)
     // const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     // let bgLocalTime = new Date().toLocaleString('sr-RS')
     // console.log(newDate)
@@ -412,112 +437,31 @@ requestCheckout()
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
 
 
+       if ((deadline.getHours() > 8 && deadline.getHours() < 17) && data.amount == 890) {
+            deadline.setHours(deadline.getHours() + 4)
+          } else if (data.amount == 890) {
+            tomorrow.setDate(tomorrow.getDate() + 1)
+            tomorrow.setHours(8,0,0)
+            deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+          }
 
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //paket sat vremena / postavljanej dedline na osnovu odabranog paketa i vremena kada je submitovan zahtev
-
-      // if (deadline.getHours() > 9 && deadline.getHours() < 16 && data.amount == 999) {
-      //   deadline.setHours(deadline.getHours() + 1)
-      // } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 999) {
-      //   // tomorrow.setDate(tomorrow.getDate() + 1)
-      //   // tomorrow.setHours(9,0,0)
-      //   deadline.setHours(9,0,0)
-      //   deadline = tomorrow.setHours(deadline.getHours() + 1)
-      // } else if (deadline.getHours() >= 16 && deadline.getHours() < 17) {
-      //   tomorrow.setDate(tomorrow.getDate() + 1)
-      //   tomorrow.setHours(9,0,0)
-      //   deadline = tomorrow.setHours(tomorrow.getHours() + 1)
-      //   deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
-      // } else if (data.amount == 999) {
-      //   tomorrow.setDate(tomorrow.getDate() + 1)
-      //   tomorrow.setHours(9,0,0)
-      //   deadline = tomorrow.setHours(tomorrow.getHours() + 1)
-      //   // paket 4 sata
-      // }  else if (deadline.getHours() > 9 && deadline.getHours() < 13 && data.amount == 699) {
-      //     deadline.setHours(deadline.getHours() + 4)
-      //   } else if(deadline.getHours() > 0 && deadline.getHours() < 9 && data.amount == 699) {
-      //     deadline.setHours(9,0,0)
-      //     deadline = tomorrow.setHours(deadline.getHours() + 4)
-      //   } else if (deadline.getHours() >= 13 && deadline.getHours() < 17) {
-      //     tomorrow.setDate(tomorrow.getDate() + 1)
-      //     tomorrow.setHours(9,0,0)
-      //     deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-      //     deadline = tomorrow.setMinutes(tomorrow.getMinutes() - minRest)
-      //   } else if (data.amount == 699) {
-      //     tomorrow.setDate(tomorrow.getDate() + 1)
-      //     tomorrow.setHours(9,0,0)
-      //     deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-      //   }
+      if (data.amount == 590 ) {
+          deadline.setHours(deadline.getHours() + 12)
+        } else if (data.amount == 490 ) {
+          deadline.setHours(deadline.getHours() + 24)
+        } 
 
 
-      // else if ((deadline.getHours() > 8 && deadline.getHours() < 13) && data.amount == 699) {
-      //   console.log(3)
-      //       deadline.setHours(deadline.getHours() + 4)
-      //     } else if (data.amount == 699) {
-      //       console.log(4)
-      //       tomorrow.setDate(tomorrow.getDate() + 1)
-      //       tomorrow.setHours(9,0,0)
-      //       deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-      //     }
-
-      // if ((deadline.getHours() > 8 && deadline.getHours() < 13) && data.amount == 699) {
-      //   deadline.setHours(deadline.getHours() + 4)
-      //         console.log(3)
-      // } else if(data.amount == 699) {
-      //         console.log(4)
-      //   tomorrow.setDate(tomorrow.getDate() + 1)
-      //   tomorrow.setHours(9,0,0)
-      //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-      // }
-
-      // if (deadline.getHours() > 13 && deadline.getHours() < 0 && data.amount == 699) {
-      //   deadline.setHours(deadline.getHours() + 4)
-      // } else if(data.amount == 699) {
-      //   tomorrow.setDate(tomorrow.getDate() + 1)
-      //   tomorrow.setHours(9,0,0)
-      //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-      // }
-      //
-
-
-    // if (data.amount == 999 && ofHours) {
-    //     deadline = tomorrow.setHours(tomorrow.getHours() + 1)
-    //
-    //   }  else {
-    //     deadline.setHours(deadline.getHours() + 1)
-    //
-    //     }
-
-    //  if (data.amount == 699 && (deadline.getHours() > 13 || deadline.getHours() < 9)) {
-    //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-    // } else {
-    //     deadline.setHours(deadline.getHours() + 4)
-    // }
-    //
-    // if (data.amount == 499 && (deadline.getHours() > 16 || deadline.getHours() < 9)) {
-    //   deadline = tomorrow.setHours(tomorrow.getHours() + 12)
-    // } else {
-    //   deadline.setHours(deadline.getHours() + 12)
-    // }
-    //
-    // if (data.amount == 399 && (deadline.getHours() > 16 || deadline.getHours() < 9)) {
-    //   deadline = tomorrow.setHours(tomorrow.getHours() + 24)
-    // } else {
-    //   deadline.setHours(deadline.getHours() + 24)
-    // }
-
-
-    // let updatePaymentInfo = Result.findOneAndUpdate(
-    //   {_id:data.customParameters.SHOPPER_requestId},
-    //   {paid:data.amount, ip:data.customer.ip},
-    //   {
-    //     new:true,
-    //     runValidators:true,
-    //     useFindAndModify:false
-    //   }).exec()
-    console.log(data)
+    let updatePaymentInfo = Result.findOneAndUpdate(
+      {_id:data.customParameters.SHOPPER_requestId},
+      {paid:data.amount, ip:data.customer.ip},
+      {
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+      }).exec()
+    
 
     let newDateVoucher = Date()
 
@@ -530,25 +474,27 @@ requestCheckout()
          useFindAndModify:false
        }).exec()
 
-    
-
-    const uploadResult = new Result({
-      userId:data.customer.merchantCustomerId,
-      email:data.customer.email,
-      status:'pending',
-      result:data.customParameters.SHOPPER_file,
-      package:data.amount,
-      paid:data.amount,
-      ip:data.customer.ip,
-      userComment:data.cart.items[0].description,
-      submitedDate: Date.now(),
-      deadline:deadline,
-      paymentConsent:true
-      }
-    )
+       const uploadResult = new Result({
+        userId:data.customer.merchantCustomerId,
+        email:data.customer.email,
+        status:'pending',
+        result:data.customParameters.SHOPPER_file,
+        package:data.amount,
+        paid:data.amount,
+        ip:data.customer.ip,
+        userComment:data.cart.items[0].description,
+        submitedDate: Date.now(),
+        deadline:deadline,
+        paymentConsent:true
+        }
+      )
+   
     let currentId = uploadResult._id
     let shortId = String(currentId)
     shortId.substring(14,2)
+
+    let authCode = data.resultDetails.ConnectorTxID3
+    let authCodeParameter = authCode.substring(0,6)
 
     const paymentLog = new Payment({
       ip:data.customer.ip,
@@ -560,21 +506,36 @@ requestCheckout()
       city:data.billing.city,
       paymentCode:data.result.code,
       paymentDesc:data.result.description,
-      idSuccess:currentId
+      idSuccess:currentId,
+      authCode:authCodeParameter
     }).save()
 
-    let authCode = data.resultDetails.ConnectorTxID3
-    let authCodeParameter = authCode.substring(0,6)
+    
+
+    switch(data.amount) {
+      case '490.00':
+        packageTime = 24
+        break
+      case '590.00':
+        packageTime = 12
+        break
+      case '890.00':
+        packageTime = 4
+        break
+      default:
+        packageTime = 4
+    }
 
        try {
          uploadResult.save()
          let mailOptions = {
            from:data.customer.email,
-           to:'tumacenje@labcube.rs',
-           subject:'Novi rezultati za tumačenje',
+           to:['tumacenje@labcube.rs','culajevic@gmail.com'],
+           subject:`Novi rezultati za tumačenje / ${data.amount} RSD` ,
            text:'',
            html:`
-           id: ${uploadResult._id}`,
+           id: ${uploadResult._id} <br />
+           Plaćeno: ${data.amount} <br />`,
            attachments:[{
              filename:data.customParameters.SHOPPER_file,
              path:data.customParameters.SHOPPER_path
@@ -601,7 +562,7 @@ requestCheckout()
             </div>
            <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h2>Uspešno izvršena uplata. Hvala!</h2></div>
 
-             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od 24h</p>
+             <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987; Tumačenje u roku od ${packageTime}h</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128196; Autorizacioni kod banke: ${authCodeParameter}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128179; ${data.paymentBrand} **** **** **** ${data.card.last4Digits}</p>
              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; ${data.amount} RSD</p>
@@ -628,19 +589,21 @@ requestCheckout()
              }]
          }
 
+         //salje se mejl labcubu da postoje novi rezultati za tumacenje
          transporter.sendMail(mailOptions, (error, info) => {
              if(error) {
-               return console.log(error)
+               return console.log('greska prilikom slanja potvrde o uspesnosti uplate', error)
            } else {
-             console.log(info.messageId)
+             console.log(info.messageId) 
            }
          })
-
+        
+        //salje se mejl customeru da je uspesno izvrsio uplatu
          transporter.sendMail(mailOptionsCustomer, (error, info) => {
              if(error) {
-               return console.log(error)
+               return console.log('greska prilikom slanja mejla customeru o uspesno izvrsenoj uplati', error)
            } else {
-             console.log(info.messageId)
+             console.log(info.messageId) 
            }
          })
          // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
@@ -652,7 +615,7 @@ requestCheckout()
          // res.redirect('/tumacenje-laboratorijskih-analiza')
          console.log('nije uspesno upisano u bazu' + e)
        }
-       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, groupNames, authCodeParameter, shortId, user:req.user, title:'LabCube | Uspešno ste izvršili uplatu'})
+       res.render('paymentSuccess', {data:data, newDate, amount:data.amount, packageTime, groupNames, authCodeParameter, shortId, user:req.user, title:'LabCube | Uspešno ste izvršili uplatu'})
      }
      else {
 
@@ -688,11 +651,12 @@ requestCheckout()
           postalCode:data.billing.postcode,
           city:data.billing.city,
           paymentCode:data.result.code,
-          paymentDesc:data.result.description
+          // paymentDesc:data.result.description
+          paymentDesc:errorPayment
         }).save()
        let mailOptionsCustomerError = {
          from:'labcube-tumacenje-no-reply@labcube.rs',
-         to:data.customer.email,
+         to:[data.customer.email,'racuni@labcube.rs'],
          // to:'culajevic@gmail.com',
          subject:'Neuspešna transakcija',
          text:'',
@@ -722,7 +686,7 @@ requestCheckout()
 
        transporter.sendMail(mailOptionsCustomerError, (error, info) => {
            if(error) {
-             return console.log(error)
+             return console.log('uplata je odbijena', error)
          } else {
            console.log(info.messageId)
          }

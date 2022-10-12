@@ -14,6 +14,7 @@ const nodemailer = require('nodemailer')
 const moment = require('moment')
 const csvtojson = require('csvtojson')
 let fs = require('fs');
+const ObjectId = mongoose.Types.ObjectId
 
 dotenv.config({path:'variables.env'})
 
@@ -290,7 +291,13 @@ exports.otherResultsInterpretationValues = [authCheck, async (req,res) => {
   const groupNames =  await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   const findOtherResult = await Result.find({_id:req.params.id})
     .populate('userId')
-    res.render('interpretatedOtherResults.hbs', {findOtherResult:findOtherResult, user:req.user, groupNames})
+  // const numberOfResults = await Result.find({userId:ObjectId(findOtherResult[0].userId._id)}).count()
+  // const findPreviousResults =  await Result.find({userId:ObjectId(findOtherResult[0].userId._id)}).select({result:1, submitedDate:1}).limit(numberOfResults-1).sort({'submitedDate':1})
+  const findPreviousResults =  await Result.find({userId:ObjectId(findOtherResult[0].userId._id)}).select({result:1, submitedDate:1}).sort({'submitedDate':1})
+
+    // ObjectId()
+    console.log(findPreviousResults)
+    res.render('interpretatedOtherResults', {findOtherResult:findOtherResult, user:req.user, groupNames, findPreviousResults})
     // res.json(findOtherResult)
 
 }]
@@ -452,7 +459,7 @@ if (publish == 'Završeno') {
 // <div style="background-image:url(cid:headerEmailBig); width:100%; height:140px; background-size:100%;  background-repeat: no-repeat;"></div>
     let mailOptionsSendInfo = {
       from:'labcube-tumacenje-no-reply@labcube.rs',
-      to:req.body.email,
+      to:[req.body.email, 'tumacenje@labcube.rs'],
       // to:'culajevic@gmail.com',
       subject:'Protumačeni rezultati',
       text:'',

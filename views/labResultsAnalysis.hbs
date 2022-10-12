@@ -26,13 +26,14 @@
               {{#if user.id}}
 
               <div class="col-12 text-center my-4">
-                  <h2 class="text-center functionalitiesTitle">Online tumačenje laboratorijskih nalaza</h2>
+                  <h2 class="text-center functionalitiesTitle">Prvi online servis za interpretaciju laboratorijskih nalaza</h2>
               </div>
+              
 
               <div class="col-12 mt-5">
                 <!-- <p class="generalInformation">Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 koraka. </p> -->
                 <ul class="tumacenjeUl">
-                  <li class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate (trenutno je 24h jedina opcija)</li>
+                  <li class="generalInformation"><sup>*</sup>Odaberite vreme za koje želite da protumačimo Vaše rezultate. Tumačenje u roku od 4 sata je moguće odabrati jedino između 8 i 20h.</li>
                   <li class="generalInformation">Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload.</li>
                   <li class="generalInformation">Potvrdite da ste saglasni sa uslovima plaćanja.</li>
                   <li class="generalInformation">Nastavite na plaćanje.</li>
@@ -84,29 +85,61 @@
                     <!-- <div class="col-3"> -->
                     <!-- <label for="kod">Dobili ste kod za popust?</label> -->
                     <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
-
-                        <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Ukoliko ste u laboratoriji dobili kôd za popust unesite ga ovde"/>
+                      <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Unesite ovde kôd za popust. Kôd se primenjuje samo na tumačenje u roku od 4 sata."/>
                         <div class="input-group-append">
-                        <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
-                      </div>
-                    </div>
-
-
-                      <div class="card paymentSteps">
-                        <div class="card-body"><span class="" style="">1</span>
-                          <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                          <img src="/images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 24<sup>*</sup> sata</p>
-                          <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                          <input type="radio" name="package" value=890 id="t24" {{#if (checkBox package 1)}} checked {{/if}} checked/>
-                          <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">odabrano</label>
+                          <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
                         </div>
+                    </div>
+                    
+                     <div class="card paymentSteps">
+                          <div class="card-body">
+                            <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
+                            <span class="text-center paketiCena">490 din.</span>
+                            <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} />
+                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          </div>
+                      </div>                    
+                    
+                      <div class="card paymentSteps ml-3">
+                        <div class="card-body">
+                           <div class="najpopularnije">najpopularnije</div>
+                          <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
+                          <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                          <span class="text-center paketiCena">590 din.</span>
+                          <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} />
+                          <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                        </div>   
                       </div>
+
+                     
+
+                       <div class="card paymentSteps ml-3">
+                          <div class="card-body">
+                            {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
+                            <span class="onSalesNow d-none" id="initialPriceTop"></span>
+                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata<sup>*</sup></p>
+                            <span class="text-center paketiCena" id="initialPrice">890 din.</span>
+                            <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} />
+                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          </div>
+                      </div>
+
+                       {{!-- <div class="card paymentSteps ml-3">
+                        <div class="card-body">
+                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 4<sup>*</sup> sata</p>
+                            <span class="text-center paketiCena">699 din</span>
+                            <input type="radio" name="package" value=699 id="t4" {{#if (checkBox package 4)}} checked {{/if}} />
+                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          </div>
+                      </div> --}}
                     <!-- </div> -->
 
                     <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps ml-3" id="resultForUpload">
-                        <div class="card-body">2
+                      <div class="card paymentSteps mr-3" id="resultForUpload">
+                        <div class="card-body">
                           <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Odaberite rezultate </p>
                           <span class="text-center paketiCena">max 5MB</span>
@@ -121,8 +154,8 @@
 
 
                     <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps ml-3" id="paymentConsent">
-                        <div class="card-body" data-toggle="modal" data-target="">3
+                      <div class="card paymentSteps" id="paymentConsent">
+                        <div class="card-body" data-toggle="modal" data-target="">
                           <a href="/uslovi-placanja" target="_blank" class="text-center">
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
@@ -135,72 +168,23 @@
 
                     <!-- </div> -->
 
-                    <!-- modal za brisanje-->
-                    <!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle" >Uslovi plaćanja</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <p>Plaćanje usluga je moguće izvršiti na jedan od sledećih načina: platnim karticama - VISA, Maestro ili MasterCard koje podržavaju plaćanje preko Interneta. Plaćanje karticama je realizovano u saradnji sa AllSecure doo i UniCredit bankom i obavlja se na bezbedan i sertifikovan način preko AllSecure Paymet Gateway-a, jednostavnim unosom podataka sa platne kartice.</p>
-                            <p>Nakon što se unesu podaci o kartici i potvrdi plaćanje, banka autorizuje transakciju i time je porudžbina odobrena i ulazi u dalji proces obrade. Iznos će biti rezervisan na vašoj kartici (računu) i neće Vam biti raspoloživ za drugu namenu.</p>
-                            <p>Prilikom unošenja podataka o platnoj kartici, poverljive informacije se prenose putem javne mreže u zaštićenoj (kriptovanoj) formi upotrebom SSL protokola, primenom najsavremenijih metoda tokenizacije osetljivih podataka, i u skladu sa PCI-DSS standardima. Niti jednog trenutka podaci o platnoj kartici nisu dostupni trgovcu.</p>
-                            <p>AllSecure Payment Gateway koristi najviše globalne standarde zaštite i privatnosti podataka. Svi trgovci koji koriste AllSecure Payment Gateway su automatski uključeni u 3D-Secure zaštitu, čime se kupcima garantuje bezbednost kupovine. Brojevi platnih kartica kupaca se ne čuvaju na sistemu trgovca a sami upis se štiti SSL enkripcijom podataka.</p>
-                            <p>AllSecure Payment Gateway se konstantno usaglašava sa svim zahtevima kartičarskih organizacija u cilju povećanja nivoa bezbednosti trgovaca i kupaca. Od 2005 godine do danas, bez prekida, sistem je sertifikovan kao PCI-DSS Level 1 što predstavlja najviši standard u industriji. PCI Data Security Standard (PCI-DSS) je norma koja definiše neophodne mere bezbednosti pri obradi, čuvanju i prenošenju osetljivih kartičarskih podataka. PCI Standardima se štite osetljivi podaci o korisniku kartice tokom celog procesa plaćanja: od momenta unosa podataka na prodajnom mestu trgovca, tokom komunikacija između trgovca i relevantnih banaka i kartičarskih organizacija, kao i kasnije čuvanje tih podataka.</p>
-                            <p>U slučaju povraćaja sredstava kupcu koji je prethodno platio nekom od platnih kartica, delimično ili u celosti, a bez obzira na razlog vraćanja, taj povraćaj se vrši isključivo preko iste VISA, Maestro ili MasterCard kartice koja je korišćena za plaćanje. Ovo znači da će naša banka na naš zahtev obaviti povraćaj sredstava na račun korisnika kartice.</p>
-                            <p>Proverite kod banke koja je karticu izdala da li Vaša kartica podržava plaćanje preko Interneta.</p>
-                            <p>Sva plaćanja će biti obavljenima u dinarima (RSD). Ukoliko se plaća platnim karticama inostranih Banaka izdavalaca, dinarski iznos transakcije će biti konvertovan u settlement valutu Banke (EUR) prema kursu Narodne Banke Srbije. Pri zaduživanju Vaše platne kartice, već konvertovan iznos će se konvertovati u Vašu lokalnu valutu, prema kursu koji primenjuju operatori platnih kartica.</p>
-                            <p>Please note that all payments will be effected in the Serbian currency – dinar (RSD). If the payment is done using foreign issuers payment cards, total amount of transaction will be converted into bank settlement currency, according to the current exchange rate of the Serbian National Bank. Once when transaction is settled the already converted amount will be converted into your local currency according to the exchange rate of credit card associations. As a result of this conversion there is a possibility of a slight difference from the original price stated in our web site.</p>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-
-                    <!-- <div class="col-3"> -->
-                      <!-- <div class="card">
-                        <div class="card-body">
-                          <div class="text-center mt-4 mb-4">
-                              <button class="btn btn-success text-uppercase">Nastavi na plaćanje</button>
-                            </div>
-                        </div>
-                      </div> -->
-                    <!-- </div> -->
-
-                    <!-- <div class="col-3">
-                      <div class="card">
-                        <div class="card-body ">
-                          <img src="images/24h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Slažem se sa uslovima plaćanja</p>
-                      <span class="text-center paketiCena">490 din</span>
-                          <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 24)}} checked {{/if}} />
-                          <label for="t24" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
-                        </div>
-                      </div>
-                    </div> -->
-
+                    
 
                 </div><!-- odabir paketa end -->
 
-                <div class="paymentSteps col-12 p-0 mb-2">
-                  <label for="exampleFormControlTextarea1 ">Komentar (254 karaktera)</label>
+                <div class="paymentSteps col-12 p-0 mb-2 mt-4">
+                  <label for="exampleFormControlTextarea1 ">Komentar (maksimalno 254 karaktera)</label>
                   <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate važnim. Da li su analize rađene u sklopu sistematskog pregleda ili kao pomoć pri nekoj dijagnostici ili praćenju...">{{komentar}}</textarea>
                 </div>
 
 
-                <div class="col-12 text-center">
+                {{!-- <div class="col-12 text-center">
                   <small class="smallText"><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
-                </div>
+                </div> --}}
 
 
                 <div class="col-12 text-center">
-                    <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">Nastavite na plaćanje</button>
+                    <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">nastavi dalje</button>
                 </div>
                 <div class="col-12 text-center">
                     <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>

@@ -14,6 +14,7 @@ const paymentSchema = new mongoose.Schema({
   city:String,
   ip:String,
   email:String,
+  authCode:String,
   idSuccess:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Results'
