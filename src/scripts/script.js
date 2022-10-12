@@ -576,7 +576,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
           let prices = result.prices
           for(i=0; i<analysis.length; i++) {
             //creating table with result
-            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray, i)
+            helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray,i)
           }// for end
           //when result is found remove loading icon
           loaderWrapper.style.opacity = 0
@@ -591,7 +591,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
-
+      let i
       // console.log('searching'+ filter)
     let mapFrame = document.getElementById('mapPrices')
     mapFrame.classList.add('d-none')
@@ -614,12 +614,12 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
                 loaderWrapper.style.opacity = 0
               }
 
-                for(let i=0; i<analysis.length; i++) {
+                for(i=0; i<analysis.length; i++) {
 
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
                   if(typeof(prices)!=="undefined") {
-                   helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray)
+                   helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray, i)
                  } else {
                    console.log('nema cene za ovu analizu')
                  }

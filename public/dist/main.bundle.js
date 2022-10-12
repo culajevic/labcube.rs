@@ -23407,7 +23407,8 @@ window.onload = function () {
 
 
     innerSearch.addEventListener('input', function (e) {
-      // console.log('searching'+ filter)
+      var i; // console.log('searching'+ filter)
+
       var mapFrame = document.getElementById('mapPrices');
       mapFrame.classList.add('d-none');
       var searchstring = e.target.value;
@@ -23428,11 +23429,11 @@ window.onload = function () {
               _loaderWrapper.style.opacity = 0;
             }
 
-            for (var _i2 = 0; _i2 < analysis.length; _i2++) {
+            for (i = 0; i < analysis.length; i++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof prices !== "undefined") {
-                helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray);
+                helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray, i);
               } else {
                 console.log('nema cene za ovu analizu');
               }
@@ -24162,16 +24163,16 @@ window.onload = function () {
         data.json().then(function (result) {
           console.log(result);
 
-          for (var _i3 = 0; _i3 < result.length; _i3++) {
+          for (var _i2 = 0; _i2 < result.length; _i2++) {
             var formatDate = void 0;
 
-            if (result[_i3].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i2].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y');
             }
 
-            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i3].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i3].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i3]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i3]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i3].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i3].user.username, "</p>\n                          ").concat(result[_i3].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
+            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i2].status, "\">").concat(result[_i2].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i2].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i2].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i2]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i2]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i2].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i2].user.username, "</p>\n                          ").concat(result[_i2].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
           }
         });
       });
@@ -24243,16 +24244,16 @@ window.onload = function () {
         _labDashTable.innerHTML = '';
         data.json().then(function (result) {
           // console.log(result)
-          for (var _i4 = 0; _i4 < result.length; _i4++) {
+          for (var _i3 = 0; _i3 < result.length; _i3++) {
             var formatDate = void 0;
 
-            if (result[_i4].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i3].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
             }
 
-            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i4].user.username, "</td>\n                    <td>").concat(result[_i4].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i4].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i4].status, "\">").concat(result[_i4].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i4].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i4].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i4].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i4]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i4].owner ? result[_i4].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
+            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i3].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i3]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i3].owner ? result[_i3].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
           }
         });
       });
@@ -24274,22 +24275,22 @@ window.onload = function () {
       var deadline = document.querySelectorAll('.deadline');
       var deadlinesArr = [];
 
-      var _loop = function _loop(_i5) {
-        deadlinesArr.push(Date.parse(deadline[_i5].innerHTML));
+      var _loop = function _loop(_i4) {
+        deadlinesArr.push(Date.parse(deadline[_i4].innerHTML));
         myfunc = setInterval(function () {
           var now = new Date().getTime();
-          var timeleft = deadlinesArr[_i5] - now;
+          var timeleft = deadlinesArr[_i4] - now;
 
           if (timeleft < 3600000) {
-            document.getElementById(hour[_i5].id).style.color = "red";
-            document.getElementById(mins[_i5].id).style.color = "red";
-            document.getElementById(secs[_i5].id).style.color = "red";
+            document.getElementById(hour[_i4].id).style.color = "red";
+            document.getElementById(mins[_i4].id).style.color = "red";
+            document.getElementById(secs[_i4].id).style.color = "red";
           }
 
           if (timeleft < 7200000) {
-            document.getElementById(hour[_i5].id).style.color = "orange";
-            document.getElementById(mins[_i5].id).style.color = "orange";
-            document.getElementById(secs[_i5].id).style.color = "orange";
+            document.getElementById(hour[_i4].id).style.color = "orange";
+            document.getElementById(mins[_i4].id).style.color = "orange";
+            document.getElementById(secs[_i4].id).style.color = "orange";
           }
 
           var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
@@ -24298,23 +24299,23 @@ window.onload = function () {
           var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
 
           // document.getElementById(day[i].id).innerHTML = days + "d "
-          document.getElementById(hour[_i5].id).innerHTML = hours + "h ";
-          document.getElementById(mins[_i5].id).innerHTML = minutes + "m ";
-          document.getElementById(secs[_i5].id).innerHTML = seconds + "s ";
+          document.getElementById(hour[_i4].id).innerHTML = hours + "h ";
+          document.getElementById(mins[_i4].id).innerHTML = minutes + "m ";
+          document.getElementById(secs[_i4].id).innerHTML = seconds + "s ";
 
           if (timeleft < 0) {
             clearInterval(myfunc); // document.getElementById(day[i].id).innerHTML = ""
 
             // document.getElementById(day[i].id).innerHTML = ""
-            document.getElementById(hour[_i5].id).innerHTML = "";
-            document.getElementById(mins[_i5].id).innerHTML = "";
-            document.getElementById(secs[_i5].id).innerHTML = "";
+            document.getElementById(hour[_i4].id).innerHTML = "";
+            document.getElementById(mins[_i4].id).innerHTML = "";
+            document.getElementById(secs[_i4].id).innerHTML = "";
           }
         }, 1000);
       };
 
-      for (var _i5 = 0; _i5 < deadline.length; _i5++) {
-        _loop(_i5);
+      for (var _i4 = 0; _i4 < deadline.length; _i4++) {
+        _loop(_i4);
       } // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 
     })();

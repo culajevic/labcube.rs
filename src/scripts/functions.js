@@ -44,10 +44,9 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   
   //check if analysis is already in localstorage
   let analysisPositionArr = itemsArray.findIndex((item) => {
-
-    return item.name === prices[i].name
+    return item.name === prices[i].name 
   })
-
+  
   let tr = document.createElement('tr')
   //td analysis name and preview icon
   let tdName = document.createElement('td')
