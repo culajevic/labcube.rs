@@ -22,6 +22,8 @@ require('./models/Message')
 require('./models/Subscribe')
 require('./models/Payment')
 require('./models/Discount')
+require('./models/Email')
+
 
 
 // const path = require('path')
