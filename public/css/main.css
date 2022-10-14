@@ -7332,7 +7332,7 @@ a:focus {
   #smallHeaderLab .table thead th, #smallHeaderLab .tableLabResults thead th {
     border-bottom: 1px solid white; }
 
-.logoFull {
+.logoFull, .logoFullInner {
   align-self: center;
   position: absolute; }
 
@@ -10697,8 +10697,10 @@ table.workingHoursLabDetails {
     font-size: 1rem; }
   .blueOverlay h2, .blueOverlayLab h2 {
     font-size: 1.8rem; }
-  .logoFull {
-    width: 70%; }
+  .logoFull, .logoFullInner {
+    width: 100%; }
+  .logoFullInner {
+    width: 80%; }
   #sidebarMenu {
     display: none; }
   .editorName {
@@ -10797,8 +10799,10 @@ table.workingHoursLabDetails {
   .interpretationDate {
     font-size: 1.5rem;
     text-align: center; }
-  .logoFull {
-    width: 70%; }
+  .logoFull, .logoFullInner {
+    width: 100%; }
+  .logoFullInner {
+    width: 80%; }
   .altNameResult, .groupNameResult, .hospitalResult {
     display: none; }
   .priceRange {
@@ -10898,9 +10902,11 @@ table.workingHoursLabDetails {
 @media (min-width: 375px) and (max-width: 574px) {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
-  .logoFull {
-    width: 70%;
+  .logoFull, .logoFullInner {
+    width: 100%;
     margin-bottom: 5rem; }
+  .logoFullInner {
+    width: 80%; }
   #bannerDetails {
     display: block; }
   #headlineMessage {
@@ -11135,9 +11141,11 @@ table.workingHoursLabDetails {
     display: block;
     margin: 0 auto;
     float: clear; }
-  .logoFull {
-    width: 50%;
+  .logoFull, .logoFullInner {
+    width: 100%;
     margin-bottom: 5rem; }
+  .logoFullInner {
+    width: 80%; }
   .search {
     margin-top: 1.25rem; } }
 

@@ -47,7 +47,10 @@
   }
 
   .logoFull {
-    width: 70%;
+    width: 100%;
+  }
+  .logoFullInner {
+    width: 80%;
   }
 
   #sidebarMenu {
@@ -223,8 +226,12 @@
   }
 
   .logoFull {
-    width: 70%;
+    width: 100%;
   }
+  .logoFullInner {
+    width: 80%;
+  }
+
   .altNameResult, .groupNameResult, .hospitalResult {
     display:none
   }
@@ -388,9 +395,12 @@
   }
   .logoFull {
     // width: 70%;
-    width: 70%;
+    width: 100%;
     margin-bottom:px-to-rem(80px);
     // margin:0 auto;
+  }
+  .logoFullInner {
+    width: 80%;
   }
   #bannerDetails {
     display:block;
@@ -788,9 +798,12 @@
   }
   .logoFull {
     // width: 70%;
-    width: 50%;
+    width: 100%;
     margin-bottom:px-to-rem(80px);
     // margin:0 auto;
+  }
+  .logoFullInner {
+    width: 80%;
   }
   .search {
     margin-top: px-to-rem(20px);

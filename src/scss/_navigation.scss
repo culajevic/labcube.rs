@@ -3,6 +3,10 @@
   position:absolute;
 }
 
+.logoFullInner {
+  @extend .logoFull
+}
+
 
 .logoFullGroup {
   align-self: center;
