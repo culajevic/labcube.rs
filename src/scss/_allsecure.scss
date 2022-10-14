@@ -13,7 +13,7 @@ body {background-color:#white;}
 .wpwl-group-expiry {width: 48%; display:inline-block; margin-right: 4%}
 .wpwl-group-cvv {width: 48%; display:inline-block; }
 .wpwl-group-submit {clear:both; margin-bottom: 0px;}
-.wpwl-label {width:100%; color:grey; }
+.wpwl-label {width:100%; color:grey;}
 
 /*Ikonice kartica*/
 .wpwl-wrapper-brand, .wpwl-label-brand, .wpwl-brand { display: none;}
@@ -35,8 +35,8 @@ body {background-color:#white;}
 .wpwl-control-brand {display: none; visibility:collapse;}
 
 /*Dugme potvrdi*/
-.wpwl-button-pay { background-color:#5ced6a;  color: #fff; border-radius: 4px; font-family: 'Roboto', sans-serif; width:48%; margin-top:1rem; float:left; margin-bottom:1rem; text-transform: uppercase;}
-.wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active { color:#4B4B4B; background-color: #1D88E5; border-color: #5ced6a;}
+.wpwl-button-pay { background-color:#5ced6a;  color: #fff; border-radius: 4px; font-family: 'Roboto', sans-serif; width:100%; margin-top:1rem;  margin-bottom:1rem; text-transform: uppercase; }
+.wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active { color:#fff; background-color: #1D88E5; border-color: #5ced6a; font-weight: 800;}
 
 /*Dugme otkazi*/
 .wpwl-button-cancel {background-color: #fff; margin-top:1rem; color: #95989b; border-radius: 4px; font-family: 'Roboto', sans-serif; font-weight: 600;  width:48%;  float:right;  text-transform: uppercase;}

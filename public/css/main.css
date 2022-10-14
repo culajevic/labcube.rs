@@ -8570,16 +8570,16 @@ body {
   color: #fff;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-  width: 48%;
+  width: 100%;
   margin-top: 1rem;
-  float: left;
   margin-bottom: 1rem;
   text-transform: uppercase; }
 
 .wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active {
-  color: #4B4B4B;
+  color: #fff;
   background-color: #1D88E5;
-  border-color: #5ced6a; }
+  border-color: #5ced6a;
+  font-weight: 800; }
 
 /*Dugme otkazi*/
 .wpwl-button-cancel {
@@ -10676,6 +10676,8 @@ table.workingHoursLabDetails {
     font-size: 0.625rem; }
   #bannerDetails {
     display: block; }
+  .wpwl-group-expiry, .wpwl-group-cvv {
+    width: 100%; }
   .fileTypes {
     bottom: 0px; }
   .doctorDetailsInner {

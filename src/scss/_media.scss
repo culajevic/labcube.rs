@@ -7,6 +7,10 @@
     display:block;
   }
 
+  .wpwl-group-expiry, .wpwl-group-cvv {
+    width: 100%;
+  }
+
 
   .fileTypes {
     bottom:0px;
@@ -161,13 +165,6 @@
 
 
 @media (min-width: 170px) and (max-width:375px) {
-  footer {
-    // background-color: $primary-color;
-    // height: px-to-rem(550px);
-    //   & > .overlay {
-    //   height: px-to-rem(550px);
-    //   }
-  }
 
   #bannerDetails {
     display:block;
@@ -272,7 +269,7 @@
       font-size: px-to-rem(22px);
     }
     &:nth-child(1) {
-      @include liItemImage('../images/opis.svg', 80px, 8px 0, )
+      @include liItemImage('../images/opis.svg', 80px, 8px 0, );
       background: none;
       padding-left: 10px;
     }
@@ -548,13 +545,6 @@
     background-size: auto;
   }
 
-  footer {
-    // background-color: $primary-color;
-    // height: px-to-rem(300px);
-    //   & > .overlay {
-    //   height: px-to-rem(500px);
-    //   }
-  }
   #backToTopBtn {
     right:30px;
   }
@@ -622,12 +612,6 @@
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767px) {
-  footer {
-    // height: px-to-rem(130px);
-    //   & > .overlay {
-    //   height: px-to-rem(130px);
-    //   }
-  }
 
   div.mobile-wrapper {
       position: relative;
@@ -891,9 +875,6 @@
       margin-right: px-to-rem(16px);
     }
 
-  .small {
-    // line-height: 2px;
-  }
   .logoFooter {
     width: px-to-rem(181px);
   }
@@ -903,9 +884,6 @@
   }
 
  }// query end
-
-
-
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) and (max-width:1200px) {
