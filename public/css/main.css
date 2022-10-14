@@ -9396,6 +9396,9 @@ ul ol ul {
   .iconSvgLogout:hover {
     filter: invert(8%); }
 
+.googleBtn {
+  height: 50px; }
+
 .iconSvgRegister {
   background-image: url(../images/register.svg);
   background-repeat: no-repeat; }
