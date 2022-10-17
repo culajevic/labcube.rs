@@ -4,7 +4,8 @@
   <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
   </div>
 {{/each}}
-{{> _innerNavFrontend}}
+{{> _innerNavInterpretation}}
+{{!-- {{> _innerNavFrontend}} --}}
 <!-- <form action="/payment" method="POST">
     <button class="btn btn-success text-uppercase">payment gateway</button>
 </form> -->
@@ -25,9 +26,9 @@
                 <!-- samo ulogovani korisnici mogu da urade upload rezultata -->
               {{#if user.id}}
 
-              <div class="col-12 text-center my-4">
+              {{!-- <div class="col-12 text-center my-4">
                   <h2 class="text-center functionalitiesTitle">Prvi online servis za interpretaciju laboratorijskih nalaza</h2>
-              </div>
+              </div> --}}
               
 
               <div class="col-12 mt-5">
@@ -50,42 +51,6 @@
                 <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
                   <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
-                    <!-- <div class="col-3">
-                      <div class="card">
-                        <div class="card-body">
-                          <img src="images/1h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od sat<sup>*</sup> vremena</p>
-                          <span class="text-center paketiCena">999 din</span>
-                          <input type="radio" name="package" value=999 id="t1" {{#if (checkBox package 1)}} checked {{/if}} />
-                          <label for="t1"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-3">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="najpopularnije">najpopularnije</div>
-                          <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 4<sup>*</sup> sata</p>
-                          <span class="text-center paketiCena">699 din</span>
-                          <input type="radio" name="package" value=699 id="t4" {{#if (checkBox package 4)}} checked {{/if}} />
-                          <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="card">
-                        <div class="card-body ">
-                          <img src="images/12h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 12<sup>*</sup> sati</p>
-                          <span class="text-center paketiCena">499 din</span>
-                          <input type="radio" name="package" value=499 id="t12" {{#if (checkBox package 12)}} checked {{/if}} />
-                          <label for="t12"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
-                        </div>
-                      </div>
-                    </div> -->
-
                     <!-- <div class="col-3"> -->
                     <!-- <label for="kod">Dobili ste kod za popust?</label> -->
                     <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
@@ -105,7 +70,7 @@
                           </div>
                       </div>                    
                     
-                      <div class="card paymentSteps ml-3">
+                      <div class="card paymentSteps ml-lg-3">
                         <div class="card-body">
                            <div class="najpopularnije">najpopularnije</div>
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
@@ -118,7 +83,7 @@
 
                      
 
-                       <div class="card paymentSteps ml-3">
+                       <div class="card paymentSteps ml-lg-3">
                           <div class="card-body">
                             {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
@@ -221,20 +186,18 @@
                   </form>
                 </div>
 
-
-
                 {{else}}
 
-                <div class="col-12 text-center my-4">
+                {{!-- <div class="col-12 text-center my-4">
                     <h2 class="text-center functionalitiesTitle">Online tumačenje Vaših laboratorijskih nalaza</h2>
-                </div>
+                </div> --}}
 
 
                   <div class="d-none d-md-block col-sm-12 mt-5 col-md-5 col-lg-5 position-relative">
                       <img data-lazy="/images/microscope.svg" class="functionalityIconsInterpretation microscopeFunc imgLazy">
-                      <div class="text-center priceFrom">
+                      {{!-- <div class="text-center priceFrom">
                         od 490din.
-                      </div>
+                      </div> --}}
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-12 col-lg-7 py-2 d-flex flex-column justify-content-center textLazy">
@@ -244,7 +207,7 @@
                         </div>
 
                         <p class="generalInformation float-left ml-2">Ukoliko Vam je potrebna pomoć u tumačenju i boljem razumevanju rezultata Vaših laboratorijskih nalaza, na pravom ste mestu!</p>
-                        <p class="generalInformation float-left ml-2">Umesto da pitate Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+                        <p class="generalInformation float-left ml-2">Umesto da pitate Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
                         <p class="generalInformation float-left ml-2">Protumačićemo Vaše rezultate i odgovorićemo na sva pitanja, a daćemo Vam i savet za sledeći korak.</p>
 
                       <div class="ml-2">
@@ -252,10 +215,58 @@
                       </div>
                 </div> 
 
-                 <div class="col-12 my-5">
-               <h3 class="cardDisclaimer text-center">Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
-               </div>
+                <h2 class="mx-auto mt-5">Vreme za koje je moguće dobiti protumačene rezultate</h2>
+                
+                <div class="d-flex flex-wrap mt-5 mx-auto" id="odabirPaketa">  
+                    
+                    <div class="card paymentSteps">
+                      <div class="card-body">
+                        <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
+                        <span class="text-center paketiCena">490 din.</span>
+                        <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} />
+                        <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                      </div>
+                    </div>                    
+                        
+                    <div class="card paymentSteps ml-lg-3">
+                      <div class="card-body">
+                        <div class="najpopularnije">najpopularnije</div>
+                        <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                        <span class="text-center paketiCena">590 din.</span>
+                        <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} />
+                        <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                      </div>   
+                    </div>
 
+                        
+
+                    <div class="card paymentSteps ml-lg-3">
+                        <div class="card-body">
+                          {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
+                          <span class="onSalesNow d-none" id="initialPriceTop"></span>
+                          <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                          <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata<sup>*</sup></p>
+                          <span class="text-center paketiCena" id="initialPrice">890 din.</span>
+                          <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} />
+                          <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                        </div>
+                    </div>  
+                    
+                </div>
+
+                
+            
+
+              <div class="col-12 my-5">
+                <h3 class="cardDisclaimer text-center">Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
+              </div>
+               
+               
+                <div class="mx-auto">
+                    <a href="/registracija"  class="btn btn-success text-uppercase my-3  callToActionNewAcc">postavite Vaše rezultate</a>
+                </div>
 
                 {{/if}}
               </div><!-- row end -->
@@ -264,7 +275,7 @@
                
 
 
-                  <h2 class="text-center mb-5" id="demoAccount">Kako izgleda tumačenje rezultata?</h2>
+                  <h2 class="text-center mb-5" id="demoAccount">Kada završimo tumačenje Vaši rezultati će izgledati ovako</h2>
 
 
                   <div class="">
@@ -629,7 +640,7 @@
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-7 py-2 d-flex flex-column justify-content-center textLazy">
 
-                      <p class="generalInformation float-left ml-2"><a href="/registracija" target="_blank">Kreirajte nalog</a> ili se <a href="/prijava">prijavite.</a> Odaberite rezultate koje Vam je poslala laboratorija i mi ćemo ih protumačiti i prikazati kao u primeru na ovoj stranici. Vaši rezultati su na jednom mestu, hronološki sortirani, uvek dostupni, sigurni.</p>
+                      <p class="generalInformation float-left ml-2"><a href="/registracija" target="_blank">Kreirajte nalog</a> ili se <a href="/prijava">prijavite.</a> Odaberite rezultate koje Vam je poslala laboratorija i mi ćemo ih protumačiti i prikazati kao u primeru na ovoj stranici. Vaši rezultati su na jednom mestu, hronološki sortirani, uvek dostupni, sigurni. Prihvatamo mogućnost da se predomislite nakon pružene usluge i zato Vam garantujemo povrat novca bez ikakvog pitanja uz molbu da podelite sa nama čime niste bili zadovoljni kako bismo to mogli da promenimo.</p>
 
                     <div class="ml-2">
                       <a href="/registracija"  class="btn btn-success text-uppercase my-3  callToActionNewAcc">kreirajte nalog</a>

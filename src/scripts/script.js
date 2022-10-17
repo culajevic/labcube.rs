@@ -728,13 +728,14 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
   let t4 = document.getElementById('t4')
   
   if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8 && t4) {
+    
     t4.disabled = true
     t4.parentElement.disabled = true
     t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
     t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
     t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
     t4.nextElementSibling.style.cursor = 'default'
-    t4.nextElementSibling.innerHTML = 'dostupno jedino između 8 i 20h'
+    t4.nextElementSibling.innerHTML = 'dostupno između 8 i 20h'
     // t4.parentElement.innerHTML = '<h3 class=text-center>Tumačenje u roku od 4h je moguće odabrati samo između 8 i 17h. <br/>Hvala na razumevanju</h3>'
     t4.nextElementSibling.classList.remove('btn-outline-success') 
   }
