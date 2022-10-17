@@ -1,4 +1,5 @@
 {{> _innerNavFrontend}}
+
 <section id="details">
   <div class="container">
     <div class="row" >
@@ -13,10 +14,10 @@
         <p class="float-right">
           <!-- <span class="titleDetails mx-4">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span> -->
           {{#each prices}}
-          <span class="titleDetails mx-4">{{minPrice}} - {{maxPrice}}</span>
+          <span class="titleDetails mx-4" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"> {{minPrice}} - {{maxPrice}}</span>
           {{/each}}
           <a href="javascript:window.print()"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a>
-          <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">dodaj</button>
+          <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">dodaj u korpu</button>
         </p>
 
         <div class="float-left">
@@ -53,16 +54,19 @@
             <h5 id="priprema">Priprema</h5>
             <p>{{{analysisDetails.preparation}}}</p>
           </li>
+
+           <li>
+            <h4 class="boxshadowBckg text-center my-5">Pošaljite nam Vaše rezultate i objasnićemo Vam šta se dešava i šta dalje da radite.  <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn  btn-outline-info text-uppercase m-2 p-2 d-block">Pogledajte kako</a></h4>
+            <!-- <h4 class="boxshadowBckg text-center mb-5">Da li želite da mi protumačimo Vaše rezultate? <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn  btn-outline-info text-uppercase m-2 p-2">Tumačenje rezultata</a></h4> -->
+          </li>
+
           <li>
             <h5 id="detaljanOpis">Detaljan opis</h5>
             <p>{{{analysisDetails.description}}}</p>
           </li>
 
 
-          <li>
-            <h4 class="boxshadowBckg text-center my-5">Online tumačenje laboratorijskih nalaza <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn  btn-outline-info text-uppercase m-2 p-2">Saznaj više</a></h4>
-            <!-- <h4 class="boxshadowBckg text-center mb-5">Da li želite da mi protumačimo Vaše rezultate? <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn  btn-outline-info text-uppercase m-2 p-2">Tumačenje rezultata</a></h4> -->
-          </li>
+         
 
 
           <div class="d-flex flex-column flex-lg-row">
@@ -95,6 +99,20 @@
               </div><!-- flexfix -->
               {{/if}}
            </div><!-- flex end snizene i povisene vrednosti -->
+
+           {{!-- <div>
+             <form action="/putUserEmail" method="POST" class="mt-4">   
+              <p>Ovde ide tekst kojim ukratko objasnjavamo zasto da nam ostave mejl i sta ce se desiti nakon toga</p>
+               <div class="form-row">
+                 <div class="col-8  col-sm-9 col-md-10">
+                   <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
+                  </div>
+                  <div class="col-4 col-sm-3 col-md-2">
+                  <button class="btn  btn-outline-info text-uppercase">Prijavi me</button>
+                  </div>
+               </div>
+             </form>
+           </div> --}}
            <div class="napomena">
              <h5 id="napomena">Napomena</h5>
              <p>{{{analysisDetails.notes}}}</p>
