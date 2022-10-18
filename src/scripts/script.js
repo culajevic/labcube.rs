@@ -2409,7 +2409,7 @@ if (location.match('addLab')) {
         fetch('/reference/'+e.target.value).then((data) => {
           data.json().then((result) => {
             referenceList.innerHTML = ''
-            for(i=0; i<result.length; i++) {
+            for(let i=0; i<result.length; i++) {
               let liItem = document.createElement('li')
               liItem.className += "list-group-item "
               let link = document.createElement('a')

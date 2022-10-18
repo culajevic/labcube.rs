@@ -25099,13 +25099,13 @@ window.onload = function () {
           data.json().then(function (result) {
             referenceList.innerHTML = '';
 
-            for (i = 0; i < result.length; i++) {
+            for (var _i6 = 0; _i6 < result.length; _i6++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[i]._id;
+              link.href = result[_i6]._id;
               liItem.appendChild(link);
-              var referenceName = document.createTextNode(result[i].referenceTitle);
+              var referenceName = document.createTextNode(result[_i6].referenceTitle);
               link.appendChild(referenceName);
               referenceList.appendChild(liItem);
             } // for end
@@ -25189,14 +25189,14 @@ window.onload = function () {
           data.json().then(function (result) {
             editorsList.innerHTML = '';
 
-            for (var _i6 = 0; _i6 < result.length; _i6++) {
+            for (var _i7 = 0; _i7 < result.length; _i7++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[_i6]._id;
-              link.setAttribute('data-editorImage', result[_i6].picture);
+              link.href = result[_i7]._id;
+              link.setAttribute('data-editorImage', result[_i7].picture);
               liItem.appendChild(link);
-              var editorName = document.createTextNode("".concat(result[_i6].firstName, " ").concat(result[_i6].lastName));
+              var editorName = document.createTextNode("".concat(result[_i7].firstName, " ").concat(result[_i7].lastName));
               link.appendChild(editorName);
               editorsList.appendChild(liItem);
             } // for end
