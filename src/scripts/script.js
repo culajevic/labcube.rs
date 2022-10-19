@@ -1609,7 +1609,7 @@ let interpretationPage = document.getElementById('interpretationId')
     // if(lockTheRecord.checked == true) {
       ownerId = lockTheRecord.value
       lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
-      lockingInterpretation = JSON.stringify(lockTheRecordArr)
+      let lockingInterpretation = JSON.stringify(lockTheRecordArr)
       lockStatus.innerHTML = 'Zaključano'
       lockTheRecord.disabled = true
 

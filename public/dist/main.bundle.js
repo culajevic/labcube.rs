@@ -24346,7 +24346,7 @@ window.onload = function () {
         'interpretationId': _interpretation
       });
 
-      lockingInterpretation = JSON.stringify(_lockTheRecordArr);
+      var lockingInterpretation = JSON.stringify(_lockTheRecordArr);
       _lockStatus.innerHTML = 'Zaključano';
       _lockTheRecord.disabled = true;
       fetch('/lockTheOtherInterpretation/', {
