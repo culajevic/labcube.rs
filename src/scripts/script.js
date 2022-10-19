@@ -727,8 +727,8 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
   let newDateCheck = new Date()
   let t4 = document.getElementById('t4')
   
-  if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8 && t4) {
-    
+ 
+  if (t4 && (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8)) {   
     t4.disabled = true
     t4.parentElement.disabled = true
     t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'

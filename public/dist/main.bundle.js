@@ -23545,7 +23545,7 @@ window.onload = function () {
     var newDateCheck = new Date();
     var t4 = document.getElementById('t4');
 
-    if (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8 && t4) {
+    if (t4 && (newDateCheck.getHours() > 20 || newDateCheck.getHours() < 8)) {
       t4.disabled = true;
       t4.parentElement.disabled = true;
       t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)';
