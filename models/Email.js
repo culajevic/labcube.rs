@@ -20,4 +20,4 @@ const getUserEmail = new mongoose.Schema({
   ip:String
 })
 
-module.exports = mongoose.model('getUserEmail', getUserEmail)
+module.exports = mongoose.model('Email', getUserEmail)

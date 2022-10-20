@@ -61,7 +61,8 @@ router.get('/logout', authenticationController.logout)
 router.get('/google/redirect', authenticationController.redirect)
 router.get('/profile', authenticationController.profile)
 
-
+//getUserEmail
+router.post('/putUserEmail', resultController.subscribe)
 
 router.get('/profile/page/:page', authenticationController.profile)
 

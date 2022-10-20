@@ -24,10 +24,7 @@ require('./models/Payment')
 require('./models/Discount')
 require('./models/Email')
 
-
-
 // const path = require('path')
-
 
 const app = require('./app')
 
