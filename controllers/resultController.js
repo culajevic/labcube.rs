@@ -6,6 +6,7 @@ const Price = mongoose.model('Price')
 const ObjectId = mongoose.Types.ObjectId
 const Result = mongoose.model('Result')
 const Group = mongoose.model('Group')
+const Email = mongoose.model('Email')
 const Payment = mongoose.model('Payment')
 const Discount = mongoose.model('Discount')
 const multer = require('multer')
@@ -427,7 +428,7 @@ requestCheckout()
     // let bgLocalTime = new Date().toLocaleString('sr-RS')
     // console.log(newDate)
     let deadline = new Date()
-    deadline.setDate(deadline.getDate() + 1)
+    // deadline.setDate(deadline.getDate() + 1)
     let serviceClosingTime = new Date()
     let ofHours
     let tomorrow = new Date()
@@ -437,13 +438,15 @@ requestCheckout()
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
 
 
-       if ((deadline.getHours() > 8 && deadline.getHours() < 17) && data.amount == 890) {
+       if ((deadline.getHours() > 8 && deadline.getHours() < 20) && (data.amount == 890 || data.amount == 8)) {
             deadline.setHours(deadline.getHours() + 4)
-          } else if (data.amount == 890) {
-            tomorrow.setDate(tomorrow.getDate() + 1)
-            tomorrow.setHours(8,0,0)
-            deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-          }
+          } 
+          // else if (data.amount == 1) {
+          //   tomorrow.setDate(tomorrow.getDate() + 1)
+          //   tomorrow.setHours(8,0,0)
+          //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
+          //   console.log(deadline, 'here')
+          // }
 
 
       if (data.amount == 590 ) {
@@ -814,4 +817,24 @@ exports.sendFeedbackLabCube = async (req,res) => {
     }).exec()
     req.flash('success_msg','Uspešno ste poslali komentar. Hvala')
     res.redirect('/myResult/'+req.params.id)
+}
+
+
+exports.subscribe = async (req,res) => {
+  let takeUserEmail = new Email(req.body)
+  let currentPage = req.get('referer')
+  let myList = currentPage.split('/')
+  myList.splice(0,3)
+  let newLink = (myList.join('/'))
+  console.log(newLink)
+  
+  // console.log(currentPage)
+
+  try{
+    await takeUserEmail.save()
+    req.flash('success_msg','Uspešno ste upisali email, hvala.')
+    res.redirect(newLink)
+  } catch(e) {
+    req.flash('error_msg', `Dogodila se greška ${e} prilikom upisa mejla`)
+  }
 }
