@@ -820,21 +820,21 @@ exports.sendFeedbackLabCube = async (req,res) => {
 }
 
 
-exports.subscribe = async (req,res) => {
-  let takeUserEmail = new Email(req.body)
-  let currentPage = req.get('referer')
-  let myList = currentPage.split('/')
-  myList.splice(0,3)
-  let newLink = (myList.join('/'))
-  console.log(newLink)
+// exports.subscribe = async (req,res) => {
+//   let takeUserEmail = new Email(req.body)
+//   let currentPage = req.get('referer')
+//   let myList = currentPage.split('/')
+//   myList.splice(0,3)
+//   let newLink = (myList.join('/'))
+//   console.log(newLink)
   
-  // console.log(currentPage)
+//   // console.log(currentPage)
 
-  try{
-    await takeUserEmail.save()
-    req.flash('success_msg','Uspešno ste upisali email, hvala.')
-    res.redirect(newLink)
-  } catch(e) {
-    req.flash('error_msg', `Dogodila se greška ${e} prilikom upisa mejla`)
-  }
-}
+//   try{
+//     await takeUserEmail.save()
+//     req.flash('success_msg','Uspešno ste upisali email, hvala.')
+//     res.redirect(newLink)
+//   } catch(e) {
+//     req.flash('error_msg', `Dogodila se greška ${e} prilikom upisa mejla`)
+//   }
+// }
