@@ -66,7 +66,7 @@
 
 
 .literatura:nth-child(1) {
-  @include liItemImage('../images/literatura.svg', 80px)
+  @include liItemImage('../images/literatura.svg', 80px);
   line-height: px-to-rem(40px);
 }
 
@@ -273,7 +273,7 @@ ol {
   }
   li {
     list-style-type: none;
-    display: inline-block;
+    // display: inline-block;
     float:left;
     background-color: $primary-color;
     padding: px-to-rem(10px) px-to-rem(20px);

@@ -352,10 +352,10 @@ hbs.registerHelper('displayPackageTime', package => {
       packageTime = 12
       break;
     case '890':
-      packageTime = 4
+      packageTime = 6
       break;
     default:
-      packageTime = '4'
+      packageTime = '6'
   }
   return packageTime
 })

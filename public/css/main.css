@@ -8373,7 +8373,6 @@ ol li {
 
 .povezaneAnalize li {
   list-style-type: none;
-  display: inline-block;
   float: left;
   background-color: #1D88E5;
   padding: 0.625rem 1.25rem;

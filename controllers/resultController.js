@@ -122,10 +122,10 @@ exports.freeUpload = async (req,res) => {
               packageTime = 12
               break
             case '890':
-              packageTime = 4
+              packageTime = 6
               break
             default:
-              packageTime = 4
+              packageTime = 6
           }
 
 
@@ -257,10 +257,10 @@ exports.payment = async (req,res) => {
       packageTime = 12
       break
     case '890':
-      packageTime = 4
+      packageTime = 6
       break
     default:
-      packageTime = 4
+      packageTime = 6
   }
 
 
@@ -437,9 +437,9 @@ requestCheckout()
   let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
   let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
 
-
+      //ako se menja vreme promeniti deadline
        if ((deadline.getHours() > 8 && deadline.getHours() < 20) && (data.amount == 890 || data.amount == 8)) {
-            deadline.setHours(deadline.getHours() + 4)
+            deadline.setHours(deadline.getHours() + 6)
           } 
           // else if (data.amount == 1) {
           //   tomorrow.setDate(tomorrow.getDate() + 1)
@@ -523,10 +523,10 @@ requestCheckout()
         packageTime = 12
         break
       case '890.00':
-        packageTime = 4
+        packageTime = 6
         break
       default:
-        packageTime = 4
+        packageTime = 6
     }
 
        try {
