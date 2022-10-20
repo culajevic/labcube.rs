@@ -683,6 +683,7 @@
   }
   .search {
     font-size: px-to-rem(12px);
+    // margin-top: px-to-rem(20px);
   }
 
   .searchFieldContainer {
@@ -789,10 +790,6 @@
   .logoFullInner {
     width: 80%;
   }
-  .search {
-    margin-top: px-to-rem(20px);
-  }
-
 
 }// query end
 
