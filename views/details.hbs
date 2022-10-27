@@ -11,17 +11,17 @@
 
         <!-- header -->
 
-        <p class="float-right">
+        <p class="">
           <!-- <span class="titleDetails mx-4">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span> -->
           {{#each prices}}
-          <span class="titleDetails mx-4" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"> {{minPrice}} - {{maxPrice}}</span>
+          <span class="titleDetails mr-2" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"><small class="text-muted">Cena u privatnim laboratorijama u Srbiji za {{../analysisDetails.analysisName}} je od {{minPrice}} - {{maxPrice}}</small></span>
           {{/each}}
-          <a href="javascript:window.print()"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a>
-          <button class="btn btn-outline-success text-uppercase float-right btn-block text-uppercase mt-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">proveri cenu</button>
+          {{!-- <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a> --}}
+          <button class="btn btn-outline-success text-uppercase  float-right btn-block text-uppercase  mt-2 mt-sm-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">proveri cenu</button>
         </p>
 
         <div class="float-left">
-          <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
+          <h1 class="headTitle mt-2">{{analysisDetails.analysisName}}</h1>
 
           <ul>
             {{#each analysisDetails.abbr}}
