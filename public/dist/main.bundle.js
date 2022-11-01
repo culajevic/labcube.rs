@@ -24787,16 +24787,16 @@ window.onload = function () {
           data.json().then(function (result) {
             _resultDiv4.innerHTML = '';
 
-            for (i = 0; i < result.length; i++) {
+            for (var _i5 = 0; _i5 < result.length; _i5++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[i]._id;
-              link.setAttribute('data-municipality', result[i].municipality);
-              link.setAttribute('data-postalCode', result[i].postalCode); // link.className += ""
+              link.href = result[_i5]._id;
+              link.setAttribute('data-municipality', result[_i5].municipality);
+              link.setAttribute('data-postalCode', result[_i5].postalCode); // link.className += ""
 
               liItem.appendChild(link);
-              var placeName = document.createTextNode(result[i].place);
+              var placeName = document.createTextNode(result[_i5].place);
               link.appendChild(placeName);
 
               _resultDiv4.appendChild(liItem);
@@ -24882,14 +24882,14 @@ window.onload = function () {
           data.json().then(function (result) {
             resultGroup.innerHTML = '';
 
-            for (var _i5 = 0; _i5 < result.length; _i5++) {
+            for (var _i6 = 0; _i6 < result.length; _i6++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[_i5]._id;
+              link.href = result[_i6]._id;
               liItem.appendChild(link);
 
-              var _groupName = document.createTextNode(result[_i5].name);
+              var _groupName = document.createTextNode(result[_i6].name);
 
               link.appendChild(_groupName);
               resultGroup.appendChild(liItem);
@@ -25101,13 +25101,13 @@ window.onload = function () {
           data.json().then(function (result) {
             referenceList.innerHTML = '';
 
-            for (var _i6 = 0; _i6 < result.length; _i6++) {
+            for (var _i7 = 0; _i7 < result.length; _i7++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[_i6]._id;
+              link.href = result[_i7]._id;
               liItem.appendChild(link);
-              var referenceName = document.createTextNode(result[_i6].referenceTitle);
+              var referenceName = document.createTextNode(result[_i7].referenceTitle);
               link.appendChild(referenceName);
               referenceList.appendChild(liItem);
             } // for end
@@ -25191,14 +25191,14 @@ window.onload = function () {
           data.json().then(function (result) {
             editorsList.innerHTML = '';
 
-            for (var _i7 = 0; _i7 < result.length; _i7++) {
+            for (var _i8 = 0; _i8 < result.length; _i8++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[_i7]._id;
-              link.setAttribute('data-editorImage', result[_i7].picture);
+              link.href = result[_i8]._id;
+              link.setAttribute('data-editorImage', result[_i8].picture);
               liItem.appendChild(link);
-              var editorName = document.createTextNode("".concat(result[_i7].firstName, " ").concat(result[_i7].lastName));
+              var editorName = document.createTextNode("".concat(result[_i8].firstName, " ").concat(result[_i8].lastName));
               link.appendChild(editorName);
               editorsList.appendChild(liItem);
             } // for end
