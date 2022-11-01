@@ -1841,7 +1841,7 @@ let interpretationPage = document.getElementById('interpretationId')
 
                 let analysis = result
                 parentUl.innerHTML = ''
-                for(i=0; i<analysis.length; i++) {
+                for(let i=0; i<analysis.length; i++) {
                   let liItem = document.createElement('li')
                   liItem.className +="list-group-item"
                   let link = document.createElement('a')
