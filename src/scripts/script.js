@@ -290,7 +290,7 @@ if(location === '/') {
   //   e.preventDefault
   //   e.target.disabled = true
   //   let analysisKS = JSON.parse(e.target.getAttribute('data-analysis'))
-  //   for (i=0; i<analysisKS.length; i++) {
+  //   for (let i=0; i<analysisKS.length; i++) {
   //
   //   itemsArray.push({
   //     'name':analysisKS[i].name,
@@ -572,7 +572,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
           // let pricesMin = result.minPriceArr
           // let pricesMax = result.maxPriceArr
           let prices = result.prices
-          for(i=0; i<analysis.length; i++) {
+          for(let i=0; i<analysis.length; i++) {
             //creating table with result
             helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray,i)
           }// for end
@@ -612,7 +612,7 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
                 loaderWrapper.style.opacity = 0
               }
 
-                for(i=0; i<analysis.length; i++) {
+                for(let i=0; i<analysis.length; i++) {
 
                   //creating table with results
                   //when typing fast parent array becomes undefined hence error
@@ -2025,7 +2025,7 @@ if (location.match('addLab')) {
 
   mondayCloses.addEventListener('blur', (e) => {
     document.getElementById('saturdayOpens').focus()
-    for(i=0; i<workingWeek.length-4; i++)
+    for(let i=0; i<workingWeek.length-4; i++)
       if(i%2 == 0) {
         workingWeek[i].value=mondayOpens.value
       } else {
@@ -2037,7 +2037,7 @@ if (location.match('addLab')) {
     let deleteWH = document.querySelector('#deleteWH')
     deleteWH.addEventListener('click', (e) => {
       e.preventDefault()
-      for(i=0; i<workingWeek.length; i++) {
+      for(let i=0; i<workingWeek.length; i++) {
         workingWeek[i].value=''
       }
       open24h.checked=false
@@ -2048,14 +2048,14 @@ if (location.match('addLab')) {
       open24h.addEventListener('change', (e) => {
         e.preventDefault()
         if(open24h.checked == true) {
-          for(i=0; i<workingWeek.length; i++)
+          for(let i=0; i<workingWeek.length; i++)
             if(i%2 == 0) {
               workingWeek[i].value='00:00'
             } else {
               workingWeek[i].value='24:00'
             }
         } else {
-          for(i=0; i<workingWeek.length; i++) {
+          for(let i=0; i<workingWeek.length; i++) {
             workingWeek[i].value=''
           }
         }
@@ -2238,7 +2238,7 @@ if (location.match('addLab')) {
         data.json().then((result) => {
           // console.log(result)
           getAnalyisisNameDiv.innerHTML = ''
-          for(i=0; i<result.length; i++) {
+          for(let i=0; i<result.length; i++) {
             let liItem = document.createElement('li')
             liItem.className +="list-group-item"
             let link = document.createElement('a')
@@ -2325,7 +2325,7 @@ if (location.match('addLab')) {
         fetch('/diseases/'+e.target.value).then((data) =>{
           data.json().then((result) => {
             getDiseasesDiv.innerHTML = ''
-            for(i=0; i<result.length; i++) {
+            for(let i=0; i<result.length; i++) {
               let liItem = document.createElement('li')
               liItem.className += "list-group-item"
               let link = document.createElement('a')

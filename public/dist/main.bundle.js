@@ -23112,7 +23112,7 @@ window.onload = function () {
     //   e.preventDefault
     //   e.target.disabled = true
     //   let analysisKS = JSON.parse(e.target.getAttribute('data-analysis'))
-    //   for (i=0; i<analysisKS.length; i++) {
+    //   for (let i=0; i<analysisKS.length; i++) {
     //
     //   itemsArray.push({
     //     'name':analysisKS[i].name,
@@ -23375,8 +23375,7 @@ window.onload = function () {
     });
 
     if (myFilter === 'analiza') {
-      var _i;
-
+      var i;
       console.log('pretraga analize sa glavne stranice');
       fetch('/analysis/prices/' + searchStr).then(function (data) {
         // loaderWrapper.style.opacity = 1
@@ -23387,7 +23386,7 @@ window.onload = function () {
 
           var prices = result.prices;
 
-          for (_i = 0; _i < analysis.length; _i++) {
+          for (var _i = 0; _i < analysis.length; _i++) {
             //creating table with result
             helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray, _i);
           } // for end
@@ -23429,11 +23428,11 @@ window.onload = function () {
               _loaderWrapper.style.opacity = 0;
             }
 
-            for (i = 0; i < analysis.length; i++) {
+            for (var _i2 = 0; _i2 < analysis.length; _i2++) {
               //creating table with results
               //when typing fast parent array becomes undefined hence error
               if (typeof prices !== "undefined") {
-                helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray, i);
+                helper.renderAnalysisResult(analysis, prices, _resultDiv, itemsArray, _i2);
               } else {
                 console.log('nema cene za ovu analizu');
               }
@@ -24166,16 +24165,16 @@ window.onload = function () {
         data.json().then(function (result) {
           console.log(result);
 
-          for (var _i2 = 0; _i2 < result.length; _i2++) {
+          for (var _i3 = 0; _i3 < result.length; _i3++) {
             var formatDate = void 0;
 
-            if (result[_i2].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i3].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i2].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
             }
 
-            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i2].user.username, "</td>\n                    <td>").concat(result[_i2].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i2].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i2].status, "\">").concat(result[_i2].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i2].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i2].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i2].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i2].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i2]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i2]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i2].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i2].user.username, "</p>\n                          ").concat(result[_i2].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
+            labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\"><strong>").concat(result[_i3].analyses.length, "</strong></td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td>").concat(result[_i3].total, "<small>rsd</small></td>\n                    <td><button class=\"btn btn-outline-success\" data-toggle=\"modal\" data-target=\"#modal").concat(result[_i3]._id, "\">detalji</button></td>\n                  </tr>\n\n                  <!-- Modal -->\n                  <div class=\"modal fade\" id=\"modal").concat(result[_i3]._id, "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalCenterTitle\" aria-hidden=\"true\">\n                    <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n                      <div class=\"modal-content\">\n                        <div class=\"modal-header\">\n                          <h5 class=\"modal-title\" id=\"exampleModalLongTitle\">Prikaz detalja za ").concat(result[_i3].user.username, "</h5>\n                          <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                            <span aria-hidden=\"true\">&times;</span>\n                          </button>\n                        </div>\n                        <div class=\"modal-body\">\n                          <p>").concat(result[_i3].user.username, "</p>\n                          ").concat(result[_i3].analiza, "\n                        </div>\n                        <div class=\"modal-footer\">\n                          <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </tbody>\n              ");
           }
         });
       });
@@ -24247,16 +24246,16 @@ window.onload = function () {
         _labDashTable.innerHTML = '';
         data.json().then(function (result) {
           // console.log(result)
-          for (var _i3 = 0; _i3 < result.length; _i3++) {
+          for (var _i4 = 0; _i4 < result.length; _i4++) {
             var formatDate = void 0;
 
-            if (result[_i3].uzimanjeUzorka == 'patronaza') {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
+            if (result[_i4].uzimanjeUzorka == 'patronaza') {
+              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y / H:mm');
             } else {
-              formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
+              formatDate = moment(result[_i4].scheduledFor).format('D.M.Y');
             }
 
-            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i3].user.username, "</td>\n                    <td>").concat(result[_i3].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i3].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i3].status, "\">").concat(result[_i3].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i3].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i3].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i3].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i3]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i3].owner ? result[_i3].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
+            _labDashTable.innerHTML += "\n                <tbody>\n                  <tr class=\"dashboardResults\">\n                    <td>".concat(result[_i4].user.username, "</td>\n                    <td>").concat(result[_i4].user.mobile, "</td>\n                    <td align=\"align-left\">").concat(result[_i4].user.email, "</td>\n                    <td align=\"align-left\">").concat(formatDate, "</td>\n                    <td><span class=\"").concat(result[_i4].status, "\">").concat(result[_i4].status, "</span></td>\n                    <td title=\"broj potrebnih analiza\">").concat(result[_i4].analyses.length, "</td>\n                    <td><img src=\"/images/").concat(result[_i4].uzimanjeUzorka, ".svg\" title=\"").concat(result[_i4].uzimanjeUzorka, "\" class=\"mb-1\"></td>\n                    <td><a  href=\"/interpretation/").concat(result[_i4]._id, "\">protuma\u010Di</a></td>\n                    <td>").concat(result[_i4].owner ? result[_i4].owner.username : ' ', "</td>\n                  </tr>\n                </tbody>\n                ");
           }
         });
       });
@@ -24278,22 +24277,22 @@ window.onload = function () {
       var deadline = document.querySelectorAll('.deadline');
       var deadlinesArr = [];
 
-      var _loop = function _loop(_i4) {
-        deadlinesArr.push(Date.parse(deadline[_i4].innerHTML));
+      var _loop = function _loop(_i5) {
+        deadlinesArr.push(Date.parse(deadline[_i5].innerHTML));
         myfunc = setInterval(function () {
           var now = new Date().getTime();
-          var timeleft = deadlinesArr[_i4] - now;
+          var timeleft = deadlinesArr[_i5] - now;
 
           if (timeleft < 3600000) {
-            document.getElementById(hour[_i4].id).style.color = "red";
-            document.getElementById(mins[_i4].id).style.color = "red";
-            document.getElementById(secs[_i4].id).style.color = "red";
+            document.getElementById(hour[_i5].id).style.color = "red";
+            document.getElementById(mins[_i5].id).style.color = "red";
+            document.getElementById(secs[_i5].id).style.color = "red";
           }
 
           if (timeleft < 7200000) {
-            document.getElementById(hour[_i4].id).style.color = "orange";
-            document.getElementById(mins[_i4].id).style.color = "orange";
-            document.getElementById(secs[_i4].id).style.color = "orange";
+            document.getElementById(hour[_i5].id).style.color = "orange";
+            document.getElementById(mins[_i5].id).style.color = "orange";
+            document.getElementById(secs[_i5].id).style.color = "orange";
           }
 
           var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
@@ -24302,23 +24301,23 @@ window.onload = function () {
           var seconds = Math.floor(timeleft % (1000 * 60) / 1000); // document.getElementById(day[i].id).innerHTML = days + "d "
 
           // document.getElementById(day[i].id).innerHTML = days + "d "
-          document.getElementById(hour[_i4].id).innerHTML = hours + "h ";
-          document.getElementById(mins[_i4].id).innerHTML = minutes + "m ";
-          document.getElementById(secs[_i4].id).innerHTML = seconds + "s ";
+          document.getElementById(hour[_i5].id).innerHTML = hours + "h ";
+          document.getElementById(mins[_i5].id).innerHTML = minutes + "m ";
+          document.getElementById(secs[_i5].id).innerHTML = seconds + "s ";
 
           if (timeleft < 0) {
             clearInterval(myfunc); // document.getElementById(day[i].id).innerHTML = ""
 
             // document.getElementById(day[i].id).innerHTML = ""
-            document.getElementById(hour[_i4].id).innerHTML = "";
-            document.getElementById(mins[_i4].id).innerHTML = "";
-            document.getElementById(secs[_i4].id).innerHTML = "";
+            document.getElementById(hour[_i5].id).innerHTML = "";
+            document.getElementById(mins[_i5].id).innerHTML = "";
+            document.getElementById(secs[_i5].id).innerHTML = "";
           }
         }, 1000);
       };
 
-      for (var _i4 = 0; _i4 < deadline.length; _i4++) {
-        _loop(_i4);
+      for (var _i5 = 0; _i5 < deadline.length; _i5++) {
+        _loop(_i5);
       } // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 
     })();
@@ -24547,16 +24546,16 @@ window.onload = function () {
                   var analysis = result;
                   parentUl.innerHTML = '';
 
-                  for (var _i5 = 0; _i5 < analysis.length; _i5++) {
+                  for (var _i6 = 0; _i6 < analysis.length; _i6++) {
                     var liItem = document.createElement('li');
                     liItem.className += "list-group-item";
                     var link = document.createElement('a');
-                    link.href = analysis[_i5]._id; // let link = document.createElement('span')
+                    link.href = analysis[_i6]._id; // let link = document.createElement('span')
 
-                    link.setAttribute('data-analysisId', analysis[_i5]._id);
-                    link.setAttribute('data-analysisName', analysis[_i5].analysisName);
+                    link.setAttribute('data-analysisId', analysis[_i6]._id);
+                    link.setAttribute('data-analysisName', analysis[_i6].analysisName);
                     liItem.appendChild(link);
-                    var analysisName = document.createTextNode(analysis[_i5].analysisName);
+                    var analysisName = document.createTextNode(analysis[_i6].analysisName);
                     link.appendChild(analysisName);
                     parentUl.appendChild(liItem);
                   } // for end
@@ -24732,11 +24731,11 @@ window.onload = function () {
     mondayCloses.addEventListener('blur', function (e) {
       document.getElementById('saturdayOpens').focus();
 
-      for (i = 0; i < workingWeek.length - 4; i++) {
-        if (i % 2 == 0) {
-          workingWeek[i].value = mondayOpens.value;
+      for (var _i7 = 0; _i7 < workingWeek.length - 4; _i7++) {
+        if (_i7 % 2 == 0) {
+          workingWeek[_i7].value = mondayOpens.value;
         } else {
-          workingWeek[i].value = mondayCloses.value;
+          workingWeek[_i7].value = mondayCloses.value;
         }
       }
     }); // delete all working hours on click / set 24h to false
@@ -24745,8 +24744,8 @@ window.onload = function () {
     deleteWH.addEventListener('click', function (e) {
       e.preventDefault();
 
-      for (i = 0; i < workingWeek.length; i++) {
-        workingWeek[i].value = '';
+      for (var _i8 = 0; _i8 < workingWeek.length; _i8++) {
+        workingWeek[_i8].value = '';
       }
 
       open24h.checked = false;
@@ -24757,16 +24756,16 @@ window.onload = function () {
       e.preventDefault();
 
       if (open24h.checked == true) {
-        for (i = 0; i < workingWeek.length; i++) {
-          if (i % 2 == 0) {
-            workingWeek[i].value = '00:00';
+        for (var _i9 = 0; _i9 < workingWeek.length; _i9++) {
+          if (_i9 % 2 == 0) {
+            workingWeek[_i9].value = '00:00';
           } else {
-            workingWeek[i].value = '24:00';
+            workingWeek[_i9].value = '24:00';
           }
         }
       } else {
-        for (i = 0; i < workingWeek.length; i++) {
-          workingWeek[i].value = '';
+        for (var _i10 = 0; _i10 < workingWeek.length; _i10++) {
+          workingWeek[_i10].value = '';
         }
       }
     }); // search id for the place and populate other address related
@@ -24787,16 +24786,16 @@ window.onload = function () {
           data.json().then(function (result) {
             _resultDiv4.innerHTML = '';
 
-            for (var _i6 = 0; _i6 < result.length; _i6++) {
+            for (var _i11 = 0; _i11 < result.length; _i11++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[_i6]._id;
-              link.setAttribute('data-municipality', result[_i6].municipality);
-              link.setAttribute('data-postalCode', result[_i6].postalCode); // link.className += ""
+              link.href = result[_i11]._id;
+              link.setAttribute('data-municipality', result[_i11].municipality);
+              link.setAttribute('data-postalCode', result[_i11].postalCode); // link.className += ""
 
               liItem.appendChild(link);
-              var placeName = document.createTextNode(result[_i6].place);
+              var placeName = document.createTextNode(result[_i11].place);
               link.appendChild(placeName);
 
               _resultDiv4.appendChild(liItem);
@@ -24882,14 +24881,14 @@ window.onload = function () {
           data.json().then(function (result) {
             resultGroup.innerHTML = '';
 
-            for (var _i7 = 0; _i7 < result.length; _i7++) {
+            for (var _i12 = 0; _i12 < result.length; _i12++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[_i7]._id;
+              link.href = result[_i12]._id;
               liItem.appendChild(link);
 
-              var _groupName = document.createTextNode(result[_i7].name);
+              var _groupName = document.createTextNode(result[_i12].name);
 
               link.appendChild(_groupName);
               resultGroup.appendChild(liItem);
@@ -24941,13 +24940,13 @@ window.onload = function () {
             // console.log(result)
             getAnalyisisNameDiv.innerHTML = '';
 
-            for (i = 0; i < result.length; i++) {
+            for (var _i13 = 0; _i13 < result.length; _i13++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[i]._id;
+              link.href = result[_i13]._id;
               liItem.appendChild(link);
-              var analysisName = document.createTextNode(result[i].analysisName);
+              var analysisName = document.createTextNode(result[_i13].analysisName);
               link.appendChild(analysisName);
               getAnalyisisNameDiv.appendChild(liItem);
             } // for end
@@ -25020,13 +25019,13 @@ window.onload = function () {
           data.json().then(function (result) {
             getDiseasesDiv.innerHTML = '';
 
-            for (i = 0; i < result.length; i++) {
+            for (var _i14 = 0; _i14 < result.length; _i14++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item";
               var link = document.createElement('a');
-              link.href = result[i]._id;
+              link.href = result[_i14]._id;
               liItem.appendChild(link);
-              var diseaseName = document.createTextNode(result[i].name);
+              var diseaseName = document.createTextNode(result[_i14].name);
               link.appendChild(diseaseName);
               getDiseasesDiv.appendChild(liItem);
             } // for end
@@ -25101,13 +25100,13 @@ window.onload = function () {
           data.json().then(function (result) {
             referenceList.innerHTML = '';
 
-            for (var _i8 = 0; _i8 < result.length; _i8++) {
+            for (var _i15 = 0; _i15 < result.length; _i15++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[_i8]._id;
+              link.href = result[_i15]._id;
               liItem.appendChild(link);
-              var referenceName = document.createTextNode(result[_i8].referenceTitle);
+              var referenceName = document.createTextNode(result[_i15].referenceTitle);
               link.appendChild(referenceName);
               referenceList.appendChild(liItem);
             } // for end
@@ -25191,14 +25190,14 @@ window.onload = function () {
           data.json().then(function (result) {
             editorsList.innerHTML = '';
 
-            for (var _i9 = 0; _i9 < result.length; _i9++) {
+            for (var _i16 = 0; _i16 < result.length; _i16++) {
               var liItem = document.createElement('li');
               liItem.className += "list-group-item ";
               var link = document.createElement('a');
-              link.href = result[_i9]._id;
-              link.setAttribute('data-editorImage', result[_i9].picture);
+              link.href = result[_i16]._id;
+              link.setAttribute('data-editorImage', result[_i16].picture);
               liItem.appendChild(link);
-              var editorName = document.createTextNode("".concat(result[_i9].firstName, " ").concat(result[_i9].lastName));
+              var editorName = document.createTextNode("".concat(result[_i16].firstName, " ").concat(result[_i16].lastName));
               link.appendChild(editorName);
               editorsList.appendChild(liItem);
             } // for end
