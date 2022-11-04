@@ -56,9 +56,7 @@ router.delete('/profile/:id/:location?', authenticationController.deleteOtherRes
 //registration
 router.get('/prijava', authenticationController.signin)
 router.post('/prijava', authenticationController.login)
-//new
 router.get('/verifyNewUser/:token', authenticationController.verifyByEmail)
-//
 router.get('/google', authenticationController.google)
 router.get('/logout', authenticationController.logout)
 router.get('/google/redirect', authenticationController.redirect)
@@ -82,9 +80,7 @@ router.get('/admindashboard', authenticationController.admindasboard)
 router.get('/forgot', authenticationController.forgot)
 router.post('/forgot', authenticationController.resetPassLink)
 router.get('/reset/:token', authenticationController.resetPass)
-//new
 router.get('/verifyNewUser/:token', authenticationController.verifyNewUser)
-//new
 router.post('/resetPass/:token', authenticationController.updatePassword)
 router.get('/mojirezultati/:id', scheduleController.myResults)
 router.post('/submitRating', scheduleController.userFeedback)
@@ -100,7 +96,7 @@ router.delete('/allGroupsList/:id/:location?', groupController.deleteGroup)
 //:location is added because of deletein analysis reports from user profile page
 
 //tumacenje rezultata
-// router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAnalysis) samo ovo odkomentarisati
+router.get('/tumacenje-laboratorijskih-analiza', resultController.labRestultsAnalysis)
 // router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
 // router.post('/payment', resultController.upload, resultController.payment )
 router.post('/payment', resultController.upload, resultController.payment, resultController.paymentDone )
