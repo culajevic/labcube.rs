@@ -23100,7 +23100,7 @@ window.onload = function () {
   if (location === '/') {
     var typeText = document.getElementById('headlineMessage');
     var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a('#headlineMessage', {
-      strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju kako najbrže do tumačenja rezultata"],
+      strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju"],
       typeSpeed: 30,
       backSpeed: 10,
       loop: true,
