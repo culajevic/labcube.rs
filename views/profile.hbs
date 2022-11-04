@@ -28,7 +28,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="/logout" class="nav-link link-unstyled dashboardTabs" id="loagout-tab"> <i class="fa fa-sign-out-alt" title="odjava" alt="odjava"></i></a>
+          <a href="/logout" class="nav-link link-unstyled dashboardTabs" id="loagout-tab"> <i class="fa fa-sign-out-alt" title="odjava" alt="odjava"></i> Izađi</a>
         </li>
       </ul>
 
@@ -93,8 +93,8 @@
 
           <!-- <h1 class="p-4 text-center">Hvala Vam što ste kreirali nalog. Uskoro će Vam biti dostupna usluga tumačenja rezultata.</h1> -->
           <!-- <p class="pt-4 text-danger generalInformation">Trenutno nemate protumačenih rezultata. Dok čekate rezultate predlažemo Vam da popunite zdravstveni profil. To će nam pomoći da što bolje sagledamo Vaše trenutno zdravstveno stanje i da Vam što preciznije protumačimo rezultate.</p><p class="generalInformation">Svi Vaši podaci su strogo poverljivi i bezbedni su. Pročitajte našu Politiku privatnosti.</p> -->
-          <div class="col-12 pl-0 generalInformation">
-            <!-- <p>Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 jednostavna koraka. </p> -->
+          {{!-- <div class="col-12 pl-0 generalInformation">
+            
             <ol class="textList pb-4 ">
               <li><p class="generalInformation">Odaberite vreme za koje želite da protumačimo Vaše rezultate</p></li>
               <li><p class="generalInformation">Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload</p></li>
@@ -105,9 +105,9 @@
 
           <div class="col-12 mb-5">
             <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
-          </div>
+          </div> --}}
 
-            <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
+            {{!-- <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
               <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
                 <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
@@ -143,7 +143,6 @@
 
                        <div class="card paymentSteps ml-lg-3">
                           <div class="card-body">
-                            {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
                             <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
@@ -181,15 +180,12 @@
                   </div>
 
             </div>
-            <!-- odabir paketa end -->
+          
             <div class=" col-12 p-0 mb-2">
               <label for="exampleFormControlTextarea1 ">Komentar</label>
               <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate bitnim za tumačenje Vaših nalaza.">{{komentar}}</textarea>
             </div>
 
-            {{!-- <div class="col-12 text-center">
-              <small class=""><sup>*</sup>Vaši rezultati će biti protumačeni u roku od 24 sata, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. </small>
-            </div> --}}
 
 
             <div class="col-12 text-center">
@@ -197,7 +193,7 @@
             </div>
             <div class="col-12 text-center">
                 <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>
-            </div>
+            </div> --}}
 
             <div class="col-12 upload_file my-4">
                 <div class="form-row">
@@ -209,7 +205,7 @@
               </form>
             </div>
 
-            <h2 class="my-4 pb-4 text-center" id="demoAccount">Pogledajte primer jednog tumačenja</h2>
+            {{!-- <h2 class="my-4 pb-4 text-center" id="demoAccount">Pogledajte primer jednog tumačenja</h2> --}}
 
             <!-- <div class="col-12 doctorDetails mt-4 testCenter ">
               <img src="/images/editors/Sanja Nova-2.png-1628202152954.png"  class="rounded-circle editorImg hcpImage img-fluid" alt=""><p>
@@ -221,7 +217,7 @@
 
 
 
-            <div class="row">
+            {{!-- <div class="row">
                 <div class="resultDetails mb-4">
                   <div class="col-12 col-md-7">
                     <h4 class="analysisName">ATG <span class="valueOk">28 IU/ml</span></h4>
@@ -240,19 +236,19 @@
                   </div>
 
 
-                </div><!-- analysis result -->
+                </div>
 
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>Rezultat je u referentnom opsegu.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Anti - TPO antitela <span class="valueNotOk">38 IU/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Najosetljivi je parameter za dijagnozu Hashimoto sindroma.</p>
                 </div>
 
@@ -268,18 +264,18 @@
                   </div>
 
 
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je izvan referentnog opsega (&lt34), titar antitela na tireoidnu peroksidazu je blago povišen što može ukazivati na probleme u funkciji štitne žlezde (hipertireoidizam ili hipotireoidizam)</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Progesteron <span class="valueOk">2.2 nmol/L</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Test se koristi za ispitivanje funkcionalnog corpusa luteuma, praćenja ovulacije, trudnoće, supstitucione terapije progesteronom i u cilju otkrivanja uzroka neplodnosti.</p>
                 </div>
 
@@ -298,18 +294,18 @@
                     <input type="range" class="max" name="high" min="4.7" max="9.4" value="" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 4.7</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Folikulostimulirajući hormon <span class="valueOk">6.4 mIU/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Test se koristi za procenu funkcije jajnika i testisa, utvrđivanje uzroka neplodnosti, utvrđivanje poremećaja menstrualnog ciklusa i puberteta, za dijagnostiku i praćenje bolesti povezanih sa poremećajem rada hipofize i hipotalamusa.</p>
                 </div>
 
@@ -328,17 +324,17 @@
                     <input type="range" class="max" name="high" min="12.5" max="24" value="" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 12.5</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Estradiol <span class="valueOk">45.1 pg/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Test se koristi za procenu rada jajnika, za utvrđivanje poremećaja menstrualnog ciklusa i puberteta, za dijagnostiku i praćenje bolesti kod poremećaja rada nadbubrežne žlezde i hormonskih poremećaja kod muškaraca.</p>
                 </div>
 
@@ -357,18 +353,17 @@
                     <input type="range" class="max" name="high" min="144.2" max="288" value="" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 144.2</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>Rezultat je u referentnom opsegu za interval folikularne faze.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
-
+            </div>
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Luteinizirajući hormon <span class="valueOk">8.9 mIU/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                 
                   <p>Test se koristi za procenu funkcije jajnika i testisa, za predviđanje nastupanja ovulacije, utvrđivanje poremećaja menstrualnog ciklusa i puberteta, za dijagnostiku i praćenje bolesti povezanih sa poremećajem rada hipofize i hipotalamusa.</p>
                 </div>
 
@@ -387,18 +382,18 @@
                     <input type="range" class="max" name="high" min="11.4" max="23" value="" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 11.4</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Anti-Milerov hormon <span class="valueNotOk">6,73ng/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Ovaj test se koristi za procenu plodnosti kod žena, za predviđanje nastupanja menopauze, za dijagnostikovanje poremećaja povezanih sa pojavom cističnih jajnika i kod oba pola za procenu nerazvijenosti polnih organa.</p>
                 </div>
 
@@ -417,18 +412,18 @@
                     <input type="range" class="max showRed" name="high" min="3.89" max="16" value="6.73" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 3.89</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je izvan referentnog opsega (3.03 - 3.89), povišena vrednost može ukazivati na sindrom policističnih jajnika.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Ukupni testosteron <span class="valueOk">1.34 nmol/L</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                 
                   <p>Test se koristi za procenu uzroka neplodnosti i poremećaja polne funkcije kod muškaraca, kao i za utvrđivanje uzroka pojave muških polnih osobina (hirzutizam, virilizacija) i neplodnosti kod žena.</p>
                 </div>
 
@@ -447,18 +442,18 @@
                     <input type="range" class="max" name="high" min="2.90" max="10" value="0" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 2.90</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>Rezultat je u referentnom opsegu.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Tireostimulišući hormon TSH <span class="valueOk">2.304 uIU/ml</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                
                   <p>Test se koristi za procenu statusa funkcije štitne žlezde.</p>
                 </div>
 
@@ -477,18 +472,18 @@
                     <input type="range" class="max" name="high" min="2.90" max="10" value="0" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 4.78</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je u referentnom opsegu.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Slobodni trijodtironin FT3 <span class="valueOk">5 pmol/L</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                  
                   <p>Test se koristi za proveru statusa funkcije štitne žlezde.</p>
                 </div>
 
@@ -507,18 +502,18 @@
                     <input type="range" class="max" name="high" min="6.5" max="13" value="0" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 6.5</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>rezultat je u referentnom opsegu.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Slobodni tiroksin FT4 <span class="valueOk">13.4 pmol/L</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                 
                   <p>Test se koristi za proveru statusa funkcije štitne žlezde.</p>
                 </div>
 
@@ -537,18 +532,18 @@
                     <input type="range" class="max" name="high" min="22" max="44" value="0" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 22</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>Rezultat je u referentnom opsegu (12 - 22), vrednost je bliža donjoj referentnoj granici.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
 
             <div class="resultDetails mb-4">
                 <div class="col-12 col-md-7">
                   <h4 class="analysisName">Prolaktin PRL <span class="valueOk">179.49 mIU/L</span></h4>
-                  <!-- <p>{{this.comment}}</p> -->
+                 
                   <p>Test se koristi u dijagnostici uzroka neplodnosti kod oba pola, dijagnostici i praćenju prolaktinoma (tumora na hipofizi) i pojave lučenja mleka koje nije u vezi sa dojenjem.</p>
                 </div>
 
@@ -567,13 +562,13 @@
                     <input type="range" class="max" name="high" min="637" max="1250" value="" step="0.1" disabled="">
                     <div class="rangeLabels">&gt; 637</div>
                   </div>
-                </div><!-- analysis result -->
+                </div>
                 <div class="col-12">
                   <p class="myResultsComment">
                     <span>Rezultat je u referentnom opsegu.</span>
                   </p>
                 </div>
-            </div><!-- resultDetails -->
+            </div>
           </div>
 
           <div class="row">
@@ -587,7 +582,7 @@
           <div class="col-12 mt-5 text-center">
             <p class="cardDisclaimer">Ukoliko imate bilo kakvo pitanje u vezi tumačenja rezultata javite nam se putem mejla zdravo[at]labcube.rs</p>
           </div>
-        </div>
+        </div> --}}
 
             <!-- <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btnLabDetails">Pokrenite tumačenje</a> -->
           {{/if}}
