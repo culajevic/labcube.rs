@@ -33,65 +33,76 @@
 
               <div class="col-12 mt-5">
                 <!-- <p class="generalInformation">Tumačenje rezultata laboratorijskih analiza možete dobiti u 4 koraka. </p> -->
-                <ul class="tumacenjeUl">
+                {{!-- <ul class="tumacenjeUl">
                   <li class="generalInformation"><sup>*</sup>Odaberite vreme za koje želite da protumačimo Vaše rezultate. Tumačenje u roku od 6 sati je moguće odabrati jedino između 8 i 20h.</li>
                   <li class="generalInformation">Pronađite fajl sa Vašim rezultatima laboratorije i uradite upload.</li>
                   <li class="generalInformation">Potvrdite da ste saglasni sa uslovima plaćanja.</li>
                   <li class="generalInformation">Nastavite na plaćanje.</li>
 
-                </ul>
+                </ul> --}}
               </div>
 
+              <h2 class="mx-auto mt-1 text-danger text-center">Zbog povećanog broja zahteva trenutno nismo u mogućnosti da primamo nove rezultate za tumačenje. Ostavite nam mejl kako bismo Vam javili kada servis ponovo postane dostupan.</h2>
+                
+                <form action="/putUserEmail" method="POST" class="my-4">   
+                
+                     <div class="input-group my-4">
+                      <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
+                      <div class="input-group-append">
+                      <button class="btn  btn-outline-info text-uppercase float-right">Prijavi me</button>
+                      </div>
+                    </div>
+       
+                </form>
 
-              <div class="col-12 mb-5">
+
+              {{!-- <div class="col-12 mb-5">
                <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
-               </div>
+               </div> --}}
 
 
                 <div id="odabirPaketa" class="d-flex flex-wrap mt-4 mx-auto" style="flex-wrap;">
                   <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
-                    <!-- <div class="col-3"> -->
-                    <!-- <label for="kod">Dobili ste kod za popust?</label> -->
-                    <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
+                    {{!-- kod za popust <div class="mb-4 col-12 p-3 input-group" id="codeBack" style="background-color:#f7f8fb; border-radius:10px;">
                       <input type="text" name="kodPopust" id="kod"  class="form-control" placeholder="Unesite ovde kôd za popust. Kôd se primenjuje samo na tumačenje u roku od 4 sata."/>
                         <div class="input-group-append">
                           <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
                         </div>
-                    </div>
+                    </div> --}}
                     
-                     <div class="card paymentSteps">
+                     <div class="card paymentSteps disabledInterpretation">
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
                             <span class="text-center paketiCena">490 din.</span>
-                            <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} />
-                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                            <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} disabled/>
+                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                           </div>
                       </div>                    
                     
-                      <div class="card paymentSteps ml-lg-3">
+                      <div class="card paymentSteps ml-lg-3 disabledInterpretation">
                         <div class="card-body">
                            <div class="najpopularnije">najpopularnije</div>
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
                           <span class="text-center paketiCena">590 din.</span>
-                          <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} />
-                          <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} disabled/>
+                          <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                         </div>   
                       </div>
 
                      
 
-                       <div class="card paymentSteps ml-lg-3">
+                       <div class="card paymentSteps ml-lg-3 disabledInterpretation">
                           <div class="card-body">
                             {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
                             <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                            <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} />
-                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                            <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} disabled/>
+                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                           </div>
                       </div>
 
@@ -106,8 +117,9 @@
                       </div> --}}
                     <!-- </div> -->
 
-                    <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps mr-3" id="resultForUpload">
+                    
+                      {{!-- ovo odkomentarisati --}}
+                      {{!-- <div class="card paymentSteps mr-3" id="resultForUpload">
                         <div class="card-body">
                           <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Odaberite rezultate </p>
@@ -118,12 +130,11 @@
                               <label for="uploadResults" class="custom-file-label"></label>
                           </div>
                         </div>
-                      </div>
-                    <!-- </div> -->
+                      </div> --}}
 
 
-                    <!-- <div class="col-3"> -->
-                      <div class="card paymentSteps" id="paymentConsent">
+                      {{!-- ovo odkomentarisati --}}
+                      {{!-- <div class="card paymentSteps" id="paymentConsent">
                         <div class="card-body" data-toggle="modal" data-target="">
                           <a href="/uslovi-placanja" target="_blank" class="text-center">
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
@@ -132,19 +143,19 @@
                           <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
                           <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio" id="consentBtn">slažem se</label>
                         </div>
-                      </div>
+                      </div> --}}
 
 
-                    <!-- </div> -->
+                 
 
                     
 
                 </div><!-- odabir paketa end -->
 
-                <div class="paymentSteps col-12 p-0 mb-2 mt-4">
+                {{!-- <div class="paymentSteps col-12 p-0 mb-2 mt-4">
                   <label for="exampleFormControlTextarea1 ">Komentar (maksimalno 254 karaktera)</label>
                   <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate važnim. Da li su analize rađene u sklopu sistematskog pregleda ili kao pomoć pri nekoj dijagnostici ili praćenju...">{{komentar}}</textarea>
-                </div>
+                </div> --}}
 
 
                 {{!-- <div class="col-12 text-center">
@@ -152,12 +163,12 @@
                 </div> --}}
 
 
-                <div class="col-12 text-center">
+                {{!-- <div class="col-12 text-center">
                     <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">nastavi dalje</button>
                 </div>
                 <div class="col-12 text-center">
                     <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>
-                </div>
+                </div> --}}
 
                 {{!-- <div class="col-12 mb-5">
                   <h3 class="cardDisclaimer text-center">Mi ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</br />Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
@@ -215,42 +226,54 @@
                       </div>
                 </div> 
 
-                <h2 class="mx-auto mt-5">Vreme za koje je moguće dobiti protumačene rezultate</h2>
                 
+                <h2 class="mx-auto mt-5 text-danger text-center">Zbog povećanog broja zahteva trenutno nismo u mogućnosti da primamo nove rezultate za tumačenje. Ostavite nam mejl kako bismo Vam javili kada servis ponovo postane dostupan.</h2>
+                
+                <form action="/putUserEmail" method="POST" class="my-4">   
+                
+                     <div class="input-group my-4">
+                      <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
+                      <div class="input-group-append">
+                      <button class="btn  btn-outline-info text-uppercase float-right">Prijavi me</button>
+                      </div>
+                    </div>
+       
+                </form>
+                {{!-- <h2 class="mx-auto mt-5">Vreme za koje je moguće dobiti protumačene rezultate</h2> --}}
                 <div class="d-flex flex-wrap mt-5 mx-auto" id="odabirPaketa">  
                     
-                    <div class="card paymentSteps">
+                    <div class="card paymentSteps disabledInterpretation">
                       <div class="card-body">
                         <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                         <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
                         <span class="text-center paketiCena">490 din.</span>
-                        <input type="radio" name="package" value=490 id="t24" {{#if (checkBox package 490)}} checked {{/if}} />
-                        <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                        <input type="radio" name="package" value=490 id="t24" disabled {{#if (checkBox package 490)}} checked {{/if}}/>
+                        <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio" disabled>trenutno nedostupno</label>
                       </div>
                     </div>                    
                         
-                    <div class="card paymentSteps ml-lg-3">
+                    <div class="card paymentSteps ml-md-3 ml-lg-3 disabledInterpretation">
                       <div class="card-body">
                         <div class="najpopularnije">najpopularnije</div>
                         <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                         <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
                         <span class="text-center paketiCena">590 din.</span>
-                        <input type="radio" name="package" value=590 id="t12" {{#if (checkBox package 590)}} checked {{/if}} />
-                        <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                        <input type="radio" name="package" value=590 id="t12" class="disabledInterpretation" disabled {{#if (checkBox package 590)}} checked {{/if}} />
+                        <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                       </div>   
                     </div>
 
                         
 
-                    <div class="card paymentSteps ml-lg-3">
+                    <div class="card paymentSteps  ml-md-1 ml-lg-3 disabledInterpretation">
                         <div class="card-body">
                           {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
                           <span class="onSalesNow d-none" id="initialPriceTop"></span>
                           <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
                           <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                          <input type="radio" name="package" value=890 id="t4" {{#if (checkBox package 890)}} checked {{/if}} />
-                          <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">izaberi</label>
+                          <input type="radio" name="package" value=890 id="t4" class="disabledInterpretation" disabled  {{#if (checkBox package 890)}} checked {{/if}} />
+                          <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                         </div>
                     </div>  
                     
@@ -259,14 +282,14 @@
                 
             
 
-              <div class="col-12 my-5">
+              {{!-- <div class="col-12 my-5">
                 <h3 class="cardDisclaimer text-center">Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
-              </div>
+              </div> --}}
                
                
-                <div class="mx-auto">
+                {{!-- <div class="mx-auto">
                     <a href="/registracija"  class="btn btn-success text-uppercase my-3  callToActionNewAcc">postavite Vaše rezultate</a>
-                </div>
+                </div> --}}
 
                 {{/if}}
               </div><!-- row end -->
@@ -275,7 +298,7 @@
                
 
 
-                  <h2 class="text-center mb-5" id="demoAccount">Kada završimo tumačenje Vaši rezultati će izgledati ovako</h2>
+                  <h2 class="text-center mb-5" id="demoAccount">Kada uradimo tumačenje Vaši rezultati će izgledati ovako</h2>
 
 
                   <div class="">
@@ -299,11 +322,11 @@
 
                       </div><!-- analysis result -->
 
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>Rezultat je u referentnom opsegu.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -326,11 +349,11 @@
 
 
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je izvan referentnog opsega (&lt34), titar antitela na tireoidnu peroksidazu je blago povišen što može ukazivati na probleme u funkciji štitne žlezde (hipertireoidizam ili hipotireoidizam)</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -356,11 +379,11 @@
                           <div class="rangeLabels">&gt; 4.7</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -386,11 +409,11 @@
                           <div class="rangeLabels">&gt; 12.5</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
                   <div class="resultDetails mb-4">
                       <div class="col-12 col-md-7">
@@ -415,11 +438,11 @@
                           <div class="rangeLabels">&gt; 144.2</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>Rezultat je u referentnom opsegu za interval folikularne faze.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -445,11 +468,11 @@
                           <div class="rangeLabels">&gt; 11.4</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je u referentnom opsegu za interval folikularne faze.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -475,11 +498,11 @@
                           <div class="rangeLabels">&gt; 3.89</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je izvan referentnog opsega (3.03 - 3.89), povišena vrednost može ukazivati na sindrom policističnih jajnika.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
 
@@ -507,11 +530,11 @@
                           <div class="rangeLabels">&gt; 4.78</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je u referentnom opsegu.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -537,11 +560,11 @@
                           <div class="rangeLabels">&gt; 6.5</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>rezultat je u referentnom opsegu.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -567,11 +590,11 @@
                           <div class="rangeLabels">&gt; 22</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>Rezultat je u referentnom opsegu (12 - 22), vrednost je bliža donjoj referentnoj granici.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
 
                   <div class="resultDetails mb-4">
@@ -597,11 +620,11 @@
                           <div class="rangeLabels">&gt; 637</div>
                         </div>
                       </div><!-- analysis result -->
-                      <div class="col-12">
+                      {{!-- <div class="col-12">
                         <p class="myResultsComment">
                           <span>Rezultat je u referentnom opsegu.</span>
                         </p>
-                      </div>
+                      </div> --}}
                   </div><!-- resultDetails -->
                 </div>
 
@@ -649,7 +672,7 @@
               <!-- </div> -->
 
                 <div class="col-12 mt-5 text-center">
-                  <p class="cardDisclaimer">Za sva pitanja u vezi tumačenja rezultata pišite nam na zdravo[at]labcube.rs</p>
+                  <p class="cardDisclaimer">Za sva pitanja u vezi tumačenja rezultata pišite nam na zdravo@labcube.rs</p>
                 </div>
 
                 <!-- <div class="col-12 my-5">

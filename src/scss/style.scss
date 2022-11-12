@@ -229,6 +229,13 @@ font-size:30px; text-decoration:line-through;
     height: 444px;
 }
 
+.disabledInterpretation {
+  color:rgba(0,0,0,.5);
+  border-color:rgba(0,0,0,.3);
+  background-color:rgba(208,208,208,0.2);
+  cursor: default;
+}
+
 .success {
   color:$button-green;
 }
@@ -1344,12 +1351,6 @@ p.selectedAnalysisTitle {
   justify-content: center;
 }
 
-.loginLeftSide {
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // align-self: center;
-}
 
 .socialLogin {
   bottom: 0;
