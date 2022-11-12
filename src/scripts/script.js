@@ -276,7 +276,7 @@ if(location === '/') {
   let typeText = document.getElementById('headlineMessage')
 
   let typed = new Typed('#headlineMessage', {
-    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju"],
+    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju gde odmah mogu dobiti tumačenje rezultata"],
     typeSpeed: 30,
     backSpeed:10,
     loop:true,
