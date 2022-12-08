@@ -84,26 +84,26 @@
                         <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
                   {{/if}}
                   </div><!-- analysis result -->
-                  <div class="col-12">
+                  {{!-- <div class="col-12"> --}}
 
-                    {{#if (notBlank this.commentResult)}}
+                   <!-- Komentar svakog rezultata -->
+                    {{!-- {{#if (notBlank this.commentResult)}}
                     <p class="myResultsComment">
                       <span>{{{this.commentResult}}} <br /></span>
                     </p>
-                      {{/if}}
-                  </div>
+                      {{/if}} --}}
+                  {{!-- </div> --}}
               </div><!-- resultDetails -->
 
               {{/each}}
 
-                <div class="col-12 mt-4">
-                  <h3 class="mt-4">Zaključak</h3>
-                  <div class="finalThougths mb-5">
-                    <p>{{{myResults.commentCube}}}</p>
+              <div class="col-12 mt-4">
+                <h3 class="mt-4">Zaključak</h3>
+                <div class="finalThougths mb-5">
+                  <p>{{{myResults.commentCube}}}</p>
                 </div>
               </div>
         </section><!-- settings id end -->
-
       </div> <!-- col 12 end -->
 
 
@@ -134,12 +134,10 @@
 
       {{#if feedbackSent}}
       <div class="col-12 text-center mb-5">
-        <!-- <p class="mb-0">Hvala na komentaru.</p> -->
-        <small class="mt-0">Usluga ocenjena: {{formatRsDate myResults.feedbackDate}}</small>
+        <!-- <p class="mb-0">Hvala na komentaru.</p> --><br />
+        <small class="mt-0">Usluga ocenjena: {{{formatRsDate myResults.feedbackDate}}}</small>
       </div>
       {{/if}}
-
-
 
  		</div><!--row end  -->
  </div> <!-- results container end -->
