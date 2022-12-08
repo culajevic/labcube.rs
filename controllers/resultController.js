@@ -116,16 +116,16 @@ exports.freeUpload = async (req,res) => {
 
           switch(req.body.package) {
             case '490':
-              packageTime = 24
+              packageTime = 48
               break
             case '590':
-              packageTime = 12
+              packageTime = 24
               break
             case '890':
-              packageTime = 6
+              packageTime = 12
               break
             default:
-              packageTime = 6
+              packageTime = 12
           }
 
 
@@ -251,16 +251,16 @@ exports.payment = async (req,res) => {
 
   switch(req.body.package) {
     case '490':
-      packageTime = 24
+      packageTime = 48
       break
     case '590':
-      packageTime = 12
+      packageTime = 24
       break
     case '890':
-      packageTime = 6
+      packageTime = 12
       break
     default:
-      packageTime = 6
+      packageTime = 12
   }
 
 
@@ -439,7 +439,7 @@ requestCheckout()
 
       //ako se menja vreme promeniti deadline
        if ((deadline.getHours() > 8 && deadline.getHours() < 20) && (data.amount == 890 || data.amount == 8)) {
-            deadline.setHours(deadline.getHours() + 6)
+            deadline.setHours(deadline.getHours() + 12)
           } 
           // else if (data.amount == 1) {
           //   tomorrow.setDate(tomorrow.getDate() + 1)
@@ -450,9 +450,9 @@ requestCheckout()
 
 
       if (data.amount == 590 ) {
-          deadline.setHours(deadline.getHours() + 12)
-        } else if (data.amount == 490 ) {
           deadline.setHours(deadline.getHours() + 24)
+        } else if (data.amount == 490 ) {
+          deadline.setHours(deadline.getHours() + 48)
         } 
 
 
@@ -517,16 +517,16 @@ requestCheckout()
 
     switch(data.amount) {
       case '490.00':
-        packageTime = 24
+        packageTime = 48
         break
       case '590.00':
-        packageTime = 12
+        packageTime = 24
         break
       case '890.00':
-        packageTime = 6
+        packageTime = 12
         break
       default:
-        packageTime = 6
+        packageTime = 12
     }
 
        try {
