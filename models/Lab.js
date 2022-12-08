@@ -124,6 +124,7 @@ const labSchema = new mongoose.Schema({
   }],
   description:String,
   active:Boolean,
+  partner:Boolean,
   comment:String,
   discount:Number,
   date:{

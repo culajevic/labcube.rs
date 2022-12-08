@@ -158,6 +158,9 @@ exports.updateLab = [authCheck, async (req,res) => {
   if (req.body.active == undefined) {
     req.body.active = false
   }
+  if (req.body.partner == undefined) {
+    req.body.partner = false
+  }
 
   if(typeof(req.file) !== 'undefined') {
     req.body.logo = req.file.filename
