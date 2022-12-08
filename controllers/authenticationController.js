@@ -281,6 +281,8 @@ exports.register =  async (req,res) => {
             let secretNumber = Math.floor(Math.random() * 100000)
             return secretNumber
           }
+
+          // <p><a href="http://${req.headers.host}/verifyNewUser/${newUser.emailToken}">verifikuj nalog<a></p>
           newUser.emailToken = await random()
 
           const output = ` <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:30px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
@@ -289,7 +291,7 @@ exports.register =  async (req,res) => {
              <h1 style="font-family:sans-serif; opacity:0.9; color:#1D88E5;">${newUser.emailToken}</h1>
              <p style="font-family:sans-serif; color:#1D88E5; ">je Vaš kod za verifikaciju LabCube naloga</p>
            </div>
-          <p style=""><a href="https://labcube.rs/verify" style="text-decoration:none; background-color:#1D88E5; padding:20px; margin-bottom:30px; color:#fff; border-radius:5px;">Kliknite ovde za verifikaciju naloga</a></p>
+          <p style=""><a href="https://labcube.rs/verify" style="text-decoration:none; background-color:#1D88E5; padding:20px; margin-bottom:30px; color:#fff; border-radius:5px;">Verifikacija naloga</a></p>
           <div style="text-align:center; margin-top:60px;  padding-left:30px; padding-right:30px;">
           <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
           </div>
@@ -526,6 +528,70 @@ exports.resetPass = async (req,res) => {
    }
 }
 
+exports.verifyNewUser =  async (req,res) => {
+  
+  let findUser = await User.findOne({emailToken:req.params.token})
+  req.user = findUser
+  let cities = await Place.distinct("municipality")
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+
+  const myAppointments = await Schedule.find({user:findUser.id})
+    .populate('lab')
+    .sort({createdDate:-1})
+    const numOfMyAnalysis = myAppointments.length
+    const myOtherResults = await Result.find({userId:findUser.id}).sort({submitedDate:-1})
+    const numOfMyOtherResults = myOtherResults.length
+  
+  let verifyAccount = await User.findOneAndUpdate(
+    {emailToken:req.params.token},
+    {isVerified:true,
+    deleted:false},
+    {new:true,
+    useFindAndModify:false}).exec()  
+
+    // if(verifyAccount) {
+    //   // req.flash('success_msg', 'Uspešno ste verifikovali nalog, sada se možete ulogovati.')
+    //   // res.render('signin', {email:req.body.emailVerification})
+    //   res.render('profile',{
+    //     user:req.user,
+    //     cities:cities,
+    //     myOtherResults,
+    //     numOfMyOtherResults,
+    //     groupNames,
+    //     title:'LabCube | Moj kontrolni panel'
+    //   })
+    // } else {
+    //   req.flash('error_msg', 'Verifikacioni kod nije dobar, pokušajte ponovo')
+    //   res.redirect('/verify')
+    // }
+}
+
+// exports.verifyByEmail = async (req,res) => {
+//   const lastLoginDate = await User.findOneAndUpdate(
+//     {emailToken:req.params.token},
+//     {lastLoginDate:Date.now(),
+//     emailToken:''},
+//     {new:true,
+//     useFindAndModify:false}).exec()
+
+
+//     let cities = await Place.distinct("municipality")
+//     const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+//     const myOtherResults = await Result.find({emailToken:req.params.token}).sort({submitedDate:-1})
+//     const numOfMyOtherResults = myOtherResults.length
+
+//     res.render('profile',{
+//       user:req.user,
+//       cities:cities,
+//       myOtherResults:myOtherResults,
+//       numOfMyOtherResults,
+//       groupNames,
+//       title:'LabCube | Moj kontrolni panel'
+//     })
+
+//     // res.send(req.params.token)
+// }
+
 exports.updatePassword = async (req,res,next) => {
   const findUser = await User.findOne({resetLink:req.params.token, resetLinkExpires:{$gt:Date.now()}})
   if(!findUser) {
@@ -542,7 +608,6 @@ exports.updatePassword = async (req,res,next) => {
            findUser.resetLinkExpires = undefined
          })
        })
-       console.log('ds')
        req.flash('success_msg', 'Uspešno ste postavili novu lozinku, možete se ulogovati')
        res.redirect('/prijava')
        //direktno ulogovati korisnika
