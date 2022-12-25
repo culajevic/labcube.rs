@@ -22989,6 +22989,7 @@ $(window).scroll(function () {
     $("#header").css('clip-path', 'none'); // $(priceList).css({top:"17px",transition:'top .5s ease', positiom:'relative', zindex:'4440'})
   } else {
     $("#header > nav").removeClass('fixed-top-background fixed-top');
+    $("#header").removeAttr('style');
     $(priceList).css({
       top: "0px"
     });

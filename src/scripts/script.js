@@ -143,7 +143,7 @@ $(window).scroll(function(){
     }
     else {
       $("#header > nav").removeClass('fixed-top-background fixed-top');
-
+      $("#header").removeAttr('style');
       $(priceList).css({top:"0px"})
     }
 });
