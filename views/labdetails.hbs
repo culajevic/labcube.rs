@@ -206,7 +206,8 @@
           {{#if userId}}
             {{#if labDetails.partner}}
             {{!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> --}}
-            <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a> 
+            {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
+            <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
               {{else}}
               <p class="generalInformation">Laboratorija nije treutno LabCube partner</p>
               <div class="col-12">
