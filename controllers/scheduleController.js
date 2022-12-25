@@ -139,11 +139,10 @@ exports.scheduleVisit = async (req,res) => {
     //     cid: 'sentToLabHeader'}
     //   ]
   }
-
+ 
   let sendEmailtoCustomer = {
     from:'LabCube <labcube-tumacenje-no-reply@labcube.rs>',
-    to:[getUserEmail],
-    bcc:'culajevic@gmail.com',
+    to:(getUserEmail),
     subject:'Uspešno odabrane analize',
     html:`
     <!doctype html>
