@@ -62,13 +62,12 @@ let transporter = nodemailer.createTransport({
 })
 
 exports.scheduleVisit = async (req,res) => {
-
   let analysisArr = []
-  let total = req.body[0].total
-  let labId = req.body[3].labId
+  let total =  req.body[0].total
+  let labId =  req.body[3].labId
   let labCubePrice = req.body[2].labCubePrice
   let getLabData = await Lab.find({_id:labId},{email:1, comment:1, labName:1, address:1, workingHours:1, phone:1, slug:1}).populate('placeId')
-  let getEmailforSending = getLabData[0].email
+  let getEmailforSending =  getLabData[0].email
   let discountCode = getLabData[0].comment
   let getUserData = await User.find({_id:req.user._id}, {email:1})
   let getUserEmail = getUserData[0].email
@@ -77,7 +76,6 @@ exports.scheduleVisit = async (req,res) => {
 
   // let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
 
-  
 
   let value = 0
   let outsideOfTheRange = false
