@@ -304,7 +304,7 @@ exports.getLabInfo = async (req,res) => {
           {$match:{'cenovnik.analiza':{$in:newObjectArr}}},
           {$sort:{name:1}}
        ])
-       for(i=0; i<selectedAnalysis.length; i++) {
+       for(let i=0; i<selectedAnalysis.length; i++) {
          total += selectedAnalysis[i].cenovnik.cena
        }
      }
@@ -416,8 +416,9 @@ exports.getAdditionalAnalysis = async (req,res) => {
 }
 
 // get lab name for price form
+//active:true dodati u upit ako ne treba prikazivati labove koji nisu aktivni
 exports.getLab = async (req, res) => {
-  const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }})
+  const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }}).sort({labName:1})
   .populate('placeId', 'place municipality')
   res.json(labName)
 }
