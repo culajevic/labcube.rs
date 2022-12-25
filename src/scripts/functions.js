@@ -251,7 +251,7 @@ exports.removeAnalysis = (itemsArray, checkout) => {
             }
         }
 
-        checkout.innerText = itemsArray.length
+        checkout.innerText = 'odabranih analiza ' + itemsArray.length
 
         //enable button for the analysis removed
         // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
@@ -319,7 +319,7 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
        // checkout.style.transition = 'transform 2s ease'
        checkout.classList.add('rotateNumberOfAnalysis')
 
-       checkout.innerHTML = itemsArray.length
+       checkout.innerHTML = 'odabranih analiza ' + itemsArray.length
 
        let basketTitle = document.createTextNode(` (${itemsArray.length}) `)
        let cardHeader = document.getElementById('numOfAnalysis')
@@ -426,7 +426,7 @@ exports.searchLabAnalysis = (searchString, filter) => {
       setTimeout(function() {
       let searchString = e.target.value
       window.location.href = '/results/?name='+searchString+'&filter='+filterValue
-    },400)
+    },700)
   }
   })
 }
@@ -1157,6 +1157,7 @@ console.log('iz funkcije')
                         <span class="">${address}</span>
                         <p class="">${city}</p>
                         <p class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</p>
+                        <div class="float-right"><a href="/laboratorija/${slug}/${passIds}" class="seeMore"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a></div>
 
                         <div class="labInfoWindowFooter">
                           <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">

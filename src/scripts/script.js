@@ -223,7 +223,6 @@ if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || 
   
 }
 
-//MUST CHECK THIS!!!!!!!
 //get reference to checkout element which displays number of selected analysis in navigation
 const checkCMSAdd = /add.*/
 const checkCMSAll = /all.*/
@@ -239,7 +238,7 @@ let findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube'
 //ako ne treba prikazivati shopping kartu ovde navesti tu stranicu
 if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) && !location.match(admindashboard)) {
   checkout.classList.remove('d-none')
-  checkout.textContent = itemsArray.length
+  checkout.textContent = 'odabranih analiza ' + itemsArray.length 
 }
 
 
@@ -273,15 +272,15 @@ if (location === '/registracija') {
 
 if(location === '/') {
 
-  let typeText = document.getElementById('headlineMessage')
+  // let typeText = document.getElementById('headlineMessage')
 
-  let typed = new Typed('#headlineMessage', {
-    strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju gde odmah mogu dobiti tumačenje rezultata"],
-    typeSpeed: 30,
-    backSpeed:10,
-    loop:true,
-    showCursor: false
-  });
+  // let typed = new Typed('#headlineMessage', {
+  //   strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju gde odmah mogu dobiti tumačenje rezultata"],
+  //   typeSpeed: 30,
+  //   backSpeed:10,
+  //   loop:true,
+  //   showCursor: false
+  // });
 
   //testing analysis box feature
   // let analysisBasket = document.getElementById('analysisBasket')
@@ -725,7 +724,9 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
 
   //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
   // let newDateCheck = new Date()
-  // let t4 = document.getElementById('t4')
+  let t4 = document.getElementById('t4')
+  let t12 = document.getElementById('t12')
+  let t24 = document.getElementById('t24')
  
   // if (t4 && (newDateCheck.getHours() >= 20 || newDateCheck.getHours() < 8)) {   
   //   t4.disabled = true
@@ -777,13 +778,15 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             initialPriceTop.classList.remove('d-none')
           }
           else if (result && result.discount == 100) {
-            console.log(result.discount)
             proceedPayment.classList.add('d-none')
             gratisBtn.classList.remove('d-none')
             codeBack.style.backgroundColor='#55D159'
             codeCheck.textContent="✔"
             codeCheck.disabled=true
             codeCheck.style.color='white'
+            t12.parentElement.parentElement.classList.add('d-none')
+            t24.parentElement.parentElement.classList.add('d-none')
+            t4.parentElement.parentElement.classList.add('d-none')
             let discount = result.discount
             let newPrice = Math.floor(t4.value-(t4.value*(result.discount/100)))
             initialPrice.innerHTML = newPrice + ' din.'
@@ -798,6 +801,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             t4.checked = true
             t4.nextElementSibling.innerHTML = 'Odabrano'
             // paymentConsentBox.classList.add('d-none')
+            paymentConsentBox.classList.add('d-none')
             paymentConsentBox.style.pointerEvents = 'none'
             paymentConsentBox.style.backgroundColor='#9C9C9C'
             paymentConsentBox.style.opacity=0.1
@@ -1014,7 +1018,8 @@ if (municipalityValue != null) {
         
         //todo 
         //otkomentarisati kada se zakazuje preko labcuba
-        // labId = labIdName.getAttribute('data-id')
+        let labId = labIdName.getAttribute('data-id')
+        
         
 
     //search and add analysis from lab details page
@@ -1161,7 +1166,7 @@ if (municipalityValue != null) {
                 return item.id === toBeDeleted
               })
             itemsArray.splice(nameIndex,1)
-            items = JSON.stringify(itemsArray)
+            let items = JSON.stringify(itemsArray)
             localStorage.setItem('items', items)
 
             schedule[0].total=totalPrice
@@ -1187,13 +1192,13 @@ if (municipalityValue != null) {
 
             let numAnalysis = document.querySelector('.numAnalysis')
             // numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
-            checkout.textContent = itemsArray.length
+            checkout.textContent = 'odabranih analiza ' + itemsArray.length
             let priceList = document.getElementById('priceList')
-            if(itemsArray.length == 0) {
+            if(itemsArray.length === 0) {
               resultSection.classList.add('d-none')
               priceList.classList.remove('unhidePriceList')
               priceList.classList.add('hidePriceList')
-              checkout.textContent = '0'
+              checkout.textContent = 'odabranih analiza 0'
             }
           }
         })
@@ -1226,35 +1231,45 @@ if (municipalityValue != null) {
         helper.removeAnalysis(itemsArray, checkout)
         //todo 
         //otkomentarisati kada se zakazuje preko labcuba 
-            // schedule.push({"total":totalPrice})
-            // schedule.push({"analysis":itemsArray})
-            // schedule.push({"labCubePrice":labCubePrice})
-            // schedule.push({"labId":labId})
-            // schedule.push({"date":''})
-            // scheduleString = JSON.stringify(schedule)
+        // let getEmailForScheduling = document.getElementById('getEmailForScheduling')
+        // let emailForSchedule
+        //   getEmailForScheduling.addEventListener('blur', (e) => {
+        //     emailForSchedule = e.target.value
+        //     console.log(emailForSchedule)
+        //   }) 
+
+            schedule.push({"total":totalPrice})
+            schedule.push({"analysis":itemsArray})
+            schedule.push({"labCubePrice":labCubePrice})
+            schedule.push({"labId":labId})
+            schedule.push({"date":''})
+            
+            
+            let scheduleString = JSON.stringify(schedule)
         ///////////
       //todo 
 //otkomentarisati kada pocne zakazivanje preko labcuba
 
-      // let scheduleBtn = document.getElementById('schedule')
+      let scheduleBtn = document.getElementById('schedule')? document.getElementById('schedule')  : ''
 
-      // scheduleBtn.addEventListener('click', ()=>{
+      if (scheduleBtn) {
+      scheduleBtn.addEventListener('click', ()=>{
       
-      //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-      //   scheduleString = JSON.stringify(schedule)
-      //   fetch('/schedule/',{
-      //     method:"post",
-      //     headers: {
-      //       'Accept': 'application/json',
-      //       'Content-Type': 'application/json'
-      //     },
-      //     body:scheduleString
-      //   }).then(response => {
-      //     console.log(response)
-      //     window.location.href="/hvala"
-      //     localStorage.removeItem('items')
-      //   })
-      // })
+        // schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+        scheduleString = JSON.stringify(schedule)
+        fetch('/schedule/',{
+          method:"post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body:scheduleString
+        }).then(response => {
+          window.location.href="/hvala"
+          // localStorage.removeItem('items')
+        })
+      })
+      }
     }
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
@@ -1910,6 +1925,7 @@ if(urlArr[1] == 'o-nama') {
     })
 }
 
+//priakzuje ispis grafike kada je rezultat uspesno poslat na tumacenje
 if (urlArr[1] == 'checkout') {
   let unhide = document.querySelector('.paymentAccepted')
   setTimeout(() => {
