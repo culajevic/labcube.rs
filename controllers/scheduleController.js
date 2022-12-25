@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 let User = mongoose.model('User')
 let Schedule = mongoose.model('Schedule')
 let Group = mongoose.model('Group')
+const Lab = mongoose.model('Lab')
 let Feedback = mongoose.model('Feedback')
 let Result = mongoose.model('Result')
 const nodemailer = require('nodemailer')
@@ -56,7 +57,8 @@ let transporter = nodemailer.createTransport({
   },
   tls: {
         rejectUnauthorized: false
-    }
+    },
+  from: 'labcube-no-reply@labcube.rs'
 })
 
 exports.scheduleVisit = async (req,res) => {
@@ -65,8 +67,17 @@ exports.scheduleVisit = async (req,res) => {
   let total = req.body[0].total
   let labId = req.body[3].labId
   let labCubePrice = req.body[2].labCubePrice
+  let getLabData = await Lab.find({_id:labId},{email:1, comment:1, labName:1, address:1, workingHours:1, phone:1, slug:1}).populate('placeId')
+  let getEmailforSending = getLabData[0].email
+  let discountCode = getLabData[0].comment
+  let getUserData = await User.find({_id:req.user._id}, {email:1})
+  let getUserEmail = getUserData[0].email
+  
+  // console.log(getLabData[0].workingHours['monday'].opens)
 
-  let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
+  // let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
+
+  
 
   let value = 0
   let outsideOfTheRange = false
@@ -82,7 +93,7 @@ exports.scheduleVisit = async (req,res) => {
   let feedback = false
   let owner = null
 
-  for(i=0; i<req.body[1].analysis.length;i++) {
+  for(let i=0; i<req.body[1].analysis.length;i++) {
     analysisArr.push({"analysis":req.body[1].analysis[i].name,
     "analysisId":req.body[1].analysis[i].id,
     "value":value,
@@ -95,6 +106,498 @@ exports.scheduleVisit = async (req,res) => {
     "measure" : measure,
     "commentResult":commentResult})
   }
+
+  let analysisForEmail = []
+  for(let i=0; i<req.body[1].analysis.length;i++) {
+    analysisForEmail.push(req.body[1].analysis[i].name )
+  }
+
+
+  let getBullets = analysisForEmail.map((item) => (
+    `<li>${item}</li>`
+  ))
+
+  //send email to laboratory and labcube
+  let mailOptionsSendInfo = {
+    from:'LabCube <labcube-tumacenje-no-reply@labcube.rs>',
+    to:[getEmailforSending],
+    bcc:'culajevic@gmail.com',
+    subject:`Novi pacijent | ${getEmailforSending}`,
+    text:`Potrebne analize \n ${getBullets} \n ukupna cena je ${total} \n labcube.rs` ,
+    html:`
+    <h1>Novi LabCube pacijent</h1>
+    <h2>Ukupna cena ${total} din.</h2>
+    <h2>Potrebne analize</h2>
+    <ol>${getBullets.join(' ')}</ol>
+    <a href="https://labcube.rs">labcube.rs</a>
+    `
+   
+    // attachments:[
+    //   {
+    //     filename: 'sentToLabHeader.png',
+    //     path: 'src/images/sentToLabHeader.png',
+    //     cid: 'sentToLabHeader'}
+    //   ]
+  }
+
+  let sendEmailtoCustomer = {
+    from:'LabCube <labcube-tumacenje-no-reply@labcube.rs>',
+    to:[getUserEmail],
+    bcc:'culajevic@gmail.com',
+    subject:'Uspešno odabrane analize',
+    html:`
+    <!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>LabCube online odabir analiza</title>
+    <style>
+      /* -------------------------------------
+          GLOBAL RESETS
+      ------------------------------------- */
+      
+      /*All the styling goes here*/
+      
+      img {
+        border: none;
+        -ms-interpolation-mode: bicubic;
+        max-width: 100%; 
+
+      }
+
+      body {
+        background-color: #f6f6f6;
+        -webkit-font-smoothing: antialiased;
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%; 
+      }
+
+      table {
+        border-collapse: separate;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        width: 100%; }
+        table td {
+          
+          font-size: 14px;
+          vertical-align: top; 
+      }
+          
+
+      /* -------------------------------------
+          BODY & CONTAINER
+      ------------------------------------- */
+
+      .body {
+        background-color: #f6f6f6;
+        width: 100%; 
+      }
+
+      /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+      .container {
+        display: block;
+        margin: 0 auto !important;
+        /* makes it centered */
+        max-width: 600px;
+        padding: 10px;
+        width: 600px; 
+      }
+
+      /* This should also be a block element, so that it will fill 100% of the .container */
+      .content {
+        box-sizing: border-box;
+        display: block;
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 10px; 
+      }
+
+      /* -------------------------------------
+          HEADER, FOOTER, MAIN
+      ------------------------------------- */
+      .main {
+        background: #ffffff;
+        width: 100%; 
+        border-radius:10px;
+      }
+
+      .wrapper {
+        box-sizing: border-box;
+        padding: 20px; 
+        border-bottom-left-radius:10px;
+        border-bottom-right-radius:10px;
+      }
+
+      .content-block {
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+
+      .footer {
+        clear: both;
+        margin-top: 10px;
+        text-align: center;
+        width: 100%; 
+      }
+        .footer td,
+        .footer p,
+        .footer span,
+        .footer a {
+          color: #999999;
+          font-size: 12px;
+          text-align: center; 
+      }
+
+      /* -------------------------------------
+          TYPOGRAPHY
+      ------------------------------------- */
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #000000;
+        
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0;
+        margin-bottom: 30px; 
+      }
+
+      h1 {
+        font-size: 35px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: capitalize; 
+      }
+
+      p,
+      ol {
+        
+        font-size: 18px;
+        font-weight: normal;
+        margin: 0;
+        line-height:22px;
+        margin-bottom: 15px; 
+      }
+        p li,
+        ol li {
+          list-style-position: inside;
+          margin-left: 5px; 
+
+      }
+
+      a {
+        color: #3498db;
+        text-decoration: underline; 
+      }
+
+      /* -------------------------------------
+          BUTTONS
+      ------------------------------------- */
+      .btn {
+        box-sizing: border-box;
+        width: 100%; }
+        .btn > tbody > tr > td {
+          padding-bottom: 15px; }
+        .btn table {
+          width: auto; 
+      }
+        .btn table td {
+          background-color: #ffffff;
+          border-radius: 5px;
+          text-align: center; 
+      }
+        .btn a {
+          background-color: #ffffff;
+          border: solid 1px #3498db;
+          border-radius: 5px;
+          box-sizing: border-box;
+          color: #3498db;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 14px;
+          font-weight: bold;
+          margin: 0;
+          padding: 12px 25px;
+          text-decoration: none;
+      }
+
+      .btn-primary table td {
+        background-color: #3498db; 
+      }
+
+      .btn-primary a {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: #ffffff; 
+      }
+
+      /* -------------------------------------
+          OTHER STYLES THAT MIGHT BE USEFUL
+      ------------------------------------- */
+      .last {
+        margin-bottom: 0; 
+      }
+
+      .first {
+        margin-top: 0; 
+      }
+
+      .align-center {
+        text-align: center; 
+      }
+
+      .align-right {
+        text-align: right; 
+      }
+
+      .align-left {
+        text-align: left; 
+      }
+
+      .clear {
+        clear: both; 
+      }
+
+      .mt0 {
+        margin-top: 0; 
+      }
+
+      .mb0 {
+        margin-bottom: 0; 
+      }
+
+      .preheader {
+        color: transparent;
+        display: none;
+        height: 0;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        mso-hide: all;
+        visibility: hidden;
+        width: 0; 
+      }
+
+      .powered-by a {
+        text-decoration: none; 
+      }
+
+      hr {
+        border: 0;
+        border-bottom: 1px solid #f6f6f6;
+        margin: 20px 0; 
+      }
+      /* -------------------------------------
+          RESPONSIVE AND MOBILE FRIENDLY STYLES
+      ------------------------------------- */
+      @media only screen and (max-width: 620px) {
+        table.body h1 {
+          font-size: 28px !important;
+          margin-bottom: 10px !important; 
+        }
+        table.body p,
+        table.body ol,
+        table.body td,
+        table.body span,
+        table.body a {
+          font-size: 16px !important; 
+        }
+        table.body .wrapper,
+        table.body .article {
+          padding: 10px !important; 
+        }
+        table.body .content {
+          padding: 0 !important; 
+        }
+        table.body .container {
+          padding: 0 !important;
+          width: 100% !important; 
+        }
+        table.body .main {
+          border-left-width: 0 !important;
+          border-radius: 0 !important;
+          border-right-width: 0 !important; 
+        }
+        table.body .btn table {
+          width: 100% !important; 
+        }
+        table.body .btn a {
+          width: 100% !important; 
+        }
+        table.body .img-responsive {
+          height: auto !important;
+          max-width: 100% !important;
+          width: auto !important; 
+        }
+      }
+
+      /* -------------------------------------
+          PRESERVE THESE STYLES IN THE HEAD
+      ------------------------------------- */
+      @media all {
+        .ExternalClass {
+          width: 100%; 
+        }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+          line-height: 100%; 
+        }
+        .apple-link a {
+          color: inherit !important;
+          font-family: inherit !important;
+          font-size: inherit !important;
+          font-weight: inherit !important;
+          line-height: inherit !important;
+          text-decoration: none !important; 
+        }
+        #MessageViewBody a {
+          color: inherit;
+          text-decoration: none;
+          font-size: inherit;
+          font-family: inherit;
+          font-weight: inherit;
+          line-height: inherit;
+        }
+        .btn-primary table td:hover {
+          background-color: #34495e !important; 
+        }
+        .btn-primary a:hover {
+          background-color: #34495e !important;
+          border-color: #34495e !important; 
+        } 
+      }
+    </style>
+  </head>
+  <body>
+    <span class="preheader">Novi pacijent</span>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+    
+      <tr>
+        <td>&nbsp;</td>
+        <td class="container"> 
+          
+        <div class="content">
+        <div style="background-image:url(cid:sentToLabHeader); height:145px; width:100%; padding:0; margin:0;  background-size:100%; border-top-left-radius:10px; border-top-right-radius:10px;  background-repeat: no-repeat;"></div>        
+            <!-- START CENTERED WHITE CONTAINER -->
+            
+            <table role="presentation" class="main">
+              <!-- START MAIN CONTENT AREA -->
+              
+              <tr>
+                <td class="wrapper">
+                  <table role="presentation" border="0" cellpadding="0" cellspacing="0"> 
+                    <tr>
+                      <td>
+                        <h3 style="text-align:center; ">Laboratorija <span style="color:#1D88E5;"><a href="${req.get('referer')}" style="text-decoration:none;">${getLabData[0].labName}</a></span> Vas očekuje.</h3>
+                        <p style="margin:0; padding:0;">${getLabData[0].address}, ${getLabData[0].placeId.place}</p>
+                        <p>Telefoni: ${getLabData[0].phone}</p>
+                        <table>
+                          <tr>
+                            <th>P</th>
+                            <th>U</th>
+                            <th>S</th>
+                            <th>Č</th>
+                            <th>P</th>
+                            <th>S</th>
+                            <th>N</th>
+                          </tr>
+                          <tr>
+                          <td style="text-align:center;">${getLabData[0].workingHours.monday.opens}  ${getLabData[0].workingHours.monday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.tuesday.opens}  ${getLabData[0].workingHours.tuesday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.wednesday.opens}  ${getLabData[0].workingHours.wednesday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.thursday.opens}  ${getLabData[0].workingHours.thursday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.friday.opens}  ${getLabData[0].workingHours.friday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.saturday.opens}  ${getLabData[0].workingHours.saturday.closes}</td>
+                          <td style="text-align:center;">${getLabData[0].workingHours.sunday.opens}  ${getLabData[0].workingHours.sunday.closes}</td>
+                          </tr>  
+                        </table>
+                        <br />
+                        
+                        <h3>Odabrane analize</h3>
+                        <ol style="font-size:18px;">${getBullets.join(' ')}</ol>
+                        <h3>Ukupna cena : ${total} din.</h3>
+                        <h3>Kod za besplatno tumacenje: ${discountCode}</h3>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                          <tbody>
+                            <tr>
+                              <td align="left">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td> <a href="https://labcube.rs" target="_blank">labcube.rs</a></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <p></p>
+                      </td>
+                    </tr>
+                    
+                  </table>
+                </td>
+              </tr>
+            <!-- END MAIN CONTENT AREA -->
+            </table>
+            <!-- END CENTERED WHITE CONTAINER -->
+
+            <!-- START FOOTER -->
+            <div class="footer" style="backgrond-color:red">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-block">
+                    <span class="apple-link">Informacione tehnologije Nouvelle doo, 16. Oktobar 19, 11000 Beograd</span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <!-- END FOOTER -->
+          </div>
+        </td>
+        
+      </tr>
+    </table>
+  </body>
+</html>
+    `,
+    attachments:[
+      {
+        filename: 'sentToLabHeader.png',
+        path: 'src/images/sentToLabHeader.png',
+        cid: 'sentToLabHeader'}
+      ]
+  }
+
+  transporter.sendMail(sendEmailtoCustomer, (error, info) => {
+    if(error) {
+      return console.log(error)
+  } else {
+    console.log(info.messageId)
+  }
+})
+
+  transporter.sendMail(mailOptionsSendInfo, (error, info) => {
+      if(error) {
+        return console.log(error)
+    } else {
+      console.log(info.messageId)
+    }
+  })
+  //email end
+
 
   // console.log(total)
   // console.log(analysisArr)
@@ -109,7 +612,7 @@ exports.scheduleVisit = async (req,res) => {
 // console.log(typeof(schedule))
 
   let newSchedule = new Schedule({
-      uzimanjeUzorka:uzimanjeUzorka,
+      // uzimanjeUzorka:uzimanjeUzorka,
       total:total,
       analyses:analysisArr,
       status:'Zakazano',
@@ -125,6 +628,7 @@ exports.scheduleVisit = async (req,res) => {
     try {
       await newSchedule.save()
       res.redirect('/hvala',{user:req.user})
+      
       }
     catch (e){
       req.flash('error_msg', `Dogodila se greška ${e}`)
@@ -313,37 +817,30 @@ exports.resultsInterpretationValues = [authCheck, async (req,res) => {
 exports.analysisInterpretation = async (req,res) => {
 // console.log(req.body['outsideOfTheRange'+req.body.analysisId[0]])
 
-let outsideOfTheRange = []
+// let outsideOfTheRange = [] otkomentarisati ako se ukljucuje tumacenje svake analize
 // let test = []
-let updateInterpretation
+// let updateInterpretation
 
 
-  for (let i = 0; i<req.body.value.length; i++) {
-    if(req.body['outsideOfTheRange'+req.body.analysisId[i]] ==  undefined) {
-      outsideOfTheRange = false
-    } else {
-      outsideOfTheRange = true
-    }
-
-    // test.push({
-    //   'id':req.body.analysisId[i],
-    //   'value':req.body.value[i],
-    //   'range':outsideOfTheRange
-    // })
-
+  // for (let i = 0; i<req.body.value.length; i++) { 
+  //   if(req.body['outsideOfTheRange'+req.body.analysisId[i]] ==  undefined) {
+  //     outsideOfTheRange = false
+  //   } else {
+  //     outsideOfTheRange = true
+  //   }
 
 
   updateInterpretation = await Schedule.findOneAndUpdate(
     {_id:req.params.id, 'analyses.analysisId':req.body.analysisId[i]},
     {$set:{
-      'analyses.$.value':req.body.value[i],
-      'analyses.$.measure':req.body.measure[i],
-      'analyses.$.commentResult':req.body.commentResult[i],
-      'analyses.$.outsideOfTheRange':outsideOfTheRange,
-      'analyses.$.lessThen':req.body.lessThen[i],
-      'analyses.$.greaterThen':req.body.greaterThen[i],
-      'analyses.$.valueFrom':req.body.valueFrom[i],
-      'analyses.$.valueTo':req.body.valueTo[i],
+      // 'analyses.$.value':req.body.value[i],
+      // 'analyses.$.measure':req.body.measure[i],
+      // 'analyses.$.commentResult':req.body.commentResult[i],
+      // 'analyses.$.outsideOfTheRange':outsideOfTheRange,
+      // 'analyses.$.lessThen':req.body.lessThen[i],
+      // 'analyses.$.greaterThen':req.body.greaterThen[i],
+      // 'analyses.$.valueFrom':req.body.valueFrom[i],
+      // 'analyses.$.valueTo':req.body.valueTo[i],
       commentCube:req.body.commentCube
       }
     },
@@ -352,7 +849,7 @@ let updateInterpretation
       runValidators:true,
       useFindAndModify:false
     }).exec()
-  }
+  // }
   res.send(updateInterpretation)
 }
 
@@ -467,10 +964,10 @@ if (publish == 'Završeno') {
 
       <div style="width:700px;  margin-left:auto; margin-right:auto; display:block; text-align:center; margin-top:0; padding-top:0; padding-bottom:0px; font-family:sans-serif; font-size:20px; margin-bottom:60px; border-bottom-left-radius: 20px; border-bottom-right-radius:20px; background-image:linear-gradient(315deg, #e1e1e1, #ffffff);">
       <div style="background-image:url(https://labcube.rs/images/headerBigEmail.png); width:100%; display:block; height:140px; background-size:100%; background-repeat: no-repeat;"></div>
-        <div style="text-align:center; font-family:sans-serif; color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Vaši rezultati su protumačeni.</h3></div>
+        <div style="text-align:center;  color:#1D88E5;  padding-bottom:10px; padding-left:30px; padding-right:30px;"><h3>Vaši rezultati su protumačeni.</h3></div>
         <p style=""><a href="https://labcube.rs/myResult/${req.params.id}" style="text-decoration:none; background-color:#1D88E5; padding:20px; color:#fff; border-radius:5px;">pogledajte tumačenje</a></p>
         <div style="border-bottom:1px solid #E0E4EC; margin-top:40px;">
-         <p style="font-family:sans-serif; font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Hvala što koristite naše usluge.</p>
+         <p style=" font-size:16px; opacity:0.6; line-height:24px; padding-bottom:30px; padding-left:30px; padding-right:30px;">Hvala što koristite naše usluge.</p>
         </div>
         <div style="text-align:center; margin-top:10px;  padding-left:30px; padding-right:30px;">
         <img style="width:30%; display-block;" src="cid:logoFooter" alt="labcube footer logo" title="labcube footer logo">
