@@ -25,18 +25,18 @@
               </div>
             </div>
 
-              {{#each myResults.analyses}}
+              {{!-- {{#each myResults.analyses}} --}}
               <div class="resultDetails mt-5">
-                  <div class="col-12 col-md-7 pr-4">
+                  {{!-- <div class="col-12 col-md-7 pr-4">
                     <h4 class="analysisName">{{this.analysis}} <span class="{{outsideOfTheRange this.outsideOfTheRange}}">{{this.value}} {{{this.measure}}}</span></h4>
-                    <!-- <p>{{this.comment}}</p> -->
+                     <p>{{this.comment}}</p>
                     <p>{{{this.analysisId.shortDesc}}}</p>
                   </div>
-                  <div class="col-12 col-md-5 analysisResults">
+                  <div class="col-12 col-md-5 analysisResults"> --}}
 
                     {{#if (notZero this.lessThen)}}
 
-                      <div>
+                      {{!-- <div>
                         <input type="range" class="regularResults min {{lessThenCheck this.value  this.lessThen}}"
                         data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.lessThen}}  value={{this.value}}  step="0.1" disabled data-slider-id='ex1Slider'>
                         <div class="rangeLabels">&lt {{this.lessThen}}</div>
@@ -48,11 +48,11 @@
                         <div class="rangeLabels">&gt {{this.lessThen}}</div>
                       </div>
 
-                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
+                    <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> --}}
 
                     {{else if (notZero this.greaterThen)}}
 
-                    <div>
+                    {{!-- <div>
                       <input type="range" class="min {{lessThenCheckNotOk this.value  this.greaterThen}}"
                       data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.greaterThen}}  value={{this.value}} name="high" step="0.1" disabled>
                       <div class="rangeLabels">&lt {{this.greaterThen}}</div>
@@ -62,12 +62,13 @@
                       <input type="range" class="regularResults max {{greaterThenOk this.value this.greaterThen}}"
                       data-toggle="tooltip" tooltip="{{this.value}}" name="low" min={{this.greaterThen}}  value={{this.value}}  max={{addMaxValue this.greaterThen}} step="0.1" disabled>
                       <div class="rangeLabels">&gt {{this.greaterThen}}</div>
-                    </div>
+                    </div> --}}
 
-                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
+                    {{!-- zakomentarisati --}}
+                    {{!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> --}}
 
                     {{else}}
-                        <div>
+                        {{!-- <div>
                           <input type="range" class="min {{lowValue this.value this.valueFrom}}"
                           data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max="{{this.valueFrom}}"  value={{this.value}}  step="0.1"  disabled >
                           <div class="rangeLabels">&lt {{this.valueFrom}}</div>
@@ -80,10 +81,11 @@
                         <div>
                           <input type="range" class="max {{highValue this.value this.valueTo}}" name="high" min="{{this.valueTo}}" max={{addMaxValue this.valueTo}} value={{this.value}} step="0.1"  disabled>
                           <div class="rangeLabels">&gt {{this.valueTo}}</div>
-                        </div>
+                        </div> --}}
                         <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
                   {{/if}}
-                  </div><!-- analysis result -->
+                  {{!-- </div> --}}
+                  <!-- analysis result -->
                   {{!-- <div class="col-12"> --}}
 
                    <!-- Komentar svakog rezultata -->
@@ -93,12 +95,13 @@
                     </p>
                       {{/if}} --}}
                   {{!-- </div> --}}
-              </div><!-- resultDetails -->
+              {{!-- </div> --}}
+              <!-- resultDetails -->
 
-              {{/each}}
+              {{!-- {{/each}} --}}
 
-              <div class="col-12 mt-4">
-                <h3 class="mt-4">Zaključak</h3>
+              <div class="col-12">
+                <h3 class="">Zaključak</h3>
                 <div class="finalThougths mb-5">
                   <p>{{{myResults.commentCube}}}</p>
                 </div>
