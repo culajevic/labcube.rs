@@ -119,12 +119,12 @@
       </button>
       <div class="collapse navbar-collapse mt-2" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
-          <li class="nav-item">
+          {{!-- <li class="nav-item">
             <a href="/zakazivanje-patronaze" class="nav-link"><img src="/images/patronaza2.svg" class="filter-white mb-1 mr-2"> Zakaži patronažu</a>
-          </li>
-          <li class="nav-item">
-            <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Tumačenje rezultata</a>
-          </li>
+          </li> --}}
+          {{!-- <li class="nav-item">
+            <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Tumačenje</a>
+          </li> --}}
           <li class="nav-item">
             <a href="/#google-map" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
@@ -140,26 +140,23 @@
             <li class="nav-item">
               <a href="/prijava" class="nav-link"><span class="icon iconSvgPrijava">Prijava</span></a>
             </li>
-            <li class="nav-item">
+            {{!-- <li class="nav-item">
               <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
-            </li>
+            </li> --}}
           {{/if}}
-
           <li class="nav-item">
-            <button class="nav-link checkout" title="broj odabranih analiza" id="analysisBasket">0</button>
+            <button class="nav-link checkout" title="broj odabranih analiza" id="analysisBasket">odabranih analiza 0</button>
           </li>
         </ul>
-
       </div><!-- collapse -->
-
     </div><!-- container end -->
   </nav><!-- nav end -->
 
-  <div class="container smallPosition">
+  {{!-- <div class="container smallPosition">
     <div class="row">
       <div class="col-12">
-        <div class="sectionParallax">
-          <img src="images/ikonica_2.svg" data-speed="12" alt="" class="layer layer2">
+        <div class="sectionParallax"> --}}
+          {{!-- <img src="images/ikonica_2.svg" data-speed="12" alt="" class="layer layer2">
           <img src="images/ikonica_3.svg" data-speed="6" alt="" class="layer layer3">
           <img src="images/ikonica_4.svg" data-speed="5" alt="" class="layer layer4">
           <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer  layer5">
@@ -176,52 +173,70 @@
           <img src="images/ikonica_16.svg" data-speed="7" alt="" class="layer layer16">
           <img src="images/ikonica_17.svg" data-speed="8" alt="" class="layer layer17">
           <img src="images/ikonica_18.svg" data-speed="10" alt="" class="layer layer18">
-          <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer layer19">
-        </div>
+          <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer layer19"> --}}
+        {{!-- </div>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 
 
     <!-- logo  -->
     {{!-- <img src="/images/logoFullSlice.svg" alt="LabCube" title="LabCube" class="logoFull"> --}}
     
-    
-    <div class="logoFull">
-      <h1 class="text-white text-center d-none d-sm-block pb-0">Pacijenti koji koriste LabCube ne gube vreme</h1>
-      <h3 class="d-xs-block d-sm-none text-white text-center">Pacijenti koji koriste LabCube ne gube vreme</h3>
-      {{!-- <h2 class="d-none d-sm-block text-white text-center">Pacijenti koji koriste LabCube</h2> --}}
+    <div class="logoFull mt-3">
       <div class="container">
         <div class="row">
-          <div class="col-12 col-sm-12 col-lg-12 mx-auto ">
-            <p class="text-white text-center" id="headlineMessage"></p>
+          <div class="col-lg-6 searchFieldContainer">
+            <h2 class="text-white mb-4">Uporedi cene laboratorijskih analiza i ostvari popust do 30%</h2>
+            <p class="text-white mb-0 pb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Besplatno tumačenje laboratorijskih rezultata</p>
+            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Tvoji rezultati su zauvek na jednom mestu</p>
+            <p class="text-white"><i class="fa fa-check mr-1" aria-hidden="true"></i> Bez dodatnih troškova za pacijente</p>
+            <div class="col-12 col-sm-12 col-lg-12 pl-0" data-toggle="tooltip" data-placement="bottom" data-html="true">
+              <input type="text" autofocus class="form-control search data-hj-allow" id="searchAnalysis" name="searchAnalysis" data-hj-allow autocomplete="off" placeholder="Koju analizu tražiš?">
+              <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>  
+            </div> 
+            <a href="/registracija" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3">Registruj se</a>
+            {{!-- <a href="/" target="_blank" class="btn btn-lg btn-outline-warning  mt-4 mt-sm-4 explainerSmallScreen d-inline-block d-lg-none">Kako uporediti cene?</a> --}}
           </div>
-          {{!-- <div class="col-12 col-sm-12 col-lg-9 mx-auto">
-            <p class="text-white">bolje razumeju laboratorijske analize</p>
-          </div> --}}
-        </div>
+          <div class="col-lg-6 mt-5">
+            <div class=" d-none d-lg-block pl-4">
+              <div class="web-cam">
+                {{!-- explainer video --}}
+                  <video loop autoplay muted>
+                    {{!-- <source src="../images/explainerTest.mp4" type="video/mp4"> --}}
+                  </video>
+                  
+                </div>
+               
+            </div>
+          </div>         
+      </div>
       </div>
     </div>
-   
-
-    <div class="container searchFieldContainer">
+ 
+    {{!-- <div class="container searchFieldContainer">
       <form>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-lg-9 mx-auto" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Odaberite filter <strong>analiza</strong> ukoliko pretražujete analize odnosno <strong>laboratorija</strong> ukoliko pretražujete laboratorije.">
+        <div class="row"> --}}
+          {{!-- <div class="col-12 col-sm-12 col-lg-9 mx-auto" data-toggle="tooltip" data-placement="bottom" data-html="true" title="Odaberite filter <strong>analiza</strong> ukoliko pretražujete analize odnosno <strong>laboratorija</strong> ukoliko pretražujete laboratorije.">
             <input type="text" class="form-control search data-hj-allow" id="searchAnalysis" name="searchAnalysis" data-hj-allow autocomplete="off" placeholder="Upišite ime analize ili laboratorije" style="">
             <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
             <label for="analizeRadioButton" class="analizeSearchFilter" >analiza</label>
             <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
             <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite analize kliknite ovde">laboratorija</label>
-          </div> <!-- searchField -->
-          <div class="col-sm-12 text-center">
+          </div>  --}}
+         
+          <!-- searchField -->
+          {{!-- <div class="col-sm-12 text-center"> --}}
              {{!-- <a href="https://youtu.be/jMaOnv6l-ko" target="_blank" class="btn btn-lg btn-outline-warning labCubeDemoBtn">LabCube za 1 minut<i class="far fa-play-circle ml-2"></i></a> --}}
-          </div>
+          {{!-- </div> --}}
 
-        </div><!-- row -->
-      </form><!-- form end -->
-    </div><!-- container -->
+        {{!-- </div> --}}
+        <!-- row -->
+      {{!-- </form> --}}
+      <!-- form end -->
+    {{!-- </div> --}}
+    <!-- container -->
 
 
   </header>
