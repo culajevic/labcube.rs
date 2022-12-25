@@ -18,7 +18,7 @@
       <!-- {{name}} -->
  			<!-- <div class="col-md-12 col-lg-9 table-responsive"> -->
  			<div class="col-md-12 col-lg-12 table-responsive">
-
+         
         <div class="loader-wrapper">
           <span class="loader"><span class="loader-inner"></span></span>
         </div>
@@ -81,7 +81,7 @@ setTimeout(() => {
     zoom:16,
     // center: {lat:44.808048, lng:20.462796},
     disableDefaultUI: true,
-    zoomControl: false,
+    zoomControl: true,
     mapTypeControl: false,
     scaleControl: false,
     streetViewControl: true,
@@ -399,7 +399,7 @@ setTimeout(() => {
 
   fetch('/cenovnik/'+municipalityValue+'/'+passIds).then(data => {
     data.json().then(result => {
-  console.log('dsdssd')
+  
 
       if(result.getPrices.length > 0) {
         noResults.innerHTML = ''
@@ -558,8 +558,8 @@ setTimeout(() => {
                           <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
                           <span class="">${address}</span>
                           <p class="">${city}</p>
-
                           <span class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</span>
+                          <div class="float-right"><a href="/laboratorija/${slug}/${passIds}" class="seeMore"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a></div>
 
                           <div class="labInfoWindowFooter">
                             <img src="images/radnoVreme.svg" class="labInfoWindowWorkingHoursIcon">
