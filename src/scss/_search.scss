@@ -1,7 +1,8 @@
 .searchFieldContainer {
   // @extend .logoFull;
   position:relative;
-  margin-top: px-to-rem(30px);
+  // margin-top: px-to-rem(30px);
+  margin-top:px-to-rem(40px);
 }
 
 .searchFieldContainerInner {
@@ -46,7 +47,7 @@
   color:$white-color;
   border-color:$white-color;
   font-size: px-to-rem(22px);
-  padding-right: px-to-rem(64px);
+  // padding-right: px-to-rem(64px);
   &:active {
     color:$white-color;
     border-color:$white-color;

@@ -49,6 +49,24 @@ body {
   filter:invert(100%) sepia(0%) saturate(0%) hue-rotate(256deg) brightness(2000%) contrast(101%);
 }
 
+.web-cam { 
+
+  // clip-path: polygon(30% 20%, 50% 38%, 82% 100%, 18% 100%, 0% 38%);
+  // -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+//  position:relative;
+  // margin-left: 30px;
+  // border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+
+
+video {
+  width: 100%;
+  // height: 450px;
+  // border-radius:30% 70% 70% 50% / 30% 30% 70% 70%;
+    border-radius:13% 70% 70% 50% / 30% 24% 25% 60%;
+  // border-radius: 71% 29% 91% 9% / 16% 80% 20% 84% ;
+}
 
 .labComments {
   list-style-type:none;
@@ -189,11 +207,13 @@ font-size:30px; text-decoration:line-through;
 .zoom {
   position: absolute;
   // right:25%;
-  top:10%;
-  height: 100px;
-  width: 100px;
+  top:-14%;
+  margin-left:145px;
+  height: 20px;
+  width: 20px;
   opacity: 0;
-  animation: zoom 1s ease-in;
+  // margin-left: 200px;
+  animation: zoom .4s ease-in;
   z-index: 1;
 }
 
@@ -202,7 +222,7 @@ font-size:30px; text-decoration:line-through;
   25%{opacity:.6}
   50%{opacity:.9}
   75%{opacity:.1}
-  100%{opacity:0; top:0; height: 120px; width: 12px;}
+  100%{opacity:0;  width:30px; height:30px; top:10px;}
 }
 
 .paymentSteps {
@@ -234,6 +254,23 @@ font-size:30px; text-decoration:line-through;
   border-color:rgba(0,0,0,.3);
   background-color:rgba(208,208,208,0.2);
   cursor: default;
+}
+
+.seeMore {
+  background-color: $primary-color; 
+  padding:12px; 
+  border-bottom-left-radius:5px; 
+  border-top-right-radius:5px; 
+  color:white; 
+  font-size:.9rem;
+  position:absolute;
+  top:0;
+  right: 0;
+}
+
+.seeMore:hover {
+  background-color: $button-green;
+  color:white;
 }
 
 .success {
@@ -530,8 +567,8 @@ height: 23px;
 
 
 .rotateNumberOfAnalysis {
-  transform: rotate(1800deg);
-  transition: transform 2s ease 0s;
+  // transform: scale(1.1);
+  // transition: transform 2s ease 0s;
 }
 
 .sectionParallax {
@@ -1154,7 +1191,7 @@ p.selectedAnalysisTitle {
   position: absolute;
   right: 0;
   top:0;
-  text-decoration: line-through;
+  // text-decoration: line-through;
 }
 
 .labCubePrice {

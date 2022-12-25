@@ -35,8 +35,9 @@
     right:px-to-rem(100px);
   }
   .search {
-    font-size: px-to-rem(12px);
+    font-size: px-to-rem(18px);
   }
+
   // velicina faq naslova
   #faq h2 {
     font-size: 1.4rem;
@@ -70,12 +71,12 @@
   }
 
   .searchFieldContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin-top: 100px;
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    // width: 100%;
+    margin-top: 40px;
   }
 
   .navbar-nav {
@@ -326,12 +327,12 @@
   }
 
   .searchFieldContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin-top: 100px;
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    // width: 100%;
+    // margin-top:40px;
   }
 
   .navbar-nav {
@@ -393,7 +394,7 @@
   .logoFull {
     // width: 70%;
     width: 100%;
-    margin-bottom:px-to-rem(80px);
+    margin-bottom:px-to-rem(10px);
     // margin:0 auto;
   }
   .logoFullInner {
@@ -417,7 +418,8 @@
   }
 
 .editorName {
-  text-align: center;
+  // text-align: center;
+  padding:0 px-to-rem(24px);
 }
 
 .doctorDetailsInner {
@@ -574,7 +576,7 @@
        left: 50%;
        transform: translate(-50%, -50%);
       width: 100%;
-      margin-top: 100px;
+      margin-top: 10px;
   }
 
   .navbar-nav {
@@ -682,17 +684,18 @@
     right:px-to-rem(100px);
   }
   .search {
-    font-size: px-to-rem(12px);
+    font-size: px-to-rem(18px);
     // margin-top: px-to-rem(20px);
   }
 
   .searchFieldContainer {
-    position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-      width: 100%;
-        margin-top: 100px;
+    // position: absolute;
+    //    top: 50%;
+    //    left: 50%;
+    //    transform: translate(-50%, -50%);
+    //   width: 100%;
+    //     margin-top: 100px;
+    padding:0;
   }
 
   .navbar-nav {
@@ -785,7 +788,7 @@
   .logoFull {
     // width: 70%;
     width: 100%;
-    margin-bottom:px-to-rem(80px);
+    // margin-bottom:px-to-rem(80px);
     // margin:0 auto;
   }
   .logoFullInner {
