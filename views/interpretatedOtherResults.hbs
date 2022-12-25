@@ -387,16 +387,13 @@
 </div>
 </div>
 
-<div class="container-fluid w-75">
+<div class="container">
   <div class="row">
-
-
-
       <div class="col-12">
-        <div class="table-responsive mt-4" id="labDashboard">
+        {{!-- <div class="table-responsive mt-4" id="labDashboard"> --}}
           {{#each findOtherResult}}
 
-          <h2 id='newLine' class="text-center my-4"><btn class="btn btn-block btn-outline-info text-uppercase">dodaj novi red<span id="counter" class="pl-2 float-right"></span></h2>
+          {{!-- <h2 id='newLine' class="text-center my-4"><btn class="btn btn-block btn-outline-info text-uppercase">dodaj novi red<span id="counter" class="pl-2 float-right"></span></h2> --}}
 
 
                 <!-- izmeniti  -->
@@ -405,7 +402,7 @@
                     <input type="hidden" name="email" value="{{this.userId.email}}" id="customerEmail">
                   {{/each}}
                   <!-- <input type="hidden" name="email" id="customerEmailCopy" value=""> -->
-                  <table class="table" id="resultsUpload">
+                  {{!-- <table class="table" id="resultsUpload">
 
                         <tr>
                           <th class="small">Ime analize</th>
@@ -463,21 +460,15 @@
                   <td><textarea rows=3 cols=35 name="commentResult"></textarea></td>
 
                 </tr>  -->
-          </table>
+          </table> --}}
         <!-- id="cubeComment" -->
-              <p>Finalni komentar <span id="finalCommentTitle"></span></p>
+            
+              <p class="mt-5">Finalni komentar <span id="finalCommentTitle"></span></p>
               {{#each findOtherResult}}
               <textarea name="commentCube" id="finalCommentByLabCube"  style="width:100%"  rows="8" >{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
-            
-              <div class="col-12">
-                <button id="notDoneBtn" class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">nazad</button>
-              </div>
-              <div class="col-12">
-                <button id="doneBtn" class="btn btn-outline-danger mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
-              </div>
-               
-            
-
+              <button id="notDoneBtn" class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">nazad</button>             
+              <button id="doneBtn" class="btn btn-outline-danger mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
+              
               <div class="mt-5">
                 <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
                   <input type="checkbox" name="readyForInterpreatation" class="text-center customCheck" value="true" id="readyForInterpreatation" {{#if this.readyForInterpreatation}} checked {{/if}}>
@@ -499,7 +490,7 @@
 
 
             </form>
-        </div>
+        {{!-- </div> --}}
       </div>
 
       <!-- <div class="col-6 mt-4">
