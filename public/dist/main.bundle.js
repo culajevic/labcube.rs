@@ -21972,7 +21972,7 @@ exports.removeAnalysis = function (itemsArray, checkout) {
         }
       }
 
-      checkout.innerText = itemsArray.length; //enable button for the analysis removed
+      checkout.innerText = 'odabranih analiza ' + itemsArray.length; //enable button for the analysis removed
       // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
 
       var enableButton = document.querySelectorAll('.deleteAnalysis');
@@ -22025,7 +22025,7 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
       // checkout.style.transition = 'transform 2s ease'
 
       checkout.classList.add('rotateNumberOfAnalysis');
-      checkout.innerHTML = itemsArray.length;
+      checkout.innerHTML = 'odabranih analiza ' + itemsArray.length;
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
       var cardHeader = document.getElementById('numOfAnalysis');
       cardHeader.innerHTML = '';
@@ -22118,7 +22118,7 @@ exports.searchLabAnalysis = function (searchString, filter) {
       setTimeout(function () {
         var searchString = e.target.value;
         window.location.href = '/results/?name=' + searchString + '&filter=' + filterValue;
-      }, 400);
+      }, 700);
     }
   });
 };
@@ -22588,7 +22588,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
             phonesForClick.push("<a href=tel:".concat(phoneNumber, ">").concat(phoneNumber, "</a>"));
             return phonesForClick;
           });
-          var content = "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <p class=\"labInfoWindowTelefoni\">").concat(phonesForClick.join(', '), "</p>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>");
+          var content = "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <p class=\"labInfoWindowTelefoni\">").concat(phonesForClick.join(', '), "</p>\n                        <div class=\"float-right\"><a href=\"/laboratorija/").concat(slug, "/").concat(passIds, "\" class=\"seeMore\"><i class=\"fa fa-arrow-circle-right\" aria-hidden=\"true\"></i></a></div>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>");
           google.maps.event.addListener(marker, 'click', function () {
             infoWindow.close();
             infoWindow.setContent(content);
@@ -23055,8 +23055,7 @@ var findUserByEmail = document.getElementById('searchForUserEmail'); //definisan
 
 if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) && !findUserByEmail || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
   helper.displayBasket(itemsArray);
-} //MUST CHECK THIS!!!!!!!
-//get reference to checkout element which displays number of selected analysis in navigation
+} //get reference to checkout element which displays number of selected analysis in navigation
 
 
 var checkCMSAdd = /add.*/;
@@ -23071,7 +23070,7 @@ var findUserByEmailLabCube = document.getElementById('searchForUserEmailLabCube'
 
 if (itemsArray.length > 0 && !location.match(checkCMSAdd) && !location.match(checkCMSAll) && !findUserByEmail && !findUserByEmailLabCube && !location.match(registerPage) && !location.match(loginPage) && !location.match(paymentPage) && !location.match(otherResultsInterpretationFix) && !location.match(admindashboard)) {
   checkout.classList.remove('d-none');
-  checkout.textContent = itemsArray.length;
+  checkout.textContent = 'odabranih analiza ' + itemsArray.length;
 }
 
 window.onload = function () {
@@ -23098,14 +23097,15 @@ window.onload = function () {
 
 
   if (location === '/') {
-    var typeText = document.getElementById('headlineMessage');
-    var typed = new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a('#headlineMessage', {
-      strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju gde odmah mogu dobiti tumačenje rezultata"],
-      typeSpeed: 30,
-      backSpeed: 10,
-      loop: true,
-      showCursor: false
-    }); //testing analysis box feature
+    // let typeText = document.getElementById('headlineMessage')
+    // let typed = new Typed('#headlineMessage', {
+    //   strings: ["Bolje razumeju laboratorijske analize", "Lakše pronalaze najpovoljniju laboratoriju", "Znaju gde odmah mogu dobiti tumačenje rezultata"],
+    //   typeSpeed: 30,
+    //   backSpeed:10,
+    //   loop:true,
+    //   showCursor: false
+    // });
+    //testing analysis box feature
     // let analysisBasket = document.getElementById('analysisBasket')
     // let krvnaSlika = document.getElementById('krvnaSlika')
     // krvnaSlika.addEventListener('click', e => {
@@ -23157,7 +23157,6 @@ window.onload = function () {
     //  checkout.innerHTML = itemsArray.length
     //  localStorage.setItem('items', JSON.stringify(itemsArray))
     // })
-
     var _priceList = document.getElementById('priceList');
 
     var _closePriceList = document.getElementById('closePriceList');
@@ -23541,8 +23540,10 @@ window.onload = function () {
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile' && !findUserByEmail) {
     var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
     // let newDateCheck = new Date()
-    // let t4 = document.getElementById('t4')
-    // if (t4 && (newDateCheck.getHours() >= 20 || newDateCheck.getHours() < 8)) {   
+
+    var t4 = document.getElementById('t4');
+    var t12 = document.getElementById('t12');
+    var t24 = document.getElementById('t24'); // if (t4 && (newDateCheck.getHours() >= 20 || newDateCheck.getHours() < 8)) {   
     //   t4.disabled = true
     //   t4.parentElement.disabled = true
     //   t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
@@ -23586,13 +23587,15 @@ window.onload = function () {
               t4.nextElementSibling.innerHTML = 'odabrano';
               initialPriceTop.classList.remove('d-none');
             } else if (result && result.discount == 100) {
-              console.log(result.discount);
               proceedPayment.classList.add('d-none');
               gratisBtn.classList.remove('d-none');
               codeBack.style.backgroundColor = '#55D159';
               codeCheck.textContent = "✔";
               codeCheck.disabled = true;
               codeCheck.style.color = 'white';
+              t12.parentElement.parentElement.classList.add('d-none');
+              t24.parentElement.parentElement.classList.add('d-none');
+              t4.parentElement.parentElement.classList.add('d-none');
               var _discount = result.discount;
 
               var _newPrice = Math.floor(t4.value - t4.value * (result.discount / 100));
@@ -23609,6 +23612,7 @@ window.onload = function () {
               t4.checked = true;
               t4.nextElementSibling.innerHTML = 'Odabrano'; // paymentConsentBox.classList.add('d-none')
 
+              paymentConsentBox.classList.add('d-none');
               paymentConsentBox.style.pointerEvents = 'none';
               paymentConsentBox.style.backgroundColor = '#9C9C9C';
               paymentConsentBox.style.opacity = 0.1; // resultForUploadBox.classList.remove('paymentSteps')
@@ -23820,8 +23824,8 @@ window.onload = function () {
     labCubePrice = Math.ceil(totalPrice * ((100 - discountValue) / 100));
     var labIdName = document.getElementById('labName'); //todo 
     //otkomentarisati kada se zakazuje preko labcuba
-    // labId = labIdName.getAttribute('data-id')
-    //search and add analysis from lab details page
+
+    var labId = labIdName.getAttribute('data-id'); //search and add analysis from lab details page
 
     helper.searchLabAnalysis(searchString, _analysisRadio2); // searchString.addEventListener('input', (e) => {
     //   if(searchString.value.length>=3 && filterValue == 'analiza' ) {
@@ -23962,7 +23966,7 @@ window.onload = function () {
 
           _itemsArray.splice(nameIndex, 1);
 
-          items = JSON.stringify(_itemsArray);
+          var items = JSON.stringify(_itemsArray);
           localStorage.setItem('items', items);
           schedule[0].total = totalPrice;
           schedule[1].analysis = _itemsArray;
@@ -23981,18 +23985,18 @@ window.onload = function () {
 
           var numAnalysis = document.querySelector('.numAnalysis'); // numAnalysis.textContent = `Broj odabranih analiza (${itemsArray.length})`
 
-          _checkout.textContent = _itemsArray.length;
+          _checkout.textContent = 'odabranih analiza ' + _itemsArray.length;
 
           var _priceList4 = document.getElementById('priceList');
 
-          if (_itemsArray.length == 0) {
+          if (_itemsArray.length === 0) {
             resultSection.classList.add('d-none');
 
             _priceList4.classList.remove('unhidePriceList');
 
             _priceList4.classList.add('hidePriceList');
 
-            _checkout.textContent = '0';
+            _checkout.textContent = 'odabranih analiza 0';
           }
         }
       }); //delete analysis from table when analysis is deleted from basket
@@ -24019,32 +24023,50 @@ window.onload = function () {
 
     helper.removeAnalysis(_itemsArray, _checkout); //todo 
     //otkomentarisati kada se zakazuje preko labcuba 
-    // schedule.push({"total":totalPrice})
-    // schedule.push({"analysis":itemsArray})
-    // schedule.push({"labCubePrice":labCubePrice})
-    // schedule.push({"labId":labId})
-    // schedule.push({"date":''})
-    // scheduleString = JSON.stringify(schedule)
-    ///////////
+    // let getEmailForScheduling = document.getElementById('getEmailForScheduling')
+    // let emailForSchedule
+    //   getEmailForScheduling.addEventListener('blur', (e) => {
+    //     emailForSchedule = e.target.value
+    //     console.log(emailForSchedule)
+    //   }) 
+
+    schedule.push({
+      "total": totalPrice
+    });
+    schedule.push({
+      "analysis": _itemsArray
+    });
+    schedule.push({
+      "labCubePrice": labCubePrice
+    });
+    schedule.push({
+      "labId": labId
+    });
+    schedule.push({
+      "date": ''
+    });
+    var scheduleString = JSON.stringify(schedule); ///////////
     //todo 
     //otkomentarisati kada pocne zakazivanje preko labcuba
-    // let scheduleBtn = document.getElementById('schedule')
-    // scheduleBtn.addEventListener('click', ()=>{
-    //   schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
-    //   scheduleString = JSON.stringify(schedule)
-    //   fetch('/schedule/',{
-    //     method:"post",
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body:scheduleString
-    //   }).then(response => {
-    //     console.log(response)
-    //     window.location.href="/hvala"
-    //     localStorage.removeItem('items')
-    //   })
-    // })
+
+    var scheduleBtn = document.getElementById('schedule') ? document.getElementById('schedule') : '';
+
+    if (scheduleBtn) {
+      scheduleBtn.addEventListener('click', function () {
+        // schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+        scheduleString = JSON.stringify(schedule);
+        fetch('/schedule/', {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: scheduleString
+        }).then(function (response) {
+          window.location.href = "/hvala"; // localStorage.removeItem('items')
+        });
+      });
+    }
   }
 
   if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze') {
@@ -24607,7 +24629,8 @@ window.onload = function () {
       audio.play();
       audio.muted = false;
     });
-  }
+  } //priakzuje ispis grafike kada je rezultat uspesno poslat na tumacenje
+
 
   if (urlArr[1] == 'checkout') {
     var unhide = document.querySelector('.paymentAccepted');

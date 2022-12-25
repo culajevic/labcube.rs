@@ -7281,7 +7281,8 @@ a:focus {
   position: relative;
   width: 100%;
   height: 501px;
-  background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%); }
+  background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%);
+  clip-path: polygon(100% 0%, 0% 0%, 0% 99.24%, 1.43% 99.22%, 2.86% 99.13%, 4.29% 99%, 5.71% 98.82%, 7.14% 98.58%, 8.57% 98.31%, 10% 97.99%, 11.43% 97.63%, 12.86% 97.24%, 14.29% 96.83%, 15.71% 96.39%, 17.14% 95.94%, 18.57% 95.48%, 20% 95.02%, 21.43% 94.55%, 22.86% 94.1%, 24.29% 93.67%, 25.71% 93.26%, 27.14% 92.87%, 28.57% 92.52%, 30% 92.2%, 31.43% 91.93%, 32.86% 91.7%, 34.29% 91.52%, 35.71% 91.39%, 37.14% 91.31%, 38.57% 91.29%, 40% 91.32%, 41.43% 91.4%, 42.86% 91.54%, 44.29% 91.73%, 45.71% 91.97%, 47.14% 92.25%, 48.57% 92.57%, 50% 92.93%, 51.43% 93.32%, 52.86% 93.73%, 54.29% 94.17%, 55.71% 94.63%, 57.14% 95.09%, 58.57% 95.55%, 60% 96.01%, 61.43% 96.46%, 62.86% 96.89%, 64.29% 97.31%, 65.71% 97.69%, 67.14% 98.04%, 68.57% 98.35%, 70% 98.62%, 71.43% 98.85%, 72.86% 99.03%, 74.29% 99.15%, 75.71% 99.22%, 77.14% 99.24%, 78.57% 99.21%, 80% 99.12%, 81.43% 98.98%, 82.86% 98.78%, 84.29% 98.54%, 85.71% 98.26%, 87.14% 97.94%, 88.57% 97.57%, 90% 97.18%, 91.43% 96.76%, 92.86% 96.32%, 94.29% 95.87%, 95.71% 95.41%, 97.14% 94.94%, 98.57% 94.48%, 100% 94.04%); }
   #header .navbar-nav a, #smallHeader .navbar-nav a, #smallHeaderThanks .navbar-nav a {
     padding-right: 1rem; }
   #header .navbar-nav .checkout, #smallHeader .navbar-nav .checkout, #smallHeaderThanks .navbar-nav .checkout {
@@ -7292,8 +7293,8 @@ a:focus {
     align-items: center;
     align-self: center;
     border: 1px solid #FFF;
-    border-radius: 50px;
-    width: 30px;
+    border-radius: 6px;
+    width: 180px;
     height: 30px;
     padding: 0 !important; }
     #header .navbar-nav .checkout:hover, #smallHeader .navbar-nav .checkout:hover, #smallHeaderThanks .navbar-nav .checkout:hover {
@@ -7312,11 +7313,13 @@ a:focus {
       background-color: #1D88E5; }
 
 #smallHeader {
+  clip-path: none;
   height: 240px; }
   #smallHeader .container {
     margin-bottom: 0; }
 
 #smallHeaderThanks {
+  clip-path: none;
   height: 70px; }
 
 #smallHeaderLab {
@@ -7332,7 +7335,11 @@ a:focus {
   #smallHeaderLab .table thead th, #smallHeaderLab .tableLabResults thead th {
     border-bottom: 1px solid white; }
 
-.logoFull, .logoFullInner {
+.logoFull {
+  align-self: center;
+  position: absolute; }
+
+.logoFullInner {
   align-self: center;
   position: absolute; }
 
@@ -7389,7 +7396,7 @@ a:focus {
 
 .searchFieldContainer {
   position: relative;
-  margin-top: 1.875rem; }
+  margin-top: 2.5rem; }
 
 .searchFieldContainerInner {
   position: absolute;
@@ -7422,8 +7429,7 @@ a:focus {
 .btn-outline-warning {
   color: #FFF;
   border-color: #FFF;
-  font-size: 1.375rem;
-  padding-right: 4rem; }
+  font-size: 1.375rem; }
   .btn-outline-warning:active {
     color: #FFF;
     border-color: #FFF;
@@ -7576,6 +7582,9 @@ input[name="searchFilter"] {
   min-height: calc(100vh - 210px);
   position: relative;
   width: 100%; }
+
+button.gm-ui-hover-effect {
+  visibility: hidden; }
 
 .labinfo {
   position: absolute;
@@ -8731,6 +8740,10 @@ body {
 .filter-white {
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(256deg) brightness(2000%) contrast(101%); }
 
+video {
+  width: 100%;
+  border-radius: 13% 70% 70% 50% / 30% 24% 25% 60%; }
+
 .labComments {
   list-style-type: none; }
   .labComments > li {
@@ -8831,11 +8844,12 @@ body {
 
 .zoom {
   position: absolute;
-  top: 10%;
-  height: 100px;
-  width: 100px;
+  top: -14%;
+  margin-left: 145px;
+  height: 20px;
+  width: 20px;
   opacity: 0;
-  animation: zoom 1s ease-in;
+  animation: zoom .4s ease-in;
   z-index: 1; }
 
 @keyframes zoom {
@@ -8849,9 +8863,9 @@ body {
     opacity: .1; }
   100% {
     opacity: 0;
-    top: 0;
-    height: 120px;
-    width: 12px; } }
+    width: 30px;
+    height: 30px;
+    top: 10px; } }
 
 .paymentSteps {
   border-radius: 14px !important;
@@ -8878,6 +8892,21 @@ body {
   border-color: rgba(0, 0, 0, 0.3);
   background-color: rgba(208, 208, 208, 0.2);
   cursor: default; }
+
+.seeMore {
+  background-color: #1D88E5;
+  padding: 12px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: white;
+  font-size: .9rem;
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.seeMore:hover {
+  background-color: #55D159;
+  color: white; }
 
 .success {
   color: #55D159; }
@@ -9114,10 +9143,6 @@ div.mobile-wrapper iframe {
 .functionalityIconsInterpretation {
   border-bottom: none;
   margin-bottom: 2rem; }
-
-.rotateNumberOfAnalysis {
-  transform: rotate(1800deg);
-  transition: transform 2s ease 0s; }
 
 .sectionParallax {
   position: absolute;
@@ -9620,8 +9645,7 @@ p.selectedAnalysisTitle {
   font-weight: bold;
   position: absolute;
   right: 0;
-  top: 0;
-  text-decoration: line-through; }
+  top: 0; }
 
 .labCubePrice {
   text-decoration: none; }
@@ -10700,14 +10724,14 @@ table.workingHoursLabDetails {
   .analizeSearchFilter {
     right: 6.25rem; }
   .search {
-    font-size: 0.75rem; }
+    font-size: 1.125rem; }
   #faq h2 {
     font-size: 1.4rem; }
   #accordion > h5 {
     font-size: 1rem; }
   .blueOverlay h2, .blueOverlayLab h2 {
     font-size: 1.8rem; }
-  .logoFull, .logoFullInner {
+  .logoFull {
     width: 100%; }
   .logoFullInner {
     width: 80%; }
@@ -10718,12 +10742,7 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     width: 240px; }
   .searchFieldContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin-top: 100px; }
+    margin-top: 40px; }
   .navbar-nav {
     background-color: #1d88e5;
     z-index: 20;
@@ -10809,7 +10828,7 @@ table.workingHoursLabDetails {
   .interpretationDate {
     font-size: 1.5rem;
     text-align: center; }
-  .logoFull, .logoFullInner {
+  .logoFull {
     width: 100%; }
   .logoFullInner {
     width: 80%; }
@@ -10873,13 +10892,6 @@ table.workingHoursLabDetails {
     margin-top: 10px; }
   .smallScrRegister {
     margin-top: 10px; }
-  .searchFieldContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin-top: 100px; }
   .navbar-nav {
     background-color: rgba(29, 136, 229, 0.3);
     z-index: 20;
@@ -10912,9 +10924,9 @@ table.workingHoursLabDetails {
 @media (min-width: 375px) and (max-width: 574px) {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
-  .logoFull, .logoFullInner {
+  .logoFull {
     width: 100%;
-    margin-bottom: 5rem; }
+    margin-bottom: 0.625rem; }
   .logoFullInner {
     width: 80%; }
   #bannerDetails {
@@ -10927,7 +10939,7 @@ table.workingHoursLabDetails {
     font-size: 1.5rem;
     text-align: center; }
   .editorName {
-    text-align: center; }
+    padding: 0 1.5rem; }
   .doctorDetailsInner {
     display: block;
     border-left: none;
@@ -11025,7 +11037,7 @@ table.workingHoursLabDetails {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    margin-top: 100px; }
+    margin-top: 10px; }
   .navbar-nav {
     background-color: rgba(29, 136, 229, 0.9);
     z-index: 20;
@@ -11090,14 +11102,9 @@ table.workingHoursLabDetails {
   .analizeSearchFilter {
     right: 6.25rem; }
   .search {
-    font-size: 0.75rem; }
+    font-size: 1.125rem; }
   .searchFieldContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    margin-top: 100px; }
+    padding: 0; }
   .navbar-nav {
     background-color: rgba(29, 136, 229, 0.9);
     z-index: 20;
@@ -11148,9 +11155,8 @@ table.workingHoursLabDetails {
     display: block;
     margin: 0 auto;
     float: clear; }
-  .logoFull, .logoFullInner {
-    width: 100%;
-    margin-bottom: 5rem; }
+  .logoFull {
+    width: 100%; }
   .logoFullInner {
     width: 80%; } }
 
