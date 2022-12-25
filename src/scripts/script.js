@@ -1265,7 +1265,9 @@ if (municipalityValue != null) {
           },
           body:scheduleString
         }).then(response => {
+          if (response) {
           window.location.href="/hvala"
+          }
           // localStorage.removeItem('items')
         })
       })

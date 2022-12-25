@@ -24063,7 +24063,10 @@ window.onload = function () {
           },
           body: scheduleString
         }).then(function (response) {
-          window.location.href = "/hvala"; // localStorage.removeItem('items')
+          if (response) {
+            window.location.href = "/hvala";
+          } // localStorage.removeItem('items')
+
         });
       });
     }
