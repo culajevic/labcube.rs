@@ -112,7 +112,7 @@ router.get('/addPrice/:id', priceController.editPrice)
 router.post('/addPrice/:id', priceController.updatePrice)
 router.delete('/allPrices/:id:/location?', priceController.deletePriceList)
 
-router.get('/schedule/:labId/:analysis/:userId?/:total', scheduleController.scheduleVisit)
+router.post('/schedule/:labId/:analysis/:userId/:total', scheduleController.scheduleVisit)
 // router.get('/schedule/:scheduleString', scheduleController.scheduleVisit)
 router.post('/schedule', scheduleController.scheduleVisit)
 router.get('/hvala', scheduleController.thankyou)
