@@ -74,16 +74,15 @@
           {{#each myOtherResults}}
           <tr class="dashboardResults">
             <!-- <td class="d-none d-sm-block"><i class="far fa-clock"></i></td> -->
-            <td>{{displayTime this.submitedDate}}</td>
-
-            <!-- <td>{{displayTime this.deadline}}</td> -->
-            <td>{{this.package}} rsd</td>
-            <td><a href="../results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></a></td>
-            {{#if (checkStatus this.status)}}
+           {{#if (checkStatus this.status)}}
             <td><a href="/myResult/{{this.id}}">Pogledaj tumačenje</a></td>
             {{else}}
             <td>Tumačenje rezultata je u toku</td>
             {{/if}}
+            {{!-- <td>{{displayTime this.deadline}}</td> --}}
+            <td>{{this.package}} rsd</td>
+            <td><a href="../results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></a></td>
+             <td>{{displayTime this.submitedDate}}</td>
             <td><a href='' data-id={{this.id}} data-tab="otherResults" class="btn btn-danger deleteDocument">obriši</a></td>
             <!-- <td class="bg-danger text-white text-center" style="border-radius:0;">{{calculateTime this.deadline}}</td> -->
           </tr>
