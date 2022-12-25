@@ -104,7 +104,7 @@ exports.freeUpload = async (req,res) => {
         //update ako je vaučer iskorišćen
         const updateVoucher =  Discount.findOneAndUpdate(
           {discountId:req.body.kodPopust},
-          {$set:{'valid':false, date:newDate}},
+          {$set:{date:newDate}},
           {
              new:true,
              runValidators:true,
