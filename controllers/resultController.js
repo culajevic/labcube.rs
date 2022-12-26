@@ -125,7 +125,7 @@ exports.freeUpload = async (req,res) => {
               packageTime = 12
               break
             default:
-              packageTime = 12
+              packageTime = 24
           }
 
 
@@ -173,7 +173,7 @@ exports.freeUpload = async (req,res) => {
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >br. transakcije: ${currentId}</p>
               <p style="opacity:0.6; font-size:14px; padding-left:30px; padding-right:30px; margin-top:0;" >korisničko ime: ${req.body.email}</p>
             </div>
-              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987;Tumačenje u roku od ${packageTime}h</p>
+              <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#8987;Tumačenje u roku od 24h</p>
 
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#128178; 0 RSD </p>
               <p style="opacity:0.6; font-size:17px; padding-left:30px; padding-right:30px;" >&#9200; ${invoiceDate}</p>
