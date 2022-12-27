@@ -209,12 +209,12 @@
             {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
             <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
               {{else}}
-              <p class="generalInformation">Laboratorija nije treutno LabCube partner</p>
-              <div class="col-12">
+              <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
+              {{!-- <div class="col-12">
                <h5 class="mx-auto mt-1 text-center">Upiši mejl ako želiš da te obavestimo kada laboratorija postane LabCube partner.</h5>
-               </div>
+               </div> --}}
                 {{!-- otkomentarisati ako skupljamo mejl --}}
-                <div class="col-12">
+                {{!-- <div class="col-12">
                 <form action="/putUserEmail" method="POST" class="my-4">   
                      <div class="input-group my-4">
                       <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
@@ -223,7 +223,7 @@
                       </div>
                     </div>
                 </form>
-                </div>
+                </div> --}}
             {{/if}}
             {{else}}
                <div class="col-12 text-center labDetailsActionBtn">
