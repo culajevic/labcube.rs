@@ -16,6 +16,7 @@
                 <option value="Arilje">Arilje</option>
                 <option value="Bačka Palanka">Bačka Palanka</option>
                 <option value="Bajina Bašta">Bajina Bašta</option>
+                <option value="Batočina">Batočina</option>
                 <option value="Bečej">Bečej</option>
                 <option value="Bela Crkva">Bela Crkva</option>
                 <option value="Beočin">Beočin</option>
@@ -37,8 +38,11 @@
                 <option value="Beograd - Zemun">Beograd - Zemun</option>
                 <option value="Beograd - Zvezdara">Beograd - Zvezdara</option>
                 <option value="Bogatić">Bogatić</option>
+                <option value="Brus">Brus</option>
+                <option value="Bujanovac">Bujanovac</option>
                 <option value="Čačak">Čačak</option>
                 <option value="Ćuprija">Ćuprija</option>
+                <option value="Doljevac">Doljevac</option>
                 <option value="Gornji Milanovac">Gornji Milanovac</option>
                 <option value="Inđija">Inđija</option>
                 <option value="Ivanjica">Ivanjica</option>
@@ -54,23 +58,28 @@
                 <option value="Kraljevo">Kraljevo</option>
                 <option value="Kula">Kula</option>
                 <option value="Kuršumlija">Kuršumlija</option>
-                <option value="Leskovac">Leskovac</option>
                 <option value="Lajkovac">Lajkovac</option>
+                <option value="Leskovac">Leskovac</option>
+                <option value="Ljubovija">Ljubovija</option>
                 <option value="Loznica">Loznica</option>
                 <option value="Negotin">Negotin</option>
                 <option value="Niš">Niš</option>
                 <option value="Medijana">Niš - Mediana</option>
+                <option value="Novi Banovci">Novi Banovci</option>
                 <option value="Novi Bečej">Novi Bečej</option>
                 <option value="Novi Pazar">Novi Pazar</option>
                 <option value="Novi Sad">Novi Sad</option>
                 <option value="Odžaci">Odžaci</option>
+                <option value="Osečina">Osečina</option>
                 <option value="Pančevo">Pančevo</option>
                 <option value="Paraćin">Paraćin</option>
                 <option value="Petrovac na Mlavi">Petrovac na Mlavi</option>
                 <option value="Petrovaradin">Petrovaradin</option>
                 <option value="Pirot">Pirot</option>
                 <option value="Požarevac">Požarevac</option>
+                <option value="Priboj">Priboj</option>
                 <option value="Prokuplje">Prokuplje</option>
+                <option value="Rača">Rača</option>
                 <option value="Ruma">Ruma</option>
                 <option value="Šabac">Šabac</option>
                 <option value="Senta">Senta</option>
@@ -90,6 +99,7 @@
                 <option value="Trstenik">Trstenik</option>
                 <option value="Užice">Užice</option>
                 <option value="Valjevo">Valjevo</option>
+                <option value="Varvarin">Varvarin</option>
                 <option value="Velika Plana">Velika Plana</option>
                 <option value="Vranje">Vranje</option>
                 <option value="Vrbas">Vrbas</option>
@@ -97,6 +107,7 @@
                 <option value="Vršac">Vršac</option>
                 <option value="Žabalj">Žabalj</option>
                 <option value="Zaječar">Zaječar</option>
+                <option value="Zlatibor">Zlatibor</option>
                 <option value="Zrenjanin">Zrenjanin</option>
               </select>
               <!-- <span><img src="/images/gradMarker.svg" alt="" class="cityMarker"></span> -->
@@ -194,7 +205,10 @@
             <p class="text-white"><i class="fa fa-check mr-1" aria-hidden="true"></i> Bez dodatnih troškova za pacijente</p>
             <div class="col-12 col-sm-12 col-lg-12 pl-0" data-toggle="tooltip" data-placement="bottom" data-html="true">
               <input type="text" autofocus class="form-control search data-hj-allow" id="searchAnalysis" name="searchAnalysis" data-hj-allow autocomplete="off" placeholder="Koju analizu tražiš?">
-              <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>  
+              <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
+              <label for="analizeRadioButton" class="analizeSearchFilter" >analiza</label>
+              <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
+              <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite laboratoriju kliknite ovde">laboratorija</label>
             </div> 
             <a href="/registracija" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3">Registruj se</a>
             {{!-- <a href="/" target="_blank" class="btn btn-lg btn-outline-warning  mt-4 mt-sm-4 explainerSmallScreen d-inline-block d-lg-none">Kako uporediti cene?</a> --}}
@@ -206,9 +220,10 @@
                   <video loop autoplay muted>
                     {{!-- <source src="../images/explainerTest.mp4" type="video/mp4"> --}}
                   </video>
-                  
-                </div>
-               
+              </div>
+              
+              <img src="/images/searchforprice.png" alt="" class="heroImage"> 
+              
             </div>
           </div>         
       </div>
@@ -276,5 +291,16 @@
 
       })
     }
+
+    let searchLabText = document.getElementById('laboratorijeRadioButton')
+    searchLabText.addEventListener('click', e => {
+      searchAnalysis.placeholder='Koju laboratoriju tražiš?'
+     })
+    
+    let searchAnalysisPlaceholder = document.getElementById('analizeRadioButton')
+    searchAnalysisPlaceholder.addEventListener('click', e => {
+      searchAnalysis.placeholder='Koju analizu tražiš?'
+    })
+ 
 
   </script>

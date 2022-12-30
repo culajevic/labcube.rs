@@ -289,6 +289,11 @@
       background: none;
       padding-left: 10px;
     }
+    &:nth-child(5) {
+      // @include liItemImage('../images/priprema.svg', 80px)
+      background: none;
+      padding-left: 10px;
+    }
     &:nth-child(6) {
       // @include liItemImage('../images/detaljanOpis.svg', 80px)
       background: none;
@@ -499,6 +504,12 @@
       padding-left: 0;
       padding-right:0;
     }
+    &:nth-child(5) {
+      // @include liItemImage('../images/priprema.svg', 80px)
+      background: none;
+      padding-left: 0;
+      padding-right:0;
+    }
     &:nth-child(6) {
       // @include liItemImage('../images/detaljanOpis.svg', 80px)
       background: none;
@@ -590,7 +601,15 @@
     // padding-left: 0;
   }
 
-  #smallHeader {
+  #smallHeader, #smallHeader2 {
+    height: 300px;
+  }
+
+  #smallHeader > .overlay {
+    height: 300px;
+  }
+
+  #smallHeader2 > .overlay {
     height: 300px;
   }
 
@@ -710,7 +729,15 @@
     // padding-left:10px;
   }
 
-  #smallHeader {
+  #smallHeader, #smallHeader2 {
+    height: 300px;
+  }
+
+  #smallHeader > .overlay {
+    height: 300px;
+  }
+
+  #smallHeader2 > .overlay {
     height: 300px;
   }
 
