@@ -418,7 +418,7 @@ exports.getAdditionalAnalysis = async (req,res) => {
 // get lab name for price form
 //active:true dodati u upit ako ne treba prikazivati labove koji nisu aktivni
 exports.getLab = async (req, res) => {
-  const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }}).sort({labName:1})
+  const labName = await Lab.find({labName:{"$regex":req.params.lab, "$options": "i" }, active:true}).sort({labName:1})
   .populate('placeId', 'place municipality')
   res.json(labName)
 }
