@@ -55,6 +55,7 @@
   background-repeat: repeat-x;
   background-size: cover;
   background-position: center;
+  z-index: 999;
   & > .overlay {
     background-color: $primary-color;
     height: 240px;

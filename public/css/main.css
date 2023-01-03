@@ -7318,7 +7318,8 @@ a:focus {
   background-image: url(../images/innerHeaderHero.jpg);
   background-repeat: repeat-x;
   background-size: cover;
-  background-position: center; }
+  background-position: center;
+  z-index: 999; }
   #smallHeader > .overlay {
     background-color: #1D88E5;
     height: 240px;
