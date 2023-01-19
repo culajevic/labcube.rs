@@ -23415,6 +23415,9 @@ window.onload = function () {
 
     innerSearch.addEventListener('input', function (e) {
       var i; // console.log('searching'+ filter)
+      // kada se radi pretraga analiza sa stranice sa prikazom mape treba da nestane legenda o radnom vremenu laba
+      // let mapLegend = (document.getElementById('mapLegend')) ? document.getElementById('mapLegend') : undefined
+      // mapLegend.classList.add('d-none')
 
       var mapFrame = document.getElementById('mapPrices');
       mapFrame.classList.add('d-none');

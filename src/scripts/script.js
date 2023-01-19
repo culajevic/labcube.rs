@@ -599,6 +599,9 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     innerSearch.addEventListener('input', (e) => {
     let i
       // console.log('searching'+ filter)
+      // kada se radi pretraga analiza sa stranice sa prikazom mape treba da nestane legenda o radnom vremenu laba
+    // let mapLegend = (document.getElementById('mapLegend')) ? document.getElementById('mapLegend') : undefined
+    // mapLegend.classList.add('d-none')
     let mapFrame = document.getElementById('mapPrices')
     mapFrame.classList.add('d-none')
         let searchstring = e.target.value
