@@ -7315,7 +7315,7 @@ a:focus {
 #smallHeader {
   clip-path: none;
   height: 240px;
-  background-image: url(../images/innerHeaderHero.jpg);
+  background-image: url(../images/innerHeaderHero.png);
   background-repeat: repeat-x;
   background-size: cover;
   background-position: center;
@@ -7326,7 +7326,6 @@ a:focus {
     position: absolute;
     top: 0;
     bottom: 0;
-    opacity: 0.93;
     width: 100%; }
   #smallHeader .container {
     margin-bottom: 0; }
@@ -7334,7 +7333,7 @@ a:focus {
 #smallHeader2 {
   clip-path: none;
   height: 240px;
-  background-image: url(../images/innerHeaderHero.jpg);
+  background-image: url(../images/innerHeaderHero.png);
   background-repeat: repeat-x;
   background-size: cover;
   background-position: 20% 40%; }
@@ -7635,7 +7634,7 @@ button.gm-ui-hover-effect {
 .mapTitle {
   line-height: 5.1875rem;
   color: #FFF;
-  font-size: 1.875rem; }
+  font-size: 1.75rem; }
 
 .labMapInfo {
   color: #FFF;
@@ -10484,20 +10483,23 @@ table.workingHoursLabDetails {
 #labDashResults {
   margin-top: 3.125rem; }
 
-.agTestCheckbox {
-  background-color: rgba(156, 156, 156, 0.7);
+.agTestCheckbox, .openclosedLegend {
+  background-color: rgba(156, 156, 156, 0.9);
   padding: 12px;
-  border-radius: 1rem;
+  border-radius: 0.625rem;
   font-size: 1.125rem;
   color: #FFF;
   display: inline-flex;
   cursor: pointer;
   position: relative; }
 
-.agTestCheckbox > span {
+.openclosedLegend {
+  display: inline-block; }
+
+.agTestCheckbox > span, .openclosedLegend > span {
   padding-left: 10px; }
 
-.agTestCheckbox > input {
+.agTestCheckbox > input, .openclosedLegend > input {
   height: 25px;
   width: 25px;
   -webkit-appearance: none;
@@ -10511,11 +10513,11 @@ table.workingHoursLabDetails {
   background-color: transparent;
   cursor: pointer; }
 
-.agTestCheckbox > input:checked {
+.agTestCheckbox > input:checked, .openclosedLegend > input:checked {
   border: 1px solid #41B883;
   background-color: #55D159; }
 
-.agTestCheckbox > input:checked + span::before {
+.agTestCheckbox > input:checked + span::before, .openclosedLegend > input:checked + span::before {
   content: '\2713';
   display: block;
   text-align: center;
@@ -10525,7 +10527,7 @@ table.workingHoursLabDetails {
   top: 0.7rem;
   pointer-events: none; }
 
-.agTestCheckbox > input:active {
+.agTestCheckbox > input:active, .openclosedLegend > input:active {
   border: 2px solid #55D159; }
 
 .dashboardResults {

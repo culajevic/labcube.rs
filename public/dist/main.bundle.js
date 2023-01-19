@@ -23395,6 +23395,12 @@ window.onload = function () {
           //when result is found remove loading icon
 
 
+          if (result.analysisName.length == 0) {
+            _resultDiv.innerHTML += '';
+            _resultDiv.innerHTML = "<p class=\"text-center\">Nema rezultata</p>";
+            _loaderWrapper.style.opacity = 0;
+          }
+
           _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
