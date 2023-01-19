@@ -28,8 +28,9 @@ button.gm-ui-hover-effect {
 .mapTitle {
   line-height: px-to-rem(83px);
   color:$white-color;
-  font-size: px-to-rem(30px);
+  font-size: px-to-rem(28px);
 }
+
 
 .labMapInfo {
   color:$white-color;
@@ -223,13 +224,10 @@ button.gm-ui-hover-effect {
   margin-top:px-to-rem(8px);
 }
 
-.labInfoWindow {
-  // flex:1 1 0;
-}
 
 .labInfoWindowAdresa,
 .labInfoWindowGrad,
-.labInfoWindowTelefoni ,  {
+.labInfoWindowTelefoni  {
   font-size: px-to-rem(13px);
   line-height: px-to-rem(17px);
   display: block;

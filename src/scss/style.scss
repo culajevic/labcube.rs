@@ -2184,16 +2184,21 @@ box-shadow: 3px 5px 12px 5px #94818D;
 
 .agTestCheckbox {
   // background-color: rgba(255, 111, 111, 1);
-  background-color: rgba(156, 156, 156, .7);
+  background-color: rgba(156, 156, 156, .9);
   padding:12px;
   // border-bottom-left-radius: 22px;
   // border-bottom-right-radius: 22px;
-  border-radius: px-to-rem(16px);
+  border-radius: px-to-rem(10px);
   font-size: px-to-rem(18px);
   color:$white-color;
   display: inline-flex;
   cursor: pointer;
   position: relative;
+}
+.openclosedLegend {
+  @extend .agTestCheckbox;
+  display:inline-block;
+
 }
 
 .agTestCheckbox > span {

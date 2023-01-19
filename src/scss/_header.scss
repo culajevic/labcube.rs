@@ -51,7 +51,8 @@
   @extend #header;
   clip-path: none;
   height: 240px;
-  background-image: url(../images/innerHeaderHero.jpg);
+  // background-image: url(../images/innerHeaderHero.jpg);
+  background-image: url(../images/innerHeaderHero.png);
   background-repeat: repeat-x;
   background-size: cover;
   background-position: center;
@@ -62,7 +63,7 @@
     position: absolute;
     top:0;
     bottom: 0;
-    opacity: 0.93;
+    // opacity: 0.93;
     width: 100%;
     }
   .container {
@@ -73,7 +74,7 @@
   @extend #header;
   clip-path: none;
   height: 240px;
-  background-image: url(../images/innerHeaderHero.jpg);
+  background-image: url(../images/innerHeaderHero.png);
   background-repeat: repeat-x;
   background-size: cover;
   background-position: 20% 40%;
