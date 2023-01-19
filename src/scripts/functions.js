@@ -459,7 +459,6 @@ exports.searchLab = (searchStr, loaderWrapper, resultDiv) => {
           let flag = true
           resultDiv.innerHTML = ''
 
-
             // result[i].phone.map(phoneNumber => {
             //   phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
             //   return phonesForClick

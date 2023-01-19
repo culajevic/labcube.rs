@@ -579,6 +579,11 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
             helper.renderAnalysisResult(analysis, prices, resultDiv, itemsArray,i)
           }// for end
           //when result is found remove loading icon
+          if (result.analysisName.length == 0) {
+                resultDiv.innerHTML += ''
+                resultDiv.innerHTML = `<p class="text-center">Nema rezultata</p>`
+                loaderWrapper.style.opacity = 0
+          }
           loaderWrapper.style.opacity = 0
         })// data json end
       })//fetch end
@@ -586,12 +591,13 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
     else if (myFilter == 'laboratorija'){
       console.log('pretraga lab sa index strance')
       helper.searchLab(searchStr, loaderWrapper, resultDiv)
+
       }// else end
 
     // if search string is changed on result page
     // let loaderWrapper = document.querySelector('.loader-wrapper')
     innerSearch.addEventListener('input', (e) => {
-      let i
+    let i
       // console.log('searching'+ filter)
     let mapFrame = document.getElementById('mapPrices')
     mapFrame.classList.add('d-none')
