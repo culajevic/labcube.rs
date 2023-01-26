@@ -23000,9 +23000,9 @@ $(window).scroll(function () {
   var height = $(window).scrollTop();
 
   if (height > 200) {
-    $("#smallHeader > .overlay > nav").addClass('fixed-top-background fixed-top'); // priceList.css("top","200px")
+    $("#smallHeader > nav").addClass('fixed-top-background fixed-top'); // priceList.css("top","200px")
   } else {
-    $("#smallHeader > .overlay > nav").removeClass('fixed-top-background fixed-top');
+    $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
     $("#smallHeader").removeAttr('style');
   }
 }); // sticky navigation for side menu

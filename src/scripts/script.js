@@ -152,11 +152,11 @@ $(window).scroll(function(){
   // let priceList = document.getElementById('priceList')
   let height = $(window).scrollTop();
     if(height > 200) {
-      $("#smallHeader > .overlay > nav").addClass('fixed-top-background fixed-top');
+      $("#smallHeader > nav").addClass('fixed-top-background fixed-top');
       // priceList.css("top","200px")
     }
     else {
-      $("#smallHeader > .overlay > nav").removeClass('fixed-top-background fixed-top');
+      $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
       $("#smallHeader").removeAttr('style');
     }
 });
