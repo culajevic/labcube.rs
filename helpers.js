@@ -4,7 +4,8 @@ moment.locale('sr')
 
 // format RS Date
 hbs.registerHelper('formatRsDate', (prop) => {
-  return moment(prop).format('LLL')
+  // return moment(prop).format('LLL')
+  return moment(prop).format('l')
 })
 
 hbs.registerHelper('formatLabScheduleDate', (date,place) => {
