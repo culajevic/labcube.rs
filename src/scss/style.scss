@@ -27,7 +27,7 @@ body {
 
 
 .clappingHands {
-  font-size:40px;
+  font-size:20px;
 }
 
 .ourNames {
@@ -2258,11 +2258,11 @@ box-shadow: -4px 9px 11px -11px rgba(161,151,151,0.67);
 .tableLabResults {
    @extend .table;
    border-collapse: separate;
-   border-spacing: 0 20px;
+   border-spacing: 0 2px;
    td {
      border-top:0;
      border-radius:8px;
-     // height:106px;
+     height:106px;
      height:60px;
      color:rgba(59, 59, 59, 0.8);
      font-size: px-to-rem(20px);

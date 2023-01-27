@@ -1584,13 +1584,13 @@ let interpretationPage = document.getElementById('interpretationId')
         var now = new Date().getTime();
         var timeleft = deadlinesArr[i] - now;
 
-        if (timeleft < 3600000) {
+        if (timeleft < 3600000 && timeleft > 0) {
           document.getElementById(hour[i].id).style.color="red"
           document.getElementById(mins[i].id).style.color="red"
           document.getElementById(secs[i].id).style.color="red"
         }
 
-        if (timeleft < 7200000) {
+        if (timeleft < 7200000 && timeleft > 0) {
           document.getElementById(hour[i].id).style.color="orange"
           document.getElementById(mins[i].id).style.color="orange"
           document.getElementById(secs[i].id).style.color="orange"
@@ -1599,11 +1599,11 @@ let interpretationPage = document.getElementById('interpretationId')
         var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
 
         var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
         var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
 
         // document.getElementById(day[i].id).innerHTML = days + "d "
+
         document.getElementById(hour[i].id).innerHTML = hours + "h "
         document.getElementById(mins[i].id).innerHTML = minutes + "m "
         document.getElementById(secs[i].id).innerHTML = seconds + "s "

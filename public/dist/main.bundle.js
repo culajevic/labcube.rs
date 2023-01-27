@@ -24317,13 +24317,13 @@ window.onload = function () {
           var now = new Date().getTime();
           var timeleft = deadlinesArr[_i5] - now;
 
-          if (timeleft < 3600000) {
+          if (timeleft < 3600000 && timeleft > 0) {
             document.getElementById(hour[_i5].id).style.color = "red";
             document.getElementById(mins[_i5].id).style.color = "red";
             document.getElementById(secs[_i5].id).style.color = "red";
           }
 
-          if (timeleft < 7200000) {
+          if (timeleft < 7200000 && timeleft > 0) {
             document.getElementById(hour[_i5].id).style.color = "orange";
             document.getElementById(mins[_i5].id).style.color = "orange";
             document.getElementById(secs[_i5].id).style.color = "orange";
