@@ -13,8 +13,8 @@
               <td><span class="{{checkPayment this.package this.paid}}" title="Plaćeno"></span></td>
               <td>{{#if this.readyForInterpreatation}}<i class="far fa-thumbs-up success" title="Rezultati su spremni za tumačenje"></i>{{else}}<i class="far fa-hand-paper text-danger" title="Rezultati nisu spremni za tumačenje"></i>{{/if}}</td>
               <td><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></td>
-              <td title="Broj analiza koje se tumače">{{countItems this.analyses}}</td>
-              <td>{{this.id}}</td>
+              {{!-- <td title="Broj analiza koje se tumače">{{countItems this.analyses}}</td> --}}
+              {{!-- <td>{{this.id}}</td> --}}
               <!-- <td>{{this.userId.email}}</td> -->
               <td>{{formatRsDate this.submitedDate}}</td>
               <!-- <td>{{formatRsDate this.deadline}}</td> -->
