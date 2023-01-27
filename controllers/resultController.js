@@ -116,18 +116,19 @@ exports.freeUpload = async (req,res) => {
 
           switch(req.body.package) {
             case '490':
-              packageTime = 48
-              break
-            case '590':
               packageTime = 24
               break
-            case '890':
+            case '590':
               packageTime = 12
+              break
+            case '890':
+              packageTime = 6
               break
             default:
               packageTime = 24
           }
 
+          console.log(req.body)
 
         const uploadResult = new Result({
           userId:req.body.userId,
@@ -450,9 +451,9 @@ requestCheckout()
 
 
       if (data.amount == 590 ) {
-          deadline.setHours(deadline.getHours() + 24)
+          deadline.setHours(deadline.getHours() + 12)
         } else if (data.amount == 490 ) {
-          deadline.setHours(deadline.getHours() + 48)
+          deadline.setHours(deadline.getHours() + 24)
         } 
 
 
@@ -517,16 +518,16 @@ requestCheckout()
 
     switch(data.amount) {
       case '490.00':
-        packageTime = 48
-        break
-      case '590.00':
         packageTime = 24
         break
-      case '890.00':
+      case '590.00':
         packageTime = 12
         break
+      case '890.00':
+        packageTime = 6
+        break
       default:
-        packageTime = 12
+        packageTime = 24
     }
 
        try {

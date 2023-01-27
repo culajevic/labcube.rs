@@ -184,7 +184,7 @@ sortByPriority = {priority:-1}
       res.render('index',{
         title:'Uporedi cene laboratorijskih analiza i ostvari popust do 30%.',
         faqtitle:'Najčešće postavljana pitanja',
-        metaDescription:'Uporedi cene laboratorijskih analiza i ostvari popust do 30%',
+        metaDescription:'Uporedi cene i prosledi potrebne analize odabranoj laboratoriji, ostvari popust i pravo na besplatno tumačenje rezultata. Svi tvoji rezultati su na jednom mestu.',
         metaKeywords:'Poređenje cena laboratorijskih analiza, Biohemijske analize, laboratorije, tumačenje rezultata, krvna slika, online patronaža',
         groups,
         faqFP,

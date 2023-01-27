@@ -7,7 +7,7 @@
           <li class="list-group-item city">
             <span class="d-block mb-2">Gde radite analize?</span>
             <select class="form-control" id="municipality">
-             <option selected>odaberite opštinu</option>
+              <option selected>odaberite opštinu</option>
                 <option value="Aleksinac">Aleksinac</option>
                 <option value="Apatin">Apatin</option>
                 <option value="Aranđelovac">Aranđelovac</option>
@@ -126,7 +126,6 @@
 </div>
 
 <header id="smallHeader">
-  <div class="overlay">
   <nav class="navbar navbar-expand-md navbar-dark mb-auto">
     <div class="container">
       <a href="/" class="navbar-brand"><img src="/images/logoSmallSlice.svg" alt="labcube"></a>
@@ -135,12 +134,9 @@
       </button>
       <div class="collapse navbar-collapse my-1" id="navbarCollapse">
         <ul class="navbar-nav ml-auto ">
-          <li class="nav-item">
+          {{!-- <li class="nav-item">
             <a href="/zakazivanje-patronaze" class="nav-link"><img src="/images/patronaza2.svg" class="filter-white mb-1 mr-2"> Zakaži patronažu</a>
-          </li>
-          <li class="nav-item">
-            <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="nav-link"><i class="far fa-comments"></i>Tumačenje rezultata</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="https://labcube.rs/#google-map" class="nav-link" id="allLabsAnchor"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
@@ -155,9 +151,9 @@
           <li class="nav-item">
             <a href="/prijava" class="nav-link"><i class="fa fa-user"></i>Prijava</a>
           </li>
-          <li class="nav-item">
+          {{!-- <li class="nav-item">
             <a href="/registracija" class="nav-link"><i class="fas fa-user-plus"></i> Registracija</a>
-          </li>
+          </li> --}}
           {{/if}}
           <li class="nav-item">
             <button class="nav-link checkout">0</button>
@@ -166,13 +162,12 @@
       </div><!-- collapse -->
     </div><!-- container end -->
   </nav><!-- nav end -->
-</div>
   <!-- logo  -->
      <h2 class="logoFull text-white text-center p-4 mt-5">Prvi online servis za tumačenje laboratorijskih nalaza</h2> 
 
 
 
-   <div class="container searchFieldContainerInner">
+   {{!-- <div class="container searchFieldContainerInner">
     <form>
       <div class="row">
         <div class="col-sm-12 col-lg-8 mx-auto ">
@@ -185,5 +180,5 @@
         </div> <!-- searchField -->
       </div><!-- row -->
     </form><!-- form end -->
-  </div><!-- container -->
+  </div><!-- container --> --}}
 </header><!-- header end -->

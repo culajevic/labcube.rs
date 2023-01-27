@@ -69,8 +69,9 @@ exports.scheduleVisit = async (req,res) => {
   let getLabData = await Lab.find({_id:labId},{email:1, comment:1, labName:1, address:1, workingHours:1, phone:1, slug:1}).populate('placeId')
   let getEmailforSending =  getLabData[0].email
   let discountCode = getLabData[0].comment
-  let getUserData = await User.find({_id:req.user._id}, {email:1})
+  let getUserData = await User.find({_id:req.user._id}, {email:1, username:1})
   let getUserEmail = getUserData[0].email
+  let getUserName = getUserData[0].username
   
   // console.log(getLabData[0].workingHours['monday'].opens)
 
@@ -120,10 +121,10 @@ exports.scheduleVisit = async (req,res) => {
     from:'LabCube <labcube-tumacenje-no-reply@labcube.rs>',
     to:[getEmailforSending],
     bcc:'culajevic@gmail.com',
-    subject:`Novi pacijent | ${getEmailforSending}`,
+    subject:`Novi pacijent | ${getEmailforSending} | ${getUserName} `,
     text:`Potrebne analize \n ${getBullets} \n ukupna cena je ${total} \n labcube.rs` ,
     html:`
-    <h1>Novi LabCube pacijent</h1>
+    <h1>Novi LabCube pacijent | ${getUserName}</h1>
     <h2>Ukupna cena ${total} din.</h2>
     <h2>Potrebne analize</h2>
     <ol>${getBullets.join(' ')}</ol>

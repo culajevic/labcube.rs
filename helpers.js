@@ -346,16 +346,16 @@ hbs.registerHelper('displayPackageTime', package => {
   let packageTime
   switch(package) {
     case '490':
-      packageTime = 48
-      break;
-    case '590':
       packageTime = 24
       break;
-    case '890':
+    case '590':
       packageTime = 12
       break;
+    case '890':
+      packageTime = 6
+      break;
     default:
-      packageTime = '12'
+      packageTime = '24'
   }
   return packageTime
 })
