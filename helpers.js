@@ -5,7 +5,7 @@ moment.locale('sr')
 // format RS Date
 hbs.registerHelper('formatRsDate', (prop) => {
   // return moment(prop).format('LLL')
-  return moment(prop).format('l')
+  return moment(prop).format('lll')
 })
 
 hbs.registerHelper('formatLabScheduleDate', (date,place) => {
@@ -137,7 +137,7 @@ hbs.registerHelper('increment', (index) => {
 //display phones list on lab details page
 hbs.registerHelper('displayPhoneList', (phones) => {
   let phonesNewList = []
-  for (i=0; i<phones.length; i++) {
+  for (let i=0; i<phones.length; i++) {
     phonesNewList = phones.join(', ')
     }
 return phonesNewList

@@ -421,7 +421,7 @@ exports.verify = (req,res) => {
 }
 
 exports.verifyToken = async (req, res) => {
-  if(req.body.emailToken.length<4 || req.body.emailToken.length>5) {
+  if(req.body.emailToken.length<3 || req.body.emailToken.length>5) {
     req.flash('error_msg', 'Kod za verifikaciju nije ispravan, pokušajte ponovo')
     res.redirect('/verify')
   } else {

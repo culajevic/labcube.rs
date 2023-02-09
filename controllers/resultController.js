@@ -128,7 +128,6 @@ exports.freeUpload = async (req,res) => {
               packageTime = 24
           }
 
-          console.log(req.body)
 
         const uploadResult = new Result({
           userId:req.body.userId,

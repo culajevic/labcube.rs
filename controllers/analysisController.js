@@ -53,6 +53,7 @@ exports.allAnalysis = [authCheck, async (req,res) => {
     {$project:{groupName:'$group.name',
               analysisName:'$analysisName',
               preview:'$preview',
+              date:'$date',
               writtenByfirstName:'$writtenBy.firstName',
               writtenBylastName:'$writtenBy.lastName'}},
     {$sort:{groupName:1, analysisName:1}}
