@@ -9,4 +9,5 @@ keys.js
 *.jpg
 *.jpeg
 *.mp4
+*.mov
 src/results/
