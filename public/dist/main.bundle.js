@@ -23399,9 +23399,9 @@ window.onload = function () {
             _resultDiv.innerHTML += '';
             _resultDiv.innerHTML = "<p class=\"text-center\">Nema rezultata</p>";
             _loaderWrapper.style.opacity = 0;
+          } else {
+            _loaderWrapper.style.opacity = 0;
           }
-
-          _loaderWrapper.style.opacity = 0;
         }); // data json end
       }); //fetch end
     } // if my filter==analiza

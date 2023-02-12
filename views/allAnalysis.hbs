@@ -8,6 +8,7 @@
           <tr>
             <!-- <th scope="col">id</th> -->
             <th scope="col">Naziv</th>
+             <th scope="col">Datum</th>
             <th scope="col">Grupa</th>
             <th scope="col">Opis</th>
             <th scope="col">Uređuje</th>
@@ -15,8 +16,10 @@
         </thead>
         <tbody>
           {{#each allAnalysis}}
+ 
           <tr>
             <td>{{this.analysisName}}</td>
+            <td>{{formatRsDate this.date}}</td>
             <td>{{this.groupName}}</td>
             <td>{{this.preview}}</td>
             <td>{{this.writtenByfirstName}} {{this.writtenBylastName}}</td>

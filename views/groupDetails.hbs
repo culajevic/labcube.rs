@@ -26,7 +26,8 @@
                   <a class="text-muted">{{this.name}}</a></td>
               {{/if}}
               <!-- <td>{{#each abbr}} {{this}} {{/each}}</td> -->
-              <td class="d-none d-sm-table-cell">{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
+          
+              <td class="d-none d-sm-table-cell">{{#each abbr}}{{displayPhoneList this}}{{/each}}</td>
 
               {{#if this.availableHC.[0]}}
                 <td class="d-none d-sm-table-cell"><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>

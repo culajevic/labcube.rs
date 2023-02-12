@@ -583,8 +583,10 @@ if (document.getElementById('results')!=null && location != '/o-nama/' && locati
                 resultDiv.innerHTML += ''
                 resultDiv.innerHTML = `<p class="text-center">Nema rezultata</p>`
                 loaderWrapper.style.opacity = 0
+          } else {
+            loaderWrapper.style.opacity = 0
           }
-          loaderWrapper.style.opacity = 0
+          
         })// data json end
       })//fetch end
     }// if my filter==analiza
