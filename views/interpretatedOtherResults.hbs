@@ -13,24 +13,19 @@
         {{#each findOtherResult}}
         <!-- <div class="userDetails mt-4" > -->
 
-        <div class="col-9 py-4">
-
+        {{!-- <div class="col-9 py-4">
           <form action="/uploadResultFile/{{this.id}}" method="POST" class="mt-4" enctype="multipart/form-data">
-          <!-- <div class="form-group col-4">
-            <small class="form-text text-muted">Upload rezultata</small>
-            <input type="file" name="fileResult" class="form-control pl-0"  value="" placeholder="rezultati">
-          </div> -->
           <div class="custom-file mt-1">
               <input type="file" id="uploadResults" name="fileResult" class="custom-file-input" placeholder="odaberite fajl"/>
               <label for="uploadResults" class="custom-file-label">Upload rezultata</label>
           </div>
           <button class="btn btn-block btn-outline-info mt-2 mb-5">Upload</button>
         </form>
-        </div>
+        </div> --}}
 
         <div class="col-3 py-5">
             {{!-- <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div> --}}
-          <form class="float-right pr-4" action="" method="post" id="lockTheRecord">
+          <form class="pr-4" action="" method="post" id="lockTheRecord">
                 <label class="chckBoxCustom">
                 <input type="checkbox" name="owner" value="{{../user.id}}" id="zakljucaj" {{#if this.owner}} checked="checked"{{/if}}>
                 <span class="checkmark"></span>
@@ -67,17 +62,17 @@
           {{/if}}
 
 
-        <div class="col-4 my-4">
+        <div class="col-12 col-sm-4 my-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/birthYearProfileData.svg"  class="profileDataIcons" alt="">
           </div>
-          <div class=" float-left d-inline pl-2">
+          <div class="float-left d-inline pl-2">
             <span>Godina rođenja</span>
                 <input type="number" class="d-block mt-2 profilePersonalData" id="godinaRodjenja" name="godinaRodjenja" value={{this.userId.birthYear}} placeholder="Godina rođenja" readonly>
           </div>
         </div>
 
-        <div class="col-4 my-4">
+        <div class="col-12 col-sm-4 my-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/cellphoneProfileData.svg" class="profileDataIcons" alt="">
           </div>
@@ -88,7 +83,7 @@
           </div>
         </div>
 
-        <div class="col-4 my-4">
+        <div class="col-12 col-sm-4 my-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/genderProfileData.svg" class="profileDataIcons" alt="">
           </div>
@@ -103,7 +98,7 @@
         </div>
 
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/heightHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -113,7 +108,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/weightHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -123,7 +118,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/bmiHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -133,7 +128,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/smokingHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -147,7 +142,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/alchocolHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -161,7 +156,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/bloodPressureHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -175,12 +170,12 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/foodHelthData.svg" class="profileDataIcons" alt="">
           </div>
           <div class=" float-left d-inline pl-2">
-            <span>Kakva je ishrana pacijenta?</span>
+            <span>Ishrana pacijenta?</span>
             <select class="d-block profilePersonalData mt-2" name="ishrana" disabled>
               <option class="" value="Odaberite" {{#if (checkBox this.userId.nutrition 'Odaberite')}} selected {{/if}}>Odaberite</option>
               <option class="" value="Zdrava" {{#if (checkBox this.userId.nutrition 'Zdrava')}} selected {{/if}}>Zdrava</option>
@@ -190,7 +185,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/stressHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -204,7 +199,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/exserciseHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -214,7 +209,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/sugarHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -228,7 +223,7 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/foodSuplementHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -242,11 +237,11 @@
           </div>
         </div>
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/therapyHelthData.svg" class="profileDataIcons" alt="">
           </div>
-          <div class=" float-left d-inline pl-2">
+          <div class="float-left d-inline pl-2">
             <span>Trenutno na terapiji?</span>
             <select class="d-block profilePersonalData mt-2" name="terapija" id="therapy" disabled>
               <option class="" value="Odaberite" {{#if (checkBox this.userId.therapy 'Odaberite')}} selected {{/if}}>Odaberite</option>
@@ -257,13 +252,13 @@
         </div>
 
         {{#if (empty this.userId.therapyComment)}}
-        <div class="col-12 mt-5" id="therapyComment">
+        <div class="col-12  mt-4" id="therapyComment">
             <label for="therapyComment">Trenutna terapija komentar</label>
             <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" placeholder="Napišite koju terapiju uzimate." disabled>{{this.userId.therapyComment}}</textarea>
         </div>
         {{/if}}
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/currentStatusHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -284,7 +279,7 @@
         </div>
 
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/famillyHelthData.svg" class="profileDataIcons" alt="">
           </div>
@@ -310,7 +305,7 @@
 
         {{#if (checkGender this.userId.gender)}}
 
-        <div class="col-4 mt-5">
+        <div class="col-12 col-sm-4 mt-4">
           <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
             <img src="/images/menstruationHelthData.svg" class="profileDataIcons" alt="">
           </div>

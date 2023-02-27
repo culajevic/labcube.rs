@@ -134,7 +134,8 @@ exports.freeUpload = async (req,res) => {
           email:req.body.email,
           status:'pending',
           result:req.file.filename,
-          package:req.body.package,
+          // package:req.body.package,
+          package:packageTime,
           paid:0,
           userComment:req.body.userComment,
           submitedDate: Date.now(),
@@ -148,11 +149,12 @@ exports.freeUpload = async (req,res) => {
           let mailOptions = {
             from:req.body.email,
             to:['tumacenje@labcube.rs', 'culajevic@labcube.rs'],
-            subject:'Novi rezultati za tumačenje',
+            subject:`Novi rezultati za tumačenje | ${packageTime}h`,
             text:'',
             html:`
-            id: ${uploadResult._id} \n
-            vreme:${req.body.package}`,
+            <h2>id tumačenja: ${uploadResult._id} </h2><br /><br />
+            <h2>vreme za tumačenje:${packageTime}h </h2><br /><br />
+            <h2>Pogledaj rezultate</h2> `,
             attachments:[{
               filename:req.file.filename,
               path:req.file.path

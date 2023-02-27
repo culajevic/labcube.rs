@@ -7374,6 +7374,10 @@ a:focus {
   align-self: center;
   position: absolute; }
 
+.logoFullAdmin {
+  align-self: center;
+  position: absolute; }
+
 .logoFullInner {
   align-self: center;
   position: absolute;
@@ -10788,6 +10792,9 @@ table.workingHoursLabDetails {
     font-size: 1.8rem; }
   .logoFull {
     width: 100%; }
+  .logoFullAdmin {
+    align-self: center;
+    position: absolute; }
   .logoFullInner {
     width: 80%; }
   #sidebarMenu {
@@ -10884,7 +10891,8 @@ table.workingHoursLabDetails {
     font-size: 1.5rem;
     text-align: center; }
   .logoFull {
-    width: 100%; }
+    align-self: center;
+    position: absolute; }
   .logoFullInner {
     width: 80%; }
   .altNameResult, .groupNameResult, .hospitalResult {
@@ -10983,7 +10991,8 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
   .logoFull {
-    width: 100%;
+    align-self: center;
+    position: absolute;
     margin-bottom: 0.625rem; }
   .logoFullInner {
     width: 80%; }
@@ -11226,7 +11235,8 @@ table.workingHoursLabDetails {
     margin: 0 auto;
     float: clear; }
   .logoFull {
-    width: 100%; }
+    align-self: center;
+    position: absolute; }
   .logoFullInner {
     width: 80%; } }
 

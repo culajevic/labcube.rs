@@ -57,7 +57,14 @@
 
   .logoFull {
     width: 100%;
+    
   }
+
+  .logoFullAdmin {
+    align-self: center;
+    position: absolute;
+  }
+  
   .logoFullInner {
     width: 80%;
   }
@@ -232,7 +239,9 @@
   }
 
   .logoFull {
-    width: 100%;
+    // width: 100%;
+    align-self: center;
+    position: absolute;
   }
   .logoFullInner {
     width: 80%;
@@ -411,7 +420,9 @@
 
   .logoFull {
     // width: 70%;
-    width: 100%;
+    // width: 100%;
+    align-self: center;
+    position: absolute;
     margin-bottom:px-to-rem(10px);
     // margin:0 auto;
   }
@@ -831,7 +842,9 @@
   }
   .logoFull {
     // width: 70%;
-    width: 100%;
+    // width: 100%;
+    align-self: center;
+    position: absolute;
     // margin-bottom:px-to-rem(80px);
     // margin:0 auto;
   }
