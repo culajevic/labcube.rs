@@ -313,7 +313,7 @@ exports.scheduleVisit = async (req,res) => {
 	*/
 		#templateHeader{
 			/*@editable*/background-color:#f7f7f7;
-			/*@editable*/background-image:url("https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/9777e8fa-eee9-7ee2-9afb-f4e5ec7d0239.png");
+			/*@editable*/background-image:url("https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/c0fb8818-1c0c-41b1-a9ae-7db43f482310.png");
 			/*@editable*/background-repeat:no-repeat;
 			/*@editable*/background-position:center;
 			/*@editable*/background-size:cover;
@@ -686,11 +686,11 @@ exports.scheduleVisit = async (req,res) => {
                         
                         <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 200%;">
                         
-                            <h2 style="text-align: center;"><span style="font-size:20px">Laboratorija <span style="color:#1D88E5;"><a href="${req.get('referer')}" style="text-decoration:none;">${getLabData[0].labName}</a> Vas očekuje.</span></h2>
+                            <h2 style="text-align: center;"><style="font-size:20px;">Laboratorija <span style="color:#1D88E5;"><a href="${req.get('referer')}" style="text-decoration:none;">${getLabData[0].labName}</a></span> Vas očekuje!</h2>
 &nbsp;
 
-<p style="line-height: 200%;"><span style="font-size:18px"><img data-file-id="6005129" height="18" src="https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/e8d426a8-ac5d-fdfd-90c0-f01d6f11be9a.png" style="border: 0px  ; width: 17px; height: 18px; margin: 0px;" width="17"> ${getLabData[0].address}, ${getLabData[0].placeId.place}<br>
-<img data-file-id="6005133" height="18" src="https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/c8f09b5b-8a6c-2f04-65ca-c09acabd4a6a.png" style="border: 0px  ; width: 10px; height: 18px; margin: 0px;" width="10"> ${getLabData[0].phone}</span></p>
+<p style="line-height: 200%;"><span style="font-size:18px"><img data-file-id="6005129" height="18" src="https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/e8d426a8-ac5d-fdfd-90c0-f01d6f11be9a.png" style="border: 0px  ; width: 17px; height: 18px; margin: 0px; margin-bottom:-3px;" width="17"> ${getLabData[0].address}, ${getLabData[0].placeId.place}<br>
+<img data-file-id="6005133" height="18" src="https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/c8f09b5b-8a6c-2f04-65ca-c09acabd4a6a.png" style="border: 0px  ; width: 10px; height: 18px; margin: 0px; margin-left:1px; margin-bottom:-3px; margin-right:5px;" width="10"> ${getLabData[0].phone}</span></p>
 
                         </td>
                     </tr>
@@ -843,10 +843,10 @@ exports.scheduleVisit = async (req,res) => {
                         
                         <td style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:18px;">
                         
-                            <table border="0" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #1D88E5;">
+                            <table border="0" cellspacing="0" class="mcnTextContentContainer" width="100%" style="min-width: 100% !important;background-color: #1D88E5; border-radius: 7px; line-height:16px;">
                                 <tbody><tr>
                                     <td valign="top" class="mcnTextContent" style="padding: 18px;color: #F2F2F2;font-family: Helvetica;font-size: 14px;font-weight: normal;text-align: center;">
-                                        <span style="font-size:28px">${total} din. </span><span style="font-size:19px">+ trošak uzimanja uzorka</span>
+                                        <span style="font-size:32px">${total} din. </span><br /><span style="font-size:19px;">+ trošak uzimanja uzorka</span>
                                     </td>
                                 </tr>
                             </tbody></table>
@@ -1032,7 +1032,7 @@ exports.scheduleVisit = async (req,res) => {
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                         
-                            <div style="text-align: center;"><span style="font-size:12px">Informacione tehnologije Nouvelle doo, 16. Oktobar 19, 11000 Beograd</span></div>
+                            <div style="text-align: center;"><span style="font-size:10px">Informacione tehnologije Nouvelle doo, 16. Oktobar 19, 11000 Beograd</span></div>
 
                         </td>
                     </tr>
