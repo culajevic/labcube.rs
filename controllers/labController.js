@@ -480,7 +480,7 @@ exports.sendFeedback = async (req,res) => {
 }
 
 
-exports.allComments = async (req,res) => {
+exports.allComments = [authCheck, async (req,res) => {
   let allComments = await Lab.aggregate([
     {$unwind:'$commentSection'},
     {$match:{'commentSection.approved':false}},
@@ -488,7 +488,7 @@ exports.allComments = async (req,res) => {
     {$project:{commentSection:1, labName:1, user:1}}
   ])
   res.render('allComments', {allComments, title:'Uređivanje komentara'})
-}
+}]
 
 exports.approveComment = async (req,res) => {
 
