@@ -9,6 +9,13 @@ const moment = require('moment')
 const ObjectId = mongoose.Types.ObjectId
 moment.locale('sr')
 
+const authCheck = (req,res, next) => {
+  if(!req.user) {
+    res.render('signin', {title:'LabCube | Prijavite se'})
+  } else {
+    next()
+  }
+}
 
 exports.priceMissing = async (req,res) => {
   let allAnalysis = []
@@ -93,11 +100,11 @@ exports.analysispriceMissing = async (req,res) => {
 
 }
 
-exports.getAllUsers = async (req,res) => {
+exports.getAllUsers = [authCheck, async (req,res) => {
   let allUsers = await Users.find({}).sort({signupDate:-1})
   let number = allUsers.length
   res.render('allUsers', {allUsers, title:'Korisnici', number})
-}
+}]
 
 exports.priceAnalysis = async (req,res) => {
   // koliko ima cenovnika za koju analizu trenutno proverava koliko labova radi krvnu sliku
