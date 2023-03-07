@@ -10,7 +10,7 @@ const ObjectId = mongoose.Types.ObjectId
 moment.locale('sr')
 
 const authCheck = (req,res, next) => {
-  if(!req.user) {
+  if(req.user.admin != 1) {
     res.render('signin', {title:'LabCube | Prijavite se'})
   } else {
     next()
