@@ -13,7 +13,7 @@ const path = require('path')
 const mime = require('mime-types')
 
 const authCheck = (req,res, next) => {
-  if(!req.user) {
+  if(req.user.admin != 1) {
     res.redirect('/prijava')
   } else {
     next()
