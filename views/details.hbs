@@ -5,33 +5,33 @@
     <div class="row" >
       <div class="col-12">
         <p class="float-left mb-0 pb-0"><a href="/" class="small">Početna</a> <span class="text-primary small"> / </span> <a href="/group/{{analysisDetails.groupId.slug}}" class="small">{{analysisDetails.groupId.name}}</a></p>
-
       </div>
+      
       <div class="col-md-12 col-lg-9 mt-5">
 
         <!-- header -->
-
-        <p class="">
-          <!-- <span class="titleDetails mx-4">{{minPrice.cenovnik.[0].cena}} - {{maxPrice.cenovnik.[0].cena}}</span> -->
-          {{#each prices}}
-          <span class="titleDetails mr-2" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"><small class="text-muted">Cena u privatnim laboratorijama u Srbiji za {{../analysisDetails.analysisName}} je od {{minPrice}} - {{maxPrice}}</small></span>
-          {{/each}}
-          {{!-- <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a> --}}
-          <button class="btn btn-outline-success text-uppercase  float-right btn-block text-uppercase  mt-2 mt-sm-auto addAnalysis" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">proveri cenu</button>
-        </p>
-
-        <div class="float-left">
-          <h1 class="headTitle mt-4">{{analysisDetails.analysisName}}</h1>
-
+          <div class="">
+          <h1 class="headTitle">{{analysisDetails.analysisName}}</h1>
           <ul>
             {{#each analysisDetails.abbr}}
               <li>{{this}}</li>
             {{/each}}
-            <!-- {{#each analysisDetails.alt}}
-              <li>{{this}}</li>
-            {{/each}} -->
           </ul>
         </div>
+
+        <div class="col-12 mb-3 text-center" style="background-color:#5B8EE8; border-radius:5px; padding:10px; color:white; font-size:24px;">
+          {{#each prices}}
+          <span class="d-inline-block text-center" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"><h5>Cena u privatnim laboratorijama za {{../analysisDetails.analysisName}} je od </span>
+          <span class="d-inline-block">{{minPrice}} - {{maxPrice}} din.<span></h5></span>
+          {{/each}}
+        </div>
+         <div class="col-12 p-0 text-center mb-5">
+          {{!-- <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a> --}}
+          <button class="btn text-uppercase btn-danger btn-block text-uppercase mt-2 mt-sm-auto addAnalysis" id="comparePrice" style="font-size:18px;" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cenu <i class="fa fa-search" aria-hidden="true"></i></button>
+          {{!-- <button class="btn btn-outline-danger text-uppercase text-center btn-block text-uppercase mt-2 mt-sm-auto" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cene</button> --}}
+        </div>
+
+      
         {{#if (empty analysisDetails.preview)}}
         {{! display abbr}}
 
@@ -48,20 +48,18 @@
             <p>{{{analysisDetails.examination}}}</p>
           </li>
 
-
-
           <li>
             <h5 id="priprema">Priprema</h5>
             <p>{{{analysisDetails.preparation}}}</p>
           </li>
 
-
           <li>
             <h5 id="detaljanOpis">Detaljan opis</h5>
             <p>{{{analysisDetails.description}}}</p>
           </li>
-         
 
+          {{!-- banner za mob verziju --}}
+          {{!-- <img src="/images/banners/Baner-320x100.jpg" class="mb-4" style="width:100%;"> --}}
 
           <div class="d-flex flex-column flex-lg-row">
             {{#if (notBlank analysisDetails.low)}}
@@ -132,6 +130,7 @@
             {{/each}}
           </ul>
       </div> <!-- col-lg-8 -->
+
 
 
       {{> _sidebar}}

@@ -7170,6 +7170,12 @@ body {
 .smallText {
   color: #9C9C9C; }
 
+input.consentCheck {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 3px; }
+
 a:link,
 a:visited,
 a:hover,
@@ -10715,11 +10721,16 @@ table.workingHoursLabDetails {
 .__editorImage {
   width: 15rem; }
 
-.addAnalysis, .deleteAnalysis {
-  width: 7.8125rem; }
-
 .analysisBasketLiItem:hover {
   color: #6b6b6b; }
+
+.fixed-top-price {
+  position: fixed;
+  top: 62px;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  display: block; }
 
 .alert {
   margin-bottom: 0; }
