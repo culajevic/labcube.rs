@@ -158,7 +158,7 @@
 
 
                 <div class="col-12 text-center">
-                  <small class="smallText"><sup>*</sup>Ukoliko ste izvršili uplatu za određeni vremenski paket garantujemo Vam da će Vaši rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. Ukoliko ste iskoristili kod za besplatno tumačenje rezultata, okvirno vreme za tumačenje rezultata je 24h a taj rok može biti i veći u zavisnosti od broja zahteva na kojima trenutno radimo. </small>
+                  <small class="smallText"><sup>*</sup>Ukoliko ste izvršili uplatu za određeni vremenski paket garantujemo ti da će tvoji rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možeš očekivati tumačenje. Moguće je dobiti tumačenje i znatno pre tog roka. Ukoliko je iskorišćen kod za besplatno tumačenje rezultata, okvirno vreme za tumačenje rezultata je 24h a taj rok može biti i veći u zavisnosti od broja zahteva na kojima trenutno radimo. </small>
                 </div>
 
                 <div class="col-12 text-center mt-5" id="paymentConsent">
@@ -209,9 +209,6 @@
 
                   <div class="d-none d-md-block col-sm-12 mt-5 col-md-5 col-lg-5 position-relative">
                       <img data-lazy="/images/microscope.svg" class="functionalityIconsInterpretation microscopeFunc imgLazy">
-                      {{!-- <div class="text-center priceFrom">
-                        od 490din.
-                      </div> --}}
                   </div>
 
                   <div class="col-12 col-sm-12 col-md-12 col-lg-7 py-2 d-flex flex-column justify-content-center textLazy">
@@ -250,9 +247,9 @@
        
                 </form> --}}
                 {{!-- <h2 class="mx-auto mt-5">Vreme za koje je moguće dobiti protumačene rezultate</h2> --}}
-                <div class="d-flex flex-wrap mt-5 mx-auto" id="odabirPaketa">  
+                {{!-- <div class="d-flex flex-wrap mt-5 mx-auto" id="odabirPaketa">   --}}
                     
-                    <div class="card paymentSteps disabledInterpretation">
+                    {{!-- <div class="card paymentSteps disabledInterpretation">
                       <div class="card-body">
                         <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                         <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
@@ -260,9 +257,9 @@
                         <input type="radio" name="package" value=490 id="t24" disabled {{#if (checkBox package 490)}} checked {{/if}}/>
                         <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio" disabled>trenutno nedostupno</label>
                       </div>
-                    </div>                    
+                    </div>                     --}}
                         
-                    <div class="card paymentSteps ml-md-3 ml-lg-3 disabledInterpretation">
+                    {{!-- <div class="card paymentSteps ml-md-3 ml-lg-3 disabledInterpretation">
                       <div class="card-body">
                         <div class="najpopularnije">najpopularnije</div>
                         <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
@@ -271,23 +268,13 @@
                         <input type="radio" name="package" value=590 id="t12" class="disabledInterpretation" disabled {{#if (checkBox package 590)}} checked {{/if}} />
                         <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                       </div>   
-                    </div>
+                    </div> --}}
 
                         
 
-                    <div class="card paymentSteps  ml-md-1 ml-lg-3 disabledInterpretation">
-                        <div class="card-body">
-                          {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
-                          <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                          <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
-                          <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                          <input type="radio" name="package" value=890 id="t4" class="disabledInterpretation" disabled  {{#if (checkBox package 890)}} checked {{/if}} />
-                          <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
-                        </div>
-                    </div>  
+
                     
-                </div>
+                {{!-- </div> --}}
 
                 
             
@@ -302,7 +289,8 @@
                 </div> --}}
 
                 {{/if}}
-              </div><!-- row end -->
+              </div>
+              <!-- row end -->
               <section class="mt-5">
 
                
