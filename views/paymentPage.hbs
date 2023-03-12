@@ -26,7 +26,7 @@ showLabels:false,
 requireCvv: true,
 showCVVHint: true,
 showLabels:false,
-maskCvv: true,
+maskCvv: false,
 showPlaceholders:true,
 autofocus: 'card.number',
 labels:{billingAddress:"Adresa za naplatu"},
@@ -44,8 +44,8 @@ $('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner 
 
 $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
 $(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
-$('.wpwl-button-pay').html('Plati'); //promena polja pay u potvrdi
-$('.wpwl-button-pay').after('<small>Nakon što izvršite plaćanje sačekajte potvrdu o izvršenju transakcije</small>'); //promena polja pay u potvrdi
+$('.wpwl-button-pay').html('Uplati'); //promena polja pay u potvrdi
+$('.wpwl-button-pay').after('<small style="color:red; font-weight:bold; font-size:16px; text-align:center;">Nakon što izvršite plaćanje sačekajte potvrdu o izvršenju transakcije</small>'); //promena polja pay u potvrdi
 $('.wpwl-button-pay').css({'background-color':'#55D159'});
 
 

@@ -1,6 +1,7 @@
 {{!-- stranica za upload fajlova za tumacenje rezultata --}}
+
 {{#each errors}}
-  <div class="alert alert-danger text-center alert-dismissible fade show">{{text}}
+  <div class="alert alert-danger text-center alert-dismissible fade show" style="position:relative; z-index:222222;">{{text}}
   <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>
   </div>
 {{/each}}
@@ -52,10 +53,10 @@
 
                 <div id="odabirPaketa" class="d-flex flex-wrap mx-auto col-12 p-0">
 
-                  <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p>
+                  {{!-- <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p>
                   <p class="generalInformation float-left ml-2">Umesto da pitaš Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
-                  <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p>
-                  <p class="generalInformation float-left ml-2">Ukoliko imaš kod za besplatno tumačenje unesi ga ovde</p>
+                  <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p> --}}
+                  <p class="generalInformation float-left ml-2  mt-4">Ukoliko imaš kod za besplatno tumačenje unesi ga ovde</p>
                   <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
                     {{!-- kod za popust --}}
@@ -66,14 +67,16 @@
                           <button class="btn btn-outline-success" type="button" id="codeCheck">Primeni kôd</button>
                         </div>
                     </div>
-                    <p class="generalInformation ml-2 my-5">Ukoliko želiš da ubrzaš tumačenje tvojih rezultata, to možeš uraditi odabirom vremena za koje želiš da dobiješ tumačenje.</p>
+                    
+                    {{!-- <p class="generalInformation ml-2 my-5">Ukoliko želiš da ubrzaš tumačenje tvojih rezultata, to možeš uraditi odabirom vremena za koje želiš da dobiješ tumačenje.</p> --}}
                     {{!-- add class disabledInterpretation if you want to close it --}}
+                      <div class="col-12 mt-5" id="firstStep"><p>Odaberi vreme za tumačenje</p></div>
                      <div class="card paymentSteps ">
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
                             <span class="text-center paketiCena">490 din.</span>
-                            <input type="radio" name="package" value=490 id="t24" disabled {{#if (checkBox package 490)}} checked {{/if}} />
+                            <input type="radio" name="package" value=490 id="t24"  {{#if (checkBox package 490)}} checked {{/if}} />
                             <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
                           </div>
                       </div>                    
@@ -84,7 +87,7 @@
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
                           <span class="text-center paketiCena">590 din.</span>
-                          <input type="radio" name="package" value=590 id="t12" disabled {{#if (checkBox package 590)}} checked {{/if}}/>
+                          <input type="radio" name="package" value=590 id="t12"  {{#if (checkBox package 590)}} checked {{/if}}/>
                           <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
                         </div>   
                       </div>
@@ -98,7 +101,7 @@
                             <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                            <input type="radio" name="package" value=890 id="t4" disabled {{#if (checkBox package 890)}} checked {{/if}}/>
+                            <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
                             <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
                             {{!-- <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label> --}}
                           </div>
@@ -117,50 +120,57 @@
 
                     
                       {{!-- ovo odkomentarisati --}}
-                      <div class="card paymentSteps mr-3 col-12" id="resultForUpload">
+                      <div class="col-12 mt-4"><p>Odaberi rezultat za tumačenje (pdf, jpg, jpeg, png) 5MB max.</p></div>
+                     
+                      {{!-- <div class="card paymentSteps mr-3 col-12" id="resultForUpload">
                         <div class="card-body">
                           <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Odaberi rezultate </p>
                           <span class="text-center paketiCena">max 5MB</span>
-                          <small class="text-muted text-center fileTypes">pdf, jpg, jpeg, png</small>
-                          <div class="custom-file mt-4">
+                          <small class="text-muted text-center fileTypes">pdf, jpg, jpeg, png</small> --}}
+                          <div class="custom-file mb-4">
                               <input type="file" id="uploadResults" multiple name="result" class="custom-file-input" placeholder="odaberite fajl"/>
                               <label for="uploadResults" class="custom-file-label"></label>
                           </div>
-                        </div>
-                      </div>
+                        {{!-- </div>
+                      </div> --}}
 
 
                       {{!-- ovo odkomentarisati --}}
-                      <div class="card paymentSteps" id="paymentConsent">
+                      {{!-- <div class="card paymentSteps" id="paymentConsent">
                         <div class="card-body" data-toggle="modal" data-target="">
                           <a href="/uslovi-placanja" target="_blank" class="text-center">
                           <i class="far fa-file-alt text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
                           <p class="text-center font-weight-bold mt-3">Pravila i uslovi plaćanja</p>
-                          <span class="text-center paketiCena">&lt; 2 min. čitanja</span></a>
-                          <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
-                          <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio" id="consentBtn">slažem se</label>
-                        </div>
-                      </div>
+                          <span class="text-center paketiCena">&lt; 2 min. čitanja</span></a> --}}
+                          {{!-- <input type="radio" name="consent" value="true" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
+                          <label for="consent" class="btn btn-outline-success text-uppercase mt-4 customRadio" id="consentBtn">slažem se sa pravilima i uslovima plaćanja</label> --}}
+                        {{!-- </div>
+                      </div> --}}
 
                 </div><!-- odabir paketa end -->
 
-                <div class=" col-12 p-0 mb-2 mt-4">
-                  <label for="exampleFormControlTextarea1 ">Komentar (maksimalno 254 karaktera)</label>
-                  <textarea class="form-control" id="userComment" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate važnim. Da li su analize rađene u sklopu sistematskog pregleda ili kao pomoć pri nekoj dijagnostici ili praćenju...">{{komentar}}</textarea>
+                <div class=" col-12 p-0 mb-2">
+                  <div class="col-12 mt-4"><p>Upišite komentar (maksimalno 254 karaktera) <span id="userCommentTitle"></span></p></div>
+                  {{!-- <label for="exampleFormControlTextarea1">Komentar (maksimalno 254 karaktera)</label> --}}
+                  <textarea class="form-control" id="userComment" maxlength="254" name="userComment" rows="4" placeholder="Ovde upišite sva pitanja i komentare koje smatrate važnim. Da li su analize rađene u sklopu sistematskog pregleda ili kao pomoć pri nekoj dijagnostici ili praćenju...">{{komentar}}</textarea>
                 </div>
 
 
                 <div class="col-12 text-center">
-                  <small class="smallText"><sup>*</sup>Ukoliko ste izvršili uplatu za određeni vremenski paket garantujemo Vam da će Vaši rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. Ukoliko ste iskoristili kod za besplatno tumačenje rezultata, minimalno vreme za tumačenje rezultata je 24h a taj rok može biti i veći u zavisnosti od broja zahteva na kojima trenutno radimo. </small>
+                  <small class="smallText"><sup>*</sup>Ukoliko ste izvršili uplatu za određeni vremenski paket garantujemo Vam da će Vaši rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možete očekivati tumačenje. Moguće je da dobijete tumačenje i znatno pre tog roka. Ukoliko ste iskoristili kod za besplatno tumačenje rezultata, okvirno vreme za tumačenje rezultata je 24h a taj rok može biti i veći u zavisnosti od broja zahteva na kojima trenutno radimo. </small>
                 </div>
 
+                <div class="col-12 text-center mt-5" id="paymentConsent">
+                  <input type="checkbox" name="consent" value="true" class="consentCheck" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
+                    <span style="font-size: 22px;"><label for="consent" class="customRadio ml-2 mt-2 text-align-center" id="consentBtn">Prihvatam <a href="/uslovi-placanja" target="_blank" class="">pravila i uslove plaćanja</a></label></span>  
+                </div>
 
                 <div class="col-12 text-center">
-                    <button class="btn btn-success text-uppercase mt-5" id="proceedPayment">nastavi dalje</button>
+                    <button class="btn btn-success text-uppercase mt-2" id="proceedPayment">nastavi dalje</button>
                 </div>
                 <div class="col-12 text-center">
-                    <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošaljite rezultate</button>
+                    <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošalji rezultate</button>
                 </div>
 
                 <div class="col-12 mb-5">
@@ -215,7 +225,7 @@
                         <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p>
 
                       
-                  <a href="/registracija" class="btn btn-success text-uppercase">Kreiraj nalog</a>
+                  <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a>
                      
                 </div> 
 
