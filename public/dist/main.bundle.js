@@ -21873,8 +21873,8 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var addAnalysisBtnText;
 
   if (analysisPositionArr === -1) {
-    addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis';
-    addAnalysisBtnText = document.createTextNode('dodaj u korpu');
+    addAnalysisBtn.className = 'btn btn-danger float-right btn-block text-uppercase addAnalysis';
+    addAnalysisBtnText = document.createTextNode('uporedi cenu');
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714");
     addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
@@ -21979,7 +21979,7 @@ exports.removeAnalysis = function (itemsArray, checkout) {
       enableButton.forEach(function (item) {
         if (item.getAttribute('data-analysisName') == removedValue[0].name) {
           item.disabled = false;
-          item.textContent = 'dodaj u korpu';
+          item.textContent = 'uporedi cenu';
           item.classList.remove('deleteAnalysis');
           item.classList.add('addAnalysis');
         }
@@ -22071,8 +22071,9 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
       }); // if analysis is added disable add button
 
       if (analysisPositionArr !== -1) {
-        e.target.innerHTML = '&#10004;';
-        e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'; // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
+        e.target.innerHTML = '&#10004;'; // e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+
+        e.target.className = 'btn btn-danger btn-block text-uppercase deleteAnalysis'; // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
 
         e.target.disabled = true;
       } //insert analysis to basket
@@ -22997,13 +22998,16 @@ $(window).scroll(function () {
 });
 $(window).scroll(function () {
   // let priceList = document.getElementById('priceList')
+  var comparePrice = document.getElementById('comparePrice');
   var height = $(window).scrollTop();
 
   if (height > 200) {
-    $("#smallHeader > nav").addClass('fixed-top-background fixed-top'); // priceList.css("top","200px")
+    $("#smallHeader > nav").addClass('fixed-top-background fixed-top'); // $(".addAnalysis").addClass('fixed-top-price');
+    // priceList.css("top","200px")
+    // comparePrice.css("top","200px")
   } else {
     $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
-    $("#smallHeader").removeAttr('style');
+    $("#smallHeader").removeAttr('style'); // $(".addAnalysis").removeClass('fixed-top-price');
   }
 }); // sticky navigation for side menu
 
@@ -23551,23 +23555,40 @@ window.onload = function () {
 
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile' && !findUserByEmail) {
     var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
-    // let newDateCheck = new Date()
 
+    var newDateCheck = new Date();
     var t4 = document.getElementById('t4');
     var t12 = document.getElementById('t12');
-    var t24 = document.getElementById('t24'); // if (t4 && (newDateCheck.getHours() >= 20 || newDateCheck.getHours() < 8)) {   
-    //   t4.disabled = true
-    //   t4.parentElement.disabled = true
-    //   t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
-    //   t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
-    //   t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
-    //   t4.nextElementSibling.style.cursor = 'default'
-    //   t4.nextElementSibling.innerHTML = 'dostupno između 8 i 20h'
-    //   t4.nextElementSibling.classList.remove('btn-outline-success') 
-    // } else {
-    //   console.log('dsds')
-    // }
-    // kraj provere trenutnog vremena
+    var t24 = document.getElementById('t24');
+
+    if (t4 && (newDateCheck.getHours() >= 18 || newDateCheck.getHours() < 8)) {
+      t4.disabled = true;
+      t4.parentElement.disabled = true;
+      t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)';
+      t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)';
+      t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)';
+      t4.nextElementSibling.style.cursor = 'default';
+      t4.nextElementSibling.innerHTML = 'dostupno između 8 i 18h';
+      t4.nextElementSibling.classList.remove('btn-outline-success');
+    } else {
+      console.log('ok');
+    } // kraj provere trenutnog vremena
+    //provera duzine komentara korisnika
+
+
+    var finalCommentByUser = document.getElementById('userComment');
+    var userCommentTitle = document.getElementById('userCommentTitle');
+    finalCommentByUser.addEventListener('input', function (e) {
+      if (e.target.value.length < 254) {
+        userCommentTitle.classList.remove('text-danger');
+        userCommentTitle.innerHTML = ' &#128077';
+      } else {
+        userCommentTitle.innerHTML = e.target.value.length;
+        userCommentTitle.classList.add('text-danger'); // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
+
+        userCommentTitle.innerHTML = 'Iskoristili ste sve karaktere za komentar';
+      }
+    });
 
     if (codeCheck != null) {
       var kod = document.getElementById('kod');
@@ -23579,6 +23600,7 @@ window.onload = function () {
       var paymentConsentBox = document.getElementById('paymentConsent');
       var resultForUploadBox = document.getElementById('resultForUpload');
       var paymentForm = document.getElementById('regularPayment');
+      var firstStep = document.getElementById('firstStep');
       codeCheck.addEventListener('click', function (e) {
         fetch('/discount/' + kod.value).then(function (data) {
           data.json().then(function (result) {
@@ -23604,6 +23626,7 @@ window.onload = function () {
               codeBack.style.backgroundColor = '#55D159';
               codeCheck.textContent = "✔";
               codeCheck.disabled = true;
+              firstStep.classList.add('d-none');
               codeCheck.style.color = 'white';
               t12.parentElement.parentElement.classList.add('d-none');
               t24.parentElement.parentElement.classList.add('d-none');
@@ -24439,11 +24462,19 @@ window.onload = function () {
 
     if (published.checked) {
       doneBtn.innerText = 'Izmeni i ponovo pošalji mejl pacijentu';
+      doneBtn.addEventListener('click', function (e) {
+        var text = 'Poslaćeš mejl pacijentu, da li sigurno želiš ovo da uradiš?';
+
+        if (confirm(text) == true) {
+          return true;
+        } else {
+          e.preventDefault();
+          return false;
+        }
+      });
     }
 
     published.addEventListener('click', function (e) {
-      console.log(published.checked);
-
       if (published.checked == false) {
         doneBtn.innerText = 'Sačuvaj';
       } else {

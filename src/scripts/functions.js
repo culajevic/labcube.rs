@@ -138,8 +138,8 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   let addAnalysisBtnText
 
   if(analysisPositionArr === -1) {
-    addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase addAnalysis'
-    addAnalysisBtnText = document.createTextNode('dodaj u korpu')
+    addAnalysisBtn.className = 'btn btn-danger float-right btn-block text-uppercase addAnalysis'
+    addAnalysisBtnText = document.createTextNode('uporedi cenu')
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714")
     addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
@@ -258,7 +258,7 @@ exports.removeAnalysis = (itemsArray, checkout) => {
           enableButton.forEach((item) => {
             if(item.getAttribute('data-analysisName') == removedValue[0].name) {
               item.disabled = false
-              item.textContent = 'dodaj u korpu'
+              item.textContent = 'uporedi cenu'
               item.classList.remove('deleteAnalysis')
               item.classList.add('addAnalysis')
             }
@@ -273,7 +273,6 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
   resultDiv.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length<30) {
       checkout.removeAttribute('style')
-
       //enable if shopping cart should be visible after each dodaj click
       setTimeout(()=>{
         let priceList = document.getElementById('priceList')
@@ -372,7 +371,8 @@ exports.addAnalysis = (itemsArray,resultDiv, checkout) => {
         // if analysis is added disable add button
         if(analysisPositionArr !== -1) {
           e.target.innerHTML = '&#10004;'
-          e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+          // e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+          e.target.className = 'btn btn-danger btn-block text-uppercase deleteAnalysis'
           // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
           e.target.disabled = true
         }

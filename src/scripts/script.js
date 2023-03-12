@@ -150,14 +150,18 @@ $(window).scroll(function(){
 
 $(window).scroll(function(){
   // let priceList = document.getElementById('priceList')
+  let comparePrice = document.getElementById('comparePrice')
   let height = $(window).scrollTop();
     if(height > 200) {
       $("#smallHeader > nav").addClass('fixed-top-background fixed-top');
+      // $(".addAnalysis").addClass('fixed-top-price');
       // priceList.css("top","200px")
+      // comparePrice.css("top","200px")
     }
     else {
       $("#smallHeader > nav").removeClass('fixed-top-background fixed-top');
       $("#smallHeader").removeAttr('style');
+      // $(".addAnalysis").removeClass('fixed-top-price');
     }
 });
 
@@ -737,25 +741,42 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
   let codeCheck = document.getElementById('codeCheck')
 
   //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
-  // let newDateCheck = new Date()
+  let newDateCheck = new Date()
   let t4 = document.getElementById('t4')
   let t12 = document.getElementById('t12')
   let t24 = document.getElementById('t24')
  
-  // if (t4 && (newDateCheck.getHours() >= 20 || newDateCheck.getHours() < 8)) {   
-  //   t4.disabled = true
+  if (t4 && (newDateCheck.getHours() >= 18 || newDateCheck.getHours() < 8)) {   
+    t4.disabled = true
     
-  //   t4.parentElement.disabled = true
-  //   t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
-  //   t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
-  //   t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
-  //   t4.nextElementSibling.style.cursor = 'default'
-  //   t4.nextElementSibling.innerHTML = 'dostupno između 8 i 20h'
-  //   t4.nextElementSibling.classList.remove('btn-outline-success') 
-  // } else {
-  //   console.log('dsds')
-  // }
+    t4.parentElement.disabled = true
+    t4.parentElement.parentElement.style.backgroundColor = 'rgba(208,208,208,0.2)'
+    t4.nextElementSibling.style.color = 'rgba(0,0,0,.5)'
+    t4.nextElementSibling.style.borderColor = 'rgba(0,0,0,.5)'
+    t4.nextElementSibling.style.cursor = 'default'
+    t4.nextElementSibling.innerHTML = 'dostupno između 8 i 18h'
+    t4.nextElementSibling.classList.remove('btn-outline-success') 
+  } else {
+    console.log('ok')
+  }
   // kraj provere trenutnog vremena
+
+  //provera duzine komentara korisnika
+  let finalCommentByUser = document.getElementById('userComment')
+  let userCommentTitle = document.getElementById('userCommentTitle')
+
+  finalCommentByUser.addEventListener('input', e => {
+    if (e.target.value.length<254) {
+      userCommentTitle.classList.remove('text-danger')
+      userCommentTitle.innerHTML = ' &#128077'
+    } else {
+      userCommentTitle.innerHTML = e.target.value.length
+      userCommentTitle.classList.add('text-danger')
+      // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
+      userCommentTitle.innerHTML = 'Iskoristili ste sve karaktere za komentar'
+    }
+  })
+
 
   if(codeCheck != null) {
     let kod = document.getElementById('kod')
@@ -767,6 +788,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
     let paymentConsentBox = document.getElementById('paymentConsent')
     let resultForUploadBox = document.getElementById('resultForUpload')
     let paymentForm = document.getElementById('regularPayment')
+    let firstStep = document.getElementById('firstStep')
     
   codeCheck.addEventListener('click', e => {
 
@@ -797,6 +819,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' |
             codeBack.style.backgroundColor='#55D159'
             codeCheck.textContent="✔"
             codeCheck.disabled=true
+            firstStep.classList.add('d-none')
             codeCheck.style.color='white'
             t12.parentElement.parentElement.classList.add('d-none')
             t24.parentElement.parentElement.classList.add('d-none')
@@ -1687,6 +1710,8 @@ let interpretationPage = document.getElementById('interpretationId')
   let alreadyLoadedOutsideOfTheRange = document.querySelectorAll('.outsideOfTheRange')
   let num = alreadyLoadedOutsideOfTheRange.length
   let finalCommentByLabCube = document.getElementById('finalCommentByLabCube')
+  
+
   let finalCommentTitle = document.getElementById('finalCommentTitle')
 
   finalCommentByLabCube.addEventListener('input', e => {
@@ -1698,19 +1723,29 @@ let interpretationPage = document.getElementById('interpretationId')
       finalCommentTitle.innerHTML = e.target.value.length
       finalCommentTitle.innerHTML += ' &#128077'
     }
-
   })
+
 
   if (published.checked) {
     doneBtn.innerText = 'Izmeni i ponovo pošalji mejl pacijentu'
+    doneBtn.addEventListener('click', (e) => {
+      let text = 'Poslaćeš mejl pacijentu, da li sigurno želiš ovo da uradiš?'
+      if (confirm(text) == true) {
+        return true
+      } else {
+        e.preventDefault()
+        return false
+      }
+    })
   }
 
+  
+
   published.addEventListener('click', e => {
-    console.log(published.checked)
     if (published.checked == false) {
       doneBtn.innerText = 'Sačuvaj'
     } else {
-      doneBtn.innerText = 'Završi i pošalji mejl pacijentu'
+      doneBtn.innerText = 'Završi i pošalji mejl pacijentu' 
     }
     if (lockStatus.innerHTML != 'Zaključano') {
       alert('Morate prvo zaključati tumačenje' + lockStatus.innerHTML)
