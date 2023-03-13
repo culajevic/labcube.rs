@@ -736,7 +736,7 @@ if(document.getElementById('resultsGroupDetails')!= null) {
 }
 
 //izbaciti 
-if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || (urlArr[1] == 'profile' && !findUserByEmail)) {
+if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
   
   let codeCheck = document.getElementById('codeCheck')
 

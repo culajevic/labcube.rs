@@ -23553,7 +23553,7 @@ window.onload = function () {
   } //izbaciti 
 
 
-  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment' || urlArr[1] == 'profile' && !findUserByEmail) {
+  if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
     var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
 
     var newDateCheck = new Date();
