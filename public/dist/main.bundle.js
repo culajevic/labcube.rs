@@ -23578,17 +23578,20 @@ window.onload = function () {
 
     var finalCommentByUser = document.getElementById('userComment');
     var userCommentTitle = document.getElementById('userCommentTitle');
-    finalCommentByUser.addEventListener('input', function (e) {
-      if (e.target.value.length < 254) {
-        userCommentTitle.classList.remove('text-danger');
-        userCommentTitle.innerHTML = ' &#128077';
-      } else {
-        userCommentTitle.innerHTML = e.target.value.length;
-        userCommentTitle.classList.add('text-danger'); // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
 
-        userCommentTitle.innerHTML = "Iskoris\u0107eni su svi karakteri za komentar, za vi\u0161e detalja popuni <a href=\"/profile\" target=_blank\">zdravstveni profil</a>";
-      }
-    });
+    if (finalCommentByUser != null) {
+      finalCommentByUser.addEventListener('input', function (e) {
+        if (e.target.value.length < 254) {
+          userCommentTitle.classList.remove('text-danger');
+          userCommentTitle.innerHTML = ' &#128077';
+        } else {
+          userCommentTitle.innerHTML = e.target.value.length;
+          userCommentTitle.classList.add('text-danger'); // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
+
+          userCommentTitle.innerHTML = "Iskoris\u0107eni su svi karakteri za komentar, za vi\u0161e detalja popuni <a href=\"/profile\" target=_blank\">zdravstveni profil</a>";
+        }
+      });
+    }
 
     if (codeCheck != null) {
       var kod = document.getElementById('kod');

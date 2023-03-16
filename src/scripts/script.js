@@ -765,6 +765,8 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
   let finalCommentByUser = document.getElementById('userComment')
   let userCommentTitle = document.getElementById('userCommentTitle')
 
+  if(finalCommentByUser != null) {
+
   finalCommentByUser.addEventListener('input', e => {
     if (e.target.value.length<254) {
       userCommentTitle.classList.remove('text-danger')
@@ -776,6 +778,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
       userCommentTitle.innerHTML = `Iskorisćeni su svi karakteri za komentar, za više detalja popuni <a href="/profile" target=_blank">zdravstveni profil</a>`
     }
   })
+}
 
 
   if(codeCheck != null) {
