@@ -773,7 +773,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
       userCommentTitle.innerHTML = e.target.value.length
       userCommentTitle.classList.add('text-danger')
       // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
-      userCommentTitle.innerHTML = 'Iskoristili ste sve karaktere za komentar'
+      userCommentTitle.innerHTML = `Iskorisćeni su svi karakteri za komentar, za više detalja popuni <a href="/profile" target=_blank">zdravstveni profil</a>`
     }
   })
 
@@ -789,6 +789,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
     let resultForUploadBox = document.getElementById('resultForUpload')
     let paymentForm = document.getElementById('regularPayment')
     let firstStep = document.getElementById('firstStep')
+    let bankPayment = document.getElementById('uplatnica')
     
   codeCheck.addEventListener('click', e => {
 
@@ -819,6 +820,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
             codeBack.style.backgroundColor='#55D159'
             codeCheck.textContent="✔"
             codeCheck.disabled=true
+            bankPayment.classList.add('d-none')
             firstStep.classList.add('d-none')
             codeCheck.style.color='white'
             t12.parentElement.parentElement.classList.add('d-none')
@@ -1383,18 +1385,19 @@ if(anamnesisCommentValue.value == '') {
   anamnesisComment.classList.remove('d-none')
 }
 
-  therapy.addEventListener('change', e => {
-    // console.log(e.target.value)
-    if(e.target.value == 'Da') {
-      therapyComment.classList.remove('d-none')
-      therapyComment.classList.add('goVisible')
 
-    } else {
-      therapyComment.classList.add('d-none')
-      therapyComment.classList.remove('goVisible')
-      therapyCommentArea.value = ''
-    }
-  })
+// prikazi polje za komentar ako je potvrdjeno da je pacijent na terapiji
+  // therapy.addEventListener('change', e => {
+  //   if(e.target.value == 'Da') {
+  //     therapyComment.classList.remove('d-none')
+  //     therapyComment.classList.add('goVisible')
+
+  //   } else {
+  //     therapyComment.classList.add('d-none')
+  //     therapyComment.classList.remove('goVisible')
+  //     therapyCommentArea.value = ''
+  //   }
+  // })
 
   anamnesis.addEventListener('change', e => {
     if(e.target.value == 'Da') {

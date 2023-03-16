@@ -23586,7 +23586,7 @@ window.onload = function () {
         userCommentTitle.innerHTML = e.target.value.length;
         userCommentTitle.classList.add('text-danger'); // userCommentTitle.innerHTML = e.target.value.length + '/ 254 (komentar mora biti kraći)'
 
-        userCommentTitle.innerHTML = 'Iskoristili ste sve karaktere za komentar';
+        userCommentTitle.innerHTML = "Iskoris\u0107eni su svi karakteri za komentar, za vi\u0161e detalja popuni <a href=\"/profile\" target=_blank\">zdravstveni profil</a>";
       }
     });
 
@@ -23601,6 +23601,7 @@ window.onload = function () {
       var resultForUploadBox = document.getElementById('resultForUpload');
       var paymentForm = document.getElementById('regularPayment');
       var firstStep = document.getElementById('firstStep');
+      var bankPayment = document.getElementById('uplatnica');
       codeCheck.addEventListener('click', function (e) {
         fetch('/discount/' + kod.value).then(function (data) {
           data.json().then(function (result) {
@@ -23626,6 +23627,7 @@ window.onload = function () {
               codeBack.style.backgroundColor = '#55D159';
               codeCheck.textContent = "✔";
               codeCheck.disabled = true;
+              bankPayment.classList.add('d-none');
               firstStep.classList.add('d-none');
               codeCheck.style.color = 'white';
               t12.parentElement.parentElement.classList.add('d-none');
@@ -24177,19 +24179,19 @@ window.onload = function () {
       anamnesisComment.classList.add('d-none');
     } else {
       anamnesisComment.classList.remove('d-none');
-    }
+    } // prikazi polje za komentar ako je potvrdjeno da je pacijent na terapiji
+    // therapy.addEventListener('change', e => {
+    //   if(e.target.value == 'Da') {
+    //     therapyComment.classList.remove('d-none')
+    //     therapyComment.classList.add('goVisible')
+    //   } else {
+    //     therapyComment.classList.add('d-none')
+    //     therapyComment.classList.remove('goVisible')
+    //     therapyCommentArea.value = ''
+    //   }
+    // })
 
-    therapy.addEventListener('change', function (e) {
-      // console.log(e.target.value)
-      if (e.target.value == 'Da') {
-        therapyComment.classList.remove('d-none');
-        therapyComment.classList.add('goVisible');
-      } else {
-        therapyComment.classList.add('d-none');
-        therapyComment.classList.remove('goVisible');
-        therapyCommentArea.value = '';
-      }
-    });
+
     anamnesis.addEventListener('change', function (e) {
       if (e.target.value == 'Da') {
         anamnesisComment.classList.remove('d-none');

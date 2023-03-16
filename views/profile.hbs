@@ -707,7 +707,7 @@
       <div class="row">
       <!-- <div class="col-12 mb-4"> -->
         <div class="col-12 generalInformation">
-          <p class="">Osnovne informacije o vašem zdravstvenom stanju. Popunjavanje ovog upitnika će pomoći našim kolegama da što bolje sagledaju rezultate Vaših laboratorijskih anliza prilikom tumačenja. Mi cenimo Vašu privatnost, Vaši podaci su bezbedni. <a href="/politika-privatnosti" target="_blank">Pročitajte</a> našu politiku privatnosti. </p>
+          <p class="">Osnovne informacije o tvom zdravstvenom stanju. Popunjavanje ovog upitnika nam pomaže da što bolje sagledamo rezultate tvojih laboratorijskih anliza prilikom tumačenja. Mi cenimo tvoju privatnost, tvoji podaci su bezbedni. <a href="/politika-privatnosti" target="_blank">Pročitaj</a> našu politiku privatnosti. </p>
         </div>
 
           <div class="col-12 col-sm-6 col-md-4 mt-5">
@@ -863,8 +863,10 @@
           </div>
         </div>
 
+        
         <div class="col-12 mt-5 {{#if (checkComment user.therapyComment)}}d-none{{/if}}" id="therapyComment">
-            <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" id="therapyCommentArea" placeholder="Napišite koju terapiju uzimate.">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
+        <span>Trenutna terapija ili drugi komentar koji smatraš važnim za opšte zdravstveno stanje</span>
+            <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" id="therapyCommentArea" placeholder="Podaci o terapiji ili drugim bitnim faktorima koji utiču na zdravlje">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
         </div>
 
 
