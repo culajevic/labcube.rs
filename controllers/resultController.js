@@ -150,7 +150,7 @@ exports.freeUpload = async (req,res) => {
             // from:req.body.email,
             from:'LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>',
             // to:['tumacenje@labcube.rs', 'culajevic@gmail.com'],
-            bcc:['tumacenje@labcube.rs','culajevic@gmail.com', 'perovic@labcube.rs', 'jevtic@labcube.rs', 'jelenahajzler@gmail.com', 'jelena.jankovic8@yahoo.com', 'gagajk.kov@gmail.com', 'milicasummer94@gmail.com', 'dellabranko1993@gmail.com', 'mandicvalentina@hotmail.com', 'sanja.jaksic76@gmail.com', 'drvesnabog@gmail.com', 'vanja.vlaisavljevic93@gmail.com'],
+            bcc:['tumacenje@labcube.rs','culajevic@gmail.com', 'perovic@labcube.rs', 'jevtic@labcube.rs', 'jelenahajzler@gmail.com', 'jelena.jankovic8@yahoo.com', 'gagajk.kov@gmail.com', 'milicasummer94@gmail.com', 'dellabranko1993@gmail.com', 'mandicvalentina@hotmail.com', 'sanja.jaksic76@gmail.com', 'drvesnabog@gmail.com', 'vanja.vlaisavljevic93@gmail.com', 'joksovicaleks@gmail.com'],
             subject:`Novi rezultati za tumačenje | ${packageTime}h`,
             text:'',
             html:`
@@ -1954,7 +1954,7 @@ exports.payment = async (req,res) => {
 
   //ako neko pokusa da menja cenu
   if (formatPrice != 890 && formatPrice != 590 && formatPrice != 490 && checkDiscountCode == null && formatPrice != 1) {
-      errors.push({text:'Neispravan kod, pokušajte ponovo.'})
+      errors.push({text:'Neispravan kôd, pokušaj ponovo.'})
   }
 
   //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
@@ -1963,15 +1963,15 @@ exports.payment = async (req,res) => {
   }
 
   if(!req.body.package) {
-    errors.push({text:'Obavezno je odabrati vreme za koje želite da Vam se protumači rezultat'})
+    errors.push({text:'Obavezno je odabrati vreme za koje želiš da ti se protumači rezultat'})
   }
 
   if(!req.file) {
-    errors.push({text:'Nedostaju rezultati koje želite da Vam protumačimo'})
+    errors.push({text:'Nedostaju rezultati koje želiš da ti protumačimo'})
   }
 
   if(!req.body.consent) {
-    errors.push({text:'Potvrdite da ste saglasni sa uslovima plaćanja'})
+    errors.push({text:'Potvrdi da se slažeš sa uslovima plaćanja'})
   }
   
   if(errors.length > 0) {
@@ -2223,7 +2223,7 @@ requestCheckout()
           from:'LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>',
           //  to:['tumacenje@labcube.rs','culajevic@gmail.com'],
           //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],
-          bcc:['tumacenje@labcube.rs','culajevic@gmail.com', 'perovic@labcube.rs', 'jevtic@labcube.rs', 'jelenahajzler@gmail.com', 'jelena.jankovic8@yahoo.com', 'gagajk.kov@gmail.com', 'milicasummer94@gmail.com', 'dellabranko1993@gmail.com','mandicvalentina@hotmail.com', 'sanja.jaksic76@gmail.com', 'drvesnabog@gmail.com', 'vanja.vlaisavljevic93@gmail.com'],
+          bcc:['tumacenje@labcube.rs','culajevic@gmail.com', 'perovic@labcube.rs', 'jevtic@labcube.rs', 'jelenahajzler@gmail.com', 'jelena.jankovic8@yahoo.com', 'gagajk.kov@gmail.com', 'milicasummer94@gmail.com', 'dellabranko1993@gmail.com','mandicvalentina@hotmail.com', 'sanja.jaksic76@gmail.com', 'drvesnabog@gmail.com', 'vanja.vlaisavljevic93@gmail.com', 'joksovicaleks@gmail.com'],
            subject:`Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
            text:'',
            html:`
@@ -3756,7 +3756,7 @@ requestCheckout()
                                    
                                    <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                    
-                                       <span style="font-size:16px">Primili smo tvoje rezultate. Dok čekaš tumačenje rezultata predlažemo ti da popuniš zdravstveni upitnik ukoliko to već nije urađenoi. Popunjavanje&nbsp;<a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a>&nbsp;nam pomaže da bolje razumemo tvoje trenutno zdravstveno stanje.<br>
+                                       <span style="font-size:16px">Primili smo tvoje rezultate. Dok čekaš tumačenje rezultata predlažemo ti da popuniš zdravstveni upitnik ukoliko to već nije urađeno. Popunjavanje&nbsp;<a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a>&nbsp;nam pomaže da bolje razumemo tvoje trenutno zdravstveno stanje.<br>
            <br>
            Svi podaci koje podeliš sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možeš obrisati sve podatke iz tvog zdravstvenog profila. Ukoliko te interesuje kako brinemo o tvojim podacima pročitaj našu&nbsp;&nbsp;<a href="https://labcube.rs/politika-privatnosti" target="_blank">politiku privatnosti</a></span>
                                    </td>
