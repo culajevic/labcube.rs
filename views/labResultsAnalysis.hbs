@@ -56,7 +56,7 @@
                   {{!-- <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p>
                   <p class="generalInformation float-left ml-2">Umesto da pitaš Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
                   <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p> --}}
-                  <p class="generalInformation float-left ml-2  mt-4">Ukoliko imaš kod za besplatno tumačenje unesi ga ovde</p>
+                  <p class="generalInformation float-left ml-2  mt-4">Ukoliko imaš kôd za besplatno tumačenje unesi ga ovde</p>
                   <form action='/payment' method="POST" enctype="multipart/form-data" id="regularPayment">
 
                     {{!-- kod za popust --}}
@@ -70,7 +70,10 @@
                     
                     {{!-- <p class="generalInformation ml-2 my-5">Ukoliko želiš da ubrzaš tumačenje tvojih rezultata, to možeš uraditi odabirom vremena za koje želiš da dobiješ tumačenje.</p> --}}
                     {{!-- add class disabledInterpretation if you want to close it --}}
-                      <div class="col-12 mt-5" id="firstStep"><p>Odaberi vreme za tumačenje</p></div>
+                    
+                      <div class="col-12 mt-5" id="firstStep">
+                        <h3>Online plaćanje</h3>
+                        <p>Odaberi vreme za tumačenje</p></div>
                      <div class="card paymentSteps ">
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
@@ -169,9 +172,17 @@
                 <div class="col-12 text-center">
                     <button class="btn btn-success text-uppercase mt-2" id="proceedPayment">nastavi dalje</button>
                 </div>
+
+
                 <div class="col-12 text-center">
                     <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošalji rezultate</button>
                 </div>
+
+                <div class="col-12 mb-5" id="uplatnica">
+                  <h3 class="mb-4">Plaćanje putem uplatnice</h3>
+                  <p class="mb-4">Ukoliko ti više odgovara, možeš platiti uslugu tumačenja i preko uplatnice. Popuni uplatnicu kao na primeru ispod, u polje za iznos unesi jednu od 3 moguće opcije (490, 590 ili 890din). Pošalji nam dokaz o uplati na zdravo@labcube.rs i mi ćemo ti poslati kôd na mejl koji ćeš uneti na ovoj stranici, nakon toga samo postavi rezultate za koje ti je potrebno tumačenje.</p>
+                  <img src="/images/uplatnica.png" alt="" class="mb-5 w-100">
+                <div>
 
                 <div class="col-12 mb-5">
                   <h3 class="cardDisclaimer text-center p-4">Ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</h3>
@@ -223,12 +234,178 @@
 
                       
                   <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a>
-                     
                 </div> 
 
-                <div class="col-12 text-center mx-auto my-3">
+                  <div class="col-12 mb-4">
+                  <h3>Cene tumačenja rezultata zavise od roka u kome želiš da dobiješ komentar na rezultate </h3>
+                  </div>
+
+                   <div class="card paymentSteps mr-2">
+                      <div class="card-body">
+                        <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
+                        <span class="text-center paketiCena">490 din.</span>
+                      </div>
+                    </div>  
+
+                    <div class="card paymentSteps mr-2">
+                      <div class="card-body">
+                        <div class="najpopularnije">najpopularnije</div>
+                        <img src="images/12h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                        <span class="text-center paketiCena">590 din.</span>
+                      </div>
+                    </div> 
+
+                    <div class="card paymentSteps ">
+                      <div class="card-body">
+                        <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati</p>
+                        <span class="text-center paketiCena">890 din.</span>
+                      </div>
+                    </div>  
+
+                
+
+                 <div class="col-12 my-4">
+                    <h3 class="mb-4">Šta tačno podrazumeva i kako izgleda tumačenje rezultata?</h3>
+                    <p class="generalInformation">Naše kolege će detaljno pogledati dobijene rezultate, uzeti u obzir podatke iz zdravstvenog profila i na osnovu toga napisati detaljan zaključak u kome će se osvrnuti na svaki parametar koji zahteva pažnju. Predložiće ti i da ponoviš neke analize ukoliko je potrebno ili da uradiš dodatne, uputiće te ka specijalisti ako za to ima potrebe. Znamo da se ovo dobija besplatno u laboratoriji ali mi ćemo se detaljnije posvetiti svakom pacijentu i još će sve ostati zapisano tako da možeš pročitati naš zaključak više puta. Osim toga, svi tvoji rezultati su hronološki sortirani i na jednom mestu, nema više traženja po inboxu.
+                    </p>
+                    <h3 class="pt-4 mb-4">Primeri zaključaka na dobijene rezultate</h3>
+
+                    <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-1"><p style="text-align:center;font-size:24px;">J, 1986. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
+                    <div class="finalThougths">
+                      <p>U krvnoj slici pacijenta uočava se poremećaj u leukocitarnoj formuli u korist limfocitoze. Ovo ukazuje na aktuelnu blagu virusnu infekciju ili nedavno završenu virusnu infekciju u organizmu, što se može zaključiti i po ukupnom broju leukocita koji se približava donjoj referentnoj granici, iako nije pao ispod nje. Preporuka uraditi CRP i sedimentaciju za potvrdu aktuelne infekcije. Ostali parametri krvne slike su zadovoljavajući. Biohemijske analize su zadovoljavajuće i u skladu sa popunjenim zdravstvenim profilom pacijenta. Rezultati hormonskih analiza su zadovoljavajući i u referentnom opsegu. <br /><br />Rezultati oralnog testa opterećenja glukozom sa insulinemijama u ukupnom skoru ne ukazuju na insulinsku rezistenciju, ali je zbog postepenog pada insulina i zaravnjenja krive glukoze tokom testa potrebno ove rezultate tumačiti od strane ordinirajućeg lekara u skladu sa medicinskom istorijom pacijenta i kliničkim pregledom. Kao dodatni parametar preporuka je uraditi <a href="https://labcube.rs/results/analysis/Hemoglobin-A1c" target="_blank">HbA1c.</a>
+                      </p>
+                  </div>
+
+                  <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">M, 1935. <i class="fa fa-mars" aria-hidden="true"></i></p></div>
+                  <div class="finalThougths">
+                      <p>Iz laboratorijskih nalaza se da zaključiti da je pacijent imao ili ima (virusnu) infekciju koja prolazi. <br /><br /> U prilog tome nam govori i vrednost CRP-a koja je u opadanju: u nalazu od 25.01.2022. bila 40,3 mg/L a u nalazu od 31.01.2022. vrednost CRP- a je 16,5 mg/L. CRP je protein akutne faze, povišen u slučaju upalnog procesa u organizmu i radi se kao analiza kada postoji sumnja na prisustvo infekcije. Vrednost raste za 6 do 9 sati od početka infekcije, a maksimum dostiže za 48 sati. Vrednosti između 10-40 mg/L su blago povišene vrednosti i ukazuju na blagu upalu te se mogu videti kod (virusnih) infekcija. <br /><br />Sedimentacija je takođe parametar zapaljenja tj. merilo zapaljenske reakcije u organizmu, ali i jedan opšti faktor na koji utiču godine, uzimanje lekova... Za razliku od CRP-a porast sedimentacije se dešava najmanje 24 časa nakon početka zapaljenske reakcije i traje 4 do 6 dana. U prilog tome nam govori blago povišena vrednost sedimentacije u nalazu od 31.01.2022. koja je 19mm/1h u odnosu na vrednost ovog parametra u nalazu od  25.01.2022. koja je bila 10mm/1h. Svi ostali parametri su u granicama normalnih referentnih vrednosti.<br /><br />Opšti rezultati mogu da ukazuju na nedavno preležanu infekciju nekim virusom, kao i na postepeni stabilni oporavak. Preporuka za pacijenta je da se eventualno ponove analize sedimentacije i crp-a nakon izvesnog vremena da bi se utvrdilo da li je zapaljenski proces i dalje prisutan ili je završen.
+                      </p>
+                  </div>
+                  
+                  <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">N, 1988. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
+                   <div class="finalThougths">
+                      <p>Citomegalovirus (CMV) spada u grupu herpes virusa. IgM antitela ukazuju na trenutno postojanje infekcije u organizmu, dok IgG antitela ukazuju na to da li je infekcija preležana u prošlosti. Rezultati testa na oba antitela se gledaju zajedno i na osnovu njih i specifične kliničke slike lekar donosi konačni zaključak o infekciji. Konkretno u ovom slučaju rezultat znači da je do CMV infekcije došlo u prošlosti. Trenutno pacijent nije u infekciji CMV virusom i razvijen je delimični imunitet na ovaj tip virusa. Aviditet koji nam označava starost infekcije je na gornjoj granici vrednosti što bi značilo da se infekcija nije dešavala unazad par meseci ili duže.
+                      </p>
+                  </div>
+
+                  <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">M, 1979. <i class="fa fa-mars" aria-hidden="true"></i></p></div>
+                  <div class="finalThougths">
+                      <p>U krvnoj slici pacijenta uočava se poremećaj u leukocitarnoj formuli u korist limfocitoze (blago povišena vrednost limfocita). Ovo ukazuje na blagu virusnu infekciju ili nedavno završenu virusnu infekciju u organizmu, što se može zaključiti i po ukupnom broju leukocita koji je na donjoj granici referentnih vrednosti. Apsolutni broj neutrofila (Neu 1,85) kao i broj neutrofila u procentima (45,1) prati leukocitarnu formulu i ide u prilog zaključku da je u pitanju blaga virusna infekcija. <br /><br />MCH znači srednji sadržaj hemoglobina u eritrocitima (crvena krvna zrnca), kod Vas je blago povišena vrednost i u ovom slučaju zbog ostalih parametara crvene loze krvnih zrnaca koji su u referentnom opsegu nema veći dijagnostički značaj. Vrednost kreatinina je blago povišena i to može značiti da ne uzimate dovoljno tečnosti, konzumirate puno mesnih proizvoda ili ste imali veću fizičku aktivnost pre vađenja krvi. Svakako bi bilo dobro ponoviti kroz određeni vremenski period (npr. mesec dana) ovu analizu. <br /><br />Vrednosti holesterola i LDL ("loš holesterol") su povišene što upućuje na to da bi trebalo sprovesti odgovarajući higijensko dijetetski režim tj. dijetu i pratiti ovaj parametar zajedno sa parametrom glukoze (šećer) s obzirom na to da je vrednost za Vaše godine blago povišena, a sve to u dogovoru sa Vašim izabranim lekarom. Nalaz urina je uredan, parametri koji su prisutni u sedimentu urina su deo normalnog nalaza. Fob test (test na okultno krvarenje) je negativan što znači da nije detektovano prisustvo krvi u stolici, odnosno u pitanju je normalan nalaz.<br><br>Po ovim rezultatima, ne bi trebalo da bude razloga za brigu. Naravno, savetujemo konsultacije sa izabranim lekarom.</p>
+                      </p>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                
+                <h3 class="my-5">Ko tumači rezultate?</h3>
+                 <div class="row">
+                 <div class="col-sm-6 col-md-4  mt-3 text-center">
+                    <img src="/images/editors/sanjaj.png"  class="rounded-circle hcpImage" alt="">
+                    <div class="hcpBio text-center">
+                      <p class=" text-center font-weight-bold">Sanja Jakšić</p>
+                      <span class="text-center disabled p-0 d-block">Medicinski biohemičar</span>
+                      {{!-- <p class="editorName text-left">Rođena 1976. godine u Beogradu. Diplomirala je na Farmaceutskom fakultetu u Beogradu na smeru diplomirani farmaceut-medicinski biohemičar 2005. godine. Karijeru započela u Hexalabu, nastavila u Superlabu, kao i Allabo laboratorijama. Od 2010. prelazi u Dom zdravlja Zemun, gde je i danas (u zdravstvenoj stanici Surčin). Bila je načelnik službe laboratorijske dijagnostike od 2018. do 2020.</p> --}}
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6 col-md-4   mt-3 text-center">
+                    <img src="/images/editors/jelenadj.png"  class="rounded-circle hcpImage" alt="">
+                    <div class="hcpBio">
+                      <p class="text-center font-weight-bold">Jelena Đuran</p>
+                      <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      {{!-- <p class="editorName text-left">Rođena 1987. godine u Beogradu. Diplomirala na Farmaceutskom fakultetu Univerziteta u Beogradu na smeru diplomirani farmaceut-medicinski biohemičar 2012. godine a specijalističke akademske studije, modul Biohemijska dijagnostika, završila 2021. godine. Trenutno je na specijalizaciji zdravstvenih radnika i saradnika na Farmaceutskom fakultetu u Beogradu, smer Medicinska biohemija. Od 2012. godine zaposlena u Zdravstvenoj ustanovi Medlab, Novi Sad</p> --}}
+                    </div>
+                  </div>
+     
+
+                  <div class="col-sm-6 col-md-4  mt-3 text-center">
+                    <img src="/images/editors/brankos.png"  class="rounded-circle hcpImage" alt="">
+                    <div class="hcpBio">
+                      <p class="text-center font-weight-bold">Branko Subošić</p>
+                      <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      {{!-- <p class="editorName text-left">Rođen 1993 godine u Banja Luci. Integrisane akademske studije je završio 2018 godine. Iste godine se zaposlio na poziciji medicinski biohemičar u biohemijskoj laboratoriji Univerzitetske dečje klinike u Tiršovoj. Usavršavanje je nastavio 2019 godine upisavši doktorske akademske studije na Farmaceutskom fakultetu, modul medicinska biohemija. 2023 godine godine je izabran kao saradnik van radnog odnosa i učestvuje u izvođenju praktične nastave na predmetima katedre za biohemiju Farmaceutskog fakulteta.</p> --}}
+                    </div>
+                  </div>
+
+                   <div class="col-sm-6 col-md-4  mt-3 text-center">
+                    <img src="/images/editors/vanjav.png"  class="rounded-circle hcpImage" alt="">
+                    <div class="hcpBio">
+                      <p class="text-center font-weight-bold">Vanja Vlaisavljević</p>
+                      <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      {{!-- <p class="editorName text-left">Rođena 1993.godine u Vojniću, Hrvatska. Integrisane akademske studije završila u junu 2020. godine na Farmaceutskom fakultetu u Beogradu i stekla zvanje magistar farmacije - medicinski biohemičar. Završila pripravnički staž 2021. godine a nakon toga se zaposlila u Aqualab laboratoriji gde i danas radi.</p> --}}
+                    </div>
+                  </div>
+
+                    <div class="col-sm-6 col-md-4  mt-3 text-center">
+                      <img src="/images/editors/milica.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Milica Milić</p>
+                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      </div>
+                     </div>
+
+                     <div class="col-sm-6 col-md-4  mt-3 text-center">
+                      <img src="/images/editors/dragana.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Dragana Kovačević</p>
+                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      </div>
+                     </div>
+
+
+                     <div class="col-sm-6 col-md-4  mt-3 text-center">
+                      <img src="/images/editors/jelenaj.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Jelena Janković</p>
+                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      </div>
+                     </div>
+
+                     <div class="col-sm-6 col-md-4   mt-3 text-center">
+                      <img src="/images/editors/valentina.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Valentina Mandić</p>
+                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      </div>
+                     </div>
+
+                     <div class="col-sm-6 col-md-4   mt-3 text-center">
+                      <img src="/images/editors/drvesnamarkovic.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Dr Vesna Marković</p>
+                        <span class="text-center disabled p-0">Specijalista kliničke biohemije</span>
+                      </div>
+                     </div>
+
+                     <div class="col-sm-6 col-md-4 mt-3 text-center">
+                      <img src="/images/editors/aleksandra.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">Aleksandra Joksović</p>
+                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
+                      </div>
+                     </div>
+
+
+
+
+                </div>{{!-- row end --}}
+                </div>
+
+                <div class="col-12 text-center mx-auto my-5">
                    <h3 class="cardDisclaimer text-center p-4">Ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</h3>
                 </div>
+
+                 <div class="col-12 text-center mx-auto my-3">
+                   <span class="text-center p-4">Ukoliko imaš bilo kakvo pitanje u vezi tumačenja rezultata ili nečeg drugog javi se na zdravo@labcube.rs</span>
+                </div>
+
+                <div class="col-12 text-center">
+                <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a>
+                </div>
+
 
                {{!-- <div class="col-12 mt-4"><h3 class="text-center">Kako do tumačenja rezultata?</h3>
                <p>Prvi korak je da kreiraš nalog</p>
