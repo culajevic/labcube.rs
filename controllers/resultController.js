@@ -151,7 +151,7 @@ exports.freeUpload = async (req,res) => {
             from:'LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>',
             // to:['tumacenje@labcube.rs', 'culajevic@gmail.com'],
             bcc:['tumacenje@labcube.rs','culajevic@gmail.com', 'perovic@labcube.rs', 'jevtic@labcube.rs', 'jelenahajzler@gmail.com', 'jelena.jankovic8@yahoo.com', 'gagajk.kov@gmail.com', 'milicasummer94@gmail.com', 'dellabranko1993@gmail.com', 'mandicvalentina@hotmail.com', 'sanja.jaksic76@gmail.com', 'drvesnabog@gmail.com', 'vanja.vlaisavljevic93@gmail.com', 'joksovicaleks@gmail.com'],
-            subject:`Novi rezultati za tumačenje | ${packageTime}h`,
+            subject:`Novi rezultati za tumačenje`,
             text:'',
             html:`
             <!doctype html>
@@ -750,7 +750,7 @@ exports.freeUpload = async (req,res) => {
                     <tbody>
                         <tr>
                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 18px; padding: 14px;">
-                                <a class="mcnButton " title="" href="" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">vreme za tumačenje: ${packageTime}h</a>
+                                <a class="mcnButton " title="" href="" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">vreme za tumačenje: uskoro </a>
                             </td>
                         </tr>
                     </tbody>
@@ -1561,7 +1561,7 @@ exports.freeUpload = async (req,res) => {
                                           id: ${currentId}<br>
                                           email: ${req.body.email}<br>
                                           vreme slanja: ${invoiceDate}<br>
-                                          vreme tumačenja: 24h*</div>
+                                
                                     </td>
                                 </tr>
                             </tbody></table>
@@ -1681,7 +1681,7 @@ exports.freeUpload = async (req,res) => {
                                     
                                     <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                     
-                                        <div style="text-align: left;"><span style="font-size:13px">*Okvirno vreme za tumačenje, moguće je dobiti rezultate i znatno pre tog roka a sve u zavisnosti od broja zahteva na kojima trenutno radimo. Hvala na strpljenju.</span></div>
+                                        <div style="text-align: left;"><span style="font-size:13px">*Ukoliko ste dobili kod za besplatno tumačenje, okvirno vreme za koje možete očekivati naš komentar je 24h, ukoliko ste platili uslugu putem uplatnice onda je maksimalno vreme tumačenja ono koje odgovara iznosu koji je uplaćen.</span></div>
             
                                     </td>
                                 </tr>
@@ -1765,7 +1765,7 @@ exports.freeUpload = async (req,res) => {
                                     
                                     <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                     
-                                        <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plačanja</a>&nbsp;</span></div>
+                                        <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plaćanja</a>&nbsp;</span></div>
             
                                     </td>
                                 </tr>
@@ -3891,7 +3891,7 @@ requestCheckout()
                                    
                                    <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                    
-                                       <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plačanja</a>&nbsp;</span></div>
+                                       <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plaćanja</a>&nbsp;</span></div>
            
                                    </td>
                                </tr>
