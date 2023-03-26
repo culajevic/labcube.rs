@@ -687,7 +687,7 @@ exports.scheduleVisit = async (req,res) => {
                         
                         <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 200%;">
                         
-                            <h2 style="text-align: center;"><style="font-size:20px;">Laboratorija <span style="color:#1D88E5;"><a href="${req.get('referer')}" style="text-decoration:none;">${getLabData[0].labName}</a></span> Vas očekuje!</h2>
+                            <h2 style="text-align: center;"><style="font-size:20px;">Laboratorija <span style="color:#1D88E5;"><a href="${req.get('referer')}" style="text-decoration:none;">${getLabData[0].labName}</a></span> te očekuje!</h2>
 &nbsp;
 
 <p style="line-height: 200%;"><span style="font-size:18px"><img data-file-id="6005129" height="18" src="https://mcusercontent.com/a10f76f8952b08c139ac9f0ef/images/e8d426a8-ac5d-fdfd-90c0-f01d6f11be9a.png" style="border: 0px  ; width: 17px; height: 18px; margin: 0px; margin-bottom:-3px;" width="17"> ${getLabData[0].address}, ${getLabData[0].placeId.place}<br>
@@ -1000,7 +1000,7 @@ exports.scheduleVisit = async (req,res) => {
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                         
-                            <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plačanja</a>&nbsp;</span></div>
+                            <div style="text-align: center;"><span style="font-size:12px"><a href="https://labcube.rs/politika-privatnosti" target="_blank">politika privatnosti</a>&nbsp;| <a href="https://labcube.rs/uslovi-koriscenja" target="_blank">uslovi korišćenja</a>&nbsp;| <a href="https://labcube.rs/uslovi-placanja" target="_blank">uslovi plaćanja</a>&nbsp;</span></div>
 
                         </td>
                     </tr>

@@ -106,8 +106,17 @@
                   <p>{{{myResults.commentCube}}}</p>
                 </div>
               </div>
+              
         </section><!-- settings id end -->
+         <div class="col-12 text-center">
+        <a href="mailto:zdravo@labcube.rs?subject=Potrebno dodatno pojašnjenje u vezi tumačenja broj: {{myResults._id}}&body=[ovde upiši dodatno pitanje]%0D%0D{{myResults.commentCube}}" target="_blank" class="btn btn-outline-info btn-lg mb-5 text-center ml-auto">Potrebno ti je dodatno pojašnjenje zaključka?</a>
+        
+
+        
+      </div>
       </div> <!-- col 12 end -->
+
+     
 
 
 
@@ -115,7 +124,7 @@
       <section id="resultsLabDetailsComments">
         <div class="col-12">
           <form class="mt-5" action="/sendFeedbackForLabCube/{{myResults._id}}" method="post">
-            <label for="labFeedback" class="text-muted generalInformation">Molimo Vas da ocenite uslugu tumačenja rezultata. Hvala.</label>
+            <label for="labFeedback" class="text-muted generalInformation">Molimo te da oceniš uslugu tumačenja rezultata i pomogneš nam da budemo još bolji. Hvala.</label>
               <textarea name="interpretationFeedback" class="col-12 mt-3" data-hj-allow rows="5" cols="80" id="labFeedback" placeholder=""></textarea>
               <div class="wrapper">
                 <input type="radio" id="st1" value="5" name="star"/>
@@ -129,7 +138,7 @@
                 <input type="radio" id="st5" value="1" name="star"/>
                 <label for="st5"></label>
               </div>
-              <button name="button" class="btn btn-block btn-primary text-uppercase mb-5">Ocenite uslugu</button>
+              <button name="button" class="btn btn-block btn-primary text-uppercase mb-5">Oceni uslugu</button>
           </form>
         </div>
       </section>
