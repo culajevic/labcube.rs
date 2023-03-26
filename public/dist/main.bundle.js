@@ -23550,11 +23550,13 @@ window.onload = function () {
     helper.searchLabAnalysis(mainSearchinner, analysisRadioinner);
     helper.addAnalysis(itemsArray, _resultDiv2, checkout);
     helper.removeAnalysis(itemsArray, checkout);
-  } //izbaciti 
+  }
+
+  if (urlArr[1] == 'payment') {} //izbaciti 
 
 
   if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
-    var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
+    var codeCheck = document.getElementById('codeCheck'); //ako trenutno vreme nije izmedju 8 i 18h tumacenje rezultata u roku od 6 sati ce biti disejblovano
 
     var newDateCheck = new Date();
     var t4 = document.getElementById('t4');

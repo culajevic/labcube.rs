@@ -8,6 +8,7 @@
 </style>
 
 <script>
+
 var wpwlOptions = {
 style:"plain",
 billingAddress: {country:"RS"},
@@ -45,7 +46,7 @@ $('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner 
 $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
 $(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
 $('.wpwl-button-pay').html('Plati'); //promena polja pay u potvrdi
-$('.wpwl-button-pay').after('<small style="color:red; font-weight:bold; font-size:16px; text-align:center;">Nakon što izvršiš plaćanje sačekaj potvrdu o izvršenju transakcije!</small>'); //promena polja pay u potvrdi
+$('.wpwl-button-pay').after('<small style="color:red; font-weight:bold; font-size:18px; text-align:center;">Nakon što izvršiš plaćanje sačekaj potvrdu o izvršenju transakcije. U suprotnom se može desiti da uplatu registrujemo sa zakašnjenjem!</small>');
 $('.wpwl-button-pay').css({'background-color':'#55D159'});
 
 
@@ -85,7 +86,7 @@ $(".wpwl-brand-" + e).css("opacity", "5");
         <hr />
         <div class="mt-1 text-center"><img src="/images/{{displayPackageTime package }}h.svg" alt="" style="width:42px;" class="mb-3 mt-3 mr-4"><h4 class="d-inline">Tumačenje u roku od {{displayPackageTime package }}h</h4></div>
         <div class="mt-2  text-muted p-4"><p>Podaci o adresi, poštanskom broju, državi i adresi se unose isključivo u cilju plaćanja usluge odnosno na zahtev UniCredit banke. LabCube neće iskoristiti ove podatke i povezati ih sa tvojim nalogom. Ovi podaci mogu biti iskorišćeni jedino u svrhu slanja računa za kupljenu uslugu.</p><p>Više detalja o tome kako brinemo o tvojim ličnim podacima možeš pročitati u našoj <a href="/politika-privatnosti" target="_blank">politici privatnosti.</a></p>
-        <p class="text-center font-weight-bold text-danger">Ukoliko iz bilo kog razloga ova usluga ne ispuni tvoja očekivanja vraćamo ti novac.</p></div>
+        <h4 class="text-center font-weight-bold text-danger">Ukoliko iz bilo kog razloga ova usluga ne ispuni tvoja očekivanja vraćamo ti novac.</h4></div>
 
       </div>
 

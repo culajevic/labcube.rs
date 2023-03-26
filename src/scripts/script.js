@@ -735,12 +735,18 @@ if(document.getElementById('resultsGroupDetails')!= null) {
   helper.removeAnalysis(itemsArray, checkout)
 }
 
+
+if(urlArr[1] == 'payment') {
+ 
+}
+
 //izbaciti 
 if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') {
-  
+
+
   let codeCheck = document.getElementById('codeCheck')
 
-  //ako trenutno vreme nije izmedju 8 i 17h tumacenje rezultata u roku od 4 sata ce biti disejblovano
+  //ako trenutno vreme nije izmedju 8 i 18h tumacenje rezultata u roku od 6 sati ce biti disejblovano
   let newDateCheck = new Date()
   let t4 = document.getElementById('t4')
   let t12 = document.getElementById('t12')
@@ -912,6 +918,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
   // search for analysis or lab
   helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 }
+
 
 // lab details PAGE
 if(urlArr[1] == 'laboratorija') {
