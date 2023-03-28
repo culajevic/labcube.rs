@@ -59,6 +59,9 @@
     @include liItemImage('../images/priprema.svg', 80px)
   }
   &:nth-child(5) {
+    // @include liItemImage('../images/detaljanOpis.svg', 80px)
+  }
+  &:nth-child(6) {
     @include liItemImage('../images/detaljanOpis.svg', 80px)
   }
 }
