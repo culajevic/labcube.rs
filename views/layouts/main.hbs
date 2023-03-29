@@ -132,6 +132,17 @@
 
     {{> _msg}}
 
+    {{!-- Mouseflow --}}
+    <script type="text/javascript">
+  window._mfq = window._mfq || [];
+  (function() {
+    var mf = document.createElement("script");
+    mf.type = "text/javascript"; mf.defer = true;
+    mf.src = "//cdn.mouseflow.com/projects/6a81996c-827e-498e-98c3-c5e76f4309bf.js";
+    document.getElementsByTagName("head")[0].appendChild(mf);
+  })();
+</script>
+
     {{{body}}}
 
     <script src="/dist/vendor.bundle.js" charset="utf-8"></script>
