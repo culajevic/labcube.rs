@@ -99,16 +99,19 @@
 
                        <div class="card paymentSteps ml-lg-3 ">
                           <div class="card-body">
-                            {{!-- <div class="najpopularnije">moguće odabrati jedino od 8 do 17h</div> --}}
+                            <div class="najpopularnije">dostupno od 8 do 18h</div>
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
                             <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati<sup>*</sup></p>
+                            <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati</p>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
                             <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
                             <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
                             {{!-- <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label> --}}
-                          </div>
+                         </div>
                       </div>
+                      {{!-- <div class="col-12">
+                      <small class="float-right p-0 m-0"><sup>*</sup>Tumačenje u roku od 6 sati je moguće odabrati između 8 i 18h.</small>
+                      </div> --}}
 
                        {{!-- <div class="card paymentSteps ml-3">
                         <div class="card-body">
