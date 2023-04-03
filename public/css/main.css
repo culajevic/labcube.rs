@@ -8789,7 +8789,7 @@ body {
 .explainerText {
   font-size: 1.5rem;
   line-height: 2rem;
-  color: #4B4B4B; }
+  color: #4b4b4b; }
 
 .explainerVideo2 video {
   position: relative;
@@ -8851,7 +8851,7 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }
-  #healthProfile input[type='checkbox'] {
+  #healthProfile input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -8866,7 +8866,7 @@ body {
     background-color: #eee;
     border-radius: 4px; }
   #healthProfile .customCheck input:checked ~ .checkmark {
-    background-color: #2196F3; }
+    background-color: #2196f3; }
   #healthProfile .checkmark:after {
     content: "";
     position: absolute;
@@ -8910,18 +8910,18 @@ body {
   height: 20px;
   width: 20px;
   opacity: 0;
-  animation: zoom .4s ease-in;
+  animation: zoom 0.4s ease-in;
   z-index: 1; }
 
 @keyframes zoom {
   0% {
     opacity: 0; }
   25% {
-    opacity: .6; }
+    opacity: 0.6; }
   50% {
-    opacity: .9; }
+    opacity: 0.9; }
   75% {
-    opacity: .1; }
+    opacity: 0.1; }
   100% {
     opacity: 0;
     width: 30px;
@@ -8960,7 +8960,7 @@ body {
   border-bottom-left-radius: 5px;
   border-top-right-radius: 5px;
   color: white;
-  font-size: .9rem;
+  font-size: 0.9rem;
   position: absolute;
   top: 0;
   right: 0; }
@@ -8972,7 +8972,8 @@ body {
 .success {
   color: #55D159; }
 
-.imgLazy, .textLazy {
+.imgLazy,
+.textLazy {
   opacity: 0;
   transition: all 3000ms; }
 
@@ -8981,7 +8982,7 @@ body {
 #otherResults .finalThougths {
   margin-top: 2.5rem;
   padding: 24px;
-  background-color: #F5FAFF;
+  background-color: #f5faff;
   border-radius: 20px; }
   #paketi .finalThougths p, #modalParagraph .finalThougths p,
   #myresults .finalThougths p,
@@ -9022,7 +9023,7 @@ div.mobile-wrapper iframe {
   margin: 0 auto; }
 
 .innerInterpretationBtn {
-  padding: .5rem; }
+  padding: 0.5rem; }
 
 .fadeLazy {
   transform: translateX(0);
@@ -9033,7 +9034,7 @@ div.mobile-wrapper iframe {
   width: 340px; }
 
 .editorName {
-  color: #6A757D;
+  color: #6a757d;
   text-align: left; }
 
 .editorImg {
@@ -9242,7 +9243,7 @@ ul ol ul {
 
 .scrollTopShoppingBasket {
   top: 0;
-  transition: top .4s ease; }
+  transition: top 0.4s ease; }
 
 .unhidePriceList {
   width: 300px;
@@ -9345,7 +9346,7 @@ ul ol ul {
   padding: 1.375rem;
   background-color: transparent; }
 
-#healthProfile #labDashboard #oldCheckBox input[type='checkbox'] {
+#healthProfile #labDashboard #oldCheckBox input[type="checkbox"] {
   opacity: 1;
   cursor: pointer;
   height: 20px;
@@ -9413,15 +9414,18 @@ ul ol ul {
 .groupHidden {
   display: none;
   opacity: 0;
-  transition: transform .3s ease-in-out, opacity .3s ease-in-out; }
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
   .groupHidden.active {
     display: flex;
     transform: scale(1);
     opacity: 1; }
     .groupHidden.active.good {
-      animation: anim .5s ease-in-out; }
+      animation: anim 0.5s ease-in-out; }
 
-#addNewAlt:hover, #addNewAbbr:hover, .removeField:hover, #addNewPhone:hover {
+#addNewAlt:hover,
+#addNewAbbr:hover,
+.removeField:hover,
+#addNewPhone:hover {
   cursor: pointer; }
 
 @keyframes anim {
@@ -9436,7 +9440,9 @@ ul ol ul {
     opacity: 1;
     transform: scale(1); } }
 
-.btn-success, .btnLogin, .btn-res-success, .tumacenjeBtn, .btnLogin, .btn-res-success {
+.btn-success, .btnLogin, .btn-res-success, .tumacenjeBtn,
+.btnLogin,
+.btn-res-success {
   padding: 0 1rem; }
 
 .grafik {
@@ -9500,7 +9506,7 @@ ul ol ul {
   border-bottom: 0px; }
 
 .list-group-item {
-  border: 1px solid #F3F7FB; }
+  border: 1px solid #f3f7fb; }
 
 .card-header {
   border-bottom: none; }
@@ -9518,7 +9524,9 @@ ul ol ul {
   border-bottom: 1px solid #FFF;
   color: #FFF; }
 
-#labDetails h1, #groupDetails h1, #labDetailsInner h1 {
+#labDetails h1,
+#groupDetails h1,
+#labDetailsInner h1 {
   color: #1D88E5;
   font-size: 2.625rem;
   font-weight: bold; }
@@ -9597,7 +9605,7 @@ ul ol ul {
   padding-left: 30px; }
   .labFeatures p {
     font-size: 1rem;
-    color: #6A757D; }
+    color: #6a757d; }
 
 #labFeaturesAdminArea {
   background-color: #FAFAFA;
@@ -9616,7 +9624,7 @@ ul ol ul {
   padding-left: 30px; }
   #labFeaturesAdminArea p {
     font-size: 1rem;
-    color: #6A757D; }
+    color: #6a757d; }
 
 .feedback {
   border-top-right-radius: 20px;
@@ -9628,7 +9636,7 @@ ul ol ul {
   .feedback p {
     font-size: 1rem;
     font-weight: 500;
-    color: #6A757D; }
+    color: #6a757d; }
 
 .feedbackLabDash {
   border-top-right-radius: 20px;
@@ -9643,7 +9651,7 @@ ul ol ul {
   .feedbackLabDash p {
     font-size: 1rem;
     font-weight: 500;
-    color: #6A757D; }
+    color: #6a757d; }
 
 .workingHoursLabDetails > tbody > tr > td.open {
   background-color: #55D159;
@@ -9661,15 +9669,16 @@ ul ol ul {
   border-radius: 20px; }
 
 p.selectedAnalysisTitle {
-  background-color: #F3F7FB;
+  background-color: #f3f7fb;
   padding: 12px 15px;
   text-transform: uppercase;
-  color: #042A37;
+  color: #042a37;
   font-size: 1.25rem;
   margin-bottom: 0;
   border-radius: 14px; }
 
-#mapDetails, #mapPrices {
+#mapDetails,
+#mapPrices {
   padding: 0;
   margin: 0;
   height: calc(100vh - 210px); }
@@ -9695,7 +9704,7 @@ p.selectedAnalysisTitle {
   min-width: 300px; }
 
 .remove:hover {
-  opacity: .7;
+  opacity: 0.7;
   cursor: pointer; }
 
 .totalPrice, .labCubePrice {
@@ -9751,7 +9760,7 @@ p.selectedAnalysisTitle {
   top: 20px;
   right: 15px;
   width: 280px;
-  opacity: .99;
+  opacity: 0.99;
   max-height: 500px;
   overflow-y: auto; }
 
@@ -9813,10 +9822,16 @@ p.selectedAnalysisTitle {
 .beReady {
   justify-content: space-around; }
 
-#aboutUs, #termsAndConditions, #privacyPolicy, #contactUs {
+#aboutUs,
+#termsAndConditions,
+#privacyPolicy,
+#contactUs {
   margin-top: 60px;
   margin-bottom: 40px; }
-  #aboutUs p, #termsAndConditions p, #privacyPolicy p, #contactUs p {
+  #aboutUs p,
+  #termsAndConditions p,
+  #privacyPolicy p,
+  #contactUs p {
     font-size: 20px;
     margin-bottom: 20px;
     line-height: 30px; }
@@ -10040,7 +10055,7 @@ small a:hover {
   -webkit-box-shadow: 18px -6px 26px -16px #e3d7e3;
   -moz-box-shadow: 18px -6px 26px -16px #e3d7e3;
   box-shadow: 18px -6px 26px -16px #e3d7e3;
-  background: linear-gradient(0deg, #FCFCFC 45%, #FAFAFA 100%);
+  background: linear-gradient(0deg, #fcfcfc 45%, #fafafa 100%);
   margin-bottom: 30px;
   padding: 30px;
   margin-top: 40px;
@@ -10053,10 +10068,10 @@ small a:hover {
     margin-bottom: 0px;
     line-height: 30px; }
 
-.radioStyle input[type=radio] {
+.radioStyle input[type="radio"] {
   display: none; }
 
-.radioStyle input[type=radio] + label:before {
+.radioStyle input[type="radio"] + label:before {
   content: "\f111";
   font-family: "Font Awesome 5 Free";
   color: #8F8F8F;
@@ -10064,7 +10079,7 @@ small a:hover {
   padding-right: 8px;
   vertical-align: middle; }
 
-.radioStyle input[type=radio]:checked + label:before {
+.radioStyle input[type="radio"]:checked + label:before {
   content: "\f192";
   font-weight: bold;
   font-family: "Font Awesome 5 Free";
@@ -10092,10 +10107,11 @@ small a:hover {
 .fa-share-square {
   color: #8F8F8F; }
   .fa-share-square:hover {
-    opacity: .7;
+    opacity: 0.7;
     cursor: pointer; }
 
-#finalCommentByLabCube, #labFeedback {
+#finalCommentByLabCube,
+#labFeedback {
   border-radius: 10px;
   padding: 10px;
   border: 1px solid #e1e1e1; }
@@ -10107,9 +10123,9 @@ small a:hover {
   padding-left: 0;
   color: white;
   width: 200px;
-  background-color: #4285F4;
+  background-color: #4285f4;
   padding: 15px;
-  border: 1px solid #4285F4; }
+  border: 1px solid #4285f4; }
   .googleBtnIcon:hover {
     background-color: #347cf3;
     color: white; }
@@ -10135,7 +10151,7 @@ small a:hover {
   display: inline-block; }
 
 .labResults tr {
-  background-color: #FBFBFB;
+  background-color: #fbfbfb;
   height: 106px;
   -webkit-box-shadow: 2px 11px 21px -8px #ada6ad;
   -moz-box-shadow: 2px 11px 21px -8px #ada6ad;
@@ -10242,7 +10258,7 @@ a[href^="tel"] {
   .hcpBio p {
     font-size: 1.25rem;
     color: black;
-    opacity: .6;
+    opacity: 0.6;
     margin-bottom: 0; }
 
 .fixed-top {
@@ -10294,7 +10310,7 @@ input[type="range"] {
   margin-right: 8px;
   border-radius: 8px; }
 
-input[type=range]::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   background-color: transparent;
   border: none; }
 
@@ -10311,7 +10327,7 @@ progress::-webkit-progress-value {
   border-radius: 8px; }
 
 progress[value]::-webkit-progress-bar {
-  background: #C8E3F7;
+  background: #c8e3f7;
   border-radius: 8px; }
 
 .min, .regularResults,
@@ -10322,7 +10338,7 @@ progress[value]::-webkit-progress-bar {
   height: 8px;
   width: 94%;
   margin-right: 16px;
-  background-color: #FF9898; }
+  background-color: #ff9898; }
 
 .rangeLabels {
   margin-top: 8px;
@@ -10334,7 +10350,7 @@ progress[value]::-webkit-progress-bar {
   padding-bottom: 16px; }
 
 .regularResults {
-  background-color: #1AE9B6; }
+  background-color: #1ae9b6; }
 
 .showGreen::-webkit-slider-thumb, .showRed::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -10343,7 +10359,7 @@ progress[value]::-webkit-progress-bar {
   border: 10px solid transparent;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0px 0px 0px 4px #1AE9B6; }
+  box-shadow: 0px 0px 0px 4px #1ae9b6; }
 
 .showGreen::-moz-range-thumb, .showRed::-moz-range-thumb {
   -webkit-appearance: none;
@@ -10351,13 +10367,13 @@ progress[value]::-webkit-progress-bar {
   border: 9px solid #14d5a6;
   border-radius: 50%;
   background: #fff !important;
-  box-shadow: 0px 0px 0px 4px #1AE9B6; }
+  box-shadow: 0px 0px 0px 4px #1ae9b6; }
 
 .showRed::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px 4px #FF9898; }
+  box-shadow: 0px 0px 0px 4px #ff9898; }
 
 .showRed::-moz-range-thumb {
-  box-shadow: 0px 0px 0px 4px #FF9898; }
+  box-shadow: 0px 0px 0px 4px #ff9898; }
 
 .callToActionNewAcc {
   float: left; }
@@ -10409,7 +10425,7 @@ table.workingHoursLabDetails {
   padding-left: 20px;
   font-size: 1.25rem; }
   .myResultsComment > span {
-    opacity: .6; }
+    opacity: 0.6; }
 
 .analysisComment {
   position: absolute;
@@ -10432,7 +10448,7 @@ table.workingHoursLabDetails {
   color: #3B3B3B; }
   .analysisName + p {
     font-size: 1.125rem;
-    opacity: .6; }
+    opacity: 0.6; }
 
 .resultDetails {
   display: flex;
@@ -10484,9 +10500,11 @@ table.workingHoursLabDetails {
   margin-top: 4.375rem;
   margin-bottom: 4.375rem; }
 
-.basicInfo, .updatePassowrd, .basicHealthInfo {
-  -webkit-box-shadow: 3px 5px 12px 5px #94818D;
-  box-shadow: 3px 5px 12px 5px #94818D;
+.basicInfo,
+.updatePassowrd,
+.basicHealthInfo {
+  -webkit-box-shadow: 3px 5px 12px 5px #94818d;
+  box-shadow: 3px 5px 12px 5px #94818d;
   background-color: #FFF;
   padding: 50px; }
 
@@ -10539,11 +10557,11 @@ table.workingHoursLabDetails {
   cursor: pointer; }
 
 .agTestCheckbox > input:checked, .openclosedLegend > input:checked {
-  border: 1px solid #41B883;
+  border: 1px solid #41b883;
   background-color: #55D159; }
 
 .agTestCheckbox > input:checked + span::before, .openclosedLegend > input:checked + span::before {
-  content: '\2713';
+  content: "\2713";
   display: block;
   text-align: center;
   color: #FFF;
@@ -10641,15 +10659,16 @@ table.workingHoursLabDetails {
 .btn-outline-danger.focus {
   box-shadow: none; }
 
-#odabirPaketa input[type=radio], #status input[type=radio] {
+#odabirPaketa input[type="radio"],
+#status input[type="radio"] {
   display: none; }
 
-#odabirPaketa input[type=radio]:checked + label {
+#odabirPaketa input[type="radio"]:checked + label {
   background-color: #1D88E5;
   color: #FFF !important;
   border: 1px solid #1D88E5; }
 
-#status input[type=radio]:checked + label {
+#status input[type="radio"]:checked + label {
   background-color: #1D88E5;
   color: #FFF !important;
   border: 1px solid #1D88E5; }
@@ -10736,7 +10755,7 @@ table.workingHoursLabDetails {
   margin-bottom: 0; }
 
 .alert-success, .alert-danger {
-  background-color: #9EDE73;
+  background-color: #9ede73;
   color: #FFF;
   font-size: 1.375rem;
   position: absolute;
@@ -10767,10 +10786,15 @@ table.workingHoursLabDetails {
   background-color: #55D159; }
 
 .notPaid {
-  background-color: #FF6F6F; }
+  background-color: #FF9600; }
 
 @media print {
-  #navigationMyResults, footer, #smallHeader, .titleDetails, .addAnalysis, .printIcon {
+  #navigationMyResults,
+  footer,
+  #smallHeader,
+  .titleDetails,
+  .addAnalysis,
+  .printIcon {
     display: none; } }
 
 @media (max-width: 575px) {
