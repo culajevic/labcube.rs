@@ -27,7 +27,7 @@ showLabels:false,
 requireCvv: true,
 showCVVHint: true,
 showLabels:false,
-maskCvv: false,
+maskCvv: true,
 showPlaceholders:true,
 autofocus: 'card.number',
 labels:{billingAddress:"Adresa za naplatu"},
@@ -70,13 +70,19 @@ $(".wpwl-brand-" + e).css("opacity", "5");
 <div class="container" id="paymentCheckout">
  		<div class="row">
       <div class="col-12">
-        <h1 class="mb-4">{{user.username}}, još samo jedan korak</h1>
+        <h1 class="">{{user.username}}, još samo jedan korak</h1>
+        <small class="text-danger">Nakon što izvršiš plaćanje sačekaj potvrdu o izvršenju transakcije. U suprotnom se može desiti da uplatu registrujemo sa zakašnjenjem!</small>
       </div>
       <!-- <div class="checkoutCartFinal col-12"> -->
       <!-- <span>{{user.username}}, još samo jedan korak</span> -->
-      <div class="col-xs-12 col-sm-12 col-lg-5 mr-lg-5 mt-4" style="box-shadow: 11px 18px 47px -19px rgba(0,0,0,0.82); border-radius:20px;">
+
+         <div class="col-xs-12 col-sm-12 col-lg-6 mt-4">
+            <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix" data-brands="VISA MASTER AMEX"></form>
+        </div>
+        
+      <div class="col-xs-12 col-sm-12 col-lg-5 ml-lg-5 mt-5 mb-0" style="box-shadow: 11px 18px 47px -19px rgba(0,0,0,0.82); border-radius:20px;">
         <!-- <p class="p-4 text-center" style="font-Size:22px;">{{user.username}}, još samo jedan korak</p> -->
-        <p class="p-4 text-center" style="font-Size:22px;">Proveri detalje </p>
+        <h3 class="text-center pt-3">Proveri detalje porudžbine</h3>
         <hr>
         <div class="mt-3 text-center">
           <i class="fas fa-credit-card mr-4" style="color:#1D88E5; font-size:39px; font-weight:200"></i><h4 class="mt-4 text-center d-inline">{{package}} RSD</h4>
@@ -85,14 +91,15 @@ $(".wpwl-brand-" + e).css("opacity", "5");
         <div class="mt-3 text-center"><a href="../results/{{resultFile}}" class="text-reset" target="_blank"><i class="far fa-file-pdf text-center mt-2 mr-4" style="color:#1D88E5; font-size:39px; font-weight:200"></i><h4 class="d-inline text-reset">Pogledaj odabrani fajl</h4></a></div>
         <hr />
         <div class="mt-1 text-center"><img src="/images/{{displayPackageTime package }}h.svg" alt="" style="width:42px;" class="mb-3 mt-3 mr-4"><h4 class="d-inline">Tumačenje u roku od {{displayPackageTime package }}h</h4></div>
-        <div class="mt-2  text-muted p-4"><p>Podaci o adresi, poštanskom broju, državi i adresi se unose isključivo u cilju plaćanja usluge odnosno na zahtev UniCredit banke. LabCube neće iskoristiti ove podatke i povezati ih sa tvojim nalogom. Ovi podaci mogu biti iskorišćeni jedino u svrhu slanja računa za kupljenu uslugu.</p><p>Više detalja o tome kako brinemo o tvojim ličnim podacima možeš pročitati u našoj <a href="/politika-privatnosti" target="_blank">politici privatnosti.</a></p>
+        <div class="mt-2  text-muted p-4"><p>Podaci o adresi, poštanskom broju, državi i adresi se unose isključivo u cilju plaćanja usluge odnosno na zahtev UniCredit banke. LabCube neće iskoristiti ove podatke i povezati ih sa tvojim nalogom. Ovi podaci mogu biti iskorišćeni jedino u svrhu slanja računa za kupljenu uslugu.</p>
         <h4 class="text-center font-weight-bold text-danger">Ukoliko iz bilo kog razloga ova usluga ne ispuni tvoja očekivanja vraćamo ti novac.</h4></div>
-
       </div>
 
-        <div class="col-xs-12 col-sm-12 col-lg-6 mt-4">
-            <form action="/checkout/" class="wpwl-form paymentWidgets wpwl-form-card wpwl-clearfix" data-brands="VISA MASTER AMEX"></form>
-        </div>
+      <div class="col-12 mt-5">
+        <h4>Ukoliko imaš bilo kakvo pitanje u vezi tumačenja rezultata, plaćanja usluge ili bilo koje drugo pitanje možeš nam poslati mejl na zdravo@labcube.rs ili nas kontaktirati putem četa na ovoj stranici.</h4>
+      </div>
+
+     
 
 
 
@@ -101,3 +108,15 @@ $(".wpwl-brand-" + e).css("opacity", "5");
 </div>
 
  {{> _footer}}
+
+ <script>
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/601a889cc31c9117cb75615d/1etjqb8s1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+ </script>

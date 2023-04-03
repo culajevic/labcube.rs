@@ -10,7 +10,7 @@
           <tbody>
           {{#each otherResultsForInterpretation}}
             <tr class="dashboardResults">
-              <td><span class="{{checkPayment this.package this.paid}}" title="Plaćeno"></span></td>
+              <td><span class="{{checkPayment this.package this.paid}}" title="{{freeInterpretation this.paid}} - {{this.paid}}"></span></td>
               <td>{{#if this.readyForInterpreatation}}<i class="far fa-thumbs-up success" title="Tumačenje je spremno za pregled"></i>{{else}}<i class="far fa-hand-paper text-danger" title="Tumačenje nije spremno za pregled"></i>{{/if}}</td>
               <td><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-alt" title="pogledaj fajl"></i></td>
               {{!-- <td title="Broj analiza koje se tumače">{{countItems this.analyses}}</td> --}}
