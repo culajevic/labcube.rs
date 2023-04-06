@@ -127,6 +127,9 @@
           </tbody>
         </table>
       </div>
+        {{!-- <div class="col-12 my-5">
+        <p class=""><h4 class="text-center">Ukoliko imaš pitanja u vezi tvojih laboratorijskih nalaza od sada je moguće dobiti online tumačenje od strane iskusnih biohemičara i lekara koji razumeju koliko ispravno razumevanje laboratorijskih nalaza doprinosi boljoj dijagnostici.</h4> <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btn-danger display-2">saznaj više</a></p>
+        </div> --}}
       {{!-- <div class="col-12">
         <h4 class="boxshadowBckg text-center my-5">Online tumačenje laboratorijskih nalaza <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn  btn-outline-info text-uppercase m-2 p-2">Saznaj više</a></h4>
       </div> --}}
@@ -172,33 +175,20 @@
             </div><!-- col 12 end -->
             <div class="col-12">
               <div class="mt-5">
+                 
+                  {{#if labDetails.partner}}
                 {{!-- <p class="aboutUs"><span class="numAnalysis">Redovna cena </span><span class="totalPrice" ></span></p> --}}
+                <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="">Cena sa popustom za LabCube korisnike</span> <span class="totalPrice" id="labCubePrice"></span></p>
+                {{!-- <p class="text-center"><span> + venepunkcija {{labDetails.description}} rsd</span></p> --}}
+                <p class="text-center mb-5"><span> + trošak uzimanja uzorka</span></p>
+                  {{else}}
+                   {{!-- <p class="aboutUs"><span class="numAnalysis">Redovna cena </span><span class="totalPrice" ></span></p> --}}
                 <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="">Ukupno</span> <span class="totalPrice" id="labCubePrice"></span></p>
                 {{!-- <p class="text-center"><span> + venepunkcija {{labDetails.description}} rsd</span></p> --}}
-                <p class="text-center"><span> + trošak uzimanja uzorka</span></p>
-                
-                {{!-- <div class="card mt-5">
-                  <div class="card-body">
-                    <h5 class="card-title">Besplatno tumačenje rezultata</h5>
-                    <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
-                  </div>
-                </div>
-                
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Uvek znaš gde su svi tvoji laboratorijski rezultati</h5>
-                    <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
-                  </div>
-                </div>
-            
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Prosledi laboratoriji</h5>
-                      <p class="card-text generalInformation">Klikni na dugme ispod i laboratorija će dobiti listu analiza koje si odabrao. Kada odeš u laboratoriju samo reci svoj mejl. U međuvremenu ti mi šaljemo vaučer za besplatno tumačenje rezultata.</p>
-                    </div>
-                  </div> --}}
+                  {{/if}}
               </div>   
             </div>
+             
             {{/if}}
 
 
@@ -209,6 +199,32 @@
             {{#if labDetails.partner}}
             {{!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> --}}
             {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
+             <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Besplatno tumačenje rezultata</h5>
+                    <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
+                  </div>
+                  </div>
+                </div>
+                
+                <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                  <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Uvek na jednom mestu</h5>
+                    <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
+                  </div>
+                  </div>
+                </div>
+            
+                  <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                    <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Prosledi laboratoriji</h5>
+                      <p class="card-text generalInformation">Klikni na dugme ispod i laboratorija će dobiti listu analiza koje si odabrao. Kada odeš u laboratoriju napomeni da si odabrao analize koristeći labcube i reci im svoju mejl adresu. U međuvremenu, mi ti šaljemo vaučer za besplatno tumačenje rezultata na mejl.</p>
+                    </div>
+                    </div>
+                  </div>
             <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
               {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
@@ -228,8 +244,34 @@
                 </div> --}}
             {{/if}}
             {{else}}
+             <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Besplatno tumačenje rezultata</h5>
+                    <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
+                  </div>
+                  </div>
+                </div>
+                
+                <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                  <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Uvek na jednom mestu</h5>
+                    <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
+                  </div>
+                  </div>
+                </div>
+            
+                  <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                    <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Kreiraj nalog</h5>
+                      <p class="card-text generalInformation">Samo registrovani korisnici mogu proslediti analize laboratoriji. Registruj se i ostvari popust i pravo na besplatnu interpretaciju tvoji rezultataž</p>
+                    </div>
+                    </div>
+                  </div>
                <div class="col-12 text-center labDetailsActionBtn">
-                <a href="/registracija" target="_blank" class="btn btn-success text-uppercase p-4">Registruj se</a>
+                <a href="/registracija" target="_blank" class="btn btn-success text-uppercase p-4">Registruj se i ostvari popust</a>
               </div>
           {{/if}}
 
@@ -276,7 +318,7 @@
           {{#unless alreadySentFlag}}
         <div class="col-12">
           <form class="mt-5" action="/sendFeedback/{{labDetails._id}}" method="post">
-            <label for="labFeedback" class="text-muted">Napišite komentar i ocenite laboratoriju</label>
+            <label for="labFeedback" class="text-muted">Napiši komentar i oceni laboratoriju</label>
               <textarea name="labFeedback" class="col-12 mt-3" data-hj-allow rows="5" cols="80" id="labFeedback" placeholder=""></textarea>
               <div class="wrapper">
                 <input type="radio" id="st1" value="5" name="star"/>
@@ -290,14 +332,14 @@
                 <input type="radio" id="st5" value="1" name="star"/>
                 <label for="st5"></label>
               </div>
-              <button name="button" class="btn btn-block btn-primary text-uppercase mb-5">Pošaljite komentar i ocenite laboratoriju</button>
+              <button name="button" class="btn btn-block btn-primary text-uppercase mb-5">Pošalji komentar i oceni laboratoriju</button>
           </form>
         </div>
           {{/unless}}
 
           {{else}}
           <div class="col-12 text-center">
-            <small class="text-muted my-4">Ukoliko želite da ocenite laboratoriju <a href="/prijava" target="_blank" class="nolinkLabDetails">prijavite se</a> ili <a href="/registracija" target="_blank" class="nolinkLabDetails">kreirajte nalog</a></small>
+            <small class="text-muted my-4">Ukoliko želite da ocenite laboratoriju <a href="/prijava" target="_blank" class="nolinkLabDetails">prijavite se</a> ili <a href="/registracija" target="_blank" class="nolinkLabDetails">kreiraj nalog</a></small>
           </div>
         {{/if}}
 
