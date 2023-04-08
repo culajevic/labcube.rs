@@ -21741,7 +21741,7 @@ exports.bestPrice = function () {
 /***/ (function(module, exports) {
 
 exports.removeElement = function (element1, element2) {
-  element1.addEventListener('click', function (e) {
+  element1.addEventListener("click", function (e) {
     e.preventDefault();
     var itemToRemove = e.target.innerText;
     var index = element2.indexOf(itemToRemove);
@@ -21759,13 +21759,13 @@ exports.removeElement = function (element1, element2) {
 exports.deleteDocument = function (selector, message, url, redirect, error) {
   var deleteDocument = document.querySelectorAll(selector);
   deleteDocument.forEach(function (item) {
-    item.addEventListener('click', function (e) {
+    item.addEventListener("click", function (e) {
       if (confirm(message)) {
-        var id = e.target.getAttribute('data-id');
-        var location = e.target.getAttribute('data-tab');
-        url += id + '/' + location;
+        var id = e.target.getAttribute("data-id");
+        var location = e.target.getAttribute("data-tab");
+        url += id + "/" + location;
         fetch(url, {
-          method: 'delete'
+          method: "delete"
         }).then(function (response) {
           response.json().then(function (data) {
             console.log(data);
@@ -21782,34 +21782,34 @@ exports.deleteDocument = function (selector, message, url, redirect, error) {
 };
 
 exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray, i) {
-  var noResults = document.getElementById('noResults');
-  noResults.innerHTML = ''; //check if analysis is already in localstorage
+  var noResults = document.getElementById("noResults");
+  noResults.innerHTML = ""; //check if analysis is already in localstorage
 
   var analysisPositionArr = itemsArray.findIndex(function (item) {
     return item.name === prices[i].name;
   });
-  var tr = document.createElement('tr'); //td analysis name and preview icon
+  var tr = document.createElement("tr"); //td analysis name and preview icon
 
-  var tdName = document.createElement('td');
+  var tdName = document.createElement("td");
   var analysisName = document.createTextNode(prices[i].name);
-  var analysisLink = document.createElement('a');
+  var analysisLink = document.createElement("a");
 
-  if (prices[i].preview == '') {
+  if (prices[i].preview == "") {
     // analysisLink.setAttribute('href', '#')
-    analysisLink.className = 'nolink text-muted';
+    analysisLink.className = "nolink text-muted";
     analysisLink.appendChild(analysisName);
   } else {
-    analysisLink.setAttribute('href', '/results/analysis/' + prices[i].slug); // analysisLink.setAttribute('target','_blank')
+    analysisLink.setAttribute("href", "/results/analysis/" + prices[i].slug); // analysisLink.setAttribute('target','_blank')
 
-    analysisLink.className = 'nolink text-primary';
+    analysisLink.className = "nolink text-primary";
     analysisLink.appendChild(analysisName);
   }
 
-  var previewIcon = document.createElement('img');
-  previewIcon.setAttribute('src', '/images/detail.svg');
-  previewIcon.setAttribute('title', prices[i].preview);
+  var previewIcon = document.createElement("img");
+  previewIcon.setAttribute("src", "/images/detail.svg");
+  previewIcon.setAttribute("title", prices[i].preview);
   previewIcon.className = "tooltipImg mr-2";
-  previewIcon.setAttribute('data-toggle', 'tooltip');
+  previewIcon.setAttribute("data-toggle", "tooltip");
   tdName.appendChild(previewIcon);
   tdName.appendChild(analysisLink);
   tr.appendChild(tdName); // displab analysis abbreviation
@@ -21823,67 +21823,67 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   // }
   //display alternative name for analysis
 
-  var alt = document.createElement('td');
+  var alt = document.createElement("td");
   alt.className = "altNameResult";
   var altName;
 
   for (y = 0; y < prices[i].abbr.length; y++) {
     // console.log(prices[i].abbr[y].join(', '))
-    altName = document.createTextNode(prices[i].abbr[y].join(', '));
+    altName = document.createTextNode(prices[i].abbr[y].join(", "));
     alt.appendChild(altName);
     tr.appendChild(alt);
   } //display analysis groupName
 
 
-  var tdGroupName = document.createElement('td');
+  var tdGroupName = document.createElement("td");
   tdGroupName.className = "groupNameResult";
   var groupName = document.createTextNode(prices[i].groupName);
   tdGroupName.appendChild(groupName);
   tr.appendChild(tdGroupName); //display hospital icon if analysis is available
   //ako nije dostupna stavi hospital-alt-off.svg
 
-  var hospital = document.createElement('td');
+  var hospital = document.createElement("td");
   hospital.className = "hospitalResult";
-  var hospitalIcon = document.createElement('img'); // console.log(prices[i].availableHC)
+  var hospitalIcon = document.createElement("img"); // console.log(prices[i].availableHC)
 
   if (prices[i].availableHC[0] == true) {
-    hospitalIcon.setAttribute('src', '/images/hospital-alt.svg');
-    hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute("src", "/images/hospital-alt.svg");
+    hospitalIcon.setAttribute("data-toggle", "tooltip");
+    hospitalIcon.setAttribute("title", "Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.");
   } else {
-    hospitalIcon.setAttribute('src', '/images/hospital-alt_off.svg');
-    hospitalIcon.setAttribute('data-toggle', 'tooltip');
-    hospitalIcon.setAttribute('title', 'Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.');
+    hospitalIcon.setAttribute("src", "/images/hospital-alt_off.svg");
+    hospitalIcon.setAttribute("data-toggle", "tooltip");
+    hospitalIcon.setAttribute("title", "Analizu nije moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja.");
   }
 
   hospital.appendChild(hospitalIcon);
   tr.appendChild(hospital); //display min and max price
 
-  var minmaxPrice = document.createElement('td');
-  var priceSpan = document.createElement('span');
-  priceSpan.className = 'font-weight-bold priceRange'; // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
+  var minmaxPrice = document.createElement("td");
+  var priceSpan = document.createElement("span");
+  priceSpan.className = "font-weight-bold priceRange"; // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
 
   var priceRange = document.createTextNode("".concat(prices[i].minPrice, " - ").concat(prices[i].maxPrice));
   priceSpan.appendChild(priceRange);
   minmaxPrice.appendChild(priceSpan);
   tr.appendChild(minmaxPrice); //create btn for adding analysis to basket
 
-  var addAnalysisBtnTd = document.createElement('td');
-  var addAnalysisBtn = document.createElement('button');
+  var addAnalysisBtnTd = document.createElement("td");
+  var addAnalysisBtn = document.createElement("button");
   var addAnalysisBtnText;
 
   if (analysisPositionArr === -1) {
-    addAnalysisBtn.className = 'btn btn-danger float-right btn-block text-uppercase addAnalysis';
-    addAnalysisBtnText = document.createTextNode('uporedi cenu');
+    addAnalysisBtn.className = "btn btn-danger float-right btn-block text-uppercase addAnalysis";
+    addAnalysisBtnText = document.createTextNode("uporedi cenu");
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714");
-    addAnalysisBtn.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis';
+    addAnalysisBtn.className = "btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis";
     addAnalysisBtn.disabled = true;
   }
 
-  addAnalysisBtn.setAttribute('data-analysisId', prices[i]._id);
-  addAnalysisBtn.setAttribute('data-analysisName', prices[i].name);
-  addAnalysisBtn.setAttribute('data-groupImg', prices[i].iconPath);
+  addAnalysisBtn.setAttribute("data-analysisId", prices[i]._id);
+  addAnalysisBtn.setAttribute("data-analysisName", prices[i].name);
+  addAnalysisBtn.setAttribute("data-groupImg", prices[i].iconPath);
   addAnalysisBtn.appendChild(addAnalysisBtnText);
   addAnalysisBtnTd.appendChild(addAnalysisBtn);
   tr.appendChild(addAnalysisBtnTd);
@@ -21892,42 +21892,42 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
 exports.displayBasket = function (itemsArray) {
   // display 'shopping' basket
-  document.querySelector('.card').classList.remove('d-none'); //put number of selected analyisis next to basket title
+  document.querySelector(".card").classList.remove("d-none"); //put number of selected analyisis next to basket title
 
   var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ")"));
-  var cardHeader = document.getElementById('numOfAnalysis');
+  var cardHeader = document.getElementById("numOfAnalysis");
   cardHeader.appendChild(basketTitle); // const data = JSON.parse(localStorage.getItem('items'))
 
   itemsArray.forEach(function (analysis) {
     //create li element for each analysis selected
-    var analysisAdded = document.createElement('li');
-    analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
+    var analysisAdded = document.createElement("li");
+    analysisAdded.className = "list-group-item list-group-item-action"; //creating group image
 
-    var groupImage = document.createElement('img');
-    groupImage.classList = 'labGroupIconSelectedAnalysis';
-    groupImage.setAttribute('src', '/images/' + analysis.logo); //creating text with analysis name
+    var groupImage = document.createElement("img");
+    groupImage.classList = "labGroupIconSelectedAnalysis";
+    groupImage.setAttribute("src", "/images/" + analysis.logo); //creating text with analysis name
 
-    var newAnalysisName = analysis.name.replace(' - ', ' ').replace('/', ' ');
+    var newAnalysisName = analysis.name.replace(" - ", " ").replace("/", " ");
     var analysisName = document.createTextNode(analysis.name);
-    var analysisLink = document.createElement('a');
-    var slug = newAnalysisName.split(' ');
-    var urlSlug = slug.join('-');
-    analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-    analysisLink.setAttribute('target', '_blank');
-    analysisLink.className = 'nolink analysisBasketLiItem';
-    analysisLink.setAttribute('data-analysisid', analysis.id);
+    var analysisLink = document.createElement("a");
+    var slug = newAnalysisName.split(" ");
+    var urlSlug = slug.join("-");
+    analysisLink.setAttribute("href", "/results/analysis/" + urlSlug);
+    analysisLink.setAttribute("target", "_blank");
+    analysisLink.className = "nolink analysisBasketLiItem";
+    analysisLink.setAttribute("data-analysisid", analysis.id);
     analysisLink.appendChild(analysisName); //creating span element for remove icon
 
-    var removeSpan = document.createElement('span');
-    removeSpan.className = 'float-right remove';
-    var removeImg = document.createElement('img');
-    removeImg.setAttribute('src', '/images/closeBtn.svg');
-    removeImg.className = 'remove-analysis-from-basket';
+    var removeSpan = document.createElement("span");
+    removeSpan.className = "float-right remove";
+    var removeImg = document.createElement("img");
+    removeImg.setAttribute("src", "/images/closeBtn.svg");
+    removeImg.className = "remove-analysis-from-basket";
     removeSpan.appendChild(removeImg);
     analysisAdded.appendChild(groupImage);
     analysisAdded.appendChild(analysisLink);
     analysisAdded.appendChild(removeSpan);
-    var selectedAnalysis = document.getElementById('selectedAnalysis'); //get position of analysis in array
+    var selectedAnalysis = document.getElementById("selectedAnalysis"); //get position of analysis in array
 
     var analysisPositionArr = itemsArray.findIndex(function (items) {
       return analysis.name === items.name;
@@ -21938,12 +21938,12 @@ exports.displayBasket = function (itemsArray) {
 
 exports.removeAnalysis = function (itemsArray, checkout) {
   //remove analysis from local storage
-  var analysisBasket = document.getElementById('selectedAnalysis');
-  analysisBasket.addEventListener('click', function (e) {
-    if (e.target.classList.contains('remove-analysis-from-basket')) {
+  var analysisBasket = document.getElementById("selectedAnalysis");
+  analysisBasket.addEventListener("click", function (e) {
+    if (e.target.classList.contains("remove-analysis-from-basket")) {
       var selectedAnalysisBasket = e.target.parentNode.parentNode;
       var indexOfAnalysisName = selectedAnalysisBasket.innerText;
-      var localStorageItems = JSON.parse(localStorage.getItem('items'));
+      var localStorageItems = JSON.parse(localStorage.getItem("items"));
       var nameIndex = localStorageItems.findIndex(function (item) {
         return item.name === indexOfAnalysisName;
       });
@@ -21953,35 +21953,35 @@ exports.removeAnalysis = function (itemsArray, checkout) {
       var removedValue;
       removedValue = itemsArray.splice(nameIndex, 1);
       selectedAnalysisBasket.remove();
-      localStorage.setItem('items', items);
+      localStorage.setItem("items", items);
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
-      var cardHeader = document.getElementById('numOfAnalysis');
-      cardHeader.innerHTML = '';
+      var cardHeader = document.getElementById("numOfAnalysis");
+      cardHeader.innerHTML = "";
       cardHeader.appendChild(basketTitle); //hide basket if all analysis are removed
 
       if (itemsArray.length == 0) {
-        document.querySelector('.card').classList.add('d-none'); // document.getElementById('priceList').classList.add('hidePriceList')
+        document.querySelector(".card").classList.add("d-none"); // document.getElementById('priceList').classList.add('hidePriceList')
 
-        document.getElementById('priceList').classList.add('d-none'); // document.querySelector('.card').classList.add('hidePriceList')
+        document.getElementById("priceList").classList.add("d-none"); // document.querySelector('.card').classList.add('hidePriceList')
         // checkout.classList.add('d-none')
 
-        var resultSection = document.getElementById('resultsLabDetails') ? document.getElementById('resultsLabDetails') : '';
+        var resultSection = document.getElementById("resultsLabDetails") ? document.getElementById("resultsLabDetails") : "";
 
         if (resultSection) {
-          resultSection.classList.add('d-none');
+          resultSection.classList.add("d-none");
         }
       }
 
-      checkout.innerText = 'odabranih analiza ' + itemsArray.length; //enable button for the analysis removed
+      checkout.innerText = "odabranih analiza " + itemsArray.length; //enable button for the analysis removed
       // let enableButton = document.querySelectorAll('#resultTable tr>td>button')
 
-      var enableButton = document.querySelectorAll('.deleteAnalysis');
+      var enableButton = document.querySelectorAll(".deleteAnalysis");
       enableButton.forEach(function (item) {
-        if (item.getAttribute('data-analysisName') == removedValue[0].name) {
+        if (item.getAttribute("data-analysisName") == removedValue[0].name) {
           item.disabled = false;
-          item.textContent = 'uporedi cenu';
-          item.classList.remove('deleteAnalysis');
-          item.classList.add('addAnalysis');
+          item.textContent = "uporedi cenu";
+          item.classList.remove("deleteAnalysis");
+          item.classList.add("addAnalysis");
         }
       }); //enable button end
     } // remove analysis from basket
@@ -21991,44 +21991,44 @@ exports.removeAnalysis = function (itemsArray, checkout) {
 
 exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   //adding analysis to sidebar shopping cart
-  resultDiv.addEventListener('click', function (e) {
-    if (e.target.tagName === 'BUTTON' && e.target.classList.contains('addAnalysis') && itemsArray.length < 30) {
-      checkout.removeAttribute('style'); //enable if shopping cart should be visible after each dodaj click
+  resultDiv.addEventListener("click", function (e) {
+    if (e.target.tagName === "BUTTON" && e.target.classList.contains("addAnalysis") && itemsArray.length < 30) {
+      checkout.removeAttribute("style"); //enable if shopping cart should be visible after each dodaj click
 
       setTimeout(function () {
-        var priceList = document.getElementById('priceList');
-        priceList.classList.add('unhidePriceList');
-        priceList.classList.remove('hidePriceList'); // setTimeout(()=>{
+        var priceList = document.getElementById("priceList");
+        priceList.classList.add("unhidePriceList");
+        priceList.classList.remove("hidePriceList"); // setTimeout(()=>{
         //   priceList.classList.remove('unhidePriceList')
         //   priceList.classList.add('hidePriceList')
         // },2100)
       }, 400);
       itemsArray.push({
-        'name': e.target.getAttribute('data-analysisName'),
-        'id': e.target.getAttribute('data-analysisid'),
-        'logo': e.target.getAttribute('data-groupimg')
+        name: e.target.getAttribute("data-analysisName"),
+        id: e.target.getAttribute("data-analysisid"),
+        logo: e.target.getAttribute("data-groupimg")
       });
-      var logoImg = document.createElement('img');
-      logoImg.setAttribute('src', "/images/".concat(e.target.getAttribute('data-groupimg')));
-      logoImg.classList.add('zoom');
+      var logoImg = document.createElement("img");
+      logoImg.setAttribute("src", "/images/".concat(e.target.getAttribute("data-groupimg")));
+      logoImg.classList.add("zoom");
       checkout.parentNode.appendChild(logoImg);
       setTimeout(function () {
-        var removeIcons = document.querySelectorAll('.zoom');
+        var removeIcons = document.querySelectorAll(".zoom");
         removeIcons.forEach(function (item) {
           item.remove();
-          checkout.classList.remove('rotateNumberOfAnalysis');
+          checkout.classList.remove("rotateNumberOfAnalysis");
         });
       }, 1000); //add number of analysis to navigation
 
-      checkout.classList.remove('d-none'); // checkout.style.color = 'red'
+      checkout.classList.remove("d-none"); // checkout.style.color = 'red'
       // checkout.style.transform = 'rotate(3600deg)'
       // checkout.style.transition = 'transform 2s ease'
 
-      checkout.classList.add('rotateNumberOfAnalysis');
-      checkout.innerHTML = 'odabranih analiza ' + itemsArray.length;
+      checkout.classList.add("rotateNumberOfAnalysis");
+      checkout.innerHTML = "odabranih analiza " + itemsArray.length;
       var basketTitle = document.createTextNode(" (".concat(itemsArray.length, ") "));
-      var cardHeader = document.getElementById('numOfAnalysis');
-      cardHeader.innerHTML = '';
+      var cardHeader = document.getElementById("numOfAnalysis");
+      cardHeader.innerHTML = "";
       cardHeader.appendChild(basketTitle); // sorting array
 
       itemsArray.sort(function (a, b) {
@@ -22038,53 +22038,53 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
           return -1;
         }
       });
-      localStorage.setItem('items', JSON.stringify(itemsArray));
-      var analysisAdded = document.createElement('li');
-      analysisAdded.className = 'list-group-item list-group-item-action'; //creating group image
+      localStorage.setItem("items", JSON.stringify(itemsArray));
+      var analysisAdded = document.createElement("li");
+      analysisAdded.className = "list-group-item list-group-item-action"; //creating group image
 
-      var groupImage = document.createElement('img');
-      groupImage.classList = 'labGroupIconSelectedAnalysis';
-      groupImage.setAttribute('src', '/images/' + e.target.getAttribute('data-groupImg')); // console.log(e.target.getAttribute('data-analysisName'))
+      var groupImage = document.createElement("img");
+      groupImage.classList = "labGroupIconSelectedAnalysis";
+      groupImage.setAttribute("src", "/images/" + e.target.getAttribute("data-groupImg")); // console.log(e.target.getAttribute('data-analysisName'))
 
-      var newAnalysisName = e.target.getAttribute('data-analysisName').replace(' - ', ' ').replace('/', ' '); //creating text with analysis name
+      var newAnalysisName = e.target.getAttribute("data-analysisName").replace(" - ", " ").replace("/", " "); //creating text with analysis name
 
-      var analysisName = document.createTextNode(e.target.getAttribute('data-analysisName'));
-      var analysisLink = document.createElement('a');
-      var slug = newAnalysisName.split(' ');
-      var urlSlug = slug.join('-');
-      analysisLink.setAttribute('href', '/results/analysis/' + urlSlug);
-      analysisLink.className = 'nolink analysisBasketLiItem';
-      analysisLink.setAttribute('target', '_blank');
+      var analysisName = document.createTextNode(e.target.getAttribute("data-analysisName"));
+      var analysisLink = document.createElement("a");
+      var slug = newAnalysisName.split(" ");
+      var urlSlug = slug.join("-");
+      analysisLink.setAttribute("href", "/results/analysis/" + urlSlug);
+      analysisLink.className = "nolink analysisBasketLiItem";
+      analysisLink.setAttribute("target", "_blank");
       analysisLink.appendChild(analysisName); //creating span element for remove icon
 
-      var removeSpan = document.createElement('span');
-      removeSpan.className = 'float-right remove';
-      var removeImg = document.createElement('img');
-      removeImg.setAttribute('src', '/images/closeBtn.svg');
-      removeImg.className = 'remove-analysis-from-basket';
+      var removeSpan = document.createElement("span");
+      removeSpan.className = "float-right remove";
+      var removeImg = document.createElement("img");
+      removeImg.setAttribute("src", "/images/closeBtn.svg");
+      removeImg.className = "remove-analysis-from-basket";
       removeSpan.appendChild(removeImg);
       analysisAdded.appendChild(groupImage);
       analysisAdded.appendChild(analysisLink);
       analysisAdded.appendChild(removeSpan);
       var analysisPositionArr = itemsArray.findIndex(function (item) {
-        return item.name === e.target.getAttribute('data-analysisName');
+        return item.name === e.target.getAttribute("data-analysisName");
       }); // if analysis is added disable add button
 
       if (analysisPositionArr !== -1) {
-        e.target.innerHTML = '&#10004;'; // e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
+        e.target.innerHTML = "&#10004;"; // e.target.className = 'btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis'
 
-        e.target.className = 'btn btn-danger btn-block text-uppercase deleteAnalysis'; // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
+        e.target.className = "btn btn-danger btn-block text-uppercase deleteAnalysis"; // e.target.className = 'btn btn-outline-success ml-5 mt-auto text-uppercase deleteAnalysis'
 
         e.target.disabled = true;
       } //insert analysis to basket
 
 
-      var selectedAnalysis = document.getElementById('selectedAnalysis');
+      var selectedAnalysis = document.getElementById("selectedAnalysis");
       selectedAnalysis.insertBefore(analysisAdded, selectedAnalysis.childNodes[analysisPositionArr]); //display basket when first analyis is added to basket
 
-      document.querySelector('.card').classList.remove('d-none');
+      document.querySelector(".card").classList.remove("d-none");
     } else if (itemsArray.length > 30) {
-      console.log('ne mozete dodati vise od 30 analiza u korpu');
+      console.log("ne mozete dodati vise od 30 analiza u korpu");
     }
   }); // resultdiv end
 };
@@ -22099,34 +22099,34 @@ exports.searchLabAnalysis = function (searchString, filter) {
     }
   }); // set focus on searchanalysis field when right arrow is pressed
 
-  document.addEventListener('keydown', function (e) {
+  document.addEventListener("keydown", function (e) {
     if (e.keyCode === 39) {
-      searchString.value = '';
+      searchString.value = "";
       searchString.focus();
     }
   }); //check the filter value on INDEX PAGE
 
   filter.forEach(function (item) {
-    item.addEventListener('click', function (e) {
+    item.addEventListener("click", function (e) {
       filterValue = e.target.value;
     });
   });
   /* by default filter is set to analiza, after 500ms
     user is redirected to results page */
 
-  searchString.addEventListener('input', function (e) {
+  searchString.addEventListener("input", function (e) {
     if (searchString.value.length >= 2) {
       setTimeout(function () {
         var searchString = e.target.value;
-        window.location.href = '/results/?name=' + searchString + '&filter=' + filterValue;
+        window.location.href = "/results/?name=" + searchString + "&filter=" + filterValue;
       }, 700);
     }
   });
 };
 
 exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
-  var banner = document.querySelector('.banner');
-  var analysisBasket = document.querySelector('.odabraneAnalize');
+  var banner = document.querySelector(".banner");
+  var analysisBasket = document.querySelector(".odabraneAnalize");
   var now = new Date();
   var day = now.getDay();
   var date = now.getDate();
@@ -22135,145 +22135,152 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
   var today = month + 1 + "/" + date + "/" + year; // let danas
 
   var passIds = [];
-  fetch('/lab/' + searchStr).then(function (data) {
+  fetch("/lab/" + searchStr).then(function (data) {
     data.json().then(function (result) {
       loaderWrapper.style.opacity = 0;
-      var labTemplate = document.createElement('div');
-      labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
+      var labTemplate = document.createElement("div");
+      labTemplate.className = "col-12 d-flex flex-row flex-wrap";
       var phonesForClick = [];
 
       for (i = 0; i < result.length; i++) {
         var flag = true;
-        resultDiv.innerHTML = ''; // result[i].phone.map(phoneNumber => {
+        resultDiv.innerHTML = ""; // result[i].phone.map(phoneNumber => {
         //   phonesForClick.push(`<a href=tel:${phoneNumber}>${phoneNumber}</a>`)
         //   return phonesForClick
         // })
         // <img src="/images/lablogo/${result[i].logo}" class="labLogoInfoWindow"> ovo je logo
         //  ${result[i].placeId.municipality} dodati ako treba uz ispis mesta
 
-        labTemplate.innerHTML += "\n          <div class=\"lab-card roundedBox boxshadowBckg\">\n            <div class=\"testingFlex\">\n\n                  <div>\n                     <img src=\"\" class=\"labInfoWindowVerified accreditedIcon".concat(i, "\" title=\"laboratorija je akreditovana\">\n                      <img src=\"\" class=\"labAntigenIcon antigenIcon").concat(i, "\" title=\"radimo antigenski test\">\n                     <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon").concat(i, "\" title=\"sara\u0111ujemo sa privatnim osiguranjem\">\n                     <img src=\"\" class=\"labInfoPatronage patronageIcon").concat(i, " mb-1\" title=\"radimo patrona\u017Eu\">\n                     <img src=\"\" class=\"labInfoDisability disabilityIcon").concat(i, " mb-1 mx-1\" title=\"ulaz u laboratoriju je prilago\u0111en invalidima\">\n                     <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n                 </div>\n                   <div class=\"labInfoWindow\">\n                       <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                       <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " </p>\n                       <p class=\"labInfoWindowTelefoni\">").concat(result[i].phone.join(', '), "</p>\n\n                   </div>\n                   <div class=\"labInfoFooter\">\n                       <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                       <div class=\"radnoVreme\">Radno vreme</div>\n                       <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                       <div class=\"labInfoRadnoVremeDetalji\">\n                         <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                         <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                         <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                         <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                         <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                         <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                         <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                       </div>\n                    </div>\n                    <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n\n              </div>\n           </div>");
+        labTemplate.innerHTML += "\n          <div class=\"lab-card roundedBox boxshadowBckg\">\n            <div class=\"testingFlex\">\n\n                  <div>\n                  <img src=\"\" class=\"labInfoWindowVerified partnerIcon".concat(i, "\" title=\"LabCube partner\">\n                     <img src=\"\" class=\"labInfoWindowVerified accreditedIcon").concat(i, "\" title=\"laboratorija je akreditovana\">\n                      <img src=\"\" class=\"labAntigenIcon antigenIcon").concat(i, "\" title=\"radimo antigenski test\">\n                     <img src=\"\" class=\"labInfoWindowOsiguranje privateInssuranceIcon").concat(i, "\" title=\"sara\u0111ujemo sa privatnim osiguranjem\">\n                     <img src=\"\" class=\"labInfoPatronage patronageIcon").concat(i, " mb-1\" title=\"radimo patrona\u017Eu\">\n                     <img src=\"\" class=\"labInfoDisability disabilityIcon").concat(i, " mb-1 mx-1\" title=\"ulaz u laboratoriju je prilago\u0111en invalidima\">\n                     <span class=\"labInfoWindowTitle\">").concat(result[i].labName, "</span>\n                 </div>\n                   <div class=\"labInfoWindow\">\n                       <p class=\"labInfoWindowAdresa\">").concat(result[i].address, "</p>\n                       <p class=\"labInfoWindowGrad\">").concat(result[i].placeId.place, " </p>\n                       <p class=\"labInfoWindowTelefoni\">").concat(result[i].phone.join(", "), "</p>\n\n                   </div>\n                   <div class=\"labInfoFooter\">\n                       <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                       <div class=\"radnoVreme\">Radno vreme</div>\n                       <div id='otvoreno' class='otvoreno").concat(i, " status'></div>\n                       <div class=\"labInfoRadnoVremeDetalji\">\n                         <p class=\"daysInWeek monday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.monday.opens, " - ").concat(result[i].workingHours.monday.closes, "</span></p>\n                         <p class=\"daysInWeek tuesday").concat(i, " text-center\">U<span>").concat(result[i].workingHours.tuesday.opens, " - ").concat(result[i].workingHours.tuesday.closes, "</span></p>\n                         <p class=\"daysInWeek wednesday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.wednesday.opens, " - ").concat(result[i].workingHours.wednesday.closes, "</span></p>\n                         <p class=\"daysInWeek thursday").concat(i, " text-center\">\u010C<span>").concat(result[i].workingHours.thursday.opens, " - ").concat(result[i].workingHours.thursday.closes, "</span></p>\n                         <p class=\"daysInWeek friday").concat(i, " text-center\">P<span>").concat(result[i].workingHours.friday.opens, " - ").concat(result[i].workingHours.friday.closes, "</span></p>\n                         <p class=\"daysInWeek saturday").concat(i, " text-center\">S<span>").concat(result[i].workingHours.saturday.opens, " - ").concat(result[i].workingHours.saturday.closes, "</span></p>\n                         <p class=\"daysInWeek sunday").concat(i, " text-center\">N<span>").concat(result[i].workingHours.sunday.opens, " - ").concat(result[i].workingHours.sunday.closes, "</span></p>\n                       </div>\n                    </div>\n                    <button type=\"button\" class=\"btn btn-block btnLabDetails buttonId mt-2\" data-labName=\"laboratorija/").concat(result[i].slug, "\">saznaj vi\u0161e</button>\n\n              </div>\n           </div>");
         resultDiv.innerHTML = "\n           <section id=\"labDetails\">\n             <div class=\"container\">\n               <div class=\"row labContainer\">\n               </div>\n             </div>\n           </section>"; //append labcard to page
 
-        document.querySelector('.labContainer').appendChild(labTemplate);
+        document.querySelector(".labContainer").appendChild(labTemplate);
         var currentDay = void 0;
         var currentDayNum = void 0;
 
         switch (day) {
           case 0:
-            currentDay = 'sunday';
+            currentDay = "sunday";
             currentDayNum = 0;
             break;
 
           case 1:
-            currentDay = 'monday';
+            currentDay = "monday";
             currentDayNum = 1;
             break;
 
           case 2:
-            currentDay = 'tuesday';
+            currentDay = "tuesday";
             currentDayNum = 2;
             break;
 
           case 3:
-            currentDay = 'wednesday';
+            currentDay = "wednesday";
             currentDayNum = 3;
             break;
 
           case 4:
-            currentDay = 'thursday';
+            currentDay = "thursday";
             currentDayNum = 4;
             break;
 
           case 5:
-            currentDay = 'friday';
+            currentDay = "friday";
             currentDayNum = 5;
             break;
 
           case 6:
-            currentDay = 'saturday';
+            currentDay = "saturday";
             currentDayNum = 6;
             break;
 
           default:
-            console.log('dan nije ok');
+            console.log("dan nije ok");
         }
 
-        var radnoVreme = document.querySelector('.otvoreno' + i);
-        var todayIs = document.querySelector('.' + currentDay + i);
-        var privateInsurance = document.querySelector('.privateInssuranceIcon' + i);
-        var accredited = document.querySelector('.accreditedIcon' + i);
-        var antigen = document.querySelector('.antigenIcon' + i);
-        var disabilityIcon = document.querySelector('.disabilityIcon' + i);
-        var patronageIcon = document.querySelector('.patronageIcon' + i);
-        var labDetailsBtn = document.querySelectorAll('.buttonId');
+        var radnoVreme = document.querySelector(".otvoreno" + i);
+        var todayIs = document.querySelector("." + currentDay + i);
+        var privateInsurance = document.querySelector(".privateInssuranceIcon" + i);
+        var accredited = document.querySelector(".accreditedIcon" + i);
+        var antigen = document.querySelector(".antigenIcon" + i);
+        var disabilityIcon = document.querySelector(".disabilityIcon" + i);
+        var partnerIcon = document.querySelector(".partnerIcon" + i);
+        var patronageIcon = document.querySelector(".patronageIcon" + i);
+        var labDetailsBtn = document.querySelectorAll(".buttonId");
         labDetailsBtn.forEach(function (item) {
-          item.addEventListener('click', function (e) {
-            itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+          item.addEventListener("click", function (e) {
+            itemsArray = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : [];
             itemsArray.forEach(function (item) {
               passIds.push(item.id);
             });
-            window.location = "/".concat(e.target.getAttribute('data-labName'), "/").concat(passIds);
+            window.location = "/".concat(e.target.getAttribute("data-labName"), "/").concat(passIds);
           });
         });
 
+        if (result[i].partner) {
+          partnerIcon.setAttribute("src", "/images/labPartner.svg");
+        } else {
+          partnerIcon.remove();
+        }
+
         if (result[i]["private"]) {
-          privateInsurance.setAttribute('src', '/images/osiguranje.svg');
+          privateInsurance.setAttribute("src", "/images/osiguranje.svg");
         } else {
           privateInsurance.remove();
         }
 
         if (result[i].accredited) {
-          accredited.setAttribute('src', '/images/verified.svg');
+          accredited.setAttribute("src", "/images/verified.svg");
         } else {
           accredited.remove();
         }
 
         if (result[i].antigen) {
-          antigen.setAttribute('src', '/images/covidIcon.svg-1615411728326.svg');
+          antigen.setAttribute("src", "/images/covidIcon.svg-1615411728326.svg");
         } else {
           antigen.remove();
         }
 
         if (result[i].patronage) {
-          patronageIcon.setAttribute('src', '/images/patronaza2.svg');
+          patronageIcon.setAttribute("src", "/images/patronaza2.svg");
         } else {
           patronageIcon.remove();
         }
 
         if (result[i].disability) {
-          disabilityIcon.setAttribute('src', '/images/disability.svg');
+          disabilityIcon.setAttribute("src", "/images/disability.svg");
         } else {
           disabilityIcon.remove();
         }
 
         if (result[i].open24h) {
-          radnoVreme.classList.add('open');
-          radnoVreme.innerText = 'otvoreno 24h';
-          todayIs.classList.add('open');
+          radnoVreme.classList.add("open");
+          radnoVreme.innerText = "otvoreno 24h";
+          todayIs.classList.add("open");
         } else if (day === currentDayNum) {
           var openTime = result[i].workingHours[currentDay].opens;
           var closingTime = result[i].workingHours[currentDay].closes;
-          var todayOpenTime = new Date(today + ' ' + openTime + ':00');
-          var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
+          var todayOpenTime = new Date(today + " " + openTime + ":00");
+          var todayClosingTime = new Date(today + " " + closingTime + ":00");
           var nowTimeStamp = now.getTime();
           var closingSoon = todayClosingTime - nowTimeStamp;
           var closingIn = Math.ceil(closingSoon / 1000 / 60);
 
           if (closingIn < 60 && closingIn > 0) {
-            radnoVreme.classList.add('closedSoon');
+            radnoVreme.classList.add("closedSoon");
             radnoVreme.innerText = "zatvara se za ".concat(closingIn, " min.");
-            todayIs.classList.add('closedSoon');
+            todayIs.classList.add("closedSoon");
           } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
-            radnoVreme.classList.add('open');
-            radnoVreme.innerText = 'otvoreno';
-            todayIs.classList.add('open');
+            radnoVreme.classList.add("open");
+            radnoVreme.innerText = "otvoreno";
+            todayIs.classList.add("open");
           } else {
-            radnoVreme.classList.add('closed');
-            radnoVreme.innerText = 'zatvoreno';
-            todayIs.classList.add('closed');
+            radnoVreme.classList.add("closed");
+            radnoVreme.innerText = "zatvoreno";
+            todayIs.classList.add("closed");
           }
         } else {
-          console.log('lab nije odredio radno vreme');
+          console.log("lab nije odredio radno vreme");
         }
       } //for loop end
 
@@ -22284,25 +22291,25 @@ exports.searchLab = function (searchStr, loaderWrapper, resultDiv) {
 
 exports.bestPrice = function (mapArea, resultDiv) {
   var municipalityValue;
-  var noResults = document.getElementById('noResults');
+  var noResults = document.getElementById("noResults");
 
-  if (document.getElementById('municipality') != null) {
-    var _municipality = document.getElementById('municipality');
+  if (document.getElementById("municipality") != null) {
+    var _municipality = document.getElementById("municipality");
 
     municipalityValue = _municipality.options[_municipality.selectedIndex].value;
   } else {
-    municipalityValue = JSON.parse(localStorage.getItem('municipality'));
+    municipalityValue = JSON.parse(localStorage.getItem("municipality"));
   }
 
-  console.log('iz funkcije');
+  console.log("iz funkcije");
   window.scrollTo({
     top: 0,
-    behavior: 'smooth'
+    behavior: "smooth"
   });
-  mapArea.classList.remove('d-none');
+  mapArea.classList.remove("d-none");
   var passIds = [];
-  resultDiv.innerHTML = '';
-  itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
+  resultDiv.innerHTML = "";
+  itemsArray = localStorage.getItem("items") ? JSON.parse(localStorage.getItem("items")) : [];
   itemsArray.forEach(function (item) {
     passIds.push(item.id);
   }); // let municipalityStorage = municipality.options[municipality.selectedIndex].value
@@ -22311,7 +22318,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
   municipality.value = municipalityValue; // let municipalityValue = municipality.options[municipality.selectedIndex].value ? municipality.options[municipality.selectedIndex].value : JSON.parse(localStorage.getItem('municipality'))
   // comment if dont want to close pricelist when show price is displayed
 
-  priceList.classList.add('hidePriceList', 'd-none'); // map options
+  priceList.classList.add("hidePriceList", "d-none"); // map options
 
   var options = {
     zoom: 16,
@@ -22327,173 +22334,173 @@ exports.bestPrice = function (mapArea, resultDiv) {
       position: google.maps.ControlPosition.RIGHT_BOTTOM
     },
     styles: [{
-      "featureType": "administrative.country",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#fbd2d9"
+      featureType: "administrative.country",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#fbd2d9"
       }, {
-        "visibility": "on"
+        visibility: "on"
       }]
     }, {
-      "featureType": "administrative.country",
-      "elementType": "geometry.stroke",
-      "stylers": [{
-        "color": "#9896a9"
+      featureType: "administrative.country",
+      elementType: "geometry.stroke",
+      stylers: [{
+        color: "#9896a9"
       }, {
-        "weight": 2
+        weight: 2
       }]
     }, {
-      "featureType": "administrative.land_parcel",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#9896a9"
+      featureType: "administrative.land_parcel",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#9896a9"
       }]
     }, {
-      "featureType": "administrative.land_parcel",
-      "elementType": "labels",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "administrative.land_parcel",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "administrative.locality",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "visibility": "on"
+      featureType: "administrative.locality",
+      elementType: "geometry.fill",
+      stylers: [{
+        visibility: "on"
       }]
     }, {
-      "featureType": "administrative.neighborhood",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "visibility": "on"
+      featureType: "administrative.neighborhood",
+      elementType: "geometry.fill",
+      stylers: [{
+        visibility: "on"
       }]
     }, {
-      "featureType": "administrative.neighborhood",
-      "elementType": "labels",
-      "stylers": [{
-        "color": "#aaa9b1"
+      featureType: "administrative.neighborhood",
+      elementType: "labels",
+      stylers: [{
+        color: "#aaa9b1"
       }, {
-        "visibility": "simplified"
+        visibility: "simplified"
       }]
     }, {
-      "featureType": "poi",
-      "elementType": "labels.text",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "poi",
+      elementType: "labels.text",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "poi.business",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "poi.business",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "poi.park",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#aadc55"
+      featureType: "poi.park",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#aadc55"
       }]
     }, {
-      "featureType": "poi.park",
-      "elementType": "labels.text",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "poi.park",
+      elementType: "labels.text",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "road",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#ecebed"
+      featureType: "road",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#ecebed"
       }, {
-        "visibility": "on"
+        visibility: "on"
       }]
     }, {
-      "featureType": "road",
-      "elementType": "labels.text",
-      "stylers": [{
-        "color": "#d8d6dc"
+      featureType: "road",
+      elementType: "labels.text",
+      stylers: [{
+        color: "#d8d6dc"
       }]
     }, {
-      "featureType": "road.arterial",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#fefefe"
+      featureType: "road.arterial",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#fefefe"
       }]
     }, {
-      "featureType": "road.arterial",
-      "elementType": "labels.text",
-      "stylers": [{
-        "color": "#9a9a9a"
+      featureType: "road.arterial",
+      elementType: "labels.text",
+      stylers: [{
+        color: "#9a9a9a"
       }, {
-        "visibility": "simplified"
+        visibility: "simplified"
       }]
     }, {
-      "featureType": "road.highway",
-      "elementType": "labels",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "road.highway",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "road.local",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "road.local",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "road.local",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#eaecec"
+      featureType: "road.local",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#eaecec"
       }, {
-        "visibility": "on"
+        visibility: "on"
       }]
     }, {
-      "featureType": "road.local",
-      "elementType": "labels",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "road.local",
+      elementType: "labels",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "road.local",
-      "elementType": "labels.text.fill",
-      "stylers": [{
-        "color": "#9ba4a4"
+      featureType: "road.local",
+      elementType: "labels.text.fill",
+      stylers: [{
+        color: "#9ba4a4"
       }, {
-        "visibility": "on"
+        visibility: "on"
       }]
     }, {
-      "featureType": "transit",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "visibility": "off"
+      featureType: "transit",
+      elementType: "geometry.fill",
+      stylers: [{
+        visibility: "off"
       }]
     }, {
-      "featureType": "transit.station",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "visibility": "on"
+      featureType: "transit.station",
+      elementType: "geometry.fill",
+      stylers: [{
+        visibility: "on"
       }]
     }, {
-      "featureType": "transit.station.bus",
-      "stylers": [{
-        "visibility": "simplified"
+      featureType: "transit.station.bus",
+      stylers: [{
+        visibility: "simplified"
       }]
     }, {
-      "featureType": "transit.station.bus",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#ff00ff"
+      featureType: "transit.station.bus",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#ff00ff"
       }, {
-        "visibility": "simplified"
+        visibility: "simplified"
       }]
     }, {
-      "featureType": "water",
-      "elementType": "geometry.fill",
-      "stylers": [{
-        "color": "#1d88e5"
+      featureType: "water",
+      elementType: "geometry.fill",
+      stylers: [{
+        color: "#1d88e5"
       }, {
-        "lightness": 15
+        lightness: 15
       }]
     }]
   };
-  localStorage.setItem('municipality', JSON.stringify(municipalityValue));
+  localStorage.setItem("municipality", JSON.stringify(municipalityValue));
   var markers = [];
   var infoWindow = new google.maps.InfoWindow();
   var markersCluster = []; //take working timeout
@@ -22512,46 +22519,46 @@ exports.bestPrice = function (mapArea, resultDiv) {
 
   switch (day) {
     case 0:
-      currentDay = 'sunday';
+      currentDay = "sunday";
       currentDayNum = 0;
       break;
 
     case 1:
-      currentDay = 'monday';
+      currentDay = "monday";
       currentDayNum = 1;
       break;
 
     case 2:
-      currentDay = 'tuesday';
+      currentDay = "tuesday";
       currentDayNum = 2;
       break;
 
     case 3:
-      currentDay = 'wednesday';
+      currentDay = "wednesday";
       currentDayNum = 3;
       break;
 
     case 4:
-      currentDay = 'thursday';
+      currentDay = "thursday";
       currentDayNum = 4;
       break;
 
     case 5:
-      currentDay = 'friday';
+      currentDay = "friday";
       currentDayNum = 5;
       break;
 
     case 6:
-      currentDay = 'saturday';
+      currentDay = "saturday";
       currentDayNum = 6;
       break;
 
     default:
-      console.log('dan nije ok');
+      console.log("dan nije ok");
   } // working time end
 
 
-  fetch('/cenovnik/' + municipalityValue + '/' + passIds).then(function (data) {
+  fetch("/cenovnik/" + municipalityValue + "/" + passIds).then(function (data) {
     data.json().then(function (result) {
       document.title = "LabCube | Najbolja ponuda";
 
@@ -22564,7 +22571,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
               lng: lng
             },
             icon: {
-              url: labStatus[i].status !== 'closed' ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
+              url: labStatus[i].status !== "closed" ? "/images/openGreenBestPrice.svg" : "/images/closedRedBestPrice.svg",
               labelOrigin: {
                 x: 32,
                 y: 32
@@ -22578,9 +22585,9 @@ exports.bestPrice = function (mapArea, resultDiv) {
             // },
             label: {
               text: total.toString(),
-              fontWeight: 'bold',
-              fontSize: '13px',
-              color: 'white'
+              fontWeight: "bold",
+              fontSize: "13px",
+              color: "white"
             },
             map: map
           });
@@ -22589,13 +22596,13 @@ exports.bestPrice = function (mapArea, resultDiv) {
             phonesForClick.push("<a href=tel:".concat(phoneNumber, ">").concat(phoneNumber, "</a>"));
             return phonesForClick;
           });
-          var content = "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <p class=\"labInfoWindowTelefoni\">").concat(phonesForClick.join(', '), "</p>\n                        <div class=\"float-right\"><a href=\"/laboratorija/").concat(slug, "/").concat(passIds, "\" class=\"seeMore\"><i class=\"fa fa-arrow-circle-right\" aria-hidden=\"true\"></i></a></div>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : '', "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : '', "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : '', "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : '', "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : '', "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>");
-          google.maps.event.addListener(marker, 'click', function () {
+          var content = "<div class=\"\" style=\"min-height:142px; max-width:380px;\">\n                        <p class=\"labInfoWindowTitle mb-2 pb-0\"><a href=\"/laboratorija/".concat(slug, "/").concat(passIds, "\">").concat(name, "</a></p>\n                        <span class=\"\">").concat(address, "</span>\n                        <p class=\"\">").concat(city, "</p>\n                        <p class=\"labInfoWindowTelefoni\">").concat(phonesForClick.join(", "), "</p>\n                        <div class=\"float-right\"><a href=\"/laboratorija/").concat(slug, "/").concat(passIds, "\" class=\"seeMore\"><i class=\"fa fa-arrow-circle-right\" aria-hidden=\"true\"></i></a></div>\n\n                        <div class=\"labInfoWindowFooter\">\n                          <img src=\"images/radnoVreme.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n                        <div class=\"radnoVreme\">Radno vreme</div>\n                        <div class=\"status ").concat(labStatus[i].status, "\"></div>\n                        <div class=\"radnoVremeDetalji\">\n                          <p class=\"whInside text-center ").concat(day == 1 ? labStatus[i].status : "", "\">P<span>").concat(workinghours.monday.opens, " - ").concat(workinghours.monday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 2 ? labStatus[i].status : "", "\">U<span>").concat(workinghours.tuesday.opens, " - ").concat(workinghours.tuesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 3 ? labStatus[i].status : "", "\">S<span>").concat(workinghours.wednesday.opens, " - ").concat(workinghours.wednesday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 4 ? labStatus[i].status : "", "\">\u010C<span>").concat(workinghours.thursday.opens, " - ").concat(workinghours.thursday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 5 ? labStatus[i].status : "", "\">P<span>").concat(workinghours.friday.opens, " - ").concat(workinghours.friday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 6 ? labStatus[i].status : "", "\">S<span>").concat(workinghours.saturday.opens, " - ").concat(workinghours.saturday.closes, "</span></p>\n                          <p class=\"whInside text-center ").concat(day == 0 ? labStatus[i].status : "", "\">N<span>").concat(workinghours.sunday.opens, " - ").concat(workinghours.sunday.closes, "</span></p>\n                        </div>\n                      </div>");
+          google.maps.event.addListener(marker, "click", function () {
             infoWindow.close();
             infoWindow.setContent(content);
             infoWindow.open(map, this);
           });
-          google.maps.event.addListener(map, 'click', function () {
+          google.maps.event.addListener(map, "click", function () {
             infoWindow.close();
           }); // marker.addListener('click', function(){
           //   var placeMarker = infoWindow.open(map, marker);
@@ -22606,46 +22613,46 @@ exports.bestPrice = function (mapArea, resultDiv) {
           // });
         };
 
-        noResults.innerHTML = ''; // resultDiv.innerHTML = ''
+        noResults.innerHTML = ""; // resultDiv.innerHTML = ''
         // loaderWrapper.style.opacity = 0
 
-        var labTemplate = document.createElement('div');
-        labTemplate.className = 'col-12 d-flex flex-row flex-wrap';
+        var labTemplate = document.createElement("div");
+        labTemplate.className = "col-12 d-flex flex-row flex-wrap";
 
         for (var _i = 0; _i < result.getPrices.length; _i++) {
           if (day == currentDayNum) {
             var openTime = result.getPrices[_i].lab[0].workingHours[currentDay].opens;
             var closingTime = result.getPrices[_i].lab[0].workingHours[currentDay].closes;
-            var todayOpenTime = new Date(today + ' ' + openTime + ':00');
-            var todayClosingTime = new Date(today + ' ' + closingTime + ':00');
+            var todayOpenTime = new Date(today + " " + openTime + ":00");
+            var todayClosingTime = new Date(today + " " + closingTime + ":00");
             var nowTimeStamp = now.getTime();
             var closingSoon = todayClosingTime - nowTimeStamp;
             var closingIn = Math.ceil(closingSoon / 1000 / 60);
 
             if (result.getPrices[_i].lab[0].open24h) {
-              status = 'open';
+              status = "open";
               labStatus.push({
-                'id': result.getPrices[_i].lab[0]._id,
-                'status': status
+                id: result.getPrices[_i].lab[0]._id,
+                status: status
               });
             } else if (closingIn < 60 && closingIn > 0) {
-              status = 'closedSoon';
+              status = "closedSoon";
               labStatus.push({
-                'id': result.getPrices[_i].lab[0]._id,
-                'status': status
+                id: result.getPrices[_i].lab[0]._id,
+                status: status
               });
             } else if (nowTimeStamp > todayOpenTime.getTime() && todayClosingTime.getTime() > nowTimeStamp) {
               numOpen += 1;
-              status = 'open';
+              status = "open";
               labStatus.push({
-                'id': result.getPrices[_i].lab[0]._id,
-                'status': status
+                id: result.getPrices[_i].lab[0]._id,
+                status: status
               });
             } else {
-              status = 'closed';
+              status = "closed";
               labStatus.push({
-                'id': result.getPrices[_i].lab[0]._id,
-                'status': status
+                id: result.getPrices[_i].lab[0]._id,
+                status: status
               });
             }
           }
@@ -22653,7 +22660,7 @@ exports.bestPrice = function (mapArea, resultDiv) {
           markers.push({
             lat: result.getPrices[_i].lab[0].location.coordinates[1],
             lng: result.getPrices[_i].lab[0].location.coordinates[0],
-            iconImage: '/images/pinopen.svg',
+            iconImage: "/images/pinopen.svg",
             total: result.getPrices[_i].total,
             name: result.getPrices[_i].lab[0].labName,
             address: result.getPrices[_i].lab[0].address,
@@ -22662,15 +22669,15 @@ exports.bestPrice = function (mapArea, resultDiv) {
             workinghours: result.getPrices[_i].lab[0].workingHours,
             slug: result.getPrices[_i].lab[0].slug
           });
-          resultDiv.innerHTML = '';
-          labTemplate.innerHTML += "\n\n        <div class=\"lab-card roundedBox\">\n          <div>\n          ".concat(result.getPrices[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : '', "\n          ").concat(result.getPrices[_i].lab[0].disability ? '<img src=/images/disability.svg class="labInfoWindowVerified accreditedIcon${i}" title="ulaz prilagođen invalidima">' : '', "\n          ").concat(result.getPrices[_i].lab[0].patronage ? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : '', "\n          ").concat(result.getPrices[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : '', "\n          ").concat(result.getPrices[_i].lab[0].antigen ? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon accreditedIcon${i}" title="radi antigenski test">' : '', "\n          <span class=\"labInfoWindowTitle\">").concat(result.getPrices[_i].lab[0].labName, "</span><span class=\"float-right priceTag\">").concat(result.getPrices[_i].total, " rsd</span>\n         </div>\n           <div class=\"labInfoWindow\">\n\n\n               <p class=\"labInfoWindowAdresa\">").concat(result.getPrices[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result.getPrices[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result.getPrices[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='").concat(labStatus[_i].status, " status'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center ").concat(day == 1 ? labStatus[_i].status : '', "\">P<span>").concat(result.getPrices[_i].lab[0].workingHours.monday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center ").concat(day == 2 ? labStatus[_i].status : '', "\">U<span>").concat(result.getPrices[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center ").concat(day == 3 ? labStatus[_i].status : '', "\">S<span>").concat(result.getPrices[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center ").concat(day == 4 ? labStatus[_i].status : '', "\">\u010C<span>").concat(result.getPrices[_i].lab[0].workingHours.thursday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center ").concat(day == 5 ? labStatus[_i].status : '', "\">P<span></span>").concat(result.getPrices[_i].lab[0].workingHours.friday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center ").concat(day == 6 ? labStatus[_i].status : '', "\">S<span></span>").concat(result.getPrices[_i].lab[0].workingHours.saturday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center ").concat(day == 0 ? labStatus[_i].status : '', "\">N<span></span>").concat(result.getPrices[_i].lab[0].workingHours.sunday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result.getPrices[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
+          resultDiv.innerHTML = "";
+          labTemplate.innerHTML += "\n\n        <div class=\"lab-card roundedBox\">\n          <div>\n          ".concat(result.getPrices[_i].lab[0].partner ? '<img src=/images/labPartner.svg class="labInfoWindowOsiguranje partnerIcon${i}" title="LabCube partner">' : "", "\n          ").concat(result.getPrices[_i].lab[0]["private"] ? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : "", "\n          ").concat(result.getPrices[_i].lab[0].disability ? '<img src=/images/disability.svg class="labInfoWindowVerified accreditedIcon${i}" title="ulaz prilagođen invalidima">' : "", "\n          ").concat(result.getPrices[_i].lab[0].patronage ? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : "", "\n          ").concat(result.getPrices[_i].lab[0].accredited ? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : "", "\n          ").concat(result.getPrices[_i].lab[0].antigen ? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon accreditedIcon${i}" title="radi antigenski test">' : "", "\n          <span class=\"labInfoWindowTitle\">").concat(result.getPrices[_i].lab[0].labName, "</span><span class=\"float-right priceTag\">").concat(result.getPrices[_i].total, " rsd</span>\n         </div>\n           <div class=\"labInfoWindow\">\n\n\n               <p class=\"labInfoWindowAdresa\">").concat(result.getPrices[_i].lab[0].address, "</p>\n               <p class=\"labInfoWindowGrad\">").concat(result.getPrices[_i].labPlace[0].place, "</p>\n               <p class=\"labInfoWindowTelefoni\"> ").concat(result.getPrices[_i].lab[0].phone, " </p>\n           </div>\n           <div class=\"labInfoFooter\">\n               <img src=\"/images/radnoVreme_black.svg\" class=\"labInfoWindowWorkingHoursIcon\">\n               <div class=\"radnoVreme\">Radno vreme</div>\n               <div id='otvoreno' class='").concat(labStatus[_i].status, " status'></div>\n               <div class=\"labInfoRadnoVremeDetalji\">\n                 <p class=\"daysInWeek monday").concat(result[_i], " text-center ").concat(day == 1 ? labStatus[_i].status : "", "\">P<span>").concat(result.getPrices[_i].lab[0].workingHours.monday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.monday.closes, "</span></p>\n                 <p class=\"daysInWeek tuesday").concat(result[_i], " text-center ").concat(day == 2 ? labStatus[_i].status : "", "\">U<span>").concat(result.getPrices[_i].lab[0].workingHours.tuesday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.tuesday.closes, "</span></p>\n                 <p class=\"daysInWeek wednesday").concat(result[_i], " text-center ").concat(day == 3 ? labStatus[_i].status : "", "\">S<span>").concat(result.getPrices[_i].lab[0].workingHours.wednesday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.wednesday.closes, "</span></p>\n                 <p class=\"daysInWeek thursday").concat(result[_i], " text-center ").concat(day == 4 ? labStatus[_i].status : "", "\">\u010C<span>").concat(result.getPrices[_i].lab[0].workingHours.thursday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.thursday.closes, "</span></p>\n                 <p class=\"daysInWeek friday").concat(result[_i], " text-center ").concat(day == 5 ? labStatus[_i].status : "", "\">P<span></span>").concat(result.getPrices[_i].lab[0].workingHours.friday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.friday.closes, "</p>\n                 <p class=\"daysInWeek saturday").concat(result[_i], " text-center ").concat(day == 6 ? labStatus[_i].status : "", "\">S<span></span>").concat(result.getPrices[_i].lab[0].workingHours.saturday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.saturday.closes, "</p>\n                 <p class=\"daysInWeek sunday").concat(result[_i], " text-center ").concat(day == 0 ? labStatus[_i].status : "", "\">N<span></span>").concat(result.getPrices[_i].lab[0].workingHours.sunday.opens, " - ").concat(result.getPrices[_i].lab[0].workingHours.sunday.closes, "</p>\n               </div>\n            </div>\n            <a class=\"btn btn-block btnLabDetails buttonId mt-2\" href=\"laboratorija/").concat(result.getPrices[_i].lab[0].slug, "/").concat(passIds, "\">saznaj vi\u0161e</a>\n         </div>");
           resultDiv.innerHTML = "\n         <section id=\"labDetails\">\n           <div class=\"container\">\n             <div class=\"row labContainer\">\n\n             </div>\n           </div>\n         </section>"; //append labcard to page
 
-          document.querySelector('.labContainer').appendChild(labTemplate);
+          document.querySelector(".labContainer").appendChild(labTemplate);
         } // new map
 
 
-        var map = new google.maps.Map(document.getElementById('mapPrices'), options);
+        var map = new google.maps.Map(document.getElementById("mapPrices"), options);
         map.setCenter({
           lat: result.getPrices[0].lab[0].location.coordinates[1],
           lng: result.getPrices[0].lab[0].location.coordinates[0]
@@ -22680,10 +22687,10 @@ exports.bestPrice = function (mapArea, resultDiv) {
           addMarker(markers[i].lat, markers[i].lng, markers[i].total, markers[i].name, markers[i].address, markers[i].city, markers[i].phone, markers[i].workinghours, markers[i].slug);
         }
       } else {
-        mapArea.classList.add('d-none');
-        noResults.innerHTML = '';
+        mapArea.classList.add("d-none");
+        noResults.innerHTML = "";
         resultDiv.innerHTML = "<h2 class=\"text-center\">Trenutno se ni u jednoj laboratoriji na ovoj op\u0161tini ne mogu uraditi sve analize koje ste odabrali. Poku\u0161ajte da promenite op\u0161tinu ili da uklonite neke od analiza</h2>";
-        console.log('fun');
+        console.log("fun");
 
         for (var _i2 = 0; _i2 < result.missingValues.length; _i2++) {
           resultDiv.innerHTML += "<p class=\"mt-4\">".concat(result.missingValues[_i2].analysisName, "</p>");
