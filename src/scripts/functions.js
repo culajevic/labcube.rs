@@ -1106,7 +1106,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
             lat: result.getPrices[i].lab[0].location.coordinates[1],
             lng: result.getPrices[i].lab[0].location.coordinates[0],
             iconImage: "/images/pinopen.svg",
-            total: result.getPrices[i].total,
+            total: Math.floor(result.getPrices[i].total),
             name: result.getPrices[i].lab[0].labName,
             address: result.getPrices[i].lab[0].address,
             city: result.getPrices[i].labPlace[0].place,
@@ -1152,8 +1152,8 @@ exports.bestPrice = (mapArea, resultDiv) => {
           }
           <span class="labInfoWindowTitle">${
             result.getPrices[i].lab[0].labName
-          }</span><span class="float-right priceTag">${
-            result.getPrices[i].total
+          }</span><span class="float-right priceTag">${Math.floor(
+            result.getPrices[i].total)
           } rsd</span>
          </div>
            <div class="labInfoWindow">
@@ -1274,10 +1274,7 @@ exports.bestPrice = (mapArea, resultDiv) => {
           let marker = new google.maps.Marker({
             position: { lat: lat, lng: lng },
             icon: {
-              url:
-                labStatus[i].status !== "closed"
-                  ? "/images/openGreenBestPrice.svg"
-                  : "/images/closedRedBestPrice.svg",
+              url:(result.getPrices[i].lab[0].partner) ? '/images/pinprice.svg' : (labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
               labelOrigin: { x: 32, y: 32 },
               scaledSize: new google.maps.Size(60, 60),
             },
