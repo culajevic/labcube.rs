@@ -456,7 +456,7 @@ setTimeout(() => {
         {
           lat:result.getPrices[i].lab[0].location.coordinates[1], lng:result.getPrices[i].lab[0].location.coordinates[0],
           iconImage:'/images/pinopen.svg',
-          total:result.getPrices[i].total,
+          total:Math.floor(result.getPrices[i].total),
           name:result.getPrices[i].lab[0].labName,
           address:result.getPrices[i].lab[0].address,
           city:result.getPrices[i].labPlace[0].place,
@@ -471,12 +471,13 @@ setTimeout(() => {
 
       <div class="lab-card roundedBox">
         <div>
+          ${(result.getPrices[i].lab[0].partner)? '<img src=/images/labPartner.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i} partnerIcon${i}" title="labcube partner">' : ''}
           ${(result.getPrices[i].lab[0].private)? '<img src=/images/osiguranje.svg class="labInfoWindowOsiguranje privateInssuranceIcon${i}" title="laboratorija sarađuje sa privatnim osiguranjem">' : ''}
           ${(result.getPrices[i].lab[0].disability)? '<img src=/images/disability.svg class="labInfoWindowVerified disability${i}" title="ulaz prilagođen invalidima">' : ''}
           ${(result.getPrices[i].lab[0].patronage)? '<img src=/images/patronaza2.svg class="labInfoWindowVerified accreditedIcon${i}" title="dostupna patronaža">' : ''}
           ${(result.getPrices[i].lab[0].accredited)? '<img src=/images/verified.svg class="labInfoWindowVerified accreditedIcon${i}" title="laboratorija je akreditovana">' : ''}
-          ${(result.getPrices[i].lab[0].antigen)? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon antigenIcon${i}" title="radi antigenski test">' : ''}
-        <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${result.getPrices[i].total} rsd</span>
+          ${(result.getPrices[i].lab[0].antigen)? '<img src=/images/covidIcon.svg-1615411728326.svg class="labInfoWindowVerified labAntigenIcon antigenIcon${i}" title="antigenski test">' : ''}
+        <span class="labInfoWindowTitle">${result.getPrices[i].lab[0].labName}</span><span class="float-right priceTag">${Math.floor(result.getPrices[i].total)} rsd</span>
        </div>
          <div class="labInfoWindow">
              <p class="labInfoWindowAdresa">${result.getPrices[i].lab[0].address}</p>
@@ -534,7 +535,9 @@ setTimeout(() => {
           let marker = new google.maps.Marker({
             position:{lat:lat, lng:lng},
             icon:{
-              url:(labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
+             //url:(labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
+             url:(result.getPrices[i].lab[0].partner) ? '/images/pinprice.svg' : (labStatus[i].status!== 'closed') ? '/images/openGreenBestPrice.svg' : '/images/closedRedBestPrice.svg',
+              //url: '/images/labPartner.svg',
               labelOrigin: {x: 32, y: 32},
               scaledSize: new google.maps.Size(60, 60)
             },
@@ -563,6 +566,7 @@ setTimeout(() => {
               // <span class="labInfoWindowTelefoni">${phone.join(', ')}</span>
             let content = `<div class="" style="min-height:142px; max-width:380px;">
                           <p class="labInfoWindowTitle mb-2 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
+                          
                           <span class="">${address}</span>
                           <p class="">${city}</p>
                           <span class="labInfoWindowTelefoni">${phonesForClick.join(', ')}</span>

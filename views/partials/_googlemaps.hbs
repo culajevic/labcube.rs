@@ -39,7 +39,9 @@
              <img src="/images/openGreen.svg" alt="laboratorija je trenutno otvorena" class="">
             <span class="text-white mr-3 mt-1">Otvoreno</span>
             <img src="/images/closedRed.svg" alt="laboratorija je trenutno zatvorena">
-            <span class="text-white mt-1">Zatvoreno</span>
+            <span class="text-white mr-3 mt-1">Zatvoreno</span>
+             <img src="/images/pinopen.svg" alt="LabCube partner">
+            <span class="text-white mt-1">LabCube partner</span>
         </div>
 
 
@@ -54,6 +56,8 @@
 
 let decodedJson = decodeURIComponent("{{{labDetails}}}")
 let labData = JSON.parse(decodedJson)
+
+
 let decodedJsonStatus = decodeURIComponent("{{{labOpen}}}")
 let labStatus = JSON.parse(decodedJsonStatus)
 let now = new Date()
@@ -409,6 +413,7 @@ for(i=0; i<labData.length; i++) {
     markers.push(
       {
         status:status,
+        partner:labData[i].partner,
         name:labData[i].labName,
         address:labData[i].address,
         city:labData[i].placeId.place,
@@ -431,10 +436,9 @@ addMarker(markers[i].lat,
           markers[i].status,
           markers[i].slug,
           markers[i].workingTime,
-          markers[i].city)
+          markers[i].city,
+          markers[i].partner)
 }
-
-
 
 
 // geo location *************************************************************/
@@ -468,12 +472,13 @@ function error(error) {
 
 
 
-function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city) {
+function addMarker(lat, lng, name, address, phone, status, slug, workingTime, city, partner) {
 
   let marker = new google.maps.Marker({
     position:{lat:parseFloat(lat), lng:parseFloat(lng)},
     icon:{
-      url:(status !== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
+      //url:(status !== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
+      url:(partner) ? '/images/pinopen.svg' : (status!== 'closed') ? '/images/openGreen.svg' : '/images/closedRed.svg',
       scaledSize: new google.maps.Size(30,41)
     }
     })
@@ -492,7 +497,6 @@ function addMarker(lat, lng, name, address, phone, status, slug, workingTime, ci
      // infoWindow.setContent(content)
      //
     let content = `<div class="" style="min-height:142px; max-width:380px;">
-
               <p class="labInfoWindowTitle mb-0 pb-0"><a href="/laboratorija/${slug}/${passIds}">${name}</a></p>
               <p class="mb-0 pb-0">${address}</p>
               <p> ${city}</p>
