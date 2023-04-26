@@ -19,6 +19,8 @@ const analysisSchema = new mongoose.Schema({
   },
   banner:String,
   bannerUrl:String,
+  bannerMobile:String,
+  bannerUrlMobile:String,
   shortDesc:{
     type:String
     // required:true

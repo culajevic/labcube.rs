@@ -191,6 +191,21 @@
           </div>
         </div>
 
+         {{#if analysis.bannerMobile}}
+            <img class="mt-4" src="/images/banners/{{analysis.bannerMobile}}" style="height:50px;">
+          {{/if}}
+
+        <div class="form-row">
+          <div class="col-8">
+            <small class="form-text text-muted">banner mobile</small>
+            <input type="text" class="form-control" name="bannerUrlMobile" id="" placeholder="Banner Url Mobile" value="{{keepData analysis.bannerUrlMobile bannerUrlMobile}}">
+          </div>
+          <div class="custom-file col-4 my-4">
+            <input type="file" class="custom-file-input" name="bannerMobile"  placeholder="Banner Mobile" id="bannerMobile">
+            <label for="bannerMobile" class="custom-file-label">Banner</label>
+          </div>
+        </div>
+
 
 
 

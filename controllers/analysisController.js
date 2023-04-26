@@ -26,7 +26,9 @@ let storage = multer.diskStorage({
   }
 })
 
-const upload = multer({storage:storage}).single('banner')
+// const upload = multer({storage:storage}).single('banner')
+const upload = multer({storage:storage}).fields([{name:'banner'}, {name:'bannerMobile', maxCount:3}])
+
 
 exports.upload = (req,res, next) => {
   upload(req, res, (err) => {
@@ -38,6 +40,7 @@ exports.upload = (req,res, next) => {
     }
   })
 }
+
 
 exports.addAnalysis = [authCheck, (req,res) => {
   res.render('addAnalysis', {
@@ -73,11 +76,11 @@ exports.allAnalysis = [authCheck, async (req,res) => {
 
 
 exports.createAnalysis = [authCheck, async (req,res) => {
-
-  if(req.file != undefined) {
-    req.body.banner = req.file.filename
+  if(req.files != undefined) {
+    req.body.banner = req.files.banner[0].filename
+    req.body.bannerMobile = req.files.bannerMobile[0].filename
   } else {
-    req.body.banner = 'test'
+    req.body.banner = 'greska prilikom uploada'
   }
 
   if (req.body.active == undefined) {
@@ -161,7 +164,7 @@ exports.createAnalysis = [authCheck, async (req,res) => {
       try {
         await analysis.save()
         req.flash('success_msg','Analiza je uspešno kreirana')
-        res.redirect('/admindashboard')
+        res.redirect('/allAnalysis')
         }
       catch (e){
         req.flash('error_msg', `Dogodila se greška prilikom upisa nove analize u bazu${e}`)
@@ -184,8 +187,11 @@ exports.editAnalysis =  [authCheck, async (req,res) => {
 }]
 
 exports.updateAnalysis = [authCheck, async (req,res) => {
-  if(req.file) {
-    req.body.banner = req.file.filename
+  if(req.files.banner) {
+    // req.body.banner = req.file.filename
+    req.body.banner = req.files.banner[0].filename
+  } else if (req.files.bannerMobile) {
+    req.body.bannerMobile = req.files.bannerMobile[0].filename
   }
   req.body.date = Date.now()
 
