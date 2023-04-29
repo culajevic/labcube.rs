@@ -21,12 +21,13 @@
     <!-- End Inspectlet Asynchronous Code -->
 
     <!-- loading google analytics and google tag manager -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129510507-1"></script>
-    <script>window.dataLayer = window.dataLayer || [];
+    {{!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-129510507-1"></script> --}}
+    {{!-- <script>
+      window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'UA-129510507-1');
-    </script>
+    </script> --}}
     <!-- google analytics end -->
 
     <!--Start of Tawk.to Script-->
@@ -45,11 +46,11 @@
 
     <!-- Google Tag Manager -->
     <!-- Global site tag (gtag.js) - Google Ads: 10818927707 -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    {{!-- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N3HWSV2');</script>
+    })(window,document,'script','dataLayer','GTM-N3HWSV2');</script> --}}
   <!-- End Google Tag Manager -->
 
 
@@ -135,9 +136,9 @@
     {{> _msg}}
     {{{body}}}
 
-    <script src="/dist/vendor.bundle.js" charset="utf-8"></script>
+    <script src="/dist/vendor.bundle.js" defer charset="utf-8"></script>
     <script src="/dist/main.bundle.js" defer charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" defer></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> -->
      {{!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
     {{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
