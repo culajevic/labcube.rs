@@ -9,7 +9,7 @@
     <title>{{title}}</title>
 
     <!-- Begin Inspectlet Asynchronous Code -->
-      <script type="text/javascript">
+      {{!-- <script type="text/javascript">
       (function() {
       window.__insp = window.__insp || [];
       __insp.push(['wid', 803108826]);
@@ -17,7 +17,7 @@
       if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js?wid=803108826&r=' + Math.floor(new Date().getTime()/3600000); var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
       setTimeout(ldinsp, 0);
       })();
-      </script>
+      </script> --}}
     <!-- End Inspectlet Asynchronous Code -->
 
     <!-- loading google analytics and google tag manager -->
@@ -55,7 +55,7 @@
 
 
     <!-- Facebook Pixel Code -->
-    <script>
+    {{!-- <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -69,13 +69,13 @@
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1041735459996943&ev=PageView&noscript=1"
-    /></noscript>
+    /></noscript> --}}
     <!-- End Facebook Pixel Code -->
 
     <!-- google maps api -->
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTj52J6A1dcfdJzqHErFGR_IDs6ahyTes&callback"></script> -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTj52J6A1dcfdJzqHErFGR_IDs6ahyTes&callback"></script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    {{!-- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script> --}}
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=0">
     <!-- <meta name="robots" content="noodp"/> -->
@@ -102,7 +102,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet"> -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    {{!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> --}}
     <link rel="stylesheet" href="/css/main.css">
     <link rel="manifest" href="/manifest.json">
     <!-- ios support -->
@@ -138,9 +138,9 @@
     <script src="/dist/main.bundle.js" defer charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script> -->
-     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     {{!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
+    {{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
+    {{!-- <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> --}}
 
   </body>
 </html>
