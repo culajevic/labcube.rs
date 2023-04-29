@@ -87,7 +87,8 @@
     // left: 50%;
     // transform: translate(-50%, -50%);
     // width: 100%;
-    margin-top: 40px;
+    // margin-top: 40px;
+    top:20px;
   }
 
   .navbar-nav {
@@ -359,7 +360,7 @@
 
   .navbar-nav {
     // background: radial-gradient(circle, $secondary-color 0%, $primary-color 3%);
-    background-color: rgba(29, 136, 229, .3);
+    background-color: rgba(29, 136, 229, .9);
     z-index: 20;
     position:relative;
     width: 100%;
@@ -958,6 +959,10 @@
       padding-top: 25px;
       padding-bottom: 73.5%;
       height: 0;
+  }
+
+  .searchFieldContainer {
+    margin-top:0;
   }
 
   div.mobile-wrapper iframe {

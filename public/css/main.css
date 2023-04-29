@@ -7441,8 +7441,7 @@ a:focus {
   position: relative; }
 
 .searchFieldContainer {
-  position: relative;
-  margin-top: 2.5rem; }
+  position: relative; }
 
 .searchFieldContainerInner {
   position: absolute;
@@ -10839,7 +10838,7 @@ table.workingHoursLabDetails {
   .aboutUs, .aboutUsDiscount {
     width: 240px; }
   .searchFieldContainer {
-    margin-top: 40px; }
+    top: 20px; }
   .navbar-nav {
     background-color: #1d88e5;
     z-index: 20;
@@ -10994,7 +10993,7 @@ table.workingHoursLabDetails {
   .smallScrRegister {
     margin-top: 10px; }
   .navbar-nav {
-    background-color: rgba(29, 136, 229, 0.3);
+    background-color: rgba(29, 136, 229, 0.9);
     z-index: 20;
     position: relative;
     width: 100%;
@@ -11330,6 +11329,8 @@ table.workingHoursLabDetails {
     padding-top: 25px;
     padding-bottom: 73.5%;
     height: 0; }
+  .searchFieldContainer {
+    margin-top: 0; }
   div.mobile-wrapper iframe {
     box-sizing: border-box;
     background: url("/images/imac2.svg") center center no-repeat;
