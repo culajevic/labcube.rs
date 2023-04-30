@@ -1954,24 +1954,24 @@ let interpretationPage = document.getElementById('interpretationId')
       })
 
     // })
-    $('#finalCommentByLabCube').summernote({
+    // $('#finalCommentByLabCube').summernote({
 
-          styleTags: [
+    //       styleTags: [
 
-          {title: 'unorderList', tag: 'ul', className: 'textListInterpretation', value: 'ul'},
-          {title: 'orderList', tag: 'ol', className: 'myOrderListInterpreatation', value: 'ol'},
-          // {title: 'orderedList', tag: 'ol', className: 'orderedListInterpretation', value: 'ol', style:'color:green'},
+    //       {title: 'unorderList', tag: 'ul', className: 'textListInterpretation', value: 'ul'},
+    //       {title: 'orderList', tag: 'ol', className: 'myOrderListInterpreatation', value: 'ol'},
+    //       // {title: 'orderedList', tag: 'ol', className: 'orderedListInterpretation', value: 'ol', style:'color:green'},
 
-        ],
-          height: 480,
-          toolbar: [
-              ['view', ['codeview']],
-              ['img', ['picture']],
-              ['style', ['style', 'addclass', 'clear']],
-              ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
-              ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
-          ]
-        });
+    //     ],
+    //       height: 480,
+    //       toolbar: [
+    //           ['view', ['codeview']],
+    //           ['img', ['picture']],
+    //           ['style', ['style', 'addclass', 'clear']],
+    //           ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+    //           ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+    //       ]
+    //     });
 }
 
 if(urlArr[1] == 'o-nama') {
@@ -2203,24 +2203,24 @@ if (location.match('addLab')) {
 
   if (location.match('addAnalysis')) {
 
-    $('#summernote').summernote({
+    // $('#summernote').summernote({
 
-          styleTags: [
-          'p','br',
-          {title: 'orderList', tag: 'ul', className: 'textList', value: 'ul'},
-          {title: 'leadText', tag: 'p', className: 'lead text-center', value:'p'},
-          {title:'reset', tag:'p',className:'', value:'p'}
+    //       styleTags: [
+    //       'p','br',
+    //       {title: 'orderList', tag: 'ul', className: 'textList', value: 'ul'},
+    //       {title: 'leadText', tag: 'p', className: 'lead text-center', value:'p'},
+    //       {title:'reset', tag:'p',className:'', value:'p'}
 
-        ],
-          height: 480,
-          toolbar: [
-              ['view', ['codeview']],
-              ['img', ['picture']],
-              ['style', ['style', 'addclass', 'clear']],
-              ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
-              ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
-          ]
-        });
+    //     ],
+    //       height: 480,
+    //       toolbar: [
+    //           ['view', ['codeview']],
+    //           ['img', ['picture']],
+    //           ['style', ['style', 'addclass', 'clear']],
+    //           ['fontstyle', ['bold', 'italic', 'ul', 'ol', 'link', 'paragraph']],
+    //           ['fontstyleextra', ['strikethrough', 'underline', 'hr', 'color', 'superscript', 'subscript']],
+    //       ]
+    //     });
 
     let addNewAbbr = document.querySelector('#addNewAbbr')
     let addNewAlt = document.querySelector('#addNewAlt')
