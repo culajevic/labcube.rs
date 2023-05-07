@@ -3706,7 +3706,7 @@ exports.paymentDone = async (req, res) => {
                                    <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 150%;">
                                    
                                        <div style="text-align: right;">broj transakcije: ${currentId}<br>
-                          ${data.customer.email}
+                          ${data.customer.email}<br>
                            ${data.card.holder}<br>
                            ${data.billing.street1}<br>
                            ${data.billing.city}</div>
