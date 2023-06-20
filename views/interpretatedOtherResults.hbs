@@ -460,7 +460,7 @@
             
               <p class="mt-5">Finalni komentar <span id="finalCommentTitle"></span></p>
               {{#each findOtherResult}}
-              <textarea name="commentCube" id="finalCommentByLabCube"  style="width:100%"  rows="8" >{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
+              <textarea name="commentCube" id="finalCommentByLabCube"  style="white-space: pre-wrap; width:100%"  rows="8" >{{#if (empty this.commentCube)}}{{this.commentCube}}{{/if}}</textarea>
               <button id="notDoneBtn" class="btn btn-outline-info mb-4 btn-block mt-3 text-uppercase">nazad</button>             
               <button id="doneBtn" class="btn btn-outline-danger mb-4 btn-block mt-3 text-uppercase">sačuvaj</button>
               
