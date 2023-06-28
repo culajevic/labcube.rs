@@ -857,6 +857,11 @@ ul ol ul {
   font-family: 'Roboto', sans-serif;
   font-size: px-to-rem(20px);
   color: rgba(59, 59, 59, 0.8);
+  max-width: 100%;
+}
+
+pre {
+  white-space: pre-wrap;
 }
 
 

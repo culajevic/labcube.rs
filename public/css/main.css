@@ -9408,7 +9408,11 @@ ul ol ul {
 .generalInformationConclusion {
   font-family: 'Roboto', sans-serif;
   font-size: 1.25rem;
-  color: rgba(59, 59, 59, 0.8); }
+  color: rgba(59, 59, 59, 0.8);
+  max-width: 100%; }
+
+pre {
+  white-space: pre-wrap; }
 
 .profilePersonalData {
   font-size: 1.125rem;
