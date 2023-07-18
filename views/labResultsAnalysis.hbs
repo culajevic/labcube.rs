@@ -77,7 +77,8 @@
                      <div class="card paymentSteps ">
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 24 sata</p>
+                             <span class="text-center mb-4">+ dodatna pojašnjenja</span>
                             <span class="text-center paketiCena">490 din.</span>
                             <input type="radio" name="package" value=490 id="t24"  {{#if (checkBox package 490)}} checked {{/if}} />
                             <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
@@ -88,8 +89,10 @@
                         <div class="card-body">
                            <div class="najpopularnije">najpopularnije</div>
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
-                          <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
+                          <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 12 sati</p>
+                          <span class="text-center mb-4">+ dodatna pojašnjenja</span>
                           <span class="text-center paketiCena">590 din.</span>
+                          
                           <input type="radio" name="package" value=590 id="t12"  {{#if (checkBox package 590)}} checked {{/if}}/>
                           <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
                         </div>   
@@ -102,7 +105,9 @@
                             <div class="najpopularnije">dostupno od 8 do 18h</div>
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
                             <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati</p>
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 6 sati</p>
+                            <span class="text-center">+ dodatna pojašnjenja</span>
+                            <span class="text-center">+ besplatan kod za naredno tumačenje</span>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
                             <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
                             <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
@@ -307,14 +312,7 @@
                 
                 <h3 class="my-5">Ko tumači rezultate?</h3>
                  <div class="row">
-                 <div class="col-sm-6 col-md-4  mt-3 text-center">
-                    <img src="/images/editors/sanjaj.png"  class="rounded-circle hcpImage" alt="">
-                    <div class="hcpBio text-center">
-                      <p class=" text-center font-weight-bold">Sanja Jakšić</p>
-                      <span class="text-center disabled p-0 d-block">Medicinski biohemičar</span>
-                      {{!-- <p class="editorName text-left">Rođena 1976. godine u Beogradu. Diplomirala je na Farmaceutskom fakultetu u Beogradu na smeru diplomirani farmaceut-medicinski biohemičar 2005. godine. Karijeru započela u Hexalabu, nastavila u Superlabu, kao i Allabo laboratorijama. Od 2010. prelazi u Dom zdravlja Zemun, gde je i danas (u zdravstvenoj stanici Surčin). Bila je načelnik službe laboratorijske dijagnostike od 2018. do 2020.</p> --}}
-                    </div>
-                  </div>
+                
 
                   <div class="col-sm-6 col-md-4   mt-3 text-center">
                     <img src="/images/editors/JelenaDj.png"  class="rounded-circle hcpImage" alt="">
@@ -377,11 +375,19 @@
                       </div>
                      </div>
 
-                     <div class="col-sm-6 col-md-4   mt-3 text-center">
+                     {{!-- <div class="col-sm-6 col-md-4   mt-3 text-center">
                       <img src="/images/editors/drvesnamarkovic.png"  class="rounded-circle hcpImage" alt="">
                       <div class="hcpBio">
                         <p class="text-center font-weight-bold">Dr Vesna Marković</p>
                         <span class="text-center disabled p-0">Specijalista kliničke biohemije</span>
+                      </div>
+                     </div> --}}
+
+                     <div class="col-sm-6 col-md-4 mt-3 text-center">
+                      <img src="/images/editors/miljana.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">
+                        <p class="text-center font-weight-bold">dr Miljana Đurić</p>
+                        <span class="text-center disabled p-0">doktor medicine</span>
                       </div>
                      </div>
 
@@ -396,7 +402,7 @@
 
 
 
-                </div>{{!-- row end --}}
+                  </div>{{!-- row end --}}
                 </div>
 
                 <div class="col-12 text-center mx-auto my-5">
