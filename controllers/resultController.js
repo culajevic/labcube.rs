@@ -1657,9 +1657,8 @@ exports.freeUpload = async (req, res) => {
                                     
                                     <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                     
-                                        <span style="font-size:16px">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo Vam da popunite zdravstveni upitnik ukoliko to već niste uradili. Popunjavanje <a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a> nam pomaže da bolje razumemo Vaše trenutno zdravstveno stanje.<br>
-            <br>
-            Svi podaci koje podelite sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možete obrisati sve podatke iz Vašeg zdravstvenog profila. Ukoliko Vas interesuje kako brinemo o Vašim podacima pročitaje našu <a href="https://labcube.rs/politika-privatnosti" target="_blank">politiku privatnosti</a></span>
+                                        <span style="font-size:16px">Primili smo Vaše rezultate. Dok čekate tumačenje rezultata predlažemo ti da popuniš <a href="https://labcube.rs/profile" target="_blank">zdravstveni upitnik</a> ukoliko to već nije urađeno, to nam pomaže da bolje razumemo tvoje trenutno zdravstveno stanje i da tumačenje tvojih rezultata bude što tačnije.<br><br>
+                                        Svi podaci koje podeliš sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možeš obrisati sve podatke iz tvog zdravstvenog profila. Ukoliko te interesuje kako brinemo o tvojim podacima pročitaj našu <a href="https://labcube.rs/politika-privatnosti" target="_blank">politiku privatnosti</a></span>
                                     </td>
                                 </tr>
                             </tbody></table>
@@ -3833,9 +3832,8 @@ exports.paymentDone = async (req, res) => {
                                    
                                    <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                    
-                                       <span style="font-size:16px">Primili smo tvoje rezultate. Dok čekaš tumačenje rezultata predlažemo ti da popuniš zdravstveni upitnik ukoliko to već nije urađeno. Popunjavanje&nbsp;<a href="https://labcube.rs/profile" target="_blank">ovog kratkog upitnika</a>&nbsp;nam pomaže da bolje razumemo tvoje trenutno zdravstveno stanje.<br>
-           <br>
-           Svi podaci koje podeliš sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možeš obrisati sve podatke iz tvog zdravstvenog profila. Ukoliko te interesuje kako brinemo o tvojim podacima pročitaj našu&nbsp;&nbsp;<a href="https://labcube.rs/politika-privatnosti" target="_blank">politiku privatnosti</a></span>
+                                       <span style="font-size:16px">Primili smo tvoje rezultate. Dok čekaš tumačenje rezultata predlažemo ti da popuniš <a href="https://labcube.rs/profile" target="_blank">zdravstveni profil</a> ukoliko to već nije urađeno, to nam pomaže da bolje razumemo tvoje trenutno zdravstveno stanje i da tumačenje tvojih rezultata bude što tačnije<br><br>
+                                      Svi podaci koje podeliš sa nama se smatraju strogo poverljivim i koriste se isključivo u svrhu tumačenja rezultata. U svakom trenutku možeš obrisati sve podatke iz tvog zdravstvenog profila. Ukoliko te interesuje kako brinemo o tvojim podacima pročitaj našu&nbsp;&nbsp;<a href="https://labcube.rs/politika-privatnosti" target="_blank">politiku privatnosti</a></span>
                                    </td>
                                </tr>
                            </tbody></table>
