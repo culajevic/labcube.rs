@@ -9453,6 +9453,9 @@ pre {
 .btn-res-success {
   padding: 0 1rem; }
 
+.btn-primary {
+  background-color: #1D88E5; }
+
 .grafik {
   width: 70%;
   display: block;
