@@ -308,6 +308,15 @@ hbs.registerHelper("checkStatus", (value1) => {
   if (value1 == "Završeno") return true;
 });
 
+hbs.registerHelper("checkTheOwner", (value1, value2) => {
+  if (value1==value2) {
+    return true
+  } else {
+    return false
+  }
+
+})
+
 hbs.registerHelper("ifGT", (value1, value2) => {
   if (value1 < value2) return true;
 });
@@ -360,6 +369,9 @@ hbs.registerHelper("displayPackageTime", (package) => {
       packageTime = 12;
       break;
     case "890":
+      packageTime = 6;
+      break;
+    case "623":
       packageTime = 6;
       break;
     default:

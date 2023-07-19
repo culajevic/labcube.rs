@@ -139,6 +139,9 @@ exports.freeUpload = async (req, res) => {
       case "890":
         packageTime = 6;
         break;
+      case "623":
+        packageTime = 6;
+        break;
       default:
         packageTime = 24;
     }
@@ -2269,6 +2272,9 @@ exports.paymentDone = async (req, res) => {
             packageTime = 12;
             break;
           case "890.00":
+            packageTime = 6;
+            break;
+          case "623":
             packageTime = 6;
             break;
           default:
