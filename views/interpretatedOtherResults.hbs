@@ -23,7 +23,7 @@
         </form>
         </div> --}}
 
-        <div class="col-3 py-5">
+        <div class="col-12 py-5">
             {{!-- <div class="float-right"><a href="/results/{{this.result}}" target="_blank"><i class="far fa-file-pdf text-center" style="color:#1D88E5; font-size:79px; font-weight:200" title="pogledaj rezultate pacijenta" alt="pogledaj rezultate pacijenta"></i></a></div> --}}
           <form class="pr-4" action="" method="post" id="lockTheRecord">
                 <label class="chckBoxCustom">
@@ -37,8 +37,12 @@
                 {{/if}}
                 </label>
               <input type="hidden" name="interpretationId" id="interpretationId" value="{{this._id}}">
+              <input type="hidden" name="userId" id="userId" value="{{../user.id}}">
+              <input type="hidden" name="ownerId" id="ownerId" value="{{this.owner}}">
+        <p id="lockMessage"></p>
           </form>
         </div>
+        
 
 
           <!-- <h1 class="headTitle float-left mt-3" id="customerEmail" data-email="{{this.userId.username}}">{{this.userId.username}}</h1> -->
@@ -473,8 +477,11 @@
               </div>
               <div class="mb-5">
                 <!-- <label for="published" class="chckBoxCustom"><h3 class="pl-2">Objavi tumačenje i pošalji mejl korisniku</h3> -->
-                  <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}>
+                  {{!-- ukoliko nisu isti owner i onaj ko objavljuje rezultate ne moze da se posalje mejl pacijentu --}}
+                               
+                  <input type="checkbox" name="publish" class="text-center customCheck" value="Završeno" id="published" {{#if (checkStatus this.status)}} checked {{/if}}> 
                   <label for="published" class="ml-2 pt-0">Objavi tumačenje i pošalji mejl pacijentu</label>
+                   
                   <!-- <span class="checkmark"></span> -->
                 </label>
               </div>
