@@ -174,7 +174,7 @@
 
                 <div class="col-12 text-center mt-5" id="paymentConsent">
                   <input type="checkbox" name="consent" value="true" class="consentCheck" id="consent" {{#if (checkBox consent 'true')}} checked {{/if}} />
-                    <span style="font-size: 22px;"><label for="consent" class="customRadio ml-2 mt-2 text-align-center" id="consentBtn">Prihvatam <a href="/uslovi-placanja" target="_blank" class="">pravila i uslove plaćanja</a></label></span>  
+                    <span style="font-size: 22px;"><label for="consent" class="customRadio ml-2 mt-2 text-align-center" id="consentBtn">Prihvatam <a href="/uslovi-placanja" target="_blank" class="">uslove plaćanja</a></label></span>  
                 </div>
 
                 <div class="col-12 text-center">
@@ -228,31 +228,47 @@
                 </div> --}}
 
 
-                  <div class="d-none d-md-block col-sm-12 mt-5 col-md-5 col-lg-5 position-relative">
+                  <div class="d-none d-md-block col-sm-12 mt-5 col-md-4 col-lg-4 position-relative">
                       <img data-lazy="/images/microscope.svg" class="functionalityIconsInterpretation microscopeFunc imgLazy">
+                      {{!-- <img data-lazy="/images/searchforprice.png" style="width:800px;" class=" microscopeFunc imgLazy"> --}}
                   </div>
 
-                  <div class="col-12 col-sm-12 col-md-12 col-lg-7 py-2 d-flex flex-column justify-content-center textLazy">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-8 py-2 d-flex flex-column justify-content-center textLazy">
 
-                        <div class="text-center priceFromMobile float-left">
+                        {{!-- <div class="text-center priceFromMobile float-left">
                           <span class="">od 490din.</span>
-                        </div>
+                        </div> --}}
     
-                        <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p>
-                        <p class="generalInformation float-left ml-2">Umesto da pitaš Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
-                        <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p>
+                        {{!-- <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p> --}}
+
+                         <p class="generalInformation float-left"><h3 class="ml-2">Nema više lutanja sa nalazima laboratorije!</h3></p>                
+
+
+                         <p class="generalInformation float-left ml-2">Ne moraš više da čekaš pregled kod lekara da bi razumeo svoje laboratorijske nalaze ili da zoveš laboratoriju i trudiš se da zapamtiš informacije koje ti daju, ne moraš više da pretražuješ Google ili da juriš prijatelje lekare, biohemičare... </p>
+                      
+                         <p class="generalInformation float-left ml-2">Pravilno razumevanje laboratorijskih nalaza je veoma važno i može da pomogne pri donošenju daljih odluka u vezi tvog zdravlja. Da bismo svima pomogli, bez obzira gde se nalaze napravili smo online servis za tumačenje rezultata iza koga stoje biohemičari i lekari sa velikim iskustvom.  </p>
+                           
+                            </p>
+
+                         <p class="generalInformation float-left ml-2">Za 490 dinara svako može dobiti detaljan komentar na svoje rezultate, laboratorije, osim toga, svi laboratorijski izveštaji na koje ti damo komentar ostaju na tvom profillu  hronološki sortirani tako da zauvek znaš gde su i možeš im pristupiti u svakom trenutku.</p>
+
+                        {{!-- <p class="generalInformation float-left ml-2">Umesto da pitaš Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
+                        <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p> --}}
 
                       
-                  <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a>
+                  {{!-- <a href="/registracija" class="btn btn-success text-uppercase">Pokreni tumačenje</a> --}}
+                   <a href="/registracija" class="btn btn-block btn-primary btn-lg display-4 mb-5"><h3 class="mt-2">Kreiraj nalog</h3></a>
                 </div> 
 
                   <div class="col-12 mb-4">
-                  <h3>Cene tumačenja rezultata zavise od roka u kome želiš da dobiješ komentar na rezultate </h3>
+                  <h3 class="mb-0 pb-0">Nudimo ti više opcija</h3>
+                  <span class="mt-0 pt-0">sve su podjednako kvalitetne samo se razlikuju po vremenu u kome želiš da dobiješ komentar.</span>
                   </div>
 
                    <div class="card paymentSteps mr-2">
                       <div class="card-body">
                         <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                         {{!-- <span class="text-center mb-4"></span> --}}
                         <p class="text-center font-weight-bold">Tumačenje u roku od 24 sata</p>
                         <span class="text-center paketiCena">490 din.</span>
                       </div>
@@ -262,6 +278,7 @@
                       <div class="card-body">
                         <div class="najpopularnije">najpopularnije</div>
                         <img src="images/12h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                         {{!-- <span class="text-center mb-4"></span> --}}
                         <p class="text-center font-weight-bold">Tumačenje u roku od 12 sati</p>
                         <span class="text-center paketiCena">590 din.</span>
                       </div>
@@ -270,6 +287,7 @@
                     <div class="card paymentSteps ">
                       <div class="card-body">
                         <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                         {{!-- <span class="text-center mb-4"></span> --}}
                         <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati</p>
                         <span class="text-center paketiCena">890 din.</span>
                       </div>
@@ -278,28 +296,53 @@
                 
 
                  <div class="col-12 my-4">
-                    <h3 class="mb-4">Šta tačno podrazumeva i kako izgleda tumačenje rezultata?</h3>
-                    <p class="generalInformation">Naše kolege će detaljno pogledati dobijene rezultate, uzeti u obzir podatke iz zdravstvenog profila i na osnovu toga napisati detaljan zaključak u kome će se osvrnuti na svaki parametar koji zahteva pažnju. Predložiće ti i da ponoviš neke analize ukoliko je potrebno ili da uradiš dodatne, uputiće te ka specijalisti ako za to ima potrebe. Znamo da se ovo dobija besplatno u laboratoriji ali mi ćemo se detaljnije posvetiti svakom pacijentu i još će sve ostati zapisano tako da možeš pročitati naš zaključak više puta. Osim toga, svi tvoji rezultati su hronološki sortirani i na jednom mestu, nema više traženja po inboxu.
+                    <h3 class="mb-4">Šta podrazumeva i kako izgleda tumačenje rezultata?</h3>
+                    <p class="generalInformation">Naše kolege će detaljno pogledati dobijene rezultate, uzeti u obzir podatke iz zdravstvenog profila i na osnovu toga napisati detaljan zaključak u kome će se osvrnuti na svaki parametar koji zahteva pažnju. Predložiće ti i da ponoviš neke analize ukoliko je potrebno ili da uradiš dodatne, uputiće te ka specijalisti ako za to ima potrebe. Znamo da se ovo dobija besplatno u laboratoriji ali mi ćemo se detaljnije posvetiti svakom pacijentu i još će sve ostati zapisano tako da možeš pročitati naš zaključak više puta. Osim toga, svi tvoji rezultati su hronološki sortirani i na jednom mestu, nema više traženja po inboxu. 
                     </p>
-                    <h3 class="pt-4 mb-4">Primeri zaključaka na dobijene rezultate</h3>
 
-                    <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-1"><p style="text-align:center;font-size:24px;">J, 1986. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
+                      
+                     <h3 class="mt-5">Primer jednog tumačenja</h3>
+                     <div style="border:1px solid #E0E4EC; border-radius:20px; padding:20px;">
+                     <div class="col-12 mt-4 doctorDetailsInner smx-4 mt-4 text-center">
+                      <img src="/images/editors/JelenaDj.png"  class="rounded-circle hcpImage" alt="">
+                      <div class="hcpBio">                    
+                          <p class="editorName font-weight-bold mb-3">Rezultate tumači: Jelena Đuran</p>
+                          <p class="editorName text-left">Rođena 1987. godine u Beogradu. Diplomirala na Farmaceutskom fakultetu Univerziteta u Beogradu na smeru diplomirani farmaceut-medicinski biohemičar 2012. godine a specijalističke akademske studije, modul Biohemijska dijagnostika, završila 2021. godine. Trenutno je na specijalizaciji zdravstvenih radnika i saradnika na Farmaceutskom fakultetu u Beogradu, smer Medicinska biohemija. Od 2012. godine zaposlena u Zdravstvenoj ustanovi Medlab, Novi Sad</p>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <h3 class="">Zaključak</h3>
+                      <div class="finalThougths mb-4">
+                        <p class="generalInformation">Poštovana,<br /><br /> vrednost feritina jeste u prvoj polovini referentnog ospega, ali se ne tumači kao ,,blizu,, donje granice. Vrednost Vašeg feritina je sasvim u redu.  Jedna mogućnost je da je feritin ranije bio viši, što bi moglo da znači da se njegova vrednost smanjuje. Međutim, treba imati u vidu da je feritin, osim što predstavlja depo gvožđa u organizmu, i pozitivan reaktant akutne faze (raste pri upali i inflamacijama u organizmu) te njegove veće vrednosti mogu biti posledica raznih inflamacija u organizmu. </p><p class="generalInformation"> Kada govorimo o Vašem lipidnom statusu, vrednost LDL holesterola je u redu, spada u poželjne vrednosti ldl holesterola ( pozeljne vrednosti su do 3,4 mmol/l, granično povišene od 3,4 - 4,1 mmol/l, dok vrednosti preko 4,1 mmol/l predstavljaju visok rizik za kardiovaskularne neželjene događaje ).</p><p class="generalInformation">Vrednost HDL holesterola je u redu. Ukupna vrednost holesterola je blago povišena. Uzroci povišenog holesterola mogu biti razni:  nepravilna ishrana  (prekomeran unos masti, posebno trans-masti), konzumacija određenih lekova ( anabolici, kontraceptivi.. ), stres, nasleđe, kao i nepravilan rad žlezda sa unutrašnjim lučenjem ( hipotireoza ). </p>
+                      </div>
+                    </div>
+                    </div>
+
+                     <h3 class="pt-4 mb-4 text-center">Do sada protumačeno 1289 rezultata</h3>
+                    
+                    <div class="col-12 text-center mx-auto my-5">
+                      <h3 class="cardDisclaimer text-center p-4">Ništa ne rizikuješ. Ukoliko usluga ne ispuni tvoja očekivanja, vraćamo novac bez pitanja!</h3>
+                    </div>
+
+
+                    {{!-- <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-1"><p style="text-align:center;font-size:24px;">J, 1986. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
                     <div class="finalThougths">
                       <p>U krvnoj slici pacijenta uočava se poremećaj u leukocitarnoj formuli u korist limfocitoze. Ovo ukazuje na aktuelnu blagu virusnu infekciju ili nedavno završenu virusnu infekciju u organizmu, što se može zaključiti i po ukupnom broju leukocita koji se približava donjoj referentnoj granici, iako nije pao ispod nje. Preporuka uraditi CRP i sedimentaciju za potvrdu aktuelne infekcije. Ostali parametri krvne slike su zadovoljavajući. Biohemijske analize su zadovoljavajuće i u skladu sa popunjenim zdravstvenim profilom pacijenta. Rezultati hormonskih analiza su zadovoljavajući i u referentnom opsegu. <br /><br />Rezultati oralnog testa opterećenja glukozom sa insulinemijama u ukupnom skoru ne ukazuju na insulinsku rezistenciju, ali je zbog postepenog pada insulina i zaravnjenja krive glukoze tokom testa potrebno ove rezultate tumačiti od strane ordinirajućeg lekara u skladu sa medicinskom istorijom pacijenta i kliničkim pregledom. Kao dodatni parametar preporuka je uraditi <a href="https://labcube.rs/results/analysis/Hemoglobin-A1c" target="_blank">HbA1c.</a>
                       </p>
-                  </div>
+                  </div> --}} 
 
-                  <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">M, 1935. <i class="fa fa-mars" aria-hidden="true"></i></p></div>
+                  {{!-- <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">M, 1935. <i class="fa fa-mars" aria-hidden="true"></i></p></div>
                   <div class="finalThougths">
                       <p>Iz laboratorijskih nalaza se da zaključiti da je pacijent imao ili ima (virusnu) infekciju koja prolazi. <br /><br /> U prilog tome nam govori i vrednost CRP-a koja je u opadanju: u nalazu od 25.01.2022. bila 40,3 mg/L a u nalazu od 31.01.2022. vrednost CRP- a je 16,5 mg/L. CRP je protein akutne faze, povišen u slučaju upalnog procesa u organizmu i radi se kao analiza kada postoji sumnja na prisustvo infekcije. Vrednost raste za 6 do 9 sati od početka infekcije, a maksimum dostiže za 48 sati. Vrednosti između 10-40 mg/L su blago povišene vrednosti i ukazuju na blagu upalu te se mogu videti kod (virusnih) infekcija. <br /><br />Sedimentacija je takođe parametar zapaljenja tj. merilo zapaljenske reakcije u organizmu, ali i jedan opšti faktor na koji utiču godine, uzimanje lekova... Za razliku od CRP-a porast sedimentacije se dešava najmanje 24 časa nakon početka zapaljenske reakcije i traje 4 do 6 dana. U prilog tome nam govori blago povišena vrednost sedimentacije u nalazu od 31.01.2022. koja je 19mm/1h u odnosu na vrednost ovog parametra u nalazu od  25.01.2022. koja je bila 10mm/1h. Svi ostali parametri su u granicama normalnih referentnih vrednosti.<br /><br />Opšti rezultati mogu da ukazuju na nedavno preležanu infekciju nekim virusom, kao i na postepeni stabilni oporavak. Preporuka za pacijenta je da se eventualno ponove analize sedimentacije i crp-a nakon izvesnog vremena da bi se utvrdilo da li je zapaljenski proces i dalje prisutan ili je završen.
                       </p>
                   </div>
-                  
-                  <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">N, 1988. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
+                   --}}
+                  {{!-- <div style="padding:10px; background-color:#FF6F6F; border-radius:12px; color:white;" class="float-left mr-3 pb-0 mt-4"><p style="text-align:center;font-size:24px;">N, 1988. <i class="fa fa-venus" aria-hidden="true"></i></p></div>
                    <div class="finalThougths">
                       <p>Citomegalovirus (CMV) spada u grupu herpes virusa. IgM antitela ukazuju na trenutno postojanje infekcije u organizmu, dok IgG antitela ukazuju na to da li je infekcija preležana u prošlosti. Rezultati testa na oba antitela se gledaju zajedno i na osnovu njih i specifične kliničke slike lekar donosi konačni zaključak o infekciji. Konkretno u ovom slučaju rezultat znači da je do CMV infekcije došlo u prošlosti. Trenutno pacijent nije u infekciji CMV virusom i razvijen je delimični imunitet na ovaj tip virusa. Aviditet koji nam označava starost infekcije je na gornjoj granici vrednosti što bi značilo da se infekcija nije dešavala unazad par meseci ili duže.
                       </p>
-                  </div>
+                  </div> --}}
 
                 </div>
 
@@ -307,9 +350,10 @@
                 
                 <h3 class="my-5">Ko tumači rezultate?</h3>
                  <div class="row">
+                   
                 
 
-                  <div class="col-sm-6 col-md-4   mt-3 text-center">
+                  <div class="col-sm-6 col-md-4 mt-3 text-center">              
                     <img src="/images/editors/JelenaDj.png"  class="rounded-circle hcpImage" alt="">
                     <div class="hcpBio">
                       <p class="text-center font-weight-bold">Jelena Đuran</p>
@@ -409,7 +453,8 @@
                 </div>
 
                 <div class="col-12 text-center">
-                <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a>
+                {{!-- <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a> --}}
+                  <a href="/registracija" class="btn btn-block btn-primary btn-lg display-4 mb-5"><h3 class="mt-2">Kreiraj nalog</h3></a>
                 </div>
 
 

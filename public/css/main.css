@@ -10845,8 +10845,6 @@ table.workingHoursLabDetails {
     width: 80%; }
   #sidebarMenu {
     display: none; }
-  .editorName {
-    float: right; }
   .aboutUs, .aboutUsDiscount {
     width: 240px; }
   .searchFieldContainer {
@@ -11051,8 +11049,6 @@ table.workingHoursLabDetails {
   .interpretationDate {
     font-size: 1.5rem;
     text-align: center; }
-  .editorName {
-    padding: 0 1.5rem; }
   .doctorDetailsInner {
     display: block;
     border-left: none;
@@ -11125,8 +11121,6 @@ table.workingHoursLabDetails {
     font-size: 2.375rem; }
   #sidebarMenu {
     display: none; }
-  .editorName {
-    float: right; }
   #groupIcon {
     display: none; }
   .smallScr {
