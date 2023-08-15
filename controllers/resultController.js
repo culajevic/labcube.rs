@@ -3675,7 +3675,7 @@ exports.paymentDone = async (req, res) => {
                                    
                                    <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                    
-                                       <div style="text-align: center;"><span style="font-size:24px"><span style="color:#1D88E5"><strong>Uspešna transakcjia</strong></span></span></div>
+                                       <div style="text-align: center;"><span style="font-size:24px"><span style="color:#1D88E5"><strong>Uspešna transakcija</strong></span></span></div>
            
                                    </td>
                                </tr>
