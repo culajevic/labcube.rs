@@ -104,8 +104,8 @@
                           <div class="card-body">
                             <div class="najpopularnije">dostupno od 8 do 18h</div>
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                            <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 6 sati</p>
+                            <img src="images/1h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 1 sata</p>
                             <span class="text-center">+ dodatna pojašnjenja</span>
                             <span class="text-center">+ besplatan kod za naredno tumačenje</span>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
@@ -189,7 +189,7 @@
                 <div class="col-12 mb-5" id="uplatnica">
                   <h3 class="mb-4">Plaćanje putem uplatnice</h3>
                   <p class="mb-4">Ukoliko ti više odgovara, možeš platiti uslugu tumačenja i preko uplatnice. Popuni uplatnicu kao na primeru ispod, u polje za iznos unesi jednu od 3 moguće opcije (490, 590 ili 890din). Pošalji nam dokaz o uplati na zdravo@labcube.rs i mi ćemo ti poslati kôd na mejl koji ćeš uneti na ovoj stranici, nakon toga samo postavi rezultate za koje ti je potrebno tumačenje.</p>
-                  <p class="text-danger text-center mb-3">Tumačenje u roku od 6h je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 14h.</p>
+                  <p class="text-danger text-center mb-3">Tumačenje u roku od sat vremena je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 9h.</p>
                   <img src="/images/uplatnica.png" alt="" class="mb-5 w-100">
                   
                 <div>
@@ -242,7 +242,7 @@
                         {{!-- <p class="generalInformation float-left ml-2">Ukoliko ti je potrebna pomoć u tumačenju i boljem razumevanju rezultata tvojih laboratorijskih nalaza, na pravom si mestu!</p> --}}
 
                          <p class="generalInformation float-left"><h3 class="ml-2">Nema više lutanja sa nalazima laboratorije!</h3></p>                
-
+                         <p class="generalInformation float-left ml-2">Do 18.8.2023. novim korisnicima nudimo mogućnost da besplatno isprobaju online tumačenje laboratorijskih nalaza. Potrebno je da kreiraš nalog i na tvom profilu ćeš pronaći kod za jedno besplatno tumačenje.</p>
 
                          <p class="generalInformation float-left ml-2">Ne moraš više da čekaš pregled kod lekara da bi razumeo svoje laboratorijske nalaze ili da zoveš laboratoriju i trudiš se da zapamtiš informacije koje ti daju, ne moraš više da pretražuješ Google ili da juriš prijatelje lekare, biohemičare... </p>
                       
@@ -250,7 +250,9 @@
                            
                             </p>
 
-                         <p class="generalInformation float-left ml-2">Za 490 dinara svako može dobiti detaljan komentar na svoje rezultate laboratorije. Osim toga, svi laboratorijski izveštaji na koje ti damo komentar ostaju na tvom profillu, hronološki sortirani tako da zauvek znaš gde su i možeš im pristupiti u svakom trenutku.</p>
+                         {{!-- <p class="generalInformation float-left ml-2">Za 490 dinara svako može dobiti detaljan komentar na svoje rezultate laboratorije. Osim toga, svi laboratorijski izveštaji na koje ti damo komentar ostaju na tvom profillu, hronološki sortirani tako da zauvek znaš gde su i možeš im pristupiti u svakom trenutku.</p> --}}
+
+                        
 
                         {{!-- <p class="generalInformation float-left ml-2">Umesto da pitaš Google šta znači povišen CRP, koji od ona dva je "dobar" holesterol, da li sniženi broj limfocita ukazuje na virusnu ili bakterijsku infekciju, napravili smo servis za interpretaciju rezultata iza koga stoje biohemičari i lekari sa višegodišnjim iskustvom iz državnih i privatnih laboratorija.</p>
                         <p class="generalInformation float-left ml-2">Protumačićemo tvoje rezultate i odgovorićemo na sva pitanja, a daćemo ti i savet za sledeći korak.</p> --}}
@@ -302,18 +304,18 @@
 
                       
                      <h3 class="my-5">Primer jednog tumačenja</h3>
-                     <div style="border:1px solid #E0E4EC; border-radius:20px; padding:20px;">
-                     
+                     {{!-- <div style="border:1px solid #E0E4EC; border-radius:20px; padding:20px;"> --}}
+                     <img src="images/example.png" style="width:800px;" alt="" class="img-fluid">
                     
-                    <div class="col-12">
+                    {{!-- <div class="col-12">
                       <h3 class="">Zaključak</h3>
                       <div class="finalThougths mb-4">
                         <p class="generalInformation">Poštovana,<br /><br /> vrednost feritina jeste u prvoj polovini referentnog ospega, ali se ne tumači kao ,,blizu,, donje granice. Vrednost Vašeg feritina je sasvim u redu.  Jedna mogućnost je da je feritin ranije bio viši, što bi moglo da znači da se njegova vrednost smanjuje. Međutim, treba imati u vidu da je feritin, osim što predstavlja depo gvožđa u organizmu, i pozitivan reaktant akutne faze (raste pri upali i inflamacijama u organizmu) te njegove veće vrednosti mogu biti posledica raznih inflamacija u organizmu. </p><p class="generalInformation"> Kada govorimo o Vašem lipidnom statusu, vrednost LDL holesterola je u redu, spada u poželjne vrednosti ldl holesterola ( pozeljne vrednosti su do 3,4 mmol/l, granično povišene od 3,4 - 4,1 mmol/l, dok vrednosti preko 4,1 mmol/l predstavljaju visok rizik za kardiovaskularne neželjene događaje ).</p><p class="generalInformation">Vrednost HDL holesterola je u redu. Ukupna vrednost holesterola je blago povišena. Uzroci povišenog holesterola mogu biti razni:  nepravilna ishrana  (prekomeran unos masti, posebno trans-masti), konzumacija određenih lekova ( anabolici, kontraceptivi.. ), stres, nasleđe, kao i nepravilan rad žlezda sa unutrašnjim lučenjem ( hipotireoza ). </p>
                       </div>
-                    </div>
-                    </div>
+                    </div> --}}
+                    {{!-- </div> --}}
 
-                     <h3 class="pt-4 mb-4 text-center">Do sada smo protumačili 1289 rezultata!</h3>
+                     {{!-- <h3 class="pt-4 mb-4 text-center">Do sada smo protumačili 9347 rezultata!</h3> --}}
                     
                     <div class="col-12 text-center mx-auto my-5">
                       <h3 class="cardDisclaimer text-center p-4">Ništa ne rizikuješ. Ukoliko usluga ne ispuni tvoja očekivanja, vraćamo ti novac, bez pitanja.</h3>
