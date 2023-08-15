@@ -92,8 +92,10 @@
 
           <!-- <h1 class="p-4 text-center">Hvala Vam što ste kreirali nalog. Uskoro će Vam biti dostupna usluga tumačenja rezultata.</h1> -->
           <div class="text-center">
-            <p class="pt-4 generalInformation">Trenutno nema protumačenih rezultata.</p>
-            <p><a href="/tumacenje-laboratorijskih-analiza" class="btn btn-danger btn-block">Postavi rezultate za tumačenje</a></p>
+            <h2 class="sectionTitle mt-4 breakWords">Besplatno isprobaj našu uslugu online tumačenja laboratorijskih nalaza!</h2>
+            <p class="py-2 mt-4 breakWords generalInformation">Tvoj kôd za prvo besplatno<sup>*</sup> tumačenje je <span class="font-weight-bold">11717</span></p>
+            <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btn-primary btn-lg display-4 mb-4" target="_blank"><h3 class="mt-2">Pokreni odmah tumačenje rezultata</h3></a>
+            <sup>*</sup> Tumačenje u roku od 24h, Kôd se može iskoristiti samo jednom.
         
           </div>
           
@@ -648,7 +650,7 @@
               </select>
             </div>
           </div>
-          <div class="col-12 col-sm-6 col-md-4 my-4">
+          {{!-- <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/addressProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -656,7 +658,7 @@
               <span>Adresa</span>
                   <input type="text" id="adresa" class="d-block mt-2 profilePersonalData" name="adresa" placeholder="Adresa" value="{{user.address}}">
             </div>
-          </div>
+          </div> --}}
 
           <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
@@ -672,7 +674,7 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-md-4 my-4">
+          {{!-- <div class="col-12 col-sm-6 col-md-4 my-4">
             <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
               <img src="/images/cellphoneProfileData.svg" class="profileDataIcons" alt="">
             </div>
@@ -680,7 +682,7 @@
               <span>Mobilni telefon</span>
                 <input type="text" id="mobilniTelefon" class="d-block mt-2 profilePersonalData" name="mobilniTelefon" value="{{user.mobile}}" placeholder="u fomatu 06XXXXXXX">
             </div>
-          </div>
+          </div> --}}
             <div class="col-12 col-sm-6 col-md-4 my-4">
                 <div class="float-left" style="background-Color:#FAFAFA; padding:20px; border-radius:5px;">
                   <img src="/images/emailProfileData.svg" class="profileDataIcons" alt="">
@@ -864,7 +866,8 @@
         </div>
 
         
-        <div class="col-12 mt-5 {{#if (checkComment user.therapyComment)}}d-none{{/if}}" id="therapyComment">
+        <div class="col-12 mt-5" id="therapyComment">
+          {{!-- //{{#if (checkComment user.therapyComment)}}d-none{{/if}} --}}
         <span>Trenutna terapija ili drugi komentar koji smatraš važnim za opšte zdravstveno stanje</span>
             <textarea name="terapijaKomentar" class="col-12 mt-3" rows="5" cols="80" id="therapyCommentArea" placeholder="Podaci o terapiji ili drugim bitnim faktorima koji utiču na zdravlje">{{#if user.therapyComment}}{{user.therapyComment}}{{/if}}</textarea>
         </div>
