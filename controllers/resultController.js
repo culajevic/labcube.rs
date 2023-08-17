@@ -1556,7 +1556,7 @@ exports.freeUpload = async (req, res) => {
                                     
                                     <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                     
-                                        <div style="text-align: center;"><span style="font-size:22px"><span style="color:#1D88E5"><strong>Uspešno ste poslali rezultate na tumačenje</strong></span></span></div>
+                                        <div style="text-align: center;"><span style="font-size:22px"><span style="color:#1D88E5"><strong>Rezultati su uspešno poslati na tumačenje</strong></span></span></div>
             
                                     </td>
                                 </tr>
@@ -1948,7 +1948,7 @@ exports.freeUpload = async (req, res) => {
       packageTime,
       groupNames,
       user: req.user,
-      title: "LabCube | Uspešno ste poslali rezultate",
+      title: "LabCube | Uspešno poslati rezultati",
     });
   } //checkdiscount == 100
   else {
@@ -4100,7 +4100,7 @@ exports.paymentDone = async (req, res) => {
           authCodeParameter,
           shortId,
           user: req.user,
-          title: "LabCube | Uspešno ste izvršili uplatu",
+          title: "LabCube | Uspešno izvršena uplata",
         });
       } else {
         let secureError = /^(800\.400\.2|100\.380\.4|100\.390)/;
@@ -4343,7 +4343,7 @@ exports.sendFeedbackLabCube = async (req, res) => {
       useFindAndModify: false,
     }
   ).exec();
-  req.flash("success_msg", "Uspešno ste poslali komentar. Hvala");
+  req.flash("success_msg", "Komentar uspešno poslat. Hvala");
   res.redirect("/myResult/" + req.params.id);
 };
 
