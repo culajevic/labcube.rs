@@ -112,10 +112,6 @@
          <div class="col-12 text-center">
         <a href="mailto:zdravo@labcube.rs?subject=Potrebno dodatno pojašnjenje u vezi tumačenja broj: {{myResults._id}}&body=[ovde upiši dodatno pitanje]%0D%0D{{myResults.commentCube}}" target="_blank" class="btn btn-outline-info btn-lg mb-5 text-center ml-auto">Potrebno ti je dodatno pojašnjenje zaključka?</a>
         
-        <p class="generalInformation">Ako ti se dopala usluga online tumačenja laboratorijskih nalaza pomozi nam da i drugi saznaju za nju. Hvala </p>
-        
-      
-        <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Flabcube.rs%2Ftumacenje-laboratorijskih-analiza&layout&size&width=83&height=20&appId" width="83" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
         
       </div>
       </div> <!-- col 12 end -->
@@ -128,7 +124,7 @@
       <section id="resultsLabDetailsComments">
         <div class="col-12">
           <form class="mt-5" action="/sendFeedbackForLabCube/{{myResults._id}}" method="post">
-            <label for="labFeedback" class="text-muted  generalInformation">Voleli bismo da znamo da li je usluga ispunila tvoja očekivanja ili misliš da bi nešto trebalo promeniti, da bi nešto moglo drugačije, jednostavnije. Svaki komentar nam znači i svaki nam pomaže da budemo još bolji. Hvala</label>
+            <label for="labFeedback" class="text-muted  generalInformation">Voleli bismo da znamo da li je usluga ispunila tvoja očekivanja ili misliš da bi nešto trebalo promeniti, da bi nešto moglo drugačije, jednostavnije. Svaki komentar nam znači i svaki nam pomaže da budemo još bolji. Tvoji komentari su anonimni i koriste se isključivo da bismo poboljšali korisničko iskustvo. Hvala</label>
               <textarea name="interpretationFeedback" class="col-12 mt-3" data-hj-allow rows="5" cols="80" id="labFeedback" placeholder="Mesto za predlog, pohvalu, kritiku..."></textarea>
               <div class="wrapper">
                 <input type="radio" id="st1" value="5" name="star"/>
