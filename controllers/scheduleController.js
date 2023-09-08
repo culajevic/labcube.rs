@@ -3314,11 +3314,12 @@ exports.lockTheOtherInterpretation = async (req, res) => {
         useFindAndModify: false,
       }
     ).exec();
-    res.send("ok je");
-    console.log("zakljucano");
+    res.send(req.body[0].ownerId);
+    // console.log("zakljucano");
   } else {
     // console.log('vec je zakljucano')
-    res.json("vec je zakljucano");
+    res.send("1")
+    // res.send(JSON.parse({"alert":1,"message":"Neko drugi je već zaključao ovo tumačenje"}));
   }
 };
 

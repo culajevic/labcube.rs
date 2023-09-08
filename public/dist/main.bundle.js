@@ -24173,13 +24173,11 @@ window.onload = function () {
     var therapyComentArea = document.getElementById('therapyCommentArea');
     var anamnesis = document.getElementById('anamneza');
     var anamnesisComment = document.getElementById('anamnezaKomentar');
-    var anamnesisCommentValue = document.getElementById('anamnesisCommentValue');
-
-    if (therapyComentArea.value == '') {
-      therapyComment.classList.add('d-none');
-    } else {
-      therapyComment.classList.remove('d-none');
-    }
+    var anamnesisCommentValue = document.getElementById('anamnesisCommentValue'); // if(therapyComentArea.value == '') {
+    //   therapyComment.classList.add('d-none')
+    // } else {
+    //   therapyComment.classList.remove('d-none')
+    // }
 
     if (anamnesisCommentValue.value == '') {
       anamnesisComment.classList.add('d-none');
@@ -24262,7 +24260,7 @@ window.onload = function () {
     }
 
     lockTheRecord.addEventListener('click', function (e) {
-      if (lockTheRecord.checked == true) {
+      if (lockTheRecord.checked == true && recordOwnerId == false) {
         ownerId = lockTheRecord.value;
         lockTheRecordArr.push({
           'ownerId': ownerId,
@@ -24281,6 +24279,7 @@ window.onload = function () {
         }).then(function (response) {// console.log(response)
         });
       } else {
+        console.log('vec je zakljuvano');
         ownerId = null;
         lockTheRecordArr.push({
           'ownerId': ownerId,
@@ -24398,13 +24397,16 @@ window.onload = function () {
     var _lockStatus = document.getElementById('lockStatus');
 
     var _lockTheRecordArr = [];
+    var _recordOwnerId = document.getElementById('ownerId').value;
+    var recordUserId = document.getElementById('userId').value;
+    var lockMessageBar = document.getElementById('lockMessage');
 
     if (_lockTheRecord.checked == true) {
       _lockTheRecord.disabled = true;
     }
 
     _lockTheRecord.addEventListener('click', function (e) {
-      // if(lockTheRecord.checked == true) {
+      // if(lockTheRecord.checked == true) { 
       _ownerId = _lockTheRecord.value;
 
       _lockTheRecordArr.push({
@@ -24424,8 +24426,17 @@ window.onload = function () {
         body: lockingInterpretation
       }).then(function (response) {
         return response.text();
-      }).then(function (response) {// console.log(response)
-      }); // }
+      }).then(function (response) {
+        // lockMessageBar.innerHTML = response
+        console.log(response);
+
+        if (response == '1') {
+          alert('Tumačenje je već zaključao neko drugi.');
+          finalCommentByLabCube.disabled = true;
+        } else {
+          _recordOwnerId = response;
+        }
+      }); // } 
       // else {
       //   ownerId = null
       //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
@@ -24458,6 +24469,10 @@ window.onload = function () {
     var finalCommentByLabCube = document.getElementById('finalCommentByLabCube');
     var finalCommentTitle = document.getElementById('finalCommentTitle');
     finalCommentByLabCube.addEventListener('input', function (e) {
+      if (_recordOwnerId != recordUserId) {
+        finalCommentByLabCube.disabled = true;
+      }
+
       if (e.target.value.length < 280) {
         finalCommentByLabCube.classList.add('text-danger');
         finalCommentTitle.innerHTML = e.target.value.length + '/ 280';
@@ -24483,14 +24498,22 @@ window.onload = function () {
     }
 
     published.addEventListener('click', function (e) {
+      // recordOwnerId = document.getElementById('ownerId').value
+      console.log('owner', _recordOwnerId);
+      console.log('user', recordUserId);
+
       if (published.checked == false) {
         doneBtn.innerText = 'Sačuvaj';
+      } else if (_recordOwnerId != recordUserId) {
+        doneBtn.innerText = 'Tumačenje je zaključao neko drugi, ne možeš objaviti tumačenje';
+        finalCommentByLabCube.disabled = true;
+        doneBtn.disabled = true;
       } else {
         doneBtn.innerText = 'Završi i pošalji mejl pacijentu';
       }
 
       if (_lockStatus.innerHTML != 'Zaključano') {
-        alert('Morate prvo zaključati tumačenje' + _lockStatus.innerHTML);
+        alert('Morate prvo zaključati tumačenje');
         published.checked = false;
       }
     });

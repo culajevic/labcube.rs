@@ -1378,11 +1378,11 @@ if(urlArr[1] == 'profile' && !findUserByEmail) {
   const anamnesisComment = document.getElementById('anamnezaKomentar')
   const anamnesisCommentValue = document.getElementById('anamnesisCommentValue')
 
-if(therapyComentArea.value == '') {
-  therapyComment.classList.add('d-none')
-} else {
-  therapyComment.classList.remove('d-none')
-}
+// if(therapyComentArea.value == '') {
+//   therapyComment.classList.add('d-none')
+// } else {
+//   therapyComment.classList.remove('d-none')
+// }
 
 if(anamnesisCommentValue.value == '') {
   anamnesisComment.classList.add('d-none')
@@ -1514,8 +1514,10 @@ let interpretationPage = document.getElementById('interpretationId')
       lockTheRecord.disabled = true
     }
 
+   
+
     lockTheRecord.addEventListener('click', e => {
-      if(lockTheRecord.checked == true) {
+      if(lockTheRecord.checked == true && recordOwnerId==false) {
         ownerId = lockTheRecord.value
         lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
         lockingInterpretation = JSON.stringify(lockTheRecordArr)
@@ -1534,6 +1536,7 @@ let interpretationPage = document.getElementById('interpretationId')
         })
       }
       else {
+        console.log('vec je zakljuvano')
         ownerId = null
         lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
         lockingInterpretation = JSON.stringify(lockTheRecordArr)
@@ -1599,7 +1602,6 @@ let interpretationPage = document.getElementById('interpretationId')
 //tumacenje ostalih rezultata
 
   if(urlArr[1] == 'otherResultsInterpretation' && !interpretationPage) {
-
     let mins = document.querySelectorAll('.mins')
     let secs = document.querySelectorAll('.secs')
     let hour = document.querySelectorAll('.hours')
@@ -1655,6 +1657,7 @@ let interpretationPage = document.getElementById('interpretationId')
     // var countDownDate = new Date(Date.parse(deadline[0].innerHTML)).getTime();
 } else if (urlArr[1] == 'otherResultsInterpretation') {
   //ovo je unutrasnja stranica na kojoj labcube tumaci rezultate
+  
   //lockTheRecord
 
   let ownerId
@@ -1662,14 +1665,17 @@ let interpretationPage = document.getElementById('interpretationId')
   let lockTheRecord = document.getElementById('zakljucaj')
   let lockStatus = document.getElementById('lockStatus')
   let lockTheRecordArr = []
+  let recordOwnerId = document.getElementById('ownerId').value
+  let recordUserId = document.getElementById('userId').value
+  let lockMessageBar = document.getElementById('lockMessage')
 
   if(lockTheRecord.checked == true) {
     lockTheRecord.disabled = true
   }
 
   lockTheRecord.addEventListener('click', e => {
-
-    // if(lockTheRecord.checked == true) {
+      
+    // if(lockTheRecord.checked == true) { 
       ownerId = lockTheRecord.value
       lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
       let lockingInterpretation = JSON.stringify(lockTheRecordArr)
@@ -1686,9 +1692,17 @@ let interpretationPage = document.getElementById('interpretationId')
         body:lockingInterpretation
       }).then(response => response.text())
       .then((response) => {
-        // console.log(response)
+        // lockMessageBar.innerHTML = response
+        console.log(response)
+       if (response == '1') {
+         alert('Tumačenje je već zaključao neko drugi.')
+         finalCommentByLabCube.disabled = true
+       } else {
+        recordOwnerId = response
+       }
+       
       })
-    // }
+    // } 
     // else {
     //   ownerId = null
     //   lockTheRecordArr.push({'ownerId':ownerId, 'interpretationId':interpretation})
@@ -1723,6 +1737,9 @@ let interpretationPage = document.getElementById('interpretationId')
   let finalCommentTitle = document.getElementById('finalCommentTitle')
 
   finalCommentByLabCube.addEventListener('input', e => {
+    if (recordOwnerId != recordUserId) {
+      finalCommentByLabCube.disabled = true
+    }
     if (e.target.value.length<280) {
       finalCommentByLabCube.classList.add('text-danger')
       finalCommentTitle.innerHTML = e.target.value.length + '/ 280'
@@ -1745,18 +1762,29 @@ let interpretationPage = document.getElementById('interpretationId')
         return false
       }
     })
-  }
+  } 
 
   
 
   published.addEventListener('click', e => {
+    // recordOwnerId = document.getElementById('ownerId').value
+    
+    console.log('owner', recordOwnerId)
+    console.log('user', recordUserId)
+    
     if (published.checked == false) {
       doneBtn.innerText = 'Sačuvaj'
-    } else {
+    } 
+    else if (recordOwnerId != recordUserId) {
+      doneBtn.innerText = 'Tumačenje je zaključao neko drugi, ne možeš objaviti tumačenje'
+      finalCommentByLabCube.disabled = true
+      doneBtn.disabled=true
+    }
+    else {
       doneBtn.innerText = 'Završi i pošalji mejl pacijentu' 
     }
     if (lockStatus.innerHTML != 'Zaključano') {
-      alert('Morate prvo zaključati tumačenje' + lockStatus.innerHTML)
+      alert('Morate prvo zaključati tumačenje')
       published.checked = false
     }
   })
