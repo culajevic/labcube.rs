@@ -137,10 +137,10 @@ exports.freeUpload = async (req, res) => {
         packageTime = 12;
         break;
       case "890":
-        packageTime = 6;
+        packageTime = 2;
         break;
       case "623":
-        packageTime = 6;
+        packageTime = 2;
         break;
       default:
         packageTime = 24;
@@ -1711,7 +1711,7 @@ exports.freeUpload = async (req, res) => {
                                     
                                     <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                                     
-                                        <div style="text-align: left;"><span style="font-size:13px">*Ukoliko je iskorišćen kod za besplatno tumačenje, okvirno vreme za koje možeš očekivati naš komentar je 24h, ukoliko je tumačenje plaćeno putem uplatnice onda je maksimalno vreme tumačenja ono koje odgovara iznosu koji je uplaćen.</span></div>
+                                        <div style="text-align: left;"><span style="font-size:13px">*Ukoliko je iskorišćen kod za besplatno tumačenje, okvirno vreme za koje možeš očekivati naš komentar je 48h, ukoliko je tumačenje plaćeno putem uplatnice onda je maksimalno vreme tumačenja ono koje odgovara iznosu koji je uplaćen.</span></div>
             
                                     </td>
                                 </tr>
@@ -1981,7 +1981,7 @@ exports.payment = async (req, res) => {
       packageTime = 12;
       break;
     case "890":
-      packageTime = 6;
+      packageTime = 2;
       break;
     default:
       packageTime = 24;
@@ -2191,7 +2191,7 @@ exports.paymentDone = async (req, res) => {
           deadline.getHours() < 18 &&
           (data.amount == 890 || data.amount == 8)
         ) {
-          deadline.setHours(deadline.getHours() + 6);
+          deadline.setHours(deadline.getHours() + 2);
         }
         // else if (data.amount == 1) {
         //   tomorrow.setDate(tomorrow.getDate() + 1)
@@ -2272,10 +2272,10 @@ exports.paymentDone = async (req, res) => {
             packageTime = 12;
             break;
           case "890.00":
-            packageTime = 6;
+            packageTime = 2;
             break;
           case "623":
-            packageTime = 6;
+            packageTime = 2;
             break;
           default:
             packageTime = 24;

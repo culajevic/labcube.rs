@@ -104,8 +104,8 @@
                           <div class="card-body">
                             <div class="najpopularnije">dostupno od 8 do 18h</div>
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                            <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 6 sati</p>
+                            <img src="images/2h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 2 sata</p>
                             <span class="text-center">+ dodatna pojašnjenja</span>
                             <span class="text-center">+ besplatan kod za naredno tumačenje</span>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
@@ -130,21 +130,14 @@
                     <!-- </div> -->
 
                     
-                      {{!-- ovo odkomentarisati --}}
-                      <div class="col-12 mt-4"><p>Odaberi laboratorijski nalaz za tumačenje (pdf, jpg, jpeg, png) 5MB max.</p></div>
-                     
-                      {{!-- <div class="card paymentSteps mr-3 col-12" id="resultForUpload">
-                        <div class="card-body">
-                          <i class="far fa-file-pdf text-center mt-3" style="color:#1D88E5; font-size:109px; font-weight:200"></i>
-                          <p class="text-center font-weight-bold mt-3">Odaberi rezultate </p>
-                          <span class="text-center paketiCena">max 5MB</span>
-                          <small class="text-muted text-center fileTypes">pdf, jpg, jpeg, png</small> --}}
+                      
+                      {{!-- <div class="col-12 mt-4"><p>Odaberi laboratorijski nalaz za tumačenje (pdf, jpg, jpeg, png) 5MB max.</p></div>
+                   
                           <div class="custom-file mb-4">
                               <input type="file" id="uploadResults" multiple name="result" class="custom-file-input" placeholder="odaberite fajl"/>
                               <label for="uploadResults" class="custom-file-label"></label>
-                          </div>
-                        {{!-- </div>
-                      </div> --}}
+                          </div> --}}
+                       
 
 
                       {{!-- ovo odkomentarisati --}}
@@ -162,10 +155,18 @@
                 </div><!-- odabir paketa end -->
 
                 <div class=" col-12 p-0 mb-2">
-                  <div class="col-12 mt-4"><p>Upiši komentar (maksimalno 254 karaktera) <span id="userCommentTitle"></span></p></div>
+                  <div class="col-12 mt-4"><p>Zašto su rađene analize ili bilo koju drugu napomenu upiši ovde. (maksimalno 254 karaktera) <span id="userCommentTitle"></span></p></div>
                   {{!-- <label for="exampleFormControlTextarea1">Komentar (maksimalno 254 karaktera)</label> --}}
-                  <textarea class="form-control" id="userComment" maxlength="254" name="userComment" rows="4" placeholder="Ovde upiši sva pitanja i komentare koje smatraš važnim. Da li su analize rađene u sklopu sistematskog pregleda ili kao pomoć pri nekoj dijagnostici ili praćenju...">{{komentar}}</textarea>
+                  <textarea class="form-control" id="userComment" maxlength="254" name="userComment" rows="4" placeholder="Popunjavanjem ovog polja nam pomažeš da ti tamo što precizniji komentar.">{{komentar}}</textarea>
                 </div>
+
+
+                 <div class="col-12 mt-4"><p>Odaberi laboratorijski nalaz za tumačenje (pdf, jpg, jpeg, png) 5MB max.</p></div>
+                   <div class="custom-file mb-4">
+                              <input type="file" id="uploadResults" multiple name="result" class="custom-file-input" placeholder="odaberite fajl"/>
+                              <label for="uploadResults" class="custom-file-label"></label>
+                          </div>
+
 
 
                 <div class="col-12 text-center">
@@ -189,7 +190,7 @@
                 <div class="col-12 mb-5" id="uplatnica">
                   <h3 class="mb-4">Plaćanje putem uplatnice</h3>
                   <p class="mb-4">Ukoliko ti više odgovara, možeš platiti uslugu tumačenja i preko uplatnice. Popuni uplatnicu kao na primeru ispod, u polje za iznos unesi jednu od 3 moguće opcije (490, 590 ili 890din). Pošalji nam dokaz o uplati na zdravo@labcube.rs i mi ćemo ti poslati kôd na mejl koji ćeš uneti na ovoj stranici, nakon toga samo postavi rezultate za koje ti je potrebno tumačenje.</p>
-                  <p class="text-danger text-center mb-3">Tumačenje u roku od 6 sati je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 14h.</p>
+                  <p class="text-danger text-center mb-3">Tumačenje u roku od 2 sata je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 11h.</p>
                   <img src="/images/uplatnica.png" alt="" class="mb-5 w-100">
                   
                 <div>
@@ -293,9 +294,9 @@
 
                     <div class="card paymentSteps ">
                       <div class="card-body">
-                        <img src="images/6h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <img src="images/2h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                          {{!-- <span class="text-center mb-4"></span> --}}
-                        <p class="text-center font-weight-bold">Tumačenje u roku od 6 sati</p>
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 2 sata</p>
                         <span class="text-center paketiCena">890 din.</span>
                       </div>
                     </div>  
