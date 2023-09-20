@@ -43,6 +43,13 @@
                 <td></td>
                 {{/if}}
               <td>{{this.owner.username}}</td>
+              <td>{{this.star}}</td>
+          
+              {{#if (displayComment this.userFeedback)}}
+              <td><img src="/images/comment.png" data-toggle="tooltip" class="tooltipImg mr-2" data-original-title="{{this.userFeedback}}"></td>
+                {{else}}
+              <td></td>
+              {{/if}}
             </tr>
             {{/each}}
           </tbody>

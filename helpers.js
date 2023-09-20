@@ -292,6 +292,12 @@ hbs.registerHelper("empty", (value) => {
   }
 });
 
+hbs.registerHelper("displayComment", (value) => {
+  if (value != "" && value != undefined) {
+    return true;
+  }
+});
+
 hbs.registerHelper("undefined", (value) => {
   if (value != undefined) {
     return true;
