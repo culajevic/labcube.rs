@@ -22,7 +22,7 @@
               <!-- <td>{{{checkInterpreatationStatus this.status}}}</td> -->
 
 
-              <td><a class="" href="/otherResultsInterpretation/{{this._id}}">{{#unless (checkStatus this.status)}}<button class="btn btn-block btn-danger text-uppercase">protumači</button>{{else}}<button class="btn btn-block Završeno">Završeno</button>{{/unless}}</a></td>
+              <td><a class="" href="/otherResultsInterpretation/{{this._id}}">{{#unless (checkStatus this.status)}}<button class="btn btn-block btn-danger text-uppercase">protumači</button>{{else}}<button class="btn btn-block Završeno tooltipImg" data-toggle="tooltip" data-original-title="{{this.commentCube}}">Završeno</button>{{/unless}}</a></td>
               <td id="deadline{{this.id}}" class="deadline d-none">{{this.deadline}}</td>
               <!-- <td id="days{{this.id}}" class="days"></td> -->
 
