@@ -169,17 +169,11 @@ exports.freeUpload = async (req, res) => {
         bcc: [
           "tumacenje@labcube.rs",
           "culajevic@gmail.com",
-          "perovic@labcube.rs",
-          "jevtic@labcube.rs",
           "jelenahajzler@gmail.com",
-          "jelena.jankovic8@yahoo.com",
-          "gagajk.kov@gmail.com",
           "milicasummer94@gmail.com",
-          "dellabranko1993@gmail.com",
           "mandicvalentina@hotmail.com",
           "vanja.vlaisavljevic93@gmail.com",
-          "djuric.miljana84@gmail.com",
-          "joksovicaleks@gmail.com",
+          "djuric.miljana84@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje`,
         text: "",
@@ -2139,6 +2133,7 @@ exports.payment = async (req, res) => {
 };
 
 exports.paymentDone = async (req, res) => {
+  console.log("payment done section")
   const requestCheckout = async () => {
     var path = req.query.resourcePath;
     path += "?entityId=" + process.env.ENTITYIDPRODUCTION;
@@ -2173,17 +2168,11 @@ exports.paymentDone = async (req, res) => {
 
   requestCheckout()
     .then((data) => {
+      console.log('reached this payment confirmation section' + data)
       if (data.result.code == "000.000.000") {
         let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm");
         let deadline = new Date();
-        // deadline.setDate(deadline.getDate() + 1)
-        // let serviceClosingTime = new Date()
-        // let ofHours
-        // let tomorrow = new Date()
-        // serviceClosingTime.setHours(17,0,0)
-
-        // let minRest =Math.abs(Math.floor(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60))
-        // let hourRest = Math.abs(Math.ceil(serviceClosingTime.getTime() - deadline.getTime()) / (1000*60*60))
+        
 
         //ako se menja vreme promeniti deadline
         if (
@@ -2291,17 +2280,11 @@ exports.paymentDone = async (req, res) => {
             bcc: [
               "tumacenje@labcube.rs",
               "culajevic@gmail.com",
-              "perovic@labcube.rs",
-              "jevtic@labcube.rs",
               "jelenahajzler@gmail.com",
-              "jelena.jankovic8@yahoo.com",
-              "gagajk.kov@gmail.com",
               "milicasummer94@gmail.com",
-              "dellabranko1993@gmail.com",
               "mandicvalentina@hotmail.com",
               "vanja.vlaisavljevic93@gmail.com",
-              "djuric.miljana84@gmail.com",
-              "joksovicaleks@gmail.com",
+              "djuric.miljana84@gmail.com"
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
             text: "",
@@ -4087,7 +4070,7 @@ exports.paymentDone = async (req, res) => {
           // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
           // res.redirect('/')
         } catch (e) {
-          // req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
+          req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
           // res.redirect('/tumacenje-laboratorijskih-analiza')
           console.log("nije uspesno upisano u bazu" + e);
         }
@@ -4195,10 +4178,8 @@ exports.paymentDone = async (req, res) => {
         });
       }
     })
-    .catch(console.error);
-  const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({
-    name: 1,
-  });
+    .catch(console.log('na samom kraju je neki eror ' + error));
+  const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({name: 1});
 };
 
 exports.labResult = async (req, res) => {
