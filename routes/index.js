@@ -39,7 +39,7 @@ router.post(
 router.get("/group/:slug", groupController.displayGroup);
 
 //display about us
-router.get("/o-nama/", generalController.aboutus);
+// router.get("/o-nama/", generalController.aboutus);
 router.get("/politika-privatnosti/", generalController.privacy);
 router.get("/uslovi-koriscenja/", generalController.terms);
 router.get("/uslovi-placanja/", generalController.paymentDetails);
@@ -113,8 +113,9 @@ router.get(
 // router.post('/payment', resultController.upload, resultController.payment, resultController.paymentDone )
 router.post("/payment", resultController.upload, resultController.payment);
 
-//payment testing
-router.get("/checkout/", resultController.paymentDone);
+//payment testing 29112023 remove
+// router.get("/checkout/", resultController.paymentDone);
+router.post("/checkout/", resultController.paymentDone);
 
 //pregled uplodovanih protumacenih rezultata od strane korisnika
 router.get("/myResult/:id", scheduleController.myResultLabCube);
