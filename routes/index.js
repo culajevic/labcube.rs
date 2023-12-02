@@ -109,13 +109,11 @@ router.get(
   resultController.labRestultsAnalysis
 );
 // router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
-// router.post('/payment', resultController.upload, resultController.payment )
 // router.post('/payment', resultController.upload, resultController.payment, resultController.paymentDone )
 router.post("/payment", resultController.upload, resultController.payment);
 
-//payment testing 29112023 remove
-// router.get("/checkout/", resultController.paymentDone);
-router.post("/checkout/", resultController.paymentDone);
+//payment
+router.get("/checkout/", resultController.paymentDone);
 
 //pregled uplodovanih protumacenih rezultata od strane korisnika
 router.get("/myResult/:id", scheduleController.myResultLabCube);
