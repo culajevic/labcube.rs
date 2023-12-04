@@ -23730,9 +23730,8 @@ window.onload = function () {
 
       window.location = '/nadjiLab';
     }); // search for analysis or lab
+    // helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 
-
-    helper.searchLabAnalysis(_mainSearchinner, _analysisRadioinner);
   } // lab details PAGE
 
 

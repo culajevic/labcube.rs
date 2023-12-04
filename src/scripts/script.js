@@ -911,7 +911,7 @@ if (urlArr[1] == 'tumacenje-laboratorijskih-analiza' || urlArr[1] == 'payment') 
     })
 
   // search for analysis or lab
-  helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
+  // helper.searchLabAnalysis(mainSearchinner,analysisRadioinner)
 }
 
 
