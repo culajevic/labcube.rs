@@ -2004,16 +2004,12 @@ exports.payment = async (req, res) => {
   if (
     !(
       formatPrice == 890 ||
-      formatPrice == 801 ||
-      formatPrice == 623 ||
-      formatPrice == 8 ||
-      formatPrice == 0 ||
       formatPrice == 590 ||
-      formatPrice == 490 ||
-      formatPrice == 1
+      formatPrice == 0 ||
+      formatPrice == 490
     )
   ) {
-    errors.push({ text: "Nešto nije ok, pokušajte ponovo" });
+    errors.push({ text: "Došlo je do greške sa cenom, pokušajte ponovo" });
   }
 
   if (!req.body.package) {
@@ -2168,55 +2164,21 @@ exports.paymentDone = async (req, res) => {
 
   requestCheckout()
     .then((data) => {
-      console.log('reached this payment confirmation section' + data)
+      console.log('reached this payment confirmation section' + data.result)
       if (data.result.code == "000.000.000") {
         let newDate = moment(new Date()).format("DD/MM/YYYY HH:mm");
         let deadline = new Date();
         
 
         //ako se menja vreme promeniti deadline
-        if (
-          deadline.getHours() > 8 &&
-          deadline.getHours() < 18 &&
-          (data.amount == 890 || data.amount == 8)
-        ) {
+        if (data.amount == 890) {
           deadline.setHours(deadline.getHours() + 2);
         }
-        // else if (data.amount == 1) {
-        //   tomorrow.setDate(tomorrow.getDate() + 1)
-        //   tomorrow.setHours(8,0,0)
-        //   deadline = tomorrow.setHours(tomorrow.getHours() + 4)
-        //   console.log(deadline, 'here')
-        // }
-
-        if (data.amount == 590) {
+        else if (data.amount == 590) {
           deadline.setHours(deadline.getHours() + 12);
-        } else if (data.amount == 490 || data.amount == 1) {
+        } else if (data.amount == 490) {
           deadline.setHours(deadline.getHours() + 24);
         }
-
-        //proveriti komentar 29.03
-        // let updatePaymentInfo = Result.findOneAndUpdate(
-        //   {_id:data.customParameters.SHOPPER_requestId},
-        //   {paid:data.amount, ip:data.customer.ip},
-        //   {
-        //     new:true,
-        //     runValidators:true,
-        //     useFindAndModify:false
-        //   }).exec()
-
-        //29.03 komentar
-        // let newDateVoucher = Date()
-
-        // const updateVoucher =  Discount.findOneAndUpdate(
-        //   {discountId:data.customer.merchantReference},
-        //   {$set:{'valid':false, date:newDateVoucher}},
-        //   {
-        //      new:true,
-        //      runValidators:true,
-        //      useFindAndModify:false
-        //    }).exec()
-        //////////////////////////////////////////////////////////////////
 
         const uploadResult = new Result({
           userId: data.customer.merchantCustomerId,
@@ -2252,6 +2214,8 @@ exports.paymentDone = async (req, res) => {
           idSuccess: currentId,
           authCode: authCodeParameter,
         }).save();
+
+        console.log('sacuvana uplata u bazi' + data.result)
 
         switch (data.amount) {
           case "490.00":
