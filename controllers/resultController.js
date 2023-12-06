@@ -2123,13 +2123,13 @@ exports.payment = async (req, res) => {
       }
     })
     .catch((error) => {
-      res.redirect("labResultsAnalysis");
+      // res.redirect("labResultsAnalysis");
       console.log("greska prilikom prelaska sa payment page", error);
     });
 };
 
 exports.paymentDone = async (req, res) => {
-  console.log("payment done section")
+  console.log("payment done section and resource path" + req.query.resourcePath)
   const requestCheckout = async () => {
     var path = req.query.resourcePath;
     path += "?entityId=" + process.env.ENTITYIDPRODUCTION;
@@ -2176,9 +2176,9 @@ exports.paymentDone = async (req, res) => {
         }
         else if (data.amount == 590) {
           deadline.setHours(deadline.getHours() + 12);
-        } else if (data.amount == 490) {
+        } else 
           deadline.setHours(deadline.getHours() + 24);
-        }
+      
 
         const uploadResult = new Result({
           userId: data.customer.merchantCustomerId,
@@ -4016,7 +4016,7 @@ exports.paymentDone = async (req, res) => {
                 error
               );
             } else {
-              console.log(info.messageId);
+              console.log('saljemo mejl za novo tumacenje labcubu' + info.messageId);
             }
           });
 
@@ -4028,7 +4028,7 @@ exports.paymentDone = async (req, res) => {
                 error
               );
             } else {
-              console.log(info.messageId);
+              console.log('Otisao mejl customeru' + info.messageId);
             }
           });
           // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
@@ -4127,7 +4127,7 @@ exports.paymentDone = async (req, res) => {
           if (error) {
             return console.log("uplata je odbijena", error);
           } else {
-            console.log(info.messageId);
+            console.log('customer payment is ok ' + info.messageId);
           }
         });
 
