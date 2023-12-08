@@ -72,8 +72,8 @@
                     {{!-- add class disabledInterpretation if you want to close it --}}
                     
                       <div class="col-12 mt-5" id="firstStep">
-                        <h3>Online plaćanje</h3>
-                        <p>Odaberi vreme za tumačenje</p></div>
+                        <h3>1. Odaberi vreme za tumačenje</h3>
+                        </div>
                      <div class="card paymentSteps ">
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
@@ -104,8 +104,8 @@
                           <div class="card-body">
                             <div class="najpopularnije">dostupno od 8 do 18h</div>
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                            <img src="images/2h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 2 sata</p>
+                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 4 sata</p>
                             <span class="text-center">+ dodatna pojašnjenja</span>
                             <span class="text-center">+ besplatan kod za naredno tumačenje</span>
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
@@ -155,25 +155,27 @@
                 </div><!-- odabir paketa end -->
 
                 <div class=" col-12 p-0 mb-2">
-                  <div class="col-12 mt-4"><p>Zašto su rađene analize ili bilo koju drugu napomenu upiši ovde. (maksimalno 254 karaktera) <span id="userCommentTitle"></span></p></div>
+                  <div class="col-12 mt-4"><h3>2. Zašto su rađene analize ili bilo koju drugu napomenu upiši ovde. (maksimalno 254 karaktera) <span id="userCommentTitle"></span></h3></div>
                   {{!-- <label for="exampleFormControlTextarea1">Komentar (maksimalno 254 karaktera)</label> --}}
                   <textarea class="form-control" id="userComment" maxlength="254" name="userComment" rows="4" placeholder="Popunjavanjem ovog polja nam pomažeš da ti damo što precizniji komentar.">{{komentar}}</textarea>
                 </div>
 
 
-                 <div class="col-12 mt-4 mb-0"><p>Odaberi laboratorijski nalaz za tumačenje (pdf, jpg, jpeg, png) 5MB max.</p><p> Možeš zakačiti samo jedan dokument, ukoliko su tvoji nalazi u više fajlova moraš ih spojiti u jedan pre slanja. Pokušaj <a href="https://combinepdf.com/" target="_blank">sa ovim alatom</a></p> 
-                 <span class="text-danger mt-0 pt-0 mb-3">Ne tumačimo prenatalne testove.</span>
+                 <div class="col-12 mt-4 mb-0"><h3>3. Odaberi laboratorijski nalaz za tumačenje (pdf, jpg, jpeg, png) 5MB max.</h3><p> Možeš zakačiti samo jedan dokument, ukoliko su tvoji nalazi u više fajlova moraš ih spojiti u jedan pre slanja. Pokušaj <a href="https://combinepdf.com/" target="_blank">sa ovim alatom</a></p> 
+                
                  </div>
                    <div class="custom-file mb-2">
                               <input type="file" id="uploadResults" multiple name="result" class="custom-file-input" placeholder="odaberite fajl"/>
                               <label for="uploadResults" class="custom-file-label"></label>
+                               <span class="text-danger mt-0 pt-0 mb-5">Ne tumačimo prenatalne testove.</span>
                           </div>
                           
 
 
 
-                <div class="col-12 text-center">
-                  <small class="smallText"><sup>*</sup>Ukoliko je izvršena uplata za određeni vremenski paket garantujemo ti da će tvoji rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možeš očekivati tumačenje. Moguće je dobiti tumačenje i znatno pre tog roka a sve u zavisnosti od broja zahteva na kojima trenutno radimo. </small>
+                <div class="col-12 text-center mt-4">
+                  <small class="smallText"><sup>*</sup>Ukoliko je izvršena uplata za određeni vremenski paket garantujemo ti da će tvoji rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možeš očekivati tumačenje. Moguće je dobiti tumačenje i znatno pre tog roka a sve u zavisnosti od broja zahteva na kojima trenutno radimo. </small><br />  
+                  <small class="smallText"><sup>*</sup>LabCube zadržava pravo da izvrši povrat novca korisniku ukoliko smatra da ne može dati zadovoljavajuće tumačenje korisniku ili ukoliko su poslati rezultati van kompetencija našeg tima.</small>
                 </div>
 
                 <div class="col-12 text-center mt-5" id="paymentConsent">
@@ -190,12 +192,44 @@
                     <button class="btn btn-success text-uppercase mt-4 d-none" id="gratis" >Pošalji rezultate</button>
                 </div>
 
-                <div class="col-12 mb-5" id="uplatnica">
-                  <h3 class="mb-4">Plaćanje putem uplatnice</h3>
+
+
+                 {{!-- <div class="col-12 mb-5" id="uplatnica">
+                  <h3 class="mb-4">Plaćanje putem IPS QR koda</h3>
+                  <p>Ukoliko ti je lakše možeš platiti i putem IPS koda koristeći aplikaciju banke. Kada izvršiš uplatu samo nam pošalji dokaz o uplati na zdravo@labcube.rs</p>
+                  </div>
+                 <div class="col-4">
+                    <div class="card paymentSteps ml-lg-3 ">
+                      <div class="card-body">
+                          <img src="images/490.svg" alt="">
+                      </div>
+                    </div>
+                 </div>  
+
+                 <div class="col-4">
+                    <div class="card paymentSteps ml-lg-3 ">
+                      <div class="card-body">
+                           <img src="images/590.svg" alt="">
+                      </div>
+                    </div>
+                 </div>  
+
+                 <div class="col-4 mb-5">
+                    <div class="card paymentSteps ml-lg-3 ">
+                      <div class="card-body">
+                           <img src="images/890.svg" alt="">
+                      </div>
+                    </div>
+                 </div>   --}}
+                
+                   
+           
+
+                <div class="col-12 my-5" id="uplatnica">
+                  <h3 class="mb-4">Moguće je plaćanje i putem uplatnice</h3>
                   <p class="mb-4">Ukoliko ti više odgovara, možeš platiti uslugu tumačenja i preko uplatnice. Popuni uplatnicu kao na primeru ispod, u polje za iznos unesi jednu od 3 moguće opcije (490, 590 ili 890din). Pošalji nam dokaz o uplati na zdravo@labcube.rs i mi ćemo ti poslati kôd na mejl koji ćeš uneti na ovoj stranici, nakon toga samo postavi rezultate za koje ti je potrebno tumačenje.</p>
-                  <p class="text-danger text-center mb-3">Tumačenje u roku od 2 sata je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 11h.</p>
-                  <img src="/images/uplatnica.png" alt="" class="mb-5 w-100">
-                  
+                  <p class="text-danger text-center mb-3">Tumačenje u roku od 4 sata je moguće jedino između 08 i 18h. Ukoliko uplatiš 890din nakon 18h, rok za tumačenje je sutra do 12h.</p>
+                  <img src="/images/uplatnica.png" alt="" class="mb-5 w-100"> 
                 <div>
 
                 <div class="col-12 mb-5">
@@ -274,7 +308,7 @@
                 </div> 
 
                   <div class="col-12 mb-4">
-                  <h3 class="mb-0 pb-0">Nudimo ti više opcija</h3>
+                  <h3 class="mb-0 pb-0">Postoji više opcija</h3>
                   <span class="mt-0 pt-0">sve su podjednako kvalitetne samo se razlikuju po vremenu u kome želiš da dobiješ komentar.</span>
                   </div>
 
@@ -299,9 +333,9 @@
 
                     <div class="card paymentSteps ">
                       <div class="card-body">
-                        <img src="images/2h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                        <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                          {{!-- <span class="text-center mb-4"></span> --}}
-                        <p class="text-center font-weight-bold">Tumačenje u roku od 2 sata</p>
+                        <p class="text-center font-weight-bold">Tumačenje u roku od 4 sata</p>
                         <span class="text-center paketiCena">890 din.</span>
                       </div>
                     </div>  
@@ -455,13 +489,6 @@
                     </div>
                   </div>
 
-                     <div class="col-sm-6 col-md-4 mt-3 text-center">
-                      <img src="/images/editors/aleksandra.png"  class="rounded-circle hcpImage" alt="">
-                      <div class="hcpBio">
-                        <p class="text-center font-weight-bold">Aleksandra Joksović</p>
-                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      </div>
-                     </div>
 
 
 

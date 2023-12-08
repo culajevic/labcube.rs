@@ -137,10 +137,10 @@ exports.freeUpload = async (req, res) => {
         packageTime = 12;
         break;
       case "890":
-        packageTime = 2;
+        packageTime = 4;
         break;
       case "623":
-        packageTime = 2;
+        packageTime = 4;
         break;
       default:
         packageTime = 24;
@@ -1975,7 +1975,7 @@ exports.payment = async (req, res) => {
       packageTime = 12;
       break;
     case "890":
-      packageTime = 2;
+      packageTime = 4;
       break;
     default:
       packageTime = 24;
@@ -2132,12 +2132,12 @@ exports.paymentDone = async (req, res) => {
   console.log("payment done section and resource path" + req.query.resourcePath)
   const requestCheckout = async () => {
     var path = req.query.resourcePath;
-    path += "?entityId=" + process.env.ENTITYIDPRODUCTION;
+    path += '?entityId=' + process.env.ENTITYIDPRODUCTION;
     const options = {
       port: 443,
       host: process.env.PAYMENTHOSTPRODUCTION,
       path: path,
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: process.env.ACCESSTOKENPAYMENTPRODUCTION,
       },
@@ -2172,7 +2172,7 @@ exports.paymentDone = async (req, res) => {
 
         //ako se menja vreme promeniti deadline
         if (data.amount == 890) {
-          deadline.setHours(deadline.getHours() + 2);
+          deadline.setHours(deadline.getHours() + 4);
         }
         else if (data.amount == 590) {
           deadline.setHours(deadline.getHours() + 12);
@@ -2225,10 +2225,10 @@ exports.paymentDone = async (req, res) => {
             packageTime = 12;
             break;
           case "890.00":
-            packageTime = 2;
+            packageTime = 4;
             break;
           case "623":
-            packageTime = 2;
+            packageTime = 4;
             break;
           default:
             packageTime = 24;

@@ -16,6 +16,7 @@ hbs.registerHelper("formatLabScheduleDate", (date, place) => {
   }
 });
 
+
 hbs.registerHelper("checkInterpreatationStatus", (status) => {
   if (status == "pending") {
     return '<i class="fas fa-spinner"></i>';
@@ -375,10 +376,10 @@ hbs.registerHelper("displayPackageTime", (package) => {
       packageTime = 12;
       break;
     case "890":
-      packageTime = 2;
+      packageTime = 4;
       break;
     case "623":
-      packageTime = 6;
+      packageTime = 4;
       break;
     default:
       packageTime = "24";
