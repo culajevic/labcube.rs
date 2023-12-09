@@ -39,7 +39,7 @@ router.post(
 router.get("/group/:slug", groupController.displayGroup);
 
 //display about us
-router.get("/o-nama/", generalController.aboutus);
+// router.get("/o-nama/", generalController.aboutus);
 router.get("/politika-privatnosti/", generalController.privacy);
 router.get("/uslovi-koriscenja/", generalController.terms);
 router.get("/uslovi-placanja/", generalController.paymentDetails);
