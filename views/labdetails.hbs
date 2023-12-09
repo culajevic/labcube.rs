@@ -228,20 +228,6 @@
             <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
               {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
-              {{!-- <div class="col-12">
-               <h5 class="mx-auto mt-1 text-center">Upiši mejl ako želiš da te obavestimo kada laboratorija postane LabCube partner.</h5>
-               </div> --}}
-                {{!-- otkomentarisati ako skupljamo mejl --}}
-                {{!-- <div class="col-12">
-                <form action="/putUserEmail" method="POST" class="my-4">   
-                     <div class="input-group my-4">
-                      <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
-                      <div class="input-group-append">
-                      <button class="btn  btn-outline-info text-uppercase float-right">Prijavi me</button>
-                      </div>
-                    </div>
-                </form>
-                </div> --}}
             {{/if}}
             {{else}}
              <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
@@ -277,7 +263,7 @@
 
             {{#if userId}}
             {{!-- skloniti clasu d-none ako je potrebno prikazati deo ispod --}}
-           <div class="form-group col-12 mt-4 d-none">
+           <div class="form-group col-12  mt-4 ">
 
               <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
@@ -302,7 +288,7 @@
             </div>
 
 
-            <button class="btn btn-success text-uppercase col-12 d-none" id="schedule">prosledite odabrane analize laboratoriji</button>
+            {{!-- <button class="btn btn-success text-uppercase col-12 d-none" id="schedule">prosledite odabrane analize laboratoriji</button> --}}
         
             {{/if}}
 
