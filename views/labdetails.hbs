@@ -199,7 +199,7 @@
             {{#if labDetails.partner}}
             {{!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> --}}
             {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
-             <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+             {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Besplatno tumačenje rezultata</h5>
@@ -224,13 +224,13 @@
                       <p class="card-text generalInformation">Klikni na dugme ispod i laboratorija će dobiti listu analiza koje si odabrao. Kada odeš u laboratoriju napomeni da si odabrao analize koristeći labcube i reci im svoju mejl adresu. U međuvremenu, mi ti šaljemo vaučer za besplatno tumačenje rezultata na mejl.</p>
                     </div>
                     </div>
-                  </div>
+                  </div> --}}
             <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
               {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
             {{/if}}
             {{else}}
-             <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+             {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                 <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Besplatno tumačenje rezultata</h5>
@@ -258,7 +258,7 @@
                   </div>
                <div class="col-12 text-center labDetailsActionBtn">
                 <a href="/registracija" target="_blank" class="btn btn-success text-uppercase p-4">Registruj se i ostvari popust</a>
-              </div>
+              </div> --}}
           {{/if}}
 
             {{#if userId}}
