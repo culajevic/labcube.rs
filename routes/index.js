@@ -111,7 +111,8 @@ router.get("/tumacenje-laboratorijskih-analiza",resultController.labRestultsAnal
 router.post("/payment", resultController.upload, resultController.payment);
 
 //payment
-router.get("/checkout/", resultController.paymentDone);
+// router.get("/checkout/", resultController.paymentDone);
+router.get("https://labcube.rs/checkout/", resultController.paymentDone);
 
 //pregled uplodovanih protumacenih rezultata od strane korisnika
 router.get("/myResult/:id", scheduleController.myResultLabCube);

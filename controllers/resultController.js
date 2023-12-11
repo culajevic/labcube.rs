@@ -2107,7 +2107,7 @@ exports.payment = async (req, res) => {
   request()
     .then((data) => {
       //uspesno kreiran checkout, posalji mejl
-      console.log("payment data", data);
+      console.log("payment data uspesno kreiran checkout", data);
       if (data.result.code == "000.200.100") {
         // recordId:currentId izbaceno iz res.render
         res.render("paymentPage", {
