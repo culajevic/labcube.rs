@@ -170,7 +170,6 @@ exports.freeUpload = async (req, res) => {
           "tumacenje@labcube.rs",
           "culajevic@gmail.com",
           "jelenahajzler@gmail.com",
-          "milicasummer94@gmail.com",
           "mandicvalentina@hotmail.com",
           "vanja.vlaisavljevic93@gmail.com",
           "djuric.miljana84@gmail.com"
@@ -2006,6 +2005,7 @@ exports.payment = async (req, res) => {
       formatPrice == 890 ||
       formatPrice == 590 ||
       formatPrice == 0 ||
+      formatPrice == 1 ||
       formatPrice == 490
     )
   ) {
@@ -2132,12 +2132,12 @@ exports.paymentDone = async (req, res) => {
   console.log("payment done section and resource path" + req.query.resourcePath)
   const requestCheckout = async () => {
     var path = req.query.resourcePath;
-    path += '?entityId=' + process.env.ENTITYIDPRODUCTION;
+    path += "?entityId=" + process.env.ENTITYIDPRODUCTION;
     const options = {
       port: 443,
       host: process.env.PAYMENTHOSTPRODUCTION,
       path: path,
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: process.env.ACCESSTOKENPAYMENTPRODUCTION,
       },
@@ -2240,15 +2240,10 @@ exports.paymentDone = async (req, res) => {
             //  from:data.customer.email,
             from: "LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>",
             // to: ["culajevic@gmail.com", "culajevic@labcube.rs"],
-            //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],
+            //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],"jelenahajzler@gmail.com","mandicvalentina@hotmail.com","vanja.vlaisavljevic93@gmail.com","djuric.miljana84@gmail.com"
             bcc: [
               "tumacenje@labcube.rs",
-              "culajevic@gmail.com",
-              "jelenahajzler@gmail.com",
-              "milicasummer94@gmail.com",
-              "mandicvalentina@hotmail.com",
-              "vanja.vlaisavljevic93@gmail.com",
-              "djuric.miljana84@gmail.com"
+              "culajevic@gmail.com"
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
             text: "",
@@ -4142,7 +4137,7 @@ exports.paymentDone = async (req, res) => {
         });
       }
     })
-    .catch(console.log('na samom kraju je neki eror ' + error));
+    .catch(console.log('na samom kraju je neki eror '));
   const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({name: 1});
 };
 
