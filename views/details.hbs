@@ -27,7 +27,7 @@
         </div>
          <div class="col-12 p-0 text-center mb-5">
           {{!-- <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a> --}}
-          <button class="btn text-uppercase w-100 btn-danger btn-block text-uppercase mt-2 mt-sm-auto addAnalysis" id="comparePrice" style="font-size:18px;" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cenu <i class="fa fa-search" aria-hidden="true"></i></button>
+          <button class="btn text-uppercase w-100 btn-outline-info btn-block text-uppercase mt-2 mt-sm-auto addAnalysis" id="comparePrice" style="font-size:18px;" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cenu <i class="fa fa-search" aria-hidden="true"></i></button>
           {{!-- <button class="btn btn-outline-danger text-uppercase text-center btn-block text-uppercase mt-2 mt-sm-auto" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cene</button> --}}
         </div>
 
@@ -72,9 +72,15 @@
 
           {{!-- banner za mob verziju --}}
           {{!-- <img src="/images/banners/Baner-320x100.jpg" class="mb-4" style="width:100%;"> --}}
-
+          <div class="text-center" style="border:1px solid #8F8F8F; padding:20px; border-radius:20px;">
+            <h2 class="">Imaš snižen ili povišen rezultat za <br />{{analysisDetails.analysisName}}?</h2>
+            {{!-- <p>Podeli svoje rezultate sa nama i biće ti jasnije o čemu se radi.</p> --}}
+            <p>Isprobaj uslugu online tumačenja laboratorijskih nalaza.</p>
+            {{!-- <p>Isprobaj uslugu online tumačenja laboratorijskih nalaza.</p> --}}
+           <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btn-primary btn-lg display-4"><h3 class="mt-2">Pokreni  tumačenje nalaza</h3></a>
+          </div>
           
-          <div class="d-flex flex-column flex-lg-row">
+          {{!-- <div class="d-flex flex-column flex-lg-row">
             {{#if (notBlank analysisDetails.low)}}
              <div class="flexFix justify-content-between snizeneVrednosti">
                 <h5 id="rezultati">Snižene vrednosti</h5>
@@ -89,7 +95,7 @@
                  
               </div>
               {{/if}}
-           </div>
+           </div> --}}
            <!-- flex end snizene i povisene vrednosti -->
 
            {{!-- <div>
