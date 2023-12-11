@@ -132,9 +132,9 @@
           {{!-- <li class="nav-item">
             <a href="/zakazivanje-patronaze" class="nav-link"><img src="/images/patronaza2.svg" class="filter-white mb-1 mr-2"> Zakaži patronažu</a>
           </li> --}}
-          {{!-- <li class="nav-item">
-            <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Tumačenje</a>
-          </li> --}}
+          <li class="nav-item">
+            <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Online tumačenje nalaza</a>
+          </li>
           <li class="nav-item">
             <a href="/#google-map" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
           </li>
@@ -161,61 +161,39 @@
       </div><!-- collapse -->
     </div><!-- container end -->
   </nav><!-- nav end -->
-
-  {{!-- <div class="container smallPosition">
-    <div class="row">
-      <div class="col-12">
-        <div class="sectionParallax"> --}}
-          {{!-- <img src="images/ikonica_2.svg" data-speed="12" alt="" class="layer layer2">
-          <img src="images/ikonica_3.svg" data-speed="6" alt="" class="layer layer3">
-          <img src="images/ikonica_4.svg" data-speed="5" alt="" class="layer layer4">
-          <img src="images/ikonica_5.svg" data-speed="7" alt="" class="layer  layer5">
-          <img src="images/ikonica_6.svg" data-speed="9" alt="" class="layer layer6">
-          <img src="images/ikonica_7.svg" data-speed="13" alt="" class="layer layer7">
-          <!-- <img src="images/ikonica_8.svg" data-speed="2" alt="" class="layer layer8"> -->
-          <img src="images/ikonica_9.svg" data-speed="5" alt="" class="layer layer9">
-          <img src="images/ikonica_10.svg" data-speed="4" alt="" class="layer layer10">
-          <img src="images/ikonica_11.svg" data-speed="2" alt="" class="layer layer11">
-          <img src="images/ikonica_12.svg" data-speed="3" alt="" class="layer layer12">
-          <img src="images/ikonica_13.svg" data-speed="5" alt="" class="layer layer13">
-          <img src="images/ikonica_14.svg" data-speed="4" alt="" class="layer layer14">
-          <img src="images/ikonica_15.svg" data-speed="3" alt="" class="layer layer15">
-          <img src="images/ikonica_16.svg" data-speed="7" alt="" class="layer layer16">
-          <img src="images/ikonica_17.svg" data-speed="8" alt="" class="layer layer17">
-          <img src="images/ikonica_18.svg" data-speed="10" alt="" class="layer layer18">
-          <img src="images/ikonica_19.svg" data-speed="3" alt="" class="layer layer19"> --}}
-        {{!-- </div>
-      </div>
-    </div>
-  </div> --}}
-
-
-
-    <!-- logo  -->
-    {{!-- <img src="/images/logoFullSlice.svg" alt="LabCube" title="LabCube" class="logoFull"> --}}
     
     <div class="logoFull mt-3">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 searchFieldContainer">
-            <h2 class="text-white mb-4 d-none d-sm-block">Uporedi cene laboratorijskih analiza i ostvari popust do 30%</h2>
+          <div class="col-lg-6 searchFieldContainer d-sm-bloc">
+            <h2 class="text-white mb-4 d-none d-sm-block">Pronađi laboratorijske analize po cenama koje ti odgovaraju!</h2>
             <h4 class="text-white mb-4 d-sm-none d-block">Uporedi cene laboratorijskih analiza i ostvari popust do 30%</h4>
-            {{!-- <p class="text-white mb-0 pb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Besplatno tumačenje laboratorijskih rezultata</p> --}}
-            {{!-- <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Tvoji rezultati su zauvek na jednom mestu</p>
-            <p class="text-white"><i class="fa fa-check mr-1" aria-hidden="true"></i> Bez dodatnih troškova za pacijente</p> --}}
-            <div class="col-12 col-sm-12 col-lg-12 pl-0" data-toggle="tooltip" data-placement="bottom" data-html="true">
+            <p class="text-white mb-0 pb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Besplatno tumačenje laboratorijskih rezultata<sup>*</sup></p>
+            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Tvoji rezultati su zauvek na jednom mestu</p>
+            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Bez dodatnih troškova za pacijente</p>
+            <p class="text-white ml-1"><sup>*</sup>samo za partnerske laboratorije</p>
+            <div class="col-12 col-sm-12 col-lg-12 pl-0 " data-toggle="tooltip" data-placement="bottom" data-html="true">
               <input type="text" autofocus class="form-control search data-hj-allow" id="searchAnalysis" name="searchAnalysis" data-hj-allow autocomplete="off" placeholder="Koju analizu tražiš?">
               <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
               <label for="analizeRadioButton" class="analizeSearchFilter" >analiza</label>
               <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
               <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite laboratoriju kliknite ovde">laboratorija</label>
             </div> 
-            {{!-- <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3">Pokreni tumačenje nalaza</a> --}}
+            <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3">Već imam nalaze, treba mi tumačenje </a><br />
+          
             {{!-- <a href="/" target="_blank" class="btn btn-lg btn-outline-warning  mt-4 mt-sm-4 explainerSmallScreen d-inline-block d-lg-none">Kako uporediti cene?</a> --}}
           </div>
           <div class="col-lg-6 mt-5">
-            <div class=" d-none d-lg-block pl-4">              
-              <img src="/images/searchforprice.png" alt="" class="heroImage">               
+            <div class=" d-none d-lg-block pl-4">
+              <div class="web-cam">
+                {{!-- explainer video --}}
+                  <video loop autoplay muted>
+                    
+                  </video>
+              </div>
+              
+              <img src="/images/searchforprice.png" alt="" class="heroImage"> 
+              
             </div>
           </div>         
       </div>

@@ -104,7 +104,8 @@ router.delete("/allGroupsList/:id/:location?", groupController.deleteGroup);
 //:location is added because of deletein analysis reports from user profile page
 
 //tumacenje rezultata
-// router.get("/tumacenje-laboratorijskih-analiza",resultController.labRestultsAnalysis);
+router.get("/tumacenje-laboratorijskih-analiza",resultController.labRestultsAnalysis
+);
 // router.post('/tumacenje-laboratorijskih-analiza', resultController.upload, resultController.labResult)
 // router.post('/payment', resultController.upload, resultController.payment, resultController.paymentDone )
 router.post("/payment", resultController.upload, resultController.payment);
