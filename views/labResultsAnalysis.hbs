@@ -78,7 +78,7 @@
                           <div class="card-body">
                             <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 24 sata</p>
-                             <span class="text-center mb-4">+ dodatna pojašnjenja</span>
+                             {{!-- <span class="text-center mb-4">+ dodatna pojašnjenja</span> --}}
                             <span class="text-center paketiCena">490 din.</span>
                             <input type="radio" name="package" value=490 id="t24"  {{#if (checkBox package 490)}} checked {{/if}} />
                             <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
@@ -90,7 +90,7 @@
                            <div class="najpopularnije">najpopularnije</div>
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
                           <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 12 sati</p>
-                          <span class="text-center mb-4">+ dodatna pojašnjenja</span>
+                          {{!-- <span class="text-center mb-4">+ dodatna pojašnjenja</span> --}}
                           <span class="text-center paketiCena">590 din.</span>
                           
                           <input type="radio" name="package" value=590 id="t12"  {{#if (checkBox package 590)}} checked {{/if}}/>
@@ -106,8 +106,8 @@
                             <span class="onSalesNow d-none" id="initialPriceTop"></span>
                             <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
                             <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 4 sata</p>
-                            <span class="text-center">+ dodatna pojašnjenja</span>
-                            <span class="text-center">+ besplatan kod za naredno tumačenje</span>
+                            {{!-- <span class="text-center">+ dodatna pojašnjenja</span> --}}
+                            {{!-- <span class="text-center">+ besplatan kod za naredno tumačenje</span> --}}
                             <span class="text-center paketiCena" id="initialPrice">890 din.</span>
                             <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
                             <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
@@ -155,7 +155,7 @@
                 </div><!-- odabir paketa end -->
 
                 <div class=" col-12 p-0 mb-2">
-                  <div class="col-12 mt-4"><h3>2. Zašto su rađene analize ili bilo koju drugu napomenu upiši ovde. (maksimalno 254 karaktera) <span id="userCommentTitle"></span></h3></div>
+                  <div class="col-12 mt-4"><h3>2. Zašto su rađene analize ili bilo koju drugu napomenu upiši ovde. <span id="userCommentTitle"></span></h3></div>
                   {{!-- <label for="exampleFormControlTextarea1">Komentar (maksimalno 254 karaktera)</label> --}}
                   <textarea class="form-control" id="userComment" maxlength="254" name="userComment" rows="4" placeholder="Popunjavanjem ovog polja nam pomažeš da ti damo što precizniji komentar.">{{komentar}}</textarea>
                 </div>
@@ -304,7 +304,7 @@
 
                       
                   {{!-- <a href="/registracija" class="btn btn-success text-uppercase">Pokreni tumačenje</a> --}}
-                   <a href="/registracija" class="btn btn-block btn-danger btn-lg display-4 mb-5"><h3 class="mt-2">Pokreni tumačenje nalaza</h3></a>
+                   <a href="/registracija" class="btn btn-block btn-outline-info btn-lg display-4 mb-5"><h3 class="mt-2">Pokreni tumačenje nalaza</h3></a>
                 </div> 
 
                   <div class="col-12 mb-4">
@@ -361,7 +361,7 @@
                   </div>
 
                 <div class="col-12">
-                <h3 class="my-5">Korisnici koji su isprobali uslugu online tumačenja nalaza kažu...</h3>
+                <h3 class="my-5">Komentari korisnika koji su isprobali online tumačenje nalaza</h3>
                 </div>
                <div class="card paymentSteps mr-2">
                       <div class="card-body">
@@ -416,7 +416,6 @@
                     <div class="hcpBio">
                       <p class="text-center font-weight-bold">Jelena Đuran</p>
                       <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      {{!-- <p class="editorName text-left">Rođena 1987. godine u Beogradu. Diplomirala na Farmaceutskom fakultetu Univerziteta u Beogradu na smeru diplomirani farmaceut-medicinski biohemičar 2012. godine a specijalističke akademske studije, modul Biohemijska dijagnostika, završila 2021. godine. Trenutno je na specijalizaciji zdravstvenih radnika i saradnika na Farmaceutskom fakultetu u Beogradu, smer Medicinska biohemija. Od 2012. godine zaposlena u Zdravstvenoj ustanovi Medlab, Novi Sad</p> --}}
                     </div>
                   </div>
      
@@ -429,6 +428,7 @@
                       </div>
                      </div>
 
+                     
                     <div class="col-sm-6 col-md-4   mt-3 text-center">
                       <img src="/images/editors/IvanZaletel.png"  class="rounded-circle hcpImage" alt="Ivan Zaletel specijalista patologije">
                       <div class="hcpBio">
@@ -436,6 +436,7 @@
                         <span class="text-center disabled p-0">Specijalista patologije</span>
                       </div>
                      </div>
+                  
                  
 
                    <div class="col-sm-6 col-md-4  mt-3 text-center">
@@ -443,7 +444,6 @@
                     <div class="hcpBio">
                       <p class="text-center font-weight-bold">Vanja Vlaisavljević</p>
                       <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      {{!-- <p class="editorName text-left">Rođena 1993.godine u Vojniću, Hrvatska. Integrisane akademske studije završila u junu 2020. godine na Farmaceutskom fakultetu u Beogradu i stekla zvanje magistar farmacije - medicinski biohemičar. Završila pripravnički staž 2021. godine a nakon toga se zaposlila u Aqualab laboratoriji gde i danas radi.</p> --}}
                     </div>
                   </div>
 
@@ -455,46 +455,10 @@
                       </div>
                      </div>
 
-                    <div class="col-sm-6 col-md-4  mt-3 text-center">
-                      <img src="/images/editors/milica.png"  class="rounded-circle hcpImage" alt="">
-                      <div class="hcpBio">
-                        <p class="text-center font-weight-bold">Milica Milić</p>
-                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      </div>
-                     </div>
-
-                     <div class="col-sm-6 col-md-4  mt-3 text-center">
-                      <img src="/images/editors/Dragana.png"  class="rounded-circle hcpImage" alt="">
-                      <div class="hcpBio">
-                        <p class="text-center font-weight-bold">Dragana Kovačević</p>
-                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      </div>
-                     </div>
-
-
-                     <div class="col-sm-6 col-md-4  mt-3 text-center">
-                      <img src="/images/editors/JelenaJ.png"  class="rounded-circle hcpImage" alt="">
-                      <div class="hcpBio">
-                        <p class="text-center font-weight-bold">Jelena Janković</p>
-                        <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      </div>
-                     </div>
-
-                      <div class="col-sm-6 col-md-4  mt-3 text-center">
-                    <img src="/images/editors/brankos.png"  class="rounded-circle hcpImage" alt="">
-                    <div class="hcpBio">
-                      <p class="text-center font-weight-bold">Branko Subošić</p>
-                      <span class="text-center disabled p-0">Medicinski biohemičar</span>
-                      {{!-- <p class="editorName text-left">Rođen 1993 godine u Banja Luci. Integrisane akademske studije je završio 2018 godine. Iste godine se zaposlio na poziciji medicinski biohemičar u biohemijskoj laboratoriji Univerzitetske dečje klinike u Tiršovoj. Usavršavanje je nastavio 2019 godine upisavši doktorske akademske studije na Farmaceutskom fakultetu, modul medicinska biohemija. 2023 godine godine je izabran kao saradnik van radnog odnosa i učestvuje u izvođenju praktične nastave na predmetima katedre za biohemiju Farmaceutskog fakulteta.</p> --}}
-                    </div>
                   </div>
-
-
-
-
-
-                  </div>{{!-- row end --}}
                 </div>
+
+                 
 
                 <div class="col-12 text-center mx-auto my-5">
                    <h3 class="cardDisclaimer text-center p-4">Ne postavljamo dijagnozu, ne određujemo terapiju i ne lečimo!</h3>
@@ -506,7 +470,7 @@
 
                 <div class="col-12 text-center">
                 {{!-- <a href="/registracija" class="btn btn-success text-uppercase">Započni tumačenje</a> --}}
-                  <a href="/registracija" class="btn btn-block btn-primary btn-lg display-4 mb-5"><h3 class="mt-2">Pokreni tumačenje nalaza</h3></a>
+                  <a href="/registracija" class="btn btn-block btn-outline-info btn-lg display-4 mb-5"><h3 class="mt-2">Pokreni tumačenje nalaza</h3></a>
                 </div>
 
 
@@ -548,16 +512,8 @@
                         <input type="radio" name="package" value=590 id="t12" class="disabledInterpretation" disabled {{#if (checkBox package 590)}} checked {{/if}} />
                         <label for="t12" class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label>
                       </div>   
-                    </div> --}}
-
-                        
-
-
-                    
+                    </div> --}}                    
                 {{!-- </div> --}}
-
-                
-            
 
               {{!-- <div class="col-12 my-5">
                 <h3 class="cardDisclaimer text-center">Ukoliko iz bilo kog razloga ne budete zadovoljni uslugom vraćamo Vam novac.</h3>
