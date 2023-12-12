@@ -166,14 +166,13 @@ exports.freeUpload = async (req, res) => {
         // from:req.body.email,
         from: "LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>",
         // to: ["culajevic@labcube.rs", "culajevic@gmail.com"],
-        // ,
-        //   "jelenahajzler@gmail.com",
-        //   "mandicvalentina@hotmail.com",
-        //   "vanja.vlaisavljevic93@gmail.com",
-        //   "djuric.miljana84@gmail.com"
         bcc: [
           "tumacenje@labcube.rs",
-          "culajevic@gmail.com"
+          "culajevic@gmail.com",
+          "jelenahajzler@gmail.com",
+          "mandicvalentina@hotmail.com",
+          "vanja.vlaisavljevic93@gmail.com",
+          "djuric.miljana84@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje`,
         text: "",
