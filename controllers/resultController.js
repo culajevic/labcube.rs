@@ -2240,14 +2240,10 @@ exports.paymentDone = async (req, res) => {
             //  from:data.customer.email,
             from: "LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>",
             // to: ["culajevic@gmail.com", "culajevic@labcube.rs"],
-            //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],
+            //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],"jelenahajzler@gmail.com","mandicvalentina@hotmail.com","vanja.vlaisavljevic93@gmail.com","djuric.miljana84@gmail.com"
             bcc: [
               "tumacenje@labcube.rs",
-              "culajevic@gmail.com",
-              "jelenahajzler@gmail.com",
-              "mandicvalentina@hotmail.com",
-              "vanja.vlaisavljevic93@gmail.com",
-              "djuric.miljana84@gmail.com"
+              "culajevic@gmail.com"
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
             text: "",
