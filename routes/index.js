@@ -118,7 +118,7 @@ router.get("/checkout/", resultController.paymentDone);
 router.get("/myResult/:id", scheduleController.myResultLabCube);
 
 //prices
-router.get("/allPrices", priceController.allPrices);
+router.get("/allPrices", priceController.allPrices);  
 router.get("/addPrice", priceController.addPrice);
 router.post("/addPrice", priceController.createPrice);
 router.get("/addPrice/:id", priceController.editPrice);
