@@ -166,13 +166,14 @@ exports.freeUpload = async (req, res) => {
         // from:req.body.email,
         from: "LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>",
         // to: ["culajevic@labcube.rs", "culajevic@gmail.com"],
+        // ,
+        //   "jelenahajzler@gmail.com",
+        //   "mandicvalentina@hotmail.com",
+        //   "vanja.vlaisavljevic93@gmail.com",
+        //   "djuric.miljana84@gmail.com"
         bcc: [
           "tumacenje@labcube.rs",
-          "culajevic@gmail.com",
-          "jelenahajzler@gmail.com",
-          "mandicvalentina@hotmail.com",
-          "vanja.vlaisavljevic93@gmail.com",
-          "djuric.miljana84@gmail.com"
+          "culajevic@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje`,
         text: "",
@@ -4141,7 +4142,7 @@ exports.paymentDone = async (req, res) => {
         });
       }
     })
-    .catch(console.log('na samom kraju je neki eror '));
+    .catch(console.error);
   const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({name: 1});
 };
 
