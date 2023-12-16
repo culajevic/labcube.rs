@@ -166,14 +166,14 @@ exports.freeUpload = async (req, res) => {
         // from:req.body.email,
         from: "LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>",
         // to: ["culajevic@labcube.rs", "culajevic@gmail.com"],
-        // "jelenahajzler@gmail.com",
-        //   "mandicvalentina@hotmail.com",
-        //   "vanja.vlaisavljevic93@gmail.com",
-        //   "djuric.miljana84@gmail.com"
+      
         bcc: [
           "tumacenje@labcube.rs",
-          "culajevic@gmail.com"
-          
+          "culajevic@gmail.com",
+          "jelenahajzler@gmail.com",
+          "mandicvalentina@hotmail.com",
+          "vanja.vlaisavljevic93@gmail.com",
+          "djuric.miljana84@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje`,
         text: "",
@@ -1989,16 +1989,16 @@ exports.payment = async (req, res) => {
     ],
   });
 
-  //ako neko pokusa da menja cenu
-  if (
-    formatPrice != 890 &&
-    formatPrice != 590 &&
-    formatPrice != 490 &&
-    checkDiscountCode == null &&
-    formatPrice != 1
-  ) {
-    errors.push({ text: "Neispravan kôd, pokušaj ponovo." });
-  }
+  //ako neko pokusa da menja cenu //testirati da li radi bez ovoga?? 16.12.2023
+  // if (
+  //   formatPrice != 890 &&
+  //   formatPrice != 590 &&
+  //   formatPrice != 490 &&
+  //   checkDiscountCode == null &&
+  //   formatPrice != 1
+  // ) {
+  //   errors.push({ text: "Neispravan kôd, pokušaj ponovo." });
+  // }
 
   //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
   if (
