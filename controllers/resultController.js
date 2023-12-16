@@ -166,13 +166,14 @@ exports.freeUpload = async (req, res) => {
         // from:req.body.email,
         from: "LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>",
         // to: ["culajevic@labcube.rs", "culajevic@gmail.com"],
+        // "jelenahajzler@gmail.com",
+        //   "mandicvalentina@hotmail.com",
+        //   "vanja.vlaisavljevic93@gmail.com",
+        //   "djuric.miljana84@gmail.com"
         bcc: [
           "tumacenje@labcube.rs",
-          "culajevic@gmail.com",
-          "jelenahajzler@gmail.com",
-          "mandicvalentina@hotmail.com",
-          "vanja.vlaisavljevic93@gmail.com",
-          "djuric.miljana84@gmail.com"
+          "culajevic@gmail.com"
+          
         ],
         subject: `Novi rezultati za tumačenje`,
         text: "",
@@ -1911,17 +1912,17 @@ exports.freeUpload = async (req, res) => {
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-          return console.log(error);
+          return console.log('greska prilikom slanja mejla labcubu', error);
         } else {
-          console.log(info.messageId);
+          console.log('uspeno poslat mejl labcubu', info.messageId);
         }
       });
 
       transporter.sendMail(mailOptionsCustomer, (error, info) => {
         if (error) {
-          return console.log(error);
+          return console.log('nije otisao mejl customeru', error);
         } else {
-          console.log(info.messageId);
+          console.log('otisao mejl customeru', info.messageId);
         }
       });
       // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
