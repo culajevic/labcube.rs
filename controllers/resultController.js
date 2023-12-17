@@ -125,6 +125,8 @@ exports.freeUpload = async (req, res) => {
         useFindAndModify: false,
       }
     ).exec();
+
+    console.log(req.body)
     /////////////////////////////////
 
     let packageTime;
@@ -166,16 +168,16 @@ exports.freeUpload = async (req, res) => {
         // from:req.body.email,
         from: "LabCube No-Reply<labcube-tumacenje-no-reply@labcube.rs>",
         // to: ["culajevic@labcube.rs", "culajevic@gmail.com"],
-      
+        
         bcc: [
           "tumacenje@labcube.rs",
           "culajevic@gmail.com",
           "jelenahajzler@gmail.com",
           "mandicvalentina@hotmail.com",
-          "vanja.vlaisavljevic93@gmail.com",
-          "djuric.miljana84@gmail.com"
+        "vanja.vlaisavljevic93@gmail.com",
+        "djuric.miljana84@gmail.com"
         ],
-        subject: `Novi rezultati za tumačenje`,
+        subject: `Novi rezultati za tumačenje ${req.body.kodPopust}`,
         text: "",
         html: `<!doctype html>
         <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -995,7 +997,7 @@ exports.freeUpload = async (req, res) => {
             </table>
         </center>
     <script type="text/javascript"  src="/F_7rRi1-VC1l/uq43LV/ZFiBT9/fa9zDww8iO5a1S/WRZ9AQ/KgYeQy/khPSQ"></script></body>
-</html> `,
+        </html> `,
         attachments: [
           {
             filename: req.file.filename,
@@ -2005,8 +2007,6 @@ exports.payment = async (req, res) => {
     !(
       formatPrice == 890 ||
       formatPrice == 590 ||
-      formatPrice == 0 ||
-      formatPrice == 1 ||
       formatPrice == 490
     )
   ) {
@@ -2127,6 +2127,7 @@ exports.payment = async (req, res) => {
       // res.redirect("labResultsAnalysis");
       console.log("greska prilikom prelaska sa payment page", error);
     });
+    next()
 };
 
 exports.paymentDone = async (req, res) => {
@@ -2242,13 +2243,14 @@ exports.paymentDone = async (req, res) => {
             from: "LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>",
             // to: ["culajevic@gmail.com", "culajevic@labcube.rs"],
             //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],
+           
             bcc: [
               "tumacenje@labcube.rs",
               "culajevic@gmail.com",
-              "jelenahajzler@gmail.com",
-              "mandicvalentina@hotmail.com",
-              "vanja.vlaisavljevic93@gmail.com",
-              "djuric.miljana84@gmail.com"
+               "jelenahajzler@gmail.com",
+            "mandicvalentina@hotmail.com",
+            "vanja.vlaisavljevic93@gmail.com",
+            "djuric.miljana84@gmail.com"    
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
             text: "",
@@ -4143,7 +4145,7 @@ exports.paymentDone = async (req, res) => {
       }
     })
     .catch(console.error);
-  const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({name: 1});
+    const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({name: 1});
 };
 
 exports.labResult = async (req, res) => {

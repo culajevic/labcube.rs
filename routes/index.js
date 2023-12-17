@@ -29,11 +29,8 @@ router.get("/zakazivanje-patronaze", patronageController.schedule);
 
 //primena popusta
 router.get("/discount/:id", discountController.checkDiscount);
-router.post(
-  "/freeUpload/",
-  resultController.upload,
-  resultController.freeUpload
-);
+router.post("/freeUpload/", resultController.upload,resultController.freeUpload);
+
 
 //display single group
 router.get("/group/:slug", groupController.displayGroup);
