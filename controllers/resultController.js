@@ -2006,9 +2006,9 @@ exports.payment = async (req, res) => {
   if (
     !(
       formatPrice == 890 ||
+      formatPrice == 1 ||
       formatPrice == 590 ||
-      formatPrice == 490 ||
-      formatPrice == 1
+      formatPrice == 490
     )
   ) {
     errors.push({ text: "Došlo je do greške sa cenom, pokušajte ponovo" });
