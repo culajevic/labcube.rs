@@ -2006,7 +2006,6 @@ exports.payment = async (req, res) => {
   if (
     !(
       formatPrice == 890 ||
-      formatPrice == 1 ||
       formatPrice == 590 ||
       formatPrice == 490
     )
@@ -2244,13 +2243,14 @@ exports.paymentDone = async (req, res) => {
             from: "LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>",
             // to: ["culajevic@gmail.com", "culajevic@labcube.rs"],
             //  bcc:['tumacenje@labcube.rs','culajevic@gmail.com'],
-            // "jelenahajzler@gmail.com",
-            // "mandicvalentina@hotmail.com",
-            // "vanja.vlaisavljevic93@gmail.com",
-            // "djuric.miljana84@gmail.com"    
+           
             bcc: [
               "tumacenje@labcube.rs",
-              "culajevic@gmail.com"
+              "culajevic@gmail.com",
+               "jelenahajzler@gmail.com",
+            "mandicvalentina@hotmail.com",
+            "vanja.vlaisavljevic93@gmail.com",
+            "djuric.miljana84@gmail.com"    
               
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
