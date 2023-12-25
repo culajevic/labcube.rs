@@ -279,6 +279,7 @@ router.get("/nadjiLab", priceController.getLabPrices);
 
 router.get("/kontakt", generalController.sayHello);
 router.post("/contact", generalController.takeUserComment);
+router.get("/partneri", generalController.becomePartner)
 
 // router.get('/group/*', (req,res) => {
 //   res.status(404)
