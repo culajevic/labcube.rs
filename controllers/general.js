@@ -44,6 +44,15 @@ const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   })
 }
 
+exports.becomePartner = async (req,res) => {
+  const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
+  res.render("partners", {
+    title:"Postanite LabCube parnter",
+    groupNames,
+    user:req.user
+  })
+}
+
 exports.paymentDetails = async (req,res) => {
 const groupNames = await Group.find({},{name:1,slug:1,_id:0}).sort({name:1})
   res.render('paymentDetails',{
