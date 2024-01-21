@@ -304,7 +304,6 @@ exports.register =  async (req,res) => {
           let mailOptions = {
             from:'labcube-no-reply@labcube.rs',
             to:newUser.email,
-            bcc:"culajevic@gmail.com",
             // to:'culajevic@gmail.com',
             subject:`${newUser.emailToken} je tvoj kod za verifikaciju LabCube naloga: `,
             html:output,
