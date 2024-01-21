@@ -174,8 +174,9 @@ exports.freeUpload = async (req, res) => {
           "culajevic@gmail.com",
           "jelenahajzler@gmail.com",
           "mandicvalentina@hotmail.com",
-        "vanja.vlaisavljevic93@gmail.com",
-        "djuric.miljana84@gmail.com"
+          "milicasummer94@gmail.com",
+          "vanja.vlaisavljevic93@gmail.com",
+          "djuric.miljana84@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje ${req.body.kodPopust}`,
         text: "",
@@ -2247,10 +2248,11 @@ exports.paymentDone = async (req, res) => {
             bcc: [
               "tumacenje@labcube.rs",
               "culajevic@gmail.com",
-               "jelenahajzler@gmail.com",
-            "mandicvalentina@hotmail.com",
-            "vanja.vlaisavljevic93@gmail.com",
-            "djuric.miljana84@gmail.com"    
+              "jelenahajzler@gmail.com",
+              "mandicvalentina@hotmail.com",
+              "milicasummer94@gmail.com",
+              "vanja.vlaisavljevic93@gmail.com",
+              "djuric.miljana84@gmail.com"    
               
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
