@@ -52,7 +52,8 @@
         <div class="mb-3 clearBoth">
           <ul class="povezaneAnalize float-left">
         {{#each ../findPreviousResults}}
-          <li class="generalInformation"><a href="/results/{{this.result}}" class="nolink text-white" target="_blank">{{formatRsDate this.submitedDate}}</a></li>  
+          {{!-- <li class="generalInformation"><a href="/results/{{this.result}}" class="nolink text-white" target="_blank">{{formatRsDate this.submitedDate}}</a></li> --}}
+          <li class="generalInformation"><a href="/results/{{this.result}}" target="_blank" class="nolink text-white">{{formatRsDate this.submitedDate}}</a>{{#if (checkStatus this.status)}} <img src="/images/comments.png"  data-toggle="tooltip" data-original-title="{{this.commentCube}}" class="text-white">{{/if}}</li>  
         {{/each}}
         </ul>
         </div>
