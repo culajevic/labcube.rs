@@ -27,6 +27,7 @@ const authCheck = (req, res, next) => {
   }
 };
 
+//comment rows 97 za uzimanje uzorka i 2026
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "src/resultsForUpload");
@@ -137,7 +138,7 @@ exports.scheduleVisit = async (req, res) => {
   let mailOptionsSendInfo = {
     from: "LabCube <labcube-tumacenje-no-reply@labcube.rs>",
     to: [getEmailforSending],
-    bcc: ["culajevic@gmail.com", "perovic@labcube.rs", "jevtic@labcube.rs"],
+    bcc: ["culajevic@gmail.com"],
     subject: `Novi pacijent | ${getUserEmail} | ${getUserName} `,
     text: `Potrebne analize \n ${getBullets} \n ukupna cena je ${total} \n labcube.rs`,
     html: `<!doctype html>
@@ -2019,8 +2020,7 @@ exports.scheduleVisit = async (req, res) => {
   //   newDate.setHours(test.getHours() + 2)
 
   // console.log(req.body[3].date)
-
-  // console.log(typeof(schedule))
+// console.log(typeof(schedule))
 
   let newSchedule = new Schedule({
     // uzimanjeUzorka:uzimanjeUzorka,
@@ -2244,7 +2244,7 @@ exports.otherResultsInterpretationValues = [
     const findPreviousResults = await Result.find({
       userId: ObjectId(findOtherResult[0].userId._id),
     })
-      .select({ result: 1, submitedDate: 1 })
+      .select({ result: 1, submitedDate: 1, commentCube:1, status:1 })
       .sort({ submitedDate: 1 });
 
     // ObjectId()
