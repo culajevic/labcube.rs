@@ -84,6 +84,8 @@ let alert = (document.querySelector('.alert-dismissible'))? document.querySelect
     },3000)
   }
 
+  
+
 
 let datePicker1 = flatpickr('#datepicker1',{
   dateFormat: 'Y-m-d',
@@ -987,7 +989,6 @@ if (municipalityValue != null) {
   const dateLab = document.getElementById('datepicker1')
   const datePatronaza = document.getElementById('datepicker2')
 
-
   let uzimanjeUzorka = document.querySelectorAll('input[name=uzimanjeUzorka]')
    uzimanjeUzorka.forEach(item => {
       item.addEventListener('change', e => {
@@ -1290,6 +1291,7 @@ if (municipalityValue != null) {
             
             
             let scheduleString = JSON.stringify(schedule)
+            
         ///////////
       //todo 
 //otkomentarisati kada pocne zakazivanje preko labcuba
@@ -1299,7 +1301,9 @@ if (municipalityValue != null) {
       if (scheduleBtn) {
       scheduleBtn.addEventListener('click', ()=>{
       
-        // schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value
+//ovo zakomentarisati ako nema biranja odlaska u lab i zakazaivajna patronaze
+        // schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value 
+        //
         scheduleString = JSON.stringify(schedule)
         fetch('/schedule/',{
           method:"post",
