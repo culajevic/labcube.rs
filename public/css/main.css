@@ -7161,8 +7161,7 @@ body {
 
 .modal-content {
   margin: 2px auto;
-  z-index: 1100 !important;
-  background-color: #E0E4EC; }
+  z-index: 1100 !important; }
 
 .bodyOverlay {
   position: fixed;
