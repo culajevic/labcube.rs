@@ -3,12 +3,24 @@
     font-size: px-to-rem(10px);
   }
 
+  #smallHeader3 {
+    height: 333px;
+  }
+
   // .legendMap {
   //   top:160px;
   // }
 
   #bannerDetails {
     display:block;
+  }
+
+  .bigNumbers {
+    font-size: 40px;
+  }
+
+  #keyBenefits {
+    background: none;
   }
 
   .wpwl-group-expiry, .wpwl-group-cvv {
@@ -183,9 +195,17 @@
     display:block;
   }
 
+  #keyBenefits {
+    background: none;
+  }
+
   // .legendMap {
   //   top:160px;
   // }
+
+  .bigNumbers {
+    font-size: 40px;
+  }
 
   div.mobile-wrapper {
       position: relative;
@@ -415,6 +435,13 @@
     max-width: 140px;
   }
 
+  #keyBenefits {
+    background: none;
+  }
+
+  .bigNumbers {
+    font-size: 40px;
+  }
   // .legendMap {
   //   top:160px;
   // }
@@ -666,6 +693,14 @@
       height: 0;
   }
 
+  #keyBenefits {
+    background: none;
+  }
+
+  .bigNumbers {
+    font-size: 40px;
+  }
+
   // .legendMap {
   //   top:160px;
   // }
@@ -867,6 +902,14 @@
     display:block;
   }
 
+  .bigNumbers {
+    font-size: 40px;
+  }
+
+  #keyBenefits {
+    background: none;
+  }
+
   // .legendMap {
   //   top:160px;
   // }
@@ -1024,6 +1067,9 @@
   //     margin-right: px-to-rem(16px);
   //   }
   // }
+  #keyBenefits {
+    background: none;
+  }
 }
 
 // Medium devices (tablets, 768px and down) SM

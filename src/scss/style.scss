@@ -71,6 +71,89 @@ body {
   // border-radius:30% 70% 70% 50% / 30% 30% 70% 70%;
 }
 
+.bonus {
+  background-color: $primary-color;
+}
+
+.partner_color_bg {
+  background-color:$primary-color;
+}
+
+.partner_color {
+  color:$primary-color;
+}
+
+#absModel {
+  // background: url("/images/abs1.svg") no-repeat 10% 10px;
+}
+
+.partner_signup {
+  font-size: 23px;
+}
+
+#number1 {
+  background-color: $primary-color;
+}
+
+.benefits_right_border {
+  border-right: 1px solid #00E7CA;
+}
+
+.partner_order_list {
+  li::marker {
+    color: red;
+    font-size: 48px;
+  }
+ 
+}
+
+.divider {
+  border-top:1px solid #B3B3B3;
+  width:98%;
+  text-align: center;
+  margin:0 auto;
+  margin-top: 30px;
+}
+
+.benefits_color {
+  color:#00E7CA;
+  font-size: 44px;
+}
+
+.topBenefits {
+  list-style-image: url('/images/bullet.svg');
+  list-style-position: inside;
+  margin-left:0;
+  >li {
+    font-size: 19px;
+    padding-bottom: 9px;
+  }
+}
+
+.topBenefits2 {
+  list-style-image: url('/images/benefits2.svg');
+  > li {
+    line-height: 30px;
+    font-size: 20px;
+    padding-left: 12px;
+  }
+}
+
+.bg_lc_usage {
+  background-color: #F2F2F2;
+  padding:20px;
+}
+
+#keyBenefits {
+ background: url('/images/Ilustracija 03.svg') no-repeat right;
+}
+
+.bigNumbers {
+  font-size: 80px;
+  color:$danger;
+}
+
+
 .explainerVideo2 video {
   // width: 100%;
   position: relative;

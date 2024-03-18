@@ -7280,7 +7280,7 @@ a:focus {
   /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */ }
 
-#header, #smallHeader, #smallHeader2, #smallHeaderThanks {
+#header, #smallHeader, #smallHeader2, #smallHeader3, #smallHeaderThanks {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7289,9 +7289,9 @@ a:focus {
   height: 501px;
   background: radial-gradient(circle, #5B8EE8 0%, #1D88E5 100%);
   clip-path: polygon(100% 0%, 0% 0%, 0% 99.24%, 1.43% 99.22%, 2.86% 99.13%, 4.29% 99%, 5.71% 98.82%, 7.14% 98.58%, 8.57% 98.31%, 10% 97.99%, 11.43% 97.63%, 12.86% 97.24%, 14.29% 96.83%, 15.71% 96.39%, 17.14% 95.94%, 18.57% 95.48%, 20% 95.02%, 21.43% 94.55%, 22.86% 94.1%, 24.29% 93.67%, 25.71% 93.26%, 27.14% 92.87%, 28.57% 92.52%, 30% 92.2%, 31.43% 91.93%, 32.86% 91.7%, 34.29% 91.52%, 35.71% 91.39%, 37.14% 91.31%, 38.57% 91.29%, 40% 91.32%, 41.43% 91.4%, 42.86% 91.54%, 44.29% 91.73%, 45.71% 91.97%, 47.14% 92.25%, 48.57% 92.57%, 50% 92.93%, 51.43% 93.32%, 52.86% 93.73%, 54.29% 94.17%, 55.71% 94.63%, 57.14% 95.09%, 58.57% 95.55%, 60% 96.01%, 61.43% 96.46%, 62.86% 96.89%, 64.29% 97.31%, 65.71% 97.69%, 67.14% 98.04%, 68.57% 98.35%, 70% 98.62%, 71.43% 98.85%, 72.86% 99.03%, 74.29% 99.15%, 75.71% 99.22%, 77.14% 99.24%, 78.57% 99.21%, 80% 99.12%, 81.43% 98.98%, 82.86% 98.78%, 84.29% 98.54%, 85.71% 98.26%, 87.14% 97.94%, 88.57% 97.57%, 90% 97.18%, 91.43% 96.76%, 92.86% 96.32%, 94.29% 95.87%, 95.71% 95.41%, 97.14% 94.94%, 98.57% 94.48%, 100% 94.04%); }
-  #header .navbar-nav a, #smallHeader .navbar-nav a, #smallHeader2 .navbar-nav a, #smallHeaderThanks .navbar-nav a {
+  #header .navbar-nav a, #smallHeader .navbar-nav a, #smallHeader2 .navbar-nav a, #smallHeader3 .navbar-nav a, #smallHeaderThanks .navbar-nav a {
     padding-right: 1rem; }
-  #header .navbar-nav .checkout, #smallHeader .navbar-nav .checkout, #smallHeader2 .navbar-nav .checkout, #smallHeaderThanks .navbar-nav .checkout {
+  #header .navbar-nav .checkout, #smallHeader .navbar-nav .checkout, #smallHeader2 .navbar-nav .checkout, #smallHeader3 .navbar-nav .checkout, #smallHeaderThanks .navbar-nav .checkout {
     margin-top: 4px;
     display: flex;
     background-color: transparent;
@@ -7303,19 +7303,19 @@ a:focus {
     width: 180px;
     height: 30px;
     padding: 0 !important; }
-    #header .navbar-nav .checkout:hover, #smallHeader .navbar-nav .checkout:hover, #smallHeader2 .navbar-nav .checkout:hover, #smallHeaderThanks .navbar-nav .checkout:hover {
+    #header .navbar-nav .checkout:hover, #smallHeader .navbar-nav .checkout:hover, #smallHeader2 .navbar-nav .checkout:hover, #smallHeader3 .navbar-nav .checkout:hover, #smallHeaderThanks .navbar-nav .checkout:hover {
       cursor: pointer; }
-  #header .container, #smallHeader .container, #smallHeader2 .container, #smallHeaderThanks .container {
+  #header .container, #smallHeader .container, #smallHeader2 .container, #smallHeader3 .container, #smallHeaderThanks .container {
     margin-bottom: auto; }
-  #header .dropdown-menu, #smallHeader .dropdown-menu, #smallHeader2 .dropdown-menu, #smallHeaderThanks .dropdown-menu {
+  #header .dropdown-menu, #smallHeader .dropdown-menu, #smallHeader2 .dropdown-menu, #smallHeader3 .dropdown-menu, #smallHeaderThanks .dropdown-menu {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0; }
-  #header .dropdown-item, #smallHeader .dropdown-item, #smallHeader2 .dropdown-item, #smallHeaderThanks .dropdown-item {
+  #header .dropdown-item, #smallHeader .dropdown-item, #smallHeader2 .dropdown-item, #smallHeader3 .dropdown-item, #smallHeaderThanks .dropdown-item {
     color: #FFF; }
-    #header .dropdown-item:hover, #smallHeader .dropdown-item:hover, #smallHeader2 .dropdown-item:hover, #smallHeaderThanks .dropdown-item:hover {
+    #header .dropdown-item:hover, #smallHeader .dropdown-item:hover, #smallHeader2 .dropdown-item:hover, #smallHeader3 .dropdown-item:hover, #smallHeaderThanks .dropdown-item:hover {
       background-color: #1D88E5; }
 
 #smallHeader {
@@ -7351,6 +7351,24 @@ a:focus {
     bottom: 0;
     opacity: 0.93;
     width: 100%; }
+
+#smallHeader3 {
+  clip-path: none;
+  height: 240px;
+  background-image: url(../images/innerHeaderHero.png);
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position: center;
+  z-index: 999; }
+  #smallHeader3 > .overlay {
+    background-color: #1D88E5;
+    height: 240px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%; }
+  #smallHeader3 .container {
+    margin-bottom: 0; }
 
 .heroImage {
   position: absolute;
@@ -8789,6 +8807,65 @@ body {
   font-size: 1.5rem;
   line-height: 2rem;
   color: #4b4b4b; }
+
+.bonus {
+  background-color: #1D88E5; }
+
+.partner_color_bg {
+  background-color: #1D88E5; }
+
+.partner_color {
+  color: #1D88E5; }
+
+.partner_signup {
+  font-size: 23px; }
+
+#number1 {
+  background-color: #1D88E5; }
+
+.benefits_right_border {
+  border-right: 1px solid #00E7CA; }
+
+.partner_order_list li::marker {
+  color: red;
+  font-size: 48px; }
+
+.divider {
+  border-top: 1px solid #B3B3B3;
+  width: 98%;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 30px; }
+
+.benefits_color {
+  color: #00E7CA;
+  font-size: 44px; }
+
+.topBenefits {
+  list-style-image: url("/images/bullet.svg");
+  list-style-position: inside;
+  margin-left: 0; }
+  .topBenefits > li {
+    font-size: 19px;
+    padding-bottom: 9px; }
+
+.topBenefits2 {
+  list-style-image: url("/images/benefits2.svg"); }
+  .topBenefits2 > li {
+    line-height: 30px;
+    font-size: 20px;
+    padding-left: 12px; }
+
+.bg_lc_usage {
+  background-color: #F2F2F2;
+  padding: 20px; }
+
+#keyBenefits {
+  background: url("/images/Ilustracija 03.svg") no-repeat right; }
+
+.bigNumbers {
+  font-size: 80px;
+  color: #FF6F6F; }
 
 .explainerVideo2 video {
   position: relative;
@@ -10811,8 +10888,14 @@ table.workingHoursLabDetails {
 @media (max-width: 575px) {
   .analizeSearchFilter, .laboratorijeSearchFilter {
     font-size: 0.625rem; }
+  #smallHeader3 {
+    height: 333px; }
   #bannerDetails {
     display: block; }
+  .bigNumbers {
+    font-size: 40px; }
+  #keyBenefits {
+    background: none; }
   .wpwl-group-expiry, .wpwl-group-cvv {
     width: 100%; }
   .fileTypes {
@@ -10900,6 +10983,10 @@ table.workingHoursLabDetails {
 @media (min-width: 170px) and (max-width: 375px) {
   #bannerDetails {
     display: block; }
+  #keyBenefits {
+    background: none; }
+  .bigNumbers {
+    font-size: 40px; }
   div.mobile-wrapper {
     position: relative;
     padding-top: 25px;
@@ -11034,6 +11121,10 @@ table.workingHoursLabDetails {
 @media (min-width: 375px) and (max-width: 574px) {
   .aboutUs, .aboutUsDiscount {
     max-width: 140px; }
+  #keyBenefits {
+    background: none; }
+  .bigNumbers {
+    font-size: 40px; }
   .logoFull {
     align-self: center;
     position: absolute;
@@ -11178,6 +11269,10 @@ table.workingHoursLabDetails {
     padding-top: 25px;
     padding-bottom: 73.5%;
     height: 0; }
+  #keyBenefits {
+    background: none; }
+  .bigNumbers {
+    font-size: 40px; }
   .fileTypes {
     bottom: 0px; }
   .editorName {
@@ -11283,6 +11378,10 @@ table.workingHoursLabDetails {
 @media (min-width: 768px) and (max-width: 991px) {
   #bannerDetails {
     display: block; }
+  .bigNumbers {
+    font-size: 40px; }
+  #keyBenefits {
+    background: none; }
   .doctorDetailsInner {
     display: block;
     border-left: none;
@@ -11354,6 +11453,10 @@ table.workingHoursLabDetails {
     top: 80px; }
   .logoFooter {
     width: 11.3125rem; } }
+
+@media (max-width: 992px) {
+  #keyBenefits {
+    background: none; } }
 
 
 /*# sourceMappingURL=main.css.map*/

@@ -89,6 +89,30 @@
     }
 }
 
+#smallHeader3 {
+  @extend #header;
+  clip-path: none;
+  height: 240px;
+  // background-image: url(../images/innerHeaderHero.jpg);
+  background-image: url(../images/innerHeaderHero.png);
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position: center;
+  z-index: 999;
+  & > .overlay {
+    background-color: $primary-color;
+    height: 240px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    // opacity: 0.93;
+    width: 100%;
+    }
+  .container {
+    margin-bottom: 0;
+  }
+}
+
   
 .heroImage {
   position:absolute;
