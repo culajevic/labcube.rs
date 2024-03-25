@@ -1959,6 +1959,7 @@ exports.freeUpload = async (req, res) => {
 
 exports.payment = async (req, res) => {
   let newDateCheck = new Date();
+  // console.log(req.body)
   const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({
     name: 1,
   });
