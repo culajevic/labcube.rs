@@ -46,7 +46,7 @@ $('form.wpwl-form-card').find('.wpwl-group-submit').after(BannerHtml);		//baner 
 $(".wpwl-group-cardNumber").after( $(".wpwl-group-cardHolder").detach()); //pomeranje polja cardnumber pre polja broj cardholder
 $(".wpwl-group-expiry").after( $(".wpwl-group-cvv").detach());
 $('.wpwl-button-pay').html('Plati'); //promena polja pay u potvrdi
-$('.wpwl-button-pay').after('<small style="color:red; font-weight:bold; font-size:18px; text-align:center;">Nakon što izvršiš plaćanje sačekaj potvrdu o izvršenju transakcije. U suprotnom se može desiti da uplatu registrujemo sa zakašnjenjem!</small>');
+
 $('.wpwl-button-pay').css({'background-color':'#55D159'});
 
 
@@ -72,7 +72,7 @@ $(".wpwl-brand-" + e).css("opacity", "5");
  		<div class="row">
       <div class="col-12">
         <h1 class="">{{user.username}}, još samo jedan korak</h1>
-        
+        <span>Ukoliko ti je potrebna pomoć oko plaćanja karticama, pogledaj <a href="https://youtu.be/Ptnh2iehAn4?feature=shared" target="_blank">ovaj video</a></span>
       </div>
       <!-- <div class="checkoutCartFinal col-12"> -->
       <!-- <span>{{user.username}}, još samo jedan korak</span> -->
@@ -93,11 +93,11 @@ $(".wpwl-brand-" + e).css("opacity", "5");
         <hr />
         <div class="mt-1 text-center"><img src="/images/{{displayPackageTime package }}h.svg" alt="" style="width:42px;" class="mb-3 mt-3 mr-4"><h4 class="d-inline">Tumačenje u roku od {{displayPackageTime package }}h</h4></div>
         <div class="mt-2  text-muted p-4"><p>Podaci o adresi, poštanskom broju, državi i adresi se unose isključivo u cilju plaćanja usluge odnosno na zahtev UniCredit banke. LabCube neće iskoristiti ove podatke i povezati ih sa tvojim nalogom. Ovi podaci mogu biti iskorišćeni jedino u svrhu slanja računa za kupljenu uslugu.</p>
-        <h4 class="text-center font-weight-bold text-danger">Ukoliko iz bilo kog razloga ova usluga ne ispuni tvoja očekivanja vraćamo ti novac.</h4></div>
+        <h4 class="text-center font-weight-bold text-danger">Ukoliko iz bilo kog razloga  usluga ne ispuni tvoja očekivanja vraćamo ti novac.</h4></div>
       </div>
 
       <div class="col-12 mt-5">
-        <h4>Ukoliko imaš bilo kakvo pitanje u vezi tumačenja rezultata, plaćanja usluge ili bilo koje drugo pitanje možeš nam poslati mejl na zdravo@labcube.rs ili nas kontaktirati putem četa na ovoj stranici.</h4>
+        <h4>Ukoliko imaš bilo kakvo pitanje u vezi tumačenja rezultata, plaćanja usluge ili bilo čega drugog možeš nam poslati mejl na zdravo@labcube.rs ili nas kontaktirati putem četa na ovoj stranici.</h4>
       </div>
 
      
