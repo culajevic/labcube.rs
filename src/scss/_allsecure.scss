@@ -35,8 +35,8 @@ body {background-color:#white;}
 .wpwl-control-brand {display: none; visibility:collapse;}
 
 /*Dugme potvrdi*/
-.wpwl-button-pay { background-color:#5ced6a;  color: #fff; border-radius: 4px; font-family: 'Roboto', sans-serif; width:100%; margin-top:1rem;  margin-bottom:1rem; text-transform: uppercase; }
-.wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active { color:#fff; background-color: #1D88E5; border-color: #5ced6a; font-weight: 800;}
+.wpwl-button-pay { background-color:#FF6F6F;  color: #fff; border-radius: 4px; font-family: 'Roboto', sans-serif; width:100%; margin-top:1rem;  margin-bottom:1rem; text-transform: uppercase; border:1px solid #FF6F6F; }
+.wpwl-button-pay:hover, .wpwl-button-pay:focus, .wpwl-button-pay:active { color:#fff; background-color: #FF6F6F; border-color: #FF6F6F; font-weight: 800;}
 
 /*Dugme otkazi*/
 .wpwl-button-cancel {background-color: #fff; margin-top:1rem; color: #95989b; border-radius: 4px; font-family: 'Roboto', sans-serif; font-weight: 600;  width:48%;  float:right;  text-transform: uppercase;}
