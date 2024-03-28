@@ -74,18 +74,21 @@
                       <div class="col-12 mt-5" id="firstStep">
                         <h3>1. Odaberi vreme za tumačenje</h3>
                         </div>
-                     <div class="card paymentSteps ">
+
+                        <div class="card paymentSteps">
                           <div class="card-body">
-                            <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 24 sata</p>
-                             {{!-- <span class="text-center mb-4">+ dodatna pojašnjenja</span> --}}
-                            <span class="text-center paketiCena">490 din.</span>
-                            <input type="radio" name="package" value=490 id="t24"  {{#if (checkBox package 490)}} checked {{/if}} />
-                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
-                          </div>
-                      </div>                    
-                    
-                      <div class="card paymentSteps ml-lg-3">
+                            <div class="najpopularnije">dostupno od 8 do 18h</div>
+                            <span class="onSalesNow d-none" id="initialPriceTop"></span>
+                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 4 sata</p>
+                            <span class="text-center paketiCena" id="initialPrice">890 din.</span>
+                            <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
+                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
+                            {{!-- <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label> --}}
+                         </div>
+                      </div>
+
+                       <div class="card paymentSteps ml-lg-3">
                         <div class="card-body">
                            <div class="najpopularnije">najpopularnije</div>
                           <img src="/images/12h.svg" alt="" style="" class="mb-3 mt-3 tumacenjeIkonice">
@@ -98,22 +101,23 @@
                         </div>   
                       </div>
 
+                     <div class="card paymentSteps ml-lg-3">
+                          <div class="card-body">
+                            <img src="images/24h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
+                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 24 sata</p>
+                             {{!-- <span class="text-center mb-4">+ dodatna pojašnjenja</span> --}}
+                            <span class="text-center paketiCena">490 din.</span>
+                            <input type="radio" name="package" value=490 id="t24"  {{#if (checkBox package 490)}} checked {{/if}} />
+                            <label for="t24"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
+                          </div>
+                      </div>                    
+                    
                      
 
-                       <div class="card paymentSteps ml-lg-3 ">
-                          <div class="card-body">
-                            <div class="najpopularnije">dostupno od 8 do 18h</div>
-                            <span class="onSalesNow d-none" id="initialPriceTop"></span>
-                            <img src="images/4h.svg" alt="" class="mb-3 mt-3 tumacenjeIkonice">
-                            <p class="text-center font-weight-bold mb-0">Tumačenje u roku od 4 sata</p>
-                            {{!-- <span class="text-center">+ dodatna pojašnjenja</span> --}}
-                            {{!-- <span class="text-center">+ besplatan kod za naredno tumačenje</span> --}}
-                            <span class="text-center paketiCena" id="initialPrice">890 din.</span>
-                            <input type="radio" name="package" value=890 id="t4"  {{#if (checkBox package 890)}} checked {{/if}}/>
-                            <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label>
-                            {{!-- <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">trenutno nedostupno</label> --}}
-                         </div>
-                      </div>
+                     
+
+                       
+
                       {{!-- <div class="col-12">
                       <small class="float-right p-0 m-0"><sup>*</sup>Tumačenje u roku od 6 sati je moguće odabrati između 8 i 18h.</small>
                       </div> --}}
@@ -169,9 +173,6 @@
                               <label for="uploadResults" class="custom-file-label"></label>
                                <span class="text-danger mt-0 pt-0 mb-5">Ne tumačimo prenatalne testove.</span>
                           </div>
-                          
-
-
 
                 <div class="col-12 text-center mt-4">
                   <small class="smallText"><sup>*</sup>Ukoliko je izvršena uplata za određeni vremenski paket garantujemo ti da će tvoji rezultati biti protumačeni u tom roku, to je maksimalno vreme za koje možeš očekivati tumačenje. Moguće je dobiti tumačenje i znatno pre tog roka a sve u zavisnosti od broja zahteva na kojima trenutno radimo. </small><br />  
@@ -330,9 +331,7 @@
                      <h3 class="my-5">Primer jednog tumačenja</h3>
                      {{!-- <div style="border:1px solid #E0E4EC; border-radius:20px; padding:20px;"> --}}
                      <img src="images/example.png" style="width:800px;" alt="" class="img-fluid">
-                    
-                  
-                    
+                         
                     
                     <div class="col-12 text-center mx-auto my-5">
                       <h3 class="cardDisclaimer text-center p-4">Ništa ne rizikuješ. Ukoliko usluga ne ispuni tvoja očekivanja, vraćamo ti novac, bez pitanja.</h3>
