@@ -24095,9 +24095,10 @@ window.onload = function () {
 
     if (scheduleBtn) {
       scheduleBtn.addEventListener('click', function () {
-        //ovo zakomentarisati ako nema biranja odlaska u lab i zakazaivajna patronaze
-        // schedule[4].date = (dateLab.value != "")? dateLab.value:datePatronaza.value 
-        //
+        console.log(scheduleBtn); //ovo zakomentarisati ako nema biranja odlaska u lab i zakazaivajna patronaze
+
+        schedule[4].date = dateLab.value != "" ? dateLab.value : datePatronaza.value; // 
+
         scheduleString = JSON.stringify(schedule);
         fetch('/schedule/', {
           method: "post",
