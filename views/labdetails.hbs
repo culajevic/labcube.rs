@@ -198,6 +198,7 @@
             {{!-- {{#if labDetails.partner}} --}}
             {{!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> --}}
             {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
+             
              {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                 <div class="card">
                   <div class="card-body">
@@ -205,18 +206,18 @@
                     <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
                   </div>
                   </div>
-                </div>
+                </div> --}}
                 
-                <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                   <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">Uvek na jednom mestu</h5>
                     <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
                   </div>
                   </div>
-                </div>
+                </div> --}}
             
-                  <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
+                  {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                     <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">Prosledi laboratoriji</h5>
@@ -224,11 +225,11 @@
                     </div>
                     </div>
                   </div> --}}
-            {{!-- <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn> 
-              {{else}}
+            {{!-- <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn>  --}}
+                {{!-- {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
-            {{/if}}
-            {{else}} --}}
+              {{/if}} --}}
+            {{!-- {{else}} --}}
              {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
                 <div class="card">
                   <div class="card-body">
@@ -260,9 +261,10 @@
               </div> --}}
           {{!-- {{/if}} --}}
 
-            {{!-- {{#if userId}} --}}
+            {{#if userId}}
+               {{#if labDetails.partner}}
             {{!-- skloniti clasu d-none ako je potrebno prikazati deo ispod --}}
-           {{!-- <div class="form-group col-12  d-none mt-4 ">
+             <div class="form-group col-12  mt-4 ">
 
               <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
@@ -284,12 +286,14 @@
                 <label for="datepicker2">Odaberite datum i vreme patronaže</label>
                 <input id="datepicker2" class="form-control" placeholder="Odaberite datum odlaska u laboratoriju">
                 <p>Nakon što odaberete datum i vreme patronaže laboratorija će vas kontaktirati i potvrditi dolazak. Proverite da li ste dodali adresu i broj mobilnog telefona vasem <a href="/profile" target="_blank" class="link-unstyled">profilu.</a></p>
-            </div> --}}
+            </div>
 
 
-            {{!-- <button class="btn btn-success text-uppercase col-12 d-none" id="schedule">prosledite odabrane analize laboratoriji</button> --}}
-        
-            {{!-- {{/if}} --}}
+            <button class="btn btn-success text-uppercase col-12" id="schedule">prosledi odabrane analize laboratoriji</button>
+              {{else}}
+              <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
+              {{/if}}
+            {{/if}}
 
             {{!-- <a class="btn btn-success text-uppercase " href="">prosledi na svoj mejl</a>
             <a class="btn btn-success text-uppercase " href="">zakaži patronažu</a>  --}}
