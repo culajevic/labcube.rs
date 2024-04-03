@@ -71,12 +71,15 @@ exports.scheduleVisit = async (req, res) => {
   let analysisArr = [];
   let total = req.body[0].total;
   let labId = req.body[3].labId;
+  let schedulePatronage = moment(req.body[4].date).format("LLL");
+  
   let labCubePrice = req.body[2].labCubePrice;
   let getLabData = await Lab.find(
     { _id: labId },
     {
       email: 1,
       comment: 1,
+      description:1,
       labName: 1,
       address: 1,
       workingHours: 1,
@@ -86,16 +89,19 @@ exports.scheduleVisit = async (req, res) => {
   ).populate("placeId");
   let getEmailforSending = getLabData[0].email;
   let discountCode = getLabData[0].comment;
+  let discountCode50 = getLabData[0].description;
   let getUserData = await User.find(
     { _id: req.user._id },
-    { email: 1, username: 1 }
+    { email: 1, username: 1, mobile:1 }
   );
   let getUserEmail = getUserData[0].email;
   let getUserName = getUserData[0].username;
+  let mobilePhone = getUserData[0].mobile;
 
   // console.log(getLabData[0].workingHours['monday'].opens)
-
-  // let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaza' : 'laboratorija'
+// otkomentarisati kada radi prosledjivanje
+  let uzimanjeUzorka = (req.body[4].date.length>10) ? 'Patronaža' : 'Laboratorija'
+///////////////////
 
   let value = 0;
   let outsideOfTheRange = false;
@@ -139,7 +145,7 @@ exports.scheduleVisit = async (req, res) => {
     from: "LabCube <labcube-tumacenje-no-reply@labcube.rs>",
     to: [getEmailforSending],
     bcc: ["culajevic@gmail.com"],
-    subject: `Novi pacijent | ${getUserEmail} | ${getUserName} `,
+    subject: `Novi pacijent | ${getUserEmail} | ${getUserName} | ${uzimanjeUzorka}`,
     text: `Potrebne analize \n ${getBullets} \n ukupna cena je ${total} \n labcube.rs`,
     html: `<!doctype html>
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -682,7 +688,10 @@ exports.scheduleVisit = async (req, res) => {
                             
                             <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 200%;">
                             
-                                <h2 style="text-align: center;"><style="font-size:20px;">${getUserName} | ${getUserEmail} </h2>    
+                                <h2 style="text-align: center;"><style="font-size:20px;">${getUserName} | ${getUserEmail} </h2>
+                                <h3 style="text-align: center;">Mobilni telefon pacijenta: ${mobilePhone}</h4>
+                                <h3 style="text-align: center;">Okvirni termin ${uzimanjeUzorka}: ${schedulePatronage}</h3>   
+                        
                             </td>
                         </tr>
                     </tbody></table>
@@ -1785,12 +1794,16 @@ exports.scheduleVisit = async (req, res) => {
     <tbody class="mcnButtonBlockOuter">
         <tr>
             <td style="padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;" valign="top" align="center" class="mcnButtonBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 7px;background-color: #FF6F6F;">
+                <table border="0" cellpadding="0" cellspacing="0" class="mcnButtonContentContainer" style="border-collapse: separate !important;border-radius: 7px;">
                     <tbody>
                         <tr>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 30px; padding: 18px;">
-                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">${discountCode}</a>
-								<span style="color: #FFFFFF; font-size: 14px; font-family: Arial;">Kôd za besplatno tumačenje rezultata</span>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 28px; padding: 12px; background-color: #5B8EE8;">
+                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;"> Tumačenje 24h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode}</p>
+								
+                            </td>
+                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 28px; padding: 12px; background-color: #55D159;">
+                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode50}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Tumačenje 4h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode50}</p>
+								
                             </td>
                         </tr>
                     </tbody>
@@ -2023,7 +2036,7 @@ exports.scheduleVisit = async (req, res) => {
 // console.log(typeof(schedule))
 
   let newSchedule = new Schedule({
-    // uzimanjeUzorka:uzimanjeUzorka,
+    uzimanjeUzorka:uzimanjeUzorka,
     total: total,
     analyses: analysisArr,
     status: "Zakazano",
