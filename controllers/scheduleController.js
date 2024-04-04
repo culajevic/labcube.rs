@@ -100,7 +100,7 @@ exports.scheduleVisit = async (req, res) => {
 
   // console.log(getLabData[0].workingHours['monday'].opens)
 // otkomentarisati kada radi prosledjivanje
-  let uzimanjeUzorka = (req.body[4].date.length>10) ? 'Patronaža' : 'Laboratorija'
+  let uzimanjeUzorka = (req.body[4].date.length>10) ? 'patronaža' : 'laboratorija'
 ///////////////////
 
   let value = 0;
@@ -689,8 +689,8 @@ exports.scheduleVisit = async (req, res) => {
                             <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 200%;">
                             
                                 <h2 style="text-align: center;"><style="font-size:20px;">${getUserName} | ${getUserEmail} </h2>
-                                <h3 style="text-align: center;">Mobilni telefon pacijenta: ${mobilePhone}</h4>
-                                <h3 style="text-align: center;">Okvirni termin ${uzimanjeUzorka}: ${schedulePatronage}</h3>   
+                                <h4 style="text-align: center;">Mobilni telefon pacijenta: ${mobilePhone}</h4>
+                                <h4 style="text-align: center;">Okvirni termin ${uzimanjeUzorka}: ${schedulePatronage}</h4>   
                         
                             </td>
                         </tr>
@@ -2131,7 +2131,6 @@ exports.resultsInterpretation = [
     const limit = 4;
     const pages = Math.ceil(countTotal / limit);
     const skip = page * limit - limit;
-
     const resultsForInterpretation = await Schedule.find({
       $or: [{ status: "Završeno" }, { status: "Uzorkovanje" }],
     })
@@ -2158,7 +2157,7 @@ exports.otherResultsInterpretation = [
   async (req, res) => {
     const countTotal = await Result.countDocuments({});
     const page = req.params.page || 1;
-    const limit = 10;
+    const limit = 20;
     const pages = Math.ceil(countTotal / limit);
     const skip = page * limit - limit;
 
