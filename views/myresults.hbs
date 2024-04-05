@@ -19,98 +19,29 @@
 
             <p class="pb-4" id="navigationMyResults"><span class="float-left back nolink"><a href="/profile" class="nolink"><img src="/images/back.svg"> Nazad</a></span><span class="float-right"><a href="javascript:window.print()"><img src="/images/stampaj.svg"></a></span></p>
 
-              <h1 class="mt-4">{{myResults.lab.labName}} - {{formatLabScheduleDate myResults.scheduledFor myResults.uzimanjeUzorka}}</h1>
-              <div class="col-12 doctorDetailsInner">
-                <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt="">
-                <div class="hcpBio">
+              <h1 class="mt-4">Odabrana laboratorija: {{myResults.lab.labName}} </h1>
+              <h1>{{formatLabScheduleDate myResults.scheduledFor myResults.uzimanjeUzorka}} radili ste sledeće analize</h1>
+              {{!-- <div class="col-12 doctorDetailsInner"> --}}
+                {{!-- <img src="/images/man.jpg"  class="rounded-circle hcpImage" alt=""> --}}
+                {{!-- <div class="hcpBio">
                     <p class="h5">{{myResults.owner.username}}</p>
                     <p>icing elit. Accusamujdskjdks kjs kjds kdjs s illum, sequi asperiorconsec. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit id quas, molestiae aut nemo modi quasi cupiditate dicta delectus esse, ratione expedita!</p>
-                </div>
-              </div>
+                </div> --}}
+              {{!-- </div> --}}
 
             <div class="row">
-
               {{#each myResults.analyses}}
 
+          
               <div class="resultDetails">
-                  <div class="col-12 col-md-7 pr-4">
-                    <h4 class="analysisName">{{this.analysis}} <span class="{{outsideOfTheRange this.outsideOfTheRange}}">{{this.value}} {{{this.measure}}}</span></h4>
-                    <!-- <p>{{this.comment}}</p> -->
+                  <div class="col-12 col-md-12 pr-4">
+                    <h4 class="analysisName">{{this.analysis}}</h4>
                     <p>{{{this.analysisId.shortDesc}}}</p>
-                  </div>
-                  <div class="col-12 col-md-5 analysisResults">
-
-                    {{#if (notZero this.lessThen)}}
-
-                      <div>
-                        <input type="range" class="regularResults min {{lessThenCheck this.value  this.lessThen}}"
-                        data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.lessThen}}  value={{this.value}}  step="0.1" disabled data-slider-id='ex1Slider'>
-                        <div class="rangeLabels">&lt {{this.lessThen}}</div>
-                      </div>
-                      <div>
-
-                        <input type="range" class="max {{greaterThen this.value this.lessThen}}"
-                        data-toggle="tooltip" tooltip="{{this.value}}" name="high" min={{this.lessThen}}  value={{this.value}}  step="0.1" max={{addMaxValue this.lessThen}} disabled>
-                        <div class="rangeLabels">&gt {{this.lessThen}}</div>
-                      </div>
-
-                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
-
-                    {{else if (notZero this.greaterThen)}}
-
-                    <div>
-                      <input type="range" class="min {{lessThenCheckNotOk this.value  this.greaterThen}}"
-                      data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max={{this.greaterThen}}  value={{this.value}} name="high" step="0.1" disabled>
-                      <div class="rangeLabels">&lt {{this.greaterThen}}</div>
-                    </div>
-                    <div>
-
-                      <input type="range" class="regularResults max {{greaterThenOk this.value this.greaterThen}}"
-                      data-toggle="tooltip" tooltip="{{this.value}}" name="low" min={{this.greaterThen}}  value={{this.value}}  max={{addMaxValue this.greaterThen}} step="0.1" disabled>
-                      <div class="rangeLabels">&gt {{this.greaterThen}}</div>
-                    </div>
-
-                    <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
-
-                    {{else}}
-                        <div>
-                          <input type="range" class="min {{lowValue this.value this.valueFrom}}"
-                          data-toggle="tooltip" tooltip="{{this.value}}" name="low" min="0" max="{{this.valueFrom}}"  value={{this.value}}  step="0.1"  disabled >
-                          <div class="rangeLabels">&lt {{this.valueFrom}}</div>
-                        </div>
-                        <div>
-                          <input type="range" class="regularResults {{betweenRange this.value this.valueFrom this.valueTo}}" name="regular"
-                          data-toggle="tooltip" tooltip="{{this.value}}" min="{{this.valueFrom}}" max="{{this.valueTo}}" value={{this.value}} step="0.1"  disabled>
-                          <div class="rangeLabels">{{valueFrom}} - {{valueTo}}</div>
-                        </div>
-                        <div>
-                          <input type="range" class="max {{highValue this.value this.valueTo}}" name="high" min="{{this.valueTo}}" max={{addMaxValue this.valueTo}} value={{this.value}} step="0.1"  disabled>
-                          <div class="rangeLabels">&gt {{this.valueTo}}</div>
-                        </div>
-                        <!-- <span class="analysisComment"><a href=""><img src="/images/detail.svg"></a></span> -->
-
-
-                  {{/if}}
-                  </div><!-- analysis result -->
-                  <div class="col-12">
-
-                    {{#if (notBlank this.commentResult)}}
-                    <p class="myResultsComment">
-                      <span>{{{this.commentResult}}} </span>
-                    </p>
-                      {{/if}}
-
-
                   </div>
               </div><!-- resultDetails -->
 
               {{/each}}
-              <div class="col-12">
-                <div class="col-12 myResultsComment my-4">
-                  <h1 class="headTitle">Lab cube zaključak</h1>
-                  <span class="">{{{myResults.commentCube}}}</span>
-                </div>
-              </div>
+              
 
 
             </div> <!-- row end -->
@@ -181,12 +112,12 @@
 
                 </div><!-- form row end -->
 
-                <div class="form-group mt-3">
-                  <p>Da li želite još nešto da dodate?</p>
-                  <textarea for="komentarKorisnika" name="comment" rows="4" cols="80"></textarea>
+                <p>Da li želite još nešto da dodate?</p>
+                <div class=" mt-3 col-12 d-flex p-0">
+                  <textarea for="komentarKorisnika" name="comment" style="flex: 1;" rows="4" cols="80"></textarea>
                 </div>
 
-                <button class="btn btn-outline-primary mb-4 btn-block" name="button">vaše mišljenje je važno</button>
+                <button class="btn btn-primary mb-4 btn-block text-uppercase mt-4" name="button">Oceni</button>
               </form>
             </div>
           </div>
