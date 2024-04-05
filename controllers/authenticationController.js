@@ -118,7 +118,7 @@ exports.profile = [authCheck, async (req,res) => {
     const countTotal = await Schedule.countDocuments({lab:req.user.labId})
 
     const page = req.params.page || 1
-    const limit = 4
+    const limit = 25
     const pages = Math.ceil(countTotal / limit)
     const skip = (page * limit) - limit
 
