@@ -33,16 +33,19 @@
                   <div class="modal-body">
                     <form class="" action="/updateSchedule/{{this._id}}" method="post">
 
-                    <h3>{{this.user.username}} <span class="float-right">{{this.total}} rsd</span></h3>
+                    <h3 class="">{{this.user.username}} / {{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}} <span class="float-right">{{this.total}} rsd</span></h3>
+                    <small class="float-right">+ trošak uzimanja uzorka</small>
 
-                    <p>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</p>
+                    {{!-- <p></p> --}}
 
-                    <p>{{this.user.address}}, {{this.user.city}}</p>
+                    <p class="mt-5">{{this.user.address}}, {{this.user.city}}</p>
                     <p>{{this.user.mobile}}</p>
                     <p>{{this.user.birthYear}}</p>
                     <p>Potrebne analize<br />
-                    {{displayScheduledAnalysis this.analyses}}</p>
-
+                    
+                      {{displayScheduledAnalysis this.analyses}}
+                    
+                    
                     <div class="form-group">
                     <textarea name="komentar" class="form-control rounded-0" rows="4" cols="55" placeholder="Komentar">{{this.commentLab}}</textarea>
                   </div>
