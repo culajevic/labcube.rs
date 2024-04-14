@@ -50,7 +50,7 @@
         {{#if (checkServices labDetails.accredited labDetails.antigen labDetails.private labDetails.patronage labDetails.disability)}}
         <div class="labFeatures">
            {{#if labDetails.partner}}
-          <p><img src="/images/labPartner.svg" class="labInfoWindowVerified" title="akreditovano">LabCube partner</p>
+          <p><img src="/images/labPartner.svg" class="labInfoWindowVerified" title="LabCube partner">LabCube partner</p>
           {{/if}}
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
@@ -154,7 +154,11 @@
             {{#if numofanalysis}}
             <div class="col-12 table-responsive">
               <p class="selectedAnalysisTitle">odabrane analize </p>
+              {{#if labDetails.partner}}
+              <small class="float-right mt-2 mb-4 text-muted"><sup>*</sup>Cene za LabCube partnerske laboratorije se redovno ažuriraju i iste su na sajtu i u partnerskoj laboratoriji.</small>
+              {{else}}
               <small class="float-right mt-2 mb-4 text-muted"><sup>*</sup>Cene su informativnog karaktera, molimo te da konačne cene odabranih analiza proveriš pre odlaska u laboratoriju.</small>
+              {{/if}}
               <table class="table results table-hover">
        					<tbody id="resultTable">
                   {{#each selectedAnalysis}}
@@ -268,21 +272,23 @@
                {{#if labDetails.partner}}
             {{!-- skloniti clasu d-none ako je potrebno prikazati deo ispod --}}
              <div class="form-group col-12  mt-4 text-center ">
-               <h3 class="text-center mb-5">Prosledi odabrane analize laboratoriji i dobićeš kod za besplatno online tumačenje laboratorijskih nalaza.</h3>
+               <h3 class="text-center mb-5">Prosledi odabrane analize laboratoriji i dobijaš kod za besplatno online tumačenje laboratorijskih nalaza.</h3>
               
               <div class="custom-control custom-radio custom-control-inline ml-auto">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
                 <label class="custom-control-label" for="uzimanjeUzorkaLab">Dolazim u laboratoriju</label>
               </div>
+              
 
-              <div class="custom-control custom-radio custom-control-inline tessso">
-                
+              {{#if labDetails.patronage}}
+              <div class="custom-control custom-radio custom-control-inline tessso">  
                   <input type="radio" id="uzimanjeUzorkaKuca" name="uzimanjeUzorka" value="patronaza" class="custom-control-input">
                 <label class="custom-control-label" for="uzimanjeUzorkaKuca">Želim patronažu</label>
               </div>
+              {{/if}}
             </div>
             <div class="form-group col-12 d-none uzorakLab text-center" >
-                <label for="datepicker1">Odaberite okvirni datum odlaska u laboratorju, možete otići u bilo kom trenutku</label>
+                <label for="datepicker1">Ovo je samo orijentacioni datum odlaska u laboratorju, možete otići u bilo kom trenutku</label>
                 <input type="text" id="datepicker1"  class="form-control" placeholder="Odaberite okvirni datum odlaska u laboratoriju, možete otići u bilo kom trenutku nakon što prosledite analize laboratoriji ">
 
             </div>
@@ -294,7 +300,7 @@
             </div>
 
 
-            <button class="btn btn-outline-danger text-uppercase col-12 mt-4" id="schedule"><span style="font-size:22px;">prosledi laboratoriji<span></button>
+            <button class="btn btn-outline-danger text-uppercase col-12 mt-4" id="schedule"><span style="font-size:22px;">prosledi laboratoriji <i class="ml-3 fa fa-share" aria-hidden="true"></i><span></button>
               {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
               {{/if}}
