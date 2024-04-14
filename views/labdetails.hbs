@@ -49,6 +49,9 @@
         <!-- ako lab nije akreditovan ili bilo sta od dodatnih opcija ne prikzaivati ovu sekciju-->
         {{#if (checkServices labDetails.accredited labDetails.antigen labDetails.private labDetails.patronage labDetails.disability)}}
         <div class="labFeatures">
+           {{#if labDetails.partner}}
+          <p><img src="/images/labPartner.svg" class="labInfoWindowVerified" title="akreditovano">LabCube partner</p>
+          {{/if}}
           {{#if labDetails.accredited}}
           <p><img src="/images/verified.svg" class="labInfoWindowVerified" title="akreditovano">Akreditovana laboratorija</p>
           {{/if}}
@@ -264,32 +267,34 @@
             {{#if userId}}
                {{#if labDetails.partner}}
             {{!-- skloniti clasu d-none ako je potrebno prikazati deo ispod --}}
-             <div class="form-group col-12  mt-4 ">
-
-              <div class="custom-control custom-radio custom-control-inline">
+             <div class="form-group col-12  mt-4 text-center ">
+               <h3 class="text-center mb-5">Prosledi odabrane analize laboratoriji i dobićeš kod za besplatno online tumačenje laboratorijskih nalaza.</h3>
+              
+              <div class="custom-control custom-radio custom-control-inline ml-auto">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
-                <label class="custom-control-label" for="uzimanjeUzorkaLab">Odlazak u laboratoriju</label>
+                <label class="custom-control-label" for="uzimanjeUzorkaLab">Dolazim u laboratoriju</label>
               </div>
 
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="uzimanjeUzorkaKuca" name="uzimanjeUzorka" value="patronaza" class="custom-control-input"  >
-                <label class="custom-control-label" for="uzimanjeUzorkaKuca">Zakazivanje patronaže</label>
+              <div class="custom-control custom-radio custom-control-inline tessso">
+                
+                  <input type="radio" id="uzimanjeUzorkaKuca" name="uzimanjeUzorka" value="patronaza" class="custom-control-input">
+                <label class="custom-control-label" for="uzimanjeUzorkaKuca">Želim patronažu</label>
               </div>
             </div>
-            <div class="form-group col-12 d-none uzorakLab" >
-                <label for="datepicker1">Odaberite datum odlaska u laboratorju</label>
-                <input type="text" id="datepicker1"  class="form-control" placeholder="Odaberite datum odlaska u laboratoriju">
+            <div class="form-group col-12 d-none uzorakLab text-center" >
+                <label for="datepicker1">Odaberite okvirni datum odlaska u laboratorju, možete otići u bilo kom trenutku</label>
+                <input type="text" id="datepicker1"  class="form-control" placeholder="Odaberite okvirni datum odlaska u laboratoriju, možete otići u bilo kom trenutku nakon što prosledite analize laboratoriji ">
 
             </div>
 
-            <div class="form-group col-12 d-none uzorakPatronaza">
+            <div class="form-group col-12 d-none uzorakPatronaza text-center">
                 <label for="datepicker2">Odaberite datum i vreme patronaže</label>
                 <input id="datepicker2" class="form-control" placeholder="Odaberite datum odlaska u laboratoriju">
                 <p>Nakon što odaberete datum i vreme patronaže laboratorija će vas kontaktirati i potvrditi dolazak. Proverite da li ste dodali adresu i broj mobilnog telefona vasem <a href="/profile" target="_blank" class="link-unstyled">profilu.</a></p>
             </div>
 
 
-            <button class="btn btn-success text-uppercase col-12" id="schedule">prosledi odabrane analize laboratoriji</button>
+            <button class="btn btn-outline-danger text-uppercase col-12 mt-4" id="schedule"><span style="font-size:22px;">prosledi laboratoriji<span></button>
               {{else}}
               <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
               {{/if}}
