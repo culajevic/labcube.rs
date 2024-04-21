@@ -132,16 +132,16 @@ exports.freeUpload = async (req, res) => {
     let packageTime;
 
     switch (req.body.package) {
-      case "490":
+      case "599":
         packageTime = 24;
         break;
-      case "590":
+      case "699":
         packageTime = 12;
         break;
-      case "890":
+      case "899":
         packageTime = 4;
         break;
-      case "623":
+      case "445":
         packageTime = 4;
         break;
       default:
@@ -174,9 +174,7 @@ exports.freeUpload = async (req, res) => {
           "culajevic@gmail.com",
           "jelenahajzler@gmail.com",
           "mandicvalentina@hotmail.com",
-          "milicasummer94@gmail.com",
-          "vanja.vlaisavljevic93@gmail.com",
-          "djuric.miljana84@gmail.com"
+          "milicasummer94@gmail.com"
         ],
         subject: `Novi rezultati za tumačenje ${req.body.kodPopust}`,
         text: "",
@@ -1972,13 +1970,13 @@ exports.payment = async (req, res) => {
   let packageTime;
 
   switch (req.body.package) {
-    case "490":
+    case "599":
       packageTime = 24;
       break;
-    case "590":
+    case "699":
       packageTime = 12;
       break;
-    case "890":
+    case "899":
       packageTime = 4;
       break;
     default:
@@ -2007,9 +2005,9 @@ exports.payment = async (req, res) => {
   //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
   if (
     !(
-      formatPrice == 890 ||
-      formatPrice == 590 ||
-      formatPrice == 490
+      formatPrice == 899 ||
+      formatPrice == 699 ||
+      formatPrice == 599
     )
   ) {
     errors.push({ text: "Došlo je do greške sa cenom, pokušajte ponovo" });
@@ -2175,10 +2173,10 @@ exports.paymentDone = async (req, res) => {
         
 
         //ako se menja vreme promeniti deadline
-        if (data.amount == 890) {
+        if (data.amount == 899) {
           deadline.setHours(deadline.getHours() + 4);
         }
-        else if (data.amount == 590) {
+        else if (data.amount == 699) {
           deadline.setHours(deadline.getHours() + 12);
         } else 
           deadline.setHours(deadline.getHours() + 24);
@@ -2222,16 +2220,16 @@ exports.paymentDone = async (req, res) => {
         console.log('sacuvana uplata u bazi' + data.result)
 
         switch (data.amount) {
-          case "490.00":
+          case "599.00":
             packageTime = 24;
             break;
-          case "590.00":
+          case "699.00":
             packageTime = 12;
             break;
-          case "890.00":
+          case "899.00":
             packageTime = 4;
             break;
-          case "623":
+          case "445":
             packageTime = 4;
             break;
           default:
@@ -2251,10 +2249,7 @@ exports.paymentDone = async (req, res) => {
               "culajevic@gmail.com",
               "jelenahajzler@gmail.com",
               "mandicvalentina@hotmail.com",
-              "milicasummer94@gmail.com",
-              "vanja.vlaisavljevic93@gmail.com",
-              "djuric.miljana84@gmail.com"    
-              
+              "milicasummer94@gmail.com"
             ],
             subject: `Novi rezultati za tumačenje / ${packageTime}h / ${data.amount} RSD`,
             text: "",
