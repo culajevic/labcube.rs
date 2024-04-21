@@ -384,7 +384,7 @@ hbs.registerHelper("displayPackageTime", (package) => {
     case "899":
       packageTime = 4;
       break;
-    case "445":
+    case "449":
       packageTime = 4;
       break;
     default:

@@ -141,7 +141,7 @@ exports.freeUpload = async (req, res) => {
       case "899":
         packageTime = 4;
         break;
-      case "445":
+      case "449":
         packageTime = 4;
         break;
       default:
@@ -1957,7 +1957,7 @@ exports.freeUpload = async (req, res) => {
 
 exports.payment = async (req, res) => {
   let newDateCheck = new Date();
-  // console.log(req.body)
+  console.log(req.body)
   const groupNames = await Group.find({}, { name: 1, slug: 1, _id: 0 }).sort({
     name: 1,
   });
@@ -1970,6 +1970,9 @@ exports.payment = async (req, res) => {
   let packageTime;
 
   switch (req.body.package) {
+    case "449":
+      packageTime = 4;
+      break;
     case "599":
       packageTime = 24;
       break;
@@ -2007,7 +2010,8 @@ exports.payment = async (req, res) => {
     !(
       formatPrice == 899 ||
       formatPrice == 699 ||
-      formatPrice == 599
+      formatPrice == 599 ||
+      formatPrice == 449
     )
   ) {
     errors.push({ text: "Došlo je do greške sa cenom, pokušajte ponovo" });
@@ -2173,7 +2177,7 @@ exports.paymentDone = async (req, res) => {
         
 
         //ako se menja vreme promeniti deadline
-        if (data.amount == 899) {
+        if (data.amount == 899 || data.amount == 449) {
           deadline.setHours(deadline.getHours() + 4);
         }
         else if (data.amount == 699) {
@@ -2229,7 +2233,7 @@ exports.paymentDone = async (req, res) => {
           case "899.00":
             packageTime = 4;
             break;
-          case "445":
+          case "449.00":
             packageTime = 4;
             break;
           default:
