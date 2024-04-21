@@ -1430,26 +1430,26 @@ if(anamnesisCommentValue.value == '') {
 
   const searchUserEmail = document.getElementById('searchForUserEmail')
     // if(searchUserEmail) {
-      // console.log(searchUserEmail)
+    //   console.log('usermail', searchUserEmail)
     // }
 } else if(findUserByEmail) {
-  console.log(findUserByEmail)
+  console.log('stranica za lab', findUserByEmail)
     const labDashResults = document.getElementById('labDashboard')
     const labDashTable = document.getElementById('labDashResults')
   
       findUserByEmail.addEventListener('input', () => {
-
+        
         let searchStr = findUserByEmail.value
           const pagination = document.getElementById('pagination')
         pagination.classList.add('d-none')
         fetch('/users/'+searchStr).then((data) => {
           labDashTable.innerHTML = ''
           data.json().then((result) => {
-            console.log(result)
+            // console.log(result)
             for(let i=0; i<result.length; i++){
 
               let formatDate
-              if (result[i].uzimanjeUzorka == 'patronaza') {
+              if (result[i].uzimanjeUzorka == 'patronaža') {
                formatDate = moment(result[i].scheduledFor).format('D.M.Y / H:mm')
              } else {
                formatDate = moment(result[i].scheduledFor).format('D.M.Y')
@@ -1575,7 +1575,7 @@ let interpretationPage = document.getElementById('interpretationId')
             for(let i=0; i<result.length; i++){
 
               let formatDate
-              if (result[i].uzimanjeUzorka == 'patronaza') {
+              if (result[i].uzimanjeUzorka == 'patronaža') {
                formatDate = moment(result[i].scheduledFor).format('D.M.Y / H:mm')
              } else {
                formatDate = moment(result[i].scheduledFor).format('D.M.Y')
