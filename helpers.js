@@ -47,6 +47,12 @@ hbs.registerHelper("checkFeedback", (user, star) => {
   }
 });
 
+hbs.registerHelper("patronaza", (address, mobile, grad) => {
+  if (!address || !mobile || !grad) {
+    return true;
+  }
+});
+
 hbs.registerHelper("generateStar", (num) => {
   let stars = "";
   let missing = 5 - num;
@@ -369,16 +375,16 @@ hbs.registerHelper("freeInterpretation", (paid) => {
 hbs.registerHelper("displayPackageTime", (package) => {
   let packageTime;
   switch (package) {
-    case "490":
+    case "599":
       packageTime = 24;
       break;
-    case "590":
+    case "699":
       packageTime = 12;
       break;
-    case "890":
+    case "899":
       packageTime = 4;
       break;
-    case "623":
+    case "445":
       packageTime = 4;
       break;
     default:
