@@ -24215,10 +24215,10 @@ window.onload = function () {
       bmi.value = (tezina.value / (visina.value / 100 * (visina.value / 100))).toFixed(2);
     });
     var searchUserEmail = document.getElementById('searchForUserEmail'); // if(searchUserEmail) {
-    // console.log(searchUserEmail)
+    //   console.log('usermail', searchUserEmail)
     // }
   } else if (findUserByEmail) {
-    console.log(findUserByEmail);
+    console.log('stranica za lab', findUserByEmail);
     var labDashResults = document.getElementById('labDashboard');
     var labDashTable = document.getElementById('labDashResults');
     findUserByEmail.addEventListener('input', function () {
@@ -24228,12 +24228,11 @@ window.onload = function () {
       fetch('/users/' + searchStr).then(function (data) {
         labDashTable.innerHTML = '';
         data.json().then(function (result) {
-          console.log(result);
-
+          // console.log(result)
           for (var _i3 = 0; _i3 < result.length; _i3++) {
             var formatDate = void 0;
 
-            if (result[_i3].uzimanjeUzorka == 'patronaza') {
+            if (result[_i3].uzimanjeUzorka == 'patronaža') {
               formatDate = moment(result[_i3].scheduledFor).format('D.M.Y / H:mm');
             } else {
               formatDate = moment(result[_i3].scheduledFor).format('D.M.Y');
@@ -24315,7 +24314,7 @@ window.onload = function () {
           for (var _i4 = 0; _i4 < result.length; _i4++) {
             var formatDate = void 0;
 
-            if (result[_i4].uzimanjeUzorka == 'patronaza') {
+            if (result[_i4].uzimanjeUzorka == 'patronaža') {
               formatDate = moment(result[_i4].scheduledFor).format('D.M.Y / H:mm');
             } else {
               formatDate = moment(result[_i4].scheduledFor).format('D.M.Y');

@@ -8568,7 +8568,7 @@ footer {
   line-height: 1rem; }
 
 body {
-  background-color: #white; }
+  background-color: white; }
 
 .wpwl-form {
   max-width: 34.375rem; }
@@ -10757,10 +10757,17 @@ table.workingHoursLabDetails {
   box-shadow: none; }
 
 #odabirPaketa input[type="radio"],
+#odlazakULab input[type="radio"],
+#najavaPatronaze input[type="radio"],
 #status input[type="radio"] {
   display: none; }
 
 #odabirPaketa input[type="radio"]:checked + label {
+  background-color: #1D88E5;
+  color: #FFF !important;
+  border: 1px solid #1D88E5; }
+
+#dolazakULab input[type="radio"]:checked + label {
   background-color: #1D88E5;
   color: #FFF !important;
   border: 1px solid #1D88E5; }
