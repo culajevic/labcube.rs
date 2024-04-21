@@ -2523,6 +2523,8 @@ table.workingHoursLabDetails {
 }
 
 #odabirPaketa,
+#odlazakULab,
+#najavaPatronaze,
 #status {
   input[type="radio"] {
     display: none;
@@ -2534,6 +2536,12 @@ table.workingHoursLabDetails {
 }
 
 #odabirPaketa input[type="radio"]:checked + label {
+  background-color: $primary-color;
+  color: $white-color !important;
+  border: 1px solid $primary-color;
+}
+
+#dolazakULab input[type="radio"]:checked + label {
   background-color: $primary-color;
   color: $white-color !important;
   border: 1px solid $primary-color;
