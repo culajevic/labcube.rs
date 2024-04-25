@@ -286,7 +286,7 @@ exports.addAnalysis = (itemsArray, resultDiv, checkout) => {
     if (
       e.target.tagName === "BUTTON" &&
       e.target.classList.contains("addAnalysis") &&
-      itemsArray.length < 30
+      itemsArray.length < 50
     ) {
       checkout.removeAttribute("style");
       //enable if shopping cart should be visible after each dodaj click
@@ -297,7 +297,7 @@ exports.addAnalysis = (itemsArray, resultDiv, checkout) => {
         // setTimeout(()=>{
         //   priceList.classList.remove('unhidePriceList')
         //   priceList.classList.add('hidePriceList')
-        // },2100)
+        // },2000)
       }, 400);
 
       itemsArray.push({
@@ -406,7 +406,7 @@ exports.addAnalysis = (itemsArray, resultDiv, checkout) => {
 
       //display basket when first analyis is added to basket
       document.querySelector(".card").classList.remove("d-none");
-    } else if (itemsArray.length > 30) {
+    } else if (itemsArray.length > 50) {
       console.log("ne mozete dodati vise od 30 analiza u korpu");
     }
   }); // resultdiv end
