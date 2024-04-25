@@ -90,6 +90,7 @@ exports.scheduleVisit = async (req, res) => {
   let getEmailforSending = getLabData[0].email;
   let discountCode = getLabData[0].comment;
   let discountCode50 = getLabData[0].description;
+  let labNameEmail = getLabData[0].labName;
   let getUserData = await User.find(
     { _id: req.user._id },
     { email: 1, username: 1, mobile:1 }
@@ -687,10 +688,12 @@ exports.scheduleVisit = async (req, res) => {
                         <tbody><tr>
                             
                             <td valign="top" class="mcnTextContent" style="padding: 0px 18px 9px; line-height: 200%;">
-                            
+                                
                                 <h2 style="text-align: center;"><style="font-size:20px;">${getUserName} | ${getUserEmail} </h2>
                                 <h4 style="text-align: center;">Mobilni telefon pacijenta: ${mobilePhone}</h4>
                                 <h4 style="text-align: center;">Okvirni termin ${uzimanjeUzorka}: ${schedulePatronage}</h4>   
+                                <h4 style="text-align: center;">Lokacija: ${labNameEmail}</h4>   
+
                         
                             </td>
                         </tr>
@@ -1798,12 +1801,13 @@ exports.scheduleVisit = async (req, res) => {
                     <tbody>
                         <tr>
                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 28px; padding: 12px; background-color: #5B8EE8;">
-                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;"> Tumačenje 24h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode}</p>
+                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;"> Besplatno tumačenje 24h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode}</p>
 								
                             </td>
-                            <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 28px; padding: 12px; background-color: #55D159;">
-                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode50}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Tumačenje 4h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode50}</p>
-								
+                        </tr>
+                        <tr>
+                         <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 28px; padding: 12px; background-color: #FF9600;">
+                                <a href="labcube.rs/tumacenje-laboratorijskih-analiza" class="mcnButton " title="${discountCode50}" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Popust 50% na tumačenje u roku od 4h</a><p style="font-weight: bold;font-size: 22px; color: #FFFFFF;">kôd: ${discountCode50}</p><span style="letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;font-size: 16px;">Dostupno samo između 08 i 18h</span>
                             </td>
                         </tr>
                     </tbody>
