@@ -718,6 +718,7 @@ ul ol ul {
 .hidePriceList {
   transition: right 5s ease-in-out;
   right: -10000px;
+  // right:-1000px;
   z-index: 1000;
   width: 300px;
   // right:0;
