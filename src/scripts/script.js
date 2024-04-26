@@ -216,6 +216,7 @@ const contact = /kontakt.*/
 const allLabs = /.*u-srbiji/
 const cookies = /kolacici.*/
 const about = /o-nama/
+const hvala = /hvala.*/
 const profilePage = /profile.*/
 const payment = /paymentPage/
 const paymentDetails = /uslovi.*/
@@ -227,7 +228,7 @@ let findUserByEmail = document.getElementById('searchForUserEmail')
 //definisanje stranica na kojima se prikazuje shoping karta
 if(itemsArray.length>0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment)
  || location.match(paymentDetails) || (location.match(profilePage) && !findUserByEmail) || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact)
- || location.match(allLabs) || location.match(patronage))) {
+ || location.match(allLabs) || location.match(patronage) || location.match(hvala))) {
   helper.displayBasket(itemsArray)
   
 }
@@ -1323,7 +1324,7 @@ if (municipalityValue != null) {
     }
 
 if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt'
-    || urlArr[1] == 'sve-laboratorije-u-srbiji'   || urlArr[1] == 'zakazivanje-patronaze') {
+    || urlArr[1] == 'sve-laboratorije-u-srbiji'   || urlArr[1] == 'zakazivanje-patronaze' || urlArr[1] == 'hvala') {
   //FindBestPrice
     const findBestPrice = new FindBestPrice.bestPrice()
   //Delete analysis from shoping list

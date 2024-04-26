@@ -21993,15 +21993,23 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
   //adding analysis to sidebar shopping cart
   resultDiv.addEventListener("click", function (e) {
     if (e.target.tagName === "BUTTON" && e.target.classList.contains("addAnalysis") && itemsArray.length < 50) {
-      checkout.removeAttribute("style"); //enable if shopping cart should be visible after each dodaj click
+      checkout.removeAttribute("style");
+      document.getElementById('searchResultPage').value = "";
+      document.getElementById('searchResultPage').focus(); //enable if shopping cart should be visible after each dodaj click
 
       setTimeout(function () {
         var priceList = document.getElementById("priceList");
         priceList.classList.add("unhidePriceList");
-        priceList.classList.remove("hidePriceList"); // setTimeout(()=>{
-        //   priceList.classList.remove('unhidePriceList')
-        //   priceList.classList.add('hidePriceList')
-        // },2000)
+        priceList.classList.remove("hidePriceList");
+        var stopTimeOut = setTimeout(function () {
+          priceList.classList.remove('unhidePriceList');
+          priceList.classList.add('hidePriceList');
+        }, 2400);
+        priceList.addEventListener("mouseover", function () {
+          if (stopTimeOut) {
+            clearTimeout(stopTimeOut);
+          }
+        });
       }, 400);
       itemsArray.push({
         name: e.target.getAttribute("data-analysisName"),
@@ -23060,6 +23068,7 @@ var contact = /kontakt.*/;
 var allLabs = /.*u-srbiji/;
 var cookies = /kolacici.*/;
 var about = /o-nama/;
+var hvala = /hvala.*/;
 var profilePage = /profile.*/;
 var payment = /paymentPage/;
 var paymentDetails = /uslovi.*/;
@@ -23067,7 +23076,7 @@ var patronage = /zakazivanje.*/;
 var labCubeResultsInterpratationForm = /otherResultsInterpretation.*/;
 var findUserByEmail = document.getElementById('searchForUserEmail'); //definisanje stranica na kojima se prikazuje shoping karta
 
-if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) && !findUserByEmail || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage))) {
+if (itemsArray.length > 0 && (location.match(group) || location.match(checkUrl) || location.match(nadjiLab) || location.match(laboratorija) || location.match(tumacenje) || location.match(payment) || location.match(paymentDetails) || location.match(profilePage) && !findUserByEmail || location.match(politika) || location.match(contact) || location.match(cookies) || location.match(about) || location.match(contact) || location.match(allLabs) || location.match(patronage) || location.match(hvala))) {
   helper.displayBasket(itemsArray);
 } //get reference to checkout element which displays number of selected analysis in navigation
 
@@ -24117,7 +24126,7 @@ window.onload = function () {
     }
   }
 
-  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze') {
+  if (urlArr[1] == 'politika-privatnosti' || urlArr[1] == 'uslovi-koriscenja' || urlArr[1] == 'uslovi-placanja' || urlArr[1] == 'kolacici' || urlArr[1] == 'o-nama' || urlArr[1] == 'kontakt' || urlArr[1] == 'sve-laboratorije-u-srbiji' || urlArr[1] == 'zakazivanje-patronaze' || urlArr[1] == 'hvala') {
     //FindBestPrice
     var findBestPrice = new FindBestPrice.bestPrice(); //Delete analysis from shoping list
 

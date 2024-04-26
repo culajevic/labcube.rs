@@ -289,16 +289,25 @@ exports.addAnalysis = (itemsArray, resultDiv, checkout) => {
       itemsArray.length < 50
     ) {
       checkout.removeAttribute("style");
+      document.getElementById('searchResultPage').value = ""
+      document.getElementById('searchResultPage').focus()
       //enable if shopping cart should be visible after each dodaj click
       setTimeout(() => {
         let priceList = document.getElementById("priceList");
         priceList.classList.add("unhidePriceList");
         priceList.classList.remove("hidePriceList");
-        // setTimeout(()=>{
-        //   priceList.classList.remove('unhidePriceList')
-        //   priceList.classList.add('hidePriceList')
-        // },2000)
+        let stopTimeOut = setTimeout(()=>{
+          priceList.classList.remove('unhidePriceList')
+          priceList.classList.add('hidePriceList')
+        },2400)
+        priceList.addEventListener("mouseover", () => {
+          if (stopTimeOut) {
+            clearTimeout(stopTimeOut)
+          }
+        })
       }, 400);
+
+     
 
       itemsArray.push({
         name: e.target.getAttribute("data-analysisName"),
