@@ -305,6 +305,11 @@ exports.addAnalysis = (itemsArray, resultDiv, checkout) => {
             clearTimeout(stopTimeOut)
           }
         })
+        priceList.addEventListener("touchstart", () => {
+          if (stopTimeOut) {
+            clearTimeout(stopTimeOut)
+          }
+        })
       }, 400);
 
      

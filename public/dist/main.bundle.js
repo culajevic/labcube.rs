@@ -22010,6 +22010,11 @@ exports.addAnalysis = function (itemsArray, resultDiv, checkout) {
             clearTimeout(stopTimeOut);
           }
         });
+        priceList.addEventListener("touchstart", function () {
+          if (stopTimeOut) {
+            clearTimeout(stopTimeOut);
+          }
+        });
       }, 400);
       itemsArray.push({
         name: e.target.getAttribute("data-analysisName"),
