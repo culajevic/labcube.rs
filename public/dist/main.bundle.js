@@ -21759,7 +21759,7 @@ exports.removeElement = function (element1, element2) {
 exports.deleteDocument = function (selector, message, url, redirect, error) {
   var deleteDocument = document.querySelectorAll(selector);
   deleteDocument.forEach(function (item) {
-    item.addEventListener("click touchstart", function (e) {
+    item.addEventListener("click", function (e) {
       if (confirm(message)) {
         var id = e.target.getAttribute("data-id");
         var location = e.target.getAttribute("data-tab");
