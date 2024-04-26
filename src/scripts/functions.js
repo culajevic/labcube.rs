@@ -16,7 +16,7 @@ exports.removeElement = (element1, element2) => {
 exports.deleteDocument = (selector, message, url, redirect, error) => {
   let deleteDocument = document.querySelectorAll(selector);
   deleteDocument.forEach((item) => {
-    item.addEventListener("click", (e) => {
+    item.addEventListener("click touchstart", (e) => {
       if (confirm(message)) {
         let id = e.target.getAttribute("data-id");
         let location = e.target.getAttribute("data-tab");
