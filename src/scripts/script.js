@@ -2736,7 +2736,7 @@ if (location.match('addLab')) {
 
   //delete priceList
     if(location.match('profile')) {
-      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile/', '/profile', 'došlo je do greške prilikom brisanja rezultata')
+      helper.deleteDocument('.deleteDocument', 'Ovaj rezultat će biti trajno obrisan, bez mogućnosti vraćanja podataka! Da li ste sigurni?', '/profile', '/profile', 'došlo je do greške prilikom brisanja rezultata')
     }
 
 
