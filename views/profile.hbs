@@ -734,18 +734,18 @@
           <td>{{formatLabScheduleDate this.scheduledFor this.uzimanjeUzorka}}</td>
           <td>{{this.total}} rsd</td>
 
-          <td><span class="{{this.status}}">{{this.status}}</span></td>
+          <td><span class="{{this.status}} btn">{{this.status}}</span></td>
 
           {{#if (checkStatus this.status)}}
           <td><span class="okvrednosti text-center" title="broj rezultata u granicama">{{countOkValues (countHighValues this.analyses) this.analyses }}</span></td>
           <td><span class="vangranica text-center" title="broj rezultata koji su van dozvoljenih vrednosti">{{countHighValues this.analyses}}</span></td>
           {{else}}
-          <td><span class="brojPotrebnihAnaliza text-center" title="broj potrebnih analiza">{{countItems this.analyses}}</span></td>
+          <td><span class="brojPotrebnihAnaliza text-center" title="broj odabranih analiza">{{countItems this.analyses}}</span></td>
           <td></td>
           {{/if}}
           <!-- <td><a href=""><img src="/images/laboratorija.svg" title="prosledi lekaru" class="mb-1"></a></td> -->
-          <td><a href="/mojirezultati/{{this.id}}" class="btnDetails text-uppercase">detalji</button></a>
-            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument text-uppercase">X</a></td>
+          <td><a href="/mojirezultati/{{this.id}}" class="btn btnDetails text-uppercase">detalji</button></a>
+            <td><a href='' data-id={{this.id}} class="btn btn-danger deleteDocument text-uppercase">Obriši</a></td>
         </tr>
         {{/each}}
       </tbody>
