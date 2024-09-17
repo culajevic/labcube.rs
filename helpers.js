@@ -375,17 +375,17 @@ hbs.registerHelper("freeInterpretation", (paid) => {
 hbs.registerHelper("displayPackageTime", (package) => {
   let packageTime;
   switch (package) {
-    case "599":
+    case "720":
       packageTime = 24;
       break;
-    case "699":
+    case "840":
       packageTime = 12;
       break;
-    case "899":
+    case "1080":
       packageTime = 4;
       break;
-    case "449":
-      packageTime = 4;
+    case "1":
+      packageTime = 24;
       break;
     default:
       packageTime = "24";

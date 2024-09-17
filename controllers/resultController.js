@@ -132,17 +132,17 @@ exports.freeUpload = async (req, res) => {
     let packageTime;
 
     switch (req.body.package) {
-      case "599":
+      case "720":
         packageTime = 24;
         break;
-      case "699":
+      case "840":
         packageTime = 12;
         break;
-      case "899":
+      case "1080":
         packageTime = 4;
         break;
-      case "449":
-        packageTime = 4;
+      case "1":
+        packageTime = 24;
         break;
       default:
         packageTime = 24;
@@ -1969,16 +1969,16 @@ exports.payment = async (req, res) => {
   let packageTime;
 
   switch (req.body.package) {
-    case "449":
-      packageTime = 4;
-      break;
-    case "599":
+    case "1":
       packageTime = 24;
       break;
-    case "699":
+    case "720":
+      packageTime = 24;
+      break;
+    case "840":
       packageTime = 12;
       break;
-    case "899":
+    case "1080":
       packageTime = 4;
       break;
     default:
@@ -2007,10 +2007,10 @@ exports.payment = async (req, res) => {
   //ako se menja osnovna cena 890 mora se promeniti i ovo ili ako se menja velicina popusta promeniti i nove cene, trenutno je popust 10% i 30%
   if (
     !(
-      formatPrice == 899 ||
-      formatPrice == 699 ||
-      formatPrice == 599 ||
-      formatPrice == 449
+      formatPrice == 1080 ||
+      formatPrice == 840 ||
+      formatPrice == 720 ||
+      formatPrice == 1
     )
   ) {
     errors.push({ text: "Došlo je do greške sa cenom, pokušajte ponovo" });
@@ -2130,7 +2130,7 @@ exports.payment = async (req, res) => {
       // res.redirect("labResultsAnalysis");
       console.log("greska prilikom prelaska sa payment page", error);
     });
-    next()
+    // next()
 };
 
 exports.paymentDone = async (req, res) => {
@@ -2176,14 +2176,15 @@ exports.paymentDone = async (req, res) => {
         
 
         //ako se menja vreme promeniti deadline
-        if (data.amount == 899 || data.amount == 449) {
+        if (data.amount == 1080 || data.amount == 333) {
           deadline.setHours(deadline.getHours() + 4);
         }
-        else if (data.amount == 699) {
+        else if (data.amount == 840) {
           deadline.setHours(deadline.getHours() + 12);
         } else 
           deadline.setHours(deadline.getHours() + 24);
       
+        console.log('deadline' + deadline)
 
         const uploadResult = new Result({
           userId: data.customer.merchantCustomerId,
@@ -2223,17 +2224,17 @@ exports.paymentDone = async (req, res) => {
         console.log('sacuvana uplata u bazi' + data.result)
 
         switch (data.amount) {
-          case "599.00":
+          case "720.00":
             packageTime = 24;
             break;
-          case "699.00":
+          case "840.00":
             packageTime = 12;
             break;
-          case "899.00":
+          case "1080.00":
             packageTime = 4;
             break;
-          case "449.00":
-            packageTime = 4;
+          case "1.00":
+            packageTime = 24;
             break;
           default:
             packageTime = 24;
@@ -2241,6 +2242,7 @@ exports.paymentDone = async (req, res) => {
 
         try {
           uploadResult.save();
+          console.log('uspeh')
           let mailOptions = {
             //  from:data.customer.email,
             from: "LabCube No-Reply <labcube-tumacenje-no-reply@labcube.rs>",
@@ -4037,6 +4039,7 @@ exports.paymentDone = async (req, res) => {
           // req.flash('success_msg','Vaši rezultati su uspešno prosleđeni na tumačenje')
           // res.redirect('/')
         } catch (e) {
+          console.log('mejl nije poslat na tumacenje@labcube.rs')
           req.flash('error_msg', `Dogodila se greška prilikom slanja rezultata ${e}`)
           // res.redirect('/tumacenje-laboratorijskih-analiza')
           console.log("nije uspesno upisano u bazu" + e);
