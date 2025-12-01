@@ -134,12 +134,12 @@
           {{!-- <li class="nav-item">
             <a href="/zakazivanje-patronaze" class="nav-link"><img src="/images/patronaza2.svg" class="filter-white mb-1 mr-2"> Zakaži patronažu</a>
           </li> --}}
-          <li class="nav-item">
+          {{!-- <li class="nav-item">
             <a href="/tumacenje-laboratorijskih-analiza" class="nav-link"><i class="far fa-comments"></i>Online tumačenje nalaza</a>
-          </li>
-          <li class="nav-item">
+          </li> --}}
+          {{!-- <li class="nav-item">
             <a href="/#google-map" class="nav-link"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
-          </li>
+          </li> --}}
 
           {{#if user.id}}
             <li class="nav-item">
@@ -156,8 +156,8 @@
               <a href="/registracija" class="nav-link"><span class="icon iconSvgRegister">Registracija</span></a>
             </li> --}}
           {{/if}}
-          <li class="nav-item">
-            <button class="nav-link checkout" title="broj odabranih analiza" id="analysisBasket">odabranih analiza 0</button>
+          <li class="nav-item d-none">
+            <button class="nav-link checkout" title="broj odabranih analiza" id="analysisBasket"></button>
           </li>
         </ul>
       </div><!-- collapse -->
@@ -168,12 +168,13 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 searchFieldContainer d-sm-bloc">
-            <h2 class="text-white mb-4 d-none d-sm-block">Pronađi laboratorijske analize po cenama koje ti odgovaraju!</h2>
-            <h4 class="text-white mb-4 d-sm-none d-block">Pronađi laboratorijske analize po cenama koje ti odgovaraju!</h4>
-            <p class="text-white mb-0 pb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Besplatno tumačenje laboratorijskih rezultata<sup>*</sup></p>
-            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Tvoji rezultati su zauvek na jednom mestu</p>
-            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Bez dodatnih troškova za pacijente</p>
-            <p class="text-white ml-1"><sup>*</sup>samo za partnerske laboratorije</p>
+            <h1 class="text-white mb-4 d-none d-sm-block">Razumljivi opisi laboratorijskih analiza i podaci o laboratorijama</h1>
+            <h2 class="text-white mb-4 d-sm-none d-block">Razumljivi opisi laboratorijskih analiza i podaci o laboratorijama</h2>
+            {{!-- <p class="text-white mb-0 pb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> U roku od 4h saznaj šta znače tvoji laboratorijski nalazi</p>
+            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Možeš dobiti tumačenje nalaza i za roditelje, decu...</p>
+            <p class="text-white pb-0 mb-0"><i class="fa fa-check mr-1" aria-hidden="true"></i> Svi tvoji rezultati su uvek na jednom mestu</p> --}}
+            
+            
             <div class="col-12 col-sm-12 col-lg-12 pl-0 " data-toggle="tooltip" data-placement="bottom" data-html="true">
               <input type="text" autofocus class="form-control search data-hj-allow" id="searchAnalysis" name="searchAnalysis" data-hj-allow autocomplete="off" placeholder="Koju analizu tražiš?">
               <input type="radio" name="searchFilter" id="analizeRadioButton" value="analiza" checked>
@@ -181,7 +182,7 @@
               <input type="radio" name="searchFilter" id="laboratorijeRadioButton" value="laboratorija" >
               <label for="laboratorijeRadioButton" class="laboratorijeSearchFilter" title="ukoliko tražite laboratoriju kliknite ovde">laboratorija</label>
             </div> 
-            <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3">Već imam nalaze, treba mi tumačenje </a><br />
+            {{!-- <a href="/registracija" target="_blank" class="btn btn-lg btn-outline-warning mt-4 mr-3 text-uppercase">pokreni tumačenje nalaza </a><br /> --}}
           
             {{!-- <a href="/" target="_blank" class="btn btn-lg btn-outline-warning  mt-4 mt-sm-4 explainerSmallScreen d-inline-block d-lg-none">Kako uporediti cene?</a> --}}
           </div>
