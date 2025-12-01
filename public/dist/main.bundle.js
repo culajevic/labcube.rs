@@ -21863,10 +21863,12 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
   var priceSpan = document.createElement("span");
   priceSpan.className = "font-weight-bold priceRange"; // let priceRange = document.createTextNode(`${pricesMin[i][0].cenovnik[0].cena} - ${pricesMax[i][0].cenovnik[0].cena}`)
 
-  var priceRange = document.createTextNode("".concat(prices[i].minPrice, " - ").concat(prices[i].maxPrice));
-  priceSpan.appendChild(priceRange);
-  minmaxPrice.appendChild(priceSpan);
-  tr.appendChild(minmaxPrice); //create btn for adding analysis to basket
+  var priceRange = document.createTextNode("".concat(prices[i].minPrice, " - ").concat(prices[i].maxPrice)); //disable price range for analysis
+  // priceSpan.appendChild(priceRange);
+  // minmaxPrice.appendChild(priceSpan);
+  // tr.appendChild(minmaxPrice);
+  //-----------------//
+  //create btn for adding analysis to basket
 
   var addAnalysisBtnTd = document.createElement("td");
   var addAnalysisBtn = document.createElement("button");
@@ -21874,7 +21876,7 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
   if (analysisPositionArr === -1) {
     addAnalysisBtn.className = "btn btn-danger float-right btn-block text-uppercase addAnalysis";
-    addAnalysisBtnText = document.createTextNode("uporedi cenu");
+    addAnalysisBtnText = document.createTextNode("uporedi cenuuuu");
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714");
     addAnalysisBtn.className = "btn btn-outline-success float-right btn-block text-uppercase deleteAnalysis";
@@ -21883,9 +21885,11 @@ exports.renderAnalysisResult = function (analysis, prices, resultDiv, itemsArray
 
   addAnalysisBtn.setAttribute("data-analysisId", prices[i]._id);
   addAnalysisBtn.setAttribute("data-analysisName", prices[i].name);
-  addAnalysisBtn.setAttribute("data-groupImg", prices[i].iconPath);
-  addAnalysisBtn.appendChild(addAnalysisBtnText);
-  addAnalysisBtnTd.appendChild(addAnalysisBtn);
+  addAnalysisBtn.setAttribute("data-groupImg", prices[i].iconPath); //remove button for price comparation
+  // addAnalysisBtn.appendChild(addAnalysisBtnText);
+  // addAnalysisBtnTd.appendChild(addAnalysisBtn);
+  //----------------------------
+
   tr.appendChild(addAnalysisBtnTd);
   resultDiv.appendChild(tr);
 };
