@@ -148,7 +148,7 @@
       </section>
     </div>
 
-      <section id="labPrices">
+      {{!-- <section id="labPrices">
         <div class="container" id="resultsLabDetails">
           <div class="row mb-2">
             {{#if numofanalysis}}
@@ -166,7 +166,7 @@
                     <td><img src="/images/detail.svg" data-toggle="tooltip" title="{{this.preview}}" class="tooltipImg mr-2">
                       <a href="../../results/analysis/{{this.slug}}" class="nolink" target="_blank">{{this.name}}</a></td>
                     <td class="d-none d-md-table-cell">{{#each abbr}} {{displayPhoneList this}} {{/each}}</td>
-                    <!-- <td>{{#each alt}} {{displayPhoneList this}} {{/each}}</td> -->
+                    
 
                     {{#if this.availableHC.[0]}}
                       <td class="d-none d-md-table-cell"><img src="/images/hospital-alt.svg" data-toggle='tooltip' title="Analizu je moguće uraditi u domu zdravlja o trošku zdravstvenog osiguranja."></td>
@@ -178,107 +178,42 @@
                   </tr>
                   {{/each}}
                 </tbody>
-       				</table><!-- table -->
-            </div><!-- col 12 end -->
+       				</table>
+            </div>
             <div class="col-12">
               <div class="mt-5">
-                 
                   {{#if labDetails.partner}}
-                {{!-- <p class="aboutUs"><span class="numAnalysis">Redovna cena </span><span class="totalPrice" ></span></p> --}}
                 <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="">Cena</span> <span class="totalPrice" id="labCubePrice"></span></p>
-                {{!-- <p class="text-center"><span> + venepunkcija {{labDetails.description}} rsd</span></p> --}}
                 <p class="text-center mb-5"><span> + trošak uzimanja uzorka</span></p>
                   {{else}}
-                   {{!-- <p class="aboutUs"><span class="numAnalysis">Redovna cena </span><span class="totalPrice" ></span></p> --}}
                 <p class="aboutUsDiscount" id="discount" data-discount="{{labDetails.discount}}"><span class="">Ukupno</span> <span class="totalPrice" id="labCubePrice"></span></p>
-                {{!-- <p class="text-center"><span> + venepunkcija {{labDetails.description}} rsd</span></p> --}}
                   {{/if}}
               </div>   
             </div>
              
             {{/if}}
 
-          </div><!-- row end --> 
+          </div>
           <div class="col-12 labDetailsActionBtn mt-4">
             {{!-- ako ide zakazivanje  --}}
           {{!-- {{#if userId}} --}}
             {{!-- {{#if labDetails.partner}} --}}
             {{!-- <a class="btn btn-success text-uppercase " href="">povratak nazad</a> --}}
             {{!-- <a class="btn btn-success text-uppercase p-4" id="schedule" href="/schedule/{{labDetails.id}}/{{#each selectedAnalysis}}{{this.name}},{{/each}}/{{userId}}/{{total}}">prosledi laboratoriji </a>  --}}
-             
-             {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Besplatno tumačenje rezultata</h5>
-                    <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
-                  </div>
-                  </div>
-                </div> --}}
                 
-                {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                  <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Uvek na jednom mestu</h5>
-                    <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
-                  </div>
-                  </div>
-                </div> --}}
             
-                  {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                    <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Prosledi laboratoriji</h5>
-                      <p class="card-text generalInformation">Klikni na dugme ispod i laboratorija će dobiti listu analiza koje si odabrao. Kada odeš u laboratoriju napomeni da si odabrao analize koristeći labcube i reci im svoju mejl adresu. U međuvremenu, mi ti šaljemo vaučer za besplatno tumačenje rezultata na mejl.</p>
-                    </div>
-                    </div>
-                  </div> --}}
-            {{!-- <btn class="btn btn-success text-uppercase p-4" id="schedule">prosledi laboratoriji </btn>  --}}
-                {{!-- {{else}}
-              <p class="generalInformation">Laboratorija nije trenutno LabCube partner</p>
-              {{/if}} --}}
-            {{!-- {{else}} --}}
-             {{!-- <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Besplatno tumačenje rezultata</h5>
-                    <p class="card-text generalInformation">Prosledi odabrane analize laboratoriji i dobijaš vaučer za besplatnu interpretaciju rezultata od strane naših lekara i biohemičara.</p>
-                  </div>
-                  </div>
-                </div>
-                
-                <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                  <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Uvek na jednom mestu</h5>
-                    <p class="card-text generalInformation">Nema više pretraživanja inboxa kada su ti potrebni rezultati. Sva istorija laboratorijskih analiza je zauvek sačuvana na jednom mestu, uvek dostupna, hronološki sortirana, sigurna.</p>
-                  </div>
-                  </div>
-                </div>
             
-                  <div class="col-12 col-md-6 col-lg-4 d-flex align-self-stretch">
-                    <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Kreiraj nalog</h5>
-                      <p class="card-text generalInformation">Samo registrovani korisnici mogu proslediti analize laboratoriji. Registruj se i ostvari popust i pravo na besplatnu interpretaciju tvoji rezultataž</p>
-                    </div>
-                    </div>
-                  </div>
-               <div class="col-12 text-center labDetailsActionBtn">
-                <a href="/registracija" target="_blank" class="btn btn-success text-uppercase p-4">Registruj se i ostvari popust</a>
-              </div> --}}
-          {{!-- {{/if}} --}}
+        
 
-            {{#if userId}}
-               {{#if labDetails.partner}}
+            {{!-- {{#if userId}}
+               {{#if labDetails.partner}} --}}
             {{!-- skloniti clasu d-none ako je potrebno prikazati deo ispod --}}
-             <div class="form-group col-12  mt-4 text-center" >
+             {{!-- <div class="form-group col-12  mt-4 text-center" >
                <h3 class="text-center mb-5">Prosledi odabrane analize laboratoriji i dobijaš kôd za besplatno online tumačenje laboratorijskih nalaza.</h3>
               
               <div class="custom-control custom-radio custom-control-inline ml-auto">
                 <input type="radio" id="uzimanjeUzorkaLab"  name="uzimanjeUzorka" value="laboratorija" class="custom-control-input" >
                 <label class="custom-control-label" for="uzimanjeUzorkaLab">Dolazak u laboratoriju</label>
-                {{!-- <input type="radio" name="package" value=899 id="t4"  {{#if (checkBox package 899)}} checked {{/if}}/>
-                <label for="t4"  class="btn btn-outline-success text-uppercase mt-4 customRadio">odaberi</label> --}}
               </div>
               
 
@@ -295,13 +230,10 @@
              
             </div>
             <div class="form-group col-12 d-none uzorakLab text-center" >
-                {{!-- <label for="datepicker1">Ovo je samo orijentacioni datum odlaska u laboratorju, možeš otići u bilo kom trenutku</label> --}}
                 <input type="text" id="datepicker1"  class="form-control" placeholder="Okvirni datum odlaska u laboratoriju koji nije obavezujući. ">
-
             </div>
 
             <div class="form-group col-12 d-none uzorakPatronaza text-center">
-                {{!-- <label for="datepicker2">Odaberite datum i vreme patronaže</label> --}}
                 <input id="datepicker2" class="form-control" placeholder="Odaberite okvirno vreme za dolazak patronaže">
                 <p class="mt-3">Nakon što odabereš datum i vreme patronaže laboratorija će te kontaktirati i potvrditi dolazak.</p>
             </div>
@@ -313,12 +245,9 @@
               {{/if}}
             {{/if}}
 
-            {{!-- <a class="btn btn-success text-uppercase " href="">prosledi na svoj mejl</a>
-            <a class="btn btn-success text-uppercase " href="">zakaži patronažu</a>  --}}
           </div>
-
-        </div><!-- container end -->
-      </section>
+        </div> 
+      </section> --}}
 
       <section id="resultsLabDetailsComments">
         {{#if userId}}
