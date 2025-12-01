@@ -19,15 +19,16 @@
           </ul>
         </div>
 
-        <div class="col-12 mb-3 text-center" style="background-color:#5B8EE8; border-radius:5px; padding:10px; color:white; font-size:24px;">
+        {{!-- <div class="col-12 mb-3 text-center" style="background-color:#5B8EE8; border-radius:5px; padding:10px; color:white; font-size:24px;">
           {{#each prices}}
           <span class="d-inline-block text-center" title="cena ove analize u privatnim laboratorijama u Srbiji je u ovom opsegu"><h5>Cena u privatnim laboratorijama za {{../analysisDetails.analysisName}} je od </span>
           <span class="d-inline-block">{{minPrice}} - {{maxPrice}} din.<span></h5></span>
           {{/each}}
-        </div>
+        </div> --}}
          <div class="col-12 p-0 text-center mb-5">
-          {{!-- <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto mx-3 mb-2 printIcon" /></a> --}}
-          <button class="btn text-uppercase w-100 btn-outline-info btn-block text-uppercase mt-2 mt-sm-auto addAnalysis" id="comparePrice" style="font-size:18px;" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cenu <i class="fa fa-search" aria-hidden="true"></i></button>
+          <a href="javascript:window.print()" class="d-none d-sm-inline"><img src="/images/stampaj.svg" class="mt-auto float-right mb-2 printIcon" /></a>
+         {{!-- disable price comparation --}}
+          {{!-- <button class="btn text-uppercase w-100 btn-outline-info btn-block text-uppercase mt-2 mt-sm-auto addAnalysis" id="comparePrice" style="font-size:18px;" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cenu <i class="fa fa-search" aria-hidden="true"></i></button> --}}
           {{!-- <button class="btn btn-outline-danger text-uppercase text-center btn-block text-uppercase mt-2 mt-sm-auto" data-analysisID={{analysisDetails.id}} data-analysisName="{{analysisDetails.analysisName}}" data-groupImg="{{analysisDetails.groupId.iconPath}}">uporedi cene</button> --}}
         </div>
 
@@ -72,15 +73,15 @@
 
           {{!-- banner za mob verziju --}}
           {{!-- <img src="/images/banners/Baner-320x100.jpg" class="mb-4" style="width:100%;"> --}}
-          <div class="text-center" style="border:1px solid #8F8F8F; padding:20px; border-radius:20px;">
+          {{!-- <div class="text-center" style="border:1px solid #8F8F8F; padding:20px; border-radius:20px;"> --}}
             {{!-- <h2 class="">Imaš snižen ili povišen rezultat za <br />{{analysisDetails.analysisName}}?</h2> --}}
-            <h2>Tvoji rezultati su van referentnih vrednosti?</h2>
-            <p>Saznaj u roku od 4h šta to znači!</p>
+            {{!-- <h2>Tvoji rezultati su van referentnih vrednosti?</h2>
+            <p>Saznaj u roku od 4h šta to znači!</p> --}}
             {{!-- <p>Naši biohemičari ti mogu pomoći da bolje razumeš svoje rezultate.</p> --}}
-           <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btn-primary btn-lg display-4"><h3 class="mt-2">Pokreni tumačenje laboratorijskih nalaza</h3></a>
-          </div>
+           {{!-- <a href="/tumacenje-laboratorijskih-analiza" class="btn btn-block btn-primary btn-lg display-4"><h3 class="mt-2">Pokreni tumačenje laboratorijskih nalaza</h3></a> --}}
+          {{!-- </div> --}}
           
-          {{!-- <div class="d-flex flex-column flex-lg-row">
+          <div class="d-flex flex-column flex-lg-row">
             {{#if (notBlank analysisDetails.low)}}
              <div class="flexFix justify-content-between snizeneVrednosti">
                 <h5 id="rezultati">Snižene vrednosti</h5>
@@ -95,22 +96,9 @@
                  
               </div>
               {{/if}}
-           </div> --}}
+           </div> 
            <!-- flex end snizene i povisene vrednosti -->
 
-           {{!-- <div>
-             <form action="/putUserEmail" method="POST" class="mt-4">   
-              <p>Ovde ide tekst kojim ukratko objasnjavamo zasto da nam ostave mejl i sta ce se desiti nakon toga</p>
-               <div class="form-row">
-                 <div class="col-8  col-sm-9 col-md-10">
-                   <input type="email" class="form-control" name="email" placeholder="Upišite vaš email">
-                  </div>
-                  <div class="col-4 col-sm-3 col-md-2">
-                  <button class="btn  btn-outline-info text-uppercase">Prijavi me</button>
-                  </div>
-               </div>
-             </form>
-           </div> --}}
            <div class="napomena">
              <h5 id="napomena">Napomena</h5>
              <p>{{{analysisDetails.notes}}}</p>
