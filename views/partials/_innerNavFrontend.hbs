@@ -139,12 +139,12 @@
             {{!-- <li class="nav-item">
               <a href="/zakazivanje-patronaze" class="nav-link"><img src="/images/patronaza2.svg" class="filter-white mb-1 mr-2"> Zakaži patronažu</a>
             </li> --}}
-            <li class="nav-item">
+            {{!-- <li class="nav-item">
               <a href="/tumacenje-laboratorijskih-analiza" target="_blank" class="nav-link"><i class="far fa-comments"></i>Online tumačenje nalaza</a>
-            </li>
-            <li class="nav-item">
+            </li> --}}
+            {{!-- <li class="nav-item">
               <a href="https://labcube.rs/#google-map" class="nav-link" id="allLabsAnchor"><span class="icon iconSvgLokacije">Sve laboratorije</span></a>
-            </li>
+            </li> --}}
             {{#if user.id}}
             <li class="nav-item">
               <a href="/profile" class="nav-link">{{user.username}}</a>
@@ -160,7 +160,7 @@
               <a href="/registracija" class="nav-link"><i class="fas fa-user-plus"></i> Registracija</a>
             </li> --}}
             {{/if}}
-            <li class="nav-item">
+            <li class="nav-item d-none">
               <button class="nav-link checkout">odabranih analiza 0</button>
             </li>
           </ul>
