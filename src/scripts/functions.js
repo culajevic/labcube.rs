@@ -137,9 +137,12 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   let priceRange = document.createTextNode(
     `${prices[i].minPrice} - ${prices[i].maxPrice}`
   );
-  priceSpan.appendChild(priceRange);
-  minmaxPrice.appendChild(priceSpan);
-  tr.appendChild(minmaxPrice);
+
+  //disable price range for analysis
+    // priceSpan.appendChild(priceRange);
+    // minmaxPrice.appendChild(priceSpan);
+    // tr.appendChild(minmaxPrice);
+  //-----------------//
 
   //create btn for adding analysis to basket
   let addAnalysisBtnTd = document.createElement("td");
@@ -149,7 +152,7 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   if (analysisPositionArr === -1) {
     addAnalysisBtn.className =
       "btn btn-danger float-right btn-block text-uppercase addAnalysis";
-    addAnalysisBtnText = document.createTextNode("uporedi cenu");
+    addAnalysisBtnText = document.createTextNode("uporedi cenuuuu");
   } else {
     addAnalysisBtnText = document.createTextNode("\u2714");
     addAnalysisBtn.className =
@@ -160,8 +163,10 @@ exports.renderAnalysisResult = (analysis, prices, resultDiv, itemsArray, i) => {
   addAnalysisBtn.setAttribute("data-analysisName", prices[i].name);
   addAnalysisBtn.setAttribute("data-groupImg", prices[i].iconPath);
 
-  addAnalysisBtn.appendChild(addAnalysisBtnText);
-  addAnalysisBtnTd.appendChild(addAnalysisBtn);
+  //remove button for price comparation
+    // addAnalysisBtn.appendChild(addAnalysisBtnText);
+    // addAnalysisBtnTd.appendChild(addAnalysisBtn);
+  //----------------------------
   tr.appendChild(addAnalysisBtnTd);
   resultDiv.appendChild(tr);
 };
