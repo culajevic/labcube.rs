@@ -182,10 +182,10 @@ sortByPriority = {priority:-1}
     }
 
       res.render('index',{
-        title:'Uporedi cene laboratorijskih analiza i ostvari popust do 30%.',
+        title:'Razumljivi opisi laboratorijskih analiza i podaci o laboratorijama u Srbiji.',
         faqtitle:'Najčešće postavljana pitanja',
-        metaDescription:'Uporedi cene i prosledi potrebne analize odabranoj laboratoriji, ostvari popust i pravo na besplatno tumačenje rezultata. Svi tvoji rezultati su na jednom mestu.',
-        metaKeywords:'Poređenje cena laboratorijskih analiza, Biohemijske analize, laboratorije, tumačenje rezultata, krvna slika, online patronaža',
+        metaDescription:'Razumljivi opisi laboratorijskih analiza i podaci o laboratorijama u Srbiji.',
+        metaKeywords:'Opisi biohemijskih analiza, kontakt podaci biohemijskih laboratorija u Srbiji',
         groups,
         faqFP,
         labNum,
