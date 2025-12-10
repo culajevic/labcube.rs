@@ -73,7 +73,7 @@ router.get(
   "/usersLabCube/:userEmail?",
   authenticationController.findUserEmailByLabCube
 );
-router.get("/registracija", authenticationController.registerForm);
+// router.get("/registracija", authenticationController.registerForm);
 router.post("/register", authenticationController.register);
 router.get("/verify", authenticationController.verify);
 router.post("/verify", authenticationController.verifyToken);
