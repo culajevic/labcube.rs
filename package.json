@@ -58,7 +58,7 @@
     "my-local-ip": "^1.0.0",
     "node-localstorage": "^2.1.6",
     "node-sass": "^4.13.1",
-    "nodemailer": "^6.4.16",
+    "nodemailer": "^6.6.1",
     "nodemon": "^1.19.4",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "passport": "^0.4.1",
